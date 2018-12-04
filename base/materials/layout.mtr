@@ -1,0 +1,85 @@
+// Materials for Reflex's Layout Textures
+
+textures/layout/blend01
+{
+	qer_editorimage textures/layout/blend01_a.png
+	{
+		blend diffusemap
+		map   textures/layout/blend01_a.png
+		vertexColor
+	}
+	{
+		blend diffusemap
+		map   textures/layout/blend01_b.png
+		inverseVertexColor
+	}
+}
+
+textures/layout/ceiling01
+{
+	qer_editorimage textures/layout/ceiling01.png
+	diffusemap      textures/layout/ceiling01.png
+}
+
+textures/layout/ceiling02
+{
+	qer_editorimage textures/layout/ceiling02.png
+	diffusemap      textures/layout/ceiling02.png
+}
+
+textures/layout/floor01
+{
+	qer_editorimage textures/layout/floor01.png
+	diffusemap      textures/layout/floor01.png
+}
+
+textures/layout/floor02
+{
+	qer_editorimage textures/layout/floor02.png
+	diffusemap      textures/layout/floor02.png
+}
+
+textures/layout/lift01
+{
+	qer_editorimage textures/layout/lift01.png
+	diffusemap      textures/layout/lift01.png
+}
+
+textures/layout/pad01
+{
+	qer_editorimage textures/layout/pad01.png
+	diffusemap      textures/layout/pad01.png
+}
+
+textures/layout/pad02
+{
+	qer_editorimage textures/layout/pad02.png
+	diffusemap      textures/layout/pad02.png
+}
+
+textures/layout/stairs01
+{
+	qer_editorimage textures/layout/stairs01.png
+	diffusemap      textures/layout/stairs01.png
+}
+
+textures/layout/wall01
+{
+	qer_editorimage textures/layout/wall01.png
+	diffusemap      textures/layout/wall01.png
+}
+
+textures/layout/wall02
+{
+	qer_editorimage textures/layout/wall02.png
+	diffusemap      textures/layout/wall02.png
+}
+
+// we have no wallwalk, so don't use the texture to prevent confusion
+// textures/layout/wallwalk01
+// {
+//	qer_editorimage textures/layout/wallwalk01.png
+//	diffusemap      textures/layout/wallwalk01.png
+//
+//	wallwalk
+// }

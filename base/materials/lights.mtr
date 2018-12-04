@@ -1,0 +1,96 @@
+lights/defaultPointLight
+{
+	lightFalloffImage	makeintensity( lights/squarelight1a.png )	// this will also be the falloff for any
+																	// point light shaders that don't specify one
+	{
+		forceHighQuality
+		map lights/squarelight1.png
+		colored
+		zeroClamp
+	}
+}
+lights/defaultProjectedLight
+{
+	lightFalloffImage	_noFalloff		// by default, stay bright almost all the way to the end
+	{
+		forceHighQuality
+		map lights/squarelight1.png
+		colored
+		zeroClamp
+	}
+}
+
+
+lights/ambientLight
+{
+	ambientLight
+	lightFalloffImage	makeintensity( lights/squarelight1a.png )
+	{
+		forceHighQuality
+		map lights/squarelight1.png
+		colored
+		zeroClamp
+	}
+}
+
+
+lights/ambientLight2
+{
+	ambientLight
+	lightFalloffImage	makeintensity( lights/squarelight1a.png )
+	{
+		forceHighQuality
+		map lights/squarelight.png
+		colored
+		zeroClamp
+	}
+}
+
+// this is the default light texture used by idGameEdit::ParseSpawnArgsToRenderLight()
+// if none is set
+lights/squarelight1
+{
+	lightFalloffImage	makeintensity( lights/squarelight1a.png )
+	{
+		forceHighQuality
+		map lights/squarelight1.png
+		colored
+		zeroClamp
+	}
+}
+
+
+//parm 3=flicker speed	parm 4=offset
+
+lights/nofalloff
+{
+	lightFalloffImage _noFalloff
+	{
+//		forceHighQuality
+		map	lights/nofalloff.png
+		colored
+		zeroClamp
+	}
+}
+
+lights/flashlight
+{
+	lightFalloffImage makeintensity( lights/squarelight1b.png )
+	{
+		forceHighQuality
+		map lights/flashlight.png
+		colored
+		zeroClamp
+	}
+}
+
+lights/fake_ies
+{
+	// fake_ies // wtf was this supposed to achieve? material parser fails..
+	lightFalloffImage makeintensity( lights/squarelight1b.png )
+	{
+	map lights/fake_ies.png
+	colored
+	zeroClamp
+	}
+}

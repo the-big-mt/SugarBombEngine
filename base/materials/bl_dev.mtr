@@ -1,0 +1,58 @@
+// this file is created by Biel Bestué de Luna, released under WTFPLv2, see
+// https://github.com/OpenTechEngine/OpenTechBFG/pull/25#issuecomment-69375861
+
+textures/bl/dev/16x16_gray
+{
+    stone
+	qer_editorimage textures/dev/16gray.png
+	diffusemap textures/dev/16gray.png
+}
+
+textures/bl/dev/16x16_red
+{
+    stone
+	qer_editorimage textures/dev/16red.png
+	diffusemap textures/dev/16red.png
+}
+
+textures/bl/dev/16x16_blue
+{
+    stone
+	qer_editorimage textures/dev/16blue.png
+	diffusemap textures/dev/16blue.png
+}
+
+textures/bl/dev/16x16_green
+{
+    stone
+    qer_editorimage textures/dev/16green.png
+	diffusemap textures/dev/16green.png
+}
+
+textures/bl/dev/16x16_yellow
+{
+    stone
+	qer_editorimage textures/dev/16yellow.png
+	diffusemap textures/dev/16yellow.png
+}
+
+textures/bl/dev/16x16_fucsia
+{
+    stone
+	qer_editorimage textures/dev/16fucsia.png
+	diffusemap textures/dev/16fucsia.png
+}
+
+textures/bl/dev/16x16_cian
+{
+    stone
+	qer_editorimage textures/dev/16cian.png
+	diffusemap textures/dev/16cian.png
+}
+
+textures/bl/dev/16x16_orange
+{
+    stone
+	qer_editorimage textures/dev/16orange.png
+	diffusemap textures/dev/16orange.png
+}

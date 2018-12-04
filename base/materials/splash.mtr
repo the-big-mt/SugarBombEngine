@@ -1,0 +1,6 @@
+
+guis/assets/splash/legal_english
+{
+	qer_editorimage textures/ote_splash.png
+	diffusemap      textures/ote_splash.png
+}
