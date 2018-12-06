@@ -31,6 +31,27 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <memory>
 
+/*
+#include "../d3xp/AFEntity.h"
+#include "../d3xp/IK.h"
+#include "../d3xp/anim/Anim.h"
+#include "../d3xp/gamesys/Class.h"
+#include "../d3xp/gamesys/Event.h"
+#include "../idlib/Heap.h"
+#include "../idlib/Str.h"
+#include "../idlib/containers/LinkList.h"
+#include "../idlib/containers/List.h"
+#include "../idlib/containers/StrList.h"
+#include "../idlib/math/Angles.h"
+#include "../idlib/math/Matrix.h"
+#include "../idlib/math/Vector.h"
+#include "../renderer/Model.h"
+#include "../renderer/RenderWorld.h"
+*/
+
+//namespace BFG
+//{
+
 namespace MWRender
 {
     class Animation;
@@ -67,7 +88,15 @@ extern const idEventDef AI_GetBlendFrames;
 
 extern const idEventDef AI_SetState;
 
+//class function_t;
+//class idAAS;
+//class idActor;
+//class idClipModel;
 class idDeclParticle;
+//class idEntity;
+//class idRestoreGame;
+//class idSaveGame;
+//class idThread;
 
 class idAnimState
 {
@@ -363,6 +392,8 @@ private:
 	std::unique_ptr<CharacterController> mCharacterController;
 };
 
-}; // namespace MWMechanics
+//}; // namespace MWMechanics
+
+//} // namespace BFG
 
 #endif /* !__GAME_ACTOR_H__ */
