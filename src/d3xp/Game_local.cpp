@@ -5406,7 +5406,7 @@ void idGameLocal::SetPortalSkyEnt( idEntity* ent )
 
 /*
 =================
-idPlayer::IsPortalSkyAcive
+idPlayer::IsPortalSkyActive
 =================
 */
 bool idGameLocal::IsPortalSkyAcive()

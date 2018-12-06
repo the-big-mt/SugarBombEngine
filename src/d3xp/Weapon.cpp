@@ -504,6 +504,7 @@ void idWeapon::Restore( idRestoreGame* savefile )
 	WEAPON_NETFIRING.LinkTo(	scriptObject, "WEAPON_NETFIRING" );
 	WEAPON_RAISEWEAPON.LinkTo(	scriptObject, "WEAPON_RAISEWEAPON" );
 	WEAPON_LOWERWEAPON.LinkTo(	scriptObject, "WEAPON_LOWERWEAPON" );
+	WEAPON_IRONSIGHT.LinkTo( scriptObject, "WEAPON_IRONSIGHT" );
 	
 	savefile->ReadObject( reinterpret_cast<idClass*&>( owner ) );
 	worldModel.Restore( savefile );
@@ -746,6 +747,7 @@ void idWeapon::Clear()
 	WEAPON_NETFIRING.Unlink();
 	WEAPON_RAISEWEAPON.Unlink();
 	WEAPON_LOWERWEAPON.Unlink();
+	WEAPON_IRONSIGHT.Unlink();
 	
 	if( muzzleFlashHandle != -1 )
 	{
@@ -1283,6 +1285,7 @@ void idWeapon::GetWeaponDef( const char* objectname, int ammoinclip )
 	WEAPON_NETFIRING.LinkTo(	scriptObject, "WEAPON_NETFIRING" );
 	WEAPON_RAISEWEAPON.LinkTo(	scriptObject, "WEAPON_RAISEWEAPON" );
 	WEAPON_LOWERWEAPON.LinkTo(	scriptObject, "WEAPON_LOWERWEAPON" );
+	WEAPON_IRONSIGHT.LinkTo( scriptObject, "WEAPON_IRONSIGHT" );
 	
 	spawnArgs = weaponDef->dict;
 	
@@ -2913,6 +2916,7 @@ void idWeapon::EnterCinematic()
 		WEAPON_NETFIRING	= false;
 		WEAPON_RAISEWEAPON	= false;
 		WEAPON_LOWERWEAPON	= false;
+		WEAPON_IRONSIGHT    = false;
 		
 		grabber.Update( this->GetOwner(), true );
 	}
@@ -3052,7 +3056,7 @@ const char* idWeapon::GetAmmoNameForNum( ammo_t ammonum )
 		return NULL;
 	}
 	
-	sprintf( text, "%d", ammonum );
+	std::sprintf( text, "%d", ammonum );
 	
 	num = ammoDict->GetNumKeyVals();
 	for( i = 0; i < num; i++ )
@@ -4773,4 +4777,17 @@ void idWeapon::ClientPredictionThink()
 void idWeapon::ForceAmmoInClip()
 {
 	ammoClip = clipSize;
+}
+
+void idWeapon::SetIronsight( bool i )
+{
+	if( !isLinked )
+	{
+		return;
+	}
+	
+	if( WEAPON_IRONSIGHT != i )
+	{
+		WEAPON_IRONSIGHT = i;
+	}
 }
