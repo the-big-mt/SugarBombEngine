@@ -29,6 +29,18 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_ACTOR_H__
 #define __GAME_ACTOR_H__
 
+#include <memory>
+
+namespace MWRender
+{
+    class Animation;
+};
+
+namespace MWWorld
+{
+    class Ptr;
+};
+
 /*
 ===============================================================================
 
@@ -109,6 +121,12 @@ typedef struct
 	jointHandle_t			to;
 } copyJoints_t;
 
+//namespace MWMechanics
+//{
+
+class CharacterController;
+
+/// @brief Holds temporary state for an actor that will be discarded when the actor leaves the scene.
 class idActor : public idAFEntity_Gibbable
 {
 public:
@@ -123,6 +141,7 @@ public:
 	
 public:
 	idActor();
+	idActor(const MWWorld::Ptr& ptr, MWRender::Animation* animation); // NOTE: OpenMW
 	virtual					~idActor();
 	
 	void					Spawn();
@@ -216,6 +235,12 @@ public:
 		return head.GetEntity();
 	};
 	
+	// NOTE: OpenMW below
+	
+	/// Notify this actor of its new base object Ptr, use when the object changed cells
+	void updatePtr(const MWWorld::Ptr& newPtr);
+
+	CharacterController* getCharacterController();
 protected:
 	friend class			idAnimState;
 	
@@ -335,6 +360,9 @@ private:
 	void					Event_SetWaitState( const char* waitState );
 	void					Event_GetWaitState();
 	
+	std::unique_ptr<CharacterController> mCharacterController;
 };
+
+}; // namespace MWMechanics
 
 #endif /* !__GAME_ACTOR_H__ */
