@@ -30,9 +30,33 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
-class idGame
+/*
+===============================================================================
+
+	Public game interface with methods to run the game.
+
+===============================================================================
+*/
+
+class idDict;
+
+struct idFile;
+struct idRenderWorld;
+struct idSoundWorld;
+
+struct gameReturn_t
 {
-public:
+	gameReturn_t() = default;
+	
+	char		sessionCommand[MAX_STRING_CHARS]{};	// "map", "disconnect", "victory", etc
+	bool		syncNextGameFrame{false};			// used when cinematics are skipped to prevent session from simulating several game frames to
+	// keep the game time in sync with real time
+	int			vibrationLow{0};
+	int			vibrationHigh{0};
+};
+
+struct idGame
+{
 	virtual						~idGame() {}
 	
 	// Initialize the game for the first time.
@@ -158,3 +182,39 @@ public:
 	
 	virtual bool				ProcessDemoCommand( idDemoFile* readDemo ) = 0;
 };
+
+/*
+===============================================================================
+
+	Game API.
+
+===============================================================================
+*/
+
+const int GAME_API_VERSION		= 8;
+
+struct gameImport_t
+{
+	int							version;				// API version
+	idSys* 						sys;					// non-portable system services
+	idCommon* 					common;					// common
+	idCmdSystem* 				cmdSystem;				// console command system
+	idCVarSystem* 				cvarSystem;				// console variable system
+	idFileSystem* 				fileSystem;				// file system
+	idRenderSystem* 			renderSystem;			// render system
+	idSoundSystem* 				soundSystem;			// sound system
+	idRenderModelManager* 		renderModelManager;		// render model manager
+	idUserInterfaceManager* 	uiManager;				// user interface manager
+	idDeclManager* 				declManager;			// declaration manager
+	idAASFileManager* 			AASFileManager;			// AAS file manager
+	idCollisionModelManager* 	collisionModelManager;	// collision model manager
+};
+
+struct gameExport_t
+{
+	int							version;				// API version
+	idGame* 					game;					// interface to run the game
+	idGameEdit* 				gameEdit;				// interface for in-game editing
+};
+
+extern "C" using GetGameAPI_t = gameExport_t *(*)( gameImport_t* import );

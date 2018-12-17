@@ -153,3 +153,31 @@ struct idSys
 	virtual void			OpenURL( const char* url, bool quit ) = 0;
 	virtual void			StartProcess( const char* exePath, bool quit ) = 0;
 };
+
+/*
+===============================================================================
+
+	System API.
+
+===============================================================================
+*/
+
+const int SYS_API_VERSION		= 1;
+
+struct sysImport_t
+{
+	int							version;				// API version
+	idCommon* 					common;					// common
+	idCmdSystem* 				cmdSystem;				// console command system
+	idCVarSystem* 				cvarSystem;				// console variable system
+	idFileSystem* 				fileSystem;				// file system
+	idDeclManager* 				declManager;			// declaration manager
+};
+
+struct sysExport_t
+{
+	int							version;				// API version
+	idSys* 						sys;					// non-portable system services
+};
+
+extern "C" using GetSysAPI_t = sysExport_t *(*)( sysImport_t* import );

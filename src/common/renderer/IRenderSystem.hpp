@@ -234,3 +234,37 @@ struct idRenderSystem
 	
 	virtual void			OnFrame() = 0;
 };
+
+/*
+===============================================================================
+
+	Renderer API.
+
+===============================================================================
+*/
+
+const int RENDERER_API_VERSION		= 1;
+
+struct rendererImport_t
+{
+	int							version;				// API version
+	idSys* 						sys;					// non-portable system services
+	idCommon* 					common;					// common
+	idCmdSystem* 				cmdSystem;				// console command system
+	idCVarSystem* 				cvarSystem;				// console variable system
+	idFileSystem* 				fileSystem;				// file system
+	idSoundSystem* 				soundSystem;			// sound system
+	idUserInterfaceManager* 	uiManager;				// user interface manager
+	idDeclManager* 				declManager;			// declaration manager
+	idAASFileManager* 			AASFileManager;			// AAS file manager
+	idCollisionModelManager* 	collisionModelManager;	// collision model manager
+};
+
+struct rendererExport_t
+{
+	int							version;				// API version
+	idRenderSystem* 			renderSystem;			// render system
+	//idRenderModelManager* 		renderModelManager;		// render model manager
+};
+
+extern "C" using GetRendererAPI_t = rendererExport_t *(*)( rendererImport_t* import );
