@@ -33,8 +33,35 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "RenderCommon.h"
 
+static rendererExport_t rendererExport;
+
 idRenderSystemLocal	tr;
 idRenderSystem* renderSystem = &tr;
+
+/*
+===========
+GetRendererAPI
+============
+*/
+#ifndef SBE_SINGLE_BINARY
+C_EXPORT
+#endif
+rendererExport_t *GetRendererAPI(rendererImport_t *import)
+{
+	if(import->version == RENDERER_API_VERSION)
+	{
+		// set interface pointers used by the renderer
+		
+		// TODO
+	};
+	
+	// setup export interface
+	rendererExport.version = RENDERER_API_VERSION;
+	rendererExport.renderSystem = renderSystem;
+	//rendererExport.renderModelManager = nullptr; // TODO
+	
+	return &rendererExport;
+};
 
 /*
 =====================

@@ -39,8 +39,34 @@ const int numLanguages = sizeof( sysLanguageNames ) / sizeof sysLanguageNames[ 0
 
 idCVar sys_lang( "sys_lang", ID_LANG_ENGLISH, CVAR_SYSTEM | CVAR_INIT, "", sysLanguageNames, idCmdSystem::ArgCompletion_String<sysLanguageNames> );
 
+static sysExport_t sysExport;
+
 idSysLocal			sysLocal;
 idSys* 				sys = &sysLocal;
+
+/*
+===========
+GetSysAPI
+============
+*/
+#ifndef SBE_SINGLE_BINARY
+C_EXPORT
+#endif
+sysExport_t *GetSysAPI(sysImport_t *import)
+{
+	if(import->version == SYS_API_VERSION)
+	{
+		// set interface pointers used by the system
+		
+		// TODO
+	};
+	
+	// setup export interface
+	sysExport.version = SYS_API_VERSION;
+	sysExport.sys = sys;
+	
+	return &sysExport;
+};
 
 void idSysLocal::DebugPrintf( const char* fmt, ... )
 {
