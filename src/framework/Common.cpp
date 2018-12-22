@@ -36,14 +36,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sound/sound.h"
 
-// RB begin
-#if defined(USE_DOOMCLASSIC)
-#include "../../doomclassic/doom/doomlib.h"
-#include "../../doomclassic/doom/d_event.h"
-#include "../../doomclassic/doom/d_main.h"
-#endif
-// RB end
-
 
 #include "../sys/sys_savegame.h"
 
@@ -119,9 +111,6 @@ idCommon* 		common = &commonLocal;
 // RB: defaulted this to 1 because we don't have a sound for the intro .bik video
 idCVar com_skipIntroVideos( "com_skipIntroVideos", "1", CVAR_BOOL , "skips intro videos" );
 
-// For doom classic
-struct Globals;
-
 /*
 ==================
 idCommonLocal::idCommonLocal
@@ -137,14 +126,6 @@ idCommonLocal::idCommonLocal() :
 	lastPacifierGuiTime( 0 ),
 	lastPacifierDialogState( false ),
 	showShellRequested( false )
-	// RB begin
-#if defined(USE_DOOMCLASSIC)
-	,
-	currentGame( DOOM3_BFG ),
-	idealCurrentGame( DOOM3_BFG ),
-	doomClassicMaterial( NULL )
-#endif
-	// RB end
 {
 
 	snapCurrent.localTime = -1;
@@ -1407,24 +1388,6 @@ void idCommonLocal::Init( int argc, const char* const* argv, const char* cmdline
 		}
 		
 		fileSystem->EndLevelLoad();
-		
-		// RB begin
-#if defined(USE_DOOMCLASSIC)
-		// Initialize support for Doom classic.
-		doomClassicMaterial = declManager->FindMaterial( "_doomClassic" );
-		idImage* image = globalImages->GetImage( "_doomClassic" );
-		if( image != NULL )
-		{
-			idImageOpts opts;
-			opts.format = FMT_RGBA8;
-			opts.colorFormat = CFM_DEFAULT;
-			opts.width = DOOMCLASSIC_RENDERWIDTH;
-			opts.height = DOOMCLASSIC_RENDERHEIGHT;
-			opts.numLevels = 1;
-			image->AllocImage( opts, TF_LINEAR, TR_REPEAT );
-		}
-#endif
-		// RB end
 		
 		com_fullyInitialized = true;
 		
