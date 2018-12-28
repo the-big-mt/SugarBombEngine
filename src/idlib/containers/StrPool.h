@@ -29,6 +29,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __STRPOOL_H__
 #define __STRPOOL_H__
 
+//#include "../idlib/containers/List.h"
+//#include "../idlib/containers/HashIndex.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -294,5 +300,7 @@ ID_INLINE size_t idStrPool::Size() const
 	}
 	return size;
 }
+
+//} // namespace BFG
 
 #endif /* !__STRPOOL_H__ */

@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "List.h"
 
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -713,4 +716,7 @@ ID_INLINE void idStaticList<type, size>::Resize( int newsize )
 	assert( newsize < size );
 	return;
 }
+
+//} // namespace BFG
+
 #endif /* !__STATICLIST_H__ */

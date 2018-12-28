@@ -29,6 +29,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __VECTORSET_H__
 #define __VECTORSET_H__
 
+//#include "../idlib/containers/List.h"
+//#include "../idlib/containers/HashIndex.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -313,5 +319,7 @@ ID_INLINE int idVectorSubset<type, dimension>::FindVector( const type* vectorLis
 	hash.Add( hashKey, vectorNum );
 	return vectorNum;
 }
+
+//} // namespace BFG
 
 #endif /* !__VECTORSET_H__ */

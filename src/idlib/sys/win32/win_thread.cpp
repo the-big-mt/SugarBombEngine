@@ -27,6 +27,13 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 #include "precompiled.h"
+//#include "../idlib/sys/sys_threading.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/Thread.h"
+//#include "../framework/Common.h"
+
+//namespace BFG
+//{
 
 /*
 ================================================================================================
@@ -404,3 +411,5 @@ void* Sys_InterlockedCompareExchangePointer( void*& ptr, void* comparand, void* 
 {
 	return InterlockedCompareExchangePointer( & ptr, exchange, comparand );
 }
+
+//} // namespace BFG

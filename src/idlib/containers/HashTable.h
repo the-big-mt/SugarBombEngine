@@ -29,6 +29,13 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __HASHTABLE_H__
 #define __HASHTABLE_H__
 
+//#include "../idlib/math/Math.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/Heap.h"
+
+//namespace BFG
+//{
+
 /*
 ================================================================================================
 idHashNodeT is a generic node for a HashTable. It is specialized by the
@@ -1011,5 +1018,7 @@ int idHashTable<Type>::GetSpread() const
 #if defined(ID_TYPEINFO)
 #undef __GNUC__
 #endif
+
+//} // namespace BFG
 
 #endif /* !__HASHTABLE_H__ */

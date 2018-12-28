@@ -28,6 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
+//namespace BFG
+//{
+
 extern idCVar fs_savepath;
 
 /*
@@ -217,3 +220,5 @@ void localUserHandle_t::Serialize( idSerializer& ser )
 {
 	ser.Serialize( handle );
 }
+
+//} // namespace BFG

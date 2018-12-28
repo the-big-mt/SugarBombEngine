@@ -28,6 +28,18 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "precompiled.h"
+//#include "../idlib/bv/Bounds.h"
+
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Rotation.h"
+//#include "../idlib/math/Simd.h"
+//#include "../idlib/math/Vector.h"
+//#include "sys/sys_types.h"
+
+//namespace BFG
+//{
 
 idBounds bounds_zero( vec3_zero, vec3_zero );
 idBounds bounds_zeroOneCube( idVec3( 0.0f ), idVec3( 1.0f ) );
@@ -483,3 +495,5 @@ void idBounds::ToPoints( idVec3 points[8] ) const
 		points[i][2] = b[( i >> 2 ) & 1][2];
 	}
 }
+
+//} // namespace BFG

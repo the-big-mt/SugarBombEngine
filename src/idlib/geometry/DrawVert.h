@@ -30,6 +30,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __DRAWVERT_H__
 #define __DRAWVERT_H__
 
+//#include "../idlib/geometry/JointTransform.h"  // for idJointMat, etc
+//#include "../idlib/math/Vector.h"       // for idVec4, idVec3
+
+//namespace BFG
+//{
+
 // The hardware converts a byte to a float by division with 255 and in the
 // vertex programs we convert the floating-point value in the range [0, 1]
 // to the range [-1, 1] by multiplying with 2 and subtracting 1.
@@ -842,5 +848,7 @@ ID_INLINE void idShadowVertSkinned::Clear()
 {
 	xyzw.Zero();
 }
+
+//} // namespace BFG
 
 #endif /* !__DRAWVERT_H__ */

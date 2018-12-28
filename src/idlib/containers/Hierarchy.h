@@ -29,6 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __HIERARCHY_H__
 #define __HIERARCHY_H__
 
+//#include "../idlib/Lib.h"
+
+//namespace BFG
+//{
+
 /*
 ==============================================================================
 
@@ -410,5 +415,7 @@ type* idHierarchy<type>::GetNextLeaf() const
 		}
 	}
 }
+
+//} // namespace BFG
 
 #endif /* !__HIERARCHY_H__ */

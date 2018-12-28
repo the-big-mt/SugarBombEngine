@@ -28,7 +28,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef	__SYS_VOICECHATMGR_H__
 #define	__SYS_VOICECHATMGR_H__
 
+//#include <cstddef>
+
+//#include "../idlib/containers/StaticList.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../sys/sys_session.h"
 #include "sys_lobby_backend.h"
+
+//namespace BFG
+//{
 
 /*
 ================================================
@@ -81,6 +89,8 @@ public:
 	virtual void		Pump() {}
 	virtual void		FlushBuffers() {}
 	virtual void		ToggleMuteLocal( const lobbyUser_t* src, const lobbyUser_t* target );
+	
+	//virtual ~idVoiceChatMgr() {};
 	
 protected:
 
@@ -149,5 +159,6 @@ protected:
 	bool					sendGlobal;
 };
 
+//} // namespace BFG
 
 #endif	// __SYS_VOICECHATMGR_H__ 

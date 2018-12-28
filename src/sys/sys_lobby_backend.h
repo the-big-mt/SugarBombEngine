@@ -28,6 +28,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef	__SYS_LOBBY_BACKEND_H__
 #define	__SYS_LOBBY_BACKEND_H__
 
+//#include "../framework/CVarSystem.h"  // for idCVar, etc
+
+//#include "../sys/sys_session.h"  // for lobbyUserID_t
+
+//namespace BFG
+//{
 
 extern idCVar net_verboseResource;
 #define NET_VERBOSERESOURCE_PRINT if ( net_verboseResource.GetBool() ) idLib::Printf
@@ -317,6 +323,7 @@ public:
 		return MatchTypeIsPrivate( parms.matchFlags );
 	}
 	
+	virtual ~idLobbyBackend() {};
 protected:
 	lobbyBackendType_t		type;
 	idMatchParameters		parms;
@@ -330,7 +337,11 @@ public:
 	virtual class idLobbyBackend* 				GetLobbyBackend( idLobbyBackend::lobbyBackendType_t type ) const = 0;
 	virtual bool								CanJoinLocalHost() const = 0;
 	
+	virtual ~idLobbyToSessionCB() {};
+
 	// Ugh, hate having to ifdef these, but we're doing some fairly platform specific callbacks
 };
+
+//} // namespace BFG
 
 #endif	// __SYS_LOBBY_BACKEND_H__ 

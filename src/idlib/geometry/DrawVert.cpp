@@ -28,6 +28,12 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "precompiled.h"
+//#include "../idlib/geometry/DrawVert.h"
+
+//#include "../idlib/math/Vector.h"
+
+//namespace BFG
+//{
 
 /*
 ============
@@ -78,3 +84,5 @@ int idShadowVertSkinned::CreateShadowCache( idShadowVertSkinned* vertexCache, co
 	}
 	return numVerts * 2;
 }
+
+//} // namespace BFG

@@ -28,6 +28,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef SYS_TYPES_H
 #define SYS_TYPES_H
 
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_defines.h"
+
+//#ifdef _WIN32
+//#undef uint64
+//#endif
+
+//namespace BFG
+//{
+
 /*
 ================================================================================================
 Contains types and defines used throughout the engine.
@@ -305,4 +315,6 @@ literals or sizeof(). NEVER use an actual variable as a parameter to one of thes
 
 #define CONST_DEG2RAD( a )			( (a) * CONST_PI / 180.0f )
 
-#endif
+//} // namespace BFG
+
+#endif // SYS_TYPES_H

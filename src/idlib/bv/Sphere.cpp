@@ -28,7 +28,15 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "precompiled.h"
+//#include "../idlib/bv/Sphere.h"
 
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Simd.h"
+//#include "../idlib/math/Vector.h"
+
+//namespace BFG
+//{
 
 idSphere sphere_zero( vec3_zero, 0.0f );
 
@@ -168,3 +176,5 @@ void idSphere::FromPoints( const idVec3* points, const int numPoints )
 	}
 	radius = idMath::Sqrt( radiusSqr );
 }
+
+//} // namespace BFG

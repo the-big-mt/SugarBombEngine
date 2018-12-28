@@ -31,6 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys_savegame.h"
 #include "sys_session_savegames.h"
 
+//namespace BFG
+//{
 
 class idSaveGameProcessorSaveProfile;
 class idSaveGameProcessorLoadProfile;
@@ -117,4 +119,6 @@ private:
 // Synchronous check, just checks if a profile exists within the savegame location
 bool Sys_SaveGameProfileCheck();
 
-#endif
+//} // namespace BFG
+
+#endif // __SYS_PROFILE_H__

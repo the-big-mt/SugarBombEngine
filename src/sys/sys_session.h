@@ -29,8 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #define __SYS_SESSION_H__
 
 #include "../framework/Serializer.h"
+//#include "../framework/File.h"          // for idFile, idFile_Memory
 #include "sys_localuser.h"
 
+//namespace BFG
+//{
 typedef uint8 peerMask_t;
 static const int MAX_PLAYERS			= 8;
 
@@ -412,6 +415,8 @@ public:
 	virtual void						DrawDebugNetworkHUD() const = 0;
 	virtual void						DrawDebugNetworkHUD2() const = 0;
 	virtual void						DrawDebugNetworkHUD_ServerSnapshotMetrics( bool draw ) = 0;
+
+	virtual ~idLobbyBase() {}
 };
 
 /*
@@ -745,5 +750,7 @@ ID_INLINE int idSession::GetInputRouting( int inputRouting[ MAX_INPUT_DEVICES ] 
 }
 
 extern idSession* session;
+
+//} // namespace BFG
 
 #endif // __SYS_SESSION_H__

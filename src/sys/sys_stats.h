@@ -28,6 +28,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_STATS_H__
 #define __SYS_STATS_H__
 
+//#include "../idlib/Callback.h"                   // for idCallback
+//#include "../sys/sys_stats_misc.h"
+
+//namespace BFG
+//{
+
 //------------------------
 // leaderboardError_t
 //------------------------
@@ -128,6 +134,6 @@ protected:
 	leaderboardError_t				errorCode;				// error, if any, that occurred during last operation
 };
 
-
+//} // namespace BFG
 
 #endif // !__SYS_STATS_H__

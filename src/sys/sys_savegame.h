@@ -28,6 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_SAVEGAME_H__
 #define __SYS_SAVEGAME_H__
 
+//namespace BFG
+//{
+
 #ifdef OUTPUT_FUNC
 #undef OUTPUT_FUNC
 #endif
@@ -595,5 +598,7 @@ idStr RemoveSaveFolderPrefix( const char* folder, idSaveGameManager::packageType
 bool SavegameReadDetailsFromFile( idFile* file, idSaveGameDetails& details );
 
 idStr GetSaveGameErrorString( int errorMask );
+
+//} // namespace BFG
 
 #endif // __SYS_SAVEGAME_H__
