@@ -28,6 +28,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_ASSERT_H__
 #define __SYS_ASSERT_H__
 
+//#include <stdint.h>                     // for uintptr_t
+
+//namespace BFG
+//{
+
 /*
 ================================================================================================
 
@@ -147,5 +152,7 @@ template<int x> struct compile_time_assert_test {};
 #define ASSERTAI( x )
 #define VERIFYAI( x )	( ( x ) ? true : false )
 #endif // DEBUGAI
+
+//} // namespace BFG
 
 #endif	// !__SYS_ASSERT_H__

@@ -612,3 +612,5 @@ private:
 };
 
 extern idCommonLocal commonLocal;
+
+//} // namespace BFG
