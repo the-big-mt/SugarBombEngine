@@ -4791,3 +4791,53 @@ void idWeapon::SetIronsight( bool i )
 		WEAPON_IRONSIGHT = i;
 	}
 }
+
+void idWeapon::ReduceCondition(float damage, bool hit, MWWorld::Ptr &weapon, const MWWorld::Ptr &attacker)
+{
+	if (weapon.isEmpty())
+		return;
+
+	if (!hit)
+		damage = 0.f;
+
+	const bool weaphashealth = weapon.getClass().hasItemHealth(weapon);
+	if(weaphashealth)
+	{
+		int weaphealth = weapon.getClass().getItemHealth(weapon);
+
+		bool godmode = attacker == MWMechanics::getPlayer() && MWBase::Environment::get().getWorld()->getGodModeState();
+
+		// weapon condition does not degrade when godmode is on
+		if (!godmode)
+		{
+			const float fWeaponDamageMult = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find("fWeaponDamageMult")->mValue.getFloat();
+			float x = std::max(1.f, fWeaponDamageMult * damage);
+
+			weaphealth -= std::min(int(x), weaphealth);
+			weapon.getCellRef().setCharge(weaphealth);
+		}
+
+		// Weapon broken? unequip it
+		if (weaphealth == 0)
+			weapon = *attacker.getClass().getInventoryStore(attacker).unequipItem(weapon, attacker);
+	}
+}
+
+void idWeapon::AdjustDamage(float &damage, const MWWorld::Ptr &weapon, const MWWorld::Ptr& attacker)
+{
+	if (weapon.isEmpty())
+		return;
+
+	const bool weaphashealth = weapon.getClass().hasItemHealth(weapon);
+	if (weaphashealth)
+	{
+		damage *= weapon.getClass().getItemNormalizedHealth(weapon);
+	}
+
+	static const float fDamageStrengthBase = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>()
+			.find("fDamageStrengthBase")->mValue.getFloat();
+	static const float fDamageStrengthMult = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>()
+			.find("fDamageStrengthMult")->mValue.getFloat();
+	damage *= fDamageStrengthBase +
+			(attacker.getClass().getCreatureStats(attacker).getAttribute(ESM::Attribute::Strength).getModified() * fDamageStrengthMult * 0.1f);
+}

@@ -224,6 +224,15 @@ public:
 	
 	void                    SetIronsight( bool i );
 	
+	/// @param damage Unmitigated weapon damage of the attack
+	/// @param hit Was the attack successful?
+	/// @param weapon The weapon used.
+	/// @note if the weapon is unequipped as result of condition damage, a new Ptr will be assigned to \a weapon.
+	void ReduceCondition (float damage, bool hit, MWWorld::Ptr& weapon, const MWWorld::Ptr& attacker);
+
+	/// Adjust weapon damage based on its condition. A used weapon will be less effective.
+	void AdjustDamage (float& damage, const MWWorld::Ptr& weapon, const MWWorld::Ptr& attacker);
+	
 	friend class idPlayer;
 private:
 	// script control
