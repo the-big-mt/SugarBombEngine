@@ -5,6 +5,7 @@ Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012-2016 Robert Beckebans
 Copyright (C) 2014-2016 Kot in Action Creative Artel
+Copyright (C) 2018 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -34,12 +35,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "Common_local.h"
 #include "../renderer/Image.h" // now I did it!
 
-// RB begin
-#if defined(USE_DOOMCLASSIC)
-#include "../../doomclassic/doom/doomlib.h"
-#include "../../doomclassic/doom/globaldata.h"
-#endif
-// RB end
+
 
 /*
 
@@ -141,13 +137,7 @@ int idGameThread::Run()
 	// we should have consumed all of our usercmds
 	if( userCmdMgr )
 	{
-		// RB begin
-#if defined(USE_DOOMCLASSIC)
-		if( userCmdMgr->HasUserCmdForPlayer( game->GetLocalClientNum() ) && common->GetCurrentGame() == DOOM3_BFG )
-#else
 		if( userCmdMgr->HasUserCmdForPlayer( game->GetLocalClientNum() ) )
-#endif
-			// RB end
 		{
 			idLib::Printf( "idGameThread::Run: didn't consume all usercmds\n" );
 		}
@@ -253,34 +243,6 @@ void idCommonLocal::Draw()
 	{
 		loadGUI->Render( renderSystem, Sys_Milliseconds() );
 	}
-	// RB begin
-#if defined(USE_DOOMCLASSIC)
-	else if( currentGame == DOOM_CLASSIC || currentGame == DOOM2_CLASSIC )
-	{
-		const float sysWidth = renderSystem->GetWidth() * renderSystem->GetPixelAspect();
-		const float sysHeight = renderSystem->GetHeight();
-		const float sysAspect = sysWidth / sysHeight;
-		const float doomAspect = 4.0f / 3.0f;
-		const float adjustment = sysAspect / doomAspect;
-		const float barHeight = ( adjustment >= 1.0f ) ? 0.0f : ( 1.0f - adjustment ) * ( float )renderSystem->GetVirtualHeight() * 0.25f;
-		const float barWidth = ( adjustment <= 1.0f ) ? 0.0f : ( adjustment - 1.0f ) * ( float )renderSystem->GetVirtualWidth() * 0.25f;
-		if( barHeight > 0.0f )
-		{
-			renderSystem->SetColor( colorBlack );
-			renderSystem->DrawStretchPic( 0, 0, renderSystem->GetVirtualWidth(), barHeight, 0, 0, 1, 1, whiteMaterial );
-			renderSystem->DrawStretchPic( 0, renderSystem->GetVirtualHeight() - barHeight, renderSystem->GetVirtualWidth(), barHeight, 0, 0, 1, 1, whiteMaterial );
-		}
-		if( barWidth > 0.0f )
-		{
-			renderSystem->SetColor( colorBlack );
-			renderSystem->DrawStretchPic( 0, 0, barWidth, renderSystem->GetVirtualHeight(), 0, 0, 1, 1, whiteMaterial );
-			renderSystem->DrawStretchPic( renderSystem->GetVirtualWidth() - barWidth, 0, barWidth, renderSystem->GetVirtualHeight(), 0, 0, 1, 1, whiteMaterial );
-		}
-		renderSystem->SetColor4( 1, 1, 1, 1 );
-		renderSystem->DrawStretchPic( barWidth, barHeight, renderSystem->GetVirtualWidth() - barWidth * 2.0f, renderSystem->GetVirtualHeight() - barHeight * 2.0f, 0, 0, 1, 1, doomClassicMaterial );
-	}
-#endif
-	// RB end
 	else if( game && game->Shell_IsActive() )
 	{
 		bool gameDraw = game->Draw( game->GetLocalClientNum() );
@@ -463,14 +425,6 @@ void idCommonLocal::Frame()
 			com_forceGenericSIMD.ClearModified();
 		}
 		
-		// RB begin
-#if defined(USE_DOOMCLASSIC)
-		// Do the actual switch between Doom 3 and the classics here so
-		// that things don't get confused in the middle of the frame.
-		PerformGameSwitch();
-#endif
-		// RB end
-		
 		// pump all the events
 		Sys_GenerateEvents();
 		
@@ -490,15 +444,9 @@ void idCommonLocal::Frame()
 		bool chatting = false;
 		
 		// DG: Add pause from com_pause cvar
-		// RB begin
-#if defined(USE_DOOMCLASSIC)
-		if( com_pause.GetInteger() || console->Active() || Dialog().IsDialogActive() || session->IsSystemUIShowing()
-				|| ( game && game->InhibitControls() && !IsPlayingDoomClassic() ) )
-#else
 		if( com_pause.GetInteger() || console->Active() || Dialog().IsDialogActive() || session->IsSystemUIShowing()
 				|| ( game && game->InhibitControls() ) )
-#endif
-			// RB end, DG end
+			// DG end
 		{
 			// RB: don't release the mouse when opening a PDA or menu
 			if( console->Active() )
@@ -514,20 +462,10 @@ void idCommonLocal::Frame()
 			usercmdGen->InhibitUsercmd( INHIBIT_SESSION, false );
 		}
 		
-		// RB begin
-#if defined(USE_DOOMCLASSIC)
-		const bool pauseGame = ( !mapSpawned
-								 || ( !IsMultiplayer()
-									  && ( Dialog().IsDialogPausing() || session->IsSystemUIShowing()
-										   || ( game && game->Shell_IsActive() ) || com_pause.GetInteger() ) ) )
-							   && !IsPlayingDoomClassic();
-#else
 		const bool pauseGame = ( !mapSpawned
 								 || ( !IsMultiplayer()
 									  && ( Dialog().IsDialogPausing() || session->IsSystemUIShowing()
 										   || ( game && game->Shell_IsActive() ) || com_pause.GetInteger() ) ) );
-#endif
-		// RB end
 		
 		// save the screenshot and audio from the last draw if needed
 		if( aviCaptureMode )
@@ -770,16 +708,6 @@ void idCommonLocal::Frame()
 			userCmdMgr.PutUserCmdForPlayer( game->GetLocalClientNum(), newCmd );
 		}
 		
-		// RB begin
-#if defined(USE_DOOMCLASSIC)
-		// If we're in Doom or Doom 2, run tics and upload the new texture.
-		if( ( GetCurrentGame() == DOOM_CLASSIC || GetCurrentGame() == DOOM2_CLASSIC ) && !( Dialog().IsDialogPausing() || session->IsSystemUIShowing() ) )
-		{
-			RunDoomClassicFrame();
-		}
-#endif
-		// RB end
-		
 		// start the game / draw command generation thread going in the background
 		gameReturn_t ret = gameThread.RunGameAndDraw( numGameFrames, userCmdMgr, IsClient(), gameFrame - numGameFrames );
 		
@@ -876,12 +804,6 @@ void idCommonLocal::Frame()
 	catch( idException& )
 	{
 		// an ERP_DROP was thrown
-#if defined(USE_DOOMCLASSIC)
-		if( currentGame == DOOM_CLASSIC || currentGame == DOOM2_CLASSIC )
-		{
-			return;
-		}
-#endif
 		
 		// kill loading gui
 		delete loadGUI;
