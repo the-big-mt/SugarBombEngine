@@ -29,6 +29,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 #include "sys_session_local.h"
 
+//namespace BFG
+//{
+
+//class idFile;
+//class idSWFParmList;
+//class idSWFScriptObject;
 
 idCVar saveGame_verbose( "saveGame_verbose", "0", CVAR_BOOL | CVAR_ARCHIVE, "debug spam" );
 idCVar saveGame_checksum( "saveGame_checksum", "1", CVAR_BOOL, "data integrity check" );

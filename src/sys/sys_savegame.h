@@ -28,6 +28,19 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_SAVEGAME_H__
 #define __SYS_SAVEGAME_H__
 
+//#include <ctime>
+
+//#include "../framework/CVarSystem.h"
+//#include "../idlib/Dict.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/StrStatic.h"
+//#include "../idlib/Thread.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/containers/StaticList.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "sys/sys_threading.h"
+
 //namespace BFG
 //{
 

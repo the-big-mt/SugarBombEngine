@@ -25,8 +25,18 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+//#include <cstddef>
+
+//#include "../framework/PlayerProfile.h"
+//#include "../idlib/containers/Array.h"
+//#include "../sys/sys_achievements.h"
+//#include "../sys/sys_localuser.h"
+
 #pragma hdrstop
 #include "precompiled.h"
+
+//namespace BFG
+//{
 
 /*
 ========================
@@ -51,3 +61,5 @@ void idAchievementSystem::SyncAchievementBits( idLocalUser* user )
 		}
 	}
 }
+
+//} // namespace BFG

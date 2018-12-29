@@ -29,6 +29,18 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef	__DEDICATEDSERVERSEARCH_H__
 #define	__DEDICATEDSERVERSEARCH_H__
 
+//#include "../idlib/Str.h"
+//#include "../idlib/containers/List.h"
+//#include "../sys/sys_lobby_backend.h"
+//#include "../sys/sys_public.h"
+//#include "../sys/sys_session.h"
+
+//namespace BFG
+//{
+
+/class idBitMsg;
+//class idCallback;
+
 /*
 ================================================
 idDedicatedServerSearch
@@ -63,5 +75,7 @@ private:
 	idList< serverInfoDedicated_t >	list;
 	idCallback* 		callback;
 };
+
+//} // namespace BFG
 
 #endif	// __DEDICATEDSERVERSEARCH_H__ 

@@ -28,6 +28,17 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __PACKET_PROCESSOR_H__
 #define __PACKET_PROCESSOR_H__
 
+//#include "../idlib/DataQueue.h"                  // for idDataQueue
+//#include "../idlib/sys/sys_types.h"
+//#include "../idlib/BitMsg.h"
+
+//namespace BFG
+//{
+
+//class idCVar;
+
+//extern idCVar net_verboseReliable;
+
 /*
 ================================================
 idPacketProcessor
@@ -337,5 +348,7 @@ private:
 	
 	int				fragmentAccumulator;	// counts max size packets we are sending for the net debug hud
 };
+
+//} // namespace BFG
 
 #endif /* !__PACKET_PROCESSOR_H__ */

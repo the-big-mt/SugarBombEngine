@@ -25,8 +25,29 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+//#include <cstring>
+
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../idlib/DataQueue.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/containers/Array.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../sys/Snapshot.h"
+//#include "../sys/SnapshotProcessor.h"
+//#include "../sys/Snapshot_Jobs.h"
+
 #pragma hdrstop
 #include "precompiled.h"
+
+//namespace BFG
+//{
+
+//class idBitMsg;
+//struct lzwCompressionData_t;
 
 idCVar net_optimalSnapDeltaSize( "net_optimalSnapDeltaSize", "1000", CVAR_INTEGER, "Optimal size of snapshot delta msgs." );
 idCVar net_debugBaseStates( "net_debugBaseStates", "0", CVAR_BOOL, "Log out base state information" );
@@ -569,3 +590,5 @@ void idSnapshotProcessor::AddSnapObjTemplate( int objID, idBitMsg& msg )
 		state->expectedSequence = snapSequence;
 	}
 }
+
+//} // namespace BFG

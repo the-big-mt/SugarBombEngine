@@ -28,6 +28,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_LEADERBOARDS_H__
 #define __SYS_LEADERBOARDS_H__
 
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/Callback.h"                   // for idCallback
+
+//namespace BFG
+//{
 
 /*
 ================================================================================================
@@ -256,5 +261,7 @@ protected:
 	int								numRowsInLeaderboard;	// total number of rows in the online leaderboard
 	leaderboardError_t				errorCode;				// error, if any, that occurred during last operation
 };
+
+//} // namespace BFG
 
 #endif // !__SYS_LEADERBOARDS_H__
