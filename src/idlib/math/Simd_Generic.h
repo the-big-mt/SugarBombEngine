@@ -29,6 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MATH_SIMD_GENERIC_H__
 #define __MATH_SIMD_GENERIC_H__
 
+//#include "../idlib/math/Simd.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -58,5 +63,7 @@ public:
 	virtual void VPCALL TransformJoints( idJointMat* jointMats, const int* parents, const int firstJoint, const int lastJoint );
 	virtual void VPCALL UntransformJoints( idJointMat* jointMats, const int* parents, const int firstJoint, const int lastJoint );
 };
+
+//} // namespace BFG
 
 #endif /* !__MATH_SIMD_GENERIC_H__ */

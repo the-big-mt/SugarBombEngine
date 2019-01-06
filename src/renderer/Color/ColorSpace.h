@@ -28,6 +28,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __COLORSPACE_H__
 #define __COLORSPACE_H__
 
+//#include "../idlib/sys/sys_types.h"
+
+//namespace BFG
+//{
+
 /*
 ================================================================================================
 Contains the ColorSpace conversion declarations.
@@ -61,5 +66,7 @@ void	ConvertStereographicHeightMapToNormalMap( byte* normalMap, const byte* heig
 void	ConvertRGBToMonochrome( byte* mono, const byte* rgb, int width, int height );
 void	ConvertMonochromeToRGB( byte* rgb, const byte* mono, int width, int height );
 };
+
+//} // namespace BFG
 
 #endif // !__COLORSPACE_H__

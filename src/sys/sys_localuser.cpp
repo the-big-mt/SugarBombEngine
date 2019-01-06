@@ -25,6 +25,18 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+//#include <cstring>
+
+//#include "../framework/CVarSystem.h"
+//#include "../framework/PlayerProfile.h"
+//#include "../framework/Serializer.h"
+//#include "../sys/sys_achievements.h"
+//#include "../sys/sys_localuser.h"
+//#include "../sys/sys_profile.h"
+//#include "../sys/sys_savegame.h"
+//#include "../sys/sys_session.h"
+//#include "sys_localuser.h"
+
 #pragma hdrstop
 #include "precompiled.h"
 

@@ -29,6 +29,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MATH_SIMD_H__
 #define __MATH_SIMD_H__
 
+//#include "../sys/sys_public.h"
+//#include "../idlib/geometry/DrawVert.h"  // for idDrawVert
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -116,5 +122,7 @@ public:
 
 // pointer to SIMD processor
 extern idSIMDProcessor* SIMDProcessor;
+
+//} // namespace BFG
 
 #endif /* !__MATH_SIMD_H__ */

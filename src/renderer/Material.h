@@ -31,6 +31,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MATERIAL_H__
 #define __MATERIAL_H__
 
+//#include "../framework/DeclManager.h"
+//#include "../idlib/geometry/TraceModel.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -924,5 +930,7 @@ private:
 };
 
 typedef idList<const idMaterial*, TAG_MATERIAL> idMatList;
+
+//} // namespace BFG
 
 #endif /* !__MATERIAL_H__ */

@@ -23,6 +23,19 @@ Contains the windows implementation of the network session
 #include "../sys_lobby_backend_direct.h"
 #include "../sys_voicechat.h"
 #include "achievements.h"
+//#include "sys/common/signin.h"
+//#include "sys/sys_lobby.h"
+//#include "sys/sys_lobby_backend.h"
+
+//namespace BFG
+//{
+
+//class idBitMsg;
+//class idCallback;
+//class idFile_Memory;
+//class idLeaderboardCallback;
+//struct column_t;
+//struct leaderboardDefinition_t;
 //#include "win_local.h"
 
 /*
@@ -756,3 +769,5 @@ bool idSessionLocalWin::GetNetAddressFromLobbyAddress( const lobbyAddress_t& lob
 {
 	return false;
 }
+
+//} // namespace BFG

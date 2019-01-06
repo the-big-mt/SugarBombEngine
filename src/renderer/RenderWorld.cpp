@@ -29,6 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstring>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
@@ -2402,3 +2404,5 @@ const idMaterial* R_RemapShaderBySkin( const idMaterial* shader, const idDeclSki
 	
 	return skin->RemapShaderBySkin( shader );
 }
+
+//} // namespace BFG

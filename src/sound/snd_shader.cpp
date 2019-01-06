@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "snd_local.h"
 
+//namespace BFG
+//{
+
 extern idCVar s_maxSamples;
 
 typedef enum
@@ -497,3 +500,5 @@ const char* idSoundShader::GetSound( int index ) const
 	}
 	return "";
 }
+
+//} // namespace BFG

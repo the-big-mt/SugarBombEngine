@@ -28,6 +28,18 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __DYNAMICSHADOWVOLUME_H__
 #define __DYNAMICSHADOWVOLUME_H__
 
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/jobs/dynamicshadowvolume/../../../idlib/bv/Bounds.h"
+//#include "../renderer/jobs/dynamicshadowvolume/../../../idlib/geometry/RenderMatrix.h"
+//#include "../renderer/jobs/dynamicshadowvolume/../../../idlib/math/Vector.h"
+//#include "../renderer/jobs/dynamicshadowvolume/../ShadowShared.h"
+
+//namespace BFG
+//{
+
+//class idDrawVert;
+//class idJointMat;
+//struct CellSpursJob128;
 /*
 ================================================================================================
 
@@ -114,5 +126,7 @@ struct dynamicShadowVolumeParms_t
 
 void DynamicShadowVolumeJob( const dynamicShadowVolumeParms_t* parms );
 void DynamicShadowVolume_SetupSPURSHeader( CellSpursJob128* job, const dynamicShadowVolumeParms_t* parms );
+
+//} // namespace BFG
 
 #endif // !__DYNAMICSHADOWVOLUME_H__

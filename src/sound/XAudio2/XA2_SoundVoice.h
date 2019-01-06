@@ -28,6 +28,13 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __XA2_SOUNDVOICE_H__
 #define __XA2_SOUNDVOICE_H__
 
+//#include "../sound/XAudio2/XA2_SoundSample.h"
+
+//#include "../sound/SoundVoice.h"
+
+//namespace BFG
+//{
+
 static const int MAX_QUEUED_BUFFERS = 3;
 
 /*
@@ -116,4 +123,6 @@ class idSoundVoice : public idSoundVoice_XAudio2
 {
 };
 
-#endif
+//} // namespace BFG
+
+#endif // __XA2_SOUNDVOICE_H__

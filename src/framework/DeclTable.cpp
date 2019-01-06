@@ -27,8 +27,20 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #include "precompiled.h"
+//#include <cstddef>
+
+//#include "../framework/DeclManager.h"
+//#include "../framework/DeclTable.h"
+//#include "../idlib/Lexer.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/Token.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/math/Math.h"
+
 #pragma hdrstop
 
+//namespace BFG
+//{
 
 /*
 =================
@@ -203,3 +215,5 @@ bool idDeclTable::Parse( const char* text, const int textLength, bool allowBinar
 	
 	return true;
 }
+
+//} // namespace BFG

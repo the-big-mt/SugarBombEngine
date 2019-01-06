@@ -29,12 +29,21 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <emmintrin.h>
+//#include <cstddef>
+//#include <xmmintrin.h>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
 #include "Model_local.h"
 
 #include "../idlib/geometry/DrawVert_intrinsics.h"
+
+//namespace BFG
+//{
+
+//class idDemoFile;
 
 // decalFade	filter 5 0.1
 // polygonOffset

@@ -31,6 +31,17 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MODELOVERLAY_H__
 #define __MODELOVERLAY_H__
 
+//#include "../idlib/geometry/DrawVert.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_types.h"
+
+//namespace BFG
+//{
+
+//class idMaterial;
+//class idRenderModel;
+
 /*
 ===============================================================================
 
@@ -116,5 +127,7 @@ private:
 	void						CreateOverlay( const idRenderModel* model, const idPlane localTextureAxis[2], const idMaterial* material );
 	void						FreeOverlay( overlay_t& overlay );
 };
+
+//} // namespace BFG
 
 #endif /* !__MODELOVERLAY_H__ */

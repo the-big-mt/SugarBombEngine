@@ -46,6 +46,9 @@ If you have questions concerning this license or the applicable additional terms
 // DG: needed for Sys_ReLaunch()
 #include <dirent.h>
 
+//#include "../../framework/CmdSystem.h"
+//#include "../../framework/Common.h"
+
 //namespace BFG
 //{
 

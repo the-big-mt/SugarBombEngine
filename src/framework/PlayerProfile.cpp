@@ -29,6 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 #pragma hdrstop
 #include "PlayerProfile.h"
+//#include "sys/sys_localuser.h"
+
+//namespace BFG
+//{
 
 // After releasing a version to the market, here are limitations for compatibility:
 //	- the major version should not ever change
@@ -468,3 +472,5 @@ CONSOLE_COMMAND( setProfileDefaults, "sets profile settings to default and saves
 		profile->SaveSettings( true );
 	}
 }
+
+//} // namespace BFG

@@ -28,6 +28,14 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __FONT_H__
 #define __FONT_H__
 
+//#include "../idlib/Str.h"
+//#include "../idlib/sys/sys_types.h"
+
+//namespace BFG
+//{
+
+//class idMaterial;
+
 struct scaledGlyphInfo_t
 {
 	float	top, left;
@@ -108,4 +116,6 @@ private:
 	fontInfo_t* fontInfo;
 };
 
-#endif
+//} // namespace BFG
+
+#endif // __FONT_H__

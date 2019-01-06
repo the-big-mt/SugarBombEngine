@@ -3296,3 +3296,5 @@ float idRenderSystemLocal::GetPhysicalScreenWidthInCentimeters() const
 	}
 	return glConfig.physicalScreenWidthInCentimeters;
 }
+
+//} // namespace BFG

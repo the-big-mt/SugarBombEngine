@@ -28,6 +28,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __PLAYERPROFILE_H__
 #define __PLAYERPROFILE_H__
 
+//#include "../framework/Serializer.h"    // for idSerializer
+//#include "../idlib/containers/StaticList.h"      // for idStaticList
+//#include "../idlib/sys/sys_types.h"
+
+//namespace BFG
+//{
+
+//class idSerializer;
+
 #define	MAX_PROFILE_SIZE			( 1024 * 1000 ) // High number for the key bindings
 
 /*
@@ -174,4 +183,6 @@ protected:
 	idStaticList< profileStatValue_t, MAX_PLAYER_PROFILE_STATS > stats;
 };
 
-#endif
+//} // namespace BFG
+
+#endif // __PLAYERPROFILE_H__

@@ -27,9 +27,16 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 #include "precompiled.h"
+//#include "../framework/CVarSystem.h"
 
 #include "achievements.h"
 #include "../sys_session_local.h"
+
+//namespace BFG
+//{
+
+//class idLocalUser;
+//template <class T_, int numElements> class idArray;
 
 extern idCVar achievements_Verbose;
 
@@ -109,3 +116,5 @@ idAchievementSystemWin::Pump
 void idAchievementSystemWin::Pump()
 {
 }
+
+//} // namespace BFG

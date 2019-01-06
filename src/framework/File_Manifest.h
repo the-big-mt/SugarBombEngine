@@ -29,6 +29,13 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __FILE_MANIFEST_H__
 #define __FILE_MANIFEST_H__
 
+//#include "../idlib/containers/StaticList.h"      // for idStaticList
+//#include "../framework/File.h"          // for idFile, idFileLocal
+//#include "../idlib/containers/StrList.h"         // for idStrList
+
+//namespace BFG
+//{
+
 /*
 ==============================================================
 
@@ -323,5 +330,6 @@ private:
 	idStr filename;
 };
 
+//} // namespace BFG
 
 #endif /* !__FILE_MANIFEST_H__ */

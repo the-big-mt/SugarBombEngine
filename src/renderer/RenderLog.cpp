@@ -27,7 +27,22 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
+//#include <cassert>
+//#include <cstdarg>
+//#include <GL/glew.h>
+
 #include "RenderCommon.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/RenderLog.h"
+//#include "../renderer/RenderSystem.h"
+//#include "tr_local.h"
+
+//namespace BFG
+//{
 
 /*
 ================================================================================================
@@ -548,3 +563,5 @@ void idRenderLog::CloseBlock()
 }
 
 #endif // !STUB_RENDER_LOG
+
+//} // namespace BFG

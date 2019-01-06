@@ -30,8 +30,8 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
-#include <errno.h>
-#include <float.h>
+#include <cerrno>
+#include <cfloat>
 #include <fcntl.h>
 #include <direct.h>
 #include <io.h>
@@ -1642,3 +1642,5 @@ extern idCVar sys_lang;
 void Sys_SetLanguageFromSystem() {
 	sys_lang.SetString( Sys_DefaultLanguage() );
 }
+
+//} // namespace BFG

@@ -28,9 +28,13 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
+//#include <cstddef>
 #include "precompiled.h"
 
 #include "snd_local.h"
+
+//namespace BFG
+//{
 
 idCVar s_lockListener( "s_lockListener", "0", CVAR_BOOL, "lock listener updates" );
 idCVar s_constantAmplitude( "s_constantAmplitude", "-1", CVAR_FLOAT, "" );
@@ -1300,3 +1304,5 @@ void idSoundWorldLocal::SetEnviroSuit( bool active )
 {
 	enviroSuitActive = active;
 }
+
+//} // namespace BFG

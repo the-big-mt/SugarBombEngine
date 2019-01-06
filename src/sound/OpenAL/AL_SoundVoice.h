@@ -29,6 +29,13 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __AL_SOUNDVOICE_H__
 #define __AL_SOUNDVOICE_H__
 
+//#include "../sound/OpenAL/AL_SoundSample.h"  // for idSoundSample_OpenAL, etc
+
+//#include "../sound/SoundVoice.h"  // for idSoundVoice
+
+//namespace BFG
+//{
+
 static const int MAX_QUEUED_BUFFERS = 3;
 
 /*
@@ -145,4 +152,6 @@ class idSoundVoice : public idSoundVoice_OpenAL
 {
 };
 
-#endif
+//} // namespace BFG
+
+#endif // __AL_SOUNDVOICE_H__

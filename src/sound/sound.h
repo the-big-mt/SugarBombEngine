@@ -29,6 +29,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SOUND__
 #define __SOUND__
 
+//#include "../renderer/Cinematic.h"      // for cinData_t, idCinematic
+//#include "../framework/File_Manifest.h"  // for idPreloadManifest, etc
+//#include "../framework/Common.h"        // for MemInfo_t
+//#include "../framework/DeclManager.h"   // for declManager, idDeclManager, etc
+
+//namespace BFG
+//{
+
+//extern idCVar timescale;
+
 /*
 ===============================================================================
 
@@ -174,5 +184,7 @@ typedef struct
 #include "sound/ISoundSystem.hpp"
 
 extern idSoundSystem*	soundSystem;
+
+//} // namespace BFG
 
 #endif /* !__SOUND__ */

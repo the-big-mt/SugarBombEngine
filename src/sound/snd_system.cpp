@@ -31,6 +31,13 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "snd_local.h"
 
+//namespace BFG
+//{
+
+//class idDecl;
+//class idRenderWorld;
+//class idSoundVoice;
+
 idCVar s_noSound( "s_noSound", "0", CVAR_BOOL, "returns NULL for all sounds loaded and does not update the sound rendering" );
 
 #ifdef ID_RETAIL
@@ -722,3 +729,5 @@ idSoundSystemLocal::FreeVoice
 void idSoundSystemLocal::PrintMemInfo( MemInfo_t* mi )
 {
 }
+
+//} // namespace BFG

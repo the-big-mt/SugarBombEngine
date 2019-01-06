@@ -27,6 +27,12 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 #include "precompiled.h"
+//#include <cassert>
+//#include <cstddef>
+//#include <memory>
+
+//namespace BFG
+//{
 
 #define SAVEGAME_PROFILE_FILENAME			"profile.bin"
 
@@ -489,3 +495,5 @@ bool Sys_SaveGameProfileCheck()
 	
 	return exists;
 }
+
+//} // namespace BFG

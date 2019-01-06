@@ -41,7 +41,11 @@ If you have questions concerning this license or the applicable additional terms
 #define SOUNDSTUB_H_
 
 #include "idlib/precompiled.h" // TIME_T
+//#include "../idlib/sys/sys_defines.h"
 #include "../WaveFile.h"
+
+//namespace BFG
+//{
 
 class idSoundVoice : public idSoundVoice_Base
 {
@@ -261,5 +265,7 @@ protected:
 	
 	idList<byte, TAG_AMPLITUDE> amplitude;
 };
+
+//} // namespace BFG
 
 #endif /* SOUNDSTUB_H_ */

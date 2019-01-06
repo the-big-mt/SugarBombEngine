@@ -28,10 +28,19 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <emmintrin.h>
+//#include <cstring>
+//#include <xmmintrin.h>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
 #include "Model_local.h"
+//#include "sys/sys_intrinsics.h"
+//#include "tr_local.h"
+
+//namespace BFG
+//{
 
 #if defined(USE_INTRINSICS)
 static const __m128 vector_float_posInfinity		= { idMath::INFINITY, idMath::INFINITY, idMath::INFINITY, idMath::INFINITY };
@@ -1607,3 +1616,5 @@ int	idRenderModelMD5::Memory() const
 	}
 	return total;
 }
+
+//} // namespace BFG

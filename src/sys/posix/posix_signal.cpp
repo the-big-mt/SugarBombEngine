@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #include <string.h>
 #include <errno.h>
 
+//namespace BFG
+//{
+
 const int siglist[] =
 {
 	SIGHUP,

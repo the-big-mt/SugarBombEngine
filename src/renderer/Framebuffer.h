@@ -29,6 +29,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __FRAMEBUFFER_H__
 #define __FRAMEBUFFER_H__
 
+//#include <stdint.h>
+
+//#include "../idlib/Str.h"
+//#include "../idlib/containers/List.h"
+
+//namespace BFG
+//{
+
+//class idImage;
+
 static const int MAX_SHADOWMAP_RESOLUTIONS = 5;
 static const int MAX_BLOOM_BUFFERS = 2;
 static const int MAX_SSAO_BUFFERS = 2;
@@ -137,5 +147,6 @@ struct globalFramebuffers_t
 };
 extern globalFramebuffers_t globalFramebuffers;
 
+//} // namespace BFG
 
 #endif // __FRAMEBUFFER_H__

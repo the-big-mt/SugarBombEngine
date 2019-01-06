@@ -29,6 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __FORCE_CONSTANT_H__
 #define __FORCE_CONSTANT_H__
 
+//#include "../d3xp/physics/Force.h"      // for idForce
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -68,5 +73,7 @@ private:
 	int					id;
 	idVec3				point;
 };
+
+//} // namespace BFG
 
 #endif /* !__FORCE_CONSTANT_H__ */

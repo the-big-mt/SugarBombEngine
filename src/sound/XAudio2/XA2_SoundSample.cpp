@@ -28,6 +28,12 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 #include "../snd_local.h"
+//#include "../sound/XAudio2/XA2_SoundSample.h"
+//#include "../sound/WaveFile.h"
+//#include "../sys/sys_public.h"
+
+//namespace BFG
+//{
 
 extern idCVar s_useCompression;
 extern idCVar s_noSound;
@@ -548,3 +554,5 @@ float idSoundSample_XAudio2::GetAmplitude( int timeMS ) const
 	}
 	return ( float )amplitude[index] / 255.0f;
 }
+
+//} // namespace BFG

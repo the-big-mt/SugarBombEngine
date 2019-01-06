@@ -28,10 +28,17 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
+//#include <cassert>
+//#include <cstring>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
 #include "Model_local.h"
+//#include "tr_local.h"
+//#include "ParallelJobList.h"
+
+//namespace BFG
+//{
 
 idCVar r_skipStaticShadows( "r_skipStaticShadows", "0", CVAR_RENDERER | CVAR_BOOL, "skip static shadows" );
 idCVar r_skipDynamicShadows( "r_skipDynamicShadows", "0", CVAR_RENDERER | CVAR_BOOL, "skip dynamic shadows" );
@@ -1433,3 +1440,5 @@ void R_AddModels()
 		vEntity->drawSurfs = NULL;
 	}
 }
+
+//} // namespace BFG

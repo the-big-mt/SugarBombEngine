@@ -37,6 +37,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "win_input.h"
 
+//namespace BFG
+//{
 
 #define	WINDOW_STYLE	(WS_OVERLAPPED|WS_BORDER|WS_CAPTION|WS_VISIBLE | WS_THICKFRAME)
 
@@ -73,7 +75,7 @@ LONG WINAPI MainWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam );
 
 void Conbuf_AppendText( const char* msg );
 
-typedef struct
+typedef struct Win32Vars_t
 {
 	HWND			hWnd;
 	HINSTANCE		hInstance;
@@ -132,8 +134,10 @@ typedef struct
 	LPDIRECTINPUTDEVICE8	g_pKeyboard;
 	idJoystickWin32			g_Joystick;
 	
-} Win32Vars_t;
+};
 
 extern Win32Vars_t	win32;
+
+//} // namespace BFG
 
 #endif /* !__WIN_LOCAL_H__ */

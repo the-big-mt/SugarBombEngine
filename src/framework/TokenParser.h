@@ -28,6 +28,13 @@ If you have questions concerning this license or the applicable additional terms
 
 #ifndef __TOKENPARSER_H__
 #define __TOKENPARSER_H__
+
+//#include "../framework/FileSystem.h"    // for FILE_NOT_FOUND_TIMESTAMP
+//#include "../framework/File.h"
+
+//namespace BFG
+//{
+
 class idBinaryToken
 {
 public:
@@ -176,5 +183,7 @@ private:
 	ID_TIME_T timeStamp;
 	bool preloaded;
 };
+
+//} // namespace BFG
 
 #endif /* !__TOKENPARSER_H__ */

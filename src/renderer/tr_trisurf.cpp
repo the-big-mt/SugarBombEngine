@@ -27,9 +27,17 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cmath>
+//#include <cstdlib>
+//#include <cstring>
+//#include <algorithm>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
+
+//namespace BFG
+//{
 
 /*
 ==============================================================================
@@ -2207,3 +2215,5 @@ void R_CreateStaticBuffersForTri( srfTriangles_t& tri )
 #endif
 	}
 }
+
+//} // namespace BFG

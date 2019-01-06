@@ -28,6 +28,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RESOLUTIONSCALE_H__
 #define __RESOLUTIONSCALE_H__
 
+//namespace BFG
+//{
+
+//class idStr;
+
 class idResolutionScale
 {
 public:
@@ -61,5 +66,7 @@ private:
 };
 
 extern idResolutionScale resolutionScale;
+
+//} // namespace BFG
 
 #endif // __RESOLUTIONSCALE_H__

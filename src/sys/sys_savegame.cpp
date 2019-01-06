@@ -1024,3 +1024,5 @@ void idSaveGameManager::Pump()
 		common->Dialog().AddDynamicDialog( GDM_ERROR_SAVING_SAVEGAME, callbacks, optionText, true, "" );
 	}
 }
+
+//} // namespace BFG

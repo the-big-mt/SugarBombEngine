@@ -29,9 +29,15 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "precompiled.h"
+//#include <cstring> // for memset
+
+//#include "../framework/UsercmdGen.h"
 #include "../sys_session_local.h"
 
 #include "win_local.h"
+
+//namespace BFG
+//{
 
 #define DINPUT_BUFFERSIZE           256
 
@@ -1107,3 +1113,5 @@ void idJoystickWin32::PushButton( int inputDeviceNum, int key, bool value )
 		Sys_QueEvent( SE_KEY, key, value, 0, NULL, inputDeviceNum );
 	}
 }
+
+//} // namespace BFG

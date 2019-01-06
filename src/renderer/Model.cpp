@@ -39,6 +39,11 @@ If you have questions concerning this license or the applicable additional terms
 #include "Model_ma.h"
 #include "Model_ColladaParser.h"
 
+//namespace BFG
+//{
+
+//class idJointQuat;
+
 idCVar idRenderModelStatic::r_mergeModelSurfaces( "r_mergeModelSurfaces", "1", CVAR_BOOL | CVAR_RENDERER, "combine model surfaces with the same material" );
 idCVar idRenderModelStatic::r_slopVertex( "r_slopVertex", "0.01", CVAR_RENDERER, "merge xyz coordinates this far apart" );
 idCVar idRenderModelStatic::r_slopTexCoord( "r_slopTexCoord", "0.001", CVAR_RENDERER, "merge texture coordinates this far apart" );
@@ -3506,3 +3511,5 @@ bool idRenderModelStatic::FindSurfaceWithId( int id, int& surfaceNum ) const
 	}
 	return false;
 }
+
+//} // namespace BFG

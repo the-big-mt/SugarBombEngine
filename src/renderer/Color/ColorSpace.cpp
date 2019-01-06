@@ -34,7 +34,16 @@ Contains the ColorSpace conversion implementation.
 ================================================================================================
 */
 
+//#include <cstring>
+
+//#include "../idlib/Heap.h"
+//#include "../idlib/geometry/DrawVert.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Vector.h"
 #include "ColorSpace.h"
+
+//namespace BFG
+//{
 
 /*
 ================================================================================================
@@ -650,3 +659,5 @@ void idColorSpace::ConvertMonochromeToRGB( byte* rgb, const byte* mono, int widt
 		}
 	}
 }
+
+//} // namespace BFG

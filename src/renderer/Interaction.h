@@ -29,6 +29,13 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __INTERACTION_H__
 #define __INTERACTION_H__
 
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/VertexCache.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -82,6 +89,7 @@ struct surfaceInteraction_t
 };
 
 
+//class idCmdArgs;
 class idRenderEntityLocal;
 class idRenderLightLocal;
 
@@ -152,5 +160,7 @@ private:
 };
 
 void R_ShowInteractionMemory_f( const idCmdArgs& args );
+
+//} // namespace BFG
 
 #endif /* !__INTERACTION_H__ */
