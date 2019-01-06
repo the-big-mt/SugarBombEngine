@@ -28,7 +28,20 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __BINARYIMAGE_H__
 #define __BINARYIMAGE_H__
 
+//#include <cstring>
+
+//#include "../idlib/Heap.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/ImageOpts.h"
 #include "BinaryImageData.h"
+
+//namespace BFG
+//{
+
+//class idFile;
 
 /*
 ================================================
@@ -124,5 +137,7 @@ private:
 	void				MakeGeneratedFileName( idStr& gfn );
 	bool				LoadFromGeneratedFile( idFile* f, ID_TIME_T sourceFileTime );
 };
+
+//} // namespace BFG
 
 #endif // __BINARYIMAGE_H__

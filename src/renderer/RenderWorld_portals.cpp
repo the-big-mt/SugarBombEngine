@@ -28,9 +28,33 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstring>
+//#include <GL/glew.h>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../framework/DemoFile.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/geometry/RenderMatrix.h"
+//#include "../idlib/geometry/Winding.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../renderer/GLMatrix.h"
+//#include "../renderer/GraphicsAPIWrapper.h"
+//#include "../renderer/Material.h"
+//#include "../renderer/RenderProgs.h"
+//#include "../renderer/RenderWorld.h"
+//#include "../renderer/RenderWorld_local.h"
+//#include "../renderer/ScreenRect.h"
+//#include "tr_local.h"
+
+//namespace BFG
+//{
 
 // if we hit this many planes, we will just stop cropping the
 // view down, which is still correct, just conservative
@@ -1157,3 +1181,4 @@ int idRenderWorldLocal::GetPortalState( qhandle_t portal )
 	return doublePortals[portal - 1].blockingBits;
 }
 
+//} // namespace BFG

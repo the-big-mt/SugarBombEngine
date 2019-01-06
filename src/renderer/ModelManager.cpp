@@ -27,10 +27,14 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cstdio>
 #include "precompiled.h"
 
 #include "Model_local.h"
 #include "RenderCommon.h"	// just for R_FreeWorldInteractions and R_CreateWorldInteractions
+
+//namespace BFG
+//{
 
 idCVar binaryLoadRenderModels( "binaryLoadRenderModels", "1", 0, "enable binary load/write of render models" );
 idCVar preload_MapModels( "preload_MapModels", "1", CVAR_SYSTEM | CVAR_BOOL, "preload models during begin or end levelload" );
@@ -219,7 +223,7 @@ void idRenderModelManagerLocal::WritePrecacheCommands( idFile* f )
 		}
 		
 		char	str[1024];
-		sprintf( str, "touchModel %s\n", model->Name() );
+		std::sprintf( str, "touchModel %s\n", model->Name() );
 		common->Printf( "%s", str );
 		f->Printf( "%s", str );
 	}
@@ -887,3 +891,5 @@ void idRenderModelManagerLocal::PrintMemInfo( MemInfo_t* mi )
 	f->Printf( "\nTotal model bytes allocated: %s\n", idStr::FormatNumber( totalMem ).c_str() );
 	fileSystem->CloseFile( f );
 }
+
+//} // namespace BFG

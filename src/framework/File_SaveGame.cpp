@@ -29,6 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 
 #include "File_SaveGame.h"
+//#include "sys/sys_threading.h"
+//#include "zconf.h"
+
+//namespace BFG
+//{
 
 /*
 
@@ -1323,3 +1328,4 @@ CONSOLE_COMMAND( TestCompressionSpeeds, "Compares zlib and our code", 0 )
 				   
 }
 
+//} // namespace BFG

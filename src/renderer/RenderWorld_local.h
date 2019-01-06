@@ -31,7 +31,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERWORLDLOCAL_H__
 #define __RENDERWORLDLOCAL_H__
 
+//#include "tr_local.h"
+
 #include "BoundsTrack.h"
+
+//namespace BFG
+//{
 
 // assume any lightDef or entityDef index above this is an internal error
 const int LUDICROUS_INDEX	= 10000;
@@ -307,5 +312,7 @@ static idInteraction* const INTERACTION_EMPTY = ( idInteraction* )1;
 
 void R_ListRenderLightDefs_f( const idCmdArgs& args );
 void R_ListRenderEntityDefs_f( const idCmdArgs& args );
+
+//} // namespace BFG
 
 #endif /* !__RENDERWORLDLOCAL_H__ */

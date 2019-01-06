@@ -29,6 +29,14 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __PHYSICS_PARAMETRIC_H__
 #define __PHYSICS_PARAMETRIC_H__
 
+//#include "../idlib/math/Extrapolate.h"
+//#include "../idlib/math/Interpolate.h"
+
+//#include "../d3xp/physics/Physics_Base.h"
+
+//namespace BFG
+//{
+
 /*
 ===================================================================================
 
@@ -178,5 +186,7 @@ private:
 	bool					TestIfAtRest() const;
 	void					Rest();
 };
+
+//} // namespace BFG
 
 #endif /* !__PHYSICS_PARAMETRIC_H__ */

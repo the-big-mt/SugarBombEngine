@@ -29,6 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __PHYSICS_BASE_H__
 #define __PHYSICS_BASE_H__
 
+//#include "../d3xp/physics/Physics.h"
+
+//#include "../d3xp/Game_local.h"
+
 /*
 ===============================================================================
 
@@ -36,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 
 ===============================================================================
 */
+
+//namespace BFG
+//{
 
 #define contactEntity_t		idEntityPtr<idEntity>
 
@@ -204,5 +211,7 @@ bool InterpolatePhysicsState( _stateType_ & stateToUpdate,
 	
 	return ( stateToUpdate.origin != oldOrigin || stateToUpdate.axis != oldAxis );
 }
+
+//} // namespace BFG
 
 #endif /* !__PHYSICS_BASE_H__ */

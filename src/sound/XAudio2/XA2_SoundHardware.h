@@ -29,6 +29,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __XA_SOUNDHARDWARE_H__
 #define __XA_SOUNDHARDWARE_H__
 
+//#include "../sound/XAudio2/XA2_SoundVoice.h"  // for idSoundVoice_XAudio2
+
+//#include "../sound/snd_defines.h"
+
+//#include "../framework/DebugGraph.h"
+
+//namespace BFG
+//{
+
 class idSoundSample_XAudio2;
 class idSoundVoice_XAudio2;
 // RB
@@ -124,4 +133,6 @@ class idSoundHardware : public idSoundHardware_XAudio2
 {
 };
 
-#endif
+//} // namespace BFG
+
+#endif // __XA_SOUNDHARDWARE_H__

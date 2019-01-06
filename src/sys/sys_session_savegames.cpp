@@ -27,10 +27,37 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 #include "precompiled.h"
+//#include <cassert>
+//#include <cstdlib>
+//#include <algorithm>
+//#include <memory>
+
+//#include "../framework/BuildVersion.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/CmdSystem.h"
+//#include "../framework/Common.h"
+//#include "../framework/Common_dialog.h"
+//#include "../framework/File_SaveGame.h"
+//#include "../framework/PlayerProfile.h"
+//#include "../idlib/Callback.h"
+//#include "../idlib/CmdArgs.h"
+//#include "../idlib/Dict.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/StrStatic.h"
+//#include "../idlib/Thread.h"
+//#include "../idlib/containers/List.h"
+//#include "../sys/sys_localuser.h"
+//#include "../sys/sys_public.h"
+//#include "../sys/sys_session.h"
+//#include "../sys/sys_signin.h"
 #include "sys_savegame.h"
 #include "sys_session_local.h"
 #include "sys_session_savegames.h"
 
+//namespace BFG
+//{
 
 extern idCVar saveGame_verbose;
 
@@ -973,3 +1000,5 @@ CONSOLE_COMMAND( savegameSetErrorBit, "Allows you to set savegame_error by bit i
 }
 
 #pragma endregion
+
+//} // namespace BFG

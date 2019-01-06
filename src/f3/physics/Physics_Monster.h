@@ -29,6 +29,13 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __PHYSICS_MONSTER_H__
 #define __PHYSICS_MONSTER_H__
 
+//#include "../idlib/math/Vector.h"
+
+//#include "../d3xp/physics/Physics_Actor.h"
+
+//namespace BFG
+//{
+
 /*
 ===================================================================================
 
@@ -155,5 +162,7 @@ private:
 	monsterMoveResult_t		StepMove( idVec3& start, idVec3& velocity, const idVec3& delta );
 	void					Rest();
 };
+
+//} // namespace BFG
 
 #endif /* !__PHYSICS_MONSTER_H__ */

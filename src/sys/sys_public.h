@@ -30,8 +30,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_PUBLIC__
 #define __SYS_PUBLIC__
 
+//#include <cstdarg>
+//#include <stdint.h>
+//#include <cstdio>
+
+//#include "../idlib/sys/sys_defines.h"
 #include "../idlib/CmdArgs.h"
 
+//namespace BFG
+//{
 enum fpuExceptions_t
 {
 	FPU_EXCEPTION_INVALID_OPERATION		= 1,
@@ -713,5 +720,6 @@ extern idSys* 				sys;
 bool Sys_LoadOpenAL();
 void Sys_FreeOpenAL();
 
+//} // namespace BFG
 
 #endif /* !__SYS_PUBLIC__ */

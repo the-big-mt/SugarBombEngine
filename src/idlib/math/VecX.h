@@ -29,6 +29,13 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MATH_VECX_H__
 #define __MATH_VECX_H__
 
+//#include "../idlib/Heap.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/math/Random.h"       // for idRandom
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -901,5 +908,7 @@ ID_INLINE void idVecX::AddScaleAdd( const float scale, const idVecX& v0, const i
 		dstPtr[i] += scale * ( v0Ptr[i] + v1Ptr[i] );
 	}
 }
+
+//} // namespace BFG
 
 #endif // !__MATH_VECTORX_H__

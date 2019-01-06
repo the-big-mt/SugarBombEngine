@@ -25,6 +25,21 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+//#include <cstring>
+
+//#include "../framework/CVarSystem.h"
+//#include "../framework/File.h"
+//#include "../idlib/BitMsg.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../sys/LightweightCompression.h"
+//#include "../sys/Snapshot.h"
+//#include "../sys/Snapshot_Jobs.h"
+
 #pragma hdrstop
 #include "precompiled.h"
 
@@ -1472,3 +1487,5 @@ CONSOLE_COMMAND( serializeQTest, "Serialization Sanity Test", 0 )
 	}
 }
 #endif
+
+//} // namespace BFG

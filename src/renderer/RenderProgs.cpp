@@ -28,11 +28,27 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <GL/glew.h>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
+//#include "../framework/CmdSystem.h"
+//#include "../framework/Common.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/containers/StaticList.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/RenderLog.h"
+//#include "../renderer/RenderProgs.h"
+//#include "../renderer/RenderSystem.h"
+//#include "RenderProgs.h"
+//#include "tr_local.h"
 
+//namespace BFG
+//{
 
+//class idCmdArgs;
 
 idRenderProgManager renderProgManager;
 
@@ -529,3 +545,4 @@ void idRenderProgManager::SetRenderParm( renderParm_t rp, const float* value )
 	SetUniformValue( rp, value );
 }
 
+//} // namespace BFG

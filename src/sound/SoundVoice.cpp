@@ -26,9 +26,15 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
+//#include <cstring>
 #include "precompiled.h"
 
 #include "snd_local.h"
+
+//namespace BFG
+//{
+
+//class idSoundSample;
 
 idCVar s_subFraction( "s_subFraction", "0.5", CVAR_ARCHIVE | CVAR_FLOAT, "Amount of each sound to send to the LFE channel" );
 
@@ -294,3 +300,5 @@ void idSoundVoice_Base::CalculateSurround( int srcChannels, float pLevelMatrix[ 
 		pLevelMatrix[ i ] *= scale;
 	}
 }
+
+//} // namespace BFG

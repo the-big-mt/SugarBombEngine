@@ -29,6 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cstring>
+//#include <GL/glew.h>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
@@ -1099,3 +1101,5 @@ bool idRenderSystemLocal::UploadImage( const char* imageName, const byte* data, 
 	image->UploadScratch( data, width, height );
 	return true;
 }
+
+//} // namespace BFG

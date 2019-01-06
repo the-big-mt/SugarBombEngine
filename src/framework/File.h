@@ -29,6 +29,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __FILE_H__
 #define __FILE_H__
 
+//#include <minizip/ioapi.h>
+
+//#include "../idlib/Swap.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/BitMsg.h"
+
+//namespace BFG
+//{
+
 /*
 ==============================================================
 
@@ -344,6 +353,6 @@ protected:
 	idFile* file;	// The managed file pointer.
 };
 
-
+//} // namespace BFG
 
 #endif /* !__FILE_H__ */

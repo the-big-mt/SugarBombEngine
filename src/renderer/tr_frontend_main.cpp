@@ -28,9 +28,35 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cmath>
+//#include <stdint.h>
+//#include <cstring>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Thread.h"
+//#include "../idlib/geometry/RenderMatrix.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/GLMatrix.h"
+//#include "../renderer/Material.h"
+//#include "../renderer/Model.h"
+//#include "../renderer/RenderWorld.h"
+//#include "../renderer/RenderWorld_local.h"
+//#include "ParallelJobList.h"
+//#include "sys/sys_intrinsics.h"
+//#include "tr_local.h"
+
+//namespace BFG
+//{
 
 /*
 ==========================================================================================
@@ -560,3 +586,5 @@ void R_RenderPostProcess( viewDef_t* parms )
 	
 	tr.viewDef = oldView;
 }
+
+//} // namespace BFG

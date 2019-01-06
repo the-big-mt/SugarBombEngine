@@ -28,6 +28,17 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __WAVEFILE_H
 #define __WAVEFILE_H
 
+//#include <cstddef>
+
+//#include "../framework/File.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/containers/StaticList.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
+
+//namespace BFG
+//{
+
 /*
 ================================================================================================
 Contains the WaveFile declaration.
@@ -260,5 +271,7 @@ ID_INLINE idWaveFile::~idWaveFile()
 {
 	Close();
 }
+
+//} // namespace BFG
 
 #endif // !__WAVEFILE_H__

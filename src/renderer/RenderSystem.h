@@ -31,6 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERER_H__
 #define __RENDERER_H__
 
+//namespace BFG
+//{
 enum graphicsVendor_t
 {
 	VENDOR_NVIDIA,
@@ -179,5 +181,7 @@ void R_LightProjectionMatrix( const idVec3& origin, const idPlane& rearPlane, id
 
 // used by the view shot taker
 void R_ScreenshotFilename( int& lastNumber, const char* base, idStr& fileName );
+
+//} // namespace BFG
 
 #endif /* !__RENDERER_H__ */

@@ -27,9 +27,16 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstring>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
+
+//namespace BFG
+//{
+
+//class idCmdArgs;
 
 /*
 ===========================================================================
@@ -968,3 +975,5 @@ void R_ShowInteractionMemory_f( const idCmdArgs& args )
 	common->Printf( "%i maxInteractionsForEntity\n", maxInteractionsForEntity );
 	common->Printf( "%i maxInteractionsForLight\n", maxInteractionsForLight );
 }
+
+//} // namespace BFG

@@ -87,6 +87,9 @@ If you have questions concerning this license or the applicable additional terms
 extern idCVar saveGame_verbose;
 extern idCVar saveGame_enable;
 
+//class idCallback;
+//class idFile;
+//class idFile_SaveGame;
 class idGameSpawnInfo;
 class idSession;
 class idSessionLocal;

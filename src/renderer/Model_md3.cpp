@@ -27,11 +27,30 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cctype>
+//#include <cstring>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
+//#include "../framework/Common.h"
+//#include "../framework/DeclManager.h"
+//#include "../framework/FileSystem.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/geometry/DrawVert.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/Model.h"
+//#include "../renderer/RenderWorld.h"
 #include "Model_local.h"
 #include "Model_md3.h"
+//#include "tr_local.h"
+
+//namespace BFG
+//{
+
+//class idMaterial;
 
 /***********************************************************************
 
@@ -397,3 +416,4 @@ idBounds idRenderModelMD3::Bounds( const struct renderEntity_s* ent ) const
 	return ret;
 }
 
+//} // namespace BFG

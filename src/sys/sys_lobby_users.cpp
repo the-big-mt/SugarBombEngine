@@ -47,8 +47,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys_lobby.h"
 #include "sys_voicechat.h"
 
-
-
+//namespace BFG
+//{
 
 /*
 ========================
@@ -1642,3 +1642,5 @@ int idLobby::GetNumConnectedUsers() const
 	
 	return numConnectectUsers;
 }
+
+//} // namespace BFG

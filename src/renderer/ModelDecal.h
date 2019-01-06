@@ -31,6 +31,23 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MODELDECAL_H__
 #define __MODELDECAL_H__
 
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/geometry/DrawVert.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
+
+//namespace BFG
+//{
+
+//class idFixedWinding;
+//class idMat3;
+//class idMaterial;
+//class idRenderModel;
+//class idWinding;
+
 /*
 ===============================================================================
 
@@ -147,5 +164,7 @@ private:
 	void						CreateDecalFromWinding( const idWinding& w, const idMaterial* decalMaterial, const idPlane fadePlanes[2], float fadeDepth, int startTime );
 	void						CreateDecal( const idRenderModel* model, const decalProjectionParms_t& localParms );
 };
+
+//} // namespace BFG
 
 #endif /* !__MODELDECAL_H__ */

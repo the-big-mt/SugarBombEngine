@@ -27,11 +27,27 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstddef>
 #include "precompiled.h"
 
-
 #include "RenderCommon.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/geometry/DrawVert.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/GLMatrix.h"
+//#include "../renderer/Model.h"
+//#include "../renderer/RenderWorld.h"
+//#include "../framework/DeclParticle.h"
 #include "Model_local.h"
+//#include "tr_local.h"
+
+//namespace BFG
+//{
 
 /*
 
@@ -222,3 +238,5 @@ idBounds idRenderModelBeam::Bounds( const struct renderEntity_s* renderEntity ) 
 	}
 	return b;
 }
+
+//} // namespace BFG
