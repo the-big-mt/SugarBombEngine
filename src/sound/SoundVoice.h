@@ -29,6 +29,19 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SOUNDVOICE_H__
 #define __SOUNDVOICE_H__
 
+//#include "../idlib/Heap.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../sound/WaveFile.h"
+
+//#include "../sound/snd_defines.h"
+
+//namespace BFG
+//{
+
+//class idSoundSample;
+
 /*
 ================================================
 idSoundVoice_Base
@@ -133,4 +146,6 @@ protected:
 	static float omniLevel;
 };
 
-#endif
+//} // namespace BFG
+
+#endif // __SOUNDVOICE_H__

@@ -1664,3 +1664,4 @@ void idSysLocal::OpenURL( const char* url, bool quit )
 }
 
 
+//} // namespace BFG

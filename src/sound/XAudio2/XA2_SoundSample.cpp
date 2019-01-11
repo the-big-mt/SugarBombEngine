@@ -26,7 +26,25 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
+//#include <XAudio2.h>
+//#include <cmath>
+//#include <cstring>
 #include "precompiled.h"
+
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../framework/File.h"
+//#include "../framework/FileSystem.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/StrStatic.h"
+//#include "../idlib/Swap.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
 #include "../snd_local.h"
 //#include "../sound/XAudio2/XA2_SoundSample.h"
 //#include "../sound/WaveFile.h"

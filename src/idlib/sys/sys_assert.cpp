@@ -28,9 +28,23 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
+//#include <csignal>                     // for raise, SIGTRAP
+//#include <cstddef>
+
+//#include "../framework/../framework/CVarSystem.h"
+//#include "../framework/../framework/CVarSystem.h"  // for ::CVAR_BOOL, etc
+//#include "../idlib/Lib.h"
+//#include "../idlib/Lib.h"               // for idLib
+//#include "../idlib/containers/StaticList.h"      // for idStaticList
+//#include "../idlib/sys/sys_types.h"     // for NULL
+//#include "containers/StaticList.h"
+
 #ifndef _WIN32
 #include <signal.h> // for raise()
 #endif
+
+//namespace BFG
+//{
 
 /*
 ================================================================================================
@@ -118,3 +132,4 @@ bool AssertFailed( const char* file, int line, const char* expression )
 	return true;
 }
 
+//} // namespace BFG

@@ -28,10 +28,42 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstring>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../framework/DeclParticle.h"
+//#include "../framework/DeclTable.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/containers/BinSearch.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/geometry/DrawVert.h"
+//#include "../idlib/geometry/Winding.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Random.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/GLMatrix.h"
+//#include "../renderer/Material.h"
+//#include "../renderer/Model.h"
+//#include "../renderer/RenderSystem.h"
+//#include "../renderer/RenderWorld.h"
+//#include "../renderer/ScreenRect.h"
+//#include "../renderer/VertexCache.h"
 #include "Model_local.h"
+//#include "tr_local.h"
+
+//class idJointMat;
+
+//namespace BFG
+//{
 
 /*
 ==========================================================================================
@@ -1157,3 +1189,5 @@ drawSurf_t* R_DeformDrawSurf( drawSurf_t* drawSurf )
 			return NULL;
 	}
 }
+
+//} // namespace BFG

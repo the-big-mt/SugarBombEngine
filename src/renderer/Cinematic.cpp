@@ -29,6 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+
+//#include <cstddef>
+//#include <stdint.h>
+//#include <cstring>
 #include "precompiled.h"
 
 
@@ -2826,3 +2830,5 @@ int idSndWindow::AnimationLength()
 {
 	return -1;
 }
+
+//} // namespace BFG

@@ -438,7 +438,7 @@ ID_INLINE void idStr::Construct()
 	len = 0;
 	data[ 0 ] = '\0';
 #ifdef ID_DEBUG_UNINITIALIZED_MEMORY
-	memset( baseBuffer, 0, sizeof( baseBuffer ) );
+	std::memset( baseBuffer, 0, sizeof( baseBuffer ) );
 #endif
 }
 
@@ -484,7 +484,7 @@ ID_INLINE idStr::idStr( const idStr& text )
 	
 	l = text.Length();
 	EnsureAlloced( l + 1 );
-	strcpy( data, text.data );
+	std::strcpy( data, text.data );
 	len = l;
 }
 
@@ -532,10 +532,10 @@ ID_INLINE idStr::idStr( const char* text )
 	if( text )
 	{
 		// RB: 64 bit fixes,  conversion from 'size_t' to 'int', possible loss of data
-		l = ( int )strlen( text );
+		l = ( int )std::strlen( text );
 		// RB end
 		EnsureAlloced( l + 1 );
-		strcpy( data, text );
+		std::strcpy( data, text );
 		len = l;
 	}
 }

@@ -27,8 +27,29 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
+//#ifdef __APPLE__
+//#include <OpenAL/al.h>
+//#else
+//#include <AL/al.h>
+//#endif
+//#include <cstddef>
 #include "precompiled.h"
+
+//#include "../framework/CVarSystem.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_types.h"
 #include "../snd_local.h"
+//#include "../sound/OpenAL/AL_SoundSample.h"
+//#include "../sound/OpenAL/AL_SoundVoice.h"
+//#include "../sound/WaveFile.h"
+//#include "../sound/sound.h"
+//#include "../sys/sys_public.h"
+//#include "../sound/snd_defines.h"
+
+//namespace BFG
+//{
 
 idCVar s_skipHardwareSets( "s_skipHardwareSets", "0", CVAR_BOOL, "Do all calculation, but skip XA2 calls" );
 idCVar s_debugHardware( "s_debugHardware", "0", CVAR_BOOL, "Print a message any time a hardware voice changes" );
@@ -761,3 +782,5 @@ void idSoundVoice_OpenAL::OnBufferStart( idSoundSample_OpenAL* sample, int buffe
 	
 	SubmitBuffer( nextSample, nextBuffer, 0 );
 }
+
+//} // namespace BFG

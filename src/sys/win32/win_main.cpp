@@ -48,6 +48,11 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys_local.h"
 #include "win_local.h"
 #include "../../renderer/RenderCommon.h"
+//#include "../renderer/tr_local.h"
+//#include "../framework/Licensee.h"
+
+//namespace BFG
+//{
 
 idCVar Win32Vars_t::sys_arch( "sys_arch", "", CVAR_SYSTEM | CVAR_INIT, "" );
 idCVar Win32Vars_t::sys_cpustring( "sys_cpustring", "detect", CVAR_SYSTEM | CVAR_INIT, "" );
@@ -1471,6 +1476,8 @@ EXCEPTION_DISPOSITION __cdecl _except_handler( struct _EXCEPTION_RECORD *Excepti
 							/*	FPU_EXCEPTION_INEXACT_RESULT |			*/	\
 								0
 
+//} // namespace BFG
+
 /*
 ==================
 WinMain
@@ -1567,6 +1574,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	// never gets here
 	return 0;
 }
+
+//namespace BFG
+//{
 
 /*
 ==================

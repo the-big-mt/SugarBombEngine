@@ -27,7 +27,13 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cstddef>
+//#include <cstring>
 #include "precompiled.h"
+//#include "../idlib/hashing/MD5.h"
+
+//namespace BFG
+//{
 
 /*
 ================================================================================================
@@ -317,3 +323,5 @@ unsigned int MD5_BlockChecksum( const void* data, size_t length )
 			
 	return val;
 }
+
+//} // namespace BFG

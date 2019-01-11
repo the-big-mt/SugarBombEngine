@@ -29,8 +29,15 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
-
+//#include "../framework/Common.h"
+//#include "../framework/FileSystem.h"
+//#include "../idlib/Str.h"
 #include "Model_ase.h"
+//#include "sys/../idlib/sys/sys_defines.h"
+//#include "sys/sys_types.h"
+
+//namespace BFG
+//{
 
 /*
 ======================================================================

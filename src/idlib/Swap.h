@@ -28,6 +28,14 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SWAP_H__
 #define __SWAP_H__
 
+//#include "../idlib/bv/Bounds.h"         // for idBounds
+//#include "../idlib/math/Quat.h"         // for idQuat
+//#include "../idlib/geometry/DrawVert.h"          // for idDrawVert
+//#include "../idlib/math/Angles.h"       // for idAngles
+
+//namespace BFG
+//{
+
 /*
 ================================================================================================
 Contains the Swap class, for CrossPlatform endian conversion.
@@ -247,5 +255,7 @@ private:
 
 #define BIG32(v) ((((uint32)(v)) >> 24) | (((uint32)(v) & 0x00FF0000) >> 8) | (((uint32)(v) & 0x0000FF00) << 8) | ((uint32)(v) << 24))
 #define BIG16(v) ((((uint16)(v)) >> 8) | ((uint16)(v) << 8))
+
+//} // namespace BFG
 
 #endif // !__SWAP_H__

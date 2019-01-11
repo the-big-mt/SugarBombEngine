@@ -28,12 +28,27 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+
+//#include <cstdlib>
+//#include <cstring>
 #include "precompiled.h"
 
-
 #include "RenderCommon.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/Framebuffer.h"
+//#include "../renderer/Image.h"
+//#include "../renderer/Material.h"
+//#include "tr_local.h"
 #include "SMAA/AreaTex.h"
 #include "SMAA/SearchTex.h"
+
+//namespace BFG
+//{
 
 #define	DEFAULT_SIZE	16
 
@@ -893,3 +908,5 @@ void idImageManager::CreateIntrinsicImages()
 	release_assert( loadingIconImage->referencedOutsideLevelLoad );
 	release_assert( hellLoadingIconImage->referencedOutsideLevelLoad );
 }
+
+//} // namespace BFG

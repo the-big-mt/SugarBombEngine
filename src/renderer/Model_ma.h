@@ -29,6 +29,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MODEL_MA_H__
 #define __MODEL_MA_H__
 
+//#include "../idlib/Heap.h"
+//#include "../idlib/containers/HashTable.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -151,5 +161,7 @@ typedef struct maModel_s
 
 maModel_t*	MA_Load( const char* fileName );
 void		MA_Free( maModel_t* ma );
+
+//} // namespace BFG
 
 #endif /* !__MODEL_MA_H__ */

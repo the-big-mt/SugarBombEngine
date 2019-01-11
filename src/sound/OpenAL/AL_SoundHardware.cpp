@@ -32,6 +32,11 @@ If you have questions concerning this license or the applicable additional terms
 #include "../snd_local.h"
 #include "../../../doomclassic/doom/i_sound.h"
 
+/namespace BFG
+//{
+
+//class idCmdArgs;
+
 idCVar s_showLevelMeter( "s_showLevelMeter", "0", CVAR_BOOL | CVAR_ARCHIVE, "Show VU meter" );
 idCVar s_meterTopTime( "s_meterTopTime", "1000", CVAR_INTEGER | CVAR_ARCHIVE, "How long (in milliseconds) peaks are displayed on the VU meter" );
 idCVar s_meterPosition( "s_meterPosition", "100 100 20 200", CVAR_ARCHIVE, "VU meter location (x y w h)" );

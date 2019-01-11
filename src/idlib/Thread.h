@@ -29,6 +29,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __THREAD_H__
 #define __THREAD_H__
 
+//#include "../idlib/containers/List.h"            // for idList
+//#include "../idlib/Str.h"						 // for idStr
+
+//namespace BFG
+//{
+
 /*
 ================================================
 idSysMutex provides a C++ wrapper to the low level system mutex functions.  A mutex is an
@@ -560,5 +566,7 @@ ID_INLINE bool idSysThreadSynchronizer::Synchronize( unsigned int threadNum, int
 {
 	return signals[threadNum]->Wait( timeout );
 }
+
+//} // namespace BFG
 
 #endif // !__THREAD_H__

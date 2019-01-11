@@ -29,8 +29,36 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
+//#ifdef __APPLE__
+//#include <OpenAL/al.h>
+//#else
+//#include <AL/al.h>
+//#endif
+//#include <cmath>
+//#include <cstring>
 #include "precompiled.h"
+
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../framework/File.h"
+//#include "../framework/FileSystem.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/StrStatic.h"
+//#include "../idlib/Swap.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
 #include "../snd_local.h"
+//#include "../sound/OpenAL/AL_SoundSample.h"
+//#include "../sound/WaveFile.h"
+//#include "../sys/sys_public.h"
+
+//namespace BFG
+//{
 
 extern idCVar s_useCompression;
 extern idCVar s_noSound;

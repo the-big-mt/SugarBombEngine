@@ -30,6 +30,15 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 
 #include "snd_local.h"
+//#include "../framework/CVarSystem.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../sound/SoundVoice.h"
+//#include "../sound/WaveFile.h"
+//#include "../sound/snd_defines.h"
 
 //namespace BFG
 //{

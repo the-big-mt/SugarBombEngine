@@ -36,6 +36,12 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/geometry/DrawVert_intrinsics.h"
 
+//namespace BFG
+//{
+
+//class idDemoFile;
+//class idJointMat;
+
 /*
 ====================
 idRenderModelOverlay::idRenderModelOverlay
@@ -899,3 +905,5 @@ void idRenderModelOverlay::WriteToDemoFile( idDemoFile* f ) const
 		overlay.writtenToDemo = true;
 	}
 }
+
+//} // namespace BFG

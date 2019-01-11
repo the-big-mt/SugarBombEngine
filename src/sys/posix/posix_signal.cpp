@@ -25,11 +25,14 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include "../../idlib/precompiled.h"
-#include "posix_public.h"
 
-#include <string.h>
-#include <errno.h>
+#include <cstring>
+#include <cerrno>
+
+#include "../../idlib/precompiled.h"
+//#include "../framework/Common.h"
+//#include "../sys/sys_public.h"
+#include "posix_public.h"
 
 //namespace BFG
 //{
@@ -178,3 +181,5 @@ void Sys_SetFatalError( const char* error )
 {
 	strncpy( fatalError, error, sizeof( fatalError ) );
 }
+
+//} // namespace BFG

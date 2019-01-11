@@ -1,6 +1,11 @@
 #ifndef __MD5_H__
 #define __MD5_H__
 
+//#include <cstddef>                     // for size_t
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -21,5 +26,7 @@ void MD5_Update( MD5_CTX* context, unsigned char const* input, size_t inputLen )
 void MD5_Final( MD5_CTX* context, unsigned char digest[16] );
 
 unsigned int MD5_BlockChecksum( const void* data, size_t length );
+
+//} // namespace BFG
 
 #endif /* !__MD5_H__ */

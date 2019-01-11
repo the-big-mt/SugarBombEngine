@@ -334,4 +334,6 @@ public:
 
 #include "SoftwareCache.h"
 
+//} // namespace BFG
+
 #endif	/* !__LIB_H__ */

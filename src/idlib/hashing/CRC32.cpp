@@ -1,6 +1,12 @@
 
 #pragma hdrstop
 #include "precompiled.h"
+//#include "../idlib/hashing/CRC32.h"
+
+//#include "sys/sys_types.h"
+
+//namespace BFG
+//{
 
 /*
    CRC-32
@@ -187,3 +193,5 @@ unsigned int CRC32_BlockChecksum( const void* data, int length )
 	return crc;
 }
 // RB end
+
+//} // namespace BFG

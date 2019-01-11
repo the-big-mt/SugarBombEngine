@@ -30,6 +30,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../../../idlib/sys/sys_intrinsics.h"
 #include "../../../idlib/geometry/DrawVert_intrinsics.h"
+//namespace BFG
+//{
+
+//class idJointMat;
 
 #if defined(USE_INTRINSICS)
 static const __m128i vector_int_neg_one		= _mm_set_epi32( -1, -1, -1, -1 );
@@ -1317,3 +1321,5 @@ void DynamicShadowVolumeJob( const dynamicShadowVolumeParms_t* parms )
 }
 
 REGISTER_PARALLEL_JOB( DynamicShadowVolumeJob, "DynamicShadowVolumeJob" );
+
+//} // namespace BFG

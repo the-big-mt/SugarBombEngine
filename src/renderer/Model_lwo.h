@@ -29,6 +29,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __LWO2_H__
 #define __LWO2_H__
 
+//#include <stdint.h>
+
+//#include "../idlib/math/Math.h"
+//#include "../idlib/sys/sys_defines.h"
+
+//namespace BFG
+//{
+
+//class idFile;
+
 /*
 ======================================================================
 
@@ -712,5 +722,7 @@ unsigned int   sgetU4( unsigned char** bp );
 int   sgetVX( unsigned char** bp );
 float sgetF4( unsigned char** bp );
 char* sgetS0( unsigned char** bp );
+
+//} // namespace BFG
 
 #endif /* !__LWO2_H__ */

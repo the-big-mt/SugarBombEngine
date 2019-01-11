@@ -43,6 +43,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "renderer/RenderCommon.h"
 #include "sdl_local.h"
 
+//namespace BFG
+//{
+
 idCVar in_nograb( "in_nograb", "0", CVAR_SYSTEM | CVAR_NOCHEAT, "prevents input grabbing" );
 
 // RB: FIXME this shit. We need the OpenGL alpha channel for advanced rendering effects

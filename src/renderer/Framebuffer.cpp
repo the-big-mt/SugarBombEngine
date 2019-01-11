@@ -31,6 +31,12 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "RenderCommon.h"
 #include "Framebuffer.h"
+//#include "tr_local.h"
+
+//namespace BFG
+//{
+
+//class idCmdArgs;
 
 idList<Framebuffer*>	Framebuffer::framebuffers;
 

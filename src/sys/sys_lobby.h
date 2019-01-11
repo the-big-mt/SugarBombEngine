@@ -26,7 +26,34 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+#ifndef __SYS_LOBBY_H__
+#define __SYS_LOBBY_H__
+
+//#include <cassert>
+//#include <cstring>
+
+//#include "../framework/Common_dialog.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/containers/Array.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/containers/StaticList.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../sys/PacketProcessor.h"
+//#include "../sys/SnapshotProcessor.h"
+//#include "../sys/sys_session.h"
 #include "sys_lobby_backend.h"
+
+//namespace BFG
+//{
+
+//class idBitMsg;
+//class idLocalUser;
+//class idPlayerProfile;
+//class idSignInManagerBase;
+//class idSnapShot;
+//struct localUserHandle_t;
+//struct lzwCompressionData_t;
 
 #define INVALID_LOBBY_USER_NAME " " // Used to be "INVALID" but Sony might not like that.
 
@@ -1002,3 +1029,7 @@ public:
 	virtual idLobbyBackend* 		JoinFromConnectInfo( const lobbyConnectInfo_t& connectInfo , idLobbyBackend::lobbyBackendType_t lobbyType ) = 0;
 	virtual void					DestroyLobbyBackend( idLobbyBackend* lobbyBackend ) = 0;
 };
+
+//} // namespace BFG
+
+#endif // __SYS_LOBBY_H__

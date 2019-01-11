@@ -67,6 +67,9 @@ If you have questions concerning this license or the applicable additional terms
 // DG end
 #endif
 
+//namespace BFG
+//{
+
 // DG: those are needed for moving/resizing windows
 extern idCVar r_windowX;
 extern idCVar r_windowY;
@@ -627,8 +630,6 @@ static void PushConsoleEvent( const char* s )
 	
 	SDL_PushEvent( &event );
 }
-
-
 
 /*
 =================

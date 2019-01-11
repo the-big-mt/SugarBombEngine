@@ -39,6 +39,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <SDL_cpuinfo.h>
 
+//#include "../idlib/sys/sys_types.h"
+//#include "../sys/sys_public.h"
 
 #pragma warning(disable:4740)	// warning C4740: flow in or out of inline asm code suppresses global optimization
 #pragma warning(disable:4731)	// warning C4731: 'XXX' : frame pointer register 'ebx' modified by inline assembly code

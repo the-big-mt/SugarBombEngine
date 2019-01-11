@@ -58,6 +58,9 @@ Manager
 
 #include "RenderCommon.h"
 
+//namespace BFG
+//{
+
 /*
 
 Anywhere that an image name is used (diffusemaps, bumpmaps, specularmaps, lights, etc),
@@ -738,3 +741,4 @@ const char* R_ParsePastImageProgram( idLexer& src )
 	return parseBuffer;
 }
 
+//} // namespace BFG

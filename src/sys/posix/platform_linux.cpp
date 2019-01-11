@@ -41,6 +41,9 @@ If you have questions concerning this license or the applicable additional terms
 // DG: needed for Sys_ReLaunch()
 #include <dirent.h>
 
+//namespace BFG
+//{
+
 static const char** cmdargv = NULL;
 static int cmdargc = 0;
 // DG end
@@ -516,6 +519,10 @@ main
 */
 int main( int argc, const char** argv )
 {
+#ifdef USE_BREAKPAD
+	google_breakpad::MinidumpDescriptor descriptor( "/tmp" );
+	google_breakpad::ExceptionHandler eh( descriptor, NULL, BFG::breakpad_dumpCallback, NULL, true, -1 );
+#endif
 	// DG: needed for Sys_ReLaunch()
 	cmdargc = argc;
 	cmdargv = argv;

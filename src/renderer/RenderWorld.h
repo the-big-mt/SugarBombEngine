@@ -29,6 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERWORLD_H__
 #define __RENDERWORLD_H__
 
+//#include "../renderer/Model.h"          // for idRenderModel
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 

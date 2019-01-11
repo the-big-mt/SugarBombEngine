@@ -35,6 +35,11 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/geometry/DrawVert_intrinsics.h"
 
+//namespace BFG
+//{
+
+//class idJointMat;
+
 /*
 ====================
 R_TracePointCullStatic
@@ -688,3 +693,5 @@ localTrace_t R_LocalTrace( const idVec3& start, const idVec3& end, const float r
 	
 	return hit;
 }
+
+//} // namespace BFG

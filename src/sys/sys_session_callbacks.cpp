@@ -26,9 +26,23 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
+//#include <cstddef>
 #include "precompiled.h"
+
 #include "../framework/Common_local.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../framework/Common_dialog.h"
+//#include "../idlib/Lib.h"
+//#include "../sys/sys_lobby.h"
+//#include "../sys/sys_lobby_backend.h"
+//#include "../sys/sys_session.h"
 #include "sys_session_local.h"
+
+//namespace BFG
+//{
+
+//class idBitMsg;
 
 // The more the idLobby class needs to call back into this class, the more likely we're doing something wrong, and there is a better way.
 
@@ -472,3 +486,5 @@ void idSessionLocalCallbacks::DestroyLobbyBackend( idLobbyBackend* lobbyBackend 
 {
 	sessionLocal->DestroyLobbyBackend( lobbyBackend );
 }
+
+//} // namespace BFG

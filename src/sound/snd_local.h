@@ -31,7 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SND_LOCAL_H__
 #define __SND_LOCAL_H__
 
+//#include "sound.h"
 #include "WaveFile.h"
+//#include "idlib/Thread.h"
 
 // Maximum number of voices we can have allocated
 #define MAX_HARDWARE_VOICES 48
@@ -92,6 +94,8 @@ typedef enum
 	SCMD_CACHESOUNDSHADER,
 } soundDemoCommand_t;
 
+//} // namespace BFG
+
 #include "SoundVoice.h"
 
 #if defined(USE_OPENAL)
@@ -110,6 +114,9 @@ typedef enum
 #include "OpenAL/AL_SoundSample.h"
 #include "OpenAL/AL_SoundVoice.h"
 #include "OpenAL/AL_SoundHardware.h"
+
+//namespace BFG
+//{
 
 ID_INLINE_EXTERN ALenum CheckALErrors_( const char* filename, int line )
 {
@@ -133,6 +140,8 @@ ID_INLINE_EXTERN ALCenum CheckALCErrors_( ALCdevice* device, const char* filenam
 }
 #define CheckALCErrors(x) CheckALCErrors_((x), __FILE__, __LINE__)
 
+//} // namespace BFG
+
 #elif defined(_MSC_VER) // DG: stub out xaudio for MinGW etc
 
 #define OPERATION_SET 1
@@ -146,6 +155,9 @@ ID_INLINE_EXTERN ALCenum CheckALCErrors_( ALCdevice* device, const char* filenam
 #include <string>
 #include <vector>
 
+//namespace BFG
+//{
+
 DEFINE_PROPERTYKEY( PKEY_AudioEndpoint_Path, 0x9c119480, 0xddc2, 0x4954, 0xa1, 0x50, 0x5b, 0xd2, 0x40, 0xd4, 0x54, 0xad, 1 );
 
 #pragma comment(lib,"xaudio2.lib")
@@ -155,6 +167,9 @@ struct AudioDevice
 	std::wstring name;
 	std::wstring id;
 };
+
+//} // namespace BFG
+
 #else
 #include <dxsdkver.h>
 #endif
@@ -178,6 +193,9 @@ struct AudioDevice
 // just a stub for now
 #include "stub/SoundStub.h"
 #endif // _MSC_VER ; DG end
+
+//namespace BFG
+//{
 
 //------------------------
 // Listener data
@@ -610,5 +628,7 @@ public:
 };
 
 extern	idSoundSystemLocal	soundSystemLocal;
+
+//} // namespace BFG
 
 #endif /* !__SND_LOCAL_H__ */
