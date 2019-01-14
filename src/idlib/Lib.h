@@ -29,7 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __LIB_H__
 #define __LIB_H__
 
-#include <stddef.h>
+#include <cstddef>
+//namespace BFG
+//{
 
 /*
 ===============================================================================

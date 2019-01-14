@@ -28,9 +28,27 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+
+//#include <cmath>
+//#include <cstring>
+//#include <xmmintrin.h>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Random.h"
+//#include "../idlib/math/Vector.h"
+//#include "../renderer/RenderWorld.h"
+//#include "../renderer/ScreenRect.h"
+//#include "sys/sys_intrinsics.h"
+//#include "tr_local.h"
+
+//namespace BFG
+//{
 
 /*
 ==========================================================================================
@@ -591,3 +609,5 @@ void R_MatrixFullInverse( const float a[16], float r[16] )
 	}
 }
 // RB end
+
+//} // namespace BFG

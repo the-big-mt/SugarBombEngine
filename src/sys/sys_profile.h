@@ -28,16 +28,24 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_PROFILE_H__
 #define __SYS_PROFILE_H__
 
+//#ifdef _WIN32
+// KORTEMIK: namespaces collide
+//#undef _mm_nmsub_ps
+//#endif
+
+//#include <memory>
+
 #include "sys_savegame.h"
 #include "sys_session_savegames.h"
 
 //namespace BFG
 //{
 
-class idSaveGameProcessorSaveProfile;
-class idSaveGameProcessorLoadProfile;
+//class idFile_SaveGame;
 class idLocalUser;
 class idPlayerProfile;
+class idSaveGameProcessorSaveProfile;
+class idSaveGameProcessorLoadProfile;
 
 /*
 ================================================

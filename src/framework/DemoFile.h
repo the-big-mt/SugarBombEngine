@@ -31,6 +31,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __DEMOFILE_H__
 #define __DEMOFILE_H__
 
+//#include "../framework/Compressor.h"    // for idCompressor
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -95,5 +100,7 @@ private:
 	static idCVar	com_compressDemos;
 	static idCVar	com_preloadDemos;
 };
+
+//} // namespace BFG
 
 #endif /* !__DEMOFILE_H__ */

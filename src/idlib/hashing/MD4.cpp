@@ -1,6 +1,11 @@
 
 #pragma hdrstop
+//#include <cstring>
 #include "precompiled.h"
+//#include "../idlib/hashing/MD4.h"
+
+//namespace BFG
+//{
 
 /*
    RSA Data Security, Inc., MD4 message-digest algorithm. (RFC1320)
@@ -279,3 +284,4 @@ unsigned int MD4_BlockChecksum( const void* data, int length )
 }
 // RB end
 
+//} // namespace BFG

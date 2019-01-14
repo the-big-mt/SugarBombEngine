@@ -1189,3 +1189,4 @@ int idSoundSample_OpenAL::MS_ADPCM_decode( uint8** audio_buf, uint32* audio_len 
 	return 0;
 }
 
+//} // namespace BFG

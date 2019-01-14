@@ -291,6 +291,7 @@ typedef enum
 } portalConnection_t;
 
 
+//} // namespace BFG
 class idRenderWorld
 {
 public:

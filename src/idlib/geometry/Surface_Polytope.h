@@ -29,6 +29,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SURFACE_POLYTOPE_H__
 #define __SURFACE_POLYTOPE_H__
 
+//#include "../idlib/bv/Bounds.h"         // for idBounds
+//#include "../idlib/geometry/Surface.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -69,5 +75,7 @@ idSurface_Polytope::idSurface_Polytope
 ID_INLINE idSurface_Polytope::idSurface_Polytope()
 {
 }
+
+//} // namespace BFG
 
 #endif /* !__SURFACE_POLYTOPE_H__ */

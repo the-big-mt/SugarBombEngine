@@ -29,6 +29,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __WINDING2D_H__
 #define __WINDING2D_H__
 
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/math/Plane.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -180,5 +186,7 @@ ID_INLINE bool idWinding2D::Plane2DIntersection( const idVec3& plane1, const idV
 	point.y = f0 * plane1.y + f1 * plane2.y;
 	return true;
 }
+
+//} // namespace BFG
 
 #endif /* !__WINDING2D_H__ */

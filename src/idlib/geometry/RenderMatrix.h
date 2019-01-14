@@ -29,6 +29,14 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERMATRIX_H__
 #define __RENDERMATRIX_H__
 
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/bv/Box.h"
+
+//namespace BFG
+//{
+
 static const int NUM_FRUSTUM_CORNERS	= 8;
 
 struct frustumCorners_t
@@ -560,5 +568,7 @@ ID_INLINE bool idRenderMatrix::CullExtrudedBoundsToMVP( const idRenderMatrix& mv
 	byte bits;
 	return CullExtrudedBoundsToMVPbits( mvp, bounds, extrudeDirection, clipPlane, &bits, zeroToOne );
 }
+
+//} // namespace BFG
 
 #endif // !__RENDERMATRIX_H__

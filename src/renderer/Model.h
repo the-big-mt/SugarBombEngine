@@ -29,6 +29,18 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MODEL_H__
 #define __MODEL_H__
 
+//#include "../renderer/Material.h"       // for idMaterial, etc
+
+//#include "VertexCache.h"
+
+#include "jobs/ShadowShared.h"
+#include "jobs/prelightshadowvolume/PreLightShadowVolume.h"
+#include "jobs/staticshadowvolume/StaticShadowVolume.h"
+#include "jobs/dynamicshadowvolume/DynamicShadowVolume.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -325,5 +337,7 @@ public:
 		return true;
 	};
 };
+
+//} // namespace BFG
 
 #endif /* !__MODEL_H__ */

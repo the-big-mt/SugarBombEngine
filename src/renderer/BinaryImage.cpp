@@ -43,6 +43,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "DXT/DXTCodec.h"
 #include "Color/ColorSpace.h"
 
+//namespace BFG
+//{
+
 idCVar image_highQualityCompression( "image_highQualityCompression", "0", CVAR_BOOL, "Use high quality (slow) compression" );
 idCVar r_useHighQualitySky( "r_useHighQualitySky", "0", CVAR_BOOL | CVAR_ARCHIVE, "Use high quality skyboxes" );
 
@@ -569,4 +572,4 @@ void idBinaryImage::GetGeneratedFileName( idStr& gfn, const char* name )
 	gfn.Replace( " ", "" );
 }
 
-
+//} // namespace BFG

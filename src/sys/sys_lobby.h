@@ -57,8 +57,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #define INVALID_LOBBY_USER_NAME " " // Used to be "INVALID" but Sony might not like that.
 
-class idSessionCallbacks;
 class idDebugGraph;
+class idSessionCallbacks;
+
 /*
 ========================
 idLobby

@@ -35,8 +35,26 @@ Contains external code for building ZipFiles.
 ================================================================================================
 */
 
-#include "Zip.h"
+//#include <cstddef>
+//#include <cstring>
+//#include <zlib.h>
 
+//#include "../framework/CVarSystem.h"
+//#include "../framework/CmdSystem.h"
+//#include "../framework/File.h"
+//#include "../framework/FileSystem.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_filesystem.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../idlib/containers/StrList.h"
+#include "Zip.h"
+//#include "zconf.h"
+
+//namespace BFG
+//{
 
 // #undef STDC
 
@@ -1055,3 +1073,5 @@ CONSOLE_COMMAND( testZipBuilderExtractFiles, "test routine for memory zip file e
 	idLib::Printf( "[%s] overall tests: %s\n", __FUNCTION__, overallSuccess ? "^2PASS" : "^1FAIL" );
 #endif
 }
+
+//} // namespace BFG

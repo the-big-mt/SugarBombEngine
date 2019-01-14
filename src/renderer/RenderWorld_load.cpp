@@ -27,10 +27,43 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstddef>
 #include "precompiled.h"
 
 #include "RenderCommon.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../framework/DeclManager.h"
+//#include "../framework/File.h"
+//#include "../framework/FileSystem.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lexer.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/StrStatic.h"
+//#include "../idlib/Token.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/containers/Array.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/geometry/DrawVert.h"
+//#include "../idlib/geometry/Winding.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/Material.h"
+//#include "../renderer/Model.h"
+//#include "../renderer/ModelManager.h"
+//#include "../renderer/RenderWorld.h"
+//#include "../renderer/RenderWorld_local.h"
+//#include "../renderer/ScreenRect.h"
+//#include "tr_local.h"
 
+//namespace BFG
+//{
 
 /*
 ================
@@ -1158,3 +1191,5 @@ void idRenderWorldLocal::ResetLocalRenderModels()
 {
 	localModels.Clear();	// Clear out the list when switching between expansion packs, so InitFromMap doesn't try to delete the list whose content has already been deleted by the model manager being re-started
 }
+
+//} // namespace BFG

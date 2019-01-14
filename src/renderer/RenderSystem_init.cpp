@@ -47,6 +47,11 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/Common_local.h"
 #endif
 
+//namespace BFG
+//{
+
+//class idPreloadManifest;
+
 // DeviceContext bypasses RenderSystem to work directly with this
 idGuiModel* tr_guiModel;
 

@@ -29,6 +29,13 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SURFACE_H__
 #define __SURFACE_H__
 
+//#include "../idlib/containers/List.h"
+//#include "../idlib/geometry/DrawVert.h"
+//#include "../idlib/math/Plane.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -248,5 +255,7 @@ ID_INLINE void idSurface::RotateSelf( const idMat3& rotation )
 		verts[i].SetTangent( verts[i].GetTangent() * rotation );
 	}
 }
+
+//} // namespace BFG
 
 #endif /* !__SURFACE_H__ */

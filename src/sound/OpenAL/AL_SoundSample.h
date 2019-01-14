@@ -29,6 +29,23 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __AL_SOUNDSAMPLE_H__
 #define __AL_SOUNDSAMPLE_H__
 
+//#ifdef __APPLE__
+//#include <OpenAL/al.h>
+//#include <OpenAL/alc.h>
+//#else
+//#include <AL/al.h>
+//#include <AL/alc.h>
+//#include <AL/alext.h>
+//#endif
+
+//#include "../framework/FileSystem.h"
+//#include "../sound/WaveFile.h"
+
+//namespace BFG
+//{
+
+//ID_INLINE_EXTERN uint32 SamplesToMsec( uint32 samples, uint32 sampleRate );
+
 /*
 ================================================
 idSoundSample_OpenAL
@@ -221,4 +238,6 @@ class idSoundSample : public idSoundSample_OpenAL
 public:
 };
 
-#endif
+//} // namespace BFG
+
+#endif // __AL_SOUNDSAMPLE_H__

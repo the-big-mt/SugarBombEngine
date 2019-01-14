@@ -27,6 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cstdlib>
+//#include <cstring>
 #include "precompiled.h"
 
 //#include "../framework/Common.h"
@@ -991,3 +993,5 @@ void ASE_Free( aseModel_t* ase )
 	
 	delete ase;
 }
+
+//} // namespace BFG

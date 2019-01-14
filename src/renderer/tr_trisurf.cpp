@@ -35,6 +35,29 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 
 #include "RenderCommon.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/containers/HashIndex.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/geometry/DrawVert.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Simd.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/Interaction.h"
+//#include "../renderer/Model.h"
+//#include "../renderer/VertexCache.h"
+//#include "../renderer/jobs/dynamicshadowvolume/DynamicShadowVolume.h"
+//#include "tr_local.h"
+
+//#ifdef _WIN32
+//#undef min
+//#endif
 
 //namespace BFG
 //{

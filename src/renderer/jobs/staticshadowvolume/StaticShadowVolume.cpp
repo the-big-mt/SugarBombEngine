@@ -26,7 +26,19 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+//#include <cstddef>
+
 #include "StaticShadowVolume_local.h"
+
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/jobs/staticshadowvolume/../../../idlib/geometry/RenderMatrix.h"
+//#include "../renderer/jobs/staticshadowvolume/../ShadowShared.h"
+//#include "../renderer/jobs/staticshadowvolume/StaticShadowVolume.h"
+//#include "ParallelJobList.h"
+
+//namespace BFG
+//{
 
 /*
 ===================
@@ -104,3 +116,5 @@ void StaticShadowVolumeJob( const staticShadowVolumeParms_t* parms )
 }
 
 REGISTER_PARALLEL_JOB( StaticShadowVolumeJob, "StaticShadowVolumeJob" );
+
+//} // namespace BFG

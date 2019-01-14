@@ -29,6 +29,14 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "precompiled.h"
+//#include "../idlib/math/VecX.h"
+
+//#include <cstdint>
+
+//#include "../idlib/Str.h"
+
+//namespace BFG
+//{
 
 //===============================================================
 //
@@ -51,3 +59,5 @@ const char* idVecX::ToString( int precision ) const
 {
 	return idStr::FloatArrayToString( ToFloatPtr(), GetDimension(), precision );
 }
+
+//} // namespace BFG

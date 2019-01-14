@@ -26,14 +26,32 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+
 #ifndef __AL_SOUNDHARDWARE_H__
 #define __AL_SOUNDHARDWARE_H__
+
+//#ifdef __APPLE__
+//#include <OpenAL/al.h>
+//#include <OpenAL/alc.h>
+//#else
+//#include <AL/al.h>
+//#include <AL/alc.h>
+//#include <AL/alext.h>
+//#endif
+
+//#include "../sound/OpenAL/AL_SoundVoice.h"  // for idSoundVoice_OpenAL
+
+//#include "../sound/snd_defines.h"
+
+//namespace BFG
+//{
 
 class idSoundSample_OpenAL;
 class idSoundVoice_OpenAL;
 class idSoundHardware_OpenAL;
 
-
+//class idSoundVoice;
+//class idSoundSample;
 
 /*
 ================================================
@@ -114,4 +132,6 @@ class idSoundHardware : public idSoundHardware_OpenAL
 {
 };
 
-#endif
+//} // namespace BFG
+
+#endif // __AL_SOUNDHARDWARE_H__

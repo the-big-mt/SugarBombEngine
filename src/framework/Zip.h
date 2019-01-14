@@ -33,6 +33,15 @@ If you have questions concerning this license or the applicable additional terms
 // DG: all the zip access stuff from minizip is now in minizip/zip.h
 #include "libs/zlib/minizip/zip.h"
 
+//#include "../idlib/Str.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/containers/StrList.h"
+
+//namespace BFG
+//{
+
+//class idFile_Memory;
+
 
 /*
 ================================================
@@ -88,5 +97,7 @@ private:
 	idStrList			filterExts;					// file extensions we want to compressed
 	idStrList			uncompressedFilterExts;		// file extensions we don't want to compress
 };
+
+//} // namespace BFG
 
 #endif	/* __ZIP_H__ */
