@@ -392,6 +392,11 @@ struct idSys
 
 const int SYS_API_VERSION		= 1;
 
+struct idCommon;
+struct idCmdSystem;
+struct idCVarSystem;
+struct idFileSystem;
+
 struct sysImport_t
 {
 	int							version;				// API version

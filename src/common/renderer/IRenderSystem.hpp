@@ -80,6 +80,7 @@ enum stereoDepthType_t
 };
 
 struct idRenderWorld;
+struct idRenderModelManager;
 
 struct idRenderSystem
 {

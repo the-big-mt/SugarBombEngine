@@ -66,6 +66,9 @@ typedef enum
 	FIND_YES
 } findFile_t;
 
+class idFile_Cached;
+class idResourceCacheEntry;
+
 // file list for directory listings
 class idFileList
 {
