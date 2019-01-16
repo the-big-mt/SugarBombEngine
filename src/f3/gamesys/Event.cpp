@@ -34,10 +34,33 @@ Event are used for scheduling tasks and for linking script commands.
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstdarg>
+//#include <cstddef>
+//#include <stdint.h>
+//#include <cstdio>
+//#include <cstring>
 #include "precompiled.h"
 
-
 #include "../Game_local.h"
+//#include "../cm/CollisionModel.h"
+//#include "../d3xp/Entity.h"
+//#include "../d3xp/Game.h"
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/gamesys/Event.h"
+//#include "../d3xp/gamesys/SaveGame.h"
+//#include "../d3xp/script/Script_Program.h"
+//#include "../framework/Common.h"
+//#include "../framework/DeclManager.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/containers/LinkList.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/Material.h"
+
+//namespace BFG
+//{
 
 #define MAX_EVENTSPERFRAME			4096
 //#define CREATE_EVENT_CODE
@@ -84,7 +107,7 @@ idEventDef::idEventDef( const char* command, const char* formatspec, char return
 	if( numargs > D_EVENT_MAXARGS )
 	{
 		eventError = true;
-		sprintf( eventErrorMsg, "idEventDef::idEventDef : Too many args for '%s' event.", name );
+		std::sprintf( eventErrorMsg, "idEventDef::idEventDef : Too many args for '%s' event.", name );
 		return;
 	}
 	
@@ -138,7 +161,7 @@ idEventDef::idEventDef( const char* command, const char* formatspec, char return
 				
 			default :
 				eventError = true;
-				sprintf( eventErrorMsg, "idEventDef::idEventDef : Invalid arg format '%s' string for '%s' event.", formatspec, name );
+				std::sprintf( eventErrorMsg, "idEventDef::idEventDef : Invalid arg format '%s' string for '%s' event.", formatspec, name );
 				return;
 				break;
 		}
@@ -158,7 +181,7 @@ idEventDef::idEventDef( const char* command, const char* formatspec, char return
 			if( strcmp( formatspec, ev->formatspec ) != 0 )
 			{
 				eventError = true;
-				sprintf( eventErrorMsg, "idEvent '%s' defined twice with same name but differing format strings ('%s'!='%s').",
+				std::sprintf( eventErrorMsg, "idEvent '%s' defined twice with same name but differing format strings ('%s'!='%s').",
 						 command, formatspec, ev->formatspec );
 				return;
 			}
@@ -166,7 +189,7 @@ idEventDef::idEventDef( const char* command, const char* formatspec, char return
 			if( ev->returnType != returnType )
 			{
 				eventError = true;
-				sprintf( eventErrorMsg, "idEvent '%s' defined twice with same name but differing return types ('%c'!='%c').",
+				std::sprintf( eventErrorMsg, "idEvent '%s' defined twice with same name but differing return types ('%c'!='%c').",
 						 command, returnType, ev->returnType );
 				return;
 			}
@@ -181,7 +204,7 @@ idEventDef::idEventDef( const char* command, const char* formatspec, char return
 	if( numEventDefs >= MAX_EVENTS )
 	{
 		eventError = true;
-		sprintf( eventErrorMsg, "numEventDefs >= MAX_EVENTS" );
+		std::sprintf( eventErrorMsg, "numEventDefs >= MAX_EVENTS" );
 		return;
 	}
 	eventDefList[numEventDefs] = ev;
@@ -1260,4 +1283,6 @@ void CreateEventCallbackHandler()
 	fileSystem->CloseFile( file );
 }
 
-#endif
+#endif // CREATE_EVENT_CODE
+
+//} // namespace BFG

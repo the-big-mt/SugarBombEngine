@@ -29,6 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_CVAR_H__
 #define __SYS_CVAR_H__
 
+//#include "../framework/CVarSystem.h"  // for idCVar, etc
+
+//namespace BFG
+//{
+
 extern idCVar	developer;
 
 extern idCVar	g_cinematic;
@@ -270,5 +275,7 @@ extern idCVar g_flagAttachAngleZ;
 extern idCVar g_CTFArrows;
 
 extern idCVar	net_clientSelfSmoothing;
+
+//} // namespace BFG
 
 #endif /* !__SYS_CVAR_H__ */

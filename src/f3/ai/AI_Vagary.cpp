@@ -36,8 +36,28 @@ Vagary specific AI code
 #pragma hdrstop
 #include "precompiled.h"
 
-
 #include "../Game_local.h"
+//#include "../d3xp/Actor.h"
+//#include "../d3xp/Entity.h"
+//#include "../d3xp/Game_defines.h"
+//#include "../d3xp/Moveable.h"
+//#include "../d3xp/ai/AI.h"
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/gamesys/Event.h"
+//#include "../d3xp/gamesys/SysCvar.h"
+//#include "../d3xp/physics/Clip.h"
+//#include "../d3xp/physics/Physics.h"
+//#include "../d3xp/physics/Physics_Monster.h"
+//#include "../d3xp/script/Script_Thread.h"
+//#include "../framework/CVarSystem.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Random.h"
+//#include "../idlib/math/Vector.h"
+
+//namespace BFG
+//{
 
 class idAI_Vagary : public idAI
 {
@@ -162,3 +182,5 @@ void idAI_Vagary::Event_ThrowObjectAtEnemy( idEntity* ent, float speed )
 		ment->EnableDamage( true, 2.5f );
 	}
 }
+
+//} // namespace BFG

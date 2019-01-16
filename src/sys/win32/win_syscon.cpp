@@ -29,10 +29,18 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
+//#ifdef _WIN32
+// KORTEMIK: namespace collision
+//#define _LIMITS_
+//#endif
+
+//#include "../framework/EditField.h"
+//#include "../framework/Licensee.h"
+
 #include <errno.h>
 #include <float.h>
 #include <fcntl.h>
-#include <stdio.h>
+#include <cstdio>
 #include <direct.h>
 #include <io.h>
 #include <conio.h>

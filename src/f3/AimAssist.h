@@ -29,6 +29,14 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef	__AIMASSIST_H__
 #define	__AIMASSIST_H__
 
+//#include <cstddef>
+
+//#include "../idlib/math/Angles.h"
+//#include "../idlib/math/Vector.h"
+
+//namespace BFG
+//{
+
 /*
 ================================================================================================
 Contains the AimAssist declaration.
@@ -36,6 +44,7 @@ Contains the AimAssist declaration.
 */
 
 class idEntity;
+//class idMat3;
 class idPlayer;
 
 /*
@@ -81,5 +90,7 @@ private:
 	idEntityPtr<idEntity>	targetEntity;				// the last target we had (updated every frame)
 	idVec3					lastTargetPos;				// the last target position ( updated every frame );
 };
+
+//} // namespace BFG
 
 #endif // !__AIMASSIST_H__

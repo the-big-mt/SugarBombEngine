@@ -29,6 +29,18 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __AI_H__
 #define __AI_H__
 
+//#include "../d3xp/ai/AAS.h"  // for idAAS
+//#include "../d3xp/physics/Physics_Monster.h"  // for idPhysics_Monster
+//#include "../d3xp/Entity.h"
+//#include "../d3xp/Actor.h"
+//#include "../d3xp/Projectile.h"
+//#include "../d3xp/Misc.h"  // for idFuncEmitter
+
+//namespace BFG
+//{
+
+//class idAI;
+
 /*
 ===============================================================================
 
@@ -744,5 +756,7 @@ private:
 	void				Event_Activate( idEntity* activator );
 	void				Event_MarkUsed();
 };
+
+//} // namespace BFG
 
 #endif /* !__AI_H__ */

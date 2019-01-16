@@ -30,6 +30,34 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 #pragma hdrstop
 
+//#include <cctype>                      // for toupper, isdigit
+//#include <cstdarg>                     // for va_list, va_end, va_start
+//#include <cstddef>                     // for size_t
+//#include <cstdio>                      // for vsprintf, vsnprintf
+//#include <cstring>                     // for strlen, memmove, strcpy, etc
+
+//#include "../framework/../framework/CmdSystem.h"
+//#include "../framework/CmdSystem.h"  // for args, etc
+//#include "../framework/Common.h"        // for idCommon
+//#include "../idlib/Heap.h"              // for operator delete[], etc
+//#include "../idlib/LangDict.h"                   // for idStrId
+//#include "../idlib/Lib.h"
+//#include "../idlib/Lib.h"               // for idLib, idLib::common, etc
+//#include "../idlib/Str.h"               // for idStr, Measure_t, etc
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Math.h"         // for INT32_SIGNBITNOTSET
+//#include "../idlib/math/Vector.h"       // for idVec4
+//#include "../idlib/sys/sys_assert.h"             // for assert
+//#include "../idlib/sys/sys_types.h"              // for byte, uint8, uint32
+//#include "../sys/../idlib/CmdArgs.h"
+//#include "../sys/../idlib/CmdArgs.h"    // for idCmdArgs
+//#include "LangDict.h"
+//#include "sys/sys_assert.h"
+//#include "sys/sys_types.h"
+
+//namespace BFG
+//{
+
 #ifdef USE_STRING_DATA_ALLOCATOR
 static idDynamicBlockAlloc < char, 1 << 18, 128, TAG_STRING >	stringDataAllocator;
 #endif
@@ -2238,7 +2266,7 @@ int idStr::snPrintf( char* dest, int size, const char* fmt, ... )
 	char buffer[32000];	// big, but small enough to fit in PPC stack
 	
 	va_start( argptr, fmt );
-	len = vsprintf( buffer, fmt, argptr );
+	len = std::vsprintf( buffer, fmt, argptr );
 	va_end( argptr );
 	if( len >= sizeof( buffer ) )
 	{
@@ -2355,7 +2383,7 @@ char* va( const char* fmt, ... )
 	index = ( index + 1 ) & 3;
 	
 	va_start( argptr, fmt );
-	vsprintf( buf, fmt, argptr );
+	std::vsprintf( buf, fmt, argptr );
 	va_end( argptr );
 	
 	return buf;
@@ -2556,3 +2584,5 @@ CONSOLE_COMMAND( testStrId, "prints a localized string", 0 )
 	idStrId str( va( "#%s", args.Argv( 1 ) ) );
 	idLib::Printf( "%s = %s\n", args.Argv( 1 ), str.GetLocalizedString() );
 }
+
+//} // namespace BFG

@@ -29,6 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "precompiled.h"
+//#include <windows.h>
 
 #include <cerrno>
 #include <cfloat>
@@ -43,6 +44,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MRC__
 #include <sys/types.h>
 #include <sys/stat.h>
+#endif
+
+#ifdef USE_BREAKPAD
+#include "client/windows/handler/exception_handler.h"
 #endif
 
 #include "../sys_local.h"
@@ -227,7 +232,7 @@ void Sys_Error( const char *error, ... ) {
     MSG        msg;
 
 	va_start( argptr, error );
-	vsprintf( text, error, argptr );
+	std::vsprintf( text, error, argptr );
 	va_end( argptr);
 
 	Conbuf_AppendText( text );
@@ -1415,7 +1420,7 @@ EXCEPTION_DISPOSITION __cdecl _except_handler( struct _EXCEPTION_RECORD *Excepti
 										ContextRecord->FloatSave.DataSelector );
 
 
-	sprintf( msg, 
+	::sprintf( msg, 
 		"Please describe what you were doing when DOOM 3 crashed!\n"
 		"If this text did not pop into your email client please copy and email it to programmers@idsoftware.com\n"
 			"\n"
@@ -1484,6 +1489,18 @@ WinMain
 ==================
 */
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow ) {
+#ifdef USE_BREAKPAD
+    google_breakpad::ExceptionHandler *pHandler =
+        new google_breakpad::ExceptionHandler(
+                                              L"%TMP%\\", // FIXME: provide base path here, dir must exist
+                                              NULL,
+                                              NULL,
+                                              0,
+                                              google_breakpad::ExceptionHandler::HANDLER_ALL,
+                                              MiniDumpNormal,
+                                              L"",
+                                              0 );
+#endif
 
 	const HCURSOR hcurSave = ::SetCursor( LoadCursor( 0, IDC_WAIT ) );
 
