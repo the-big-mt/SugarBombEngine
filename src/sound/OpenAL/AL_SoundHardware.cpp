@@ -36,7 +36,6 @@ If you have questions concerning this license or the applicable additional terms
 //#include "../idlib/Lib.h"
 //#include "../idlib/containers/StaticList.h"
 #include "../snd_local.h"
-#include "../../../doomclassic/doom/i_sound.h"
 //#include "../sound/OpenAL/AL_SoundHardware.h"
 //#include "../sound/OpenAL/AL_SoundSample.h"
 //#include "../sound/OpenAL/AL_SoundVoice.h"
@@ -215,11 +214,6 @@ void idSoundHardware_OpenAL::Init()
 	//idSoundVoice::InitSurround( outputChannels, channelMask );
 	
 	// ---------------------
-	// Initialize the Doom classic sound system.
-	// ---------------------
-	I_InitSoundHardware( voices.Max(), 0 );
-	
-	// ---------------------
 	// Create VU Meter Effect
 	// ---------------------
 	/*
@@ -295,11 +289,6 @@ void idSoundHardware_OpenAL::Shutdown()
 	voices.Clear();
 	freeVoices.Clear();
 	zombieVoices.Clear();
-	
-	// ---------------------
-	// Shutdown the Doom classic sound system.
-	// ---------------------
-	I_ShutdownSoundHardware();
 	
 	alcMakeContextCurrent( NULL );
 	
