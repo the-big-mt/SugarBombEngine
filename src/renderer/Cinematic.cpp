@@ -61,7 +61,7 @@ extern "C"
 #define INT64_C(c) (c ## LL)
 #define UINT64_C(c) (c ## ULL)
 #endif
-//#include <inttypes.h>
+//#include <cinttypes>
 //#endif
 
 #include <libavcodec/avcodec.h>

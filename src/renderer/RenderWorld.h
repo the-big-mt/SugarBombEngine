@@ -89,7 +89,6 @@ ID_INLINE void SIMD_INIT_LAST_JOINT( idJointMat* joints, int numJoints )
 
 typedef bool( *deferredEntityCallback_t )( renderEntity_s*, const renderView_s* );
 
-
 typedef struct renderEntity_s
 {
 	idRenderModel* 			hModel;				// this can only be null if callback is set
@@ -169,7 +168,6 @@ typedef struct renderEntity_s
 	int						xrayIndex;
 } renderEntity_t;
 
-
 typedef struct renderLight_s
 {
 	idMat3					axis;				// rotation vectors, must be unit length
@@ -220,7 +218,6 @@ typedef struct renderLight_s
 	idSoundEmitter* 		referenceSound;		// for shader sound tables, allowing effects to vary with sounds
 } renderLight_t;
 
-
 typedef struct renderView_s
 {
 	// player views will set this to a non-zero integer for model suppress / allow
@@ -245,7 +242,6 @@ typedef struct renderView_s
 	int						viewEyeBuffer;				// -1 = left eye, 1 = right eye, 0 = monoscopic view or GUI
 	float					stereoScreenSeparation;		// projection matrix horizontal offset, positive or negative based on camera eye
 } renderView_t;
-
 
 // exitPortal_t is returned by idRenderWorld::GetPortal()
 typedef struct
