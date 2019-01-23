@@ -31,17 +31,20 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstring>
 #include "precompiled.h"
 
-//#include "../framework/Common.h"
-//#include "../framework/FileSystem.h"
-//#include "../idlib/Lexer.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/Parser.h"
-//#include "../idlib/Str.h"
-//#include "../idlib/Token.h"
-//#include "../idlib/math/Math.h"
-//#include "../idlib/math/Matrix.h"
-//#include "../idlib/containers/HashTable.h"
+#include "framework/ICommon.hpp"
+#include "framework/IFileSystem.hpp"
+
+#include "idlib/Lexer.h"
+#include "idlib/Lib.h"
+#include "idlib/Parser.h"
+#include "idlib/Str.h"
+#include "idlib/Token.h"
+#include "idlib/math/Math.h"
+#include "idlib/math/Matrix.h"
+#include "idlib/containers/HashTable.h"
+
 #include "Model_ma.h"
+
 //#include "sys/../idlib/sys/sys_defines.h"
 //#include "sys/sys_types.h"
 

@@ -31,23 +31,24 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstring>
 #include "precompiled.h"
 
+#include "framework/ICVarSystem.hpp"
+#include "framework/ICommon.hpp"
+
+#include "idlib/Lib.h"
+#include "idlib/containers/List.h"
+#include "idlib/geometry/DrawVert.h"
+#include "idlib/geometry/RenderMatrix.h"
+#include "idlib/sys/sys_defines.h"
+#include "idlib/sys/sys_types.h"
+
 #include "RenderCommon.h"
-//#include "../framework/CVarSystem.h"
-//#include "../framework/Common.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/containers/List.h"
-//#include "../idlib/geometry/DrawVert.h"
-//#include "../idlib/geometry/RenderMatrix.h"
-//#include "../idlib/sys/sys_defines.h"
-//#include "../idlib/sys/sys_types.h"
-//#include "../renderer/GLMatrix.h"
-//#include "../renderer/GuiModel.h"
-//#include "../renderer/Material.h"
-//#include "../renderer/RenderSystem.h"
-//#include "../renderer/RenderWorld.h"
-//#include "../renderer/ScreenRect.h"
-//#include "../renderer/VertexCache.h"
-//#include "tr_local.h"
+#include "GLMatrix.h"
+#include "GuiModel.h"
+#include "Material.h"
+#include "RenderSystem.h"
+#include "RenderWorld.h"
+#include "ScreenRect.h"
+#include "VertexCache.h"
 
 //namespace BFG
 //{

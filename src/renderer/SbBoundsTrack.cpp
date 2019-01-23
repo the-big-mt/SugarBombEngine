@@ -34,15 +34,17 @@ If you have questions concerning this license or the applicable additional terms
 #undef min			// windef.h macros
 #undef max
 
-//#include "../idlib/Heap.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/bv/Bounds.h"
-//#include "../idlib/math/Random.h"
-//#include "../idlib/math/Vector.h"
-//#include "../idlib/sys/sys_assert.h"
-//#include "../idlib/sys/sys_types.h"
-//#include "../sys/sys_public.h"
+#include "idlib/Heap.h"
+#include "idlib/Lib.h"
+#include "idlib/bv/Bounds.h"
+#include "idlib/math/Random.h"
+#include "idlib/math/Vector.h"
+#include "idlib/sys/sys_assert.h"
+#include "idlib/sys/sys_types.h"
+
 #include "BoundsTrack.h"
+
+//#include "../sys/sys_public.h"
 
 //namespace BFG
 //{

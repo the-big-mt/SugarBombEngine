@@ -29,12 +29,15 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "precompiled.h"
+
+#include "framework/ICVarSystem.hpp"
+
+#include "idlib/Lib.h"
+#include "idlib/Str.h"
+#include "idlib/math/Math.h"
+#include "idlib/sys/sys_assert.h"
+
 #include "RenderCommon.h"
-//#include "../framework/CVarSystem.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/Str.h"
-//#include "../idlib/math/Math.h"
-//#include "../idlib/sys/sys_assert.h"
 #include "ResolutionScale.h"
 
 //namespace BFG

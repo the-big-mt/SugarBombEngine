@@ -31,21 +31,22 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstring>
 #include "precompiled.h"
 
-#include "RenderCommon.h"
-//#include "../framework/Common.h"
+#include "framework/ICommon.hpp"
 //#include "../framework/DeclManager.h"
-//#include "../framework/FileSystem.h"
-//#include "../idlib/Heap.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/Str.h"
-//#include "../idlib/bv/Bounds.h"
-//#include "../idlib/geometry/DrawVert.h"
-//#include "../idlib/sys/sys_types.h"
-//#include "../renderer/Model.h"
-//#include "../renderer/RenderWorld.h"
+#include "framework/IFileSystem.hpp"
+
+#include "idlib/Heap.h"
+#include "idlib/Lib.h"
+#include "idlib/Str.h"
+#include "idlib/bv/Bounds.h"
+#include "idlib/geometry/DrawVert.h"
+#include "idlib/sys/sys_types.h"
+
+#include "RenderCommon.h"
+#include "Model.h"
+#include "RenderWorld.h"
 #include "Model_local.h"
 #include "Model_md3.h"
-//#include "tr_local.h"
 
 //namespace BFG
 //{

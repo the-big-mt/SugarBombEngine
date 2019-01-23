@@ -31,10 +31,10 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
+#include "idlib/geometry/DrawVert_intrinsics.h"
+
 #include "RenderCommon.h"
 #include "Model_local.h"
-
-#include "../idlib/geometry/DrawVert_intrinsics.h"
 
 //namespace BFG
 //{

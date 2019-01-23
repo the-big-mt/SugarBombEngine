@@ -31,11 +31,14 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstring>
 #include "precompiled.h"
 
-//#include "../framework/Common.h"
-//#include "../framework/FileSystem.h"
-//#include "../idlib/Str.h"
+#include "framework/ICommon.hpp"
+#include "framework/IFileSystem.hpp"
+
+#include "idlib/Str.h"
+#include "idlib/sys/sys_defines.h"
+
 #include "Model_ase.h"
-//#include "sys/../idlib/sys/sys_defines.h"
+
 //#include "sys/sys_types.h"
 
 //namespace BFG

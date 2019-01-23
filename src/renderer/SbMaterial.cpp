@@ -35,26 +35,29 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstring>
 #include "precompiled.h"
 
+#include "framework/ICVarSystem.hpp"
+#include "framework/ICommon.hpp"
+//#include "framework/DeclManager.h"
+//#include "framework/DeclTable.h"
+
+#include "idlib/Heap.h"
+#include "idlib/Lexer.h"
+#include "idlib/Str.h"
+#include "idlib/Token.h"
+#include "idlib/math/Math.h"
+#include "idlib/sys/sys_defines.h"
+
 #include "RenderCommon.h"
-//#include "../framework/CVarSystem.h"
-//#include "../framework/Common.h"
-//#include "../framework/DeclManager.h"
-//#include "../framework/DeclTable.h"
-//#include "../idlib/Heap.h"
-//#include "../idlib/Lexer.h"
-//#include "../idlib/Str.h"
-//#include "../idlib/Token.h"
-//#include "../idlib/math/Math.h"
-//#include "../idlib/sys/sys_defines.h"
-//#include "../renderer/Cinematic.h"
-//#include "../renderer/GLState.h"
-//#include "../renderer/Image.h"
-//#include "../renderer/Material.h"
-//#include "../renderer/RenderProgs.h"
-//#include "../renderer/RenderWorld.h"
+#include "Cinematic.h"
+#include "GLState.h"
+#include "Image.h"
+#include "Material.h"
+#include "RenderProgs.h"
+#include "RenderWorld.h"
+
 //#include "../sound/sound.h"
+
 //#include "../ui/UserInterface.h"
-//#include "tr_local.h"
 
 //namespace BFG
 //{

@@ -27,23 +27,24 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+#pragma hdrstop
+#include "precompiled.h"
 //#include <cstddef>
 //#include <stdint.h>
 
-//#include "../framework/CVarSystem.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/Thread.h"
-//#include "../idlib/geometry/JointTransform.h"
-//#include "../idlib/sys/sys_assert.h"
-//#include "../idlib/sys/sys_types.h"
-//#include "../renderer/BufferObject.h"
-//#include "../renderer/VertexCache.h"
-//#include "../sys/sys_public.h"
+#include "framework/ICVarSystem.hpp"
 
-#pragma hdrstop
-#include "precompiled.h"
+#include "idlib/Lib.h"
+#include "idlib/Thread.h"
+#include "idlib/geometry/JointTransform.h"
+#include "idlib/sys/sys_assert.h"
+#include "idlib/sys/sys_types.h"
 
 #include "RenderCommon.h"
+#include "BufferObject.h"
+#include "VertexCache.h"
+
+//#include "../sys/sys_public.h"
 
 //namespace BFG
 //{

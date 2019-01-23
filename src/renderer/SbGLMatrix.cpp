@@ -34,18 +34,20 @@ If you have questions concerning this license or the applicable additional terms
 //#include <xmmintrin.h>
 #include "precompiled.h"
 
+#include "framework/ICVarSystem.hpp"
+#include "framework/ICommon.hpp"
+
+#include "idlib/math/Math.h"
+#include "idlib/math/Matrix.h"
+#include "idlib/math/Plane.h"
+#include "idlib/math/Random.h"
+#include "idlib/math/Vector.h"
+
 #include "RenderCommon.h"
-//#include "../framework/CVarSystem.h"
-//#include "../framework/Common.h"
-//#include "../idlib/math/Math.h"
-//#include "../idlib/math/Matrix.h"
-//#include "../idlib/math/Plane.h"
-//#include "../idlib/math/Random.h"
-//#include "../idlib/math/Vector.h"
-//#include "../renderer/RenderWorld.h"
-//#include "../renderer/ScreenRect.h"
+#include "RenderWorld.h"
+#include "ScreenRect.h"
+
 //#include "sys/sys_intrinsics.h"
-//#include "tr_local.h"
 
 //namespace BFG
 //{

@@ -32,13 +32,15 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstring>
 #include "precompiled.h"
 
-//#include "../framework/File.h"
-//#include "../framework/FileSystem.h"
-//#include "../idlib/Heap.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/Str.h"
-//#include "../idlib/sys/sys_assert.h"
-//#include "../idlib/sys/sys_types.h"
+#include "framework/IFile.hpp"
+#include "framework/IFileSystem.hpp"
+
+#include "idlib/Heap.h"
+#include "idlib/Lib.h"
+#include "idlib/Str.h"
+#include "idlib/sys/sys_assert.h"
+#include "idlib/sys/sys_types.h"
+
 #include "Model_lwo.h"
 
 //namespace BFG

@@ -31,22 +31,23 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstddef>
 #include "precompiled.h"
 
+#include "framework/ICVarSystem.hpp"
+//#include "framework/DeclManager.h"
+//#include "framework/DeclParticle.h"
+
+#include "idlib/Heap.h"
+#include "idlib/Str.h"
+#include "idlib/bv/Bounds.h"
+#include "idlib/containers/List.h"
+#include "idlib/math/Matrix.h"
+#include "idlib/math/Random.h"
+#include "idlib/math/Vector.h"
+#include "idlib/sys/sys_types.h"
+
 #include "RenderCommon.h"
-//#include "../framework/CVarSystem.h"
-//#include "../framework/DeclManager.h"
-//#include "../framework/DeclParticle.h"
-//#include "../idlib/Heap.h"
-//#include "../idlib/Str.h"
-//#include "../idlib/bv/Bounds.h"
-//#include "../idlib/containers/List.h"
-//#include "../idlib/math/Matrix.h"
-//#include "../idlib/math/Random.h"
-//#include "../idlib/math/Vector.h"
-//#include "../idlib/sys/sys_types.h"
-//#include "../renderer/Model.h"
-//#include "../renderer/RenderWorld.h"
+#include "Model.h"
+#include "RenderWorld.h"
 #include "Model_local.h"
-//#include "tr_local.h"
 
 //namespace BFG
 //{

@@ -30,16 +30,18 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cassert>
 //#include <cstdarg>
 //#include <GL/glew.h>
+#include "precompiled.h"
+
+#include "framework/ICVarSystem.hpp"
+#include "framework/ICommon.hpp"
+
+#include "idlib/Lib.h"
+#include "idlib/Str.h"
+#include "idlib/sys/sys_types.h"
 
 #include "RenderCommon.h"
-//#include "../framework/CVarSystem.h"
-//#include "../framework/Common.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/Str.h"
-//#include "../idlib/sys/sys_types.h"
-//#include "../renderer/RenderLog.h"
-//#include "../renderer/RenderSystem.h"
-//#include "tr_local.h"
+#include "RenderLog.h"
+#include "RenderSystem.h"
 
 //namespace BFG
 //{

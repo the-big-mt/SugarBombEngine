@@ -32,13 +32,13 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstring>
 #include "precompiled.h"
 
+#include "idlib/bv/Bounds.h"
+#include "idlib/geometry/RenderMatrix.h"
+#include "idlib/math/Plane.h"
+#include "idlib/math/Vector.h"
+
 #include "RenderCommon.h"
-//#include "../idlib/bv/Bounds.h"
-//#include "../idlib/geometry/RenderMatrix.h"
-//#include "../idlib/math/Plane.h"
-//#include "../idlib/math/Vector.h"
-//#include "../renderer/RenderWorld.h"
-//#include "tr_local.h"
+#include "RenderWorld.h"
 
 //namespace BFG
 //{

@@ -30,16 +30,18 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 
 //#include "../framework/DeclManager.h"
-//#include "../framework/File.h"
-//#include "../framework/FileSystem.h"
-//#include "../idlib/Heap.h"
-//#include "../idlib/LangDict.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/Swap.h"
-//#include "../idlib/sys/sys_assert.h"
-//#include "../idlib/sys/sys_defines.h"
-//#include "../renderer/Material.h"
-//#include "../renderer/RenderSystem.h"
+#include "framework/IFile.hpp"
+#include "framework/IFileSystem.hpp"
+
+#include "idlib/Heap.h"
+#include "idlib/LangDict.h"
+#include "idlib/Lib.h"
+#include "idlib/Swap.h"
+#include "idlib/sys/sys_assert.h"
+#include "idlib/sys/sys_defines.h"
+
+#include "Material.h"
+#include "RenderSystem.h"
 #include "Font.h"
 
 //namespace BFG

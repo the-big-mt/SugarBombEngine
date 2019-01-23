@@ -27,16 +27,16 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-//#include "../idlib/Lib.h"
-//#include "../idlib/math/Math.h"
-//#include "../idlib/math/Vector.h"
+
 #include "precompiled.h"
 
+#include "idlib/Lib.h"
+#include "idlib/math/Math.h"
+#include "idlib/math/Vector.h"
+
 #include "RenderCommon.h"
-//#include "../renderer/RenderWorld_local.h"
-//#include "../renderer/ScreenRect.h"
-//#include "ScreenRect.h"
-//#include "tr_local.h"
+#include "RenderWorld_local.h"
+#include "ScreenRect.h"
 
 //namespace BFG
 //{

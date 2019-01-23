@@ -33,17 +33,18 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstring>
 #include "precompiled.h"
 
+#include "framework/ICVarSystem.hpp"
+#include "framework/ICommon.hpp"
+
+#include "idlib/Str.h"
+#include "idlib/math/Math.h"
+#include "idlib/sys/sys_assert.h"
+#include "idlib/sys/sys_types.h"
+
 #include "RenderCommon.h"
-//#include "../framework/CVarSystem.h"
-//#include "../framework/Common.h"
-//#include "../idlib/Str.h"
-//#include "../idlib/math/Math.h"
-//#include "../idlib/sys/sys_assert.h"
-//#include "../idlib/sys/sys_types.h"
-//#include "../renderer/Framebuffer.h"
-//#include "../renderer/Image.h"
-//#include "../renderer/Material.h"
-//#include "tr_local.h"
+#include "Framebuffer.h"
+#include "Image.h"
+#include "Material.h"
 #include "SMAA/AreaTex.h"
 #include "SMAA/SearchTex.h"
 

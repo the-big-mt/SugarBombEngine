@@ -32,28 +32,30 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstring>
 #include "precompiled.h"
 
-#include "RenderCommon.h"
-//#include "../framework/CVarSystem.h"
-//#include "../framework/Common.h"
+#include "framework/ICVarSystem.hpp"
+#include "framework/ICommon.hpp"
 //#include "../framework/DeclManager.h"
 //#include "../framework/DeclSkin.h"
 //#include "../framework/DemoFile.h"
 //#include "../framework/EventLoop.h"
-//#include "../idlib/Heap.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/Str.h"
-//#include "../idlib/bv/Bounds.h"
-//#include "../idlib/containers/List.h"
-//#include "../idlib/geometry/JointTransform.h"
-//#include "../renderer/Material.h"
-//#include "../renderer/Model.h"
-//#include "../renderer/ModelManager.h"
-//#include "../renderer/RenderSystem.h"
-//#include "../renderer/RenderWorld.h"
-//#include "../renderer/RenderWorld_local.h"
+
+#include "idlib/Heap.h"
+#include "idlib/Lib.h"
+#include "idlib/Str.h"
+#include "idlib/bv/Bounds.h"
+#include "idlib/containers/List.h"
+#include "idlib/geometry/JointTransform.h"
+
+#include "RenderCommon.h"
+#include "Material.h"
+#include "Model.h"
+#include "ModelManager.h"
+#include "RenderSystem.h"
+#include "RenderWorld.h"
+#include "RenderWorld_local.h"
+
 //#include "../sound/sound.h"
 //#include "../ui/UserInterface.h"
-//#include "tr_local.h"
 
 idCVar r_writeDemoDecals( "r_writeDemoDecals", "1", CVAR_BOOL | CVAR_SYSTEM, "enable Writing of entity decals to demo files." );
 idCVar r_writeDemoOverlays( "r_writeDemoOverlays", "1", CVAR_BOOL | CVAR_SYSTEM, "enable Writing of entity Overlays to demo files." );
