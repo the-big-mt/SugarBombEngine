@@ -459,6 +459,37 @@ private:
 	
 	void					Event_StartWeaponLight( const char* name );
 	void					Event_StopWeaponLight( const char* name );
+	
+	// F3 weapon stats
+	
+	int nBaseDmg; // base dmg/dmg per shot
+	int nDPS; // dmg per sec
+	
+	float fMDPS; // TODO: wut?
+	float fRateOfFire; // TODO: firerate?
+	
+	float fCritMult;
+	int nCritDmg;
+	
+	int nWeight;
+	int nVW; // TODO: wut?
+	
+	int nActionPoints; // consumption per attack
+	float fDmgPerAP; // ???
+	
+	int nHealth;
+	int nLimit; // -1 for no limit
+	int nSkill; // skill that affects the proficiency
+	
+	// Small Guns
+	float fSpread;
+	idStr sAmmoType;
+	int nClipSize;
+	int nValue; // shop value?
+	int nType;
+	
+	// Area-of-Effect
+	int nAoERadius;
 };
 
 ID_INLINE bool idWeapon::IsLinked()
