@@ -143,6 +143,7 @@ void idSoundHardware_OpenAL::PrintALInfo()
 	CheckALErrors();
 }
 
+//void idSoundHardware_OpenAL::listDevices_f( const idCmdArgs& args )
 void listDevices_f( const idCmdArgs& args )
 {
 	idLib::Printf( "Available playback devices:\n" );
