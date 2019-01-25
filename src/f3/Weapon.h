@@ -51,6 +51,23 @@ typedef enum
 	WP_LOWERING
 } weaponStatus_t;
 
+typedef enum //I am not even sure if the enum strings are correct or not
+{
+    HandToHand = 0,
+    MeleeOneHand = 1,
+    MeleeTwoHand = 2,
+    PistolBallistic = 3,
+    PistolEnergy = 4,
+    RifleBallistic = 5,
+    RifleAutomatic = 6,
+    RifleEnergy = 7,
+    Handle = 8,
+    Launcher = 9,
+    Grenade = 10,
+    LandMine = 11,
+    MineDrop = 12
+} weaponAnimation_t;
+
 typedef int ammo_t;
 static const int AMMO_NUMTYPES = 16;
 
@@ -462,22 +479,33 @@ private:
 	
 	// F3 weapon stats
 	
-	int nBaseDmg; // base dmg/dmg per shot
-	int nDPS; // dmg per sec
+	// DATA
+	int32_t nHealth;
+	int32_t nValue; // shop value?
+	float fWeight;
+	int nBaseDmg; // base dmg per shot
+	uint8_t nClipSize;
 	
-	float fMDPS; // TODO: wut?
+	// DNAM
+	float fanimMult;
 	float fRateOfFire; // TODO: firerate?
-	
+	float fReach;
 	float fCritMult;
+	float fminSpread;
+	float fSpread;
 	int nCritDmg;
+	uint8_t nAmmoUse;
+	float fSightFOV;
+	std::string sProjectile;
+	uint8_t nvatsHitChance;
+	uint8_t attackAnimation;
 	
-	int nWeight;
 	int nVW; // TODO: wut?
 	
 	int nActionPoints; // consumption per attack
 	float fDmgPerAP; // ???
 	
-	int nHealth;
+	int32 nHealth;
 	int nLimit; // -1 for no limit
 	int nSkill; // skill that affects the proficiency
 	
@@ -485,7 +513,6 @@ private:
 	float fSpread;
 	idStr sAmmoType;
 	int nClipSize;
-	int nValue; // shop value?
 	int nType;
 	
 	// Area-of-Effect
