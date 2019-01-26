@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 //#ifdef __APPLE__
-//#include <OpenAL/al.h>
+//#	include <OpenAL/al.h>
 //#else
-//#include <AL/al.h>
+//#	include <AL/al.h>
 //#endif
 //#include <cstddef>
 #include "precompiled.h"
@@ -50,6 +50,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include "../sound/snd_defines.h"
 
 //#include "../sys/sys_public.h"
+
 //namespace BFG
 //{
 
@@ -59,8 +60,6 @@ idCVar s_debugHardware( "s_debugHardware", "0", CVAR_BOOL, "Print a message any 
 // The whole system runs at this sample rate
 static int SYSTEM_SAMPLE_RATE = 44100;
 static float ONE_OVER_SYSTEM_SAMPLE_RATE = 1.0f / SYSTEM_SAMPLE_RATE;
-
-
 
 /*
 ========================

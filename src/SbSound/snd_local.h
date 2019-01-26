@@ -5,6 +5,7 @@ Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2013-2016 Robert Beckebans
 Copyright (C) 2014-2016 Kot in Action Creative Artel
+Copyright (C) 2018-2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -28,9 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __SND_LOCAL_H__
-#define __SND_LOCAL_H__
+/// @file
 
+#pragma once
 //#include "idlib/Thread.h"
 
 //} // namespace BFG
@@ -140,7 +141,7 @@ struct AudioDevice
 
 //} // namespace BFG
 
-#endif /* !__SND_LOCAL_H__ */#include "SbSoundFade.hpp"
+#include "SbSoundFade.hpp"
 #include "SbSoundChannel.hpp"
 #include "SbSoundWorld.hpp"
 #include "SbSoundEmitter.hpp"

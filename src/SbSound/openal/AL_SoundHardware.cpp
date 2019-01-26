@@ -27,7 +27,11 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+
+/// @file
+
 #pragma hdrstop
+
 #include "precompiled.h"
 
 #include "framework/ICVarSystem.hpp"

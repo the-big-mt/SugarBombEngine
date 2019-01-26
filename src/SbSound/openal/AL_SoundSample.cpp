@@ -30,9 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 //#ifdef __APPLE__
-//#include <OpenAL/al.h>
+//#	include <OpenAL/al.h>
 //#else
-//#include <AL/al.h>
+//#	include <AL/al.h>
 //#endif
 //#include <cmath>
 //#include <cstring>
@@ -58,6 +58,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "AL_SoundSample.h"
 #include "snd_local.h"
 #include "WaveFile.h"
+
 //#include "../sys/sys_public.h"
 
 //namespace BFG
