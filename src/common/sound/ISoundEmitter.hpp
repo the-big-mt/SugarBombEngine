@@ -42,9 +42,14 @@ If you have questions concerning this license or the applicable additional terms
 static const int SCHANNEL_ANY = 0;	// used in queries and commands to effect every channel at once, in
 // startSound to have it not override any other channel
 static const int SCHANNEL_ONE = 1;	// any following integer can be used as a channel number
+
 typedef int s_channelType;	// the game uses its own series of enums, and we don't want to require casts
 
-class idSoundEmitter
+struct soundShaderParms_t;
+struct idSoundShader;
+class idVec3;
+
+struct idSoundEmitter
 {
 public:
 	virtual					~idSoundEmitter() {}

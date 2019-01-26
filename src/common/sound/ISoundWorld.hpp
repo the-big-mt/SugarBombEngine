@@ -41,6 +41,12 @@ option existing simultaniously with a live game.
 ===============================================================================
 */
 
+struct idSoundEmitter;
+struct idDemoFile;
+struct idFile;
+class idVec3;
+class idMat3;
+
 struct idSoundWorld
 {
 	virtual					~idSoundWorld() {}
