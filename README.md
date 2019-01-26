@@ -19,12 +19,12 @@ This release does not contain any game data, the game data is still covered by t
 This project's git repository can be checked out through Git with the following instruction set: 
 
 	> git clone https://gitlab.com/BlackPhrase/sugarbombengine.git
-or
+or  
 	> git clone https://github.com/BlackPhrase/SugarBombEngine.git
 	
 If you don't want to use git, you can download the source as a zip file at
 	https://gitlab.com/BlackPhrase/sugarbombengine/-/archive/master/sugarbombengine-master.zip
-or
+or  
 	https://github.com/BlackPhrase/SugarBombEngine/archive/master.zip
 
 ## License
