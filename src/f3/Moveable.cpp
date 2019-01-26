@@ -41,7 +41,7 @@ If you have questions concerning this license or the applicable additional terms
 
 const idEventDef EV_BecomeNonSolid( "becomeNonSolid" );
 const idEventDef EV_SetOwnerFromSpawnArgs( "<setOwnerFromSpawnArgs>" );
-const idEventDef EV_IsAtRest( "isAtRest", NULL, 'd' );
+const idEventDef EV_IsAtRest( "isAtRest", nullptr, 'd' );
 const idEventDef EV_EnableDamage( "enableDamage", "f" );
 
 CLASS_DECLARATION( idEntity, idMoveable )
@@ -68,13 +68,13 @@ idMoveable::idMoveable()
 	nextCollideFxTime	= 0;
 	nextDamageTime		= 0;
 	nextSoundTime		= 0;
-	initialSpline		= NULL;
+	initialSpline		= nullptr;
 	initialSplineDir	= vec3_zero;
 	explode				= false;
 	unbindOnDeath		= false;
 	allowStep			= false;
 	canDamage			= false;
-	attacker			= NULL;
+	attacker			= nullptr;
 }
 
 /*
@@ -85,7 +85,7 @@ idMoveable::~idMoveable
 idMoveable::~idMoveable()
 {
 	delete initialSpline;
-	initialSpline = NULL;
+	initialSpline = nullptr;
 }
 
 /*
@@ -137,7 +137,7 @@ void idMoveable::Spawn()
 	damage = spawnArgs.GetString( "def_damage", "" );
 	monsterDamage = spawnArgs.GetString( "monster_damage", "" );
 	fl.networkSync = true;
-	attacker = NULL;
+	attacker = nullptr;
 	canDamage = spawnArgs.GetBool( "damageWhenActive" ) ? false : true;
 	minDamageVelocity = spawnArgs.GetFloat( "minDamageVelocity", "300" );	// _D3XP
 	maxDamageVelocity = spawnArgs.GetFloat( "maxDamageVelocity", "700" );	// _D3XP
@@ -219,7 +219,7 @@ void idMoveable::Save( idSaveGame* savefile ) const
 	savefile->WriteBool( canDamage );
 	savefile->WriteInt( nextDamageTime );
 	savefile->WriteInt( nextSoundTime );
-	savefile->WriteInt( initialSpline != NULL ? initialSpline->GetTime( 0 ) : -1 );
+	savefile->WriteInt( initialSpline != nullptr ? initialSpline->GetTime( 0 ) : -1 );
 	savefile->WriteVec3( initialSplineDir );
 	
 	savefile->WriteStaticObject( physicsObj );
@@ -257,7 +257,7 @@ void idMoveable::Restore( idRestoreGame* savefile )
 	}
 	else
 	{
-		initialSpline = NULL;
+		initialSpline = nullptr;
 	}
 	
 	savefile->ReadStaticObject( physicsObj );
@@ -304,7 +304,7 @@ bool idMoveable::Collide( const trace_t& collision, const idVec3& velocity )
 	if( v > BOUNCE_SOUND_MIN_VELOCITY && gameLocal.time > nextSoundTime )
 	{
 		f = v > BOUNCE_SOUND_MAX_VELOCITY ? 1.0f : idMath::Sqrt( v - BOUNCE_SOUND_MIN_VELOCITY ) * ( 1.0f / idMath::Sqrt( BOUNCE_SOUND_MAX_VELOCITY - BOUNCE_SOUND_MIN_VELOCITY ) );
-		if( StartSound( "snd_bounce", SND_CHANNEL_ANY, 0, false, NULL ) )
+		if( StartSound( "snd_bounce", SND_CHANNEL_ANY, 0, false, nullptr ) )
 		{
 			// don't set the volume unless there is a bounce sound as it overrides the entire channel
 			// which causes footsteps on ai's to not honor their shader parms
@@ -373,7 +373,7 @@ bool idMoveable::Collide( const trace_t& collision, const idVec3& velocity )
 	
 	if( fxCollide.Length() && gameLocal.time > nextCollideFxTime )
 	{
-		idEntityFx::StartFx( fxCollide, &collision.c.point, NULL, this, false );
+		idEntityFx::StartFx( fxCollide, &collision.c.point, nullptr, this, false );
 		nextCollideFxTime = gameLocal.time + 3500;
 	}
 	
@@ -407,7 +407,7 @@ void idMoveable::Killed( idEntity* inflictor, idEntity* attacker, int damage, co
 	
 	if( renderEntity.gui[ 0 ] )
 	{
-		renderEntity.gui[ 0 ] = NULL;
+		renderEntity.gui[ 0 ] = nullptr;
 	}
 	
 	ActivateTargets( this );
@@ -468,7 +468,7 @@ void idMoveable::InitInitialSpline( int startTime )
 	initialSpline = GetSpline();
 	initialSplineTime = spawnArgs.GetInt( "initialSplineTime", "300" );
 	
-	if( initialSpline != NULL )
+	if( initialSpline != nullptr )
 	{
 		initialSpline->MakeUniform( initialSplineTime );
 		initialSpline->ShiftTime( startTime - initialSpline->GetTime( 0 ) );
@@ -486,7 +486,7 @@ idMoveable::FollowInitialSplinePath
 */
 bool idMoveable::FollowInitialSplinePath()
 {
-	if( initialSpline != NULL )
+	if( initialSpline != nullptr )
 	{
 		if( gameLocal.time < initialSpline->GetTime( initialSpline->GetNumValues() - 1 ) )
 		{
@@ -505,7 +505,7 @@ bool idMoveable::FollowInitialSplinePath()
 		else
 		{
 			delete initialSpline;
-			initialSpline = NULL;
+			initialSpline = nullptr;
 		}
 	}
 	return false;
@@ -554,7 +554,7 @@ const idMaterial* idMoveable::GetRenderModelMaterial() const
 	{
 		return renderEntity.hModel->Surface( 0 )->shader;
 	}
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -679,7 +679,7 @@ idMoveable::Event_EnableDamage
 void idMoveable::Event_EnableDamage( float enable )
 {
 	// clear out attacker
-	attacker = NULL;
+	attacker = nullptr;
 	
 	canDamage = ( enable != 0.0f );
 }
@@ -1223,7 +1223,7 @@ void idExplodingBarrel::ExplodingEffects()
 {
 	const char* temp;
 	
-	StartSound( "snd_explode", SND_CHANNEL_ANY, 0, false, NULL );
+	StartSound( "snd_explode", SND_CHANNEL_ANY, 0, false, nullptr );
 	
 	temp = spawnArgs.GetString( "model_damage" );
 	if( *temp != '\0' )
@@ -1275,7 +1275,7 @@ void idExplodingBarrel::Killed( idEntity* inflictor, idEntity* attacker, int dam
 	{
 		state = BURNING;
 		PostEventSec( &EV_Explode, f );
-		StartSound( "snd_burn", SND_CHANNEL_ANY, 0, false, NULL );
+		StartSound( "snd_burn", SND_CHANNEL_ANY, 0, false, nullptr );
 		AddParticles( spawnArgs.GetString( "model_burn", "" ), true );
 		return;
 	}
@@ -1298,7 +1298,7 @@ void idExplodingBarrel::Killed( idEntity* inflictor, idEntity* attacker, int dam
 	physicsObj.SetContents( 0 );
 	
 	const char* splash = spawnArgs.GetString( "def_splash_damage", "damage_explosion" );
-	if( splash != NULL && *splash != '\0' )
+	if( splash != nullptr && *splash != '\0' )
 	{
 		gameLocal.RadiusDamage( GetPhysics()->GetOrigin(), this, attacker, this, this, splash );
 	}
@@ -1308,7 +1308,7 @@ void idExplodingBarrel::Killed( idEntity* inflictor, idEntity* attacker, int dam
 	//FIXME: need to precache all the debris stuff here and in the projectiles
 	const idKeyValue* kv = spawnArgs.MatchPrefix( "def_debris" );
 	// bool first = true;
-	while( kv != NULL )
+	while( kv != nullptr )
 	{
 		const idDict* debris_args = gameLocal.FindEntityDefDict( kv->GetValue(), false );
 		if( debris_args )
@@ -1327,7 +1327,7 @@ void idExplodingBarrel::Killed( idEntity* inflictor, idEntity* attacker, int dam
 			dir.Normalize();
 			
 			gameLocal.SpawnEntityDef( *debris_args, &ent, false );
-			if( ent == NULL || !ent->IsType( idDebris::Type ) )
+			if( ent == nullptr || !ent->IsType( idDebris::Type ) )
 			{
 				gameLocal.Error( "'projectile_debris' is not an idDebris" );
 				break;
@@ -1364,7 +1364,7 @@ void idExplodingBarrel::Killed( idEntity* inflictor, idEntity* attacker, int dam
 	
 	// Any time a barrel explodes, attribute it towards the 'Boomtastic' achievement, since there's no way a barrel can explode without player interference
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	if( player != NULL && !common->IsMultiplayer() )
+	if( player != nullptr && !common->IsMultiplayer() )
 	{
 		player->GetAchievementManager().EventCompletesAchievement( ACHIEVEMENT_DESTROY_BARRELS );
 	}
@@ -1380,12 +1380,12 @@ void idExplodingBarrel::Damage( idEntity* inflictor, idEntity* attacker, const i
 {
 
 	const idDict* damageDef = gameLocal.FindEntityDefDict( damageDefName );
-	if( damageDef == NULL )
+	if( damageDef == nullptr )
 	{
 		gameLocal.Error( "Unknown damageDef '%s'\n", damageDefName );
 		return;
 	}
-	if( damageDef->FindKey( "radius" ) && GetPhysics()->GetContents() != 0 && GetBindMaster() == NULL )
+	if( damageDef->FindKey( "radius" ) && GetPhysics()->GetContents() != 0 && GetBindMaster() == nullptr )
 	{
 		PostEventMS( &EV_Explode, 400 );
 	}
@@ -1415,7 +1415,7 @@ void idExplodingBarrel::Event_Explode()
 	if( state == NORMAL || state == BURNING )
 	{
 		state = BURNEXPIRED;
-		Killed( NULL, attacker, 0, vec3_zero, 0 );
+		Killed( nullptr, attacker, 0, vec3_zero, 0 );
 	}
 }
 
@@ -1451,7 +1451,7 @@ void idExplodingBarrel::Event_Respawn()
 		}
 	}
 	const char* temp = spawnArgs.GetString( "model" );
-	if( temp != NULL && *temp != '\0' )
+	if( temp != nullptr && *temp != '\0' )
 	{
 		SetModel( temp );
 	}

@@ -471,9 +471,9 @@ idImage* idImageManager::ScratchImage( const char* _name, idImageOpts* imgOpts, 
 		idLib::FatalError( "idImageManager::ScratchImage called with empty name" );
 	}
 	
-	if( imgOpts == NULL )
+	if( imgOpts == nullptr )
 	{
-		idLib::FatalError( "idImageManager::ScratchImage called with NULL imgOpts" );
+		idLib::FatalError( "idImageManager::ScratchImage called with nullptr imgOpts" );
 	}
 	
 	idStr name = _name;
@@ -524,7 +524,7 @@ idImage* idImageManager::ScratchImage( const char* _name, idImageOpts* imgOpts, 
 	// create a new image
 	//
 	idImage* newImage = AllocImage( name );
-	if( newImage != NULL )
+	if( newImage != nullptr )
 	{
 		newImage->AllocImage( *imgOpts, filter, repeat );
 	}
@@ -563,7 +563,7 @@ idImage* idImageManager::GetImage( const char* _name ) const
 		}
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -625,7 +625,7 @@ void R_CombineCubeImages_f( const idCmdArgs& args )
 			sprintf( filename, "%s%i%04i.tga", baseName.c_str(), orderRemap[side], frameNum );
 			
 			idLib::Printf( "reading %s\n", filename );
-			R_LoadImage( filename, &pics[side], &width, &height, NULL, true );
+			R_LoadImage( filename, &pics[side], &width, &height, nullptr, true );
 			
 			if( !pics[side] )
 			{

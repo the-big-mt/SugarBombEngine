@@ -69,8 +69,8 @@ idSoundVoice_OpenAL::idSoundVoice_OpenAL()
 	:
 	triggered( false ),
 	openalSource( 0 ),
-	leadinSample( NULL ),
-	loopingSample( NULL ),
+	leadinSample( nullptr ),
+	loopingSample( nullptr ),
 	formatTag( 0 ),
 	numChannels( 0 ),
 	sampleRate( 0 ),
@@ -142,7 +142,7 @@ void idSoundVoice_OpenAL::Create( const idSoundSample* leadinSample_, const idSo
 		
 		alGenSources( 1, &openalSource );
 		if( CheckALErrors() != AL_NO_ERROR )
-			//if( pSourceVoice == NULL )
+			//if( pSourceVoice == nullptr )
 		{
 			// If this hits, then we are most likely passing an invalid sample format, which should have been caught by the loader (and the sample defaulted)
 			return;
@@ -150,7 +150,7 @@ void idSoundVoice_OpenAL::Create( const idSoundSample* leadinSample_, const idSo
 		
 		alSourcef( openalSource, AL_ROLLOFF_FACTOR, 0.0f );
 		
-		//if( ( loopingSample == NULL && leadinSample->openalBuffer != 0 ) || ( loopingSample != NULL && soundShader->entries[0]->hardwareBuffer ) )
+		//if( ( loopingSample == nullptr && leadinSample->openalBuffer != 0 ) || ( loopingSample != nullptr && soundShader->entries[0]->hardwareBuffer ) )
 		if( leadinSample->openalBuffer != 0 )
 		{
 			alSourcei( openalSource, AL_BUFFER, 0 );
@@ -189,7 +189,7 @@ void idSoundVoice_OpenAL::Create( const idSoundSample* leadinSample_, const idSo
 		
 		if( s_debugHardware.GetBool() )
 		{
-			if( loopingSample == NULL || loopingSample == leadinSample )
+			if( loopingSample == nullptr || loopingSample == leadinSample )
 			{
 				idLib::Printf( "%dms: %i created for %s\n", Sys_Milliseconds(), openalSource, leadinSample ? leadinSample->GetName() : "<null>" );
 			}
@@ -296,7 +296,7 @@ void idSoundVoice_OpenAL::Start( int offsetMS, int ssFlags )
 		/*
 		if( flicker )
 		{
-			IUnknown* vuMeter = NULL;
+			IUnknown* vuMeter = nullptr;
 		
 			if( XAudio2CreateVolumeMeter( &vuMeter, 0 ) == S_OK )
 			{
@@ -317,14 +317,14 @@ void idSoundVoice_OpenAL::Start( int offsetMS, int ssFlags )
 		}
 		else
 		{
-			pSourceVoice->SetEffectChain( NULL );
+			pSourceVoice->SetEffectChain( nullptr );
 		}
 		*/
 	}
 	
 	assert( offsetMS >= 0 );
 	int offsetSamples = MsecToSamples( offsetMS, leadinSample->SampleRate() );
-	if( loopingSample == NULL && offsetSamples >= leadinSample->playLength )
+	if( loopingSample == nullptr && offsetSamples >= leadinSample->playLength )
 	{
 		return;
 	}
@@ -346,7 +346,7 @@ int idSoundVoice_OpenAL::RestartAt( int offsetSamples )
 	idSoundSample_OpenAL* sample = leadinSample;
 	if( offsetSamples >= leadinSample->playLength )
 	{
-		if( loopingSample != NULL )
+		if( loopingSample != nullptr )
 		{
 			offsetSamples %= loopingSample->playLength;
 			sample = loopingSample;
@@ -377,14 +377,14 @@ idSoundVoice_OpenAL::SubmitBuffer
 */
 int idSoundVoice_OpenAL::SubmitBuffer( idSoundSample_OpenAL* sample, int bufferNumber, int offset )
 {
-	if( sample == NULL || ( bufferNumber < 0 ) || ( bufferNumber >= sample->buffers.Num() ) )
+	if( sample == nullptr || ( bufferNumber < 0 ) || ( bufferNumber >= sample->buffers.Num() ) )
 	{
 		return 0;
 	}
 	
 #if 0
 	idSoundSystemLocal::bufferContext_t* bufferContext = soundSystemLocal.ObtainStreamBufferContext();
-	if( bufferContext == NULL )
+	if( bufferContext == nullptr )
 	{
 		idLib::Warning( "No free buffer contexts!" );
 		return 0;
@@ -398,7 +398,7 @@ int idSoundVoice_OpenAL::SubmitBuffer( idSoundSample_OpenAL* sample, int bufferN
 	if( sample->openalBuffer != 0 )
 	{
 		alSourcei( openalSource, AL_BUFFER, sample->openalBuffer );
-		alSourcei( openalSource, AL_LOOPING, ( sample == loopingSample && loopingSample != NULL ? AL_TRUE : AL_FALSE ) );
+		alSourcei( openalSource, AL_LOOPING, ( sample == loopingSample && loopingSample != nullptr ? AL_TRUE : AL_FALSE ) );
 		
 		return sample->totalBufferSize;
 	}
@@ -499,7 +499,7 @@ int idSoundVoice_OpenAL::SubmitBuffer( idSoundSample_OpenAL* sample, int bufferN
 	buffer.AudioBytes = sample->buffers[bufferNumber].bufferSize;
 	buffer.pAudioData = ( BYTE* )sample->buffers[bufferNumber].buffer;
 	buffer.pContext = bufferContext;
-	if( ( loopingSample == NULL ) && ( bufferNumber == sample->buffers.Num() - 1 ) )
+	if( ( loopingSample == nullptr ) && ( bufferNumber == sample->buffers.Num() - 1 ) )
 	{
 		buffer.Flags = XAUDIO2_END_OF_STREAM;
 	}
@@ -518,7 +518,7 @@ idSoundVoice_OpenAL::Update
 bool idSoundVoice_OpenAL::Update()
 {
 	/*
-	if( pSourceVoice == NULL || leadinSample == NULL )
+	if( pSourceVoice == nullptr || leadinSample == nullptr )
 	{
 		return false;
 	}
@@ -714,7 +714,7 @@ idSoundVoice_OpenAL::ResetSampleRate
 void idSoundVoice_OpenAL::SetSampleRate( uint32 newSampleRate, uint32 operationSet )
 {
 	/*
-	if( pSourceVoice == NULL || leadinSample == NULL )
+	if( pSourceVoice == nullptr || leadinSample == nullptr )
 	{
 		return;
 	}
@@ -771,7 +771,7 @@ void idSoundVoice_OpenAL::OnBufferStart( idSoundSample_OpenAL* sample, int buffe
 	{
 		if( sample == leadinSample )
 		{
-			if( loopingSample == NULL )
+			if( loopingSample == nullptr )
 			{
 				return;
 			}

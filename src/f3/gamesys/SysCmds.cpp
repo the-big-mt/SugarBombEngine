@@ -111,7 +111,7 @@ void Cmd_ActiveEntityList_f( const idCmdArgs& args )
 	
 	gameLocal.Printf( "%-4s  %-20s %-20s %s\n", " Num", "EntityDef", "Class", "Name" );
 	gameLocal.Printf( "--------------------------------------------------------------------\n" );
-	for( check = gameLocal.activeEntities.Next(); check != NULL; check = check->activeNode.Next() )
+	for( check = gameLocal.activeEntities.Next(); check != nullptr; check = check->activeNode.Next() )
 	{
 		char	dormant = check->fl.isDormant ? '-' : ' ';
 		gameLocal.Printf( "%4i:%c%-20s %-20s %s\n", check->entityNumber, dormant, check->GetEntityDefName(), check->GetClassname(), check->name.c_str() );
@@ -158,7 +158,7 @@ void Cmd_ReloadScript_f( const idCmdArgs& args )
 	// recompile the scripts
 	gameLocal.program.Startup( SCRIPT_DEFAULT );
 	
-	if( fileSystem->ReadFile( "doom_main.script", NULL ) > 0 )
+	if( fileSystem->ReadFile( "doom_main.script", nullptr ) > 0 )
 	{
 		gameLocal.program.CompileFile( "doom_main.script" );
 		gameLocal.program.FinishCompilation();
@@ -176,7 +176,7 @@ CONSOLE_COMMAND( reloadScript2, "Doesn't thow an error...  Use this when switchi
 	// recompile the scripts
 	gameLocal.program.Startup( SCRIPT_DEFAULT );
 	
-	if( fileSystem->ReadFile( "doom_main.script", NULL ) > 0 )
+	if( fileSystem->ReadFile( "doom_main.script", nullptr ) > 0 )
 	{
 		gameLocal.program.CompileFile( "doom_main.script" );
 		gameLocal.program.FinishCompilation();
@@ -213,7 +213,7 @@ void Cmd_Script_f( const idCmdArgs& args )
 		if( func )
 		{
 			// set all the entity names in case the user named one in the script that wasn't referenced in the default script
-			for( ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next() )
+			for( ent = gameLocal.spawnedEntities.Next(); ent != nullptr; ent = ent->spawnNode.Next() )
 			{
 				gameLocal.program.SetEntity( ent->name, ent );
 			}
@@ -249,7 +249,7 @@ void KillEntities( const idCmdArgs& args, const idTypeInfo& superClass )
 		ignore.Append( name );
 	}
 	
-	for( ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next() )
+	for( ent = gameLocal.spawnedEntities.Next(); ent != nullptr; ent = ent->spawnNode.Next() )
 	{
 		if( ent->IsType( superClass ) )
 		{
@@ -464,27 +464,27 @@ void Cmd_Give_f( const idCmdArgs& args )
 	{
 		if( args.Argc() == 2 )
 		{
-			player->GivePDA( NULL, NULL );
+			player->GivePDA( nullptr, nullptr );
 		}
 		else if( idStr::Icmp( args.Argv( 2 ), "all" ) == 0 )
 		{
 			// Give the personal PDA first
-			player->GivePDA( NULL, NULL );
+			player->GivePDA( nullptr, nullptr );
 			for( int i = 0; i < declManager->GetNumDecls( DECL_PDA ); i++ )
 			{
-				player->GivePDA( static_cast<const idDeclPDA*>( declManager->DeclByIndex( DECL_PDA, i ) ), NULL );
+				player->GivePDA( static_cast<const idDeclPDA*>( declManager->DeclByIndex( DECL_PDA, i ) ), nullptr );
 			}
 		}
 		else
 		{
 			const idDeclPDA* pda = static_cast<const idDeclPDA*>( declManager->FindType( DECL_PDA, args.Argv( 2 ), false ) );
-			if( pda == NULL )
+			if( pda == nullptr )
 			{
 				gameLocal.Printf( "Unknown PDA %s\n", args.Argv( 2 ) );
 			}
 			else
 			{
-				player->GivePDA( pda, NULL );
+				player->GivePDA( pda, nullptr );
 			}
 		}
 		return;
@@ -493,13 +493,13 @@ void Cmd_Give_f( const idCmdArgs& args )
 	if( idStr::Icmp( name, "video" ) == 0 )
 	{
 		const idDeclVideo* video = static_cast<const idDeclVideo*>( declManager->FindType( DECL_VIDEO, args.Argv( 2 ), false ) );
-		if( video == NULL )
+		if( video == nullptr )
 		{
 			gameLocal.Printf( "Unknown video %s\n", args.Argv( 2 ) );
 		}
 		else
 		{
-			player->GiveVideo( video, NULL );
+			player->GiveVideo( video, nullptr );
 		}
 		return;
 	}
@@ -735,7 +735,7 @@ static void Cmd_Say( bool team, const idCmdArgs& args )
 	}
 	else
 	{
-		gameLocal.mpGame.ProcessChatMessage( gameLocal.GetLocalClientNum(), team, name, text, NULL );
+		gameLocal.mpGame.ProcessChatMessage( gameLocal.GetLocalClientNum(), team, name, text, nullptr );
 	}
 }
 
@@ -834,7 +834,7 @@ void Cmd_SetViewpos_f( const idCmdArgs& args )
 	}
 	origin.z -= pm_normalviewheight.GetFloat() - 0.25f;
 	
-	player->Teleport( origin, angles, NULL );
+	player->Teleport( origin, angles, nullptr );
 }
 
 /*
@@ -1026,8 +1026,8 @@ void Cmd_TestLight_f( const idCmdArgs& args )
 {
 	int			i;
 	idStr		filename;
-	const char* key = NULL, *value = NULL, *name = NULL;
-	idPlayer* 	player = NULL;
+	const char* key = nullptr, *value = nullptr, *name = nullptr;
+	idPlayer* 	player = nullptr;
 	idDict		dict;
 	
 	player = gameLocal.GetLocalPlayer();
@@ -1089,9 +1089,9 @@ Cmd_TestPointLight_f
 */
 void Cmd_TestPointLight_f( const idCmdArgs& args )
 {
-	const char* key = NULL, *value = NULL, *name = NULL;
+	const char* key = nullptr, *value = nullptr, *name = nullptr;
 	int			i;
-	idPlayer*	player = NULL;
+	idPlayer*	player = nullptr;
 	idDict		dict;
 	
 	player = gameLocal.GetLocalPlayer();
@@ -1157,9 +1157,9 @@ void Cmd_PopLight_f( const idCmdArgs& args )
 	
 	bool removeFromMap = ( args.Argc() > 1 );
 	
-	lastLight = NULL;
+	lastLight = nullptr;
 	last = -1;
-	for( ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next() )
+	for( ent = gameLocal.spawnedEntities.Next(); ent != nullptr; ent = ent->spawnNode.Next() )
 	{
 		if( !ent->IsType( idLight::Type ) )
 		{
@@ -1208,7 +1208,7 @@ void Cmd_ClearLights_f( const idCmdArgs& args )
 	bool removeFromMap = ( args.Argc() > 1 );
 	
 	gameLocal.Printf( "Clearing all lights.\n" );
-	for( ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = next )
+	for( ent = gameLocal.spawnedEntities.Next(); ent != nullptr; ent = next )
 	{
 		next = ent->spawnNode.Next();
 		if( !ent->IsType( idLight::Type ) )
@@ -1250,7 +1250,7 @@ void Cmd_TestFx_f( const idCmdArgs& args )
 	if( gameLocal.testFx )
 	{
 		delete gameLocal.testFx;
-		gameLocal.testFx = NULL;
+		gameLocal.testFx = nullptr;
 	}
 	
 	if( args.Argc() < 2 )
@@ -1620,7 +1620,7 @@ static void Cmd_ListAnims_f( const idCmdArgs& args )
 		
 		size = 0;
 		num = 0;
-		for( ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next() )
+		for( ent = gameLocal.spawnedEntities.Next(); ent != nullptr; ent = ent->spawnNode.Next() )
 		{
 			animator = ent->GetAnimator();
 			if( animator )
@@ -1701,7 +1701,7 @@ static void Cmd_TestDamage_f( const idCmdArgs& args )
 	// give the player full health before and after
 	// running the damage
 	player->health = player->inventory.maxHealth;
-	player->Damage( NULL, NULL, dir, damageDefName, 1.0f, INVALID_JOINT );
+	player->Damage( nullptr, nullptr, dir, damageDefName, 1.0f, INVALID_JOINT );
 	player->health = player->inventory.maxHealth;
 }
 
@@ -1753,7 +1753,7 @@ static void Cmd_TestDeath_f( const idCmdArgs& args )
 	dir[2] = 0;
 	
 	g_testDeath.SetBool( 1 );
-	player->Damage( NULL, NULL, dir, "damage_triggerhurt_1000", 1.0f, INVALID_JOINT );
+	player->Damage( nullptr, nullptr, dir, "damage_triggerhurt_1000", 1.0f, INVALID_JOINT );
 	if( args.Argc() >= 2 )
 	{
 		player->SpawnGibs( dir, "damage_triggerhurt_1000" );
@@ -1787,13 +1787,13 @@ Cmd_SaveSelected_f
 static void Cmd_SaveSelected_f( const idCmdArgs& args )
 {
 	int i;
-	idPlayer* player = NULL;
-	idEntity* s = NULL;
+	idPlayer* player = nullptr;
+	idEntity* s = nullptr;
 	idMapEntity* mapEnt;
 	idMapFile* mapFile = gameLocal.GetLevelMap();
 	idDict dict;
 	idStr mapName;
-	const char* name = NULL;
+	const char* name = nullptr;
 	
 	player = gameLocal.GetLocalPlayer();
 	if( !player || !gameLocal.CheatsOk() )
@@ -1885,11 +1885,11 @@ Cmd_SaveMoveables_f
 static void Cmd_SaveMoveables_f( const idCmdArgs& args )
 {
 	int e, i;
-	idMoveable* m = NULL;
-	idMapEntity* mapEnt = NULL;
+	idMoveable* m = nullptr;
+	idMapEntity* mapEnt = nullptr;
 	idMapFile* mapFile = gameLocal.GetLevelMap();
 	idStr mapName;
-	const char* name = NULL;
+	const char* name = nullptr;
 	
 	if( !gameLocal.CheatsOk() )
 	{
@@ -1982,12 +1982,12 @@ Cmd_SaveRagdolls_f
 static void Cmd_SaveRagdolls_f( const idCmdArgs& args )
 {
 	int e, i;
-	idAFEntity_Base* af = NULL;
-	idMapEntity* mapEnt = NULL;
+	idAFEntity_Base* af = nullptr;
+	idMapEntity* mapEnt = nullptr;
 	idMapFile* mapFile = gameLocal.GetLevelMap();
 	idDict dict;
 	idStr mapName;
-	const char* name = NULL;
+	const char* name = nullptr;
 	
 	if( !gameLocal.CheatsOk() )
 	{
@@ -2118,12 +2118,12 @@ Cmd_SaveLights_f
 static void Cmd_SaveLights_f( const idCmdArgs& args )
 {
 	int e, i;
-	idLight* light = NULL;
-	idMapEntity* mapEnt = NULL;
+	idLight* light = nullptr;
+	idMapEntity* mapEnt = nullptr;
 	idMapFile* mapFile = gameLocal.GetLevelMap();
 	idDict dict;
 	idStr mapName;
-	const char* name = NULL;
+	const char* name = nullptr;
 	
 	if( !gameLocal.CheatsOk() )
 	{
@@ -2263,7 +2263,7 @@ static void Cmd_TestSave_f( const idCmdArgs& args )
 	idFile* f, *strings;
 	
 	f = fileSystem->OpenFileWrite( "test.sav" );
-	strings = NULL;
+	strings = nullptr;
 	gameLocal.SaveGame( f, strings );
 	fileSystem->CloseFile( f );
 }
@@ -2388,7 +2388,7 @@ static void Cmd_ShowViewNotes_f( const idCmdArgs& args )
 		// TODO_SPARTY: removed old hud need to find a way of doing this with the new hud
 		//player->hud->SetStateString( "viewcomments", token );
 		//player->hud->HandleNamedEvent( "showViewComments" );
-		player->Teleport( origin, axis.ToAngles(), NULL );
+		player->Teleport( origin, axis.ToAngles(), nullptr );
 	}
 	else
 	{
@@ -2415,15 +2415,15 @@ bool FindEntityGUIs( idEntity* ent, const modelSurface_t** surfaces,  int maxSur
 	const idMaterial*		shader;
 	int						i;
 	
-	assert( surfaces != NULL );
-	assert( ent != NULL );
+	assert( surfaces != nullptr );
+	assert( ent != nullptr );
 	
 	memset( surfaces, 0x00, sizeof( modelSurface_t* ) * maxSurfs );
 	guiSurfaces = 0;
 	
 	renderEnt  = ent->GetRenderEntity();
 	renderModel = renderEnt->hModel;
-	if( renderModel == NULL )
+	if( renderModel == nullptr )
 	{
 		return false;
 	}
@@ -2431,12 +2431,12 @@ bool FindEntityGUIs( idEntity* ent, const modelSurface_t** surfaces,  int maxSur
 	for( i = 0; i < renderModel->NumSurfaces(); i++ )
 	{
 		surf = renderModel->Surface( i );
-		if( surf == NULL )
+		if( surf == nullptr )
 		{
 			continue;
 		}
 		shader = surf->shader;
-		if( shader == NULL )
+		if( shader == nullptr )
 		{
 			continue;
 		}
@@ -2487,7 +2487,7 @@ void Cmd_NextGUI_f( const idCmdArgs& args )
 	// see if we have any gui surfaces left to go to on the current entity.
 	guiSurfaces = 0;
 	newEnt = false;
-	if( ent == NULL )
+	if( ent == nullptr )
 	{
 		newEnt = true;
 	}
@@ -2507,7 +2507,7 @@ void Cmd_NextGUI_f( const idCmdArgs& args )
 	if( newEnt == true )
 	{
 		// go ahead and skip to the next entity with a gui...
-		if( ent == NULL )
+		if( ent == nullptr )
 		{
 			ent = gameLocal.spawnedEntities.Next();
 		}
@@ -2516,19 +2516,19 @@ void Cmd_NextGUI_f( const idCmdArgs& args )
 			ent = ent->spawnNode.Next();
 		}
 		
-		for( ; ent != NULL; ent = ent->spawnNode.Next() )
+		for( ; ent != nullptr; ent = ent->spawnNode.Next() )
 		{
-			if( ent->spawnArgs.GetString( "gui", NULL ) != NULL )
+			if( ent->spawnArgs.GetString( "gui", nullptr ) != nullptr )
 			{
 				break;
 			}
 			
-			if( ent->spawnArgs.GetString( "gui2", NULL ) != NULL )
+			if( ent->spawnArgs.GetString( "gui2", nullptr ) != nullptr )
 			{
 				break;
 			}
 			
-			if( ent->spawnArgs.GetString( "gui3", NULL ) != NULL )
+			if( ent->spawnArgs.GetString( "gui3", nullptr ) != nullptr )
 			{
 				break;
 			}
@@ -2563,7 +2563,7 @@ void Cmd_NextGUI_f( const idCmdArgs& args )
 	renderEnt = ent->GetRenderEntity();
 	surfIndex = gameLocal.lastGUI++;
 	geom = surfaces[ surfIndex ]->geometry;
-	if( geom == NULL )
+	if( geom == nullptr )
 	{
 		gameLocal.Printf( "Entity \"%s\" has gui surface %d without geometry!\n", ent->name.c_str(), surfIndex );
 		return;
@@ -2585,7 +2585,7 @@ void Cmd_NextGUI_f( const idCmdArgs& args )
 	
 	//	make sure the player is in noclip
 	player->noclip = true;
-	player->Teleport( origin, angles, NULL );
+	player->Teleport( origin, angles, nullptr );
 }
 
 void Cmd_SetActorState_f( const idCmdArgs& args )
@@ -2620,7 +2620,7 @@ void Cmd_SetActorState_f( const idCmdArgs& args )
 // not used
 static void ArgCompletion_DefFile( const idCmdArgs& args, void( *callback )( const char* s ) )
 {
-	cmdSystem->ArgCompletion_FolderExtension( args, callback, "def/", true, ".def", NULL );
+	cmdSystem->ArgCompletion_FolderExtension( args, callback, "def/", true, ".def", nullptr );
 }
 #endif
 

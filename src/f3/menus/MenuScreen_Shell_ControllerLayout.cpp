@@ -69,7 +69,7 @@ void idMenuScreen_Shell_ControllerLayout::Initialize( idMenuHandler* data )
 {
 	idMenuScreen::Initialize( data );
 	
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		menuGUI = data->GetGUI();
 	}
@@ -108,10 +108,10 @@ idMenuScreen_Shell_ControllerLayout::Update
 void idMenuScreen_Shell_ControllerLayout::Update()
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuWidget_CommandBar* cmdBar = menuData->GetCmdBar();
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			idMenuWidget_CommandBar::buttonInfo_t* buttonInfo;
@@ -131,25 +131,25 @@ void idMenuScreen_Shell_ControllerLayout::Update()
 	if( BindSprite( root ) )
 	{
 		idSWFTextInstance* heading = GetSprite()->GetScriptObject()->GetNestedText( "info", "txtHeading" );
-		if( heading != NULL )
+		if( heading != nullptr )
 		{
 			heading->SetText( "#str_swf_controller_layout" );	// CONTROLLER LAYOUT
 			heading->SetStrokeInfo( true, 0.75f, 1.75f );
 		}
 		
 		idSWFSpriteInstance* gradient = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "gradient" );
-		if( gradient != NULL && heading != NULL )
+		if( gradient != nullptr && heading != nullptr )
 		{
 			gradient->SetXPos( heading->GetTextLength() );
 		}
 		
-		if( menuData != NULL )
+		if( menuData != nullptr )
 		{
-			idSWFSpriteInstance* layout = NULL;
+			idSWFSpriteInstance* layout = nullptr;
 			
 			layout = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "controlInfo", "layout360" );
 			
-			if( layout != NULL )
+			if( layout != nullptr )
 			{
 				if( menuData->GetPlatform( true ) == 2 )
 				{
@@ -163,7 +163,7 @@ void idMenuScreen_Shell_ControllerLayout::Update()
 		}
 	}
 	
-	if( btnBack != NULL )
+	if( btnBack != nullptr )
 	{
 		btnBack->BindSprite( root );
 	}
@@ -183,16 +183,16 @@ void idMenuScreen_Shell_ControllerLayout::ShowScreen( const mainMenuTransition_t
 	layoutData.LoadData();
 	idMenuScreen::ShowScreen( transitionType );
 	
-	if( GetSprite() != NULL )
+	if( GetSprite() != nullptr )
 	{
 	
-		idSWFSpriteInstance* layout360 = NULL;
-		idSWFSpriteInstance* layoutPS3 = NULL;
+		idSWFSpriteInstance* layout360 = nullptr;
+		idSWFSpriteInstance* layoutPS3 = nullptr;
 		
 		layout360 = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "controlInfo", "layout360" );
 		layoutPS3 = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "controlInfo", "layoutPS3" );
 		
-		if( layout360 != NULL && layoutPS3 != NULL )
+		if( layout360 != nullptr && layoutPS3 != nullptr )
 		{
 			layout360->SetVisible( true );
 			layoutPS3->SetVisible( false );
@@ -232,14 +232,14 @@ void idMenuScreen_Shell_ControllerLayout::UpdateBindingInfo()
 		const char* txtField = gamepadBinds[i].textField;
 		int keyNum = gamepadBinds[i].keyNum;
 		
-		idSWFTextInstance* txtVal = NULL;
+		idSWFTextInstance* txtVal = nullptr;
 		
 		txtVal = GetSprite()->GetScriptObject()->GetNestedText( "info", "controlInfo", "layout360", txtField );
 		
-		if( txtVal != NULL )
+		if( txtVal != nullptr )
 		{
 			const char* binding = idKeyInput::GetBinding( keyNum );
-			if( binding == NULL || binding[0] == 0 )
+			if( binding == nullptr || binding[0] == 0 )
 			{
 				txtVal->SetText( "" );
 			}
@@ -269,7 +269,7 @@ idMenuScreen_Shell_ControllerLayout::HandleAction h
 bool idMenuScreen_Shell_ControllerLayout::HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled )
 {
 
-	if( menuData == NULL )
+	if( menuData == nullptr )
 	{
 		return true;
 	}
@@ -296,7 +296,7 @@ bool idMenuScreen_Shell_ControllerLayout::HandleAction( idWidgetAction& action, 
 				return true;
 			}
 			
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}
@@ -316,7 +316,7 @@ bool idMenuScreen_Shell_ControllerLayout::HandleAction( idWidgetAction& action, 
 		case WIDGET_ACTION_START_REPEATER:
 		{
 		
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}
@@ -334,7 +334,7 @@ bool idMenuScreen_Shell_ControllerLayout::HandleAction( idWidgetAction& action, 
 		}
 		case WIDGET_ACTION_ADJUST_FIELD:
 		{
-			if( widget != NULL && widget->GetDataSource() != NULL )
+			if( widget != nullptr && widget->GetDataSource() != nullptr )
 			{
 				widget->GetDataSource()->AdjustField( widget->GetDataSourceFieldIndex(), parms[ 0 ].ToInteger() );
 				widget->Update();
@@ -367,7 +367,7 @@ void idMenuScreen_Shell_ControllerLayout::idMenuDataSource_LayoutSettings::LoadD
 {
 
 	idPlayerProfile* profile = session->GetProfileFromMasterLocalUser();
-	if( profile == NULL )
+	if( profile == nullptr )
 	{
 		return;
 	}
@@ -405,7 +405,7 @@ void idMenuScreen_Shell_ControllerLayout::idMenuDataSource_LayoutSettings::Adjus
 {
 
 	idPlayerProfile* profile = session->GetProfileFromMasterLocalUser();
-	if( profile == NULL )
+	if( profile == nullptr )
 	{
 		return;
 	}

@@ -131,7 +131,7 @@ void idLobby::UpdateHostMigration()
 		return;
 	}
 	
-	if( lobbyBackend == NULL || lobbyBackend->GetState() != idLobbyBackend::STATE_READY )
+	if( lobbyBackend == nullptr || lobbyBackend->GetState() != idLobbyBackend::STATE_READY )
 	{
 		return;
 	}
@@ -198,7 +198,7 @@ void idLobby::BuildMigrationInviteList( bool inviteOldHost )
 	{
 		lobbyUser_t* user = GetLobbyUser( i );
 		
-		if( !verify( user != NULL ) )
+		if( !verify( user != nullptr ) )
 		{
 			continue;
 		}
@@ -285,7 +285,7 @@ void idLobby::PickNewHostInternal( bool forceMe, bool inviteOldHost )
 	{
 		lobbyUser_t* user = GetLobbyUser( i );
 		
-		if( !verify( user != NULL ) )
+		if( !verify( user != nullptr ) )
 		{
 			continue;
 		}
@@ -377,7 +377,7 @@ void idLobby::BecomeHost()
 	migrationInfo.state					= MIGRATE_BECOMING_HOST;
 	migrationInfo.migrationStartTime	= Sys_Milliseconds();
 	
-	if( lobbyBackend == NULL )
+	if( lobbyBackend == nullptr )
 	{
 		// If we don't have a lobbyBackend, then just create one
 		Shutdown();
@@ -411,7 +411,7 @@ void idLobby::EndMigration()
 	
 	sessionCB->MigrationEnded( *this );
 	
-	if( lobbyBackend != NULL )
+	if( lobbyBackend != nullptr )
 	{
 		lobbyBackend->FinishBecomeHost();
 	}
@@ -483,7 +483,7 @@ bool idLobby::GetMigrationGameDataUser( lobbyUserID_t lobbyUserID, idBitMsg& msg
 	}
 	
 	lobbyUser_t* u = GetLobbyUser( userNum );
-	if( u != NULL )
+	if( u != nullptr )
 	{
 		if( reading )
 		{
@@ -534,7 +534,7 @@ void idLobby::HandleMigrationGameData( idBitMsg& msg )
 	for( int i = 0; i < GetNumLobbyUsers(); i++ )
 	{
 		lobbyUser_t* u = GetLobbyUser( i );
-		if( u != NULL )
+		if( u != nullptr )
 		{
 			u->migrationGameData = -1;
 		}
@@ -548,7 +548,7 @@ void idLobby::HandleMigrationGameData( idBitMsg& msg )
 		lobbyUserID_t lobbyUserID;
 		lobbyUserID.ReadFromMsg( msg );
 		lobbyUser_t* user = GetLobbyUser( GetLobbyUserIndexByID( lobbyUserID ) );
-		if( user != NULL )
+		if( user != nullptr )
 		{
 		
 			NET_VERBOSE_PRINT( "NET:    Got migration data[%d] for user %s\n", dataIndex, user->gamertag );

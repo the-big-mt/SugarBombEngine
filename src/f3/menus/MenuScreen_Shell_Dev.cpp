@@ -40,7 +40,7 @@ void idMenuScreen_Shell_Dev::Initialize( idMenuHandler* data )
 {
 	idMenuScreen::Initialize( data );
 	
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		menuGUI = data->GetGUI();
 	}
@@ -119,7 +119,7 @@ void idMenuScreen_Shell_Dev::SetupDevOptions()
 	devOptions.Append( devOption_t( "game/caverns1", "Caverns 1" ) );
 	devOptions.Append( devOption_t( "game/caverns2", "Caverns 2" ) );
 	devOptions.Append( devOption_t( "game/hellhole", "Hell Hole" ) );
-	devOptions.Append( devOption_t( NULL, "-DOOM 3 Expansion-" ) );
+	devOptions.Append( devOption_t( nullptr, "-DOOM 3 Expansion-" ) );
 	devOptions.Append( devOption_t( "game/erebus1", "Erebus 1" ) );
 	devOptions.Append( devOption_t( "game/erebus2", "Erebus 2" ) );
 	devOptions.Append( devOption_t( "game/erebus3", "Erebus 3" ) );
@@ -132,7 +132,7 @@ void idMenuScreen_Shell_Dev::SetupDevOptions()
 	devOptions.Append( devOption_t( "game/phobos4", "Phobos 4" ) );
 	devOptions.Append( devOption_t( "game/deltax", "Delta X" ) );
 	devOptions.Append( devOption_t( "game/hell", "Hell" ) );
-	devOptions.Append( devOption_t( NULL, "-Lost Missions-" ) );
+	devOptions.Append( devOption_t( nullptr, "-Lost Missions-" ) );
 	devOptions.Append( devOption_t( "game/le_enpro1", "Enpro 1" ) );
 	devOptions.Append( devOption_t( "game/le_enpro2", "Enpro 2" ) );
 	devOptions.Append( devOption_t( "game/le_underground", "Undeground" ) );
@@ -141,7 +141,7 @@ void idMenuScreen_Shell_Dev::SetupDevOptions()
 	devOptions.Append( devOption_t( "game/le_exis2", "Exis 2" ) );
 	devOptions.Append( devOption_t( "game/le_hell", "Hell" ) );
 	devOptions.Append( devOption_t( "game/le_hell_post", "Hell Post" ) );
-	devOptions.Append( devOption_t( NULL, "-Test Maps-" ) );
+	devOptions.Append( devOption_t( nullptr, "-Test Maps-" ) );
 	devOptions.Append( devOption_t( "game/pdas", "PDAs" ) );
 	devOptions.Append( devOption_t( "testmaps/test_box", "Box" ) );
 	
@@ -165,10 +165,10 @@ idMenuScreen_Shell_Dev::Update
 void idMenuScreen_Shell_Dev::Update()
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuWidget_CommandBar* cmdBar = menuData->GetCmdBar();
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			idMenuWidget_CommandBar::buttonInfo_t* buttonInfo;
@@ -192,20 +192,20 @@ void idMenuScreen_Shell_Dev::Update()
 	if( BindSprite( root ) )
 	{
 		idSWFTextInstance* heading = GetSprite()->GetScriptObject()->GetNestedText( "info", "txtHeading" );
-		if( heading != NULL )
+		if( heading != nullptr )
 		{
 			heading->SetText( "DEV" );
 			heading->SetStrokeInfo( true, 0.75f, 1.75f );
 		}
 		
 		idSWFSpriteInstance* gradient = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "gradient" );
-		if( gradient != NULL && heading != NULL )
+		if( gradient != nullptr && heading != nullptr )
 		{
 			gradient->SetXPos( heading->GetTextLength() );
 		}
 	}
 	
-	if( btnBack != NULL )
+	if( btnBack != nullptr )
 	{
 		btnBack->BindSprite( root );
 	}
@@ -241,7 +241,7 @@ idMenuScreen_Shell_Dev::HandleAction h
 bool idMenuScreen_Shell_Dev::HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled )
 {
 
-	if( menuData == NULL )
+	if( menuData == nullptr )
 	{
 		return true;
 	}
@@ -263,7 +263,7 @@ bool idMenuScreen_Shell_Dev::HandleAction( idWidgetAction& action, const idWidge
 		}
 		case WIDGET_ACTION_PRESS_FOCUSED:
 		{
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}
@@ -281,7 +281,7 @@ bool idMenuScreen_Shell_Dev::HandleAction( idWidgetAction& action, const idWidge
 			}
 			
 			int mapIndex = options->GetViewIndex();
-			if( ( mapIndex < devOptions.Num() ) && ( devOptions[ mapIndex ].map != NULL ) )
+			if( ( mapIndex < devOptions.Num() ) && ( devOptions[ mapIndex ].map != nullptr ) )
 			{
 				cmdSystem->AppendCommandText( va( "devmap %s\n", devOptions[ mapIndex ].map ) );
 			}

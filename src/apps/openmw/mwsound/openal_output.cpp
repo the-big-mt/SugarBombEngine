@@ -1042,7 +1042,7 @@ void OpenAL_Output::initCommon2D(ALuint source, const osg::Vec3f &pos, ALfloat g
     {
         if(mWaterFilter)
             alSourcei(source, AL_DIRECT_FILTER,
-                (mListenerEnv == Env_Underwater) ? mWaterFilter : AL_FILTER_NULL
+                (mListenerEnv == Env_Underwater) ? mWaterFilter : AL_FILTER_nullptr
             );
         else if(mListenerEnv == Env_Underwater)
         {
@@ -1050,14 +1050,14 @@ void OpenAL_Output::initCommon2D(ALuint source, const osg::Vec3f &pos, ALfloat g
             pitch *= 0.7f;
         }
         if(mEffectSlot)
-            alSource3i(source, AL_AUXILIARY_SEND_FILTER, mEffectSlot, 0, AL_FILTER_NULL);
+            alSource3i(source, AL_AUXILIARY_SEND_FILTER, mEffectSlot, 0, AL_FILTER_nullptr);
     }
     else
     {
         if(mWaterFilter)
-            alSourcei(source, AL_DIRECT_FILTER, AL_FILTER_NULL);
+            alSourcei(source, AL_DIRECT_FILTER, AL_FILTER_nullptr);
         if(mEffectSlot)
-            alSource3i(source, AL_AUXILIARY_SEND_FILTER, AL_EFFECTSLOT_NULL, 0, AL_FILTER_NULL);
+            alSource3i(source, AL_AUXILIARY_SEND_FILTER, AL_EFFECTSLOT_nullptr, 0, AL_FILTER_nullptr);
     }
 
     alSourcef(source, AL_GAIN, gain);
@@ -1083,7 +1083,7 @@ void OpenAL_Output::initCommon3D(ALuint source, const osg::Vec3f &pos, ALfloat m
     {
         if(mWaterFilter)
             alSourcei(source, AL_DIRECT_FILTER,
-                (mListenerEnv == Env_Underwater) ? mWaterFilter : AL_FILTER_NULL
+                (mListenerEnv == Env_Underwater) ? mWaterFilter : AL_FILTER_nullptr
             );
         else if(mListenerEnv == Env_Underwater)
         {
@@ -1091,14 +1091,14 @@ void OpenAL_Output::initCommon3D(ALuint source, const osg::Vec3f &pos, ALfloat m
             pitch *= 0.7f;
         }
         if(mEffectSlot)
-            alSource3i(source, AL_AUXILIARY_SEND_FILTER, mEffectSlot, 0, AL_FILTER_NULL);
+            alSource3i(source, AL_AUXILIARY_SEND_FILTER, mEffectSlot, 0, AL_FILTER_nullptr);
     }
     else
     {
         if(mWaterFilter)
-            alSourcei(source, AL_DIRECT_FILTER, AL_FILTER_NULL);
+            alSourcei(source, AL_DIRECT_FILTER, AL_FILTER_nullptr);
         if(mEffectSlot)
-            alSource3i(source, AL_AUXILIARY_SEND_FILTER, AL_EFFECTSLOT_NULL, 0, AL_FILTER_NULL);
+            alSource3i(source, AL_AUXILIARY_SEND_FILTER, AL_EFFECTSLOT_nullptr, 0, AL_FILTER_nullptr);
     }
 
     alSourcef(source, AL_GAIN, gain);
@@ -1402,7 +1402,7 @@ void OpenAL_Output::updateListener(const osg::Vec3f &pos, const osg::Vec3f &atdi
             // Update active sources with the environment's direct filter
             if(mWaterFilter)
             {
-                ALuint filter = (env == Env_Underwater) ? mWaterFilter : AL_FILTER_NULL;
+                ALuint filter = (env == Env_Underwater) ? mWaterFilter : AL_FILTER_nullptr;
                 for(Sound *sound : mActiveSounds)
                 {
                     if(sound->getUseEnv())

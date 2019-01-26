@@ -226,7 +226,7 @@ void idBase64_TestBase64()
 		idLib::common->Printf( "read idDict.test:\n" );
 		test_dict.Print();
 		idLib::fileSystem->CloseFile( file );
-		file = NULL;
+		file = nullptr;
 	}
 	else
 	{

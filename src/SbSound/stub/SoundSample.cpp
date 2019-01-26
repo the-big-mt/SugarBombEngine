@@ -157,7 +157,7 @@ idSoundSample::LoadGeneratedSound
 bool idSoundSample::LoadGeneratedSample( const idStr& filename )
 {
 	idFileLocal fileIn( fileSystem->OpenFileReadMemory( filename ) );
-	if( fileIn != NULL )
+	if( fileIn != nullptr )
 	{
 		uint32 magic;
 		fileIn->ReadBig( magic );
@@ -292,7 +292,7 @@ bool idSoundSample::LoadWav( const idStr& filename )
 	LoadAmplitude( sampleName );
 	
 	const char* formatError = wave.ReadWaveFormat( format );
-	if( formatError != NULL )
+	if( formatError != nullptr )
 	{
 		idLib::Warning( "LoadWav( %s ) : %s", filename.c_str(), formatError );
 		MakeDefault();
@@ -524,7 +524,7 @@ bool idSoundSample::LoadAmplitude( const idStr& name )
 {
 	amplitude.Clear();
 	idFileLocal f( fileSystem->OpenFileRead( name ) );
-	if( f == NULL )
+	if( f == nullptr )
 	{
 		return false;
 	}

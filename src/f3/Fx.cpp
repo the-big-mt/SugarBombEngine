@@ -218,7 +218,7 @@ idEntityFx::EffectName
 */
 const char* idEntityFx::EffectName()
 {
-	return fxEffect ? fxEffect->GetName() : NULL;
+	return fxEffect ? fxEffect->GetName() : nullptr;
 }
 
 /*
@@ -228,7 +228,7 @@ idEntityFx::Joint
 */
 const char* idEntityFx::Joint()
 {
-	return fxEffect ? fxEffect->joint.c_str() : NULL;
+	return fxEffect ? fxEffect->joint.c_str() : nullptr;
 }
 
 /*
@@ -387,9 +387,9 @@ idEntityFx::Run
 void idEntityFx::Run( int time )
 {
 	int ieff, j;
-	idEntity* ent = NULL;
-	const idDict* projectileDef = NULL;
-	idProjectile* projectile = NULL;
+	idEntity* ent = nullptr;
+	const idDict* projectileDef = nullptr;
+	idProjectile* projectile = nullptr;
 	
 	if( !fxEffect )
 	{
@@ -517,7 +517,7 @@ void idEntityFx::Run( int time )
 				{
 					useAction->soundStarted = true;
 					const idSoundShader* shader = declManager->FindSound( fxaction.data );
-					StartSoundShader( shader, SND_CHANNEL_ANY, 0, false, NULL );
+					StartSoundShader( shader, SND_CHANNEL_ANY, 0, false, nullptr );
 					for( j = 0; j < fxEffect->events.Num(); j++ )
 					{
 						idFXLocalAction& laction2 = actions[j];
@@ -560,7 +560,7 @@ void idEntityFx::Run( int time )
 					}
 					if( fxaction.shakeImpulse != 0.0f && fxaction.shakeDistance != 0.0f )
 					{
-						idEntity* ignore_ent = NULL;
+						idEntity* ignore_ent = nullptr;
 						if( common->IsMultiplayer() )
 						{
 							ignore_ent = this;
@@ -618,7 +618,7 @@ void idEntityFx::Run( int time )
 				if( !useAction->launched )
 				{
 					useAction->launched = true;
-					projectile = NULL;
+					projectile = nullptr;
 					// FIXME: may need to cache this if it is slow
 					projectileDef = gameLocal.FindEntityDefDict( fxaction.data, false );
 					if( !projectileDef )
@@ -681,7 +681,7 @@ idEntityFx::idEntityFx
 */
 idEntityFx::idEntityFx()
 {
-	fxEffect = NULL;
+	fxEffect = nullptr;
 	started = -1;
 	nextTriggerTime = -1;
 	fl.networkSync = true;
@@ -695,7 +695,7 @@ idEntityFx::~idEntityFx
 idEntityFx::~idEntityFx()
 {
 	CleanUp();
-	fxEffect = NULL;
+	fxEffect = nullptr;
 }
 
 /*
@@ -713,7 +713,7 @@ void idEntityFx::Spawn()
 	
 	const char* fx;
 	nextTriggerTime = 0;
-	fxEffect = NULL;
+	fxEffect = nullptr;
 	if( spawnArgs.GetString( "fx", "", &fx ) )
 	{
 		systemName = fx;
@@ -845,7 +845,7 @@ idEntityFx* idEntityFx::StartFx( const char* fx, const idVec3* useOrigin, const 
 
 	if( g_skipFX.GetBool() || !fx || !*fx )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	idDict args;
@@ -884,7 +884,7 @@ void idEntityFx::WriteToSnapshot( idBitMsg& msg ) const
 {
 	GetPhysics()->WriteToSnapshot( msg );
 	WriteBindToSnapshot( msg );
-	msg.WriteLong( ( fxEffect != NULL ) ? gameLocal.ServerRemapDecl( -1, DECL_FX, fxEffect->Index() ) : -1 );
+	msg.WriteLong( ( fxEffect != nullptr ) ? gameLocal.ServerRemapDecl( -1, DECL_FX, fxEffect->Index() ) : -1 );
 	msg.WriteLong( started );
 }
 
@@ -977,5 +977,5 @@ void idTeleporter::Event_DoAction( idEntity* activator )
 	
 	angle = spawnArgs.GetFloat( "angle" );
 	idAngles a( 0, spawnArgs.GetFloat( "angle" ), 0 );
-	activator->Teleport( GetPhysics()->GetOrigin(), a, NULL );
+	activator->Teleport( GetPhysics()->GetOrigin(), a, nullptr );
 }

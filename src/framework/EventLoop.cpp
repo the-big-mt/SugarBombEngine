@@ -42,8 +42,8 @@ idEventLoop::idEventLoop
 */
 idEventLoop::idEventLoop()
 {
-	com_journalFile = NULL;
-	com_journalDataFile = NULL;
+	com_journalFile = nullptr;
+	com_journalDataFile = nullptr;
 	initialTimeOffset = 0;
 }
 
@@ -268,12 +268,12 @@ void idEventLoop::Shutdown()
 	if( com_journalFile )
 	{
 		fileSystem->CloseFile( com_journalFile );
-		com_journalFile = NULL;
+		com_journalFile = nullptr;
 	}
 	if( com_journalDataFile )
 	{
 		fileSystem->CloseFile( com_journalDataFile );
-		com_journalDataFile = NULL;
+		com_journalDataFile = nullptr;
 	}
 }
 

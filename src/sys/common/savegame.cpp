@@ -50,7 +50,7 @@ void Sys_ExecuteSavegameCommandAsync
 */
 void Sys_ExecuteSavegameCommandAsyncImpl( idSaveLoadParms* savegameParms )
 {
-	assert( savegameParms != NULL );
+	assert( savegameParms != nullptr );
 	
 	session->GetSaveGameManager().GetSaveGameThread().data.saveLoadParms = savegameParms;
 	
@@ -69,20 +69,20 @@ idLocalUser * GetLocalUserFromUserId
 */
 idLocalUserWin* GetLocalUserFromSaveParms( const saveGameThreadArgs_t& data )
 {
-	if( ( data.saveLoadParms != NULL ) && ( data.saveLoadParms->inputDeviceId >= 0 ) )
+	if( ( data.saveLoadParms != nullptr ) && ( data.saveLoadParms->inputDeviceId >= 0 ) )
 	{
 		idLocalUser* user = session->GetSignInManager().GetLocalUserByInputDevice( data.saveLoadParms->inputDeviceId );
-		if( user != NULL )
+		if( user != nullptr )
 		{
 			idLocalUserWin* userWin = static_cast< idLocalUserWin* >( user );
-			if( userWin != NULL && data.saveLoadParms->userId == idStr::Hash( userWin->GetGamerTag() ) )
+			if( userWin != nullptr && data.saveLoadParms->userId == idStr::Hash( userWin->GetGamerTag() ) )
 			{
 				return userWin;
 			}
 		}
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -93,7 +93,7 @@ idSaveGameThread::SaveGame
 int idSaveGameThread::Save()
 {
 	idLocalUserWin* user = GetLocalUserFromSaveParms( data );
-	if( user == NULL )
+	if( user == nullptr )
 	{
 		data.saveLoadParms->errorCode = SAVEGAME_E_INVALID_USER;
 		return -1;
@@ -179,7 +179,7 @@ int idSaveGameThread::Save()
 		idStr tempFileName = va( "%s.temp", fileName.c_str() );
 		
 		idFile* outputFile = fileSystem->OpenFileWrite( tempFileName, "fs_savePath" );
-		if( outputFile == NULL )
+		if( outputFile == nullptr )
 		{
 #ifdef _WIN32 // DG: unify windows and posix savegames => replace GetLastError with strerror(errno)
 			idLib::Warning( "[%s]: Couldn't open file for writing, %s. Error = %08x", __FUNCTION__, tempFileName.c_str(), GetLastError() );
@@ -196,7 +196,7 @@ int idSaveGameThread::Save()
 		{
 		
 			idFile_SaveGamePipelined* inputFile = dynamic_cast< idFile_SaveGamePipelined* >( file );
-			assert( inputFile != NULL );
+			assert( inputFile != nullptr );
 			
 			blockForIO_t block;
 			while( inputFile->NextWriteBlock( & block ) )
@@ -327,7 +327,7 @@ int idSaveGameThread::Load()
 		filename.AppendPath( file->GetName() );
 		
 		idFile* inputFile = fileSystem->OpenFileRead( filename.c_str() );
-		if( inputFile == NULL )
+		if( inputFile == nullptr )
 		{
 			file->error = true;
 			if( !( file->type & SAVEGAMEFILE_OPTIONAL ) )
@@ -342,7 +342,7 @@ int idSaveGameThread::Load()
 		{
 		
 			idFile_SaveGamePipelined* outputFile = dynamic_cast< idFile_SaveGamePipelined* >( file );
-			assert( outputFile != NULL );
+			assert( outputFile != nullptr );
 			
 			size_t lastReadBytes = 0;
 			blockForIO_t block;
@@ -353,7 +353,7 @@ int idSaveGameThread::Load()
 				{
 					// Notify end-of-file to the save game file which will cause all reads on the
 					// other end of the pipeline to return zero bytes after the pipeline is drained.
-					outputFile->NextReadBlock( NULL, lastReadBytes );
+					outputFile->NextReadBlock( nullptr, lastReadBytes );
 					break;
 				}
 			}
@@ -475,7 +475,7 @@ int idSaveGameThread::Enumerate()
 		{
 			idSaveGameDetails* details = callback->detailList.Alloc();
 			// We have more folders on disk than we have room in our save detail list, stop trying to read them in and continue with what we have
-			if( details == NULL )
+			if( details == nullptr )
 			{
 				break;
 			}
@@ -483,7 +483,7 @@ int idSaveGameThread::Enumerate()
 			
 			idFile* file = fileSystem->OpenFileRead( directory.c_str() );
 			
-			if( file != NULL )
+			if( file != nullptr )
 			{
 				// Read the DETAIL file for the enumerated data
 				if( callback->mode & SAVEGAME_MBF_READ_DETAILS )
@@ -595,7 +595,7 @@ int idSaveGameThread::EnumerateFiles()
 				idSaveGameDetails& details = callback->description;
 				idFile* uncompressed = fileSystem->OpenFileRead( fullFilename.c_str() );
 				
-				if( uncompressed == NULL )
+				if( uncompressed == nullptr )
 				{
 					details.damaged = true;
 				}
@@ -751,7 +751,7 @@ int idSaveGameThread::Run()
 	try
 	{
 		idLocalUserWin* user = GetLocalUserFromSaveParms( data );
-		if( user != NULL && !user->IsStorageDeviceAvailable() )
+		if( user != nullptr && !user->IsStorageDeviceAvailable() )
 		{
 			data.saveLoadParms->errorCode = SAVEGAME_E_UNABLE_TO_SELECT_STORAGE_DEVICE;
 		}

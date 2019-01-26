@@ -55,7 +55,7 @@ public:
 	virtual void			Free( bool immediate ) = 0;
 	
 	// the parms specified will be the default overrides for all sounds started on this emitter.
-	// NULL is acceptable for parms
+	// nullptr is acceptable for parms
 	virtual void			UpdateEmitter( const idVec3& origin, int listenerId, const soundShaderParms_t* parms ) = 0;
 	
 	// returns the length of the started sound in msec

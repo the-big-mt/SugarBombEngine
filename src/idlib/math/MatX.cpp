@@ -1276,9 +1276,9 @@ idMatX::LU_Factor
   L is a triangular matrix stored in the lower triangle.
   L has ones on the diagonal that are not stored.
   U is a triangular matrix stored in the upper triangle.
-  If index != NULL partial pivoting is used for numerical stability.
-  If index != NULL it must point to an array of numRow integers and is used to keep track of the row permutation.
-  If det != NULL the determinant of the matrix is calculated and stored.
+  If index != nullptr partial pivoting is used for numerical stability.
+  If index != nullptr it must point to an array of numRow integers and is used to keep track of the row permutation.
+  If det != nullptr the determinant of the matrix is calculated and stored.
 ============
 */
 bool idMatX::LU_Factor( int* index, float* det )
@@ -1394,7 +1394,7 @@ bool idMatX::LU_UpdateRankOne( const idVecX& v, const idVecX& w, float alpha, in
 	y = ( float* ) _alloca16( v.GetSize() * sizeof( float ) );
 	z = ( float* ) _alloca16( w.GetSize() * sizeof( float ) );
 	
-	if( index != NULL )
+	if( index != nullptr )
 	{
 		for( i = 0; i < numRows; i++ )
 		{
@@ -1508,7 +1508,7 @@ bool idMatX::LU_UpdateRowColumn( const idVecX& v, const idVecX& w, int r, int* i
 	y1 = ( float* ) _alloca16( v.GetSize() * sizeof( float ) );
 	z1 = ( float* ) _alloca16( w.GetSize() * sizeof( float ) );
 	
-	if( index != NULL )
+	if( index != nullptr )
 	{
 		for( i = 0; i < numRows; i++ )
 		{
@@ -1655,7 +1655,7 @@ bool idMatX::LU_UpdateIncrement( const idVecX& v, const idVecX& w, int* index )
 	}
 	
 	// add row to the permutation index
-	if( index != NULL )
+	if( index != nullptr )
 	{
 		index[numRows - 1] = numRows - 1;
 	}
@@ -1663,7 +1663,7 @@ bool idMatX::LU_UpdateIncrement( const idVecX& v, const idVecX& w, int* index )
 	// add column to U
 	for( i = 0; i < numRows; i++ )
 	{
-		if( index != NULL )
+		if( index != nullptr )
 		{
 			sum = v[index[i]];
 		}
@@ -1687,7 +1687,7 @@ idMatX::LU_UpdateDecrement
 
   Updates the in-place LU factorization to obtain the factors for the matrix with row r and column r removed.
   v and w should store the column and row of the original matrix respectively.
-  If index != NULL then u should store row index[r] of the original matrix. If index == NULL then u = w.
+  If index != nullptr then u should store row index[r] of the original matrix. If index == nullptr then u = w.
 ============
 */
 bool idMatX::LU_UpdateDecrement( const idVecX& v, const idVecX& w, const idVecX& u, int r, int* index )
@@ -1703,7 +1703,7 @@ bool idMatX::LU_UpdateDecrement( const idVecX& v, const idVecX& w, const idVecX&
 	v1.SetData( numRows, VECX_ALLOCA( numRows ) );
 	w1.SetData( numRows, VECX_ALLOCA( numRows ) );
 	
-	if( index != NULL )
+	if( index != nullptr )
 	{
 	
 		// find the pivot row
@@ -1804,7 +1804,7 @@ void idMatX::LU_Solve( idVecX& x, const idVecX& b, const int* index ) const
 	// solve L
 	for( i = 0; i < numRows; i++ )
 	{
-		if( index != NULL )
+		if( index != nullptr )
 		{
 			sum = b[index[i]];
 		}
@@ -1907,7 +1907,7 @@ void idMatX::LU_MultiplyFactors( idMatX& m, const int* index ) const
 	for( r = 0; r < numRows; r++ )
 	{
 	
-		if( index != NULL )
+		if( index != nullptr )
 		{
 			rp = index[r];
 		}
@@ -5361,7 +5361,7 @@ void idMatX::Test()
 	
 	m1 = original;
 	
-	m1.LU_Factor( NULL );	// no pivoting
+	m1.LU_Factor( nullptr );	// no pivoting
 	m1.LU_UnpackFactors( m2, m3 );
 	m1 = m2 * m3;
 	
@@ -5523,8 +5523,8 @@ void idMatX::Test()
 	
 	m2 = original;
 	
-	m2.LU_Factor( NULL );
-	m2.LU_Inverse( m1, NULL );
+	m2.LU_Factor( nullptr );
+	m2.LU_Inverse( m1, nullptr );
 	m1 *= original;
 	
 	if( !m1.IsIdentity( 1e-4f ) )

@@ -37,9 +37,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "Simd_Generic.h"
 #include "Simd_SSE.h"
 
-idSIMDProcessor*		processor = NULL;			// pointer to SIMD processor
-idSIMDProcessor* 	generic = NULL;				// pointer to generic SIMD implementation
-idSIMDProcessor* 	SIMDProcessor = NULL;
+idSIMDProcessor*		processor = nullptr;			// pointer to SIMD processor
+idSIMDProcessor* 	generic = nullptr;				// pointer to generic SIMD implementation
+idSIMDProcessor* 	SIMDProcessor = nullptr;
 
 /*
 ================
@@ -50,7 +50,7 @@ void idSIMD::Init()
 {
 	generic = new( TAG_MATH ) idSIMD_Generic;
 	generic->cpuid = CPUID_GENERIC;
-	processor = NULL;
+	processor = nullptr;
 	SIMDProcessor = generic;
 }
 
@@ -75,7 +75,7 @@ void idSIMD::InitProcessor( const char* module, bool forceGeneric )
 	else
 	{
 	
-		if( processor == NULL )
+		if( processor == nullptr )
 		{
 #if defined(USE_INTRINSICS)
 			if( ( cpuid & CPUID_MMX ) && ( cpuid & CPUID_SSE ) )
@@ -124,9 +124,9 @@ void idSIMD::Shutdown()
 		delete processor;
 	}
 	delete generic;
-	generic = NULL;
-	processor = NULL;
-	SIMDProcessor = NULL;
+	generic = nullptr;
+	processor = nullptr;
+	SIMDProcessor = nullptr;
 }
 
 
@@ -1435,8 +1435,8 @@ void idSIMD::Test_f( const idCmdArgs& args )
 	{
 		delete p_simd;
 	}
-	p_simd = NULL;
-	p_generic = NULL;
+	p_simd = nullptr;
+	p_generic = nullptr;
 	
 	// RB begin
 #if defined(_WIN32)

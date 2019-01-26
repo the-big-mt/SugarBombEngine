@@ -257,11 +257,11 @@ void idBinaryImage::Load2DFromMemory( int width, int height, const byte* pic_con
 		if( pic != dxtPic )
 		{
 			Mem_Free( dxtPic );
-			dxtPic = NULL;
+			dxtPic = nullptr;
 		}
 		
 		// downsample for the next level
-		byte* shrunk = NULL;
+		byte* shrunk = nullptr;
 		if( gammaMips )
 		{
 			shrunk = R_MipMapWithGamma( pic, scaledWidth, scaledHeight );
@@ -379,7 +379,7 @@ void idBinaryImage::LoadCubeFromMemory( int width, const byte* pics[6], int numL
 			}
 			
 			// downsample for the next level
-			byte* shrunk = NULL;
+			byte* shrunk = nullptr;
 			if( gammaMips )
 			{
 				shrunk = R_MipMapWithGamma( pic, scaledWidth, scaledWidth );
@@ -391,7 +391,7 @@ void idBinaryImage::LoadCubeFromMemory( int width, const byte* pics[6], int numL
 			if( pic != orig )
 			{
 				Mem_Free( ( void* )pic );
-				pic = NULL;
+				pic = nullptr;
 			}
 			pic = shrunk;
 			
@@ -401,7 +401,7 @@ void idBinaryImage::LoadCubeFromMemory( int width, const byte* pics[6], int numL
 		{
 			// free the down sampled version
 			Mem_Free( ( void* )pic );
-			pic = NULL;
+			pic = nullptr;
 		}
 	}
 }
@@ -416,7 +416,7 @@ ID_TIME_T idBinaryImage::WriteGeneratedFile( ID_TIME_T sourceFileTime )
 	idStr binaryFileName;
 	MakeGeneratedFileName( binaryFileName );
 	idFileLocal file( fileSystem->OpenFileWrite( binaryFileName, "fs_basepath" ) );
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		idLib::Warning( "idBinaryImage: Could not open file '%s'", binaryFileName.c_str() );
 		return FILE_NOT_FOUND_TIMESTAMP;
@@ -460,7 +460,7 @@ ID_TIME_T idBinaryImage::LoadFromGeneratedFile( ID_TIME_T sourceFileTime )
 	idStr binaryFileName;
 	MakeGeneratedFileName( binaryFileName );
 	idFileLocal bFile = fileSystem->OpenFileRead( binaryFileName );
-	if( bFile == NULL )
+	if( bFile == nullptr )
 	{
 		return FILE_NOT_FOUND_TIMESTAMP;
 	}
@@ -535,7 +535,7 @@ bool idBinaryImage::LoadFromGeneratedFile( idFile* bFile, ID_TIME_T sourceTimeSt
 		// just the multiplication of dimensions
 		assert( img.dataSize >= img.width * img.height * BitsForFormat( ( textureFormat_t )fileData.format ) / 8 );
 		img.Alloc( img.dataSize );
-		if( img.data == NULL )
+		if( img.data == nullptr )
 		{
 			return false;
 		}

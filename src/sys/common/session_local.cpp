@@ -110,7 +110,7 @@ public:
 	virtual void 			HandleServerQueryAck( lobbyAddress_t& remoteAddr, idBitMsg& msg );
 	
 	// Leaderboards
-	virtual void			LeaderboardUpload( lobbyUserID_t lobbyUserID, const leaderboardDefinition_t* leaderboard, const column_t* stats, const idFile_Memory* attachment = NULL );
+	virtual void			LeaderboardUpload( lobbyUserID_t lobbyUserID, const leaderboardDefinition_t* leaderboard, const column_t* stats, const idFile_Memory* attachment = nullptr );
 	virtual void			LeaderboardDownload( int sessionUserIndex, const leaderboardDefinition_t* leaderboard, int startingRank, int numRows, const idLeaderboardCallback& callback );
 	virtual void			LeaderboardDownloadAttachment( int sessionUserIndex, const leaderboardDefinition_t* leaderboard, int64 attachmentID );
 	
@@ -266,11 +266,11 @@ void idSessionLocalWin::Shutdown()
 		Pump();
 	}
 	
-	if( achievementSystem != NULL )
+	if( achievementSystem != nullptr )
 	{
 		achievementSystem->Shutdown();
 		delete achievementSystem;
-		achievementSystem = NULL;
+		achievementSystem = nullptr;
 	}
 }
 
@@ -281,9 +281,9 @@ idSessionLocalWin::InitializeSoundRelatedSystems
 */
 void idSessionLocalWin::InitializeSoundRelatedSystems()
 {
-	if( voiceChat != NULL )
+	if( voiceChat != nullptr )
 	{
-		voiceChat->Init( NULL );
+		voiceChat->Init( nullptr );
 	}
 }
 
@@ -294,7 +294,7 @@ idSessionLocalWin::ShutdownSoundRelatedSystems
 */
 void idSessionLocalWin::ShutdownSoundRelatedSystems()
 {
-	if( voiceChat != NULL )
+	if( voiceChat != nullptr )
 	{
 		voiceChat->Shutdown();
 	}
@@ -381,7 +381,7 @@ idSessionLocalWin::ServerInfo
 */
 const serverInfo_t* idSessionLocalWin::ServerInfo( int i ) const
 {
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -408,7 +408,7 @@ void idSessionLocalWin::Connect_f( const idCmdArgs& args )
 	
 	Cancel();
 	
-	if( signInManager->GetMasterLocalUser() == NULL )
+	if( signInManager->GetMasterLocalUser() == nullptr )
 	{
 		signInManager->RegisterLocalUser( 0 );
 	}
@@ -432,7 +432,7 @@ void idSessionLocalWin::Connect_f( const idCmdArgs& args )
 void Connect_f
 ========================
 */
-CONSOLE_COMMAND( connect, "Connect to the specified IP", NULL )
+CONSOLE_COMMAND( connect, "Connect to the specified IP", nullptr )
 {
 	sessionLocalWin.Connect_f( args );
 }
@@ -565,7 +565,7 @@ idSessionLocal::GetDiscSwapMPInviteParms
 */
 void* idSessionLocalWin::GetDiscSwapMPInviteParms()
 {
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -693,10 +693,10 @@ idSessionLocalWin::DestroyLobbyBackend
 */
 void idSessionLocalWin::DestroyLobbyBackend( idLobbyBackend* lobbyBackend )
 {
-	assert( lobbyBackend != NULL );
+	assert( lobbyBackend != nullptr );
 	assert( lobbyBackends[lobbyBackend->GetLobbyType()] == lobbyBackend );
 	
-	lobbyBackends[lobbyBackend->GetLobbyType()] = NULL;
+	lobbyBackends[lobbyBackend->GetLobbyType()] = nullptr;
 	
 	lobbyBackend->Shutdown();
 	delete lobbyBackend;
@@ -709,14 +709,14 @@ idSessionLocalWin::PumpLobbies
 */
 void idSessionLocalWin::PumpLobbies()
 {
-	assert( lobbyBackends[idLobbyBackend::TYPE_PARTY] == NULL || lobbyBackends[idLobbyBackend::TYPE_PARTY]->GetLobbyType() == idLobbyBackend::TYPE_PARTY );
-	assert( lobbyBackends[idLobbyBackend::TYPE_GAME] == NULL || lobbyBackends[idLobbyBackend::TYPE_GAME]->GetLobbyType() == idLobbyBackend::TYPE_GAME );
-	assert( lobbyBackends[idLobbyBackend::TYPE_GAME_STATE] == NULL || lobbyBackends[idLobbyBackend::TYPE_GAME_STATE]->GetLobbyType() == idLobbyBackend::TYPE_GAME_STATE );
+	assert( lobbyBackends[idLobbyBackend::TYPE_PARTY] == nullptr || lobbyBackends[idLobbyBackend::TYPE_PARTY]->GetLobbyType() == idLobbyBackend::TYPE_PARTY );
+	assert( lobbyBackends[idLobbyBackend::TYPE_GAME] == nullptr || lobbyBackends[idLobbyBackend::TYPE_GAME]->GetLobbyType() == idLobbyBackend::TYPE_GAME );
+	assert( lobbyBackends[idLobbyBackend::TYPE_GAME_STATE] == nullptr || lobbyBackends[idLobbyBackend::TYPE_GAME_STATE]->GetLobbyType() == idLobbyBackend::TYPE_GAME_STATE );
 	
 	// Pump lobbyBackends
 	for( int i = 0; i < lobbyBackends.Num(); i++ )
 	{
-		if( lobbyBackends[i] != NULL )
+		if( lobbyBackends[i] != nullptr )
 		{
 			lobbyBackends[i]->Pump();
 		}
@@ -735,7 +735,7 @@ idLobbyBackend* idSessionLocalWin::CreateLobbyInternal( idLobbyBackend::lobbyBac
 	
 	lobbyBackend->SetLobbyType( lobbyType );
 	
-	assert( lobbyBackends[lobbyType] == NULL );
+	assert( lobbyBackends[lobbyType] == nullptr );
 	lobbyBackends[lobbyType] = lobbyBackend;
 	
 	return lobbyBackend;

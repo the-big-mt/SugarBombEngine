@@ -50,7 +50,7 @@ void* Mem_Alloc16( const size_t size, const memTag_t tag )
 {
 	if( !size )
 	{
-		return NULL;
+		return nullptr;
 	}
 	const size_t paddedSize = ( size + 15 ) & ~15;
 #ifdef _WIN32
@@ -72,7 +72,7 @@ Mem_Free16
 */
 void Mem_Free16( void* ptr )
 {
-	if( ptr == NULL )
+	if( ptr == nullptr )
 	{
 		return;
 	}

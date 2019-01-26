@@ -239,7 +239,7 @@ void idCommonLocal::Draw()
 		Sys_Sleep( com_sleepDraw.GetInteger() );
 	}
 	
-	if( loadGUI != NULL )
+	if( loadGUI != nullptr )
 	{
 		loadGUI->Render( renderSystem, Sys_Milliseconds() );
 	}
@@ -299,7 +299,7 @@ void idCommonLocal::Draw()
 		// draw the wipe material on top of this if it hasn't completed yet
 		DrawWipeModel();
 		
-		Dialog().Render( loadGUI != NULL );
+		Dialog().Render( loadGUI != nullptr );
 		
 		// draw the half console / notify console on top of everything
 		console->Draw( false );
@@ -472,13 +472,13 @@ void idCommonLocal::Frame()
 		{
 			idStr name;
 			name.Format( "demos/%s/%s_%05i", aviDemoShortName.c_str(), aviDemoShortName.c_str(), aviDemoFrameCount++ );
-			renderSystem->TakeScreenshot( com_aviDemoWidth.GetInteger(), com_aviDemoHeight.GetInteger(), name, com_aviDemoSamples.GetInteger(), NULL, TGA );
+			renderSystem->TakeScreenshot( com_aviDemoWidth.GetInteger(), com_aviDemoHeight.GetInteger(), name, com_aviDemoSamples.GetInteger(), nullptr, TGA );
 			
 			// remove any printed lines at the top before taking the screenshot
 			console->ClearNotifyLines();
 			
 			// this will call Draw, possibly multiple times if com_aviDemoSamples is > 1
-			renderSystem->TakeScreenshot( com_aviDemoWidth.GetInteger(), com_aviDemoHeight.GetInteger(), name, com_aviDemoSamples.GetInteger(), NULL, TGA );
+			renderSystem->TakeScreenshot( com_aviDemoWidth.GetInteger(), com_aviDemoHeight.GetInteger(), name, com_aviDemoSamples.GetInteger(), nullptr, TGA );
 		}
 		
 		//--------------------------------------------
@@ -491,7 +491,7 @@ void idCommonLocal::Frame()
 		// this should exit right after vsync, with the GPU idle and ready to draw
 		// This may block if the GPU isn't finished renderng the previous frame.
 		frameTiming.startSyncTime = Sys_Microseconds();
-		const emptyCommand_t* renderCommands = NULL;
+		const emptyCommand_t* renderCommands = nullptr;
 		if( com_smp.GetInteger() > 0 )
 		{
 			renderCommands = renderSystem->SwapCommandBuffers( &time_frontend, &time_backend, &time_shadows, &time_gpu );
@@ -636,7 +636,7 @@ void idCommonLocal::Frame()
 		{
 			// If the session reports we should be loading a map, load it!
 			ExecuteMapChange();
-			mapSpawnData.savegameFile = NULL;
+			mapSpawnData.savegameFile = nullptr;
 			mapSpawnData.persistentPlayerInfo.Clear();
 			return;
 		}
@@ -807,7 +807,7 @@ void idCommonLocal::Frame()
 		
 		// kill loading gui
 		delete loadGUI;
-		loadGUI = NULL;
+		loadGUI = nullptr;
 		
 		// drop back to main menu
 		LeaveGame();

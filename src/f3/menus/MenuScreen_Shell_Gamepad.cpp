@@ -54,7 +54,7 @@ void idMenuScreen_Shell_Gamepad::Initialize( idMenuHandler* data )
 {
 	idMenuScreen::Initialize( data );
 	
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		menuGUI = data->GetGUI();
 	}
@@ -174,10 +174,10 @@ idMenuScreen_Shell_Gamepad::Update
 void idMenuScreen_Shell_Gamepad::Update()
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuWidget_CommandBar* cmdBar = menuData->GetCmdBar();
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			idMenuWidget_CommandBar::buttonInfo_t* buttonInfo;
@@ -201,20 +201,20 @@ void idMenuScreen_Shell_Gamepad::Update()
 	if( BindSprite( root ) )
 	{
 		idSWFTextInstance* heading = GetSprite()->GetScriptObject()->GetNestedText( "info", "txtHeading" );
-		if( heading != NULL )
+		if( heading != nullptr )
 		{
 			heading->SetText( "#str_swf_gamepad_heading" );	// CONTROLS
 			heading->SetStrokeInfo( true, 0.75f, 1.75f );
 		}
 		
 		idSWFSpriteInstance* gradient = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "gradient" );
-		if( gradient != NULL && heading != NULL )
+		if( gradient != nullptr && heading != nullptr )
 		{
 			gradient->SetXPos( heading->GetTextLength() );
 		}
 	}
 	
-	if( btnBack != NULL )
+	if( btnBack != nullptr )
 	{
 		btnBack->BindSprite( root );
 	}
@@ -246,10 +246,10 @@ void idMenuScreen_Shell_Gamepad::HideScreen( const mainMenuTransition_t transiti
 		gamepadData.CommitData();
 	}
 	
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuHandler_Shell* handler = dynamic_cast< idMenuHandler_Shell* >( menuData );
-		if( handler != NULL )
+		if( handler != nullptr )
 		{
 			handler->SetupPCOptions();
 		}
@@ -266,7 +266,7 @@ idMenuScreen_Shell_Gamepad::HandleAction
 bool idMenuScreen_Shell_Gamepad::HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled )
 {
 
-	if( menuData == NULL )
+	if( menuData == nullptr )
 	{
 		return true;
 	}
@@ -289,7 +289,7 @@ bool idMenuScreen_Shell_Gamepad::HandleAction( idWidgetAction& action, const idW
 		case WIDGET_ACTION_COMMAND:
 		{
 		
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}
@@ -364,7 +364,7 @@ bool idMenuScreen_Shell_Gamepad::HandleAction( idWidgetAction& action, const idW
 		case WIDGET_ACTION_START_REPEATER:
 		{
 		
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}
@@ -443,7 +443,7 @@ void idMenuScreen_Shell_Gamepad::idMenuDataSource_GamepadSettings::CommitData()
 	joy_mergedThreshold.SetBool( fields[ GAMEPAD_FIELD_THRESHOLD ].ToBool() );
 	
 	idPlayerProfile* profile = session->GetProfileFromMasterLocalUser();
-	if( profile != NULL )
+	if( profile != nullptr )
 	{
 		profile->SetLeftyFlip( fields[ GAMEPAD_FIELD_LEFTY ].ToBool() );
 	}

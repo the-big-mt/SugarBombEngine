@@ -195,7 +195,7 @@ int idWinding2D::Split( const idVec3& plane, const float epsilon, idWinding2D** 
 	sides[i] = sides[0];
 	dists[i] = dists[0];
 	
-	*front = *back = NULL;
+	*front = *back = nullptr;
 	
 	// if nothing at the front of the clipping plane
 	if( !counts[SIDE_FRONT] )

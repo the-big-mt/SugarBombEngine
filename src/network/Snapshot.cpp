@@ -121,7 +121,7 @@ idSnapShot::objectBuffer_t::AddRef
 */
 void idSnapShot::objectBuffer_t::_AddRef()
 {
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		assert( size > 0 );
 		assert( data[size] < 255 );
@@ -137,14 +137,14 @@ idSnapShot::objectBuffer_t::Release
 void idSnapShot::objectBuffer_t::_Release()
 {
 	//assert( mem.IsMapHeap() );
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		assert( size > 0 );
 		if( --data[size] == 0 )
 		{
 			Mem_Free( data );
 		}
-		data = NULL;
+		data = nullptr;
 		size = 0;
 	}
 }
@@ -229,11 +229,11 @@ void idSnapShot::operator=( const idSnapShot& other )
 		{
 			FreeObjectState( i );
 		}
-		objectStates.AssureSize( other.objectStates.Num(), NULL );
+		objectStates.AssureSize( other.objectStates.Num(), nullptr );
 		for( int i = 0; i < objectStates.Num(); i++ )
 		{
 			const objectState_t& otherState = *other.objectStates[i];
-			if( objectStates[i] == NULL )
+			if( objectStates[i] == nullptr )
 			{
 				objectStates[i] = allocatedObjs.Alloc();
 			}
@@ -365,7 +365,7 @@ bool idSnapShot::ReadDeltaForJob( const char* deltaMem, int deltaSize, int visIn
 			state.buffer._Release();
 			state.createdFromTemplate = false;
 			
-			if( objTemplateState != NULL && objTemplateState->buffer.Size() && objTemplateState->expectedSequence < baseSequence )
+			if( objTemplateState != nullptr && objTemplateState->buffer.Size() && objTemplateState->expectedSequence < baseSequence )
 			{
 				idLib::PrintfIf( net_ssTemplateDebug.GetBool(), "Clearing old template state[%d] [%d<%d]\n", objectNum, objTemplateState->expectedSequence, baseSequence );
 				objTemplateState->deleted = false;
@@ -386,7 +386,7 @@ bool idSnapShot::ReadDeltaForJob( const char* deltaMem, int deltaSize, int visIn
 			{
 				state.createdFromTemplate = true;
 				// Brand new state
-				if( objTemplateState != NULL && objTemplateState->buffer.Size() > 0 && sequence >= objTemplateState->expectedSequence )
+				if( objTemplateState != nullptr && objTemplateState->buffer.Size() > 0 && sequence >= objTemplateState->expectedSequence )
 				{
 					idLib::PrintfIf( net_ssTemplateDebug.GetBool(), "\nAdding basestate for new object %d (for SS %d/%d. obj base created in ss %d) deltaSize: %d\n", objectNum, sequence, baseSequence, objTemplateState->expectedSequence, deltaSize );
 					state.buffer = objTemplateState->buffer;
@@ -410,7 +410,7 @@ bool idSnapShot::ReadDeltaForJob( const char* deltaMem, int deltaSize, int visIn
 			
 			// the buffer shrank or stayed the same
 			objectBuffer_t newbuffer( newsize );
-			rleCompressor.Start( NULL, &lzwCompressor, newsize );
+			rleCompressor.Start( nullptr, &lzwCompressor, newsize );
 			objectSize_t compareSize = Min( state.buffer.Size(), newsize );
 			for( objectSize_t i = 0; i < compareSize; i++ )
 			{
@@ -487,11 +487,11 @@ void idSnapShot::SubmitObjectJob(	const submitDeltaJobsInfo_t& 	submitDeltaJobsI
 									lzwParm_t*&					curlzwParm
 								)
 {
-	assert( newState != NULL || oldState != NULL );
+	assert( newState != nullptr || oldState != nullptr );
 	assert_16_byte_aligned( curHeader );
 	assert_16_byte_aligned( curObjDest );
 	
-	int32 dataSize = newState != NULL ? newState->buffer.Size() : 0;
+	int32 dataSize = newState != nullptr ? newState->buffer.Size() : 0;
 	int totalSize = OBJ_DEST_SIZE_ALIGN16( dataSize );
 	
 	if( curObjParm - submitDeltaJobsInfo.objParms >= submitDeltaJobsInfo.maxObjParms )
@@ -520,7 +520,7 @@ void idSnapShot::SubmitObjectJob(	const submitDeltaJobsInfo_t& 	submitDeltaJobsI
 	memset( &curObjParm->newState, 0, sizeof( curObjParm->newState ) );
 	memset( &curObjParm->oldState, 0, sizeof( curObjParm->oldState ) );
 	
-	if( newState != NULL )
+	if( newState != nullptr )
 	{
 		assert( newState->buffer.Size() <= 65535 );
 		
@@ -531,7 +531,7 @@ void idSnapShot::SubmitObjectJob(	const submitDeltaJobsInfo_t& 	submitDeltaJobsI
 		curObjParm->newState.visMask	= newState->visMask;
 	}
 	
-	if( oldState != NULL )
+	if( oldState != nullptr )
 	{
 		assert( oldState->buffer.Size() <= 65535 );
 		
@@ -610,9 +610,9 @@ Helper function for getting template objectState.
 newState parameter is optional and is just used for debugging/printf comparison of the template and actual state
 ========================
 */
-idSnapShot::objectState_t* idSnapShot::GetTemplateState( int objNum, idSnapShot* templateStates, idSnapShot::objectState_t* newState /*=NULL*/ )
+idSnapShot::objectState_t* idSnapShot::GetTemplateState( int objNum, idSnapShot* templateStates, idSnapShot::objectState_t* newState /*=nullptr*/ )
 {
-	objectState_t* oldState = NULL;
+	objectState_t* oldState = nullptr;
 	int spawnedStateIndex = templateStates->FindObjectIndexByID( objNum );
 	if( spawnedStateIndex >= 0 )
 	{
@@ -622,7 +622,7 @@ idSnapShot::objectState_t* idSnapShot::GetTemplateState( int objNum, idSnapShot*
 		{
 			idLib::Printf( "\nGetTemplateState[%d]\n", objNum );
 			oldState->Print( "SPAWN STATE" );
-			if( newState != NULL )
+			if( newState != nullptr )
 			{
 				newState->Print( "CUR STATE" );
 			}
@@ -683,7 +683,7 @@ void idSnapShot::SubmitWriteDeltaToJobs( const submitDeltaJobsInfo_t& submitDelt
 				continue;		// Don't delete objects that are stale and not marked as deleted
 			}
 			
-			SubmitObjectJob( submitDeltaJobInfo, NULL, &oldState, baseObjParms, curObjParms, curHeader, curObjMemory, curlzwParms );
+			SubmitObjectJob( submitDeltaJobInfo, nullptr, &oldState, baseObjParms, curObjParms, curHeader, curObjMemory, curlzwParms );
 		}
 		
 		if( j >= numOldStates )
@@ -724,7 +724,7 @@ void idSnapShot::SubmitWriteDeltaToJobs( const submitDeltaJobsInfo_t& submitDelt
 			continue;		// Don't delete objects that are stale and not marked as deleted
 		}
 		
-		SubmitObjectJob( submitDeltaJobInfo, NULL, &oldState, baseObjParms, curObjParms, curHeader, curObjMemory, curlzwParms );
+		SubmitObjectJob( submitDeltaJobInfo, nullptr, &oldState, baseObjParms, curObjParms, curHeader, curObjMemory, curlzwParms );
 	}
 	
 	// Submit any objects that are left over (will be all if they all fit up to this point)
@@ -833,7 +833,7 @@ idSnapShot::WriteObject
 */
 void idSnapShot::WriteObject( idFile* file, int visIndex, objectState_t* newState, objectState_t* oldState, int& lastobjectNum )
 {
-	assert( newState != NULL || oldState != NULL );
+	assert( newState != nullptr || oldState != nullptr );
 	
 	bool visChange		= false; // visibility changes will be signified with a 0xffff state size
 	bool visSendState	= false; // the state is sent when an entity is no longer stale
@@ -841,7 +841,7 @@ void idSnapShot::WriteObject( idFile* file, int visIndex, objectState_t* newStat
 	// Compute visibility changes
 	// (we need to do this before writing out object id, because we may not need to write out the id if we early out)
 	// (when we don't write out the id, we assume this is an "ack" when we deserialize the objects)
-	if( newState != NULL && oldState != NULL )
+	if( newState != nullptr && oldState != nullptr )
 	{
 		// Check visibility
 		assert( newState->objectNum == oldState->objectNum );
@@ -884,11 +884,11 @@ void idSnapShot::WriteObject( idFile* file, int visIndex, objectState_t* newStat
 	
 	// Get the id of the object we are writing out
 	uint16 objectNum;
-	if( newState != NULL )
+	if( newState != nullptr )
 	{
 		objectNum = newState->objectNum;
 	}
-	else if( oldState != NULL )
+	else if( oldState != nullptr )
 	{
 		objectNum = oldState->objectNum;
 	}
@@ -904,16 +904,16 @@ void idSnapShot::WriteObject( idFile* file, int visIndex, objectState_t* newStat
 	file->WriteBig( objectDelta );
 	lastobjectNum = objectNum;
 	
-	if( newState == NULL )
+	if( newState == nullptr )
 	{
 		// Deleted, write 0 size
-		assert( oldState != NULL );
+		assert( oldState != nullptr );
 		file->WriteBig<objectSize_t>( 0 );
 	}
-	else if( oldState == NULL )
+	else if( oldState == nullptr )
 	{
 		// New object, write out full state
-		assert( newState != NULL );
+		assert( newState != nullptr );
 		// delta against an empty snap
 		file->WriteBig( newState->buffer.Size() );
 		file->Write( newState->buffer.Ptr(), newState->buffer.Size() );
@@ -921,7 +921,7 @@ void idSnapShot::WriteObject( idFile* file, int visIndex, objectState_t* newStat
 	else
 	{
 		// Compare to last object
-		assert( newState != NULL && oldState != NULL );
+		assert( newState != nullptr && oldState != nullptr );
 		assert( newState->objectNum == oldState->objectNum );
 		
 		if( visChange )
@@ -953,7 +953,7 @@ void idSnapShot::WriteObject( idFile* file, int visIndex, objectState_t* newStat
 	}
 	
 #ifdef SNAPSHOT_CHECKSUMS
-	if( ( !visChange || visSendState ) && newState != NULL )
+	if( ( !visChange || visSendState ) && newState != nullptr )
 	{
 		assert( newState->buffer.Size() > 0 );
 		unsigned int checksum = MD5_BlockChecksum( newState->buffer.Ptr(), newState->buffer.Size() );
@@ -1019,7 +1019,7 @@ bool idSnapShot::WriteDelta( idSnapShot& old, int visIndex, idFile* file, int ma
 		if( j >= old.objectStates.Num() )
 		{
 			// delta against an empty snap
-			WriteObject( file, visIndex, &newState, NULL, lastobjectNum );
+			WriteObject( file, visIndex, &newState, nullptr, lastobjectNum );
 			continue;
 		}
 		
@@ -1031,7 +1031,7 @@ bool idSnapShot::WriteDelta( idSnapShot& old, int visIndex, idFile* file, int ma
 				return false;
 			}
 			objectState_t& oldState = *old.objectStates[j];
-			WriteObject( file, visIndex, NULL, &oldState, lastobjectNum );
+			WriteObject( file, visIndex, nullptr, &oldState, lastobjectNum );
 		}
 		
 		// Beyond this point, we have old state to compare against
@@ -1055,7 +1055,7 @@ bool idSnapShot::WriteDelta( idSnapShot& old, int visIndex, idFile* file, int ma
 			}
 			
 			// Different object, this one is new, write the full state
-			WriteObject( file, visIndex, &newState, NULL, lastobjectNum );
+			WriteObject( file, visIndex, &newState, nullptr, lastobjectNum );
 		}
 	}
 	// Finally, remove any entities at the end
@@ -1072,7 +1072,7 @@ bool idSnapShot::WriteDelta( idSnapShot& old, int visIndex, idFile* file, int ma
 		}
 		
 		objectState_t& oldState = *old.objectStates[j];
-		WriteObject( file, visIndex, NULL, &oldState, lastobjectNum );
+		WriteObject( file, visIndex, nullptr, &oldState, lastobjectNum );
 	}
 	if( file->Length() + 2 >= maxLength )
 	{
@@ -1151,7 +1151,7 @@ default parameters will compare entire object
 */
 int idSnapShot::CompareObject( const idSnapShot* oldss, int objectNum, int start, int end, int oldStart )
 {
-	if( oldss == NULL )
+	if( oldss == nullptr )
 	{
 		return 0;
 	}
@@ -1332,7 +1332,7 @@ idSnapShot::objectState_t* idSnapShot::FindObjectByID( int objectNum ) const
 		return objectStates[i];
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -1375,11 +1375,11 @@ idSnapShot::FreeObjectState
 */
 void idSnapShot::FreeObjectState( int index )
 {
-	assert( objectStates[index] != NULL );
+	assert( objectStates[index] != nullptr );
 	//assert( mem.IsMapHeap() );
 	objectStates[index]->buffer._Release();
 	allocatedObjs.Free( objectStates[index] );
-	objectStates[index] = NULL;
+	objectStates[index] = nullptr;
 }
 
 /*
@@ -1391,7 +1391,7 @@ Take uncompressed state in msg and add it to existing state
 void idSnapShot::ApplyToExistingState( int objId, idBitMsg& msg )
 {
 	objectState_t* 	objectState = FindObjectByID( objId );
-	if( !verify( objectState != NULL ) )
+	if( !verify( objectState != nullptr ) )
 	{
 		return;
 	}

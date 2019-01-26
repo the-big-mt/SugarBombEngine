@@ -35,7 +35,7 @@ struct idRenderWorld
 	virtual					~idRenderWorld() {};
 	
 	// The same render world can be reinitialized as often as desired
-	// a NULL or empty mapName will create an empty, single area world
+	// a nullptr or empty mapName will create an empty, single area world
 	virtual bool			InitFromMap( const char* mapName ) = 0;
 	
 	// This fixes a crash when switching between expansion packs in the same game session

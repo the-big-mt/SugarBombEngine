@@ -137,7 +137,7 @@ void idRenderBackend::DrawElementsWithCounters( const drawSurf_t* surf )
 		const uint64 frameNum = ( int )( vbHandle >> VERTCACHE_FRAME_SHIFT ) & VERTCACHE_FRAME_MASK;
 		if( frameNum != ( ( vertexCache.currentFrame - 1 ) & VERTCACHE_FRAME_MASK ) )
 		{
-			idLib::Warning( "RB_DrawElementsWithCounters, vertexBuffer == NULL" );
+			idLib::Warning( "RB_DrawElementsWithCounters, vertexBuffer == nullptr" );
 			return;
 		}
 		vertexBuffer = &vertexCache.frameData[vertexCache.drawListNum].vertexBuffer;
@@ -156,7 +156,7 @@ void idRenderBackend::DrawElementsWithCounters( const drawSurf_t* surf )
 		const uint64 frameNum = ( int )( ibHandle >> VERTCACHE_FRAME_SHIFT ) & VERTCACHE_FRAME_MASK;
 		if( frameNum != ( ( vertexCache.currentFrame - 1 ) & VERTCACHE_FRAME_MASK ) )
 		{
-			idLib::Warning( "RB_DrawElementsWithCounters, indexBuffer == NULL" );
+			idLib::Warning( "RB_DrawElementsWithCounters, indexBuffer == nullptr" );
 			return;
 		}
 		indexBuffer = &vertexCache.frameData[vertexCache.drawListNum].indexBuffer;
@@ -196,7 +196,7 @@ void idRenderBackend::DrawElementsWithCounters( const drawSurf_t* surf )
 		idJointBuffer jointBuffer;
 		if( !vertexCache.GetJointBuffer( surf->jointCache, &jointBuffer ) )
 		{
-			idLib::Warning( "RB_DrawElementsWithCounters, jointBuffer == NULL" );
+			idLib::Warning( "RB_DrawElementsWithCounters, jointBuffer == nullptr" );
 			return;
 		}
 		assert( ( jointBuffer.GetOffset() & ( glConfig.uniformBufferOffsetAlignment - 1 ) ) == 0 );
@@ -914,7 +914,7 @@ void idRenderBackend::GL_Clear( bool color, bool depth, bool stencil, byte stenc
 	glClear( clearFlags );
 	
 	// RB begin
-	if( r_useHDR.GetBool() && clearHDR && globalFramebuffers.hdrFBO != NULL )
+	if( r_useHDR.GetBool() && clearHDR && globalFramebuffers.hdrFBO != nullptr )
 	{
 		bool isDefaultFramebufferActive = Framebuffer::IsDefaultFramebufferActive();
 		
@@ -1291,7 +1291,7 @@ void idRenderBackend::StereoRenderExecuteBackEndCommands( const emptyCommand_t* 
 	static idImage* stereoRenderImages[2];
 	for( int i = 0; i < 2; i++ )
 	{
-		if( stereoRenderImages[i] == NULL )
+		if( stereoRenderImages[i] == nullptr )
 		{
 			stereoRenderImages[i] = globalImages->ImageFromFunction( va( "_stereoRender%i", i ), R_MakeStereoRenderImage );
 		}
@@ -1325,7 +1325,7 @@ void idRenderBackend::StereoRenderExecuteBackEndCommands( const emptyCommand_t* 
 		renderProgManager.Unbind();
 		renderProgManager.ZeroUniforms();
 		
-		for( const emptyCommand_t* cmds = allCmds; cmds != NULL; cmds = ( const emptyCommand_t* )cmds->next )
+		for( const emptyCommand_t* cmds = allCmds; cmds != nullptr; cmds = ( const emptyCommand_t* )cmds->next )
 		{
 			switch( cmds->commandId )
 			{
@@ -1621,7 +1621,7 @@ void idRenderBackend::ExecuteBackEndCommands( const emptyCommand_t* cmds )
 	// performance penalty.
 	glDrawBuffer( GL_BACK );
 	
-	for( ; cmds != NULL; cmds = ( const emptyCommand_t* )cmds->next )
+	for( ; cmds != nullptr; cmds = ( const emptyCommand_t* )cmds->next )
 	{
 		switch( cmds->commandId )
 		{

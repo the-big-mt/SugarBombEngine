@@ -147,13 +147,13 @@ const static int		MAX_THREADS	= 32;
 struct threadJobListState_t
 {
 	threadJobListState_t() :
-		jobList( NULL ),
+		jobList( nullptr ),
 		version( 0xFFFFFFFF ),
 		signalIndex( 0 ),
 		lastJobIndex( 0 ),
 		nextJobIndex( -1 ) {}
 	threadJobListState_t( int _version ) :
-		jobList( NULL ),
+		jobList( nullptr ),
 		version( _version ),
 		signalIndex( 0 ),
 		lastJobIndex( 0 ),
@@ -307,7 +307,7 @@ idParallelJobList_Threads::idParallelJobList_Threads( jobListId_t id, jobListPri
 	listPriority( priority ),
 	numSyncs( 0 ),
 	lastSignalJob( 0 ),
-	waitForGuard( NULL ),
+	waitForGuard( nullptr ),
 	currentDoneGuard( 0 ),
 	jobList()
 {
@@ -459,13 +459,13 @@ void idParallelJobList_Threads::Submit( idParallelJobList_Threads* waitForJobLis
 		return;
 	}
 	
-	if( waitForJobList != NULL )
+	if( waitForJobList != nullptr )
 	{
 		waitForGuard = & waitForJobList->doneGuards[waitForJobList->currentDoneGuard];
 	}
 	else
 	{
-		waitForGuard = NULL;
+		waitForGuard = nullptr;
 	}
 	
 	currentDoneGuard = ( currentDoneGuard + 1 ) & ( NUM_DONE_GUARDS - 1 );
@@ -809,7 +809,7 @@ idParallelJobList_Threads::WaitForOtherJobList
 */
 bool idParallelJobList_Threads::WaitForOtherJobList()
 {
-	if( waitForGuard != NULL )
+	if( waitForGuard != nullptr )
 	{
 		if( waitForGuard->GetValue() > 0 )
 		{
@@ -867,7 +867,7 @@ idParallelJobList::AddJobSPURS
 */
 CellSpursJob128* idParallelJobList::AddJobSPURS()
 {
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -887,7 +887,7 @@ idParallelJobList::Wait
 */
 void idParallelJobList::Wait()
 {
-	if( jobListThreads != NULL )
+	if( jobListThreads != nullptr )
 	{
 		jobListThreads->Wait();
 	}
@@ -901,7 +901,7 @@ idParallelJobList::TryWait
 bool idParallelJobList::TryWait()
 {
 	bool done = true;
-	if( jobListThreads != NULL )
+	if( jobListThreads != nullptr )
 	{
 		done &= jobListThreads->TryWait();
 	}
@@ -916,7 +916,7 @@ idParallelJobList::Submit
 void idParallelJobList::Submit( idParallelJobList* waitForJobList, int parallelism )
 {
 	assert( waitForJobList != this );
-	jobListThreads->Submit( ( waitForJobList != NULL ) ? waitForJobList->jobListThreads : NULL, parallelism );
+	jobListThreads->Submit( ( waitForJobList != nullptr ) ? waitForJobList->jobListThreads : nullptr, parallelism );
 }
 
 /*
@@ -1381,7 +1381,7 @@ idParallelJobManagerLocal::FreeJobList
 */
 void idParallelJobManagerLocal::FreeJobList( idParallelJobList* jobList )
 {
-	if( jobList == NULL )
+	if( jobList == nullptr )
 	{
 		return;
 	}

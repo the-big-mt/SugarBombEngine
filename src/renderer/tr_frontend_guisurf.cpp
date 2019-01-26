@@ -99,7 +99,7 @@ void R_SurfaceToTextureAxis( const srfTriangles_t* tri, idVec3& origin, idVec3 a
 	// determine the world S and T vectors from the first drawSurf triangle
 	
 	// RB: added check wether GPU skinning is available at all
-	const idJointMat* joints = ( tri->staticModelWithJoints != NULL && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? tri->staticModelWithJoints->jointsInverted : NULL;
+	const idJointMat* joints = ( tri->staticModelWithJoints != nullptr && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? tri->staticModelWithJoints->jointsInverted : nullptr;
 	// RB end
 	
 	const idVec3 aXYZ = idDrawVert::GetSkinnedDrawVertPosition( tri->verts[ tri->indexes[0] ], joints );
@@ -238,13 +238,13 @@ void R_AddInGameGuis( const drawSurf_t* const drawSurfs[], const int numDrawSurf
 		int guiNum = drawSurf->material->GetEntityGui() - 1;
 		if( guiNum >= 0 && guiNum < MAX_RENDERENTITY_GUI )
 		{
-			if( drawSurf->space->entityDef != NULL )
+			if( drawSurf->space->entityDef != nullptr )
 			{
 				gui = drawSurf->space->entityDef->parms.gui[ guiNum ];
 			}
 		}
 		
-		if( gui == NULL )
+		if( gui == nullptr )
 		{
 			continue;
 		}

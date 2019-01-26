@@ -50,7 +50,7 @@ void idMenuHandler_Shell::Update()
 //	}
 //#endif
 
-	if( gui == NULL || !gui->IsActive() )
+	if( gui == nullptr || !gui->IsActive() )
 	{
 		return;
 	}
@@ -63,7 +63,7 @@ void idMenuHandler_Shell::Update()
 	if( nextState != state )
 	{
 	
-		if( introGui != NULL && introGui->IsActive() )
+		if( introGui != nullptr && introGui->IsActive() )
 		{
 			gui->StopSound();
 			showingIntro = false;
@@ -77,7 +77,7 @@ void idMenuHandler_Shell::Update()
 			nextScreen = SHELL_AREA_START;
 			transition = MENU_TRANSITION_SIMPLE;
 			state = nextState;
-			if( menuBar != NULL && gui != NULL )
+			if( menuBar != nullptr && gui != nullptr )
 			{
 				menuBar->ClearSprite();
 			}
@@ -90,7 +90,7 @@ void idMenuHandler_Shell::Update()
 				nextScreen = SHELL_AREA_ROOT;
 			}
 			
-			if( menuBar != NULL && gui != NULL )
+			if( menuBar != nullptr && gui != nullptr )
 			{
 				idSWFScriptObject& root = gui->GetRootObject();
 				menuBar->BindSprite( root );
@@ -162,12 +162,12 @@ void idMenuHandler_Shell::Update()
 		if( nextScreen == SHELL_AREA_INVALID )
 		{
 		
-			if( activeScreen > SHELL_AREA_INVALID && activeScreen < SHELL_NUM_AREAS && menuScreens[ activeScreen ] != NULL )
+			if( activeScreen > SHELL_AREA_INVALID && activeScreen < SHELL_NUM_AREAS && menuScreens[ activeScreen ] != nullptr )
 			{
 				menuScreens[ activeScreen ]->HideScreen( static_cast<mainMenuTransition_t>( transition ) );
 			}
 			
-			if( cmdBar != NULL )
+			if( cmdBar != nullptr )
 			{
 				cmdBar->ClearAllButtons();
 				cmdBar->Update();
@@ -176,12 +176,12 @@ void idMenuHandler_Shell::Update()
 			idSWFSpriteInstance* bg = gui->GetRootObject().GetNestedSprite( "pause_bg" );
 			idSWFSpriteInstance* edging = gui->GetRootObject().GetNestedSprite( "_fullscreen" );
 			
-			if( bg != NULL )
+			if( bg != nullptr )
 			{
 				bg->PlayFrame( "rollOff" );
 			}
 			
-			if( edging != NULL )
+			if( edging != nullptr )
 			{
 				edging->PlayFrame( "rollOff" );
 			}
@@ -190,12 +190,12 @@ void idMenuHandler_Shell::Update()
 		else
 		{
 		
-			if( activeScreen > SHELL_AREA_INVALID && activeScreen < SHELL_NUM_AREAS && menuScreens[ activeScreen ] != NULL )
+			if( activeScreen > SHELL_AREA_INVALID && activeScreen < SHELL_NUM_AREAS && menuScreens[ activeScreen ] != nullptr )
 			{
 				menuScreens[ activeScreen ]->HideScreen( static_cast<mainMenuTransition_t>( transition ) );
 			}
 			
-			if( nextScreen > SHELL_AREA_INVALID && nextScreen < SHELL_NUM_AREAS && menuScreens[ nextScreen ] != NULL )
+			if( nextScreen > SHELL_AREA_INVALID && nextScreen < SHELL_NUM_AREAS && menuScreens[ nextScreen ] != nullptr )
 			{
 				menuScreens[ nextScreen ]->UpdateCmds();
 				menuScreens[ nextScreen ]->ShowScreen( static_cast<mainMenuTransition_t>( transition ) );
@@ -206,7 +206,7 @@ void idMenuHandler_Shell::Update()
 		activeScreen = nextScreen;
 	}
 	
-	if( cmdBar != NULL && cmdBar->GetSprite() )
+	if( cmdBar != nullptr && cmdBar->GetSprite() )
 	{
 		if( common->Dialog().IsDialogActive() )
 		{
@@ -223,7 +223,7 @@ void idMenuHandler_Shell::Update()
 	if( activeScreen == nextScreen && activeScreen == SHELL_AREA_LEADERBOARDS )
 	{
 		idMenuScreen_Shell_Leaderboards* screen = dynamic_cast< idMenuScreen_Shell_Leaderboards* >( menuScreens[ SHELL_AREA_LEADERBOARDS ] );
-		if( screen != NULL )
+		if( screen != nullptr )
 		{
 			screen->PumpLBCache();
 			screen->RefreshLeaderboard();
@@ -232,7 +232,7 @@ void idMenuHandler_Shell::Update()
 	else if( activeScreen == nextScreen && activeScreen == SHELL_AREA_PARTY_LOBBY )
 	{
 		idMenuScreen_Shell_PartyLobby* screen = dynamic_cast< idMenuScreen_Shell_PartyLobby* >( menuScreens[ SHELL_AREA_PARTY_LOBBY ] );
-		if( screen != NULL )
+		if( screen != nullptr )
 		{
 			screen->UpdateLobby();
 		}
@@ -264,13 +264,13 @@ void idMenuHandler_Shell::Update()
 		}
 		
 		idMenuScreen_Shell_GameLobby* screen = dynamic_cast< idMenuScreen_Shell_GameLobby* >( menuScreens[ SHELL_AREA_GAME_LOBBY ] );
-		if( screen != NULL )
+		if( screen != nullptr )
 		{
 			screen->UpdateLobby();
 		}
 	}
 	
-	if( introGui != NULL && introGui->IsActive() )
+	if( introGui != nullptr && introGui->IsActive() )
 	{
 		introGui->Render( renderSystem, Sys_Milliseconds() );
 	}
@@ -282,7 +282,7 @@ void idMenuHandler_Shell::Update()
 			continueWaitForEnumerate = false;
 			common->Dialog().ClearDialog( GDM_REFRESHING );
 			idMenuScreen_Shell_Singleplayer* screen = dynamic_cast< idMenuScreen_Shell_Singleplayer* >( menuScreens[ SHELL_AREA_CAMPAIGN ] );
-			if( screen != NULL )
+			if( screen != nullptr )
 			{
 				screen->ContinueGame();
 			}
@@ -299,7 +299,7 @@ void idMenuHandler_Shell::SetCanContinue( bool valid )
 {
 
 	idMenuScreen_Shell_Singleplayer* screen = dynamic_cast< idMenuScreen_Shell_Singleplayer* >( menuScreens[ SHELL_AREA_CAMPAIGN ] );
-	if( screen != NULL )
+	if( screen != nullptr )
 	{
 		screen->SetCanContinue( valid );
 	}
@@ -340,7 +340,7 @@ bool idMenuHandler_Shell::HandleGuiEvent( const sysEvent_t* sev )
 				waitForBinding = false;
 				
 				idMenuScreen_Shell_Bindings* bindScreen = dynamic_cast< idMenuScreen_Shell_Bindings* >( menuScreens[ SHELL_AREA_KEYBOARD ] );
-				if( bindScreen != NULL )
+				if( bindScreen != nullptr )
 				{
 					bindScreen->ToggleWait( false );
 					bindScreen->Update();
@@ -356,7 +356,7 @@ bool idMenuHandler_Shell::HandleGuiEvent( const sysEvent_t* sev )
 					idKeyInput::SetBinding( sev->evValue, waitBind );
 					
 					idMenuScreen_Shell_Bindings* bindScreen = dynamic_cast< idMenuScreen_Shell_Bindings* >( menuScreens[ SHELL_AREA_KEYBOARD ] );
-					if( bindScreen != NULL )
+					if( bindScreen != nullptr )
 					{
 						bindScreen->SetBindingChanged( true );
 						bindScreen->UpdateBindingDisplay();
@@ -376,7 +376,7 @@ bool idMenuHandler_Shell::HandleGuiEvent( const sysEvent_t* sev )
 					{
 						idKeyInput::SetBinding( sev->evValue, "" );
 						idMenuScreen_Shell_Bindings* bindScreen = dynamic_cast< idMenuScreen_Shell_Bindings* >( menuScreens[ SHELL_AREA_KEYBOARD ] );
-						if( bindScreen != NULL )
+						if( bindScreen != nullptr )
 						{
 							bindScreen->SetBindingChanged( true );
 							bindScreen->UpdateBindingDisplay();
@@ -389,7 +389,7 @@ bool idMenuHandler_Shell::HandleGuiEvent( const sysEvent_t* sev )
 					{
 					
 						idMenuScreen_Shell_Bindings* bindScreen = dynamic_cast< idMenuScreen_Shell_Bindings* >( menuScreens[ SHELL_AREA_KEYBOARD ] );
-						if( bindScreen != NULL )
+						if( bindScreen != nullptr )
 						{
 							class idSWFScriptFunction_RebindKey : public idSWFScriptFunction_RefCounted
 							{
@@ -460,13 +460,13 @@ void idMenuHandler_Shell::Initialize( const char* swfFile, idSoundWorld* sw )
 	
 	for( int i = 0; i < SHELL_NUM_AREAS; ++i )
 	{
-		menuScreens[ i ] = NULL;
+		menuScreens[ i ] = nullptr;
 	}
 	
 	// done for build game purposes so these get touched
-	delete new idSWF( "doomIntro", NULL );
-	delete new idSWF( "roeIntro", NULL );
-	delete new idSWF( "leIntro", NULL );
+	delete new idSWF( "doomIntro", nullptr );
+	delete new idSWF( "roeIntro", nullptr );
+	delete new idSWF( "leIntro", nullptr );
 	
 	if( inGame )
 	{
@@ -532,7 +532,7 @@ void idMenuHandler_Shell::Initialize( const char* swfFile, idSoundWorld* sw )
 	{
 		idMenuWidget_MenuButton* const navButton = new( TAG_SWF ) idMenuWidget_MenuButton();
 		idMenuScreen_Shell_Root* rootScreen = dynamic_cast< idMenuScreen_Shell_Root* >( menuScreens[ SHELL_AREA_ROOT ] );
-		if( rootScreen != NULL )
+		if( rootScreen != nullptr )
 		{
 			navButton->RegisterEventObserver( rootScreen->GetHelpWidget() );
 		}
@@ -555,11 +555,11 @@ void idMenuHandler_Shell::Initialize( const char* swfFile, idSoundWorld* sw )
 	
 	// precache sounds
 	// don't load gui music for the pause menu to save some memory
-	const idSoundShader* soundShader = NULL;
+	const idSoundShader* soundShader = nullptr;
 	if( !inGame )
 	{
 		soundShader = declManager->FindSound( "gui/menu_music", true );
-		if( soundShader != NULL )
+		if( soundShader != nullptr )
 		{
 			sounds[ GUI_SOUND_MUSIC ] = soundShader->GetName();
 		}
@@ -573,7 +573,7 @@ void idMenuHandler_Shell::Initialize( const char* swfFile, idSoundWorld* sw )
 		if( ( shortMapName.Icmp( "le_hell_post" ) == 0 ) || ( shortMapName.Icmp( "hellhole" ) == 0 ) || ( shortMapName.Icmp( "hell" ) == 0 ) )
 		{
 			soundShader = declManager->FindSound( "hell_music_credits", true );
-			if( soundShader != NULL )
+			if( soundShader != nullptr )
 			{
 				sounds[ GUI_SOUND_MUSIC ] = soundShader->GetName();
 			}
@@ -581,42 +581,42 @@ void idMenuHandler_Shell::Initialize( const char* swfFile, idSoundWorld* sw )
 	}
 	
 	soundShader = declManager->FindSound( "gui/list_scroll", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_SCROLL ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/btn_PDA_advance", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_ADVANCE ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/btn_PDA_back", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_BACK ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/menu_build_on", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_BUILD_ON ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/pda_next_tab", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_BUILD_ON ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/btn_set_focus", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_FOCUS ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/btn_roll_over", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_ROLL_OVER ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/btn_roll_out", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_ROLL_OUT ] = soundShader->GetName();
 	}
@@ -631,7 +631,7 @@ void idMenuHandler_Shell::Initialize( const char* swfFile, idSoundWorld* sw )
 		}
 	};
 	
-	if( gui != NULL )
+	if( gui != nullptr )
 	{
 		gui->SetGlobal( "closeMenu", new idPauseGUIClose() );
 	}
@@ -647,7 +647,7 @@ void idMenuHandler_Shell::Cleanup()
 	idMenuHandler::Cleanup();
 	
 	delete introGui;
-	introGui = NULL;
+	introGui = nullptr;
 }
 
 /*
@@ -658,11 +658,11 @@ idMenuHandler_Shell::ActivateMenu
 void idMenuHandler_Shell::ActivateMenu( bool show )
 {
 
-	if( show && gui != NULL && gui->IsActive() )
+	if( show && gui != nullptr && gui->IsActive() )
 	{
 		return;
 	}
-	else if( !show && gui != NULL && !gui->IsActive() )
+	else if( !show && gui != nullptr && !gui->IsActive() )
 	{
 		return;
 	}
@@ -671,7 +671,7 @@ void idMenuHandler_Shell::ActivateMenu( bool show )
 	if( inGame )
 	{
 		idPlayer* player = gameLocal.GetLocalPlayer();
-		if( player != NULL )
+		if( player != nullptr )
 		{
 			if( !show )
 			{
@@ -697,7 +697,7 @@ void idMenuHandler_Shell::ActivateMenu( bool show )
 		{
 			PlaySound( GUI_SOUND_MUSIC );
 			
-			if( gui != NULL )
+			if( gui != nullptr )
 			{
 			
 				idSWFSpriteInstance* mars = gui->GetRootObject().GetNestedSprite( "mars" );
@@ -707,16 +707,16 @@ void idMenuHandler_Shell::ActivateMenu( bool show )
 					
 					idSWFSpriteInstance* planet = mars->GetScriptObject()->GetNestedSprite( "planet" );
 					
-					if( marsRotation != NULL && planet != NULL )
+					if( marsRotation != nullptr && planet != nullptr )
 					{
 						const idMaterial* mat = marsRotation;
-						if( mat != NULL )
+						if( mat != nullptr )
 						{
 							int c = mat->GetNumStages();
 							for( int i = 0; i < c; i++ )
 							{
 								const shaderStage_t* stage = mat->GetStage( i );
-								if( stage != NULL && stage->texture.cinematic )
+								if( stage != nullptr && stage->texture.cinematic )
 								{
 									stage->texture.cinematic->ResetTime( Sys_Milliseconds() );
 								}
@@ -731,7 +731,7 @@ void idMenuHandler_Shell::ActivateMenu( bool show )
 		
 		SetupPCOptions();
 		
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			cmdBar->Update();
@@ -780,7 +780,7 @@ void idMenuHandler_Shell::SetupPCOptions()
 	
 	navOptions.Clear();
 	
-	if( GetPlatform() == 2 && menuBar != NULL )
+	if( GetPlatform() == 2 && menuBar != nullptr )
 	{
 		if( g_demoMode.GetBool() )
 		{
@@ -792,10 +792,10 @@ void idMenuHandler_Shell::SetupPCOptions()
 			navOptions.Append( "#str_swf_settings" );	// settings
 			navOptions.Append( "#str_swf_quit" );	// quit
 			
-			idMenuWidget_MenuButton* buttonWidget = NULL;
+			idMenuWidget_MenuButton* buttonWidget = nullptr;
 			int index = 0;
 			buttonWidget = dynamic_cast< idMenuWidget_MenuButton* >( &menuBar->GetChildByIndex( index ) );
-			if( buttonWidget != NULL )
+			if( buttonWidget != nullptr )
 			{
 				buttonWidget->ClearEventActions();
 				buttonWidget->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_COMMAND, SHELL_CMD_DEMO0, index );
@@ -805,7 +805,7 @@ void idMenuHandler_Shell::SetupPCOptions()
 			{
 				index++;
 				buttonWidget = dynamic_cast< idMenuWidget_MenuButton* >( &menuBar->GetChildByIndex( index ) );
-				if( buttonWidget != NULL )
+				if( buttonWidget != nullptr )
 				{
 					buttonWidget->ClearEventActions();
 					buttonWidget->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_COMMAND, SHELL_CMD_DEMO1, index );
@@ -814,7 +814,7 @@ void idMenuHandler_Shell::SetupPCOptions()
 			}
 			index++;
 			buttonWidget = dynamic_cast< idMenuWidget_MenuButton* >( &menuBar->GetChildByIndex( index ) );
-			if( buttonWidget != NULL )
+			if( buttonWidget != nullptr )
 			{
 				buttonWidget->ClearEventActions();
 				buttonWidget->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_COMMAND, SHELL_CMD_SETTINGS, index );
@@ -822,7 +822,7 @@ void idMenuHandler_Shell::SetupPCOptions()
 			}
 			index++;
 			buttonWidget = dynamic_cast< idMenuWidget_MenuButton* >( &menuBar->GetChildByIndex( index ) );
-			if( buttonWidget != NULL )
+			if( buttonWidget != nullptr )
 			{
 				buttonWidget->ClearEventActions();
 				buttonWidget->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_COMMAND, SHELL_CMD_QUIT, index );
@@ -841,11 +841,11 @@ void idMenuHandler_Shell::SetupPCOptions()
 			navOptions.Append( "#str_swf_quit" );	// quit
 			
 			
-			idMenuWidget_MenuButton* buttonWidget = NULL;
+			idMenuWidget_MenuButton* buttonWidget = nullptr;
 			int index = 0;
 #if !defined ( ID_RETAIL )
 			buttonWidget = dynamic_cast< idMenuWidget_MenuButton* >( &menuBar->GetChildByIndex( index ) );
-			if( buttonWidget != NULL )
+			if( buttonWidget != nullptr )
 			{
 				buttonWidget->ClearEventActions();
 				buttonWidget->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_COMMAND, SHELL_CMD_DEV, index );
@@ -854,7 +854,7 @@ void idMenuHandler_Shell::SetupPCOptions()
 			index++;
 #endif
 			buttonWidget = dynamic_cast< idMenuWidget_MenuButton* >( &menuBar->GetChildByIndex( index ) );
-			if( buttonWidget != NULL )
+			if( buttonWidget != nullptr )
 			{
 				buttonWidget->ClearEventActions();
 				buttonWidget->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_COMMAND, SHELL_CMD_CAMPAIGN, index );
@@ -862,7 +862,7 @@ void idMenuHandler_Shell::SetupPCOptions()
 			}
 			index++;
 			buttonWidget = dynamic_cast< idMenuWidget_MenuButton* >( &menuBar->GetChildByIndex( index ) );
-			if( buttonWidget != NULL )
+			if( buttonWidget != nullptr )
 			{
 				buttonWidget->ClearEventActions();
 				buttonWidget->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_COMMAND, SHELL_CMD_MULTIPLAYER, index );
@@ -870,7 +870,7 @@ void idMenuHandler_Shell::SetupPCOptions()
 			}
 			index++;
 			buttonWidget = dynamic_cast< idMenuWidget_MenuButton* >( &menuBar->GetChildByIndex( index ) );
-			if( buttonWidget != NULL )
+			if( buttonWidget != nullptr )
 			{
 				buttonWidget->ClearEventActions();
 				buttonWidget->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_COMMAND, SHELL_CMD_SETTINGS, index );
@@ -878,7 +878,7 @@ void idMenuHandler_Shell::SetupPCOptions()
 			}
 			index++;
 			buttonWidget = dynamic_cast< idMenuWidget_MenuButton* >( &menuBar->GetChildByIndex( index ) );
-			if( buttonWidget != NULL )
+			if( buttonWidget != nullptr )
 			{
 				buttonWidget->ClearEventActions();
 				buttonWidget->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_COMMAND, SHELL_CMD_CREDITS, index );
@@ -886,7 +886,7 @@ void idMenuHandler_Shell::SetupPCOptions()
 			}
 			index++;
 			buttonWidget = dynamic_cast< idMenuWidget_MenuButton* >( &menuBar->GetChildByIndex( index ) );
-			if( buttonWidget != NULL )
+			if( buttonWidget != nullptr )
 			{
 				buttonWidget->ClearEventActions();
 				buttonWidget->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_COMMAND, SHELL_CMD_QUIT, index );
@@ -895,7 +895,7 @@ void idMenuHandler_Shell::SetupPCOptions()
 		}
 	}
 	
-	if( menuBar != NULL && gui != NULL )
+	if( menuBar != nullptr && gui != nullptr )
 	{
 		idSWFScriptObject& root = gui->GetRootObject();
 		if( menuBar->BindSprite( root ) )
@@ -905,7 +905,7 @@ void idMenuHandler_Shell::SetupPCOptions()
 			menuBar->Update();
 			
 			idMenuScreen_Shell_Root* menu = dynamic_cast< idMenuScreen_Shell_Root* >( menuScreens[ SHELL_AREA_ROOT ] );
-			if( menu != NULL )
+			if( menu != nullptr )
 			{
 				const int activeIndex = menu->GetRootIndex();
 				menuBar->SetViewIndex( activeIndex );
@@ -984,7 +984,7 @@ bool idMenuHandler_Shell::HandleAction( idWidgetAction& action, const idWidgetEv
 			return true;
 		}*/
 		
-		if( menuScreens[ activeScreen ] != NULL && !forceHandled )
+		if( menuScreens[ activeScreen ] != nullptr && !forceHandled )
 		{
 			if( menuScreens[ activeScreen ]->HandleAction( action, event, widget, true ) )
 			{
@@ -1035,7 +1035,7 @@ bool idMenuHandler_Shell::HandleAction( idWidgetAction& action, const idWidgetEv
 			menuBar->SetViewIndex( index );
 			
 			idMenuScreen_Shell_Root* menu = dynamic_cast< idMenuScreen_Shell_Root* >( menuScreens[ SHELL_AREA_ROOT ] );
-			if( menu != NULL )
+			if( menu != nullptr )
 			{
 				menu->SetRootIndex( index );
 			}
@@ -1107,7 +1107,7 @@ idMenuScreen* idMenuHandler_Shell::GetMenuScreen( int index )
 
 	if( index < 0 || index >= SHELL_NUM_AREAS )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	return menuScreens[ index ];
@@ -1121,13 +1121,13 @@ idMenuHandler_Shell::ShowSmallFrame
 void idMenuHandler_Shell::ShowSmallFrame( bool show )
 {
 
-	if( gui == NULL )
+	if( gui == nullptr )
 	{
 		return;
 	}
 	
 	idSWFSpriteInstance* smallFrame = gui->GetRootObject().GetNestedSprite( "smallFrame" );
-	if( smallFrame == NULL )
+	if( smallFrame == nullptr )
 	{
 		return;
 	}
@@ -1155,13 +1155,13 @@ idMenuHandler_Shell::ShowMPFrame
 void idMenuHandler_Shell::ShowMPFrame( bool show )
 {
 
-	if( gui == NULL )
+	if( gui == nullptr )
 	{
 		return;
 	}
 	
 	idSWFSpriteInstance* smallFrame = gui->GetRootObject().GetNestedSprite( "smallFrameMP" );
-	if( smallFrame == NULL )
+	if( smallFrame == nullptr )
 	{
 		return;
 	}
@@ -1189,7 +1189,7 @@ idMenuHandler_Shell::ShowSmallFrame
 void idMenuHandler_Shell::ShowLogo( bool show )
 {
 
-	if( gui == NULL )
+	if( gui == nullptr )
 	{
 		return;
 	}
@@ -1201,7 +1201,7 @@ void idMenuHandler_Shell::ShowLogo( bool show )
 	
 	idSWFSpriteInstance* logo = gui->GetRootObject().GetNestedSprite( "logoInfo" );
 	idSWFSpriteInstance* bg = gui->GetRootObject().GetNestedSprite( "background" );
-	if( logo != NULL && bg != NULL )
+	if( logo != nullptr && bg != nullptr )
 	{
 	
 		bg->stereoDepth = STEREO_DEPTH_TYPE_MID;
@@ -1232,7 +1232,7 @@ void idMenuHandler_Shell::UpdateSavedGames()
 	if( activeScreen == SHELL_AREA_LOAD )
 	{
 		idMenuScreen_Shell_Load* screen = dynamic_cast< idMenuScreen_Shell_Load* >( menuScreens[ SHELL_AREA_LOAD ] );
-		if( screen != NULL )
+		if( screen != nullptr )
 		{
 			screen->UpdateSaveEnumerations();
 		}
@@ -1240,7 +1240,7 @@ void idMenuHandler_Shell::UpdateSavedGames()
 	else if( activeScreen == SHELL_AREA_SAVE )
 	{
 		idMenuScreen_Shell_Save* screen = dynamic_cast< idMenuScreen_Shell_Save* >( menuScreens[ SHELL_AREA_SAVE ] );
-		if( screen != NULL )
+		if( screen != nullptr )
 		{
 			screen->UpdateSaveEnumerations();
 		}
@@ -1310,7 +1310,7 @@ idMenuHandler_Shell::UpdateLeaderboard
 void idMenuHandler_Shell::UpdateLeaderboard( const idLeaderboardCallback* callback )
 {
 	idMenuScreen_Shell_Leaderboards* screen = dynamic_cast< idMenuScreen_Shell_Leaderboards* >( menuScreens[ SHELL_AREA_LEADERBOARDS ] );
-	if( screen != NULL )
+	if( screen != nullptr )
 	{
 		screen->UpdateLeaderboard( callback );
 	}
@@ -1323,7 +1323,7 @@ idMenuManager_Shell::ShowPacifier
 */
 void idMenuHandler_Shell::ShowPacifier( const idStr& msg )
 {
-	if( GetPacifier() != NULL && gui != NULL )
+	if( GetPacifier() != nullptr && gui != nullptr )
 	{
 		gui->SetGlobal( "paciferMessage", msg );
 		GetPacifier()->Show();
@@ -1337,7 +1337,7 @@ idMenuManager_Shell::HidePacifier
 */
 void idMenuHandler_Shell::HidePacifier()
 {
-	if( GetPacifier() != NULL )
+	if( GetPacifier() != nullptr )
 	{
 		GetPacifier()->Hide();
 	}
@@ -1351,7 +1351,7 @@ idMenuHandler_Shell::CopySettingsFromSession
 void idMenuHandler_Shell::UpdateLobby( idMenuWidget_LobbyList* lobbyList )
 {
 
-	if( lobbyList == NULL )
+	if( lobbyList == nullptr )
 	{
 		return;
 	}
@@ -1432,16 +1432,16 @@ void idMenuHandler_Shell::ShowDoomIntro()
 	delete introGui;
 	introGui = new idSWF( "doomIntro", common->MenuSW() );
 	
-	if( introGui != NULL )
+	if( introGui != nullptr )
 	{
 		const idMaterial* mat = doom3Intro;
-		if( mat != NULL )
+		if( mat != nullptr )
 		{
 			int c = mat->GetNumStages();
 			for( int i = 0; i < c; i++ )
 			{
 				const shaderStage_t* stage = mat->GetStage( i );
-				if( stage != NULL && stage->texture.cinematic )
+				if( stage != nullptr && stage->texture.cinematic )
 				{
 					stage->texture.cinematic->ResetTime( Sys_Milliseconds() );
 				}
@@ -1464,7 +1464,7 @@ void idMenuHandler_Shell::ShowDoomIntro()
 		{
 		
 			idSWFTextInstance* txtVal = introGui->GetRootObject().GetNestedText( va( "info%d", i ), "txtInfo", "txtVal" );
-			if( txtVal != NULL )
+			if( txtVal != nullptr )
 			{
 				txtVal->SetText( textEntries[i] );
 				txtVal->SetStrokeInfo( true );
@@ -1472,14 +1472,14 @@ void idMenuHandler_Shell::ShowDoomIntro()
 				txtVal->rndSpotsVisible = -1;
 				txtVal->renderDelay = 50;
 				txtVal->generatingText = false;
-				if( typeSoundShader != NULL )
+				if( typeSoundShader != nullptr )
 				{
 					txtVal->soundClip = typeSoundShader->GetName();
 				}
 			}
 			
 			idSWFSpriteInstance* infoSprite = introGui->GetRootObject().GetNestedSprite( va( "info%d", i ) );
-			if( infoSprite != NULL && txtVal != NULL )
+			if( infoSprite != nullptr && txtVal != nullptr )
 			{
 				class idIntroTextUpdate : public idSWFScriptFunction_RefCounted
 				{
@@ -1495,7 +1495,7 @@ void idMenuHandler_Shell::ShowDoomIntro()
 					}
 					idSWFScriptVar Call( idSWFScriptObject* thisObject, const idSWFParmList& parms )
 					{
-						if( thisObject->GetSprite() == NULL )
+						if( thisObject->GetSprite() == nullptr )
 						{
 							return idSWFScriptVar();
 						}
@@ -1505,7 +1505,7 @@ void idMenuHandler_Shell::ShowDoomIntro()
 							return idSWFScriptVar();
 						}
 						
-						if( txtVal == NULL )
+						if( txtVal == nullptr )
 						{
 							return idSWFScriptVar();
 						}
@@ -1536,7 +1536,7 @@ void idMenuHandler_Shell::ShowDoomIntro()
 									if( nextIndex < NUM_DOOM_INTRO_LINES )
 									{
 										idSWFSpriteInstance* nextInfo = gui->GetRootObject().GetNestedSprite( va( "info%d", nextIndex ) );
-										if( nextInfo != NULL && nextInfo->GetCurrentFrame() != nextInfo->FindFrame( "active" ) )
+										if( nextInfo != nullptr && nextInfo->GetCurrentFrame() != nextInfo->FindFrame( "active" ) )
 										{
 											nextInfo->StopFrame( "active" );
 										}
@@ -1582,7 +1582,7 @@ void idMenuHandler_Shell::ShowDoomIntro()
 			}
 			idSWFScriptVar Call( idSWFScriptObject* thisObject, const idSWFParmList& parms )
 			{
-				if( introGui != NULL )
+				if( introGui != nullptr )
 				{
 					introGui->PlaySound( "gui/doomintro" );
 				}
@@ -1592,15 +1592,15 @@ void idMenuHandler_Shell::ShowDoomIntro()
 			idSWF* introGui;
 		};
 		
-		if( introGui != NULL )
+		if( introGui != nullptr )
 		{
 			introGui->SetGlobal( "playVo", new idIntroVOStart( introGui ) );
 		}
 		
 		idSWFSpriteInstance* img = introGui->GetRootObject().GetNestedSprite( "intro", "img" );
-		if( img != NULL )
+		if( img != nullptr )
 		{
-			if( mat != NULL )
+			if( mat != nullptr )
 			{
 				img->SetMaterial( mat );
 			}
@@ -1624,16 +1624,16 @@ void idMenuHandler_Shell::ShowROEIntro()
 	delete introGui;
 	introGui = new idSWF( "roeIntro", common->MenuSW() );
 	
-	if( introGui != NULL )
+	if( introGui != nullptr )
 	{
 		const idMaterial* mat = roeIntro;
-		if( mat != NULL )
+		if( mat != nullptr )
 		{
 			int c = mat->GetNumStages();
 			for( int i = 0; i < c; i++ )
 			{
 				const shaderStage_t* stage = mat->GetStage( i );
-				if( stage != NULL && stage->texture.cinematic )
+				if( stage != nullptr && stage->texture.cinematic )
 				{
 					stage->texture.cinematic->ResetTime( Sys_Milliseconds() );
 				}
@@ -1657,7 +1657,7 @@ void idMenuHandler_Shell::ShowROEIntro()
 		{
 		
 			idSWFTextInstance* txtVal = introGui->GetRootObject().GetNestedText( va( "info%d", i ), "txtInfo", "txtVal" );
-			if( txtVal != NULL )
+			if( txtVal != nullptr )
 			{
 				txtVal->SetText( textEntries[i] );
 				txtVal->SetStrokeInfo( true );
@@ -1665,14 +1665,14 @@ void idMenuHandler_Shell::ShowROEIntro()
 				txtVal->rndSpotsVisible = -1;
 				txtVal->renderDelay = 40;
 				txtVal->generatingText = false;
-				if( typeSoundShader != NULL )
+				if( typeSoundShader != nullptr )
 				{
 					txtVal->soundClip = typeSoundShader->GetName();
 				}
 			}
 			
 			idSWFSpriteInstance* infoSprite = introGui->GetRootObject().GetNestedSprite( va( "info%d", i ) );
-			if( infoSprite != NULL && txtVal != NULL )
+			if( infoSprite != nullptr && txtVal != nullptr )
 			{
 				class idIntroTextUpdate : public idSWFScriptFunction_RefCounted
 				{
@@ -1689,7 +1689,7 @@ void idMenuHandler_Shell::ShowROEIntro()
 					}
 					idSWFScriptVar Call( idSWFScriptObject* thisObject, const idSWFParmList& parms )
 					{
-						if( thisObject->GetSprite() == NULL )
+						if( thisObject->GetSprite() == nullptr )
 						{
 							return idSWFScriptVar();
 						}
@@ -1699,7 +1699,7 @@ void idMenuHandler_Shell::ShowROEIntro()
 							return idSWFScriptVar();
 						}
 						
-						if( txtVal == NULL )
+						if( txtVal == nullptr )
 						{
 							return idSWFScriptVar();
 						}
@@ -1718,14 +1718,14 @@ void idMenuHandler_Shell::ShowROEIntro()
 									if( nextIndex < NUM_ROE_INTRO_LINES )
 									{
 										idSWFSpriteInstance* nextInfo = gui->GetRootObject().GetNestedSprite( va( "info%d", nextIndex ) );
-										if( nextInfo != NULL && nextInfo->GetCurrentFrame() != nextInfo->FindFrame( "active" ) )
+										if( nextInfo != nullptr && nextInfo->GetCurrentFrame() != nextInfo->FindFrame( "active" ) )
 										{
 											nextInfo->StopFrame( "active" );
 										}
-										else if( nextInfo != NULL && nextInfo->IsVisible() )
+										else if( nextInfo != nullptr && nextInfo->IsVisible() )
 										{
 											idSWFTextInstance* txtData = nextInfo->GetScriptObject()->GetNestedText( "txtInfo", "txtVal" );
-											if( txtData != NULL && !txtData->generatingText )
+											if( txtData != nullptr && !txtData->generatingText )
 											{
 												if( startFade == 0 )
 												{
@@ -1742,7 +1742,7 @@ void idMenuHandler_Shell::ShowROEIntro()
 														if( nextDateIndex < NUM_ROE_INTRO_LINES )
 														{
 															idSWFSpriteInstance* nextInfo = gui->GetRootObject().GetNestedSprite( va( "info%d", nextDateIndex ) );
-															if( nextInfo != NULL && nextInfo->GetCurrentFrame() != nextInfo->FindFrame( "active" ) )
+															if( nextInfo != nullptr && nextInfo->GetCurrentFrame() != nextInfo->FindFrame( "active" ) )
 															{
 																nextInfo->StopFrame( "active" );
 																return idSWFScriptVar();
@@ -1785,9 +1785,9 @@ void idMenuHandler_Shell::ShowROEIntro()
 		}
 		
 		idSWFSpriteInstance* img = introGui->GetRootObject().GetNestedSprite( "intro", "img" );
-		if( img != NULL )
+		if( img != nullptr )
 		{
-			if( mat != NULL )
+			if( mat != nullptr )
 			{
 				img->SetMaterial( mat );
 			}
@@ -1811,13 +1811,13 @@ void idMenuHandler_Shell::ShowLEIntro()
 	delete introGui;
 	introGui = new idSWF( "leIntro", common->MenuSW() );
 	
-	if( introGui != NULL )
+	if( introGui != nullptr )
 	{
 		introGui->Activate( true );
 		
 		idStr textEntry = va( "%s\n%s\n%s", idLocalization::GetString( "#str_00200071" ), idLocalization::GetString( "#str_00200072" ), idLocalization::GetString( "#str_00200073" ) );
 		idSWFTextInstance* txtVal = introGui->GetRootObject().GetNestedText( "info0", "txtInfo", "txtVal" );
-		if( txtVal != NULL )
+		if( txtVal != nullptr )
 		{
 			txtVal->SetText( textEntry );
 			txtVal->SetStrokeInfo( true );
@@ -1825,14 +1825,14 @@ void idMenuHandler_Shell::ShowLEIntro()
 			txtVal->rndSpotsVisible = -1;
 			txtVal->renderDelay = 60;
 			txtVal->generatingText = false;
-			if( typeSoundShader != NULL )
+			if( typeSoundShader != nullptr )
 			{
 				txtVal->soundClip = typeSoundShader->GetName();
 			}
 		}
 		
 		idSWFSpriteInstance* infoSprite = introGui->GetRootObject().GetNestedSprite( "info0" );
-		if( infoSprite != NULL )
+		if( infoSprite != nullptr )
 		{
 			class idIntroTextUpdate : public idSWFScriptFunction_RefCounted
 			{
@@ -1846,7 +1846,7 @@ void idMenuHandler_Shell::ShowLEIntro()
 				}
 				idSWFScriptVar Call( idSWFScriptObject* thisObject, const idSWFParmList& parms )
 				{
-					if( thisObject->GetSprite() == NULL )
+					if( thisObject->GetSprite() == nullptr )
 					{
 						return idSWFScriptVar();
 					}
@@ -1856,7 +1856,7 @@ void idMenuHandler_Shell::ShowLEIntro()
 						return idSWFScriptVar();
 					}
 					
-					if( txtVal == NULL )
+					if( txtVal == nullptr )
 					{
 						return idSWFScriptVar();
 					}

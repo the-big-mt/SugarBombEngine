@@ -64,11 +64,11 @@ idSoundHardware_OpenAL::idSoundHardware_OpenAL
 */
 idSoundHardware_OpenAL::idSoundHardware_OpenAL()
 {
-	openalDevice = NULL;
-	openalContext = NULL;
+	openalDevice = nullptr;
+	openalContext = nullptr;
 	
-	//vuMeterRMS = NULL;
-	//vuMeterPeak = NULL;
+	//vuMeterRMS = nullptr;
+	//vuMeterPeak = nullptr;
 	
 	//outputChannels = 0;
 	//channelMask = 0;
@@ -103,7 +103,7 @@ void idSoundHardware_OpenAL::PrintALCInfo( ALCdevice* device )
 	
 	if( device )
 	{
-		const ALCchar* devname = NULL;
+		const ALCchar* devname = nullptr;
 		idLib::Printf( "\n" );
 		if( alcIsExtensionPresent( device, "ALC_ENUMERATE_ALL_EXT" ) != AL_FALSE )
 		{
@@ -147,30 +147,30 @@ void idSoundHardware_OpenAL::PrintALInfo()
 void listDevices_f( const idCmdArgs& args )
 {
 	idLib::Printf( "Available playback devices:\n" );
-	if( alcIsExtensionPresent( NULL, "ALC_ENUMERATE_ALL_EXT" ) != AL_FALSE )
+	if( alcIsExtensionPresent( nullptr, "ALC_ENUMERATE_ALL_EXT" ) != AL_FALSE )
 	{
-		idSoundHardware_OpenAL::PrintDeviceList( alcGetString( NULL, ALC_ALL_DEVICES_SPECIFIER ) );
+		idSoundHardware_OpenAL::PrintDeviceList( alcGetString( nullptr, ALC_ALL_DEVICES_SPECIFIER ) );
 	}
 	else
 	{
-		idSoundHardware_OpenAL::PrintDeviceList( alcGetString( NULL, ALC_DEVICE_SPECIFIER ) );
+		idSoundHardware_OpenAL::PrintDeviceList( alcGetString( nullptr, ALC_DEVICE_SPECIFIER ) );
 	}
 	
 	//idLib::Printf("Available capture devices:\n");
-	//printDeviceList(alcGetString(NULL, ALC_CAPTURE_DEVICE_SPECIFIER));
+	//printDeviceList(alcGetString(nullptr, ALC_CAPTURE_DEVICE_SPECIFIER));
 	
-	if( alcIsExtensionPresent( NULL, "ALC_ENUMERATE_ALL_EXT" ) != AL_FALSE )
+	if( alcIsExtensionPresent( nullptr, "ALC_ENUMERATE_ALL_EXT" ) != AL_FALSE )
 	{
-		idLib::Printf( "Default playback device: %s\n", alcGetString( NULL, ALC_DEFAULT_ALL_DEVICES_SPECIFIER ) );
+		idLib::Printf( "Default playback device: %s\n", alcGetString( nullptr, ALC_DEFAULT_ALL_DEVICES_SPECIFIER ) );
 	}
 	else
 	{
-		idLib::Printf( "Default playback device: %s\n",  alcGetString( NULL, ALC_DEFAULT_DEVICE_SPECIFIER ) );
+		idLib::Printf( "Default playback device: %s\n",  alcGetString( nullptr, ALC_DEFAULT_DEVICE_SPECIFIER ) );
 	}
 	
-	//idLib::Printf("Default capture device: %s\n", alcGetString(NULL, ALC_CAPTURE_DEFAULT_DEVICE_SPECIFIER));
+	//idLib::Printf("Default capture device: %s\n", alcGetString(nullptr, ALC_CAPTURE_DEFAULT_DEVICE_SPECIFIER));
 	
-	idSoundHardware_OpenAL::PrintALCInfo( NULL );
+	idSoundHardware_OpenAL::PrintALCInfo( nullptr );
 	
 	idSoundHardware_OpenAL::PrintALCInfo( ( ALCdevice* )soundSystem->GetOpenALDevice() );
 }
@@ -182,18 +182,18 @@ idSoundHardware_OpenAL::Init
 */
 void idSoundHardware_OpenAL::Init()
 {
-	cmdSystem->AddCommand( "listDevices", listDevices_f, 0, "Lists the connected sound devices", NULL );
+	cmdSystem->AddCommand( "listDevices", listDevices_f, 0, "Lists the connected sound devices", nullptr );
 	
 	common->Printf( "Setup OpenAL device and context... " );
 	
-	openalDevice = alcOpenDevice( NULL );
-	if( openalDevice == NULL )
+	openalDevice = alcOpenDevice( nullptr );
+	if( openalDevice == nullptr )
 	{
 		common->FatalError( "idSoundHardware_OpenAL::Init: alcOpenDevice() failed\n" );
 		return;
 	}
 	
-	openalContext = alcCreateContext( openalDevice, NULL );
+	openalContext = alcCreateContext( openalDevice, nullptr );
 	if( alcMakeContextCurrent( openalContext ) == 0 )
 	{
 		common->FatalError( "idSoundHardware_OpenAL::Init: alcMakeContextCurrent( %p) failed\n", openalContext );
@@ -218,7 +218,7 @@ void idSoundHardware_OpenAL::Init()
 	// Create VU Meter Effect
 	// ---------------------
 	/*
-	IUnknown* vuMeter = NULL;
+	IUnknown* vuMeter = nullptr;
 	XAudio2CreateVolumeMeter( &vuMeter, 0 );
 	
 	XAUDIO2_EFFECT_DESCRIPTOR descriptor;
@@ -291,24 +291,24 @@ void idSoundHardware_OpenAL::Shutdown()
 	freeVoices.Clear();
 	zombieVoices.Clear();
 	
-	alcMakeContextCurrent( NULL );
+	alcMakeContextCurrent( nullptr );
 	
 	alcDestroyContext( openalContext );
-	openalContext = NULL;
+	openalContext = nullptr;
 	
 	alcCloseDevice( openalDevice );
-	openalDevice = NULL;
+	openalDevice = nullptr;
 	
 	/*
-	if( vuMeterRMS != NULL )
+	if( vuMeterRMS != nullptr )
 	{
 		console->DestroyGraph( vuMeterRMS );
-		vuMeterRMS = NULL;
+		vuMeterRMS = nullptr;
 	}
-	if( vuMeterPeak != NULL )
+	if( vuMeterPeak != nullptr )
 	{
 		console->DestroyGraph( vuMeterPeak );
-		vuMeterPeak = NULL;
+		vuMeterPeak = nullptr;
 	}
 	*/
 }
@@ -320,22 +320,22 @@ idSoundHardware_OpenAL::AllocateVoice
 */
 idSoundVoice* idSoundHardware_OpenAL::AllocateVoice( const idSoundSample* leadinSample, const idSoundSample* loopingSample )
 {
-	if( leadinSample == NULL )
+	if( leadinSample == nullptr )
 	{
-		return NULL;
+		return nullptr;
 	}
-	if( loopingSample != NULL )
+	if( loopingSample != nullptr )
 	{
 		if( ( leadinSample->format.basic.formatTag != loopingSample->format.basic.formatTag ) || ( leadinSample->format.basic.numChannels != loopingSample->format.basic.numChannels ) )
 		{
 			idLib::Warning( "Leadin/looping format mismatch: %s & %s", leadinSample->GetName(), loopingSample->GetName() );
-			loopingSample = NULL;
+			loopingSample = nullptr;
 		}
 	}
 	
 	// Try to find a free voice that matches the format
 	// But fallback to the last free voice if none match the format
-	idSoundVoice* voice = NULL;
+	idSoundVoice* voice = nullptr;
 	for( int i = 0; i < freeVoices.Num(); i++ )
 	{
 		if( freeVoices[i]->IsPlaying() )
@@ -348,14 +348,14 @@ idSoundVoice* idSoundHardware_OpenAL::AllocateVoice( const idSoundSample* leadin
 			break;
 		}
 	}
-	if( voice != NULL )
+	if( voice != nullptr )
 	{
 		voice->Create( leadinSample, loopingSample );
 		freeVoices.Remove( voice );
 		return voice;
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -379,7 +379,7 @@ idSoundHardware_OpenAL::Update
 */
 void idSoundHardware_OpenAL::Update()
 {
-	if( openalDevice == NULL )
+	if( openalDevice == nullptr )
 	{
 		int nowTime = Sys_Milliseconds();
 		if( lastResetTime + 1000 < nowTime )
@@ -428,7 +428,7 @@ void idSoundHardware_OpenAL::Update()
 	*/
 	
 	/*
-	if( vuMeterRMS == NULL )
+	if( vuMeterRMS == nullptr )
 	{
 		// Init probably hasn't been called yet
 		return;

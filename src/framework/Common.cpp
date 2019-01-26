@@ -101,13 +101,13 @@ int64 com_engineHz_denominator = 100LL * 60LL;
 int com_editors = 0;
 
 #if defined(_WIN32)
-HWND com_hwndMsg = NULL;
+HWND com_hwndMsg = nullptr;
 #endif
 // RB end
 
 #ifdef __DOOM_DLL__
-idGame* 		game = NULL;
-idGameEdit* 	gameEdit = NULL;
+idGame* 		game = nullptr;
+idGameEdit* 	gameEdit = nullptr;
 #endif
 
 idCommonLocal	commonLocal;
@@ -148,37 +148,37 @@ idCommonLocal::idCommonLocal() :
 	com_shuttingDown = false;
 	com_isJapaneseSKU = false;
 	
-	logFile = NULL;
+	logFile = nullptr;
 	
 	strcpy( errorMessage, "" );
 	
-	rd_buffer = NULL;
+	rd_buffer = nullptr;
 	rd_buffersize = 0;
-	rd_flush = NULL;
+	rd_flush = nullptr;
 	
 	gameDLL = 0;
 	
-	loadGUI = NULL;
+	loadGUI = nullptr;
 	nextLoadTip = 0;
 	isHellMap = false;
 	wipeForced = false;
 	defaultLoadscreen = false;
 	
-	menuSoundWorld = NULL;
+	menuSoundWorld = nullptr;
 	
 	insideUpdateScreen = false;
 	insideExecuteMapChange = false;
 	
-	mapSpawnData.savegameFile = NULL;
+	mapSpawnData.savegameFile = nullptr;
 	
 	currentMapName.Clear();
 	aviDemoShortName.Clear();
 	
-	renderWorld = NULL;
-	soundWorld = NULL;
-	menuSoundWorld = NULL;
-	readDemo = NULL;
-	writeDemo = NULL;
+	renderWorld = nullptr;
+	soundWorld = nullptr;
+	menuSoundWorld = nullptr;
+	readDemo = nullptr;
+	writeDemo = nullptr;
 	
 	gameFrame = 0;
 	gameTimeResidual = 0;
@@ -192,8 +192,8 @@ idCommonLocal::idCommonLocal() :
 	
 	clientPrediction = 0;
 	
-	saveFile = NULL;
-	stringsFile = NULL;
+	saveFile = nullptr;
+	stringsFile = nullptr;
 	
 	ClearWipe();
 }
@@ -307,7 +307,7 @@ bool idCommonLocal::SafeMode()
 idCommonLocal::StartupVariable
 
 Searches for command line parameters that are set commands.
-If match is not NULL, only that cvar will be looked for.
+If match is not nullptr, only that cvar will be looked for.
 That is necessary because cddir and basedir need to be set
 before the filesystem is started, but all other sets should
 be after execing the config and default.
@@ -401,7 +401,7 @@ void idCommonLocal::WriteConfiguration()
 	
 	// save to the profile
 	idLocalUser* user = session->GetSignInManager().GetMasterLocalUser();
-	if( user != NULL )
+	if( user != nullptr )
 	{
 		user->SaveProfileSettings();
 	}
@@ -469,7 +469,7 @@ idCmdSystemLocal::PrintMemInfo_f
 This prints out memory debugging data
 ============
 */
-CONSOLE_COMMAND( printMemInfo, "prints memory debugging data", NULL )
+CONSOLE_COMMAND( printMemInfo, "prints memory debugging data", nullptr )
 {
 	MemInfo_t mi;
 	memset( &mi, 0, sizeof( mi ) );
@@ -511,7 +511,7 @@ Com_Error_f
 Just throw a fatal error to test error shutdown procedures.
 ==================
 */
-CONSOLE_COMMAND( error, "causes an error", NULL )
+CONSOLE_COMMAND( error, "causes an error", nullptr )
 {
 	if( !com_developer.GetBool() )
 	{
@@ -536,7 +536,7 @@ Com_Freeze_f
 Just freeze in place for a given number of seconds to test error recovery.
 ==================
 */
-CONSOLE_COMMAND( freeze, "freezes the game for a number of seconds", NULL )
+CONSOLE_COMMAND( freeze, "freezes the game for a number of seconds", nullptr )
 {
 	float	s;
 	int		start, now;
@@ -574,7 +574,7 @@ Com_Crash_f
 A way to force a bus error for development reasons
 =================
 */
-CONSOLE_COMMAND( crash, "causes a crash", NULL )
+CONSOLE_COMMAND( crash, "causes a crash", nullptr )
 {
 	if( !com_developer.GetBool() )
 	{
@@ -593,11 +593,11 @@ CONSOLE_COMMAND( crash, "causes a crash", NULL )
 Com_Quit_f
 =================
 */
-CONSOLE_COMMAND_SHIP( quit, "quits the game", NULL )
+CONSOLE_COMMAND_SHIP( quit, "quits the game", nullptr )
 {
 	commonLocal.Quit();
 }
-CONSOLE_COMMAND_SHIP( exit, "exits the game", NULL )
+CONSOLE_COMMAND_SHIP( exit, "exits the game", nullptr )
 {
 	commonLocal.Quit();
 }
@@ -609,7 +609,7 @@ Com_WriteConfig_f
 Write the config file to a specific name
 ===============
 */
-CONSOLE_COMMAND( writeConfig, "writes a config file", NULL )
+CONSOLE_COMMAND( writeConfig, "writes a config file", nullptr )
 {
 	idStr	filename;
 	
@@ -785,7 +785,7 @@ void idCommonLocal::InitLanguageDict()
 	for( int i = 0; i < currentLangList.Num(); i++ )
 	{
 		//common->Printf("%s\n", currentLangList[i].c_str());
-		const byte* buffer = NULL;
+		const byte* buffer = nullptr;
 		int len = fileSystem->ReadFile( currentLangList[i], ( void** )&buffer );
 		if( len <= 0 )
 		{
@@ -804,7 +804,7 @@ void idCommonLocal::InitLanguageDict()
 ReloadLanguage_f
 =================
 */
-CONSOLE_COMMAND( reloadLanguage, "reload language dict", NULL )
+CONSOLE_COMMAND( reloadLanguage, "reload language dict", nullptr )
 {
 	commonLocal.InitLanguageDict();
 }
@@ -816,11 +816,11 @@ CONSOLE_COMMAND( reloadLanguage, "reload language dict", NULL )
 Com_FinishBuild_f
 =================
 */
-CONSOLE_COMMAND( finishBuild, "finishes the build process", NULL )
+CONSOLE_COMMAND( finishBuild, "finishes the build process", nullptr )
 {
 	if( game )
 	{
-		game->CacheDictionaryMedia( NULL );
+		game->CacheDictionaryMedia( nullptr );
 	}
 }
 
@@ -1023,7 +1023,7 @@ void idCommonLocal::LoadGameDLL()
 	if( !GetGameAPI )
 	{
 		Sys_DLL_Unload( gameDLL );
-		gameDLL = NULL;
+		gameDLL = nullptr;
 		common->FatalError( "couldn't find game DLL API" );
 		return;
 	}
@@ -1047,7 +1047,7 @@ void idCommonLocal::LoadGameDLL()
 	if( gameExport.version != GAME_API_VERSION )
 	{
 		Sys_DLL_Unload( gameDLL );
-		gameDLL = NULL;
+		gameDLL = nullptr;
 		common->FatalError( "wrong game DLL API version" );
 		return;
 	}
@@ -1058,7 +1058,7 @@ void idCommonLocal::LoadGameDLL()
 #endif
 	
 	// initialize the game object
-	if( game != NULL )
+	if( game != nullptr )
 	{
 		game->Init();
 	}
@@ -1071,7 +1071,7 @@ idCommonLocal::UnloadGameDLL
 */
 void idCommonLocal::CleanupShell()
 {
-	if( game != NULL )
+	if( game != nullptr )
 	{
 		game->Shell_Cleanup();
 	}
@@ -1086,7 +1086,7 @@ void idCommonLocal::UnloadGameDLL()
 {
 
 	// shut down the game object
-	if( game != NULL )
+	if( game != nullptr )
 	{
 		game->Shutdown();
 	}
@@ -1096,10 +1096,10 @@ void idCommonLocal::UnloadGameDLL()
 	if( gameDLL )
 	{
 		Sys_DLL_Unload( gameDLL );
-		gameDLL = NULL;
+		gameDLL = nullptr;
 	}
-	game = NULL;
-	gameEdit = NULL;
+	game = nullptr;
+	gameEdit = nullptr;
 	
 #endif
 }
@@ -1140,7 +1140,7 @@ void idCommonLocal::Init( int argc, const char* const* argv, const char* cmdline
 		ClearWarnings( GAME_NAME " initialization" );
 		
 		idLib::Printf( "Command line: %s\n", cmdline );
-		//::MessageBox( NULL, cmdline, "blah", MB_OK );
+		//::MessageBox( nullptr, cmdline, "blah", MB_OK );
 		// parse command line options
 		idCmdArgs args;
 		if( cmdline )
@@ -1178,7 +1178,7 @@ void idCommonLocal::Init( int argc, const char* const* argv, const char* cmdline
 		Sys_InitNetworking();
 		
 		// override cvars from command line
-		StartupVariable( NULL );
+		StartupVariable( nullptr );
 		
 		consoleUsed = com_allowConsole.GetBool();
 		
@@ -1235,7 +1235,7 @@ void idCommonLocal::Init( int argc, const char* const* argv, const char* cmdline
 		cmdSystem->ExecuteCommandBuffer();
 		
 		// re-override anything from the config files with command line args
-		StartupVariable( NULL );
+		StartupVariable( nullptr );
 		
 		// if any archived cvars are modified after this, we will trigger a writing of the config file
 		cvarSystem->ClearModifiedFlags( CVAR_ARCHIVE );
@@ -1342,7 +1342,7 @@ void idCommonLocal::Init( int argc, const char* const* argv, const char* cmdline
 		renderWorld = renderSystem->AllocRenderWorld();
 		soundWorld = soundSystem->AllocSoundWorld( renderWorld );
 		
-		menuSoundWorld = soundSystem->AllocSoundWorld( NULL );
+		menuSoundWorld = soundSystem->AllocSoundWorld( nullptr );
 		menuSoundWorld->PlaceListener( vec3_origin, mat3_identity, 0 );
 		
 		// init the session
@@ -1352,7 +1352,7 @@ void idCommonLocal::Init( int argc, const char* const* argv, const char* cmdline
 		InitializeMPMapsModes();
 		
 		// leaderboards need to be initialized after InitializeMPMapsModes, which populates the MP Map list.
-		if( game != NULL )
+		if( game != nullptr )
 		{
 			game->Leaderboards_Init();
 		}
@@ -1398,12 +1398,12 @@ void idCommonLocal::Init( int argc, const char* const* argv, const char* cmdline
 		
 		
 		// No longer need the splash screen
-		if( splashScreen != NULL )
+		if( splashScreen != nullptr )
 		{
 			for( int i = 0; i < splashScreen->GetNumStages(); i++ )
 			{
 				idImage* image = splashScreen->GetStage( i )->texture.image;
-				if( image != NULL )
+				if( image != nullptr )
 				{
 					image->PurgeImage();
 				}
@@ -1460,19 +1460,19 @@ void idCommonLocal::Shutdown()
 	
 	printf( "delete loadGUI;\n" );
 	delete loadGUI;
-	loadGUI = NULL;
+	loadGUI = nullptr;
 	
 	printf( "delete renderWorld;\n" );
 	delete renderWorld;
-	renderWorld = NULL;
+	renderWorld = nullptr;
 	
 	printf( "delete soundWorld;\n" );
 	delete soundWorld;
-	soundWorld = NULL;
+	soundWorld = nullptr;
 	
 	printf( "delete menuSoundWorld;\n" );
 	delete menuSoundWorld;
-	menuSoundWorld = NULL;
+	menuSoundWorld = nullptr;
 	
 	// shut down the session
 	printf( "session->ShutdownSoundRelatedSystems();\n" );
@@ -1481,7 +1481,7 @@ void idCommonLocal::Shutdown()
 	session->Shutdown();
 	
 	// shutdown, deallocate leaderboard definitions.
-	if( game != NULL )
+	if( game != nullptr )
 	{
 		printf( "game->Leaderboards_Shutdown();\n" );
 		game->Leaderboards_Shutdown();
@@ -1571,7 +1571,7 @@ idCommonLocal::CreateMainMenu
 */
 void idCommonLocal::CreateMainMenu()
 {
-	if( game != NULL )
+	if( game != nullptr )
 	{
 		// note which media we are going to need to load
 		declManager->BeginLevelLoad();
@@ -1796,7 +1796,7 @@ bool idCommonLocal::ProcessEvent( const sysEvent_t* event )
 			DoomLib::SetPlayer( 0 );
 			
 			extern Globals* g;
-			if( g != NULL )
+			if( g != nullptr )
 			{
 				classicEvent.data1 =  DoomLib::RemapControl( event->GetKey() );
 				
@@ -1882,7 +1882,7 @@ void idCommonLocal::PerformGameSwitch()
 	if( idealCurrentGame == DOOM_CLASSIC || idealCurrentGame == DOOM2_CLASSIC )
 	{
 		// Pause Doom 3 sound.
-		if( menuSoundWorld != NULL )
+		if( menuSoundWorld != nullptr )
 		{
 			menuSoundWorld->Pause();
 		}
@@ -1920,7 +1920,7 @@ void idCommonLocal::PerformGameSwitch()
 		}
 		
 		// Unpause Doom 3 sound.
-		if( menuSoundWorld != NULL )
+		if( menuSoundWorld != nullptr )
 		{
 			menuSoundWorld->UnPause();
 		}
@@ -1937,7 +1937,7 @@ void idCommonLocal::PerformGameSwitch()
 Common_WritePrecache_f
 ==================
 */
-CONSOLE_COMMAND( writePrecache, "writes precache commands", NULL )
+CONSOLE_COMMAND( writePrecache, "writes precache commands", nullptr )
 {
 	if( args.Argc() != 2 )
 	{
@@ -1959,7 +1959,7 @@ CONSOLE_COMMAND( writePrecache, "writes precache commands", NULL )
 Common_Disconnect_f
 ================
 */
-CONSOLE_COMMAND_SHIP( disconnect, "disconnects from a game", NULL )
+CONSOLE_COMMAND_SHIP( disconnect, "disconnects from a game", nullptr )
 {
 	session->QuitMatch();
 }
@@ -1969,7 +1969,7 @@ CONSOLE_COMMAND_SHIP( disconnect, "disconnects from a game", NULL )
 Common_Hitch_f
 ===============
 */
-CONSOLE_COMMAND( hitch, "hitches the game", NULL )
+CONSOLE_COMMAND( hitch, "hitches the game", nullptr )
 {
 	if( args.Argc() == 2 )
 	{
@@ -1981,23 +1981,23 @@ CONSOLE_COMMAND( hitch, "hitches the game", NULL )
 	}
 }
 
-CONSOLE_COMMAND( showStringMemory, "shows memory used by strings", NULL )
+CONSOLE_COMMAND( showStringMemory, "shows memory used by strings", nullptr )
 {
 	idStr::ShowMemoryUsage_f( args );
 }
-CONSOLE_COMMAND( showDictMemory, "shows memory used by dictionaries", NULL )
+CONSOLE_COMMAND( showDictMemory, "shows memory used by dictionaries", nullptr )
 {
 	idDict::ShowMemoryUsage_f( args );
 }
-CONSOLE_COMMAND( listDictKeys, "lists all keys used by dictionaries", NULL )
+CONSOLE_COMMAND( listDictKeys, "lists all keys used by dictionaries", nullptr )
 {
 	idDict::ListKeys_f( args );
 }
-CONSOLE_COMMAND( listDictValues, "lists all values used by dictionaries", NULL )
+CONSOLE_COMMAND( listDictValues, "lists all values used by dictionaries", nullptr )
 {
 	idDict::ListValues_f( args );
 }
-CONSOLE_COMMAND( testSIMD, "test SIMD code", NULL )
+CONSOLE_COMMAND( testSIMD, "test SIMD code", nullptr )
 {
 	idSIMD::Test_f( args );
 }

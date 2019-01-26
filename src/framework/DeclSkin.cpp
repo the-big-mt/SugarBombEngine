@@ -95,7 +95,7 @@ bool idDeclSkin::Parse( const char* text, const int textLength, bool allowBinary
 		if( !token.Icmp( "*" ) )
 		{
 			// wildcard
-			map.from = NULL;
+			map.from = nullptr;
 		}
 		else
 		{
@@ -184,7 +184,7 @@ const idMaterial* idDeclSkin::RemapShaderBySkin( const idMaterial* shader ) cons
 	
 	if( !shader )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	// never remap surfaces that were originally nodraw, like collision hulls
@@ -197,7 +197,7 @@ const idMaterial* idDeclSkin::RemapShaderBySkin( const idMaterial* shader ) cons
 	{
 		const skinMapping_t*	map = &mappings[i];
 		
-		// NULL = wildcard match
+		// nullptr = wildcard match
 		if( !map->from || map->from == shader )
 		{
 			return map->to;

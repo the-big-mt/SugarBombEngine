@@ -120,7 +120,7 @@ idCVar r_skipCopyTexture( "r_skipCopyTexture", "0", CVAR_RENDERER | CVAR_BOOL, "
 idCVar r_skipBackEnd( "r_skipBackEnd", "0", CVAR_RENDERER | CVAR_BOOL, "don't draw anything" );
 idCVar r_skipRender( "r_skipRender", "0", CVAR_RENDERER | CVAR_BOOL, "skip 3D rendering, but pass 2D" );
 // RB begin
-idCVar r_skipRenderContext( "r_skipRenderContext", "0", CVAR_RENDERER | CVAR_BOOL, "DISABLED: NULL the rendering context during backend 3D rendering" );
+idCVar r_skipRenderContext( "r_skipRenderContext", "0", CVAR_RENDERER | CVAR_BOOL, "DISABLED: nullptr the rendering context during backend 3D rendering" );
 // RB end
 idCVar r_skipTranslucent( "r_skipTranslucent", "0", CVAR_RENDERER | CVAR_BOOL, "skip the translucent interaction rendering" );
 idCVar r_skipAmbient( "r_skipAmbient", "0", CVAR_RENDERER | CVAR_BOOL, "bypasses all non-interaction drawing" );
@@ -585,7 +585,7 @@ static void R_CheckPortableExtensions()
 	{
 		if( r_debugContext.GetInteger() >= 1 )
 		{
-			glDebugMessageCallbackARB( ( GLDEBUGPROCARB ) DebugCallback, NULL );
+			glDebugMessageCallbackARB( ( GLDEBUGPROCARB ) DebugCallback, nullptr );
 		}
 		if( r_debugContext.GetInteger() >= 2 )
 		{
@@ -598,7 +598,7 @@ static void R_CheckPortableExtensions()
 			glDebugMessageControlARB( GL_DONT_CARE,
 									  GL_DONT_CARE,
 									  GL_DEBUG_SEVERITY_LOW_ARB,
-									  0, NULL, true );
+									  0, nullptr, true );
 		}
 	}
 	
@@ -869,7 +869,7 @@ void R_InitOpenGL()
 	glConfig.shading_language_string = ( const char* )glGetString( GL_SHADING_LANGUAGE_VERSION );
 	glConfig.extensions_string = ( const char* )glGetString( GL_EXTENSIONS );
 	
-	if( glConfig.extensions_string == NULL )
+	if( glConfig.extensions_string == nullptr )
 	{
 		// As of OpenGL 3.2, glGetStringi is required to obtain the available extensions
 		//glGetStringi = ( PFNGLGETSTRINGIPROC )GLimp_ExtensionPointer( "glGetStringi" );
@@ -941,7 +941,7 @@ void R_InitOpenGL()
 				cmdSystem->BufferCommandText( CMD_EXEC_NOW, "vid_restart partial windowed\n" );
 				Sys_GrabMouseCursor( false );
 			}
-			int ret = MessageBox( NULL, "Please install OpenGL drivers from your graphics hardware vendor to run " GAME_NAME ".\nYour OpenGL functionality is limited.",
+			int ret = MessageBox( nullptr, "Please install OpenGL drivers from your graphics hardware vendor to run " GAME_NAME ".\nYour OpenGL functionality is limited.",
 								  "Insufficient OpenGL capabilities", MB_OKCANCEL | MB_ICONWARNING | MB_TASKMODAL );
 			if( ret == IDCANCEL )
 			{
@@ -1026,9 +1026,9 @@ void R_TestImage_f( const idCmdArgs& args )
 	if( tr.testVideo )
 	{
 		delete tr.testVideo;
-		tr.testVideo = NULL;
+		tr.testVideo = nullptr;
 	}
-	tr.testImage = NULL;
+	tr.testImage = nullptr;
 	
 	if( args.Argc() != 2 )
 	{
@@ -1061,9 +1061,9 @@ void R_TestVideo_f( const idCmdArgs& args )
 	if( tr.testVideo )
 	{
 		delete tr.testVideo;
-		tr.testVideo = NULL;
+		tr.testVideo = nullptr;
 	}
-	tr.testImage = NULL;
+	tr.testImage = nullptr;
 	
 	if( args.Argc() < 2 )
 	{
@@ -1076,11 +1076,11 @@ void R_TestVideo_f( const idCmdArgs& args )
 	
 	cinData_t	cin;
 	cin = tr.testVideo->ImageForTime( 0 );
-	if( cin.imageY == NULL )
+	if( cin.imageY == nullptr )
 	{
 		delete tr.testVideo;
-		tr.testVideo = NULL;
-		tr.testImage = NULL;
+		tr.testVideo = nullptr;
+		tr.testImage = nullptr;
 		return;
 	}
 	
@@ -1202,7 +1202,7 @@ tiling it into window-sized chunks and rendering each chunk separately
 If ref isn't specified, the full session UpdateScreen will be done.
 ====================
 */
-void R_ReadTiledPixels( int width, int height, byte* buffer, renderView_t* ref = NULL )
+void R_ReadTiledPixels( int width, int height, byte* buffer, renderView_t* ref = nullptr )
 {
 	// include extra space for OpenGL padding to word boundaries
 	int sysWidth = renderSystem->GetWidth();
@@ -1221,7 +1221,7 @@ void R_ReadTiledPixels( int width, int height, byte* buffer, renderView_t* ref =
 	//commonLocal.WaitGameThread();
 	
 	// discard anything currently on the list
-	tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
+	tr.SwapCommandBuffers( nullptr, nullptr, nullptr, nullptr );
 	
 	int originalNativeWidth = glConfig.nativeScreenWidth;
 	int originalNativeHeight = glConfig.nativeScreenHeight;
@@ -1239,7 +1239,7 @@ void R_ReadTiledPixels( int width, int height, byte* buffer, renderView_t* ref =
 			// foresthale 2014-03-01: fixed custom screenshot resolution by doing a more direct render path
 #ifdef BUGFIXEDSCREENSHOTRESOLUTION
 			// discard anything currently on the list
-			tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
+			tr.SwapCommandBuffers( nullptr, nullptr, nullptr, nullptr );
 			if( ref )
 			{
 				// ref is only used by envShot, Event_camShot, etc to grab screenshots of things in the world,
@@ -1252,25 +1252,25 @@ void R_ReadTiledPixels( int width, int height, byte* buffer, renderView_t* ref =
 				commonLocal.Draw();
 			}
 			// this should exit right after vsync, with the GPU idle and ready to draw
-			const emptyCommand_t* cmd = tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
+			const emptyCommand_t* cmd = tr.SwapCommandBuffers( nullptr, nullptr, nullptr, nullptr );
 			
 			// get the GPU busy with new commands
 			tr.RenderCommandBuffers( cmd );
 			
 			// discard anything currently on the list (this triggers SwapBuffers)
-			tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
+			tr.SwapCommandBuffers( nullptr, nullptr, nullptr, nullptr );
 #else
-			// foresthale 2014-03-01: note: ref is always NULL in every call path to this function
+			// foresthale 2014-03-01: note: ref is always nullptr in every call path to this function
 			if( ref )
 			{
 				// discard anything currently on the list
-				tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
+				tr.SwapCommandBuffers( nullptr, nullptr, nullptr, nullptr );
 			
 				// build commands to render the scene
 				tr.primaryWorld->RenderScene( ref );
 			
 				// finish off these commands
-				const emptyCommand_t* cmd = tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
+				const emptyCommand_t* cmd = tr.SwapCommandBuffers( nullptr, nullptr, nullptr, nullptr );
 			
 				// issue the commands to the GPU
 				tr.RenderCommandBuffers( cmd );
@@ -1309,7 +1309,7 @@ void R_ReadTiledPixels( int width, int height, byte* buffer, renderView_t* ref =
 	// foresthale 2014-03-01: fixed custom screenshot resolution by doing a more direct render path
 #ifdef BUGFIXEDSCREENSHOTRESOLUTION
 	// discard anything currently on the list
-	tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
+	tr.SwapCommandBuffers( nullptr, nullptr, nullptr, nullptr );
 	
 	glConfig.nativeScreenWidth = originalNativeWidth;
 	glConfig.nativeScreenHeight = originalNativeHeight;
@@ -1328,7 +1328,7 @@ TakeScreenshot
 Move to tr_imagefiles.c...
 
 Downsample is the number of steps to mipmap the image before saving it
-If ref == NULL, common->UpdateScreen will be used
+If ref == nullptr, common->UpdateScreen will be used
 ==================
 */
 // RB: changed .tga to .png
@@ -1498,7 +1498,7 @@ void R_ScreenshotFilename( int& lastNumber, const char* base, idStr& fileName )
 		{
 			break;
 		}
-		int len = fileSystem->ReadFile( fileName, NULL, NULL );
+		int len = fileSystem->ReadFile( fileName, nullptr, nullptr );
 		if( len <= 0 )
 		{
 			break;
@@ -1570,7 +1570,7 @@ void R_ScreenShot_f( const idCmdArgs& args )
 	// put the console away
 	console->Close();
 	
-	tr.TakeScreenshot( width, height, checkname, blends, NULL, PNG );
+	tr.TakeScreenshot( width, height, checkname, blends, nullptr, PNG );
 	
 	common->Printf( "Wrote %s\n", checkname.c_str() );
 }
@@ -2008,7 +2008,7 @@ void R_MakeAmbientMap_f( const idCmdArgs& args )
 		common->Printf( "loading %s\n", fullname.c_str() );
 		const bool captureToImage = false;
 		common->UpdateScreen( captureToImage );
-		R_LoadImage( fullname, &buffers[i], &width, &height, NULL, true );
+		R_LoadImage( fullname, &buffers[i], &width, &height, nullptr, true );
 		if( !buffers[i] )
 		{
 			common->Printf( "failed.\n" );
@@ -2122,7 +2122,7 @@ void R_TransformCubemap( const char* orgDirection[6], const char* orgDir, const 
 		common->Printf( "loading %s\n", fullname.c_str() );
 		const bool captureToImage = false;
 		common->UpdateScreen( captureToImage );
-		R_LoadImage( fullname, &buffers[i], &width, &height, NULL, true );
+		R_LoadImage( fullname, &buffers[i], &width, &height, nullptr, true );
 		
 		//check if the buffer is troublesome
 		if( !buffers[i] )
@@ -2288,7 +2288,7 @@ void GfxInfo_f( const idCmdArgs& args )
 	typedef BOOL ( WINAPI * PFNWGLSWAPINTERVALEXTPROC )( int interval );
 	extern	PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT;
 	
-	if( r_swapInterval.GetInteger() && wglSwapIntervalEXT != NULL )
+	if( r_swapInterval.GetInteger() && wglSwapIntervalEXT != nullptr )
 	{
 		common->Printf( "Forcing swapInterval %i\n", r_swapInterval.GetInteger() );
 	}
@@ -2452,7 +2452,7 @@ void R_VidRestart_f( const idCmdArgs& args )
 	
 	// make sure the regeneration doesn't use anything no longer valid
 	tr.viewCount++;
-	tr.viewDef = NULL;
+	tr.viewDef = nullptr;
 	
 	// check for problems
 	int err = glGetError();
@@ -2599,13 +2599,13 @@ void idRenderSystemLocal::Clear()
 	frameShaderTime = 0.0f;
 	ambientLightVector.Zero();
 	worlds.Clear();
-	primaryWorld = NULL;
+	primaryWorld = nullptr;
 	memset( &primaryRenderView, 0, sizeof( primaryRenderView ) );
-	primaryView = NULL;
-	defaultMaterial = NULL;
-	testImage = NULL;
-	ambientCubeImage = NULL;
-	viewDef = NULL;
+	primaryView = nullptr;
+	defaultMaterial = nullptr;
+	testImage = nullptr;
+	ambientCubeImage = nullptr;
+	viewDef = nullptr;
 	memset( &pc, 0, sizeof( pc ) );
 	memset( &identitySpace, 0, sizeof( identitySpace ) );
 	memset( renderCrops, 0, sizeof( renderCrops ) );
@@ -2613,29 +2613,29 @@ void idRenderSystemLocal::Clear()
 	currentColorNativeBytesOrder = 0xFFFFFFFF;
 	currentGLState = 0;
 	guiRecursionLevel = 0;
-	guiModel = NULL;
+	guiModel = nullptr;
 	memset( gammaTable, 0, sizeof( gammaTable ) );
 	takingScreenshot = false;
 	
-	if( unitSquareTriangles != NULL )
+	if( unitSquareTriangles != nullptr )
 	{
 		Mem_Free( unitSquareTriangles );
-		unitSquareTriangles = NULL;
+		unitSquareTriangles = nullptr;
 	}
 	
-	if( zeroOneCubeTriangles != NULL )
+	if( zeroOneCubeTriangles != nullptr )
 	{
 		Mem_Free( zeroOneCubeTriangles );
-		zeroOneCubeTriangles = NULL;
+		zeroOneCubeTriangles = nullptr;
 	}
 	
-	if( testImageTriangles != NULL )
+	if( testImageTriangles != nullptr )
 	{
 		Mem_Free( testImageTriangles );
-		testImageTriangles = NULL;
+		testImageTriangles = nullptr;
 	}
 	
-	frontEndJobList = NULL;
+	frontEndJobList = nullptr;
 }
 
 /*
@@ -2888,25 +2888,25 @@ void idRenderSystemLocal::Init()
 	identitySpace.modelMatrix[2 * 4 + 2] = 1.0f;
 	
 	// make sure the tr.unitSquareTriangles data is current in the vertex / index cache
-	if( unitSquareTriangles == NULL )
+	if( unitSquareTriangles == nullptr )
 	{
 		unitSquareTriangles = R_MakeFullScreenTris();
 	}
 	// make sure the tr.zeroOneCubeTriangles data is current in the vertex / index cache
-	if( zeroOneCubeTriangles == NULL )
+	if( zeroOneCubeTriangles == nullptr )
 	{
 		zeroOneCubeTriangles = R_MakeZeroOneCubeTris();
 	}
 	// make sure the tr.testImageTriangles data is current in the vertex / index cache
-	if( testImageTriangles == NULL )
+	if( testImageTriangles == nullptr )
 	{
 		testImageTriangles = R_MakeTestImageTriangles();
 	}
 	
-	frontEndJobList = parallelJobManager->AllocJobList( JOBLIST_RENDERER_FRONTEND, JOBLIST_PRIORITY_MEDIUM, 2048, 0, NULL );
+	frontEndJobList = parallelJobManager->AllocJobList( JOBLIST_RENDERER_FRONTEND, JOBLIST_PRIORITY_MEDIUM, 2048, 0, nullptr );
 	
 	// make sure the command buffers are ready to accept the first screen update
-	SwapCommandBuffers( NULL, NULL, NULL, NULL );
+	SwapCommandBuffers( nullptr, nullptr, nullptr, nullptr );
 	
 	common->Printf( "renderSystem initialized.\n" );
 	common->Printf( "--------------------------------------\n" );

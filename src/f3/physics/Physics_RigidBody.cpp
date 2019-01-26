@@ -478,7 +478,7 @@ idPhysics_RigidBody::idPhysics_RigidBody()
 	SetClipMask( MASK_SOLID );
 	SetBouncyness( 0.6f );
 	SetFriction( 0.6f, 0.6f, 0.0f );
-	clipModel = NULL;
+	clipModel = nullptr;
 	
 	current.atRest = -1;
 	current.lastTimeStep = 0.0f;
@@ -522,7 +522,7 @@ idPhysics_RigidBody::~idPhysics_RigidBody()
 	if( clipModel )
 	{
 		delete clipModel;
-		clipModel = NULL;
+		clipModel = nullptr;
 	}
 	delete integrator;
 }
@@ -1472,7 +1472,7 @@ int idPhysics_RigidBody::ClipContents( const idClipModel* model ) const
 	}
 	else
 	{
-		return gameLocal.clip.Contents( clipModel->GetOrigin(), clipModel, clipModel->GetAxis(), -1, NULL );
+		return gameLocal.clip.Contents( clipModel->GetOrigin(), clipModel, clipModel->GetAxis(), -1, nullptr );
 	}
 }
 

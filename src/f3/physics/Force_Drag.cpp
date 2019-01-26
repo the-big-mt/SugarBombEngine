@@ -43,7 +43,7 @@ idForce_Drag::idForce_Drag
 idForce_Drag::idForce_Drag()
 {
 	damping			= 0.5f;
-	physics			= NULL;
+	physics			= nullptr;
 	id				= 0;
 	p				= vec3_zero;
 	dragPosition	= vec3_zero;
@@ -132,7 +132,7 @@ void idForce_Drag::Evaluate( int time )
 	}
 	
 	clipModel = physics->GetClipModel( id );
-	if( clipModel != NULL && clipModel->IsTraceModel() )
+	if( clipModel != nullptr && clipModel->IsTraceModel() )
 	{
 		clipModel->GetMassProperties( 1.0f, mass, centerOfMass, inertiaTensor );
 	}
@@ -165,6 +165,6 @@ void idForce_Drag::RemovePhysics( const idPhysics* phys )
 {
 	if( physics == phys )
 	{
-		physics = NULL;
+		physics = nullptr;
 	}
 }

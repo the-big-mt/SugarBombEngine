@@ -44,7 +44,7 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
-static const char** cmdargv = NULL;
+static const char** cmdargv = nullptr;
 static int cmdargc = 0;
 // DG end
 
@@ -310,7 +310,7 @@ void Sys_DoStartProcess( const char* exeName, bool dofork )
 				else
 				{
 					printf( "execl %s\n", exeName );
-					execl( exeName, exeName, NULL );
+					execl( exeName, exeName, nullptr );
 					printf( "execl failed: %s\n", strerror( errno ) );
 					_exit( -1 );
 				}
@@ -328,7 +328,7 @@ void Sys_DoStartProcess( const char* exeName, bool dofork )
 		else
 		{
 			printf( "execl %s\n", exeName );
-			execl( exeName, exeName, NULL );
+			execl( exeName, exeName, nullptr );
 			printf( "execl failed: %s\n", strerror( errno ) );
 		}
 		// terminate
@@ -461,14 +461,14 @@ void Sys_ReLaunch()
 		
 		// close all FDs (except for stdin/out/err) so we don't leak FDs
 		DIR* devfd = opendir( "/dev/fd" );
-		if( devfd != NULL )
+		if( devfd != nullptr )
 		{
 			struct dirent entry;
 			struct dirent* result;
 			while( readdir_r( devfd, &entry, &result ) == 0 )
 			{
 				const char* filename = result->d_name;
-				char* endptr = NULL;
+				char* endptr = nullptr;
 				long int fd = strtol( filename, &endptr, 0 );
 				if( endptr != filename && fd > STDERR_FILENO )
 					close( fd );
@@ -480,7 +480,7 @@ void Sys_ReLaunch()
 		}
 		
 		// + 3 because "+set" "com_skipIntroVideos" "1" - and note that while we'll skip
-		// one (the first) cmdargv argument, we need one more pointer for NULL at the end.
+		// one (the first) cmdargv argument, we need one more pointer for nullptr at the end.
 		int argc = cmdargc + 3;
 		const char** argv = ( const char** )calloc( argc, sizeof( char* ) );
 		
@@ -492,8 +492,8 @@ void Sys_ReLaunch()
 		argv[i++] = "+set";
 		argv[i++] = "com_skipIntroVideos";
 		argv[i++] = "1";
-		// execv expects NULL terminated array
-		argv[i] = NULL;
+		// execv expects nullptr terminated array
+		argv[i] = nullptr;
 		
 		const char* exepath = Sys_EXEPath();
 		
@@ -521,7 +521,7 @@ int main( int argc, const char** argv )
 {
 #ifdef USE_BREAKPAD
 	google_breakpad::MinidumpDescriptor descriptor( "/tmp" );
-	google_breakpad::ExceptionHandler eh( descriptor, NULL, BFG::breakpad_dumpCallback, NULL, true, -1 );
+	google_breakpad::ExceptionHandler eh( descriptor, nullptr, BFG::breakpad_dumpCallback, nullptr, true, -1 );
 #endif
 	// DG: needed for Sys_ReLaunch()
 	cmdargc = argc;
@@ -537,11 +537,11 @@ int main( int argc, const char** argv )
 	
 	if( argc > 1 )
 	{
-		common->Init( argc - 1, &argv[1], NULL );
+		common->Init( argc - 1, &argv[1], nullptr );
 	}
 	else
 	{
-		common->Init( 0, NULL, NULL );
+		common->Init( 0, nullptr, nullptr );
 	}
 	
 	Posix_LateInit( );

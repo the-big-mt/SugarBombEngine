@@ -44,11 +44,11 @@ struct idSoundSystem
 	virtual idSoundWorld* 	AllocSoundWorld( idRenderWorld* rw ) = 0;
 	virtual void			FreeSoundWorld( idSoundWorld* sw ) = 0;
 	
-	// Specifying NULL will cause silence to be played.
+	// Specifying nullptr will cause silence to be played.
 	virtual void			SetPlayingSoundWorld( idSoundWorld* soundWorld ) = 0;
 	
 	// Some tools, like the sound dialog, may be used in both the game and the editor
-	// This can return NULL, so check!
+	// This can return nullptr, so check!
 	virtual idSoundWorld* 	GetPlayingSoundWorld() = 0;
 	
 	// Sends the current playing sound world information to the sound hardware.

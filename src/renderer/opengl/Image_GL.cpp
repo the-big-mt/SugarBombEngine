@@ -48,7 +48,7 @@ idImage::idImage( const char* name ) : imgName( name )
 	internalFormat = 0;
 	dataFormat = 0;
 	dataType = 0;
-	generatorFunction = NULL;
+	generatorFunction = nullptr;
 	filter = TF_DEFAULT;
 	repeat = TR_REPEAT;
 	usage = TD_DEFAULT;
@@ -219,7 +219,7 @@ void idImage::CopyFramebuffer( int x, int y, int imageWidth, int imageHeight )
 	if( r_useHDR.GetBool() && globalFramebuffers.hdrFBO->IsBound() )
 	{
 	
-		//if( backEnd.glState.currentFramebuffer != NULL && backEnd.glState.currentFramebuffer->IsMultiSampled() )
+		//if( backEnd.glState.currentFramebuffer != nullptr && backEnd.glState.currentFramebuffer->IsMultiSampled() )
 	
 #if defined(USE_HDR_MSAA)
 		if( globalFramebuffers.hdrFBO->IsMultiSampled() )
@@ -746,7 +746,7 @@ void idImage::AllocImage()
 	assert( texnum != TEXTURE_NOT_LOADED );
 	
 	//----------------------------------------------------
-	// allocate all the mip levels with NULL data
+	// allocate all the mip levels with nullptr data
 	//----------------------------------------------------
 	
 	int numSides;
@@ -788,7 +788,7 @@ void idImage::AllocImage()
 	
 	if( opts.textureType == TT_2D_ARRAY )
 	{
-		glTexImage3D( uploadTarget, 0, internalFormat, opts.width, opts.height, numSides, 0, dataFormat, GL_UNSIGNED_BYTE, NULL );
+		glTexImage3D( uploadTarget, 0, internalFormat, opts.width, opts.height, numSides, 0, dataFormat, GL_UNSIGNED_BYTE, nullptr );
 	}
 	else if( opts.textureType == TT_2D_MULTISAMPLE )
 	{
@@ -814,11 +814,11 @@ void idImage::AllocImage()
 				{
 					int compressedSize = ( ( ( w + 3 ) / 4 ) * ( ( h + 3 ) / 4 ) * int64( 16 ) * BitsForFormat( opts.format ) ) / 8;
 					
-					// Even though the OpenGL specification allows the 'data' pointer to be NULL, for some
+					// Even though the OpenGL specification allows the 'data' pointer to be nullptr, for some
 					// drivers we actually need to upload data to get it to allocate the texture.
 					// However, on 32-bit systems we may fail to allocate a large block of memory for large
 					// textures. We handle this case by using HeapAlloc directly and allowing the allocation
-					// to fail in which case we simply pass down NULL to glCompressedTexImage2D and hope for the best.
+					// to fail in which case we simply pass down nullptr to glCompressedTexImage2D and hope for the best.
 					// As of 2011-10-6 using NVIDIA hardware and drivers we have to allocate the memory with HeapAlloc
 					// with the exact size otherwise large image allocation (for instance for physical page textures)
 					// may fail on Vista 32-bit.
@@ -827,14 +827,14 @@ void idImage::AllocImage()
 #if defined(_WIN32)
 					void* data = HeapAlloc( GetProcessHeap(), 0, compressedSize );
 					glCompressedTexImage2D( uploadTarget + side, level, internalFormat, w, h, 0, compressedSize, data );
-					if( data != NULL )
+					if( data != nullptr )
 					{
 						HeapFree( GetProcessHeap(), 0, data );
 					}
 #else
 					byte* data = ( byte* )Mem_Alloc( compressedSize, TAG_TEMP );
 					glCompressedTexImage2D( uploadTarget + side, level, internalFormat, w, h, 0, compressedSize, data );
-					if( data != NULL )
+					if( data != nullptr )
 					{
 						Mem_Free( data );
 					}
@@ -843,7 +843,7 @@ void idImage::AllocImage()
 				}
 				else
 				{
-					glTexImage2D( uploadTarget + side, level, internalFormat, w, h, 0, dataFormat, dataType, NULL );
+					glTexImage2D( uploadTarget + side, level, internalFormat, w, h, 0, dataFormat, dataType, nullptr );
 				}
 				
 				GL_CheckErrors();

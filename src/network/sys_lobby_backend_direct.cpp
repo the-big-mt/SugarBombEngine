@@ -195,7 +195,7 @@ lobbyConnectInfo_t idLobbyBackendDirect::GetConnectInfo()
 		// (which is the right behavior for the Direct backend, I guess).
 		// the client special case is in idLobby::HandleReliableMsg
 		const char* ip = net_ip.GetString();
-		if( ip == NULL || idStr::Length( ip ) == 0 || idStr::Icmp( ip, "localhost" ) == 0 )
+		if( ip == nullptr || idStr::Length( ip ) == 0 || idStr::Icmp( ip, "localhost" ) == 0 )
 			ip = "0.0.0.0";
 		// DG end
 		Sys_StringToNetAdr( ip, &address, false );

@@ -269,7 +269,7 @@ void idLobby::SendCompletedPendingSnap( int p )
 		return;
 	}
 	
-	if( peer.snapProc == NULL || !peer.snapProc->PendingSnapReadyToSend() )
+	if( peer.snapProc == nullptr || !peer.snapProc->PendingSnapReadyToSend() )
 	{
 		return;
 	}
@@ -363,7 +363,7 @@ void idLobby::SendCompletedPendingSnap( int p )
 			// This was causing issues in the playtests we were running (Doom 4 MP) and after some conversation
 			// determined that it was not needed since a timeout mechanism has been added since
 			ProcessOutgoingMsg( p, buffer, -size, false, 0 );
-			if( peer.snapProc != NULL )
+			if( peer.snapProc != nullptr )
 			{
 				NET_VERBOSESNAPSHOT_PRINT( "NET: (peerNum: %d - name: %s) Resending last snapshot delta %d because his delta list filled up. Since JobSub: %d Since LastSend: %d Delta Size: %d\n", p, GetPeerName( p ), peer.snapProc->GetSnapSequence(), timeFromJobSub, timeFromLastSend, size );
 			}
@@ -372,7 +372,7 @@ void idLobby::SendCompletedPendingSnap( int p )
 	
 	// We calculate what our outgoing rate was for each sequence, so we can have a relative comparison
 	// for when the client reports what his downstream was in the same timeframe
-	if( IsHost() && peer.snapProc != NULL && peer.snapProc->GetSnapSequence() > 0 )
+	if( IsHost() && peer.snapProc != nullptr && peer.snapProc->GetSnapSequence() > 0 )
 	{
 		//NET_VERBOSE_PRINT("^8  %i Rate: %.2f   SnapSeq: %d GetBaseSequence: %d\n", lastAppendedSequence, peer.packetProc->GetOutgoingRateBytes(), peer.snapProc->GetSnapSequence(), peer.snapProc->GetBaseSequence() );
 		peer.sentBpsHistory[ peer.snapProc->GetSnapSequence() % MAX_BPS_HISTORY ] = peer.packetProc->GetOutgoingRateBytes();
@@ -422,7 +422,7 @@ void idLobby::CheckPeerThrottle( int p )
 		return;
 	}
 	
-	if( verify( peer.snapProc != NULL ) )
+	if( verify( peer.snapProc != nullptr ) )
 	{
 		const int peer_throttle_minSnapSeq = session->GetTitleStorageInt( "net_peer_throttle_minSnapSeq", net_peer_throttle_minSnapSeq.GetInteger() );
 		if( peer.snapProc->GetFullSnapBaseSequence() <= idSnapshotProcessor::INITIAL_SNAP_SEQUENCE + peer_throttle_minSnapSeq )
@@ -643,7 +643,7 @@ void idLobby::SendSnapshotToPeer( idSnapShot& ss, int p )
 		peer.numSnapsSent++;
 		
 		idSnapShot* baseState = peers[p].snapProc->GetBaseState();
-		if( verify( baseState != NULL ) )
+		if( verify( baseState != nullptr ) )
 		{
 			baseState->UpdateExpectedSeq( peers[p].snapProc->GetSnapSequence() );
 		}
@@ -726,14 +726,14 @@ bool idLobby::FirstSnapHasBeenSent( int p )
 		return false;
 	}
 	
-	if( peer.snapProc == NULL )
+	if( peer.snapProc == nullptr )
 	{
 		return false;
 	}
 	
 	idSnapShot* ss = peer.snapProc->GetPendingSnap();
 	
-	if( ss == NULL )
+	if( ss == nullptr )
 	{
 		return false;
 	}
@@ -806,7 +806,7 @@ bool idLobby::AllPeersHaveStaleSnapObj( int objId )
 		
 		idSnapShot::objectState_t* state = baseState->FindObjectByID( objId );
 		
-		if( state == NULL || !state->stale )
+		if( state == nullptr || !state->stale )
 		{
 			return false;
 		}
@@ -832,7 +832,7 @@ bool idLobby::AllPeersHaveExpectedSnapObj( int objId )
 		
 		idSnapShot* baseState = peers[i].snapProc->GetBaseState();
 		idSnapShot::objectState_t* state = baseState->FindObjectByID( objId );
-		if( state == NULL )
+		if( state == nullptr )
 		{
 			return false;
 		}
@@ -870,7 +870,7 @@ void idLobby::RefreshSnapObj( int objId )
 		
 		idSnapShot* baseState = peers[i].snapProc->GetBaseState();
 		idSnapShot::objectState_t* state = baseState->FindObjectByID( objId );
-		if( state != NULL )
+		if( state != nullptr )
 		{
 			// Setting to -2 will defer setting the expected sequence until the current snap is ready to send
 			state->expectedSequence = -2;
@@ -898,7 +898,7 @@ void idLobby::MarkSnapObjDeleted( int objId )
 		
 		idSnapShot::objectState_t* state = baseState->FindObjectByID( objId );
 		
-		if( state != NULL )
+		if( state != nullptr )
 		{
 			state->deleted = true;
 		}
@@ -971,7 +971,7 @@ void idLobby::AddSnapObjTemplate( int objID, idBitMsg& msg )
 	
 	// If we are in the middle of a SS read, apply this state to what we
 	// just deserialized (the obj we just deserialized is a delta from the template object we are adding right now)
-	if( localReadSS != NULL )
+	if( localReadSS != nullptr )
 	{
 		localReadSS->ApplyToExistingState( objID, msg );
 	}
@@ -979,7 +979,7 @@ void idLobby::AddSnapObjTemplate( int objID, idBitMsg& msg )
 	// Add the template to the snapshot proc for future snapshot processing
 	for( int p = 0; p < peers.Num(); p++ )
 	{
-		if( !peers[p].IsConnected() || peers[p].snapProc == NULL )
+		if( !peers[p].IsConnected() || peers[p].snapProc == nullptr )
 		{
 			continue;
 		}

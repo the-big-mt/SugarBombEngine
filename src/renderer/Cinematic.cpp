@@ -220,10 +220,10 @@ static int				ROQ_UG_tab[256];
 static int				ROQ_VG_tab[256];
 static int				ROQ_VR_tab[256];
 // RB end
-static byte* 			file = NULL;
-static unsigned short* 	vq2 = NULL;
-static unsigned short* 	vq4 = NULL;
-static unsigned short* 	vq8 = NULL;
+static byte* 			file = nullptr;
+static unsigned short* 	vq2 = nullptr;
+static unsigned short* 	vq4 = nullptr;
+static unsigned short* 	vq8 = nullptr;
 
 
 
@@ -280,13 +280,13 @@ void idCinematic::ShutdownCinematic()
 {
 	// Carl: Original Doom 3 RoQ files:
 	Mem_Free( file );
-	file = NULL;
+	file = nullptr;
 	Mem_Free( vq2 );
-	vq2 = NULL;
+	vq2 = nullptr;
 	Mem_Free( vq4 );
-	vq4 = NULL;
+	vq4 = nullptr;
 	Mem_Free( vq8 );
-	vq8 = NULL;
+	vq8 = nullptr;
 }
 
 /*
@@ -421,10 +421,10 @@ idCinematicLocal::idCinematicLocal()
 	frame = avcodec_alloc_frame();
 	frame2 = avcodec_alloc_frame();
 #endif // LIBAVCODEC_VERSION_INT
-	dec_ctx = NULL;
-	fmt_ctx = NULL;
+	dec_ctx = nullptr;
+	fmt_ctx = nullptr;
 	video_stream_index = -1;
-	img_convert_ctx = NULL;
+	img_convert_ctx = nullptr;
 	hasFrame = false;
 #endif
 	
@@ -444,15 +444,15 @@ idCinematicLocal::idCinematicLocal()
 		opts.width = 32;
 		opts.height = 32;
 		opts.numLevels = 1;
-		if( imgY != NULL )
+		if( imgY != nullptr )
 		{
 			imgY->AllocImage( opts, TF_LINEAR, TR_REPEAT );
 		}
-		if( imgCr != NULL )
+		if( imgCr != nullptr )
 		{
 			imgCr->AllocImage( opts, TF_LINEAR, TR_REPEAT );
 		}
-		if( imgCb != NULL )
+		if( imgCb != nullptr )
 		{
 			imgCb->AllocImage( opts, TF_LINEAR, TR_REPEAT );
 		}
@@ -461,12 +461,12 @@ idCinematicLocal::idCinematicLocal()
 #endif
 	
 	// Carl: Original Doom 3 RoQ files:
-	image = NULL;
+	image = nullptr;
 	status = FMV_EOF;
-	buf = NULL;
-	iFile = NULL;
+	buf = nullptr;
+	iFile = nullptr;
 	img = globalImages->AllocStandaloneImage( "_cinematic" );
-	if( img != NULL )
+	if( img != nullptr )
 	{
 		idImageOpts opts;
 		opts.format = FMT_RGBA8;
@@ -490,9 +490,9 @@ idCinematicLocal::~idCinematicLocal()
 	
 	// Carl: Original Doom 3 RoQ files:
 	Mem_Free( qStatus[0] );
-	qStatus[0] = NULL;
+	qStatus[0] = nullptr;
 	Mem_Free( qStatus[1] );
-	qStatus[1] = NULL;
+	qStatus[1] = nullptr;
 	
 #if defined(USE_FFMPEG)
 	// Carl: ffmpeg for bink and other video files:
@@ -524,15 +524,15 @@ idCinematicLocal::~idCinematicLocal()
 	}
 	
 	delete imgY;
-	imgY = NULL;
+	imgY = nullptr;
 	delete imgCr;
-	imgCr = NULL;
+	imgCr = nullptr;
 	delete imgCb;
-	imgCb = NULL;
+	imgCb = nullptr;
 #endif
 	
 	delete img;
-	img = NULL;
+	img = nullptr;
 }
 
 /*
@@ -578,12 +578,12 @@ bool idCinematicLocal::InitFromFFMPEGFile( const char* qpath, bool amilooping )
 	
 	//idStr fullpath = fileSystem->RelativePathToOSPath( qpath, "fs_basepath" );
 	
-	if( ( ret = avformat_open_input( &fmt_ctx, fullpath, NULL, NULL ) ) < 0 )
+	if( ( ret = avformat_open_input( &fmt_ctx, fullpath, nullptr, nullptr ) ) < 0 )
 	{
 		common->Warning( "idCinematic: Cannot open FFMPEG video file: '%s', %d\n", qpath, looping );
 		return false;
 	}
-	if( ( ret = avformat_find_stream_info( fmt_ctx, NULL ) ) < 0 )
+	if( ( ret = avformat_find_stream_info( fmt_ctx, nullptr ) ) < 0 )
 	{
 		common->Warning( "idCinematic: Cannot find stream info: '%s', %d\n", qpath, looping );
 		return false;
@@ -598,7 +598,7 @@ bool idCinematicLocal::InitFromFFMPEGFile( const char* qpath, bool amilooping )
 	video_stream_index = ret;
 	dec_ctx = fmt_ctx->streams[video_stream_index]->codec;
 	/* init the video decoder */
-	if( ( ret = avcodec_open2( dec_ctx, dec, NULL ) ) < 0 )
+	if( ( ret = avcodec_open2( dec_ctx, dec, nullptr ) ) < 0 )
 	{
 		common->Warning( "idCinematic: Cannot open video decoder for: '%s', %d\n", qpath, looping );
 		return false;
@@ -626,7 +626,7 @@ bool idCinematicLocal::InitFromFFMPEGFile( const char* qpath, bool amilooping )
 	float durationSec = static_cast<double>( fmt_ctx->streams[video_stream_index]->duration ) * static_cast<double>( ticksPerFrame ) / static_cast<double>( avr.den );
 	animationLength = durationSec * 1000;
 	frameRate = av_q2d( fmt_ctx->streams[video_stream_index]->avg_frame_rate );
-	buf = NULL;
+	buf = nullptr;
 	hasFrame = false;
 	framePos = -1;
 	common->Printf( "Loaded FFMPEG file: '%s', looping=%d%dx%d, %f FPS, %f sec\n", qpath, looping, CIN_WIDTH, CIN_HEIGHT, frameRate, durationSec );
@@ -636,7 +636,7 @@ bool idCinematicLocal::InitFromFFMPEGFile( const char* qpath, bool amilooping )
 	{
 		sws_freeContext( img_convert_ctx );
 	}
-	img_convert_ctx = sws_getContext( dec_ctx->width, dec_ctx->height, dec_ctx->pix_fmt, CIN_WIDTH, CIN_HEIGHT, AV_PIX_FMT_BGR32, SWS_BICUBIC, NULL, NULL, NULL );
+	img_convert_ctx = sws_getContext( dec_ctx->width, dec_ctx->height, dec_ctx->pix_fmt, CIN_WIDTH, CIN_HEIGHT, AV_PIX_FMT_BGR32, SWS_BICUBIC, nullptr, nullptr, nullptr );
 	status = FMV_PLAY;
 	
 	startTime = 0;
@@ -727,7 +727,7 @@ bool idCinematicLocal::InitFromBinkDecFile( const char* qpath, bool amilooping )
 	numFrames = Bink_GetNumFrames( binkHandle );
 	float durationSec = frameRate * numFrames;
 	animationLength = durationSec;
-	buf = NULL;
+	buf = nullptr;
 	
 	common->Printf( "Loaded BinkDec file: '%s', looping=%d%dx%d, %f FPS, %f sec\n", qpath, looping, CIN_WIDTH, CIN_HEIGHT, frameRate, durationSec );
 	
@@ -763,7 +763,7 @@ bool idCinematicLocal::InitFromFile( const char* qpath, bool amilooping )
 	animationLength = 100000;
 	
 	// Carl: if no folder is specified, look in the video folder
-	if( strstr( qpath, "/" ) == NULL && strstr( qpath, "\\" ) == NULL )
+	if( strstr( qpath, "/" ) == nullptr && strstr( qpath, "\\" ) == nullptr )
 	{
 		sprintf( fileName, "video/%s", qpath );
 	}
@@ -816,7 +816,7 @@ bool idCinematicLocal::InitFromFile( const char* qpath, bool amilooping )
 	CIN_WIDTH  =  DEFAULT_CIN_WIDTH;
 	samplesPerPixel = 4;
 	startTime = 0;	//Sys_Milliseconds();
-	buf = NULL;
+	buf = nullptr;
 	
 	iFile->Read( file, 16 );
 	
@@ -851,8 +851,8 @@ void idCinematicLocal::Close()
 	if( image )
 	{
 		Mem_Free( ( void* )image );
-		image = NULL;
-		buf = NULL;
+		image = nullptr;
+		buf = nullptr;
 		status = FMV_EOF;
 	}
 	
@@ -868,7 +868,7 @@ void idCinematicLocal::Close()
 			sws_freeContext( img_convert_ctx );
 		}
 		
-		img_convert_ctx = NULL;
+		img_convert_ctx = nullptr;
 		
 		if( dec_ctx )
 		{
@@ -969,7 +969,7 @@ cinData_t idCinematicLocal::ImageForTime( int thisTime )
 		return cinData;
 	}
 	
-	if( buf == NULL || startTime == -1 )
+	if( buf == nullptr || startTime == -1 )
 	{
 		if( startTime == -1 )
 		{
@@ -988,13 +988,13 @@ cinData_t idCinematicLocal::ImageForTime( int thisTime )
 	if( tfps < numQuads )
 	{
 		RoQReset();
-		buf = NULL;
+		buf = nullptr;
 		status = FMV_PLAY;
 	}
 	
-	if( buf == NULL )
+	if( buf == nullptr )
 	{
-		while( buf == NULL )
+		while( buf == nullptr )
 		{
 			RoQInterrupt();
 		}
@@ -1010,7 +1010,7 @@ cinData_t idCinematicLocal::ImageForTime( int thisTime )
 	if( status == FMV_LOOPED )
 	{
 		status = FMV_PLAY;
-		while( buf == NULL && status == FMV_PLAY )
+		while( buf == nullptr && status == FMV_PLAY )
 		{
 			RoQInterrupt();
 		}
@@ -1022,12 +1022,12 @@ cinData_t idCinematicLocal::ImageForTime( int thisTime )
 		if( looping )
 		{
 			RoQReset();
-			buf = NULL;
+			buf = nullptr;
 			if( status == FMV_LOOPED )
 			{
 				status = FMV_PLAY;
 			}
-			while( buf == NULL && status == FMV_PLAY )
+			while( buf == nullptr && status == FMV_PLAY )
 			{
 				RoQInterrupt();
 			}
@@ -1808,7 +1808,7 @@ void idCinematicLocal::blitVQQuad32fs( byte** status, unsigned char* data )
 				break;
 		}
 	}
-	while( status[index] != NULL );
+	while( status[index] != nullptr );
 }
 
 #define VQ2TO4(a,b,c,d) { \
@@ -2195,7 +2195,7 @@ void idCinematicLocal::setupQuad( int xOff, int yOff )
 		for( x = 0; x < ( int )xsize; x += 16 )
 			recurseQuad( x, y, 16, xOff, yOff );
 			
-	temp = NULL;
+	temp = nullptr;
 	
 	for( i = ( numQuadCels - 64 ); i < numQuadCels; i++ )
 	{
@@ -2466,7 +2466,7 @@ jpeg_memory_src( j_decompress_ptr cinfo, byte* infile, int size )
 	 * This makes it unsafe to use this manager and a different source
 	 * manager serially with the same JPEG object.  Caveat programmer.
 	 */
-	if( cinfo->src == NULL )  	/* first time for this JPEG object? */
+	if( cinfo->src == nullptr )  	/* first time for this JPEG object? */
 	{
 		cinfo->src = ( struct jpeg_source_mgr* )
 					 ( *cinfo->mem->alloc_small )( ( j_common_ptr ) cinfo, JPOOL_PERMANENT,
@@ -2486,7 +2486,7 @@ jpeg_memory_src( j_decompress_ptr cinfo, byte* infile, int size )
 	src->infile = infile;
 	src->memsize = size;
 	src->pub.bytes_in_buffer = 0; /* forces fill_input_buffer on first read */
-	src->pub.next_input_byte = NULL; /* until buffer loaded */
+	src->pub.next_input_byte = nullptr; /* until buffer loaded */
 }
 
 int JPEGBlit( byte* wStatus, byte* data, int datasize )
@@ -2782,7 +2782,7 @@ void idCinematicLocal::RoQShutdown()
 	if( iFile )
 	{
 		fileSystem->CloseFile( iFile );
-		iFile = NULL;
+		iFile = nullptr;
 	}
 	
 	fileName = "";

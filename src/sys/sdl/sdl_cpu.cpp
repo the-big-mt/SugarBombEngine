@@ -130,15 +130,15 @@ double Sys_ClockTicksPerSecond()
 		{
 			ProcSpeed = 0;
 			buflen = sizeof( ProcSpeed );
-			ret = RegQueryValueEx( hKey, "~MHz", NULL, NULL, ( LPBYTE ) &ProcSpeed, &buflen );
+			ret = RegQueryValueEx( hKey, "~MHz", nullptr, nullptr, ( LPBYTE ) &ProcSpeed, &buflen );
 			// If we don't succeed, try some other spellings.
 			if( ret != ERROR_SUCCESS )
 			{
-				ret = RegQueryValueEx( hKey, "~Mhz", NULL, NULL, ( LPBYTE ) &ProcSpeed, &buflen );
+				ret = RegQueryValueEx( hKey, "~Mhz", nullptr, nullptr, ( LPBYTE ) &ProcSpeed, &buflen );
 			}
 			if( ret != ERROR_SUCCESS )
 			{
-				ret = RegQueryValueEx( hKey, "~mhz", NULL, NULL, ( LPBYTE ) &ProcSpeed, &buflen );
+				ret = RegQueryValueEx( hKey, "~mhz", nullptr, nullptr, ( LPBYTE ) &ProcSpeed, &buflen );
 			}
 			RegCloseKey( hKey );
 			if( ret == ERROR_SUCCESS )

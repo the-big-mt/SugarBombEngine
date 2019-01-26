@@ -221,7 +221,7 @@ attribInfo_t attribsPC[] =
 	{ "half4",		"htexcoord9",	"TEXCOORD9",	"vofi_TexCoord9",		0,	AT_PS_IN,		0 },
 	{ "float",		"fog",			"FOG",			"gl_FogFragCoord",		0,	AT_VS_OUT,		0 },
 	{ "float4",		"fog",			"FOG",			"gl_FogFragCoord",		0,	AT_PS_IN,		0 },
-	{ NULL,			NULL,			NULL,			NULL,					0,	0,				0 }
+	{ nullptr,			nullptr,			nullptr,			nullptr,					0,	0,				0 }
 };
 
 const char* types[] =
@@ -402,7 +402,7 @@ const char* idRenderProgManager::GLSLMacroNames[MAX_SHADER_MACRO_NAMES] =
 // RB: added embedded Cg shader resources
 static const char* FindEmbeddedSourceShader( const char* name )
 {
-	const char* embeddedSource = NULL;
+	const char* embeddedSource = nullptr;
 	for( int i = 0 ; cg_renderprogs[i].name ; i++ )
 	{
 		if( !idStr::Icmp( cg_renderprogs[i].name, name ) )
@@ -462,12 +462,12 @@ private:
 			
 			//if( !script->LoadFile( path, OSPath ) )
 			const char* embeddedSource = FindEmbeddedSourceShader( path );
-			if( embeddedSource == NULL )
+			if( embeddedSource == nullptr )
 			{
 				// try absolute path
 				path = *token;
 				embeddedSource = FindEmbeddedSourceShader( path );
-				if( embeddedSource == NULL )
+				if( embeddedSource == nullptr )
 				{
 					// try from the include path
 					path = includepath + *token;
@@ -475,10 +475,10 @@ private:
 				}
 			}
 			
-			if( embeddedSource == NULL || !script->LoadMemory( embeddedSource, strlen( embeddedSource ), path ) )
+			if( embeddedSource == nullptr || !script->LoadMemory( embeddedSource, strlen( embeddedSource ), path ) )
 			{
 				delete script;
-				script = NULL;
+				script = nullptr;
 			}
 		}
 		else if( token->type == TT_PUNCTUATION && *token == "<" )
@@ -514,10 +514,10 @@ private:
 			
 			const char* embeddedSource = FindEmbeddedSourceShader( includepath + path );
 			
-			if( embeddedSource == NULL || !script->LoadMemory( embeddedSource, strlen( embeddedSource ), path ) )
+			if( embeddedSource == nullptr || !script->LoadMemory( embeddedSource, strlen( embeddedSource ), path ) )
 			{
 				delete script;
-				script = NULL;
+				script = nullptr;
 			}
 		}
 		else
@@ -834,7 +834,7 @@ struct typeConversion_t
 	
 	{ "sampler2DMS",		"sampler2DMS" },
 	
-	{ NULL, NULL }
+	{ nullptr, nullptr }
 };
 
 // RB begin
@@ -1112,7 +1112,7 @@ struct builtinConversion_t
 	{ "ddx",		"dFdx" },
 	{ "ddy",		"dFdy" },
 	
-	{ NULL, NULL }
+	{ nullptr, nullptr }
 };
 
 struct inOutVariable_t
@@ -1153,7 +1153,7 @@ void ParseInOutStruct( idLexer& src, int attribType, int attribIgnoreType, idLis
 		src.ExpectTokenString( ";" );
 		
 		// convert the type
-		for( int i = 0; typeConversion[i].typeCG != NULL; i++ )
+		for( int i = 0; typeConversion[i].typeCG != nullptr; i++ )
 		{
 			if( var.type.Cmp( typeConversion[i].typeCG ) == 0 )
 			{
@@ -1163,7 +1163,7 @@ void ParseInOutStruct( idLexer& src, int attribType, int attribIgnoreType, idLis
 		}
 		
 		// convert the semantic to a GLSL name
-		for( int i = 0; attribsPC[i].semantic != NULL; i++ )
+		for( int i = 0; attribsPC[i].semantic != nullptr; i++ )
 		{
 			if( ( attribsPC[i].flags & attribType ) != 0 )
 			{
@@ -1195,7 +1195,7 @@ void ParseInOutStruct( idLexer& src, int attribType, int attribIgnoreType, idLis
 			//case GLDRV_OPENGL_MESA:
 			//default:
 			{
-				for( int i = 0; attribsPC[i].semantic != NULL; i++ )
+				for( int i = 0; attribsPC[i].semantic != nullptr; i++ )
 				{
 					if( var.nameGLSL.Cmp( attribsPC[i].glsl ) == 0 )
 					{
@@ -1463,7 +1463,7 @@ idStr ConvertCG2GLSL( const idStr& in, const char* name, bool isVertexProgram, i
 		
 		// check for a type conversion
 		bool foundType = false;
-		for( int i = 0; typeConversion[i].typeCG != NULL; i++ )
+		for( int i = 0; typeConversion[i].typeCG != nullptr; i++ )
 		{
 			if( token.Cmp( typeConversion[i].typeCG ) == 0 )
 			{
@@ -1595,7 +1595,7 @@ idStr ConvertCG2GLSL( const idStr& in, const char* name, bool isVertexProgram, i
 		
 		// check for a function conversion
 		bool foundFunction = false;
-		for( int i = 0; builtinConversion[i].nameCG != NULL; i++ )
+		for( int i = 0; builtinConversion[i].nameCG != nullptr; i++ )
 		{
 			if( token.Cmp( builtinConversion[i].nameCG ) == 0 )
 			{
@@ -1786,24 +1786,24 @@ GLuint idRenderProgManager::LoadGLSLShader( GLenum target, const char* name, con
 	
 	// first check whether we already have a valid GLSL file and compare it to the hlsl timestamp;
 	ID_TIME_T hlslTimeStamp;
-	int hlslFileLength = fileSystem->ReadFile( inFile.c_str(), NULL, &hlslTimeStamp );
+	int hlslFileLength = fileSystem->ReadFile( inFile.c_str(), nullptr, &hlslTimeStamp );
 	
 	ID_TIME_T glslTimeStamp;
-	int glslFileLength = fileSystem->ReadFile( outFileGLSL.c_str(), NULL, &glslTimeStamp );
+	int glslFileLength = fileSystem->ReadFile( outFileGLSL.c_str(), nullptr, &glslTimeStamp );
 	
 	// if the glsl file doesn't exist or we have a newer HLSL file we need to recreate the glsl file.
 	idStr programGLSL;
 	idStr programUniforms;
 	if( ( glslFileLength <= 0 ) || ( hlslTimeStamp != FILE_NOT_FOUND_TIMESTAMP && hlslTimeStamp > glslTimeStamp ) || r_alwaysExportGLSL.GetBool() )
 	{
-		const char* hlslFileBuffer = NULL;
+		const char* hlslFileBuffer = nullptr;
 		int len = 0;
 		
 		if( hlslFileLength <= 0 )
 		{
 			// hlsl file doesn't even exist bail out
 			hlslFileBuffer = FindEmbeddedSourceShader( inFile.c_str() );
-			if( hlslFileBuffer == NULL )
+			if( hlslFileBuffer == nullptr )
 			{
 				return false;
 			}
@@ -1843,7 +1843,7 @@ GLuint idRenderProgManager::LoadGLSLShader( GLenum target, const char* name, con
 	else
 	{
 		// read in the glsl file
-		void* fileBufferGLSL = NULL;
+		void* fileBufferGLSL = nullptr;
 		int lengthGLSL = fileSystem->ReadFile( outFileGLSL.c_str(), &fileBufferGLSL );
 		if( lengthGLSL <= 0 )
 		{
@@ -1855,7 +1855,7 @@ GLuint idRenderProgManager::LoadGLSLShader( GLenum target, const char* name, con
 		if( r_useUniformArrays.GetBool() )
 		{
 			// read in the uniform file
-			void* fileBufferUniforms = NULL;
+			void* fileBufferUniforms = nullptr;
 			int lengthUniforms = fileSystem->ReadFile( outFileUniforms.c_str(), &fileBufferUniforms );
 			if( lengthUniforms <= 0 )
 			{
@@ -1906,7 +1906,7 @@ GLuint idRenderProgManager::LoadGLSLShader( GLenum target, const char* name, con
 	{
 		const char* source[1] = { programGLSL.c_str() };
 		
-		glShaderSource( shader, 1, source, NULL );
+		glShaderSource( shader, 1, source, nullptr );
 		glCompileShader( shader );
 		
 		int infologLength = 0;
@@ -1918,8 +1918,8 @@ GLuint idRenderProgManager::LoadGLSLShader( GLenum target, const char* name, con
 			glGetShaderInfoLog( shader, infologLength, &charsWritten, infoLog.Ptr() );
 			
 			// catch the strings the ATI and Intel drivers output on success
-			if( strstr( infoLog.Ptr(), "successfully compiled to run on hardware" ) != NULL ||
-					strstr( infoLog.Ptr(), "No errors." ) != NULL )
+			if( strstr( infoLog.Ptr(), "successfully compiled to run on hardware" ) != nullptr ||
+					strstr( infoLog.Ptr(), "No errors." ) != nullptr )
 			{
 				//idLib::Printf( "%s program %s from %s compiled to run on hardware\n", typeName, GetName(), GetFileName() );
 			}
@@ -2167,7 +2167,7 @@ void idRenderProgManager::LoadGLSLProgram( const int programIndex, const int ver
 		}
 		
 		// bind vertex attribute locations
-		for( int i = 0; attribsPC[i].glsl != NULL; i++ )
+		for( int i = 0; attribsPC[i].glsl != nullptr; i++ )
 		{
 			if( ( attribsPC[i].flags & AT_VS_IN ) != 0 )
 			{
@@ -2186,7 +2186,7 @@ void idRenderProgManager::LoadGLSLProgram( const int programIndex, const int ver
 			glGetProgramInfoLog( program, infologLength, &charsWritten, infoLog );
 			
 			// catch the strings the ATI and Intel drivers output on success
-			if( strstr( infoLog, "Vertex shader(s) linked, fragment shader(s) linked." ) != NULL || strstr( infoLog, "No errors." ) != NULL )
+			if( strstr( infoLog, "Vertex shader(s) linked, fragment shader(s) linked." ) != nullptr || strstr( infoLog, "No errors." ) != nullptr )
 			{
 				//idLib::Printf( "render prog %s from %s linked\n", GetName(), GetFileName() );
 			}
@@ -2298,7 +2298,7 @@ void idRenderProgManager::LoadGLSLProgram( const int programIndex, const int ver
 			
 			for( int i = 0; i < numActiveUniforms; i++ )
 			{
-				glGetActiveUniform( program, i, sizeof( uniformName ), NULL, &size, &type, uniformName );
+				glGetActiveUniform( program, i, sizeof( uniformName ), nullptr, &size, &type, uniformName );
 				
 				idLib::Printf( "active uniform: '%s'\n", uniformName );
 			}

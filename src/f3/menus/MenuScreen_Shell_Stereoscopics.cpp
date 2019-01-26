@@ -55,7 +55,7 @@ void idMenuScreen_Shell_Stereoscopics::Initialize( idMenuHandler* data )
 {
 	idMenuScreen::Initialize( data );
 	
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		menuGUI = data->GetGUI();
 	}
@@ -126,10 +126,10 @@ idMenuScreen_Shell_Stereoscopics::Update
 void idMenuScreen_Shell_Stereoscopics::Update()
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuWidget_CommandBar* cmdBar = menuData->GetCmdBar();
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			idMenuWidget_CommandBar::buttonInfo_t* buttonInfo;
@@ -149,20 +149,20 @@ void idMenuScreen_Shell_Stereoscopics::Update()
 	if( BindSprite( root ) )
 	{
 		idSWFTextInstance* heading = GetSprite()->GetScriptObject()->GetNestedText( "info", "txtHeading" );
-		if( heading != NULL )
+		if( heading != nullptr )
 		{
 			heading->SetText( "#str_swf_stereoscopics_heading" );	// STEREOSCOPIC RENDERING
 			heading->SetStrokeInfo( true, 0.75f, 1.75f );
 		}
 		
 		idSWFSpriteInstance* gradient = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "gradient" );
-		if( gradient != NULL && heading != NULL )
+		if( gradient != nullptr && heading != nullptr )
 		{
 			gradient->SetXPos( heading->GetTextLength() );
 		}
 	}
 	
-	if( btnBack != NULL )
+	if( btnBack != nullptr )
 	{
 		btnBack->BindSprite( root );
 	}
@@ -180,17 +180,17 @@ void idMenuScreen_Shell_Stereoscopics::ShowScreen( const mainMenuTransition_t tr
 	stereoData.LoadData();
 	idMenuScreen::ShowScreen( transitionType );
 	
-	if( GetSprite() != NULL )
+	if( GetSprite() != nullptr )
 	{
 		idSWFSpriteInstance* leftEye = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "leftEye" );
 		idSWFSpriteInstance* rightEye = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "rightEye" );
 		
-		if( leftEye != NULL && leftEyeMat != NULL )
+		if( leftEye != nullptr && leftEyeMat != nullptr )
 		{
 			leftEye->SetMaterial( leftEyeMat );
 		}
 		
-		if( rightEye != NULL && rightEyeMat != NULL )
+		if( rightEye != nullptr && rightEyeMat != nullptr )
 		{
 			rightEye->SetMaterial( rightEyeMat );
 		}
@@ -253,7 +253,7 @@ idMenuScreen_Shell_Stereoscopics::HandleAction h
 bool idMenuScreen_Shell_Stereoscopics::HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled )
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		if( menuData->ActiveScreen() != SHELL_AREA_STEREOSCOPICS )
 		{
@@ -268,7 +268,7 @@ bool idMenuScreen_Shell_Stereoscopics::HandleAction( idWidgetAction& action, con
 	{
 		case WIDGET_ACTION_GO_BACK:
 		{
-			if( menuData != NULL )
+			if( menuData != nullptr )
 			{
 				menuData->SetNextScreen( SHELL_AREA_SETTINGS, MENU_TRANSITION_SIMPLE );
 			}
@@ -277,7 +277,7 @@ bool idMenuScreen_Shell_Stereoscopics::HandleAction( idWidgetAction& action, con
 		case WIDGET_ACTION_PRESS_FOCUSED:
 		{
 		
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}
@@ -301,7 +301,7 @@ bool idMenuScreen_Shell_Stereoscopics::HandleAction( idWidgetAction& action, con
 		case WIDGET_ACTION_START_REPEATER:
 		{
 		
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}

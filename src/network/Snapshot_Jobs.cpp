@@ -175,7 +175,7 @@ void SnapshotObjectJob( objParms_t* parms )
 		// New object, write out full state
 		assert( newState.valid );
 		// delta against an empty snap
-		rleCompressor.Start( dataStart, NULL, OBJ_DEST_SIZE_ALIGN16( newState.size ) );
+		rleCompressor.Start( dataStart, nullptr, OBJ_DEST_SIZE_ALIGN16( newState.size ) );
 		rleCompressor.WriteBytes( newState.data, newState.size );
 		header->csize = rleCompressor.End();
 		header->flags |= OBJ_NEW;
@@ -200,7 +200,7 @@ void SnapshotObjectJob( objParms_t* parms )
 		if( !visChange || visSendState )
 		{
 			int compareSize = Min( newState.size, oldState.size );
-			rleCompressor.Start( dataStart, NULL, OBJ_DEST_SIZE_ALIGN16( newState.size ) );
+			rleCompressor.Start( dataStart, nullptr, OBJ_DEST_SIZE_ALIGN16( newState.size ) );
 			for( int b = 0; b < compareSize; b++ )
 			{
 				byte delta = newState.data[b] - oldState.data[b];
@@ -436,7 +436,7 @@ void LZWJobInternal( lzwParm_t* parm, unsigned int dmaTag )
 		{
 			// Wasn't zrle compressed, zrle now while lzw'ing
 			idZeroRunLengthCompressor rleCompressor;
-			rleCompressor.Start( NULL, &lzwCompressor, 0xFFFF );
+			rleCompressor.Start( nullptr, &lzwCompressor, 0xFFFF );
 			rleCompressor.WriteBytes( compressedData, header->size );
 			rleCompressor.End();
 		}

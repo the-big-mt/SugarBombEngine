@@ -147,7 +147,7 @@ bool R_PreciseCullSurface( const drawSurf_t* drawSurf, idBounds& ndcBounds )
 	ndcBounds.Clear();
 	
 	// RB: added check wether GPU skinning is available at all
-	const idJointMat* joints = ( tri->staticModelWithJoints != NULL && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? tri->staticModelWithJoints->jointsInverted : NULL;
+	const idJointMat* joints = ( tri->staticModelWithJoints != nullptr && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? tri->staticModelWithJoints->jointsInverted : nullptr;
 	// RB end
 	
 	for( int i = 0; i < tri->numVerts; i++ )
@@ -365,7 +365,7 @@ static void R_RemoteRender( const drawSurf_t* surf, textureStage_t* stage )
 	
 	// copy this rendering to the image
 	stage->dynamicFrameCount = tr.frameCount;
-	if( stage->image == NULL )
+	if( stage->image == nullptr )
 	{
 		stage->image = globalImages->scratchImage;
 	}
@@ -389,7 +389,7 @@ void R_MirrorRender( const drawSurf_t* surf, textureStage_t* stage, idScreenRect
 	
 	// issue a new view command
 	viewDef_t* parms = R_MirrorViewBySurface( surf );
-	if( parms == NULL )
+	if( parms == nullptr )
 	{
 		return;
 	}
@@ -435,7 +435,7 @@ void R_XrayRender( const drawSurf_t* surf, textureStage_t* stage, idScreenRect s
 	
 	// issue a new view command
 	viewDef_t* parms = R_XrayViewBySurface( surf );
-	if( parms == NULL )
+	if( parms == nullptr )
 	{
 		return;
 	}
@@ -492,10 +492,10 @@ bool R_GenerateSurfaceSubview( const drawSurf_t* drawSurf )
 	
 	// never recurse through a subview surface that we are
 	// already seeing through
-	viewDef_t* parms = NULL;
-	for( parms = tr.viewDef; parms != NULL; parms = parms->superView )
+	viewDef_t* parms = nullptr;
+	for( parms = tr.viewDef; parms != nullptr; parms = parms->superView )
 	{
-		if( parms->subviewSurface != NULL
+		if( parms->subviewSurface != nullptr
 				&& parms->subviewSurface->frontEndGeo == drawSurf->frontEndGeo
 				&& parms->subviewSurface->space->entityDef == drawSurf->space->entityDef )
 		{
@@ -508,7 +508,7 @@ bool R_GenerateSurfaceSubview( const drawSurf_t* drawSurf )
 	}
 	
 	// crop the scissor bounds based on the precise cull
-	assert( tr.viewDef != NULL );
+	assert( tr.viewDef != nullptr );
 	idScreenRect* v = &tr.viewDef->viewport;
 	idScreenRect scissor;
 	scissor.x1 = v->x1 + idMath::Ftoi( ( v->x2 - v->x1 + 1 ) * 0.5f * ( ndcBounds[0][0] + 1.0f ) );
@@ -551,7 +551,7 @@ bool R_GenerateSurfaceSubview( const drawSurf_t* drawSurf )
 	
 	// issue a new view command
 	parms = R_MirrorViewBySurface( drawSurf );
-	if( parms == NULL )
+	if( parms == nullptr )
 	{
 		return false;
 	}

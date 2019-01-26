@@ -45,7 +45,7 @@ idAchievementSystem::SyncAchievementBits
 */
 void idAchievementSystem::SyncAchievementBits( idLocalUser* user )
 {
-	if( user != NULL )
+	if( user != nullptr )
 	{
 		idArray< bool, idAchievementSystem::MAX_ACHIEVEMENTS > achievements;
 		

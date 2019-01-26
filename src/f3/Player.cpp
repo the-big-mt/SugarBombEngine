@@ -90,18 +90,18 @@ const float MIN_BOB_SPEED = 5.0f;
 // Special team used for spectators that we ONLY store on lobby.  The local team property on player remains as 0 or 1.
 const float LOBBY_SPECTATE_TEAM_FOR_VOICE_CHAT = 2;
 
-const idEventDef EV_Player_GetButtons( "getButtons", NULL, 'd' );
-const idEventDef EV_Player_GetMove( "getMove", NULL, 'v' );
-const idEventDef EV_Player_GetViewAngles( "getViewAngles", NULL, 'v' );
+const idEventDef EV_Player_GetButtons( "getButtons", nullptr, 'd' );
+const idEventDef EV_Player_GetMove( "getMove", nullptr, 'v' );
+const idEventDef EV_Player_GetViewAngles( "getViewAngles", nullptr, 'v' );
 const idEventDef EV_Player_StopFxFov( "stopFxFov" );
 const idEventDef EV_Player_EnableWeapon( "enableWeapon" );
 const idEventDef EV_Player_DisableWeapon( "disableWeapon" );
-const idEventDef EV_Player_GetCurrentWeapon( "getCurrentWeapon", NULL, 's' );
-const idEventDef EV_Player_GetPreviousWeapon( "getPreviousWeapon", NULL, 's' );
+const idEventDef EV_Player_GetCurrentWeapon( "getCurrentWeapon", nullptr, 's' );
+const idEventDef EV_Player_GetPreviousWeapon( "getPreviousWeapon", nullptr, 's' );
 const idEventDef EV_Player_SelectWeapon( "selectWeapon", "s" );
-const idEventDef EV_Player_GetWeaponEntity( "getWeaponEntity", NULL, 'e' );
+const idEventDef EV_Player_GetWeaponEntity( "getWeaponEntity", nullptr, 'e' );
 const idEventDef EV_Player_OpenPDA( "openPDA" );
-const idEventDef EV_Player_InPDA( "inPDA", NULL, 'd' );
+const idEventDef EV_Player_InPDA( "inPDA", nullptr, 'd' );
 const idEventDef EV_Player_ExitTeleporter( "exitTeleporter" );
 const idEventDef EV_Player_StopAudioLog( "stopAudioLog" );
 const idEventDef EV_Player_HideTip( "hideTip" );
@@ -109,7 +109,7 @@ const idEventDef EV_Player_LevelTrigger( "levelTrigger" );
 const idEventDef EV_SpectatorTouch( "spectatorTouch", "et" );
 const idEventDef EV_Player_GiveInventoryItem( "giveInventoryItem", "s" );
 const idEventDef EV_Player_RemoveInventoryItem( "removeInventoryItem", "s" );
-const idEventDef EV_Player_GetIdealWeapon( "getIdealWeapon", NULL, 's' );
+const idEventDef EV_Player_GetIdealWeapon( "getIdealWeapon", nullptr, 's' );
 const idEventDef EV_Player_SetPowerupTime( "setPowerupTime", "dd" );
 const idEventDef EV_Player_IsPowerupActive( "isPowerupActive", "d", 'd' );
 const idEventDef EV_Player_WeaponAvailable( "weaponAvailable", "s", 'd' );
@@ -449,11 +449,11 @@ void idInventory::RestoreInventory( idPlayer* owner, const idDict& dict )
 	
 	if( g_skill.GetInteger() >= 3 || cvarSystem->GetCVarBool( "fs_buildresources" ) )
 	{
-		Give( owner, dict, "weapon", dict.GetString( "weapon_nightmare" ), NULL, false, ITEM_GIVE_FEEDBACK | ITEM_GIVE_UPDATE_STATE );
+		Give( owner, dict, "weapon", dict.GetString( "weapon_nightmare" ), nullptr, false, ITEM_GIVE_FEEDBACK | ITEM_GIVE_UPDATE_STATE );
 	}
 	else
 	{
-		Give( owner, dict, "weapon", dict.GetString( "weapon" ), NULL, false, ITEM_GIVE_FEEDBACK | ITEM_GIVE_UPDATE_STATE );
+		Give( owner, dict, "weapon", dict.GetString( "weapon" ), nullptr, false, ITEM_GIVE_FEEDBACK | ITEM_GIVE_UPDATE_STATE );
 	}
 	
 	num = dict.GetInt( "levelTriggers" );
@@ -981,7 +981,7 @@ bool idInventory::Give( idPlayer* owner, const idDict& spawnArgs, const char* st
 	else if( !idStr::Icmp( statname, "weapon" ) )
 	{
 		tookWeapon = false;
-		for( pos = value; pos != NULL; pos = end )
+		for( pos = value; pos != nullptr; pos = end )
 		{
 			end = strchr( pos, ',' );
 			if( end )
@@ -1017,7 +1017,7 @@ bool idInventory::Give( idPlayer* owner, const idDict& spawnArgs, const char* st
 			// don't pickup "no ammo" weapon types twice
 			// not for D3 SP .. there is only one case in the game where you can get a no ammo
 			// weapon when you might already have it, in that case it is more conistent to pick it up
-			if( common->IsMultiplayer() && ( weapons & ( 1 << i ) ) && ( weaponDecl != NULL ) && !weaponDecl->dict.GetInt( "ammoRequired" ) )
+			if( common->IsMultiplayer() && ( weapons & ( 1 << i ) ) && ( weaponDecl != nullptr ) && !weaponDecl->dict.GetInt( "ammoRequired" ) )
 			{
 				continue;
 			}
@@ -1033,7 +1033,7 @@ bool idInventory::Give( idPlayer* owner, const idDict& spawnArgs, const char* st
 					{
 						idLobbyBase& lobby = session->GetActingGameStateLobbyBase();
 						lobbyUserID_t& lobbyUserID = gameLocal.lobbyUserIDs[owner->entityNumber];
-						if( lobby.GetLobbyUserWeaponAutoSwitch( lobbyUserID ) && idealWeapon != NULL && i != owner->weapon_bloodstone_active1 && i != owner->weapon_bloodstone_active2 && i != owner->weapon_bloodstone_active3 )
+						if( lobby.GetLobbyUserWeaponAutoSwitch( lobbyUserID ) && idealWeapon != nullptr && i != owner->weapon_bloodstone_active1 && i != owner->weapon_bloodstone_active2 && i != owner->weapon_bloodstone_active3 )
 						{
 							idealWeapon->Set( i );
 						}
@@ -1115,7 +1115,7 @@ void idInventory::Drop( const idDict& spawnArgs, const char* weapon_classname, i
 		weapon_classname = spawnArgs.GetString( va( "def_weapon%d", weapon_index ) );
 	}
 	weapons &= ( 0xffffffff ^ ( 1 << weapon_index ) );
-	ammo_t ammo_i = AmmoIndexForWeaponClass( weapon_classname, NULL );
+	ammo_t ammo_i = AmmoIndexForWeaponClass( weapon_classname, nullptr );
 	if( ammo_i && ammo_i < AMMO_NUMTYPES )
 	{
 		clip[ weapon_index ] = -1;
@@ -1181,7 +1181,7 @@ bool idInventory::HasEmptyClipCannotRefill( const char* weapon_classname, idPlay
 	}
 	
 	const idDeclEntityDef* decl = gameLocal.FindEntityDef( weapon_classname, false );
-	if( decl == NULL )
+	if( decl == nullptr )
 	{
 		gameLocal.Error( "Unknown weapon in decl '%s'", weapon_classname );
 		return false;
@@ -1485,20 +1485,20 @@ idPlayer::idPlayer():
 	laserSightHandle	= -1;
 	memset( &laserSightRenderEntity, 0, sizeof( laserSightRenderEntity ) );
 	
-	weapon					= NULL;
-	primaryObjective		= NULL;
+	weapon					= nullptr;
+	primaryObjective		= nullptr;
 	
 	hudManager				= new idMenuHandler_HUD();
-	hud						= NULL;
+	hud						= nullptr;
 	objectiveSystemOpen		= false;
 	memset( quickSlot, -1, sizeof( quickSlot ) );
 	
 	pdaMenu = new( TAG_SWF ) idMenuHandler_PDA();
-	pdaVideoMat				= NULL;
-	mpMessages				= NULL;
+	pdaVideoMat				= nullptr;
+	mpMessages				= nullptr;
 	
-	mountedObject			= NULL;
-	enviroSuitLight			= NULL;
+	mountedObject			= nullptr;
+	enviroSuitLight			= nullptr;
 	
 	heartRate				= BASE_HEARTRATE;
 	heartInfo.Init( 0, 0, 0, 0 );
@@ -1569,8 +1569,8 @@ idPlayer::idPlayer():
 	hudPowerupDuration		= 0;
 	
 	skinIndex				= 0;
-	skin					= NULL;
-	powerUpSkin				= NULL;
+	skin					= nullptr;
+	powerUpSkin				= nullptr;
 	
 	numProjectileKills		= 0;
 	numProjectilesFired		= 0;
@@ -1591,23 +1591,23 @@ idPlayer::idPlayer():
 	influenceFov			= 0;
 	influenceActive			= 0;
 	influenceRadius			= 0.0f;
-	influenceEntity			= NULL;
-	influenceMaterial		= NULL;
-	influenceSkin			= NULL;
+	influenceEntity			= nullptr;
+	influenceMaterial		= nullptr;
+	influenceSkin			= nullptr;
 	
-	privateCameraView		= NULL;
+	privateCameraView		= nullptr;
 	
 	memset( loggedViewAngles, 0, sizeof( loggedViewAngles ) );
 	memset( loggedAccel, 0, sizeof( loggedAccel ) );
 	currentLoggedAccel	= 0;
 	
 	focusTime				= 0;
-	focusGUIent				= NULL;
-	focusUI					= NULL;
-	focusCharacter			= NULL;
+	focusGUIent				= nullptr;
+	focusUI					= nullptr;
+	focusCharacter			= nullptr;
 	talkCursor				= 0;
-	focusVehicle			= NULL;
-	cursor					= NULL;
+	focusVehicle			= nullptr;
+	cursor					= nullptr;
 	
 	oldMouseX				= 0;
 	oldMouseY				= 0;
@@ -1631,7 +1631,7 @@ idPlayer::idPlayer():
 	hiddenWeapon			= false;
 	tipUp					= false;
 	objectiveUp				= false;
-	teleportEntity			= NULL;
+	teleportEntity			= nullptr;
 	teleportKiller			= -1;
 	respawning				= false;
 	leader					= false;
@@ -1716,12 +1716,12 @@ void idPlayer::SetupWeaponEntity()
 	}
 	else if( !common->IsClient() )
 	{
-		weapon = static_cast<idWeapon*>( gameLocal.SpawnEntityType( idWeapon::Type, NULL ) );
+		weapon = static_cast<idWeapon*>( gameLocal.SpawnEntityType( idWeapon::Type, nullptr ) );
 		weapon.GetEntity()->SetOwner( this );
 		currentWeapon = -1;
 		
 		// flashlight
-		flashlight = static_cast<idWeapon*>( gameLocal.SpawnEntityType( idWeapon::Type, NULL ) );
+		flashlight = static_cast<idWeapon*>( gameLocal.SpawnEntityType( idWeapon::Type, nullptr ) );
 		flashlight.GetEntity()->SetFlashlightOwner( this );
 		//FlashlightOff();
 	}
@@ -1729,7 +1729,7 @@ void idPlayer::SetupWeaponEntity()
 	for( w = 0; w < MAX_WEAPONS; w++ )
 	{
 		weap = spawnArgs.GetString( va( "def_weapon%d", w ) );
-		if( weap != NULL && *weap != '\0' )
+		if( weap != nullptr && *weap != '\0' )
 		{
 			idWeapon::CacheWeapon( weap );
 		}
@@ -1785,16 +1785,16 @@ void idPlayer::Init()
 	influenceFov			= 0;
 	influenceActive			= 0;
 	influenceRadius			= 0.0f;
-	influenceEntity			= NULL;
-	influenceMaterial		= NULL;
-	influenceSkin			= NULL;
+	influenceEntity			= nullptr;
+	influenceMaterial		= nullptr;
+	influenceSkin			= nullptr;
 	
-	mountedObject			= NULL;
+	mountedObject			= nullptr;
 	if( enviroSuitLight.IsValid() )
 	{
 		enviroSuitLight.GetEntity()->PostEventMS( &EV_Remove, 0 );
 	}
-	enviroSuitLight			= NULL;
+	enviroSuitLight			= nullptr;
 	healthRecharge			= false;
 	lastHealthRechargeTime	= 0;
 	rechargeSpeed			= 500;
@@ -1810,11 +1810,11 @@ void idPlayer::Init()
 	currentLoggedAccel		= 0;
 	
 	focusTime				= 0;
-	focusGUIent				= NULL;
-	focusUI					= NULL;
-	focusCharacter			= NULL;
+	focusGUIent				= nullptr;
+	focusUI					= nullptr;
+	focusCharacter			= nullptr;
 	talkCursor				= 0;
-	focusVehicle			= NULL;
+	focusVehicle			= nullptr;
 	
 	// remove any damage effects
 	playerView.ClearEffects();
@@ -1849,7 +1849,7 @@ void idPlayer::Init()
 	// set the pm_ cvars
 	if( !common->IsMultiplayer() || common->IsServer() )
 	{
-		kv = spawnArgs.MatchPrefix( "pm_", NULL );
+		kv = spawnArgs.MatchPrefix( "pm_", nullptr );
 		while( kv )
 		{
 			cvarSystem->SetCVarString( kv->GetKey(), kv->GetValue() );
@@ -1886,7 +1886,7 @@ void idPlayer::Init()
 	viewBob.Zero();
 	
 	value = spawnArgs.GetString( "model" );
-	if( value != NULL && ( *value != 0 ) )
+	if( value != nullptr && ( *value != 0 ) )
 	{
 		SetModel( value );
 	}
@@ -1906,7 +1906,7 @@ void idPlayer::Init()
 		SetSkin( skin );
 		renderEntity.shaderParms[6] = 0.0f;
 	}
-	else if( spawnArgs.GetString( "spawn_skin", NULL, &value ) )
+	else if( spawnArgs.GetString( "spawn_skin", nullptr, &value ) )
 	{
 		skin = declManager->FindSkin( value );
 		SetSkin( skin );
@@ -1963,7 +1963,7 @@ void idPlayer::Init()
 	
 	forceScoreBoard		= false;
 	
-	privateCameraView	= NULL;
+	privateCameraView	= nullptr;
 	
 	lastSpectateChange	= 0;
 	lastTeleFX			= -9999;
@@ -1971,11 +1971,11 @@ void idPlayer::Init()
 	hiddenWeapon		= false;
 	tipUp				= false;
 	objectiveUp			= false;
-	teleportEntity		= NULL;
+	teleportEntity		= nullptr;
 	teleportKiller		= -1;
 	leader				= false;
 	
-	SetPrivateCameraView( NULL );
+	SetPrivateCameraView( nullptr );
 	
 	MPAim				= -1;
 	lastMPAim			= -1;
@@ -2040,7 +2040,7 @@ void idPlayer::Spawn()
 	{
 	
 		// load HUD
-		if( hudManager != NULL )
+		if( hudManager != nullptr )
 		{
 			hudManager->Initialize( "hud", common->SW() );
 			hudManager->ActivateMenu( true );
@@ -2057,14 +2057,14 @@ void idPlayer::Spawn()
 			cursor->Activate( true, gameLocal.time );
 		}
 		
-		if( pdaMenu != NULL )
+		if( pdaMenu != nullptr )
 		{
 			pdaMenu->Initialize( "pda", common->SW() );
 		}
 		objectiveSystemOpen = false;
 	}
 	
-	if( common->IsMultiplayer() && mpMessages == NULL )
+	if( common->IsMultiplayer() && mpMessages == nullptr )
 	{
 		mpMessages = new idSWF( "mp_messages", common->SW() );
 		mpMessages->Activate( true );
@@ -2212,7 +2212,7 @@ void idPlayer::Spawn()
 	
 	//Setup the weapon toggle lists
 	const idKeyValue* kv;
-	kv = spawnArgs.MatchPrefix( "weapontoggle", NULL );
+	kv = spawnArgs.MatchPrefix( "weapontoggle", nullptr );
 	while( kv )
 	{
 		WeaponToggle_t newToggle;
@@ -2282,10 +2282,10 @@ Release any resources used by the player.
 idPlayer::~idPlayer()
 {
 	delete weapon.GetEntity();
-	weapon = NULL;
+	weapon = nullptr;
 	
 	delete flashlight.GetEntity();
-	flashlight = NULL;
+	flashlight = nullptr;
 	
 	if( enviroSuitLight.IsValid() )
 	{
@@ -2298,13 +2298,13 @@ idPlayer::~idPlayer()
 	}
 	
 	delete hudManager;
-	hudManager = NULL;
+	hudManager = nullptr;
 	
 	delete pdaMenu;
-	pdaMenu = NULL;
+	pdaMenu = nullptr;
 	
 	delete mpMessages;
-	mpMessages = NULL;
+	mpMessages = nullptr;
 }
 
 /*
@@ -2617,14 +2617,14 @@ void idPlayer::Restore( idRestoreGame* savefile )
 	inventory.Restore( savefile );
 	weapon.Restore( savefile );
 	
-	if( hudManager != NULL )
+	if( hudManager != nullptr )
 	{
 		hudManager->Initialize( "hud", common->SW() );
 		hudManager->ActivateMenu( true );
 		hud = hudManager->GetHud();
 	}
 	
-	if( pdaMenu != NULL )
+	if( pdaMenu != nullptr )
 	{
 		pdaMenu->Initialize( "pda", common->SW() );
 	}
@@ -2807,7 +2807,7 @@ void idPlayer::Restore( idRestoreGame* savefile )
 	
 	savefile->ReadObject( reinterpret_cast<idClass*&>( focusGUIent ) );
 	// can't save focusUI
-	focusUI = NULL;
+	focusUI = nullptr;
 	savefile->ReadObject( reinterpret_cast<idClass*&>( focusCharacter ) );
 	savefile->ReadInt( talkCursor );
 	savefile->ReadInt( focusTime );
@@ -2835,7 +2835,7 @@ void idPlayer::Restore( idRestoreGame* savefile )
 	
 	// set the pm_ cvars
 	const idKeyValue*	kv;
-	kv = spawnArgs.MatchPrefix( "pm_", NULL );
+	kv = spawnArgs.MatchPrefix( "pm_", nullptr );
 	while( kv )
 	{
 		cvarSystem->SetCVarString( kv->GetKey(), kv->GetValue() );
@@ -2981,9 +2981,9 @@ void idPlayer::Restart()
 	{
 		// Make sure the weapon spawnId gets re-linked on the next snapshot.
 		// Otherwise, its owner might not be set after the map restart, which causes asserts and crashes.
-		weapon = NULL;
-		flashlight = NULL;
-		enviroSuitLight = NULL;
+		weapon = nullptr;
+		flashlight = nullptr;
+		enviroSuitLight = nullptr;
 		Init();
 	}
 	else
@@ -3064,7 +3064,7 @@ void idPlayer::SelectInitialSpawnPoint( idVec3& origin, idAngles& angles )
 	spot = gameLocal.SelectInitialSpawnPoint( this );
 	
 	// set the player skin from the spawn location
-	if( spot->spawnArgs.GetString( "skin", NULL, skin ) )
+	if( spot->spawnArgs.GetString( "skin", nullptr, skin ) )
 	{
 		spawnArgs.Set( "spawn_skin", skin );
 	}
@@ -3174,7 +3174,7 @@ void idPlayer::SpawnToPoint( const idVec3& spawn_origin, const idAngles& spawn_a
 			// we may be called twice in a row in some situations. avoid a double fx and 'fly to the roof'
 			if( lastTeleFX < gameLocal.time - 1000 )
 			{
-				idEntityFx::StartFx( spawnArgs.GetString( "fx_spawn" ), &spawn_origin, NULL, this, true );
+				idEntityFx::StartFx( spawnArgs.GetString( "fx_spawn" ), &spawn_origin, nullptr, this, true );
 				lastTeleFX = gameLocal.time;
 			}
 		}
@@ -3205,7 +3205,7 @@ void idPlayer::SpawnToPoint( const idVec3& spawn_origin, const idAngles& spawn_a
 	
 	Respawn_Shared();
 	
-	privateCameraView = NULL;
+	privateCameraView = nullptr;
 	
 	BecomeActive( TH_THINK );
 	
@@ -3443,7 +3443,7 @@ void idPlayer::UpdateSpectatingText()
 	}
 	
 	idPlayer* viewPlayer = static_cast<idPlayer*>( gameLocal.entities[ p->spectator ] );
-	if( viewPlayer == NULL )
+	if( viewPlayer == nullptr )
 	{
 		return;
 	}
@@ -3456,7 +3456,7 @@ void idPlayer::UpdateSpectatingText()
 	
 	idSWFScriptObject& root = spectatorMessages->GetRootObject();
 	idSWFTextInstance* txtVal = root.GetNestedText( "txtSpectating" );
-	if( txtVal != NULL )
+	if( txtVal != nullptr )
 	{
 		txtVal->tooltip = true;
 		txtVal->SetText( spectatetext[0] );
@@ -3464,7 +3464,7 @@ void idPlayer::UpdateSpectatingText()
 	}
 	
 	txtVal = root.GetNestedText( "txtFollow" );
-	if( txtVal != NULL )
+	if( txtVal != nullptr )
 	{
 		txtVal->SetText( spectatetext[1] );
 		txtVal->SetStrokeInfo( true, 0.75f, 1.75f );
@@ -3479,7 +3479,7 @@ idPlayer::UpdateMpMessages
 void idPlayer::AddChatMessage( int index, int alpha, const idStr& message )
 {
 
-	if( mpMessages == NULL || !mpMessages->IsActive() )
+	if( mpMessages == nullptr || !mpMessages->IsActive() )
 	{
 		return;
 	}
@@ -3530,7 +3530,7 @@ idPlayer::UpdateMpMessages
 void idPlayer::ClearChatMessage( int index )
 {
 
-	if( mpMessages == NULL || !mpMessages->IsActive() )
+	if( mpMessages == nullptr || !mpMessages->IsActive() )
 	{
 		return;
 	}
@@ -3574,7 +3574,7 @@ void idPlayer::DrawHUD( idMenuHandler_HUD* _hudManager )
 	// Always draw the local client's messages so that chat works correctly while spectating another player.
 	idPlayer* localPlayer = static_cast< idPlayer* >( gameLocal.entities[ gameLocal.GetLocalClientNum() ] );
 	
-	if( localPlayer != NULL && localPlayer->mpMessages != NULL )
+	if( localPlayer != nullptr && localPlayer->mpMessages != nullptr )
 	{
 		localPlayer->mpMessages->Render( renderSystem, Sys_Milliseconds() );
 	}
@@ -4142,7 +4142,7 @@ bool idPlayer::GiveItem( idItem* item, unsigned int giveFlags )
 	
 	if( giveFlags & ITEM_GIVE_FEEDBACK )
 	{
-		arg = item->spawnArgs.MatchPrefix( "inv_weapon", NULL );
+		arg = item->spawnArgs.MatchPrefix( "inv_weapon", nullptr );
 		if( arg )
 		{
 			// We need to update the weapon hud manually, but not
@@ -4282,7 +4282,7 @@ bool idPlayer::GivePowerUp( int powerup, int time, unsigned int giveFlags )
 						
 						if( spawnArgs.GetString( "snd_berserk_third", "", &sound ) && sound[ 0 ] != '\0' )
 						{
-							StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_DEMONIC, 0, false, NULL );
+							StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_DEMONIC, 0, false, nullptr );
 						}
 					}
 					
@@ -4320,7 +4320,7 @@ bool idPlayer::GivePowerUp( int powerup, int time, unsigned int giveFlags )
 				}
 				
 				/*				if ( spawnArgs.GetString( "snd_invisibility", "", &sound ) ) {
-									StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_ANY, 0, false, NULL );
+									StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_ANY, 0, false, nullptr );
 								} */
 				break;
 			}
@@ -4347,7 +4347,7 @@ bool idPlayer::GivePowerUp( int powerup, int time, unsigned int giveFlags )
 					}
 					if( spawnArgs.GetString( "snd_megahealth", "", &sound ) )
 					{
-						StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_ANY, 0, false, NULL );
+						StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_ANY, 0, false, nullptr );
 					}
 				}
 				if( giveFlags & ITEM_GIVE_UPDATE_STATE )
@@ -4454,7 +4454,7 @@ void idPlayer::ClearPowerup( int i )
 		ServerSendEvent( EVENT_POWERUP, &msg, false );
 	}
 	
-	powerUpSkin = NULL;
+	powerUpSkin = nullptr;
 	inventory.powerups &= ~( 1 << i );
 	inventory.powerupEndTime[ i ] = 0;
 	switch( i )
@@ -4505,7 +4505,7 @@ void idPlayer::ClearPowerup( int i )
 			{
 				enviroSuitLight.GetEntity()->PostEventMS( &EV_Remove, 0 );
 			}
-			enviroSuitLight = NULL;
+			enviroSuitLight = nullptr;
 			break;
 		}
 		case INVULNERABILITY:
@@ -4688,7 +4688,7 @@ bool idPlayer::GiveInventoryItem( idDict* item, unsigned int giveFlags )
 		}
 		
 		const char* icon = item->GetString( "inv_icon" );
-		if( hud != NULL )
+		if( hud != nullptr )
 		{
 			hud->ShowNewItem( itemName, icon );
 		}
@@ -4740,7 +4740,7 @@ void idPlayer::GiveObjective( const char* title, const char* text, const idMater
 	info.text = text;
 	info.screenshot = screenshot;
 	
-	StartSound( "snd_objectiveup", SND_CHANNEL_ANY, 0, false, NULL );
+	StartSound( "snd_objectiveup", SND_CHANNEL_ANY, 0, false, nullptr );
 	
 	if( hud )
 	{
@@ -4767,7 +4767,7 @@ void idPlayer::CompleteObjective( const char* title )
 		}
 	}
 	
-	StartSound( "snd_objectiveup", SND_CHANNEL_ANY, 0, false, NULL );
+	StartSound( "snd_objectiveup", SND_CHANNEL_ANY, 0, false, nullptr );
 	
 	if( hud )
 	{
@@ -4784,7 +4784,7 @@ idPlayer::GiveVideo
 void idPlayer::GiveVideo( const idDeclVideo* video, const char* itemName )
 {
 
-	if( video == NULL )
+	if( video == nullptr )
 	{
 		return;
 	}
@@ -4797,7 +4797,7 @@ void idPlayer::GiveVideo( const idDeclVideo* video, const char* itemName )
 		GetAchievementManager().EventCompletesAchievement( ACHIEVEMENT_WATCH_ALL_VIDEOS );
 	}
 	
-	if( itemName != NULL && itemName[0] != 0 )
+	if( itemName != nullptr && itemName[0] != 0 )
 	{
 		inventory.pickupItemNames.Append( itemName );
 	}
@@ -4830,7 +4830,7 @@ idPlayer::GiveEmail
 */
 void idPlayer::GiveEmail( const idDeclEmail* email )
 {
-	if( email == NULL )
+	if( email == nullptr )
 	{
 		return;
 	}
@@ -4856,7 +4856,7 @@ void idPlayer::GivePDA( const idDeclPDA* pda, const char* securityItem )
 		return;
 	}
 	
-	if( securityItem != NULL && securityItem[0] != 0 )
+	if( securityItem != nullptr && securityItem[0] != 0 )
 	{
 		inventory.pdaSecurity.AddUnique( securityItem );
 	}
@@ -4864,11 +4864,11 @@ void idPlayer::GivePDA( const idDeclPDA* pda, const char* securityItem )
 	// Just to make sure they want the default player spawn defined pda.
 	// Some what of a hack, so i dont have to change any map scripts that initially give
 	// the player "personal" pda.
-	if( pda == NULL || idStr::Icmp( pda->GetName(), "personal" ) == 0 )
+	if( pda == nullptr || idStr::Icmp( pda->GetName(), "personal" ) == 0 )
 	{
 		pda = static_cast<const idDeclPDA*>( declManager->FindType( DECL_PDA, spawnArgs.GetString( "pda_name", "personal" ) ) );
 	}
-	if( pda == NULL )
+	if( pda == nullptr )
 	{
 		return;
 	}
@@ -4899,7 +4899,7 @@ void idPlayer::GivePDA( const idDeclPDA* pda, const char* securityItem )
 	for( int i = 0; i < pda->GetNumVideos(); i++ )
 	{
 		const idDeclVideo* video = pda->GetVideoByIndex( i );
-		if( video != NULL )
+		if( video != nullptr )
 		{
 			inventory.videos.AddUnique( video );
 		}
@@ -4912,7 +4912,7 @@ void idPlayer::GivePDA( const idDeclPDA* pda, const char* securityItem )
 		const char* sec = pda->GetSecurity();
 		if( hud )
 		{
-			hud->DownloadPDA( pda, ( sec != NULL && sec[0] != 0 ) ? true : false );
+			hud->DownloadPDA( pda, ( sec != nullptr && sec[0] != 0 ) ? true : false );
 		}
 		if( inventory.pdas.Num() == 1 )
 		{
@@ -4936,7 +4936,7 @@ idDict* idPlayer::FindInventoryItem( const char* name )
 	for( int i = 0; i < inventory.items.Num(); i++ )
 	{
 		const char* iname = inventory.items[i]->GetString( "inv_name" );
-		if( iname != NULL && *iname != '\0' )
+		if( iname != nullptr && *iname != '\0' )
 		{
 			if( idStr::Icmp( name, iname ) == 0 )
 			{
@@ -4944,7 +4944,7 @@ idDict* idPlayer::FindInventoryItem( const char* name )
 			}
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -4958,7 +4958,7 @@ idDict* idPlayer::FindInventoryItem( int index )
 	{
 		return inventory.items[ index ];
 	}
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -5388,7 +5388,7 @@ void idPlayer::DropWeapon( bool died )
 	
 	assert( !common->IsClient() );
 	
-	if( spectating || weaponGone || weapon.GetEntity() == NULL )
+	if( spectating || weaponGone || weapon.GetEntity() == nullptr )
 	{
 		return;
 	}
@@ -5420,7 +5420,7 @@ void idPlayer::DropWeapon( bool died )
 		common->DPrintf( "idPlayer::DropWeapon: bad ammo setup\n" );
 		return;
 	}
-	idEntity* item = NULL;
+	idEntity* item = nullptr;
 	if( died )
 	{
 		// ain't gonna throw you no weapon if I'm dead
@@ -5428,7 +5428,7 @@ void idPlayer::DropWeapon( bool died )
 	}
 	else
 	{
-		viewAngles.ToVectors( &forward, NULL, &up );
+		viewAngles.ToVectors( &forward, nullptr, &up );
 		item = weapon.GetEntity()->DropItem( 250.0f * forward + 150.0f * up, 500, WEAPON_DROP_TIME, died );
 	}
 	if( !item )
@@ -5504,7 +5504,7 @@ void idPlayer::StealWeapon( idPlayer* player )
 	}
 	
 	player->weapon.GetEntity()->WeaponStolen();
-	player->inventory.Drop( player->spawnArgs, NULL, newweap );
+	player->inventory.Drop( player->spawnArgs, nullptr, newweap );
 	player->SelectWeapon( weapon_fists, false );
 	// in case the robbed player is firing rounds with a continuous fire weapon like the chaingun/plasma etc.
 	// this will ensure the firing actually stops
@@ -5512,7 +5512,7 @@ void idPlayer::StealWeapon( idPlayer* player )
 	
 	// give weapon, setup the ammo count
 	Give( "weapon", weapon_classname, ITEM_GIVE_FEEDBACK | ITEM_GIVE_UPDATE_STATE );
-	ammo_t ammo_i = player->inventory.AmmoIndexForWeaponClass( weapon_classname, NULL );
+	ammo_t ammo_i = player->inventory.AmmoIndexForWeaponClass( weapon_classname, nullptr );
 	idealWeapon = newweap;
 	const int currentAmmo = inventory.GetInventoryAmmoForType( ammo_i );
 	inventory.SetInventoryAmmoForType( ammo_i, currentAmmo + ammoavailable );
@@ -5527,7 +5527,7 @@ idUserInterface* idPlayer::ActiveGui()
 {
 	if( objectiveSystemOpen )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	return focusUI;
@@ -5560,7 +5560,7 @@ void idPlayer::Weapon_Combat()
 		AI_RELOAD = false;
 	}
 	
-	if( idealWeapon == weapon_soulcube && soulCubeProjectile.GetEntity() != NULL )
+	if( idealWeapon == weapon_soulcube && soulCubeProjectile.GetEntity() != nullptr )
 	{
 		idealWeapon = currentWeapon;
 	}
@@ -5755,7 +5755,7 @@ void idPlayer::Weapon_GUI()
 	bool isDown = ( usercmd.buttons & ( BUTTON_ATTACK | BUTTON_USE ) ) != 0;
 	if( isDown != wasDown )
 	{
-		const char* command = NULL;
+		const char* command = nullptr;
 		idUserInterface* ui = ActiveGui();
 		if( ui )
 		{
@@ -6069,7 +6069,7 @@ void idPlayer::SpectateFreeFly( bool force )
 	if( force || gameLocal.time > lastSpectateChange )
 	{
 		spectator = entityNumber;
-		if( player != NULL && player != this && !player->spectating && !player->IsInTeleport() )
+		if( player != nullptr && player != this && !player->spectating && !player->IsInTeleport() )
 		{
 			newOrig = player->GetPhysics()->GetOrigin();
 			if( player->physicsObj.IsCrouching() )
@@ -6108,7 +6108,7 @@ void idPlayer::SpectateFreeFly( bool force )
 				// only do this if they hit the cycle button.
 				if( common->IsServer() )
 				{
-					if( player != NULL )
+					if( player != nullptr )
 					{
 						idBitMsg	msg;
 						byte		msgBuf[MAX_EVENT_PARAM_SIZE];
@@ -6276,14 +6276,14 @@ void idPlayer::PlayVideoDisk( const idDeclVideo* decl )
 		for( int i = 0; i < c; i++ )
 		{
 			const shaderStage_t* stage = pdaVideoMat->GetStage( i );
-			if( stage != NULL && stage->texture.cinematic )
+			if( stage != nullptr && stage->texture.cinematic )
 			{
 				stage->texture.cinematic->ResetTime( Sys_Milliseconds() );
 			}
 		}
-		if( decl->GetWave() != NULL )
+		if( decl->GetWave() != nullptr )
 		{
-			StartSoundShader( decl->GetWave(), SND_CHANNEL_PDA_VIDEO, 0, false, NULL );
+			StartSoundShader( decl->GetWave(), SND_CHANNEL_PDA_VIDEO, 0, false, nullptr );
 		}
 	}
 }
@@ -6295,7 +6295,7 @@ idPlayer::EndVideoDisk
 */
 void idPlayer::EndVideoDisk()
 {
-	pdaVideoMat = NULL;
+	pdaVideoMat = nullptr;
 	StopSound( SND_CHANNEL_PDA_VIDEO, false );
 }
 
@@ -6361,10 +6361,10 @@ Clears the focus cursor
 */
 void idPlayer::ClearFocus()
 {
-	focusCharacter	= NULL;
-	focusGUIent		= NULL;
-	focusUI			= NULL;
-	focusVehicle	= NULL;
+	focusCharacter	= nullptr;
+	focusGUIent		= nullptr;
+	focusUI			= nullptr;
+	focusVehicle	= nullptr;
 	talkCursor		= 0;
 }
 
@@ -6473,7 +6473,7 @@ void idPlayer::UpdateFocus()
 			if( ent->IsType( idAFAttachment::Type ) )
 			{
 				idEntity* body = static_cast<idAFAttachment*>( ent )->GetBody();
-				if( body != NULL && body->IsType( idAI::Type ) && ( static_cast<idAI*>( body )->GetTalkState() >= TALK_OK ) )
+				if( body != nullptr && body->IsType( idAI::Type ) && ( static_cast<idAI*>( body )->GetTalkState() >= TALK_OK ) )
 				{
 					gameLocal.clip.TracePoint( trace, start, end, MASK_SHOT_RENDERMODEL, this );
 					if( ( trace.fraction < 1.0f ) && ( trace.c.entityNum == ent->entityNumber ) )
@@ -6553,7 +6553,7 @@ void idPlayer::UpdateFocus()
 				ui = focusGUIrenderEntity->gui[ 2 ];
 			}
 			
-			if( ui == NULL )
+			if( ui == nullptr )
 			{
 				continue;
 			}
@@ -6578,7 +6578,7 @@ void idPlayer::UpdateFocus()
 					focusUI->SetStateString( va( "inv_name_%i", j ), iname );
 					focusUI->SetStateString( va( "inv_icon_%i", j ), iicon );
 					focusUI->SetStateString( va( "inv_text_%i", j ), itext );
-					kv = item->MatchPrefix( "inv_id", NULL );
+					kv = item->MatchPrefix( "inv_id", nullptr );
 					if( kv )
 					{
 						focusUI->SetStateString( va( "inv_id_%i", j ), kv->GetValue() );
@@ -6612,7 +6612,7 @@ void idPlayer::UpdateFocus()
 				focusUI->SetStateString( "player_stamina", va( "%i%%", staminapercentage ) );
 				focusUI->SetStateString( "player_armor", va( "%i%%", inventory.armor ) );
 				
-				kv = focusGUIent->spawnArgs.MatchPrefix( "gui_parm", NULL );
+				kv = focusGUIent->spawnArgs.MatchPrefix( "gui_parm", nullptr );
 				while( kv )
 				{
 					focusUI->SetStateString( kv->GetKey(), kv->GetValue() );
@@ -6640,7 +6640,7 @@ void idPlayer::UpdateFocus()
 		{
 			command = focusUI->Activate( true, gameLocal.time );
 			HandleGuiCommands( focusGUIent, command );
-			StartSound( "snd_guienter", SND_CHANNEL_ANY, 0, false, NULL );
+			StartSound( "snd_guienter", SND_CHANNEL_ANY, 0, false, nullptr );
 			// HideTip();
 			// HideObjective();
 		}
@@ -6649,7 +6649,7 @@ void idPlayer::UpdateFocus()
 	{
 		command = oldUI->Activate( false, gameLocal.time );
 		HandleGuiCommands( oldFocus, command );
-		StartSound( "snd_guiexit", SND_CHANNEL_ANY, 0, false, NULL );
+		StartSound( "snd_guiexit", SND_CHANNEL_ANY, 0, false, nullptr );
 	}
 	
 	if( hud )
@@ -6725,7 +6725,7 @@ void idPlayer::CrashLand( const idVec3& oldOrigin, const idVec3& oldVelocity )
 		if( contact.material->GetSurfaceFlags() & SURF_NODAMAGE )
 		{
 			noDamage = true;
-			StartSound( "snd_land_hard", SND_CHANNEL_ANY, 0, false, NULL );
+			StartSound( "snd_land_hard", SND_CHANNEL_ANY, 0, false, nullptr );
 			break;
 		}
 	}
@@ -6789,7 +6789,7 @@ void idPlayer::CrashLand( const idVec3& oldOrigin, const idVec3& oldVelocity )
 		if( !noDamage )
 		{
 			pain_debounce_time = gameLocal.time + pain_delay + 1;  // ignore pain since we'll play our landing anim
-			Damage( NULL, NULL, idVec3( 0, 0, -1 ), "damage_fatalfall", 1.0f, 0 );
+			Damage( nullptr, nullptr, idVec3( 0, 0, -1 ), "damage_fatalfall", 1.0f, 0 );
 		}
 	}
 	else if( delta > hardDelta )
@@ -6800,7 +6800,7 @@ void idPlayer::CrashLand( const idVec3& oldOrigin, const idVec3& oldVelocity )
 		if( !noDamage )
 		{
 			pain_debounce_time = gameLocal.time + pain_delay + 1;  // ignore pain since we'll play our landing anim
-			Damage( NULL, NULL, idVec3( 0, 0, -1 ), "damage_hardfall", 1.0f, 0 );
+			Damage( nullptr, nullptr, idVec3( 0, 0, -1 ), "damage_hardfall", 1.0f, 0 );
 		}
 	}
 	else if( delta > softDelta )
@@ -6811,7 +6811,7 @@ void idPlayer::CrashLand( const idVec3& oldOrigin, const idVec3& oldVelocity )
 		if( !noDamage )
 		{
 			pain_debounce_time = gameLocal.time + pain_delay + 1;  // ignore pain since we'll play our landing anim
-			Damage( NULL, NULL, idVec3( 0, 0, -1 ), "damage_softfall", 1.0f, 0 );
+			Damage( nullptr, nullptr, idVec3( 0, 0, -1 ), "damage_softfall", 1.0f, 0 );
 		}
 	}
 	else if( delta > 7 )
@@ -7235,7 +7235,7 @@ void idPlayer::SetCurrentHeartRate()
 		
 		if( pct != zeroVol )
 		{
-			StartSound( "snd_heartbeat", SND_CHANNEL_HEART, SSF_PRIVATE_SOUND, false, NULL );
+			StartSound( "snd_heartbeat", SND_CHANNEL_HEART, SSF_PRIVATE_SOUND, false, nullptr );
 			// modify just this channel to a custom volume
 			soundShaderParms_t	parms;
 			memset( &parms, 0, sizeof( parms ) );
@@ -7293,8 +7293,8 @@ void idPlayer::UpdateAir()
 	{
 		if( !airless )
 		{
-			StartSound( "snd_decompress", SND_CHANNEL_ANY, SSF_GLOBAL, false, NULL );
-			StartSound( "snd_noAir", SND_CHANNEL_BODY2, 0, false, NULL );
+			StartSound( "snd_decompress", SND_CHANNEL_ANY, SSF_GLOBAL, false, nullptr );
+			StartSound( "snd_noAir", SND_CHANNEL_BODY2, 0, false, nullptr );
 		}
 		airMsec -= ( gameLocal.time - gameLocal.previousTime );
 		if( airMsec < 0 )
@@ -7305,7 +7305,7 @@ void idPlayer::UpdateAir()
 			int dmgTiming = 1000 * ( ( damageDef ) ? damageDef->GetFloat( "delay", "3.0" ) : 3.0f );
 			if( gameLocal.time > lastAirDamage + dmgTiming )
 			{
-				Damage( NULL, NULL, vec3_origin, "damage_noair", 1.0f, 0 );
+				Damage( nullptr, nullptr, vec3_origin, "damage_noair", 1.0f, 0 );
 				lastAirDamage = gameLocal.time;
 			}
 		}
@@ -7315,7 +7315,7 @@ void idPlayer::UpdateAir()
 	{
 		if( airless )
 		{
-			StartSound( "snd_recompress", SND_CHANNEL_ANY, SSF_GLOBAL, false, NULL );
+			StartSound( "snd_recompress", SND_CHANNEL_ANY, SSF_GLOBAL, false, nullptr );
 			StopSound( SND_CHANNEL_BODY2, false );
 		}
 		airMsec += ( gameLocal.time - gameLocal.previousTime );	// regain twice as fast as lose
@@ -7393,7 +7393,7 @@ const idDeclPDA* idPlayer::GetPDA() const
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -7409,7 +7409,7 @@ const idDeclVideo* idPlayer::GetVideo( int index )
 	{
 		return inventory.videos[index];
 	}
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -7426,7 +7426,7 @@ void idPlayer::TogglePDA()
 		return;
 	}
 	
-	if( pdaMenu != NULL )
+	if( pdaMenu != nullptr )
 	{
 		objectiveSystemOpen = !objectiveSystemOpen;
 		pdaMenu->ActivateMenu( objectiveSystemOpen );
@@ -7660,7 +7660,7 @@ void idPlayer::PerformImpulse( int impulse )
 				if( enviroSuitLight.IsValid() )
 				{
 					enviroSuitLight.GetEntity()->PostEventMS( &EV_Remove, 0 );
-					enviroSuitLight = NULL;
+					enviroSuitLight = nullptr;
 				}
 				else
 				{
@@ -7971,7 +7971,7 @@ void idPlayer::InitAASLocation()
 		aasLocation[ i ].areaNum = 0;
 		aasLocation[ i ].pos = origin;
 		aas = gameLocal.GetAAS( i );
-		if( aas != NULL && aas->GetSettings() )
+		if( aas != nullptr && aas->GetSettings() )
 		{
 			size = aas->GetSettings()->boundingBoxes[0][1];
 			bounds[0] = -size;
@@ -8033,7 +8033,7 @@ void idPlayer::GetAASLocation( idAAS* aas, idVec3& pos, int& areaNum ) const
 {
 	int i;
 	
-	if( aas != NULL )
+	if( aas != nullptr )
 	{
 		for( i = 0; i < aasLocation.Num(); i++ )
 		{
@@ -8184,7 +8184,7 @@ void idPlayer::Move_Interpolated( float fraction )
 		
 		if( old_rung != new_rung )
 		{
-			StartSound( "snd_stepladder", SND_CHANNEL_ANY, 0, false, NULL );
+			StartSound( "snd_stepladder", SND_CHANNEL_ANY, 0, false, nullptr );
 		}
 	}
 	
@@ -8325,7 +8325,7 @@ void idPlayer::Move()
 		
 		// check if we're standing on top of a monster and give a push if we are
 		idEntity* groundEnt = physicsObj.GetGroundEntity();
-		if( groundEnt != NULL && groundEnt->IsType( idAI::Type ) )
+		if( groundEnt != nullptr && groundEnt->IsType( idAI::Type ) )
 		{
 			idVec3 vel = physicsObj.GetLinearVelocity();
 			if( vel.ToVec2().LengthSqr() < 0.1f )
@@ -8360,7 +8360,7 @@ void idPlayer::Move()
 		
 		if( old_rung != new_rung )
 		{
-			StartSound( "snd_stepladder", SND_CHANNEL_ANY, 0, false, NULL );
+			StartSound( "snd_stepladder", SND_CHANNEL_ANY, 0, false, nullptr );
 		}
 	}
 	
@@ -8579,7 +8579,7 @@ void idPlayer::UpdateHud()
 	int c = inventory.pickupItemNames.Num();
 	if( c > 0 )
 	{
-		if( hud != NULL && hud->IsPickupListReady() )
+		if( hud != nullptr && hud->IsPickupListReady() )
 		{
 			if( inventory.nextItemPickup && gameLocal.time - inventory.nextItemPickup > 2000 )
 			{
@@ -8739,12 +8739,12 @@ bool idPlayer::HandleGuiEvents( const sysEvent_t* ev )
 
 	bool handled = false;
 	
-	if( hudManager != NULL && hudManager->IsActive() )
+	if( hudManager != nullptr && hudManager->IsActive() )
 	{
 		handled = hudManager->HandleGuiEvent( ev );
 	}
 	
-	if( pdaMenu != NULL && pdaMenu->IsActive() )
+	if( pdaMenu != nullptr && pdaMenu->IsActive() )
 	{
 		handled = pdaMenu->HandleGuiEvent( ev );
 	}
@@ -8766,7 +8766,7 @@ void idPlayer::UpdateLaserSight()
 	idMat3	muzzleAxis;
 	
 	// In Multiplayer, weapon might not have been spawned yet.
-	if( weapon.GetEntity() ==  NULL )
+	if( weapon.GetEntity() ==  nullptr )
 	{
 		return;
 	}
@@ -9036,7 +9036,7 @@ void idPlayer::Think()
 		}
 	}
 	
-	renderEntity_t* headRenderEnt = NULL;
+	renderEntity_t* headRenderEnt = nullptr;
 	if( head.GetEntity() )
 	{
 		headRenderEnt = head.GetEntity()->GetRenderEntity();
@@ -9049,7 +9049,7 @@ void idPlayer::Think()
 		}
 		else
 		{
-			headRenderEnt->customSkin = NULL;
+			headRenderEnt->customSkin = nullptr;
 		}
 	}
 	
@@ -9098,7 +9098,7 @@ void idPlayer::Think()
 	{
 		idActor* ent;
 		int num = 0;
-		for( ent = enemyList.Next(); ent != NULL; ent = ent->enemyNode.Next() )
+		for( ent = enemyList.Next(); ent != nullptr; ent = ent->enemyNode.Next() )
 		{
 			gameLocal.Printf( "enemy (%d)'%s'\n", ent->entityNumber, ent->name.c_str() );
 			gameRenderWorld->DebugBounds( colorRed, ent->GetPhysics()->GetBounds().Expand( 2 ), ent->GetPhysics()->GetOrigin() );
@@ -9459,7 +9459,7 @@ void idPlayer::Killed( idEntity* inflictor, idEntity* attacker, int damage, cons
 	}
 	
 	physicsObj.SetMovementType( PM_DEAD );
-	StartSound( "snd_death", SND_CHANNEL_VOICE, 0, false, NULL );
+	StartSound( "snd_death", SND_CHANNEL_VOICE, 0, false, nullptr );
 	StopSound( SND_CHANNEL_BODY2, false );
 	
 	fl.takedamage = true;		// can still be gibbed
@@ -9494,7 +9494,7 @@ void idPlayer::Killed( idEntity* inflictor, idEntity* attacker, int damage, cons
 	
 	if( common->IsMultiplayer() || g_testDeath.GetBool() )
 	{
-		idPlayer* killer = NULL;
+		idPlayer* killer = nullptr;
 		// no gibbing in MP. Event_Gib will early out in MP
 		if( attacker->IsType( idPlayer::Type ) )
 		{
@@ -9560,7 +9560,7 @@ void idPlayer::DamageFeedback( idEntity* victim, idEntity* inflictor, int& damag
 	if( damage && ( victim != this ) && ( victim->IsType( idActor::Type ) || victim->IsType( idDamagable::Type ) ) )
 	{
 	
-		idPlayer* victimPlayer = NULL;
+		idPlayer* victimPlayer = nullptr;
 		
 		/* No damage feedback sound for hitting friendlies in CTF */
 		if( victim->IsType( idPlayer::Type ) )
@@ -9597,7 +9597,7 @@ void idPlayer::CalcDamagePoints( idEntity* inflictor, idEntity* attacker, const 
 	damageDef->GetInt( "damage", "20", damage );
 	damage = GetDamageForLocation( damage, location );
 	
-	idPlayer* player = attacker->IsType( idPlayer::Type ) ? static_cast<idPlayer*>( attacker ) : NULL;
+	idPlayer* player = attacker->IsType( idPlayer::Type ) ? static_cast<idPlayer*>( attacker ) : nullptr;
 	if( !common->IsMultiplayer() )
 	{
 		if( inflictor != gameLocal.world )
@@ -9836,11 +9836,11 @@ void idPlayer::ServerDealDamage( int damage, idEntity& inflictor, idEntity& atta
 			if( oldHealth > 0 && strcmp( gameLocal.GetMapName(), "maps/game/mp/d3dm3.map" ) == 0 && strcmp( damageDefName, "damage_triggerhurt_1000_chamber" ) == 0 )
 			{
 				idPlayer* fragChamberActivator = gameLocal.playerActivateFragChamber;
-				if( fragChamberActivator != NULL )
+				if( fragChamberActivator != nullptr )
 				{
 					fragChamberActivator->GetAchievementManager().EventCompletesAchievement( ACHIEVEMENT_MP_CATCH_ENEMY_IN_ROFC );
 				}
-				gameLocal.playerActivateFragChamber = NULL;
+				gameLocal.playerActivateFragChamber = nullptr;
 			}
 			
 			isTelefragged = damageDef->dict.GetBool( "telefrag" );
@@ -9883,7 +9883,7 @@ dir			direction of the attack for knockback in global space
 
 damageDef	an idDict with all the options for damage effects
 
-inflictor, attacker, dir, and point can be NULL for environmental effects
+inflictor, attacker, dir, and point can be nullptr for environmental effects
 ============
 */
 void idPlayer::Damage( idEntity* inflictor, idEntity* attacker, const idVec3& dir,
@@ -9991,20 +9991,20 @@ void idPlayer::Damage( idEntity* inflictor, idEntity* attacker, const idVec3& di
 		
 		if( gameLocal.time > lastArmorPulse + 200 )
 		{
-			StartSound( "snd_hitArmor", SND_CHANNEL_ITEM, 0, false, NULL );
+			StartSound( "snd_hitArmor", SND_CHANNEL_ITEM, 0, false, nullptr );
 		}
 		lastArmorPulse = gameLocal.time;
 	}
 	
 	if( damageDef->dict.GetBool( "burn" ) )
 	{
-		StartSound( "snd_burn", SND_CHANNEL_BODY3, 0, false, NULL );
+		StartSound( "snd_burn", SND_CHANNEL_BODY3, 0, false, nullptr );
 	}
 	else if( damageDef->dict.GetBool( "no_air" ) )
 	{
 		if( !armorSave && health > 0 )
 		{
-			StartSound( "snd_airGasp", SND_CHANNEL_ITEM, 0, false, NULL );
+			StartSound( "snd_airGasp", SND_CHANNEL_ITEM, 0, false, nullptr );
 		}
 	}
 	
@@ -10110,7 +10110,7 @@ void idPlayer::Teleport( const idVec3& origin, const idAngles& angles, idEntity*
 		if( common->IsMultiplayer() )
 		{
 			// kill anything at the new position or mark for kill depending on immediate or delayed teleport
-			gameLocal.KillBox( this, destination != NULL );
+			gameLocal.KillBox( this, destination != nullptr );
 		}
 		else
 		{
@@ -10701,7 +10701,7 @@ void idPlayer::AddAIKill()
 			{
 				hud->UpdateSoulCube( true );
 			}
-			StartSound( "snd_soulcube_ready", SND_CHANNEL_ANY, 0, false, NULL );
+			StartSound( "snd_soulcube_ready", SND_CHANNEL_ANY, 0, false, nullptr );
 		}
 	}
 }
@@ -10743,7 +10743,7 @@ idPlayer::SetLastHitTime
 */
 void idPlayer::SetLastHitTime( int time )
 {
-	idPlayer* aimed = NULL;
+	idPlayer* aimed = nullptr;
 	
 	if( time && lastHitTime != time )
 	{
@@ -10758,7 +10758,7 @@ void idPlayer::SetLastHitTime( int time )
 	if( common->IsMultiplayer() && ( time - lastSndHitTime ) > 10 )
 	{
 		lastSndHitTime = time;
-		StartSound( "snd_hit_feedback", SND_CHANNEL_ANY, SSF_PRIVATE_SOUND, false, NULL );
+		StartSound( "snd_hit_feedback", SND_CHANNEL_ANY, SSF_PRIVATE_SOUND, false, nullptr );
 	}
 	
 	if( hud )
@@ -10821,7 +10821,7 @@ void idPlayer::SetInfluenceLevel( int level )
 	{
 		if( level )
 		{
-			for( idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next() )
+			for( idEntity* ent = gameLocal.spawnedEntities.Next(); ent != nullptr; ent = ent->spawnNode.Next() )
 			{
 				if( ent->IsType( idProjectile::Type ) )
 				{
@@ -10853,9 +10853,9 @@ idPlayer::SetInfluenceView
 */
 void idPlayer::SetInfluenceView( const char* mtr, const char* skinname, float radius, idEntity* ent )
 {
-	influenceMaterial = NULL;
-	influenceEntity = NULL;
-	influenceSkin = NULL;
+	influenceMaterial = nullptr;
+	influenceEntity = nullptr;
+	influenceSkin = nullptr;
 	if( mtr && *mtr )
 	{
 		influenceMaterial = declManager->FindMaterial( mtr );
@@ -11269,10 +11269,10 @@ void idPlayer::Event_ExitTeleporter()
 	
 	if( common->IsServer() )
 	{
-		ServerSendEvent( EVENT_EXIT_TELEPORTER, NULL, false );
+		ServerSendEvent( EVENT_EXIT_TELEPORTER, nullptr, false );
 	}
 	
-	SetPrivateCameraView( NULL );
+	SetPrivateCameraView( nullptr );
 	// setup origin and push according to the exit target
 	SetOrigin( exitEnt->GetPhysics()->GetOrigin() + idVec3( 0, 0, CM_CLIP_EPSILON ) );
 	SetViewAngles( exitEnt->GetPhysics()->GetAxis().ToAngles() );
@@ -11286,7 +11286,7 @@ void idPlayer::Event_ExitTeleporter()
 	
 	UpdateVisuals();
 	
-	StartSound( "snd_teleport_exit", SND_CHANNEL_ANY, 0, false, NULL );
+	StartSound( "snd_teleport_exit", SND_CHANNEL_ANY, 0, false, nullptr );
 	
 	if( teleportKiller != -1 )
 	{
@@ -11299,7 +11299,7 @@ void idPlayer::Event_ExitTeleporter()
 		// kill anything that would have waited at teleport exit
 		gameLocal.KillBox( this );
 	}
-	teleportEntity = NULL;
+	teleportEntity = nullptr;
 }
 
 /*
@@ -11456,7 +11456,7 @@ void idPlayer::ClientThink( const int curTime, const float fraction, const bool 
 	
 	UpdateDeathSkin( false );
 	
-	renderEntity_t* headRenderEnt = NULL;
+	renderEntity_t* headRenderEnt = nullptr;
 	if( head.GetEntity() )
 	{
 		headRenderEnt = head.GetEntity()->GetRenderEntity();
@@ -11470,7 +11470,7 @@ void idPlayer::ClientThink( const int curTime, const float fraction, const bool 
 		}
 		else
 		{
-			headRenderEnt->customSkin = NULL;
+			headRenderEnt->customSkin = nullptr;
 		}
 	}
 	
@@ -11860,7 +11860,7 @@ void idPlayer::ReadFromSnapshot( const idBitMsg& msg )
 		physicsObj.SetMovementType( PM_DEAD );
 		if( !snapshotStale )
 		{
-			StartSound( "snd_death", SND_CHANNEL_VOICE, 0, false, NULL );
+			StartSound( "snd_death", SND_CHANNEL_VOICE, 0, false, nullptr );
 		}
 		if( weapon.GetEntity() )
 		{
@@ -11893,7 +11893,7 @@ void idPlayer::ReadFromSnapshot( const idBitMsg& msg )
 				if( IsLocallyControlled() )
 				{
 					playerView.DamageImpulse( lastDamageDir * viewAxis.Transpose(), &def->dict );
-					AI_PAIN = Pain( NULL, NULL, oldHealth - health, lastDamageDir, lastDamageLocation );
+					AI_PAIN = Pain( nullptr, nullptr, oldHealth - health, lastDamageDir, lastDamageLocation );
 				}
 				lastDmgTime = gameLocal.time;
 			}
@@ -12032,7 +12032,7 @@ bool idPlayer::ClientReceiveEvent( int event, int time, const idBitMsg& msg )
 			Event_ExitTeleporter();
 			return true;
 		case EVENT_ABORT_TELEPORTER:
-			SetPrivateCameraView( NULL );
+			SetPrivateCameraView( nullptr );
 			return true;
 		case EVENT_POWERUP:
 		{
@@ -12150,7 +12150,7 @@ idPlayer::IsSoundChannelPlaying
 */
 bool idPlayer::IsSoundChannelPlaying( const s_channelType channel )
 {
-	if( GetSoundEmitter() != NULL )
+	if( GetSoundEmitter() != nullptr )
 	{
 		return GetSoundEmitter()->CurrentlyPlaying( channel );
 	}
@@ -12209,7 +12209,7 @@ idPlayer::HideObjective
 void idPlayer::HideObjective()
 {
 
-	StartSound( "snd_objectivedown", SND_CHANNEL_ANY, 0, false, NULL );
+	StartSound( "snd_objectivedown", SND_CHANNEL_ANY, 0, false, nullptr );
 	
 	if( hud )
 	{
@@ -12270,8 +12270,8 @@ idPlayer::RemoveAllButEssentialWeapons
 */
 void idPlayer::RemoveAllButEssentialWeapons()
 {
-	const idKeyValue* kv = spawnArgs.MatchPrefix( "def_weapon", NULL );
-	for( ; kv != NULL; kv = spawnArgs.MatchPrefix( "def_weapon", kv ) )
+	const idKeyValue* kv = spawnArgs.MatchPrefix( "def_weapon", nullptr );
+	for( ; kv != nullptr; kv = spawnArgs.MatchPrefix( "def_weapon", kv ) )
 	{
 		// This list probably ought to be placed int the player's def
 		if( kv->GetValue() == "weapon_fists" || kv->GetValue() == "weapon_soulcube" || kv->GetValue() == "weapon_pda"

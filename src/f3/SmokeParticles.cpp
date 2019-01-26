@@ -44,7 +44,7 @@ idSmokeParticles::idSmokeParticles()
 	memset( &renderEntity, 0, sizeof( renderEntity ) );
 	renderEntityHandle = -1;
 	memset( smokes, 0, sizeof( smokes ) );
-	freeSmokes = NULL;
+	freeSmokes = nullptr;
 	numActiveSmokes = 0;
 	currentParticleTime = -1;
 }
@@ -66,7 +66,7 @@ void idSmokeParticles::Init()
 	{
 		smokes[i].next = &smokes[i + 1];
 	}
-	smokes[MAX_SMOKE_PARTICLES - 1].next = NULL;
+	smokes[MAX_SMOKE_PARTICLES - 1].next = nullptr;
 	freeSmokes = &smokes[0];
 	numActiveSmokes = 0;
 	
@@ -113,10 +113,10 @@ void idSmokeParticles::Shutdown()
 		gameRenderWorld->FreeEntityDef( renderEntityHandle );
 		renderEntityHandle = -1;
 	}
-	if( renderEntity.hModel != NULL )
+	if( renderEntity.hModel != nullptr )
 	{
 		renderModelManager->FreeModel( renderEntity.hModel );
-		renderEntity.hModel = NULL;
+		renderEntity.hModel = nullptr;
 	}
 	initialized = false;
 }
@@ -135,7 +135,7 @@ void idSmokeParticles::FreeSmokes()
 		activeSmokeStage_t* active = &activeStages[activeStageNum];
 		const idParticleStage* stage = active->stage;
 		
-		for( last = NULL, smoke = active->smokes; smoke; smoke = next )
+		for( last = nullptr, smoke = active->smokes; smoke; smoke = next )
 		{
 			next = smoke->next;
 			
@@ -152,7 +152,7 @@ void idSmokeParticles::FreeSmokes()
 			if( frac >= 1.0f )
 			{
 				// remove the particle from the stage list
-				if( last != NULL )
+				if( last != nullptr )
 				{
 					last->next = smoke->next;
 				}
@@ -281,7 +281,7 @@ bool idSmokeParticles::EmitSmoke( const idDeclParticle* smoke, const int systemS
 		}
 		
 		// find an activeSmokeStage that matches this
-		activeSmokeStage_t*	active = NULL;
+		activeSmokeStage_t*	active = nullptr;
 		int i;
 		for( i = 0 ; i < activeStages.Num() ; i++ )
 		{
@@ -296,14 +296,14 @@ bool idSmokeParticles::EmitSmoke( const idDeclParticle* smoke, const int systemS
 			// add a new one
 			activeSmokeStage_t	newActive;
 			
-			newActive.smokes = NULL;
+			newActive.smokes = nullptr;
 			newActive.stage = stage;
 			i = activeStages.Append( newActive );
 			active = &activeStages[i];
 		}
 		
 		// add all the required particles
-		for( prevCount++ ; prevCount <= nowCount && active != NULL ; prevCount++ )
+		for( prevCount++ ; prevCount <= nowCount && active != nullptr ; prevCount++ )
 		{
 			if( !freeSmokes )
 			{
@@ -395,7 +395,7 @@ bool idSmokeParticles::UpdateRenderEntity( renderEntity_s* renderEntity, const r
 				tri->bounds[1][2] = 99999;
 				
 		tri->numVerts = 0;
-		for( last = NULL, smoke = active->smokes; smoke; smoke = next )
+		for( last = nullptr, smoke = active->smokes; smoke; smoke = next )
 		{
 			next = smoke->next;
 			
@@ -410,7 +410,7 @@ bool idSmokeParticles::UpdateRenderEntity( renderEntity_s* renderEntity, const r
 			if( g.frac >= 1.0f )
 			{
 				// remove the particle from the stage list
-				if( last != NULL )
+				if( last != nullptr )
 				{
 					last->next = smoke->next;
 				}

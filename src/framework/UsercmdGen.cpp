@@ -166,7 +166,7 @@ userCmdString_t	userCmdStrings[] =
 	{ "_impulse30",		UB_IMPULSE30 },
 	{ "_impulse31",		UB_IMPULSE31 },
 	
-	{ NULL,				UB_NONE },
+	{ nullptr,				UB_NONE },
 };
 
 class buttonState_t
@@ -644,7 +644,7 @@ void idUsercmdGenLocal::HandleJoystickAxis( int keyNum, float unclampedValue, fl
 	}
 	
 	idGame* game = common->Game();
-	if( game != NULL )
+	if( game != nullptr )
 	{
 		lookValue *= game->GetAimAssistSensitivity();
 	}
@@ -1009,7 +1009,7 @@ void idUsercmdGenLocal::JoystickMove2()
 	const float yawSpeed =			joy_yawSpeed.GetFloat();
 	
 	idGame* game = common->Game();
-	const float aimAssist = game != NULL ? game->GetAimAssistSensitivity() : 1.0f;
+	const float aimAssist = game != nullptr ? game->GetAimAssistSensitivity() : 1.0f;
 	
 	idVec2 leftRaw( joystickAxis[ AXIS_LEFT_X ], joystickAxis[ AXIS_LEFT_Y ] );
 	idVec2 rightRaw( joystickAxis[ AXIS_RIGHT_X ], joystickAxis[ AXIS_RIGHT_Y ] );
@@ -1192,7 +1192,7 @@ void idUsercmdGenLocal::AimAssist()
 	idAngles aimAssistAngles( 0.0f, 0.0f, 0.0f );
 	
 	idGame* game = common->Game();
-	if( game != NULL )
+	if( game != nullptr )
 	{
 		game->GetAimAssistAngles( aimAssistAngles );
 	}

@@ -31,7 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 
 idMenuScreen::idMenuScreen()
 {
-	menuGUI = NULL;
+	menuGUI = nullptr;
 	transition = MENU_TRANSITION_INVALID;
 }
 
@@ -73,7 +73,7 @@ idMenuScreen::Update
 void idMenuScreen::Update()
 {
 
-	if( menuGUI == NULL )
+	if( menuGUI == nullptr )
 	{
 		return;
 	}
@@ -86,7 +86,7 @@ void idMenuScreen::Update()
 		GetChildByIndex( childIndex ).Update();
 	}
 	
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		menuData->UpdateChildren();
 	}
@@ -102,7 +102,7 @@ void idMenuScreen::UpdateCmds()
 	idSWF* const gui = menuGUI;
 	
 	idSWFScriptObject* const shortcutKeys = gui->GetGlobal( "shortcutKeys" ).GetObject();
-	if( !verify( shortcutKeys != NULL ) )
+	if( !verify( shortcutKeys != nullptr ) )
 	{
 		return;
 	}
@@ -110,16 +110,16 @@ void idMenuScreen::UpdateCmds()
 	idSWFScriptVar clearFunc = shortcutKeys->Get( "clear" );
 	if( clearFunc.IsFunction() )
 	{
-		clearFunc.GetFunction()->Call( NULL, idSWFParmList() );
+		clearFunc.GetFunction()->Call( nullptr, idSWFParmList() );
 	}
 	
 	// NAVIGATION: UP/DOWN, etc.
 	idSWFScriptObject* const buttons = gui->GetRootObject().GetObject( "buttons" );
-	if( buttons != NULL )
+	if( buttons != nullptr )
 	{
 	
 		idSWFScriptObject* const btnUp = buttons->GetObject( "btnUp" );
-		if( btnUp != NULL )
+		if( btnUp != nullptr )
 		{
 			btnUp->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_UP, SCROLL_SINGLE ) );
 			btnUp->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_UP_RELEASE, 0 ) );
@@ -128,7 +128,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnDown = buttons->GetObject( "btnDown" );
-		if( btnDown != NULL )
+		if( btnDown != nullptr )
 		{
 			btnDown->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_DOWN, SCROLL_SINGLE ) );
 			btnDown->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_DOWN_RELEASE, 0 ) );
@@ -137,7 +137,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnUp_LStick = buttons->GetObject( "btnUp_LStick" );
-		if( btnUp_LStick != NULL )
+		if( btnUp_LStick != nullptr )
 		{
 			btnUp_LStick->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_UP_LSTICK, SCROLL_SINGLE ) );
 			btnUp_LStick->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_UP_LSTICK_RELEASE, 0 ) );
@@ -145,7 +145,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnDown_LStick = buttons->GetObject( "btnDown_LStick" );
-		if( btnDown_LStick != NULL )
+		if( btnDown_LStick != nullptr )
 		{
 			btnDown_LStick->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_DOWN_LSTICK, SCROLL_SINGLE ) );
 			btnDown_LStick->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_DOWN_LSTICK_RELEASE, 0 ) );
@@ -153,7 +153,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnUp_RStick = buttons->GetObject( "btnUp_RStick" );
-		if( btnUp_RStick != NULL )
+		if( btnUp_RStick != nullptr )
 		{
 			btnUp_RStick->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_UP_RSTICK, SCROLL_SINGLE ) );
 			btnUp_RStick->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_UP_RSTICK_RELEASE, 0 ) );
@@ -161,7 +161,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnDown_RStick = buttons->GetObject( "btnDown_RStick" );
-		if( btnDown_RStick != NULL )
+		if( btnDown_RStick != nullptr )
 		{
 			btnDown_RStick->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_DOWN_RSTICK, SCROLL_SINGLE ) );
 			btnDown_RStick->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_DOWN_RSTICK_RELEASE, 0 ) );
@@ -169,7 +169,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnPageUp = buttons->GetObject( "btnPageUp" );
-		if( btnPageUp != NULL )
+		if( btnPageUp != nullptr )
 		{
 			btnPageUp->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_PAGEUP, SCROLL_PAGE ) );
 			btnPageUp->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_PAGEUP_RELEASE, 0 ) );
@@ -177,7 +177,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnPageDown = buttons->GetObject( "btnPageDown" );
-		if( btnPageDown != NULL )
+		if( btnPageDown != nullptr )
 		{
 			btnPageDown->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_PAGEDWN, SCROLL_PAGE ) );
 			btnPageDown->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_PAGEDWN_RELEASE, 0 ) );
@@ -185,7 +185,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnHome = buttons->GetObject( "btnHome" );
-		if( btnHome != NULL )
+		if( btnHome != nullptr )
 		{
 			btnHome->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_UP, SCROLL_FULL ) );
 			btnHome->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_UP_RELEASE, 0 ) );
@@ -193,7 +193,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnEnd = buttons->GetObject( "btnEnd" );
-		if( btnEnd != NULL )
+		if( btnEnd != nullptr )
 		{
 			btnEnd->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_DOWN, SCROLL_FULL ) );
 			btnEnd->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_DOWN_RELEASE, 0 ) );
@@ -201,7 +201,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnLeft = buttons->GetObject( "btnLeft" );
-		if( btnLeft != NULL )
+		if( btnLeft != nullptr )
 		{
 			btnLeft->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_LEFT, 0 ) );
 			btnLeft->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_LEFT_RELEASE, 0 ) );
@@ -209,7 +209,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnRight = buttons->GetObject( "btnRight" );
-		if( btnRight != NULL )
+		if( btnRight != nullptr )
 		{
 			btnRight->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_RIGHT, 0 ) );
 			btnRight->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_RIGHT_RELEASE, 0 ) );
@@ -217,7 +217,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnLeft_LStick = buttons->GetObject( "btnLeft_LStick" );
-		if( btnLeft_LStick != NULL )
+		if( btnLeft_LStick != nullptr )
 		{
 			btnLeft_LStick->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_LEFT_LSTICK, 0 ) );
 			btnLeft_LStick->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_LEFT_LSTICK_RELEASE, 0 ) );
@@ -225,7 +225,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnRight_LStick = buttons->GetObject( "btnRight_LStick" );
-		if( btnRight_LStick != NULL )
+		if( btnRight_LStick != nullptr )
 		{
 			btnRight_LStick->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_RIGHT_LSTICK, 0 ) );
 			btnRight_LStick->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_RIGHT_LSTICK_RELEASE, 0 ) );
@@ -233,7 +233,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnLeft_RStick = buttons->GetObject( "btnLeft_RStick" );
-		if( btnLeft_RStick != NULL )
+		if( btnLeft_RStick != nullptr )
 		{
 			btnLeft_RStick->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_LEFT_RSTICK, 0 ) );
 			btnLeft_RStick->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_LEFT_RSTICK_RELEASE, 0 ) );
@@ -241,7 +241,7 @@ void idMenuScreen::UpdateCmds()
 		}
 		
 		idSWFScriptObject* const btnRight_RStick = buttons->GetObject( "btnRight_RStick" );
-		if( btnRight_RStick != NULL )
+		if( btnRight_RStick != nullptr )
 		{
 			btnRight_RStick->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_RIGHT_RSTICK, 0 ) );
 			btnRight_RStick->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_SCROLL_RIGHT_RSTICK_RELEASE, 0 ) );
@@ -250,16 +250,16 @@ void idMenuScreen::UpdateCmds()
 	}
 	
 	idSWFScriptObject* const navigation = gui->GetRootObject().GetObject( "navBar" );
-	if( navigation != NULL )
+	if( navigation != nullptr )
 	{
 		// TAB NEXT
 		idSWFScriptObject* const btnTabNext = navigation->GetNestedObj( "options", "btnTabNext" );
-		if( btnTabNext != NULL )
+		if( btnTabNext != nullptr )
 		{
 			btnTabNext->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_TAB_NEXT, 0 ) );
 			shortcutKeys->Set( "JOY6", btnTabNext );
 			
-			if( btnTabNext->GetSprite() != NULL && menuData != NULL )
+			if( btnTabNext->GetSprite() != nullptr && menuData != nullptr )
 			{
 				btnTabNext->GetSprite()->StopFrame( menuData->GetPlatform() + 1 );
 			}
@@ -268,12 +268,12 @@ void idMenuScreen::UpdateCmds()
 		
 		// TAB PREV
 		idSWFScriptObject* const btnTabPrev = navigation->GetNestedObj( "options", "btnTabPrev" );
-		if( btnTabPrev != NULL )
+		if( btnTabPrev != nullptr )
 		{
 			btnTabPrev->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_TAB_PREV, 0 ) );
 			shortcutKeys->Set( "JOY5", btnTabPrev );
 			
-			if( btnTabPrev->GetSprite() != NULL && menuData != NULL )
+			if( btnTabPrev->GetSprite() != nullptr && menuData != nullptr )
 			{
 				btnTabPrev->GetSprite()->StopFrame( menuData->GetPlatform() + 1 );
 			}
@@ -289,7 +289,7 @@ idMenuScreen::HideScreen
 void idMenuScreen::HideScreen( const mainMenuTransition_t transitionType )
 {
 
-	if( menuGUI == NULL )
+	if( menuGUI == nullptr )
 	{
 		return;
 	}
@@ -323,7 +323,7 @@ idMenuScreen::ShowScreen
 */
 void idMenuScreen::ShowScreen( const mainMenuTransition_t transitionType )
 {
-	if( menuGUI == NULL )
+	if( menuGUI == nullptr )
 	{
 		return;
 	}
@@ -336,7 +336,7 @@ void idMenuScreen::ShowScreen( const mainMenuTransition_t transitionType )
 	GetSprite()->SetVisible( true );
 	if( transitionType == MENU_TRANSITION_SIMPLE )
 	{
-		if( menuData != NULL && menuData->ActiveScreen() != -1 )
+		if( menuData != nullptr && menuData->ActiveScreen() != -1 )
 		{
 			menuData->PlaySound( GUI_SOUND_BUILD_ON );
 		}
@@ -344,7 +344,7 @@ void idMenuScreen::ShowScreen( const mainMenuTransition_t transitionType )
 	}
 	else if( transitionType == MENU_TRANSITION_ADVANCE )
 	{
-		if( menuData != NULL && menuData->ActiveScreen() != -1 )
+		if( menuData != nullptr && menuData->ActiveScreen() != -1 )
 		{
 			menuData->PlaySound( GUI_SOUND_BUILD_ON );
 		}
@@ -352,7 +352,7 @@ void idMenuScreen::ShowScreen( const mainMenuTransition_t transitionType )
 	}
 	else
 	{
-		if( menuData != NULL )
+		if( menuData != nullptr )
 		{
 			menuData->PlaySound( GUI_SOUND_BUILD_OFF );
 		}
@@ -377,11 +377,11 @@ void idMenuScreen::HandleMenu( const mainMenuTransition_t type )
 {
 	if( type == MENU_TRANSITION_ADVANCE )
 	{
-		ReceiveEvent( idWidgetEvent( WIDGET_EVENT_PRESS, 0, NULL, idSWFParmList() ) );
+		ReceiveEvent( idWidgetEvent( WIDGET_EVENT_PRESS, 0, nullptr, idSWFParmList() ) );
 	}
 	else if( type == MENU_TRANSITION_BACK )
 	{
-		ReceiveEvent( idWidgetEvent( WIDGET_EVENT_BACK, 0, NULL, idSWFParmList() ) );
+		ReceiveEvent( idWidgetEvent( WIDGET_EVENT_BACK, 0, nullptr, idSWFParmList() ) );
 	}
 	
 	transition = type;

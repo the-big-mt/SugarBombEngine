@@ -67,11 +67,11 @@ struct idRenderModelManager
 	// frees a render model
 	virtual void			FreeModel( idRenderModel* model ) = 0;
 	
-	// returns NULL if modelName is NULL or an empty string, otherwise
+	// returns nullptr if modelName is nullptr or an empty string, otherwise
 	// it will create a default model if not loadable
 	virtual	idRenderModel* 	FindModel( const char* modelName ) = 0;
 	
-	// returns NULL if not loadable
+	// returns nullptr if not loadable
 	virtual	idRenderModel* 	CheckModel( const char* modelName ) = 0;
 	
 	// returns the default cube model

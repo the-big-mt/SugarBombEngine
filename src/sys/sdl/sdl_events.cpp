@@ -79,7 +79,7 @@ extern idCVar r_windowHeight;
 
 const char* kbdNames[] =
 {
-	"english", "french", "german", "italian", "spanish", "turkish", "norwegian", NULL
+	"english", "french", "german", "italian", "spanish", "turkish", "norwegian", nullptr
 };
 
 idCVar in_keyboard( "in_keyboard", "english", CVAR_SYSTEM | CVAR_ARCHIVE | CVAR_NOCHEAT, "keyboard layout", kbdNames, idCmdSystem::ArgCompletion_String<kbdNames> );
@@ -135,7 +135,7 @@ struct joystick_poll_t
 	}
 };
 static idList<joystick_poll_t> joystick_polls;
-SDL_Joystick* joy = NULL;
+SDL_Joystick* joy = nullptr;
 int SDL_joystick_has_hat = 0;
 bool buttonStates[K_LAST_KEY];	// For keeping track of button up/down events
 
@@ -199,7 +199,7 @@ static void ConvertUTF8toUTF32( const char* utf8str, int32* utf32buf )
 	}
 	
 	// reset cd so it can be used again
-	SDL_iconv( cd, NULL, &inbytesleft, NULL, &outbytesleft );
+	SDL_iconv( cd, nullptr, &inbytesleft, nullptr, &outbytesleft );
 	
 }
 
@@ -656,7 +656,7 @@ void Sys_InitInput()
 	if( SDL_Init( SDL_INIT_GAMECONTROLLER ) )
 		common->Printf( "Sys_InitInput: SDL_INIT_GAMECONTROLLER error: %s\n", SDL_GetError() );
 		
-	SDL_GameController* controller = NULL;
+	SDL_GameController* controller = nullptr;
 	for( int i = 0; i < SDL_NumJoysticks(); ++i )
 	{
 		if( SDL_IsGameController( i ) )
@@ -718,13 +718,13 @@ void Sys_InitInput()
 		}
 		else
 		{
-			joy = NULL;
+			joy = nullptr;
 			common->Printf( "Couldn't open Joystick 0\n" );
 		}
 	}
 	else
 	{
-		joy = NULL;
+		joy = nullptr;
 	}
 	// WM0110
 #endif
@@ -866,7 +866,7 @@ sysEvent_t Sys_GetEvent()
 	int key;
 	
 	// when this is returned, it's assumed that there are no more events!
-	static const sysEvent_t no_more_events = { SE_NONE, 0, 0, 0, NULL };
+	static const sysEvent_t no_more_events = { SE_NONE, 0, 0, 0, nullptr };
 	
 	// WM0110: previous state of joystick hat
 	static int previous_hat_state = SDL_HAT_CENTERED;
@@ -1798,12 +1798,12 @@ const char* Sys_GetKeyName( keyNum_t keynum )
 	SDL_Keycode keycode = SDL_GetKeyFromScancode( scancode );
 	
 	const char* ret = SDL_GetKeyName( keycode );
-	if( ret != NULL && ret[0] != '\0' )
+	if( ret != nullptr && ret[0] != '\0' )
 	{
 		return ret;
 	}
 #endif
-	return NULL;
+	return nullptr;
 }
 
 char* Sys_GetClipboardData()
@@ -1811,21 +1811,21 @@ char* Sys_GetClipboardData()
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 	char* txt = SDL_GetClipboardText();
 	
-	if( txt == NULL )
+	if( txt == nullptr )
 	{
-		return NULL;
+		return nullptr;
 	}
 	else if( txt[0] == '\0' )
 	{
 		SDL_free( txt );
-		return NULL;
+		return nullptr;
 	}
 	
 	char* ret = Mem_CopyString( txt );
 	SDL_free( txt );
 	return ret;
 #else
-	return NULL; // SDL1.2 doesn't support clipboard
+	return nullptr; // SDL1.2 doesn't support clipboard
 #endif
 }
 

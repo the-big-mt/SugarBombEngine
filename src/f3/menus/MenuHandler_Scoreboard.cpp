@@ -37,7 +37,7 @@ idMenuHandler_Scoreboard::Update
 void idMenuHandler_Scoreboard::Update()
 {
 
-	if( gui == NULL || !gui->IsActive() )
+	if( gui == nullptr || !gui->IsActive() )
 	{
 		return;
 	}
@@ -48,13 +48,13 @@ void idMenuHandler_Scoreboard::Update()
 		if( nextScreen == SCOREBOARD_AREA_INVALID )
 		{
 		
-			if( activeScreen > SCOREBOARD_AREA_INVALID && activeScreen < SCOREBOARD_NUM_AREAS && menuScreens[ activeScreen ] != NULL )
+			if( activeScreen > SCOREBOARD_AREA_INVALID && activeScreen < SCOREBOARD_NUM_AREAS && menuScreens[ activeScreen ] != nullptr )
 			{
 				menuScreens[ activeScreen ]->HideScreen( static_cast<mainMenuTransition_t>( transition ) );
 			}
 			
 			idMenuWidget_CommandBar* cmdBar = dynamic_cast< idMenuWidget_CommandBar* >( GetChildFromIndex( SCOREBOARD_WIDGET_CMD_BAR ) );
-			if( cmdBar != NULL )
+			if( cmdBar != nullptr )
 			{
 				cmdBar->ClearAllButtons();
 				cmdBar->Update();
@@ -62,7 +62,7 @@ void idMenuHandler_Scoreboard::Update()
 			
 			idSWFSpriteInstance* bg = gui->GetRootObject().GetNestedSprite( "background" );
 			
-			if( bg != NULL )
+			if( bg != nullptr )
 			{
 				bg->PlayFrame( "rollOff" );
 			}
@@ -71,12 +71,12 @@ void idMenuHandler_Scoreboard::Update()
 		else
 		{
 		
-			if( activeScreen > SCOREBOARD_AREA_INVALID && activeScreen < SCOREBOARD_NUM_AREAS && menuScreens[ activeScreen ] != NULL )
+			if( activeScreen > SCOREBOARD_AREA_INVALID && activeScreen < SCOREBOARD_NUM_AREAS && menuScreens[ activeScreen ] != nullptr )
 			{
 				menuScreens[ activeScreen ]->HideScreen( static_cast<mainMenuTransition_t>( transition ) );
 			}
 			
-			if( nextScreen > SCOREBOARD_AREA_INVALID && nextScreen < SCOREBOARD_NUM_AREAS && menuScreens[ nextScreen ] != NULL )
+			if( nextScreen > SCOREBOARD_AREA_INVALID && nextScreen < SCOREBOARD_NUM_AREAS && menuScreens[ nextScreen ] != nullptr )
 			{
 				menuScreens[ nextScreen ]->UpdateCmds();
 				menuScreens[ nextScreen ]->ShowScreen( static_cast<mainMenuTransition_t>( transition ) );
@@ -111,7 +111,7 @@ void idMenuHandler_Scoreboard::ActivateMenu( bool show )
 	idMenuHandler::ActivateMenu( show );
 	
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	if( player == NULL )
+	if( player == nullptr )
 	{
 		return;
 	}
@@ -120,7 +120,7 @@ void idMenuHandler_Scoreboard::ActivateMenu( bool show )
 	{
 	
 		idMenuWidget_CommandBar* cmdBar = dynamic_cast< idMenuWidget_CommandBar* >( GetChildFromIndex( SCOREBOARD_WIDGET_CMD_BAR ) );
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			cmdBar->Update();
@@ -145,7 +145,7 @@ void idMenuHandler_Scoreboard::ActivateMenu( bool show )
 		}
 		idSWFScriptVar Call( idSWFScriptObject* thisObject, const idSWFParmList& parms )
 		{
-			if( handler != NULL )
+			if( handler != nullptr )
 			{
 				handler->TriggerMenu();
 			}
@@ -179,7 +179,7 @@ void idMenuHandler_Scoreboard::Initialize( const char* swfFile, idSoundWorld* sw
 	
 	for( int i = 0; i < SCOREBOARD_NUM_AREAS; ++i )
 	{
-		menuScreens[ i ] = NULL;
+		menuScreens[ i ] = nullptr;
 	}
 	
 	BIND_SCOREBOARD_SCREEN( SCOREBOARD_AREA_DEFAULT, idMenuScreen_Scoreboard, this );
@@ -205,51 +205,51 @@ void idMenuHandler_Scoreboard::Initialize( const char* swfFile, idSoundWorld* sw
 		}
 	};
 	
-	if( gui != NULL )
+	if( gui != nullptr )
 	{
 		gui->SetGlobal( "closeScoreboard", new idScoreboardGUIClose() );
 	}
 	
 	// precache sounds
 	// don't load gui music for the pause menu to save some memory
-	const idSoundShader* soundShader = NULL;
+	const idSoundShader* soundShader = nullptr;
 	soundShader = declManager->FindSound( "gui/list_scroll", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_SCROLL ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/btn_PDA_advance", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_ADVANCE ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/btn_PDA_back", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_BACK ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/pda_next_tab", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_BUILD_ON ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/pda_prev_tab", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_BUILD_OFF ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/btn_set_focus", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_FOCUS ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/btn_roll_over", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_ROLL_OVER ] = soundShader->GetName();
 	}
 	soundShader = declManager->FindSound( "gui/btn_roll_out", true );
-	if( soundShader != NULL )
+	if( soundShader != nullptr )
 	{
 		sounds[ GUI_SOUND_ROLL_OUT ] = soundShader->GetName();
 	}
@@ -265,7 +265,7 @@ idMenuScreen* idMenuHandler_Scoreboard::GetMenuScreen( int index )
 
 	if( index < 0 || index >= SCOREBOARD_NUM_AREAS )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	return menuScreens[ index ];
@@ -290,7 +290,7 @@ bool idMenuHandler_Scoreboard::HandleAction( idWidgetAction& action, const idWid
 	
 	if( event.type == WIDGET_EVENT_COMMAND )
 	{
-		if( menuScreens[ activeScreen ] != NULL && !forceHandled )
+		if( menuScreens[ activeScreen ] != nullptr && !forceHandled )
 		{
 			if( menuScreens[ activeScreen ]->HandleAction( action, event, widget, true ) )
 			{

@@ -47,7 +47,7 @@ instancing of objects.
 ***********************************************************************/
 
 // this is the head of a singly linked list of all the idTypes
-static idTypeInfo*				typelist = NULL;
+static idTypeInfo*				typelist = nullptr;
 static idHierarchy<idTypeInfo>	classHierarchy;
 static int						eventCallbackMemory	= 0;
 
@@ -72,7 +72,7 @@ idTypeInfo::idTypeInfo( const char* classname, const char* superclass, idEventFu
 	this->classname			= classname;
 	this->superclass		= superclass;
 	this->eventCallbacks	= eventCallbacks;
-	this->eventMap			= NULL;
+	this->eventMap			= nullptr;
 	this->Spawn				= Spawn;
 	this->Save				= Save;
 	this->Restore			= Restore;
@@ -83,9 +83,9 @@ idTypeInfo::idTypeInfo( const char* classname, const char* superclass, idEventFu
 	lastChild				= 0;
 	
 	// Check if any subclasses were initialized before their superclass
-	for( type = typelist; type != NULL; type = type->next )
+	for( type = typelist; type != nullptr; type = type->next )
 	{
-		if( ( type->super == NULL ) && !idStr::Cmp( type->superclass, this->classname ) &&
+		if( ( type->super == nullptr ) && !idStr::Cmp( type->superclass, this->classname ) &&
 				idStr::Cmp( type->classname, "idClass" ) )
 		{
 			type->super	= this;
@@ -106,7 +106,7 @@ idTypeInfo::idTypeInfo( const char* classname, const char* superclass, idEventFu
 	if( !*insert )
 	{
 		*insert = this;
-		next = NULL;
+		next = nullptr;
 	}
 }
 
@@ -161,7 +161,7 @@ void idTypeInfo::Init()
 	node.SetOwner( this );
 	
 	// keep track of the number of children below each class
-	for( c = super; c != NULL; c = c->super )
+	for( c = super; c != nullptr; c = c->super )
 	{
 		c->lastChild++;
 	}
@@ -192,7 +192,7 @@ void idTypeInfo::Init()
 	// go through the inheritence order and copies the event callback function into
 	// a list indexed by the event number.  This allows fast lookups of
 	// event functions.
-	for( c = this; c != NULL; c = c->super )
+	for( c = this; c != nullptr; c = c->super )
 	{
 		def = c->eventCallbacks;
 		if( !def )
@@ -200,8 +200,8 @@ void idTypeInfo::Init()
 			continue;
 		}
 		
-		// go through each entry until we hit the NULL terminator
-		for( i = 0; def[ i ].event != NULL; i++ )
+		// go through each entry until we hit the nullptr terminator
+		for( i = 0; def[ i ].event != nullptr; i++ )
 		{
 			ev = def[ i ].event->GetEventNum();
 			
@@ -235,7 +235,7 @@ void idTypeInfo::Shutdown()
 		{
 			delete[] eventMap;
 		}
-		eventMap = NULL;
+		eventMap = nullptr;
 	}
 	typeNum = 0;
 	lastChild = 0;
@@ -248,10 +248,10 @@ void idTypeInfo::Shutdown()
 
 ***********************************************************************/
 
-const idEventDef EV_Remove( "<immediateremove>", NULL );
-const idEventDef EV_SafeRemove( "remove", NULL );
+const idEventDef EV_Remove( "<immediateremove>", nullptr );
+const idEventDef EV_SafeRemove( "remove", nullptr );
 
-ABSTRACT_DECLARATION( NULL, idClass )
+ABSTRACT_DECLARATION( nullptr, idClass )
 EVENT( EV_Remove,				idClass::Event_Remove )
 EVENT( EV_SafeRemove,			idClass::Event_SafeRemove )
 END_CLASS
@@ -395,7 +395,7 @@ idClass* idClass::CreateInstance( const char* name )
 	type = idClass::GetClass( name );
 	if( !type )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	obj = type->CreateInstance();
@@ -426,7 +426,7 @@ void idClass::Init()
 	}
 	
 	// init the event callback tables for all the classes
-	for( c = typelist; c != NULL; c = c->next )
+	for( c = typelist; c != nullptr; c = c->next )
 	{
 		c->Init();
 	}
@@ -434,7 +434,7 @@ void idClass::Init()
 	// number the types according to the class hierarchy so we can quickly determine if a class
 	// is a subclass of another
 	num = 0;
-	for( c = classHierarchy.GetNext(); c != NULL; c = c->node.GetNext(), num++ )
+	for( c = classHierarchy.GetNext(); c != nullptr; c = c->node.GetNext(), num++ )
 	{
 		c->typeNum = num;
 		c->lastChild += num;
@@ -450,7 +450,7 @@ void idClass::Init()
 	typenums.SetGranularity( 1 );
 	typenums.SetNum( num );
 	num = 0;
-	for( c = typelist; c != NULL; c = c->next, num++ )
+	for( c = typelist; c != nullptr; c = c->next, num++ )
 	{
 		types[ num ] = c;
 		typenums[ c->typeNum ] = c;
@@ -470,7 +470,7 @@ void idClass::Shutdown()
 {
 	idTypeInfo*	c;
 	
-	for( c = typelist; c != NULL; c = c->next )
+	for( c = typelist; c != nullptr; c = c->next )
 	{
 		c->Shutdown();
 	}
@@ -535,7 +535,7 @@ idTypeInfo* idClass::GetClass( const char* name )
 	if( !initialized )
 	{
 		// idClass::Init hasn't been called yet, so do a slow lookup
-		for( c = typelist; c != NULL; c = c->next )
+		for( c = typelist; c != nullptr; c = c->next )
 		{
 			if( !idStr::Cmp( c->classname, name ) )
 			{
@@ -568,7 +568,7 @@ idTypeInfo* idClass::GetClass( const char* name )
 		}
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -582,7 +582,7 @@ idTypeInfo* idClass::GetType( const int typeNum )
 	
 	if( !initialized )
 	{
-		for( c = typelist; c != NULL; c = c->next )
+		for( c = typelist; c != nullptr; c = c->next )
 		{
 			if( c->typeNum == typeNum )
 			{
@@ -595,7 +595,7 @@ idTypeInfo* idClass::GetType( const int typeNum )
 		return typenums[ typeNum ];
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -1022,7 +1022,7 @@ bool idClass::ProcessEventArgPtr( const idEventDef* ev, intptr_t* data )
 	if( g_debugTriggers.GetBool() && ( ev == &EV_Activate ) && IsType( idEntity::Type ) )
 	{
 		const idEntity* ent = *reinterpret_cast<idEntity**>( data );
-		gameLocal.Printf( "%d: '%s' activated by '%s'\n", gameLocal.framenum, static_cast<idEntity*>( this )->GetName(), ent ? ent->GetName() : "NULL" );
+		gameLocal.Printf( "%d: '%s' activated by '%s'\n", gameLocal.framenum, static_cast<idEntity*>( this )->GetName(), ent ? ent->GetName() : "nullptr" );
 	}
 	
 	c = GetType();

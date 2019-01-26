@@ -124,14 +124,14 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 	
 	if( !src.ExpectTokenString( "{" ) )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	// read the material (we had an implicit 'textures/' in the old format...)
 	if( !src.ReadToken( &token ) )
 	{
 		src.Error( "idMapPatch::Parse: unexpected EOF" );
-		return NULL;
+		return nullptr;
 	}
 	
 	// Parse it
@@ -140,7 +140,7 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 		if( !src.Parse1DMatrix( 7, info ) )
 		{
 			src.Error( "idMapPatch::Parse: unable to Parse patchDef3 info" );
-			return NULL;
+			return nullptr;
 		}
 	}
 	else
@@ -148,7 +148,7 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 		if( !src.Parse1DMatrix( 5, info ) )
 		{
 			src.Error( "idMapPatch::Parse: unable to parse patchDef2 info" );
-			return NULL;
+			return nullptr;
 		}
 	}
 	
@@ -175,7 +175,7 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 	{
 		src.Error( "idMapPatch::Parse: bad size" );
 		delete patch;
-		return NULL;
+		return nullptr;
 	}
 	
 	// these were written out in the wrong order, IMHO
@@ -183,7 +183,7 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 	{
 		src.Error( "idMapPatch::Parse: bad patch vertex data" );
 		delete patch;
-		return NULL;
+		return nullptr;
 	}
 	
 	
@@ -193,7 +193,7 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 		{
 			src.Error( "idMapPatch::Parse: bad vertex row data" );
 			delete patch;
-			return NULL;
+			return nullptr;
 		}
 		for( i = 0; i < patch->GetHeight(); i++ )
 		{
@@ -203,7 +203,7 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 			{
 				src.Error( "idMapPatch::Parse: bad vertex column data" );
 				delete patch;
-				return NULL;
+				return nullptr;
 			}
 			
 			vert = &( ( *patch )[i * patch->GetWidth() + j] );
@@ -216,7 +216,7 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 		{
 			delete patch;
 			src.Error( "idMapPatch::Parse: unable to parse patch control points" );
-			return NULL;
+			return nullptr;
 		}
 	}
 	
@@ -224,7 +224,7 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 	{
 		src.Error( "idMapPatch::Parse: unable to parse patch control points, no closure" );
 		delete patch;
-		return NULL;
+		return nullptr;
 	}
 	
 	// read any key/value pairs
@@ -328,7 +328,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 	
 	if( !src.ExpectTokenString( "{" ) )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	do
@@ -337,7 +337,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 		{
 			src.Error( "idMapBrush::Parse: unexpected EOF" );
 			sides.DeleteContents( true );
-			return NULL;
+			return nullptr;
 		}
 		if( token == "}" )
 		{
@@ -357,7 +357,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 			{
 				src.Error( "idMapBrush::Parse: unexpected %s, expected ( or epair key string", token.c_str() );
 				sides.DeleteContents( true );
-				return NULL;
+				return nullptr;
 			}
 			
 			idStr key = token;
@@ -366,7 +366,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 			{
 				src.Error( "idMapBrush::Parse: expected epair value string not found" );
 				sides.DeleteContents( true );
-				return NULL;
+				return nullptr;
 			}
 			
 			epairs.Set( key, token );
@@ -376,7 +376,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 			{
 				src.Error( "idMapBrush::Parse: unexpected EOF" );
 				sides.DeleteContents( true );
-				return NULL;
+				return nullptr;
 			}
 		}
 		while( 1 );
@@ -392,7 +392,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 			{
 				src.Error( "idMapBrush::Parse: unable to read brush side plane definition" );
 				sides.DeleteContents( true );
-				return NULL;
+				return nullptr;
 			}
 		}
 		else
@@ -404,7 +404,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 			{
 				src.Error( "idMapBrush::Parse: unable to read brush side plane definition" );
 				sides.DeleteContents( true );
-				return NULL;
+				return nullptr;
 			}
 			
 			planepts[0] -= origin;
@@ -420,7 +420,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 		{
 			src.Error( "idMapBrush::Parse: unable to read brush side texture matrix" );
 			sides.DeleteContents( true );
-			return NULL;
+			return nullptr;
 		}
 		side->origin = origin;
 		
@@ -429,7 +429,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 		{
 			src.Error( "idMapBrush::Parse: unable to read brush side material" );
 			sides.DeleteContents( true );
-			return NULL;
+			return nullptr;
 		}
 		
 		// we had an implicit 'textures/' in the old format...
@@ -458,7 +458,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 	if( !src.ExpectTokenString( "}" ) )
 	{
 		sides.DeleteContents( true );
-		return NULL;
+		return nullptr;
 	}
 	
 	idMapBrush* brush = new( TAG_IDLIB ) idMapBrush();
@@ -504,7 +504,7 @@ idMapBrush* idMapBrush::ParseQ3( idLexer& src, const idVec3& origin )
 		{
 			src.Error( "idMapBrush::ParseQ3: unable to read brush side plane definition" );
 			sides.DeleteContents( true );
-			return NULL;
+			return nullptr;
 		}
 		
 		planepts[0] -= origin;
@@ -518,7 +518,7 @@ idMapBrush* idMapBrush::ParseQ3( idLexer& src, const idVec3& origin )
 		{
 			src.Error( "idMapBrush::ParseQ3: unable to read brush side material" );
 			sides.DeleteContents( true );
-			return NULL;
+			return nullptr;
 		}
 		
 		// we have an implicit 'textures/' in the old format
@@ -637,13 +637,13 @@ idMapEntity* idMapEntity::Parse( idLexer& src, bool worldSpawn, float version )
 	
 	if( !src.ReadToken( &token ) )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	if( token != "{" )
 	{
 		src.Error( "idMapEntity::Parse: { not found, found %s", token.c_str() );
-		return NULL;
+		return nullptr;
 	}
 	
 	mapEnt = new( TAG_IDLIB ) idMapEntity();
@@ -660,7 +660,7 @@ idMapEntity* idMapEntity::Parse( idLexer& src, bool worldSpawn, float version )
 		if( !src.ReadToken( &token ) )
 		{
 			src.Error( "idMapEntity::Parse: EOF without closing brace" );
-			return NULL;
+			return nullptr;
 		}
 		if( token == "}" )
 		{
@@ -673,7 +673,7 @@ idMapEntity* idMapEntity::Parse( idLexer& src, bool worldSpawn, float version )
 			if( !src.ReadToken( &token ) )
 			{
 				src.Error( "idMapEntity::Parse: unexpected EOF" );
-				return NULL;
+				return nullptr;
 			}
 			
 			if( worldent )
@@ -687,7 +687,7 @@ idMapEntity* idMapEntity::Parse( idLexer& src, bool worldSpawn, float version )
 				mapBrush = idMapBrush::Parse( src, origin, ( !token.Icmp( "brushDef2" ) || !token.Icmp( "brushDef3" ) ), version );
 				if( !mapBrush )
 				{
-					return NULL;
+					return nullptr;
 				}
 				mapEnt->AddPrimitive( mapBrush );
 			}
@@ -697,7 +697,7 @@ idMapEntity* idMapEntity::Parse( idLexer& src, bool worldSpawn, float version )
 				mapPatch = idMapPatch::Parse( src, origin, !token.Icmp( "patchDef3" ), version );
 				if( !mapPatch )
 				{
-					return NULL;
+					return nullptr;
 				}
 				mapEnt->AddPrimitive( mapPatch );
 			}
@@ -707,7 +707,7 @@ idMapEntity* idMapEntity::Parse( idLexer& src, bool worldSpawn, float version )
 				mapMesh = MapPolygonMesh::Parse( src, origin, version );
 				if( !mapMesh )
 				{
-					return NULL;
+					return nullptr;
 				}
 				mapEnt->AddPrimitive( mapMesh );
 			}
@@ -719,7 +719,7 @@ idMapEntity* idMapEntity::Parse( idLexer& src, bool worldSpawn, float version )
 				mapBrush = idMapBrush::ParseQ3( src, origin );
 				if( !mapBrush )
 				{
-					return NULL;
+					return nullptr;
 				}
 				mapEnt->AddPrimitive( mapBrush );
 			}
@@ -861,7 +861,7 @@ bool idMapEntity::WriteJSON( idFile* fp, int entityNum, int numEntities ) const
 		}
 		
 		// find next mesh primitive
-		idMapPrimitive* nextPrim = NULL;
+		idMapPrimitive* nextPrim = nullptr;
 		for( int j = i + 1; j < numPrimitives; j++ )
 		{
 			nextPrim = GetPrimitive( j );
@@ -907,26 +907,26 @@ idMapEntity* idMapEntity::ParseJSON( idLexer& src )
 	
 	if( !src.ReadToken( &token ) )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	if( token == "]" )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	if( token == "," )
 	{
 		if( !src.ReadToken( &token ) )
 		{
-			return NULL;
+			return nullptr;
 		}
 	}
 	
 	if( token != "{" )
 	{
 		src.Error( "idMapEntity::ParseJSON: { not found, found %s", token.c_str() );
-		return NULL;
+		return nullptr;
 	}
 	
 	mapEnt = new idMapEntity();
@@ -945,7 +945,7 @@ idMapEntity* idMapEntity::ParseJSON( idLexer& src )
 		if( !src.ReadToken( &token ) )
 		{
 			src.Error( "idMapEntity::ParseJSON: EOF without closing brace" );
-			return NULL;
+			return nullptr;
 		}
 		
 		if( token == "}" )
@@ -965,14 +965,14 @@ idMapEntity* idMapEntity::ParseJSON( idLexer& src )
 			{
 				delete mapEnt;
 				src.Error( "idMapEntity::ParseJSON: expected : for primitives" );
-				return NULL;
+				return nullptr;
 			}
 			
 			if( !src.ExpectTokenString( "[" ) )
 			{
 				delete mapEnt;
 				src.Error( "idMapEntity::ParseJSON: expected [ for primitives" );
-				return NULL;
+				return nullptr;
 			}
 			
 			while( true )
@@ -980,7 +980,7 @@ idMapEntity* idMapEntity::ParseJSON( idLexer& src )
 				if( !src.ReadToken( &token ) )
 				{
 					src.Error( "idMapEntity::ParseJSON: EOF without closing brace" );
-					return NULL;
+					return nullptr;
 				}
 				
 				if( token == "]" )
@@ -1016,13 +1016,13 @@ idMapEntity* idMapEntity::ParseJSON( idLexer& src )
 			{
 				src.Error( "idMapEntity::ParseJSON: EOF without closing brace" );
 				delete mapEnt;
-				return NULL;
+				return nullptr;
 			}
 			
 			if( token != ":" )
 			{
 				delete mapEnt;
-				return NULL;
+				return nullptr;
 			}
 			
 			src.ReadTokenOnLine( &token );
@@ -1267,7 +1267,7 @@ bool idMapFile::Parse( const char* filename, bool ignoreRegion, bool osPath )
 	{
 	
 		// "removeEntities" "classname" can be set in the worldspawn to remove all entities with the given classname
-		const idKeyValue* removeEntities = entities[0]->epairs.MatchPrefix( "removeEntities", NULL );
+		const idKeyValue* removeEntities = entities[0]->epairs.MatchPrefix( "removeEntities", nullptr );
 		while( removeEntities )
 		{
 			RemoveEntities( removeEntities->GetValue() );
@@ -1467,7 +1467,7 @@ idMapEntity* idMapFile::FindEntity( const char* name )
 			return ent;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -1536,7 +1536,7 @@ bool idMapFile::NeedsReload()
 	if( name.Length() )
 	{
 		ID_TIME_T time = FILE_NOT_FOUND_TIMESTAMP;
-		if( idLib::fileSystem->ReadFile( name, NULL, &time ) > 0 )
+		if( idLib::fileSystem->ReadFile( name, nullptr, &time ) > 0 )
 		{
 			return ( time > fileTime );
 		}
@@ -1833,14 +1833,14 @@ MapPolygonMesh* MapPolygonMesh::Parse( idLexer& src, const idVec3& origin, float
 	
 	if( !src.ExpectTokenString( "{" ) )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	// Parse it
 	if( !src.Parse1DMatrix( 5, info ) )
 	{
 		src.Error( "MapPolygonMesh::Parse: unable to parse meshDef info" );
-		return NULL;
+		return nullptr;
 	}
 	
 	const int numVertices = ( int ) info[0];
@@ -1853,7 +1853,7 @@ MapPolygonMesh* MapPolygonMesh::Parse( idLexer& src, const idVec3& origin, float
 	{
 		src.Error( "MapPolygonMesh::Parse: bad mesh vertex data" );
 		delete mesh;
-		return NULL;
+		return nullptr;
 	}
 	
 	for( i = 0; i < numVertices; i++ )
@@ -1864,7 +1864,7 @@ MapPolygonMesh* MapPolygonMesh::Parse( idLexer& src, const idVec3& origin, float
 		{
 			src.Error( "MapPolygonMesh::Parse: bad vertex column data" );
 			delete mesh;
-			return NULL;
+			return nullptr;
 		}
 		
 		// TODO optimize: preallocate vertices
@@ -1887,7 +1887,7 @@ MapPolygonMesh* MapPolygonMesh::Parse( idLexer& src, const idVec3& origin, float
 	{
 		delete mesh;
 		src.Error( "MapPolygonMesh::Parse: unable to parse vertices" );
-		return NULL;
+		return nullptr;
 	}
 	
 	// parse polygons
@@ -1895,7 +1895,7 @@ MapPolygonMesh* MapPolygonMesh::Parse( idLexer& src, const idVec3& origin, float
 	{
 		src.Error( "MapPolygonMesh::Parse: bad mesh polygon data" );
 		delete mesh;
-		return NULL;
+		return nullptr;
 	}
 	
 	for( i = 0; i < numPolygons; i++ )
@@ -1912,7 +1912,7 @@ MapPolygonMesh* MapPolygonMesh::Parse( idLexer& src, const idVec3& origin, float
 		{
 			src.Error( "MapPolygonMesh::Parse: bad mesh polygon data" );
 			delete mesh;
-			return NULL;
+			return nullptr;
 		}
 		
 		int numIndexes = src.ParseInt();
@@ -1921,7 +1921,7 @@ MapPolygonMesh* MapPolygonMesh::Parse( idLexer& src, const idVec3& origin, float
 		{
 			src.Error( "MapPolygonMesh::Parse: bad mesh polygon data" );
 			delete mesh;
-			return NULL;
+			return nullptr;
 		}
 		
 		//idTempArray<int> indexes( numIndexes );
@@ -1940,21 +1940,21 @@ MapPolygonMesh* MapPolygonMesh::Parse( idLexer& src, const idVec3& origin, float
 	{
 		delete mesh;
 		src.Error( "MapPolygonMesh::Parse: unable to parse polygons" );
-		return NULL;
+		return nullptr;
 	}
 	
 	if( !src.ExpectTokenString( "}" ) )
 	{
 		delete mesh;
 		src.Error( "MapPolygonMesh::Parse: unable to parse mesh primitive end" );
-		return NULL;
+		return nullptr;
 	}
 	
 	if( !src.ExpectTokenString( "}" ) )
 	{
 		delete mesh;
 		src.Error( "MapPolygonMesh::Parse: unable to parse mesh primitive end" );
-		return NULL;
+		return nullptr;
 	}
 	
 	mesh->SetContents();
@@ -1973,7 +1973,7 @@ MapPolygonMesh* MapPolygonMesh::ParseJSON( idLexer& src )
 		if( !src.ReadToken( &token ) )
 		{
 			src.Error( "MapPolygonMesh::ParseJSON: EOF without closing brace" );
-			return NULL;
+			return nullptr;
 		}
 		
 		if( token == "}" )
@@ -1996,7 +1996,7 @@ MapPolygonMesh* MapPolygonMesh::ParseJSON( idLexer& src )
 				if( !src.ReadToken( &token ) )
 				{
 					src.Error( "MapPolygonMesh::ParseJSON: EOF without closing brace" );
-					return NULL;
+					return nullptr;
 				}
 				
 				if( token == "}" )
@@ -2021,14 +2021,14 @@ MapPolygonMesh* MapPolygonMesh::ParseJSON( idLexer& src )
 					{
 						delete mesh;
 						src.Error( "MapPolygonMesh::ParseJSON: EOF without closing brace" );
-						return NULL;
+						return nullptr;
 					}
 					
 					if( !src.Parse1DMatrixJSON( 3, v ) )
 					{
 						delete mesh;
 						src.Error( "MapPolygonMesh::ParseJSON: bad vertex column data" );
-						return NULL;
+						return nullptr;
 					}
 					
 					vert.xyz[0] = v[0];
@@ -2041,14 +2041,14 @@ MapPolygonMesh* MapPolygonMesh::ParseJSON( idLexer& src )
 					{
 						delete mesh;
 						src.Error( "MapPolygonMesh::ParseJSON: EOF without closing brace" );
-						return NULL;
+						return nullptr;
 					}
 					
 					if( !src.Parse1DMatrixJSON( 2, v ) )
 					{
 						delete mesh;
 						src.Error( "MapPolygonMesh::ParseJSON: bad vertex column data" );
-						return NULL;
+						return nullptr;
 					}
 					
 					vert.SetTexCoord( v[0], v[1] );
@@ -2059,14 +2059,14 @@ MapPolygonMesh* MapPolygonMesh::ParseJSON( idLexer& src )
 					{
 						delete mesh;
 						src.Error( "MapPolygonMesh::ParseJSON: EOF without closing brace" );
-						return NULL;
+						return nullptr;
 					}
 					
 					if( !src.Parse1DMatrixJSON( 3, v ) )
 					{
 						delete mesh;
 						src.Error( "MapPolygonMesh::ParseJSON: bad vertex column data" );
-						return NULL;
+						return nullptr;
 					}
 					
 					idVec3 n( v[0], v[1], v[2] );
@@ -2078,14 +2078,14 @@ MapPolygonMesh* MapPolygonMesh::ParseJSON( idLexer& src )
 		
 		if( token == "polygons" )
 		{
-			MapPolygon* polygon = NULL;
+			MapPolygon* polygon = nullptr;
 			
 			while( true )
 			{
 				if( !src.ReadToken( &token ) )
 				{
 					src.Error( "MapPolygonMesh::ParseJSON: EOF without closing brace" );
-					return NULL;
+					return nullptr;
 				}
 				
 				if( token == "{" )
@@ -2110,7 +2110,7 @@ MapPolygonMesh* MapPolygonMesh::ParseJSON( idLexer& src )
 					{
 						delete mesh;
 						src.Error( "MapPolygonMesh::ParseJSON: EOF without closing brace" );
-						return NULL;
+						return nullptr;
 					}
 					
 					src.ReadToken( &token );
@@ -2128,7 +2128,7 @@ MapPolygonMesh* MapPolygonMesh::ParseJSON( idLexer& src )
 						if( !src.ReadToken( &token ) )
 						{
 							src.Error( "MapPolygonMesh::ParseJSON: EOF without closing brace" );
-							return NULL;
+							return nullptr;
 						}
 						
 						if( token == "]" )

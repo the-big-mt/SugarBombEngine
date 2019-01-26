@@ -45,10 +45,10 @@ idForce_Spring::idForce_Spring()
 	Kcompress		= 100.0f;
 	damping			= 0.0f;
 	restLength		= 0.0f;
-	physics1		= NULL;
+	physics1		= nullptr;
 	id1				= 0;
 	p1				= vec3_zero;
-	physics2		= NULL;
+	physics2		= nullptr;
 	id2				= 0;
 	p2				= vec3_zero;
 }
@@ -176,10 +176,10 @@ void idForce_Spring::RemovePhysics( const idPhysics* phys )
 {
 	if( physics1 == phys )
 	{
-		physics1 = NULL;
+		physics1 = nullptr;
 	}
 	if( physics2 == phys )
 	{
-		physics2 = NULL;
+		physics2 = nullptr;
 	}
 }

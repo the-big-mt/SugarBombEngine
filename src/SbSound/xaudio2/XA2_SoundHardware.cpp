@@ -92,7 +92,7 @@ std::vector<AudioDevice> EnumerateAudioDevices( _Out_opt_ AudioDevice* defaultDe
 	std::vector<AudioDevice> vAudioDevices;
 	
 	HRESULT hResult = CoCreateInstance(
-						  __uuidof( MMDeviceEnumerator ), NULL,
+						  __uuidof( MMDeviceEnumerator ), nullptr,
 						  CLSCTX_ALL, __uuidof( IMMDeviceEnumerator ), ( void** ) &immDevEnum );
 						  
 	if( FAILED( hResult ) )
@@ -164,12 +164,12 @@ idSoundHardware_XAudio2::idSoundHardware_XAudio2
 */
 idSoundHardware_XAudio2::idSoundHardware_XAudio2()
 {
-	pXAudio2 = NULL;
-	pMasterVoice = NULL;
-	pSubmixVoice = NULL;
+	pXAudio2 = nullptr;
+	pMasterVoice = nullptr;
+	pSubmixVoice = nullptr;
 	
-	vuMeterRMS = NULL;
-	vuMeterPeak = NULL;
+	vuMeterRMS = nullptr;
+	vuMeterPeak = nullptr;
 	
 	outputChannels = 0;
 	channelMask = 0;
@@ -186,7 +186,7 @@ void listDevices_f( const idCmdArgs& args )
 
 	IXAudio2* pXAudio2 = soundSystemLocal.hardware.GetIXAudio2();
 	
-	if( pXAudio2 == NULL )
+	if( pXAudio2 == nullptr )
 	{
 		idLib::Warning( "No xaudio object" );
 		return;
@@ -338,7 +338,7 @@ idSoundHardware_XAudio2::Init
 void idSoundHardware_XAudio2::Init()
 {
 
-	cmdSystem->AddCommand( "listDevices", listDevices_f, 0, "Lists the connected sound devices", NULL );
+	cmdSystem->AddCommand( "listDevices", listDevices_f, 0, "Lists the connected sound devices", nullptr );
 	
 	DWORD xAudioCreateFlags = 0;
 	
@@ -421,7 +421,7 @@ void idSoundHardware_XAudio2::Init()
 					   outputSampleRate,
 					   0,
 					   selectedDevice.id.c_str(),
-					   NULL,
+					   nullptr,
 					   AudioCategory_GameEffects ) ) )
 		{
 			XAUDIO2_VOICE_DETAILS deviceDetails;
@@ -440,7 +440,7 @@ void idSoundHardware_XAudio2::Init()
 		{
 			idLib::Warning( "Failed to create master voice" );
 			pXAudio2->Release();
-			pXAudio2 = NULL;
+			pXAudio2 = nullptr;
 			return;
 		}
 	}
@@ -451,7 +451,7 @@ void idSoundHardware_XAudio2::Init()
 	{
 		idLib::Warning( "No audio devices found" );
 		pXAudio2->Release();
-		pXAudio2 = NULL;
+		pXAudio2 = nullptr;
 		return;
 	}
 	
@@ -492,16 +492,16 @@ void idSoundHardware_XAudio2::Init()
 		// Highly unlikely but possible
 		idLib::Warning( "Failed to get device details" );
 		pXAudio2->Release();
-		pXAudio2 = NULL;
+		pXAudio2 = nullptr;
 		return;
 	}
 	
 	
-	if( FAILED( pXAudio2->CreateMasteringVoice( &pMasterVoice, XAUDIO2_DEFAULT_CHANNELS, outputSampleRate, 0, preferredDevice, NULL ) ) )
+	if( FAILED( pXAudio2->CreateMasteringVoice( &pMasterVoice, XAUDIO2_DEFAULT_CHANNELS, outputSampleRate, 0, preferredDevice, nullptr ) ) )
 	{
 		idLib::Warning( "Failed to create master voice" );
 		pXAudio2->Release();
-		pXAudio2 = NULL;
+		pXAudio2 = nullptr;
 		return;
 	}
 	pMasterVoice->SetVolume( DBtoLinear( s_volume_dB.GetFloat() ) );
@@ -523,7 +523,7 @@ void idSoundHardware_XAudio2::Init()
 	// ---------------------
 	// Create VU Meter Effect
 	// ---------------------
-	IUnknown* vuMeter = NULL;
+	IUnknown* vuMeter = nullptr;
 	XAudio2CreateVolumeMeter( &vuMeter, 0 );
 	
 	XAUDIO2_EFFECT_DESCRIPTOR descriptor;
@@ -571,7 +571,7 @@ void idSoundHardware_XAudio2::Init()
 	// ---------------------
 	// Create submix buffer
 	// ---------------------
-	if( FAILED( pXAudio2->CreateSubmixVoice( &pSubmixVoice, 1, outputSampleRate, 0, 0, NULL, NULL ) ) )
+	if( FAILED( pXAudio2->CreateSubmixVoice( &pSubmixVoice, 1, outputSampleRate, 0, 0, nullptr, nullptr ) ) )
 	{
 		idLib::FatalError( "Failed to create submix voice" );
 	}
@@ -609,41 +609,41 @@ void idSoundHardware_XAudio2::Shutdown()
 	I_ShutdownSoundHardware();
 #endif
 	
-	if( pXAudio2 != NULL )
+	if( pXAudio2 != nullptr )
 	{
 		// Unregister the sound engine callback
 		pXAudio2->UnregisterForCallbacks( &soundEngineCallback );
 	}
 	
-	if( pSubmixVoice != NULL )
+	if( pSubmixVoice != nullptr )
 	{
 		pSubmixVoice->DestroyVoice();
-		pSubmixVoice = NULL;
+		pSubmixVoice = nullptr;
 	}
-	if( pMasterVoice != NULL )
+	if( pMasterVoice != nullptr )
 	{
 		// release the vu meter effect
-		pMasterVoice->SetEffectChain( NULL );
+		pMasterVoice->SetEffectChain( nullptr );
 		pMasterVoice->DestroyVoice();
-		pMasterVoice = NULL;
+		pMasterVoice = nullptr;
 	}
-	if( pXAudio2 != NULL )
+	if( pXAudio2 != nullptr )
 	{
 		XAUDIO2_PERFORMANCE_DATA perfData;
 		pXAudio2->GetPerformanceData( &perfData );
 		idLib::Printf( "Final pXAudio2 performanceData: Voices: %d/%d CPU: %.2f%% Mem: %dkb\n", perfData.ActiveSourceVoiceCount, perfData.TotalSourceVoiceCount, perfData.AudioCyclesSinceLastQuery / ( float )perfData.TotalCyclesSinceLastQuery, perfData.MemoryUsageInBytes / 1024 );
 		pXAudio2->Release();
-		pXAudio2 = NULL;
+		pXAudio2 = nullptr;
 	}
-	if( vuMeterRMS != NULL )
+	if( vuMeterRMS != nullptr )
 	{
 		console->DestroyGraph( vuMeterRMS );
-		vuMeterRMS = NULL;
+		vuMeterRMS = nullptr;
 	}
-	if( vuMeterPeak != NULL )
+	if( vuMeterPeak != nullptr )
 	{
 		console->DestroyGraph( vuMeterPeak );
-		vuMeterPeak = NULL;
+		vuMeterPeak = nullptr;
 	}
 }
 
@@ -654,22 +654,22 @@ idSoundHardware_XAudio2::AllocateVoice
 */
 idSoundVoice* idSoundHardware_XAudio2::AllocateVoice( const idSoundSample* leadinSample, const idSoundSample* loopingSample )
 {
-	if( leadinSample == NULL )
+	if( leadinSample == nullptr )
 	{
-		return NULL;
+		return nullptr;
 	}
-	if( loopingSample != NULL )
+	if( loopingSample != nullptr )
 	{
 		if( ( leadinSample->format.basic.formatTag != loopingSample->format.basic.formatTag ) || ( leadinSample->format.basic.numChannels != loopingSample->format.basic.numChannels ) )
 		{
 			idLib::Warning( "Leadin/looping format mismatch: %s & %s", leadinSample->GetName(), loopingSample->GetName() );
-			loopingSample = NULL;
+			loopingSample = nullptr;
 		}
 	}
 	
 	// Try to find a free voice that matches the format
 	// But fallback to the last free voice if none match the format
-	idSoundVoice* voice = NULL;
+	idSoundVoice* voice = nullptr;
 	for( int i = 0; i < freeVoices.Num(); i++ )
 	{
 		if( freeVoices[i]->IsPlaying() )
@@ -682,14 +682,14 @@ idSoundVoice* idSoundHardware_XAudio2::AllocateVoice( const idSoundSample* leadi
 			break;
 		}
 	}
-	if( voice != NULL )
+	if( voice != nullptr )
 	{
 		voice->Create( leadinSample, loopingSample );
 		freeVoices.Remove( voice );
 		return voice;
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -713,7 +713,7 @@ idSoundHardware_XAudio2::Update
 */
 void idSoundHardware_XAudio2::Update()
 {
-	if( pXAudio2 == NULL )
+	if( pXAudio2 == nullptr )
 	{
 		int nowTime = Sys_Milliseconds();
 		if( lastResetTime + 1000 < nowTime )
@@ -760,7 +760,7 @@ void idSoundHardware_XAudio2::Update()
 		idLib::Printf( "Voices: %d/%d CPU: %.2f%% Mem: %dkb\n", perfData.ActiveSourceVoiceCount, perfData.TotalSourceVoiceCount, perfData.AudioCyclesSinceLastQuery / ( float )perfData.TotalCyclesSinceLastQuery, perfData.MemoryUsageInBytes / 1024 );
 	}
 	
-	if( vuMeterRMS == NULL )
+	if( vuMeterRMS == nullptr )
 	{
 		// Init probably hasn't been called yet
 		return;

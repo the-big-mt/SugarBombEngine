@@ -39,7 +39,7 @@ void idMenuScreen_Shell_NewGame::Initialize( idMenuHandler* data )
 {
 	idMenuScreen::Initialize( data );
 	
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		menuGUI = data->GetGUI();
 	}
@@ -100,10 +100,10 @@ idMenuScreen_Shell_NewGame::Update
 void idMenuScreen_Shell_NewGame::Update()
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuWidget_CommandBar* cmdBar = menuData->GetCmdBar();
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			idMenuWidget_CommandBar::buttonInfo_t* buttonInfo;
@@ -127,20 +127,20 @@ void idMenuScreen_Shell_NewGame::Update()
 	if( BindSprite( root ) )
 	{
 		idSWFTextInstance* heading = GetSprite()->GetScriptObject()->GetNestedText( "info", "txtHeading" );
-		if( heading != NULL )
+		if( heading != nullptr )
 		{
 			heading->SetText( "#str_02207" );	// NEW GAME
 			heading->SetStrokeInfo( true, 0.75f, 1.75f );
 		}
 		
 		idSWFSpriteInstance* gradient = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "gradient" );
-		if( gradient != NULL && heading != NULL )
+		if( gradient != nullptr && heading != nullptr )
 		{
 			gradient->SetXPos( heading->GetTextLength() );
 		}
 	}
 	
-	if( btnBack != NULL )
+	if( btnBack != nullptr )
 	{
 		btnBack->BindSprite( root );
 	}
@@ -176,7 +176,7 @@ idMenuScreen_Shell_NewGame::HandleAction h
 bool idMenuScreen_Shell_NewGame::HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled )
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		if( menuData->ActiveScreen() != SHELL_AREA_NEW_GAME )
 		{
@@ -191,7 +191,7 @@ bool idMenuScreen_Shell_NewGame::HandleAction( idWidgetAction& action, const idW
 	{
 		case WIDGET_ACTION_GO_BACK:
 		{
-			if( menuData != NULL )
+			if( menuData != nullptr )
 			{
 				menuData->SetNextScreen( SHELL_AREA_CAMPAIGN, MENU_TRANSITION_SIMPLE );
 			}
@@ -199,7 +199,7 @@ bool idMenuScreen_Shell_NewGame::HandleAction( idWidgetAction& action, const idW
 		}
 		case WIDGET_ACTION_PRESS_FOCUSED:
 		{
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}
@@ -217,7 +217,7 @@ bool idMenuScreen_Shell_NewGame::HandleAction( idWidgetAction& action, const idW
 			}
 			
 			idMenuHandler_Shell* shell = dynamic_cast< idMenuHandler_Shell* >( menuData );
-			if( shell != NULL )
+			if( shell != nullptr )
 			{
 				shell->SetNewGameType( selectionIndex );
 				menuData->SetNextScreen( SHELL_AREA_DIFFICULTY, MENU_TRANSITION_SIMPLE );
