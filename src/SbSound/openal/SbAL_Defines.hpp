@@ -33,21 +33,33 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
-//#include "sound.h"
-#include "SbWaveFile.hpp"
-#include "SbSoundDefines.hpp"
-#include "SbSoundVoice.hpp"
+//#define AL_ALEXT_PROTOTYPES
 
-#if defined(USE_OPENAL)
-#	include "openal/SbAL_Defines.hpp"
-#elif defined(_MSC_VER) // DG: stub out xaudio for MinGW etc
-#	include "xaudio2/SbXA2_Defines.hpp"
-#else // not _MSC_VER => MinGW, GCC, ...
-#	include "stub/SoundStub.h" // just a stub for now
-#endif // _MSC_VER ; DG end
+#ifdef __APPLE__
+#	include <OpenAL/al.h>
+#	include <OpenAL/alc.h>
+#else
+#	include <AL/al.h>
+#	include <AL/alc.h>
+#	include <AL/alext.h>
+#endif
 
-#include "SbSoundFade.hpp"
-#include "SbSoundChannel.hpp"
-#include "SbSoundWorld.hpp"
-#include "SbSoundEmitter.hpp"
-#include "SbSoundSystem.hpp"
+//#include "AL_SoundSample.h"
+//#include "AL_SoundVoice.h"
+//#include "AL_SoundHardware.h"
+
+//namespace sbe
+//{
+
+ID_INLINE_EXTERN ALenum CheckALErrors_( const char* filename, int line )
+{
+	ALenum err = alGetError();
+	if( err != AL_NO_ERROR )
+	{
+		idLib::Printf( "OpenAL Error: %s (0x%x), @ %s %d\n", alGetString( err ), err, filename, line );
+	}
+	return err;
+}
+#define CheckALErrors() CheckALErrors_(__FILE__, __LINE__)
+
+//} // namespace sbe

@@ -33,21 +33,47 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
-//#include "sound.h"
-#include "SbWaveFile.hpp"
-#include "SbSoundDefines.hpp"
-#include "SbSoundVoice.hpp"
+#define OPERATION_SET 1
 
-#if defined(USE_OPENAL)
-#	include "openal/SbAL_Defines.hpp"
-#elif defined(_MSC_VER) // DG: stub out xaudio for MinGW etc
-#	include "xaudio2/SbXA2_Defines.hpp"
-#else // not _MSC_VER => MinGW, GCC, ...
-#	include "stub/SoundStub.h" // just a stub for now
-#endif // _MSC_VER ; DG end
+// RB: not available on Windows 8 SDK
+#if defined(USE_WINRT) // (_WIN32_WINNT < 0x0602 /*_WIN32_WINNT_WIN8*/)
+#	include <mmdeviceapi.h>
+#	include <initguid.h> // For the pkey defines to be properly instantiated.
+#	include <propkeydef.h>
+#	include "functiondiscoverykeys_devpkey.h"
+#	include <string>
+#	include <vector>
 
-#include "SbSoundFade.hpp"
-#include "SbSoundChannel.hpp"
-#include "SbSoundWorld.hpp"
-#include "SbSoundEmitter.hpp"
-#include "SbSoundSystem.hpp"
+//namespace sbe
+//{
+
+DEFINE_PROPERTYKEY( PKEY_AudioEndpoint_Path, 0x9c119480, 0xddc2, 0x4954, 0xa1, 0x50, 0x5b, 0xd2, 0x40, 0xd4, 0x54, 0xad, 1 );
+
+#pragma comment(lib,"xaudio2.lib")
+
+struct AudioDevice
+{
+	std::wstring name;
+	std::wstring id;
+};
+
+//} // namespace sbe
+
+#else
+#	include <dxsdkver.h>
+#endif
+// RB end
+
+#include <xaudio2.h>
+#include <xaudio2fx.h>
+#include <X3DAudio.h>
+
+// RB: not available on Windows 8 SDK
+#if !defined(USE_WINRT) // (_WIN32_WINNT < 0x0602 /*_WIN32_WINNT_WIN8*/)
+#	include <xma2defs.h>
+#endif
+// RB end
+
+#include "XA2_SoundSample.h"
+#include "XA2_SoundVoice.h"
+#include "XA2_SoundHardware.h"

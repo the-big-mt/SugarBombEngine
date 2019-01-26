@@ -63,6 +63,16 @@ idCVar s_device( "s_device", "-1", CVAR_INTEGER | CVAR_ARCHIVE, "Which audio dev
 idCVar s_showPerfData( "s_showPerfData", "0", CVAR_BOOL, "Show XAudio2 Performance data" );
 extern idCVar s_volume_dB;
 
+ID_INLINE_EXTERN ALCenum CheckALCErrors_( ALCdevice* device, const char* filename, int linenum )
+{
+	ALCenum err = alcGetError( device );
+	if( err != ALC_NO_ERROR )
+	{
+		idLib::Printf( "ALC Error: %s (0x%x), @ %s %d\n", alcGetString( device, err ), err, filename, linenum );
+	}
+	return err;
+}
+#define CheckALCErrors(x) CheckALCErrors_((x), __FILE__, __LINE__)
 
 /*
 ========================
