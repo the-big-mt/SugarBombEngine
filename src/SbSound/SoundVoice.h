@@ -43,6 +43,16 @@ If you have questions concerning this license or the applicable additional terms
 //class idSoundSample;
 
 /*
+========================
+MsecToSamples
+========================
+*/
+ID_INLINE_EXTERN uint32 MsecToSamples( uint32 msec, uint32 sampleRate )
+{
+	return ( msec * ( sampleRate / 100 ) ) / 10;
+}
+
+/*
 ================================================
 idSoundVoice_Base
 ================================================
