@@ -68,6 +68,112 @@ typedef enum //I am not even sure if the enum strings are correct or not
     MineDrop = 12
 } weaponAnimation_t;
 
+typedef enum
+{
+    HandGrip1 = 171,
+    HandGrip2 = 172,
+    HandGrip3 = 173,
+    Default = 255
+} gripAnimation_t;
+
+typedef enum
+{
+    ReloadA = 0,
+    ReloadB = 1,
+    ReloadC = 2,
+    ReloadD = 3,
+    ReloadE = 4,
+    ReloadF = 5,
+    ReloadG = 6,
+    ReloadH = 7,
+    ReloadI = 8,
+    ReloadJ = 9,
+    ReloadK = 10
+} reloadAnimation_t;
+
+typedef enum
+{
+    AttackLeft = 26,
+    AttackRight = 32,
+    Attack3 = 38,
+    Attack4 = 44,
+    Attack5 = 50,
+    Attack6 = 56,
+    Attack7 = 62,
+  	Attack8 = 68,
+	AttackLoop = 74, 
+    AttackSpin = 80,
+    AttackSpin2 = 86,
+    PlaceMine = 97,
+    PlaceMine2 = 103,
+    AttackThrow = 109,
+    AttackThrow2 = 115,
+    AttackThrow3 = 121,
+    AttackThrow4 = 127,
+    AttackThrow5 = 133,	
+    Default = 255
+} attackAnimation_t;
+
+typedef enum
+{
+    Perception = 0,
+    Endurance = 1,
+    Left_Attack = 2,
+    Right_Attack = 3,
+    Left_Mobility = 4,
+    Right_Mobility = 5,
+    Brain = 6,
+} embeddedWeaponActor_t;
+
+typedef enum
+{
+    Default = 0,
+    Dismember_only = 1,
+    Explode_only = 2,
+    No_DismemberExplode = 4
+} onhit_t;
+
+typedef enum
+{
+    IgnoreNormalResistance = 0x01,
+    Automatic = 0x02,
+    Scope = 0x04,
+    Drop = 0x08,
+    Hide = 0x10,
+    Embedded = 0x20,
+    No1stISAnim = 0x40,
+    NonPlayable = 0x80
+} flag1_t;
+
+typedef enum
+{
+    PlayerOnly = 0x00000001,
+    NPCuseammo = 0x00000002,
+    NoJam = 0x00000004,
+    OverrideActionPoints = 0x00000008,
+    MinorCrime = 0x00000010,
+    Range_Fixed = 0x00000020,
+    Unused = 0x00000040,
+    OverrideDamageMult = 0x00000080,
+    No3rdISAnim = 0x00000100,
+    ShortBurst = 0x00000200,
+    Rumble_Alt = 0x00000400,
+    LongBurst = 0x00000800,
+} flag2_t;
+
+typedef enum
+{
+    Constant = 0,
+    Square = 1,
+    Triangle = 2,
+    Sawtooth = 3,
+} rumble_t;
+
+typedef enum
+{
+    OnDeath = 0x01
+} CRDTflag_t;
+
 typedef int ammo_t;
 static const int AMMO_NUMTYPES = 16;
 
@@ -487,8 +593,12 @@ private:
 	uint8_t nClipSize;
 	
 	// DNAM
+	uint32_t nanimType;
+	unint8_t nflags1;
+	unint8_t ngripanim;
+	unint8_t nreloadanim;
 	float fanimMult;
-	float fRateOfFire; // TODO: firerate?
+	float fFireRate; 
 	float fReach;
 	float fCritMult;
 	float fminSpread;
@@ -498,25 +608,41 @@ private:
 	float fSightFOV;
 	std::string sProjectile;
 	uint8_t nvatsHitChance;
-	uint8_t attackAnimation;
+	uint8_t nattackAnimation;
+	uint8_t nprojectileCound;
+	uint8_t nembeddedweapon;
+	float fminrange;
+	float fmaxrange;
+	uint32_t nonhit;
+	uint32_t nflags2;
+	float fanimattackmult;
+	float foverrideAction;
+	float frumbleLeft;
+	float frumbleRight;
+	float frumbleDuration;
+	float frumbleOverrideDamagemult;
+	float fAttackShotsPerSecond;
+	float freloadtime;
+	float fjamtime;
+	float faimarc;
+	uint32_t nskill; // Values/Actor Values.md in TES5Edit, not implemented yet
+	uint32_t npattern;
+	float fwavelength;
+	float flimbMult;
+	uint32_t nresistanceType; // not implemented yet
+	float fsightUsage;
+	float ffireDelayMin;
+	float ffiredelaymax;
 	
-	int nVW; // TODO: wut?
 	
-	int nActionPoints; // consumption per attack
-	float fDmgPerAP; // ???
 	
-	int32 nHealth;
-	int nLimit; // -1 for no limit
-	int nSkill; // skill that affects the proficiency
+	// int nVW; // TODO: wut? // I have no idea where this came from.
+	// CRDT
+	uint16_t ncritDamage;
+	float fCriticalMult;
+	float flags;
+	std::string sEffect;
 	
-	// Small Guns
-	float fSpread;
-	idStr sAmmoType;
-	int nClipSize;
-	int nType;
-	
-	// Area-of-Effect
-	int nAoERadius;
 };
 
 ID_INLINE bool idWeapon::IsLinked()
