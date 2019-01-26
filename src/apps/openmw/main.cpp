@@ -67,6 +67,9 @@ bool parseOptions (int argc, char** argv, OMW::Engine& engine, Files::Configurat
         ("fallback-archive", bpo::value<Files::EscapeStringVector>()->default_value(Files::EscapeStringVector(), "fallback-archive")
             ->multitoken(), "set fallback BSA archives (later archives have higher priority)")
 
+		("fallback-tes4archive", bpo::value<StringsVector>()->default_value(StringsVector(), "fallback-tes4archive")
+            ->multitoken(), "set fallback TES4 BSA archives (later archives have higher priority)")
+
             ("resources", bpo::value<Files::EscapeHashString>()->default_value("resources"),
             "set resources directory")
 
@@ -192,6 +195,12 @@ bool parseOptions (int argc, char** argv, OMW::Engine& engine, Files::Configurat
     for (StringsVector::const_iterator it = archives.begin(); it != archives.end(); ++it)
     {
         engine.addArchive(*it);
+    }
+
+	StringsVector tes4archives = variables["fallback-tes4archive"].as<StringsVector>();
+    for (StringsVector::const_iterator it = tes4archives.begin(); it != tes4archives.end(); ++it)
+    {
+        engine.addTES4Archive(*it);
     }
 
     engine.setResourceDir(variables["resources"].as<Files::EscapeHashString>().toStdString());

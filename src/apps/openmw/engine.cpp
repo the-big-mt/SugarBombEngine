@@ -272,6 +272,10 @@ void OMW::Engine::addArchive (const std::string& archive) {
     mArchives.push_back(archive);
 }
 
+void OMW::Engine::addTES4Archive (const std::string& archive) {
+    mTES4Archives.push_back(archive);
+}
+
 // Set resource dir
 void OMW::Engine::setResourceDir (const boost::filesystem::path& parResDir)
 {
@@ -453,6 +457,8 @@ void OMW::Engine::prepareEngine (Settings::Manager & settings)
     mVFS.reset(new VFS::Manager(mFSStrict));
 
     VFS::registerArchives(mVFS.get(), mFileCollections, mArchives, true);
+	// useLooseFiles is set false, since it is already done above
+    VFS::registerArchives(mVFS.get(), mFileCollections, mTES4Archives, /*useLooseFiles*/false, mFSStrict, /*isTes4*/true);
 
     mResourceSystem.reset(new Resource::ResourceSystem(mVFS.get()));
     mResourceSystem->getSceneManager()->setUnRefImageDataAfterApply(false); // keep to Off for now to allow better state sharing
