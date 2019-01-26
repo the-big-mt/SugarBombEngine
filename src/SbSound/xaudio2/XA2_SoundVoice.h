@@ -28,9 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __XA2_SOUNDVOICE_H__
 #define __XA2_SOUNDVOICE_H__
 
-//#include "../sound/XAudio2/XA2_SoundSample.h"
-
-//#include "../sound/SoundVoice.h"
+//#include "XA2_SoundSample.h"
+#include "SbSoundVoice.hpp"
 
 //namespace BFG
 //{

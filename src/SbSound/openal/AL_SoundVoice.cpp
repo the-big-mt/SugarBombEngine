@@ -35,19 +35,21 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstddef>
 #include "precompiled.h"
 
-//#include "../framework/CVarSystem.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/containers/List.h"
-//#include "../idlib/sys/sys_assert.h"
-//#include "../idlib/sys/sys_types.h"
-#include "../snd_local.h"
-//#include "../sound/OpenAL/AL_SoundSample.h"
-//#include "../sound/OpenAL/AL_SoundVoice.h"
-//#include "../sound/WaveFile.h"
-//#include "../sound/sound.h"
-//#include "../sys/sys_public.h"
+#include "framework/ICVarSystem.hpp"
+
+#include "idlib/Lib.h"
+#include "idlib/containers/List.h"
+#include "idlib/sys/sys_assert.h"
+#include "idlib/sys/sys_types.h"
+
+#include "AL_SoundVoice.h"
+#include "AL_SoundSample.h"
+#include "snd_local.h"
+#include "SbWaveFile.hpp"
+#include "sound.h"
 //#include "../sound/snd_defines.h"
 
+//#include "../sys/sys_public.h"
 //namespace BFG
 //{
 

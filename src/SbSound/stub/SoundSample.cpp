@@ -28,8 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 // DG: SoundSample seems to be XAudio-independent, so this is just a copy of idSoundSample_XAudio2
 
-#include "../../idlib/precompiled.h"
-#include "../snd_local.h"
+#include "idlib/precompiled.h"
+
+#include "snd_local.h"
 
 //namespace BFG
 //{

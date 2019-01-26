@@ -27,22 +27,23 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 #include "precompiled.h"
+//#include <cstring>
+
+#include "SbWaveFile.hpp"
+
+#include "sys/IFileSystem.hpp"
+#include "sys/IFile.hpp"
+
+#include "idlib/containers/StaticList.h"
+#include "idlib/Heap.h"
+#include "idlib/Lib.h"
+#include "idlib/Swap.h"
 
 /*
 ================================================================================================
 Contains the WaveFile implementation.
 ================================================================================================
 */
-
-//#include <cstring>
-
-//#include "../framework/FileSystem.h"
-//#include "../idlib/Heap.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/Swap.h"
-//#include "../framework/File.h"
-//#include "../idlib/containers/StaticList.h"
-#include "WaveFile.h"
 
 //namespace BFG
 //{

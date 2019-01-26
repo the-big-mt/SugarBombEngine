@@ -32,7 +32,8 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstring>
 #include "precompiled.h"
 
-#include "snd_local.h"
+#include "SbSoundEmitter.hpp"
+#include "SbSound/ISoundShader.hpp"
 
 //namespace BFG
 //{

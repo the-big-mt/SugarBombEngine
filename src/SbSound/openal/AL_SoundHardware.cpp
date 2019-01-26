@@ -30,17 +30,20 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
-//#include "../framework/CVarSystem.h"
-//#include "../framework/CmdSystem.h"
-//#include "../framework/Common.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/containers/StaticList.h"
-#include "../snd_local.h"
-//#include "../sound/OpenAL/AL_SoundHardware.h"
-//#include "../sound/OpenAL/AL_SoundSample.h"
-//#include "../sound/OpenAL/AL_SoundVoice.h"
-//#include "../sound/WaveFile.h"
-//#include "../sound/sound.h"
+#include "framework/ICVarSystem.hpp"
+#include "framework/ICmdSystem.hpp"
+#include "framework/ICommon.hpp"
+
+#include "idlib/Lib.h"
+#include "idlib/containers/StaticList.h"
+
+#include "AL_SoundHardware.h"
+#include "AL_SoundSample.h"
+#include "AL_SoundVoice.h"
+#include "snd_local.h"
+#include "WaveFile.h"
+#include "sound.h"
+//#include "snd_defines.h"
 //#include "../sys/sys_public.h"
 //#include "../sound/snd_defines.h"
 

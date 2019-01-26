@@ -41,8 +41,9 @@ If you have questions concerning this license or the applicable additional terms
 #define SOUNDSTUB_H_
 
 #include "idlib/precompiled.h" // TIME_T
-//#include "../idlib/sys/sys_defines.h"
-#include "../WaveFile.h"
+//#include "idlib/sys/sys_defines.h"
+
+#include "SbWaveFile.hpp"
 
 //namespace BFG
 //{

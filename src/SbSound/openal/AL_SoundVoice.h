@@ -29,9 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __AL_SOUNDVOICE_H__
 #define __AL_SOUNDVOICE_H__
 
-//#include "../sound/OpenAL/AL_SoundSample.h"  // for idSoundSample_OpenAL, etc
-
-//#include "../sound/SoundVoice.h"  // for idSoundVoice
+//#include "AL_SoundSample.h" // for idSoundSample_OpenAL, etc
+#include "SbSoundVoice.hpp" // for idSoundVoice_Base
 
 //namespace BFG
 //{

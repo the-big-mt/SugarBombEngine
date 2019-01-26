@@ -31,7 +31,16 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstddef>
 #include "precompiled.h"
 
-#include "snd_local.h"
+#include "SbSoundWorld.hpp"
+#include "SbSoundChannel.hpp"
+#include "SbSoundEmitter.hpp"
+
+#include "renderer/IRenderWorld.hpp"
+
+#include "framework/DeclManager.h"
+#include "framework/DemoFile.h"
+
+#include "sys/IFile.hpp"
 
 // A single voice can play multiple channels (up to 5.1, but most commonly stereo)
 // This is the maximum number of channels which can play simultaneously

@@ -30,7 +30,14 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
-#include "snd_local.h"
+#include "SbSoundSystem.hpp"
+#include "sound/ISoundWorld.hpp"
+
+#include "framework/Common.h" // for MemInfo_t
+#include "framework/DeclManager.h" // for declManager, idDeclManager, etc
+#include "framework/File_Manifest.h" // for idPreloadManifest, etc
+
+#include "renderer/IRenderWorld.hpp"
 
 //namespace BFG
 //{

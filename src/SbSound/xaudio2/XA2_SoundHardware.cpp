@@ -28,7 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 #include "precompiled.h"
-#include "../snd_local.h"
+
+#include "snd_local.h"
+
 #if defined(USE_DOOMCLASSIC)
 #include "../../../doomclassic/doom/i_sound.h"
 #endif
