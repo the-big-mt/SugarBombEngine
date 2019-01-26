@@ -29,24 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 
 /// @file
 
-//#include "../renderer/Cinematic.h"      // for cinData_t, idCinematic
-//#include "../framework/File_Manifest.h"  // for idPreloadManifest, etc
-//#include "../framework/Common.h"        // for MemInfo_t
-//#include "../framework/DeclManager.h"   // for declManager, idDeclManager, etc
-
-//namespace BFG
-//{
-
-//extern idCVar timescale;
-
-/*
-===============================================================================
-
-	SOUND SHADER DECL
-
-===============================================================================
-*/
-const float DB_SILENCE = -60.0f;
+#pragma once
 
 class idSoundSample;
 // these options can be overriden from sound shader defaults on a per-emitter and per-channel basis
@@ -64,29 +47,19 @@ typedef struct
 #include "SbSoundShader.hpp"
 
 #include "sound/ISoundEmitter.hpp"
-
-/*
-===============================================================================
-
-	SOUND WORLD
-
-There can be multiple independent sound worlds, just as there can be multiple
-independent render worlds.  The prime example is the editor sound preview
-option existing simultaniously with a live game.
-===============================================================================
-*/
-
 #include "sound/ISoundWorld.hpp"
+#include "sound/ISoundSystem.hpp"
 
+//namespace sbe
+//{
+
+//extern idCVar timescale;
+
+const float DB_SILENCE = -60.0f;
+
+// TODO: unused?
 /*
-===============================================================================
-
-	SOUND SYSTEM
-
-===============================================================================
-*/
-
-typedef struct
+struct soundDecoderInfo_t
 {
 	idStr					name;
 	idStr					format;
@@ -98,11 +71,9 @@ typedef struct
 	float					lastVolume;
 	int						start44kHzTime;
 	int						current44kHzTime;
-} soundDecoderInfo_t;
+};
+*/
 
-#include "sound/ISoundSystem.hpp"
-
-extern idSoundSystem*	soundSystem;
-
+extern idSoundSystem *soundSystem;
 
 //} // namespace sbe

@@ -27,8 +27,6 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __SOUNDVOICE_H__
-#define __SOUNDVOICE_H__
 
 /// @file
 
@@ -162,5 +160,3 @@ protected:
 };
 
 //} // namespace BFG
-
-#endif // __SOUNDVOICE_H__
