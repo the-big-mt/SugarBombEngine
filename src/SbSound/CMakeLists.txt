@@ -12,3 +12,7 @@ else()
 endif()
 
 add_library(${PROJECT_NAME} ${LIB_TYPE} ${PROJECT_SOURCES})
+
+if(NOT SBE_SINGLE_BINARY)
+	target_link_libraries(${PROJECT_NAME} SBE-idlib)
+endif()
