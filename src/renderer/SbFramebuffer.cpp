@@ -84,7 +84,7 @@ void Framebuffer::Init()
 {
 	cmdSystem->AddCommand( "listFramebuffers", R_ListFramebuffers_f, CMD_FL_RENDERER, "lists framebuffers" );
 	
-	tr.backend.currentFramebuffer = NULL;
+	tr.backend.currentFramebuffer = nullptr;
 	
 	// SHADOWMAPS
 	
@@ -97,7 +97,7 @@ void Framebuffer::Init()
 		
 		globalFramebuffers.shadowFBO[i] = new Framebuffer( va( "_shadowMap%i", i ) , width, height );
 		globalFramebuffers.shadowFBO[i]->Bind();
-		glDrawBuffers( 0, NULL );
+		glDrawBuffers( 0, nullptr );
 	}
 	
 	// HDR
@@ -361,17 +361,17 @@ void Framebuffer::Unbind()
 {
 	RENDERLOG_PRINTF( "Framebuffer::Unbind()\n" );
 	
-	//if(tr.backend.framebuffer != NULL)
+	//if(tr.backend.framebuffer != nullptr)
 	{
 		glBindFramebuffer( GL_FRAMEBUFFER, 0 );
 		glBindRenderbuffer( GL_RENDERBUFFER, 0 );
-		tr.backend.currentFramebuffer = NULL;
+		tr.backend.currentFramebuffer = nullptr;
 	}
 }
 
 bool Framebuffer::IsDefaultFramebufferActive()
 {
-	return ( tr.backend.currentFramebuffer == NULL );
+	return ( tr.backend.currentFramebuffer == nullptr );
 }
 
 void Framebuffer::AddColorBuffer( int format, int index, int multiSamples )

@@ -166,7 +166,7 @@ bool idPlayerProfile::Serialize( idSerializer& ser )
 		cvarDict.Delete( "r_antiAliasing" );
 		cvarDict.Delete( "com_engineHz" );
 		cvarSystem->SetCVarsFromDict( cvarDict );
-		common->StartupVariable( NULL );
+		common->StartupVariable( nullptr );
 	}
 	
 	// The dlcReleaseVersion is used to determine that new content is available
@@ -461,12 +461,12 @@ void idPlayerProfile::ExecConfig( bool save, bool forceDefault )
 
 CONSOLE_COMMAND( setProfileDefaults, "sets profile settings to default and saves", 0 )
 {
-	if( session->GetSignInManager().GetMasterLocalUser() == NULL )
+	if( session->GetSignInManager().GetMasterLocalUser() == nullptr )
 	{
 		return;
 	}
 	idPlayerProfile* profile = session->GetSignInManager().GetMasterLocalUser()->GetProfile();
-	if( verify( profile != NULL ) )
+	if( verify( profile != nullptr ) )
 	{
 		profile->SetDefaults();
 		profile->SaveSettings( true );

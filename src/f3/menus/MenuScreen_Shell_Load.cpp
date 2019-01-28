@@ -41,7 +41,7 @@ void idMenuScreen_Shell_Load::Initialize( idMenuHandler* data )
 {
 	idMenuScreen::Initialize( data );
 	
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		menuGUI = data->GetGUI();
 	}
@@ -72,7 +72,7 @@ void idMenuScreen_Shell_Load::Initialize( idMenuHandler* data )
 	btnBack = new( TAG_SWF ) idMenuWidget_Button();
 	btnBack->Initialize( data );
 	idMenuHandler_Shell* handler = dynamic_cast< idMenuHandler_Shell* >( data );
-	if( handler != NULL && handler->GetInGame() )
+	if( handler != nullptr && handler->GetInGame() )
 	{
 		btnBack->SetLabel( "#str_swf_pause_menu" );
 	}
@@ -117,20 +117,20 @@ void idMenuScreen_Shell_Load::Update()
 	if( BindSprite( root ) )
 	{
 		idSWFTextInstance* heading = GetSprite()->GetScriptObject()->GetNestedText( "info", "txtHeading" );
-		if( heading != NULL )
+		if( heading != nullptr )
 		{
 			heading->SetText( "#str_02187" );	// LOAD GAME
 			heading->SetStrokeInfo( true, 0.75f, 1.75f );
 		}
 		
 		idSWFSpriteInstance* gradient = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "gradient" );
-		if( gradient != NULL && heading != NULL )
+		if( gradient != nullptr && heading != nullptr )
 		{
 			gradient->SetXPos( heading->GetTextLength() );
 		}
 	}
 	
-	if( btnBack != NULL )
+	if( btnBack != nullptr )
 	{
 		btnBack->BindSprite( root );
 	}
@@ -150,7 +150,7 @@ void idMenuScreen_Shell_Load::UpdateSaveEnumerations()
 	sortedSaves = saveGameInfo;
 	sortedSaves.Sort( idSort_SavesByDate() );
 	
-	if( options != NULL )
+	if( options != nullptr )
 	{
 		idList< idList< idStr, TAG_IDLIB_LIST_MENU >, TAG_IDLIB_LIST_MENU > saveList;
 		if( session->GetSaveGameManager().IsWorking() )
@@ -199,10 +199,10 @@ void idMenuScreen_Shell_Load::UpdateSaveEnumerations()
 		options->Update();
 	}
 	
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuWidget_CommandBar* cmdBar = menuData->GetCmdBar();
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			idMenuWidget_CommandBar::buttonInfo_t* buttonInfo;
@@ -231,7 +231,7 @@ void idMenuScreen_Shell_Load::UpdateSaveEnumerations()
 				}
 				buttonInfo->action.Set( WIDGET_ACTION_JOY3_ON_PRESS );
 				
-				if( btnDelete != NULL )
+				if( btnDelete != nullptr )
 				{
 					idSWFScriptObject& root = GetSWFObject()->GetRootObject();
 					if( btnDelete->BindSprite( root ) )
@@ -251,7 +251,7 @@ void idMenuScreen_Shell_Load::UpdateSaveEnumerations()
 			}
 			else
 			{
-				if( btnDelete != NULL )
+				if( btnDelete != nullptr )
 				{
 					idSWFScriptObject& root = GetSWFObject()->GetRootObject();
 					if( btnDelete->BindSprite( root ) )
@@ -265,12 +265,12 @@ void idMenuScreen_Shell_Load::UpdateSaveEnumerations()
 		}
 	}
 	
-	if( saveInfo != NULL )
+	if( saveInfo != nullptr )
 	{
 		saveInfo->Update();
 	}
 	
-	if( options != NULL && options->GetTotalNumberOfOptions() > 0 && options->GetViewIndex() >= options->GetTotalNumberOfOptions() )
+	if( options != nullptr && options->GetTotalNumberOfOptions() > 0 && options->GetViewIndex() >= options->GetTotalNumberOfOptions() )
 	{
 		options->SetViewIndex( options->GetTotalNumberOfOptions() - 1 );
 		if( options->GetViewOffset() > options->GetViewIndex() )
@@ -359,7 +359,7 @@ idMenuScreen_Shell_Load::LoadGame
 void idMenuScreen_Shell_Load::LoadGame( int index )
 {
 
-	if( menuData == NULL )
+	if( menuData == nullptr )
 	{
 		return;
 	}
@@ -372,13 +372,13 @@ void idMenuScreen_Shell_Load::LoadGame( int index )
 	
 	bool isDead = false;
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	if( player != NULL && player->health <= 0 )
+	if( player != nullptr && player->health <= 0 )
 	{
 		isDead = true;
 	}
 	
 	idMenuHandler_Shell* mgr = dynamic_cast< idMenuHandler_Shell* >( menuData );
-	if( mgr != NULL && mgr->GetInGame() && !isDead )
+	if( mgr != nullptr && mgr->GetInGame() && !isDead )
 	{
 	
 		class idSWFScriptFunction_LoadDialog : public idSWFScriptFunction_RefCounted
@@ -393,7 +393,7 @@ void idMenuScreen_Shell_Load::LoadGame( int index )
 			idSWFScriptVar Call( idSWFScriptObject* thisObject, const idSWFParmList& parms )
 			{
 				common->Dialog().ClearDialog( msg );
-				if( accept && name != NULL )
+				if( accept && name != nullptr )
 				{
 				
 					cmdSystem->AppendCommandText( va( "loadgame %s\n", name ) );
@@ -445,7 +445,7 @@ void idMenuScreen_Shell_Load::DeleteGame( int index )
 		idSWFScriptVar Call( idSWFScriptObject* thisObject, const idSWFParmList& parms )
 		{
 			common->Dialog().ClearDialog( msg );
-			if( accept && screen != NULL )
+			if( accept && screen != nullptr )
 			{
 				if( index < screen->GetSortedSaves().Num() )
 				{
@@ -473,7 +473,7 @@ idMenuScreen_Shell_Load::HandleAction h
 bool idMenuScreen_Shell_Load::HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled )
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		if( menuData->ActiveScreen() != SHELL_AREA_LOAD )
 		{
@@ -491,7 +491,7 @@ bool idMenuScreen_Shell_Load::HandleAction( idWidgetAction& action, const idWidg
 		}
 		case WIDGET_ACTION_JOY3_ON_PRESS:
 		{
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}
@@ -502,7 +502,7 @@ bool idMenuScreen_Shell_Load::HandleAction( idWidgetAction& action, const idWidg
 		}
 		case WIDGET_ACTION_GO_BACK:
 		{
-			if( menuData != NULL )
+			if( menuData != nullptr )
 			{
 				if( game->IsInGame() )
 				{
@@ -517,7 +517,7 @@ bool idMenuScreen_Shell_Load::HandleAction( idWidgetAction& action, const idWidg
 		}
 		case WIDGET_ACTION_PRESS_FOCUSED:
 		{
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}

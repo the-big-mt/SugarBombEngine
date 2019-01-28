@@ -199,7 +199,7 @@ struct NiKeyframeData : public Record
 {
     QuaternionKeyMapPtr mRotations;
 
-    // may be NULL
+    // may be nullptr
     FloatKeyMapPtr mXRotations;
     FloatKeyMapPtr mYRotations;
     FloatKeyMapPtr mZRotations;

@@ -43,7 +43,7 @@ void LoadMapLocalizeData( ListHash& listHash )
 {
 
 	idStr fileName = "map_localize.cfg";
-	const char* buffer = NULL;
+	const char* buffer = nullptr;
 	idLexer src( LEXFL_NOFATALERRORS | LEXFL_NOSTRINGCONCAT | LEXFL_ALLOWMULTICHARLITERALS | LEXFL_ALLOWBACKSLASHSTRINGCONCAT );
 	
 	if( fileSystem->ReadFile( fileName, ( void** )&buffer ) > 0 )
@@ -83,7 +83,7 @@ void LoadGuiParmExcludeList( idStrList& list )
 {
 
 	idStr fileName = "guiparm_exclude.cfg";
-	const char* buffer = NULL;
+	const char* buffer = nullptr;
 	idLexer src( LEXFL_NOFATALERRORS | LEXFL_NOSTRINGCONCAT | LEXFL_ALLOWMULTICHARLITERALS | LEXFL_ALLOWBACKSLASHSTRINGCONCAT );
 	
 	if( fileSystem->ReadFile( fileName, ( void** )&buffer ) > 0 )
@@ -278,7 +278,7 @@ int LocalizeMap( const char* mapName, idLangDict& langDict, ListHash& listHash, 
 LocalizeMaps_f
 =================
 */
-CONSOLE_COMMAND( localizeMaps, "localize maps", NULL )
+CONSOLE_COMMAND( localizeMaps, "localize maps", nullptr )
 {
 	if( args.Argc() < 2 )
 	{
@@ -320,7 +320,7 @@ CONSOLE_COMMAND( localizeMaps, "localize maps", NULL )
 	
 	{
 		// I think this is equivalent...
-		const byte* buffer = NULL;
+		const byte* buffer = nullptr;
 		int len = fileSystem->ReadFile( filename, ( void** )&buffer );
 		if( verify( len > 0 ) )
 		{
@@ -376,7 +376,7 @@ CONSOLE_COMMAND( localizeMaps, "localize maps", NULL )
 LocalizeGuis_f
 =================
 */
-CONSOLE_COMMAND( localizeGuis, "localize guis", NULL )
+CONSOLE_COMMAND( localizeGuis, "localize guis", nullptr )
 {
 
 	if( args.Argc() != 2 )
@@ -391,7 +391,7 @@ CONSOLE_COMMAND( localizeGuis, "localize guis", NULL )
 	
 	{
 		// I think this is equivalent...
-		const byte* buffer = NULL;
+		const byte* buffer = nullptr;
 		int len = fileSystem->ReadFile( filename, ( void** )&buffer );
 		if( verify( len > 0 ) )
 		{
@@ -447,7 +447,7 @@ CONSOLE_COMMAND( localizeGuis, "localize guis", NULL )
 	strTable.Save( filename );
 }
 
-CONSOLE_COMMAND( localizeGuiParmsTest, "Create test files that show gui parms localized and ignored.", NULL )
+CONSOLE_COMMAND( localizeGuiParmsTest, "Create test files that show gui parms localized and ignored.", nullptr )
 {
 
 	common->SetRefreshOnPrint( true );
@@ -503,7 +503,7 @@ CONSOLE_COMMAND( localizeGuiParmsTest, "Create test files that show gui parms lo
 }
 
 
-CONSOLE_COMMAND( localizeMapsTest, "Create test files that shows which strings will be localized.", NULL )
+CONSOLE_COMMAND( localizeMapsTest, "Create test files that shows which strings will be localized.", nullptr )
 {
 
 	ListHash listHash;
@@ -621,7 +621,7 @@ void idCommonLocal::LocalizeSpecificMapData( const char* fileName, idLangDict& l
 				{
 					const idLangKeyValue* kv = replaceArgs.GetKeyVal( j );
 					const char* temp = ent->epairs.GetString( kv->key );
-					if( ( temp != NULL ) && *temp )
+					if( ( temp != nullptr ) && *temp )
 					{
 						idStr val = kv->value;
 						if( val == temp )
@@ -643,7 +643,7 @@ idCommonLocal::LocalizeMapData
 */
 void idCommonLocal::LocalizeMapData( const char* fileName, idLangDict& langDict )
 {
-	const char* buffer = NULL;
+	const char* buffer = nullptr;
 	idLexer src( LEXFL_NOFATALERRORS | LEXFL_NOSTRINGCONCAT | LEXFL_ALLOWMULTICHARLITERALS | LEXFL_ALLOWBACKSLASHSTRINGCONCAT );
 	
 	common->SetRefreshOnPrint( true );
@@ -695,7 +695,7 @@ idCommonLocal::LocalizeGui
 void idCommonLocal::LocalizeGui( const char* fileName, idLangDict& langDict )
 {
 	idStr out, ws, work;
-	const char* buffer = NULL;
+	const char* buffer = nullptr;
 	out.Empty();
 	int k;
 	char ch;

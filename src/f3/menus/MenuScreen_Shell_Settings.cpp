@@ -48,7 +48,7 @@ void idMenuScreen_Shell_Settings::Initialize( idMenuHandler* data )
 {
 	idMenuScreen::Initialize( data );
 	
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		menuGUI = data->GetGUI();
 	}
@@ -106,7 +106,7 @@ void idMenuScreen_Shell_Settings::Initialize( idMenuHandler* data )
 	btnBack = new( TAG_SWF ) idMenuWidget_Button();
 	btnBack->Initialize( data );
 	idMenuHandler_Shell* handler = dynamic_cast< idMenuHandler_Shell* >( data );
-	if( handler != NULL && handler->GetInGame() )
+	if( handler != nullptr && handler->GetInGame() )
 	{
 		btnBack->SetLabel( "#str_swf_pause_menu" );
 	}
@@ -137,10 +137,10 @@ idMenuScreen_Shell_Settings::Update
 void idMenuScreen_Shell_Settings::Update()
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuWidget_CommandBar* cmdBar = menuData->GetCmdBar();
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			idMenuWidget_CommandBar::buttonInfo_t* buttonInfo;
@@ -164,20 +164,20 @@ void idMenuScreen_Shell_Settings::Update()
 	if( BindSprite( root ) )
 	{
 		idSWFTextInstance* heading = GetSprite()->GetScriptObject()->GetNestedText( "info", "txtHeading" );
-		if( heading != NULL )
+		if( heading != nullptr )
 		{
 			heading->SetText( "#str_swf_settings" );
 			heading->SetStrokeInfo( true, 0.75f, 1.75f );
 		}
 		
 		idSWFSpriteInstance* gradient = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "gradient" );
-		if( gradient != NULL && heading != NULL )
+		if( gradient != nullptr && heading != nullptr )
 		{
 			gradient->SetXPos( heading->GetTextLength() );
 		}
 	}
 	
-	if( btnBack != NULL )
+	if( btnBack != nullptr )
 	{
 		btnBack->BindSprite( root );
 	}
@@ -213,7 +213,7 @@ idMenuScreen_Shell_Settings::HandleAction h
 bool idMenuScreen_Shell_Settings::HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled )
 {
 
-	if( menuData == NULL )
+	if( menuData == nullptr )
 	{
 		return true;
 	}
@@ -259,7 +259,7 @@ bool idMenuScreen_Shell_Settings::HandleAction( idWidgetAction& action, const id
 				}
 			}
 			
-			if( options != NULL )
+			if( options != nullptr )
 			{
 				int selectionIndex = options->GetViewIndex();
 				if( parms.Num() == 1 )

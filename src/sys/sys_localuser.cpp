@@ -62,7 +62,7 @@ void idLocalUser::Pump()
 	// Pump the profile
 	GetProfileMgr().Pump();
 	
-	if( GetProfileMgr().GetProfile() != NULL && GetProfileMgr().GetProfile()->GetState() == idPlayerProfile::IDLE )
+	if( GetProfileMgr().GetProfile() != nullptr && GetProfileMgr().GetProfile()->GetState() == idPlayerProfile::IDLE )
 	{
 		// Pump achievements
 		if( syncAchievementsRequested )
@@ -129,7 +129,7 @@ idLocalUser::SetStatInt
 void idLocalUser::SetStatInt( int s, int v )
 {
 	idPlayerProfile* profile = GetProfile();
-	if( profile != NULL )
+	if( profile != nullptr )
 	{
 		return profile->StatSetInt( s, v );
 	}
@@ -143,7 +143,7 @@ idLocalUser::SetStatFloat
 void idLocalUser::SetStatFloat( int s, float v )
 {
 	idPlayerProfile* profile = GetProfile();
-	if( profile != NULL )
+	if( profile != nullptr )
 	{
 		return profile->StatSetFloat( s, v );
 	}
@@ -158,7 +158,7 @@ int	idLocalUser::GetStatInt( int s )
 {
 	const idPlayerProfile* profile = GetProfile();
 	
-	if( profile != NULL && s >= 0 )
+	if( profile != nullptr && s >= 0 )
 	{
 		return profile->StatGetInt( s );
 	}
@@ -175,7 +175,7 @@ float idLocalUser::GetStatFloat( int s )
 {
 	const idPlayerProfile* profile = GetProfile();
 	
-	if( profile != NULL )
+	if( profile != nullptr )
 	{
 		return profile->StatGetFloat( s );
 	}
@@ -193,13 +193,13 @@ void idLocalUser::LoadProfileSettings()
 	idPlayerProfile* profile = GetProfileMgr().GetProfile();
 	
 	// Lazy instantiation
-	if( profile == NULL )
+	if( profile == nullptr )
 	{
 		// Create a new profile
 		profile = idPlayerProfile::CreatePlayerProfile( GetInputDevice() );
 	}
 	
-	if( profile != NULL )
+	if( profile != nullptr )
 	{
 		profile->LoadSettings();
 	}
@@ -215,7 +215,7 @@ idLocalUser::SaveProfileSettings
 void idLocalUser::SaveProfileSettings()
 {
 	idPlayerProfile* profile = GetProfileMgr().GetProfile();
-	if( profile != NULL )
+	if( profile != nullptr )
 	{
 		profile->SaveSettings( true );
 	}

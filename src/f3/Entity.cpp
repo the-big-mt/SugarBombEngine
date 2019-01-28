@@ -43,49 +43,49 @@ idCVar net_errorSmoothingMaxDecay( "net_errorSmoothingMaxDecay", "25.0", CVAR_FL
 idCVar net_errorSmoothingDecay( "net_errorSmoothingDecay", "0.06", CVAR_FLOAT, "Rate at which error smoothing decays (in percent per game frame)" );
 
 // overridable events
-const idEventDef EV_PostSpawn( "<postspawn>", NULL );
-const idEventDef EV_FindTargets( "<findTargets>", NULL );
+const idEventDef EV_PostSpawn( "<postspawn>", nullptr );
+const idEventDef EV_FindTargets( "<findTargets>", nullptr );
 const idEventDef EV_Touch( "<touch>", "et" );
-const idEventDef EV_GetName( "getName", NULL, 's' );
+const idEventDef EV_GetName( "getName", nullptr, 's' );
 const idEventDef EV_SetName( "setName", "s" );
 const idEventDef EV_Activate( "activate", "e" );
 const idEventDef EV_ActivateTargets( "activateTargets", "e" );
-const idEventDef EV_NumTargets( "numTargets", NULL, 'f' );
+const idEventDef EV_NumTargets( "numTargets", nullptr, 'f' );
 const idEventDef EV_GetTarget( "getTarget", "f", 'e' );
 const idEventDef EV_RandomTarget( "randomTarget", "s", 'e' );
 const idEventDef EV_Bind( "bind", "e" );
 const idEventDef EV_BindPosition( "bindPosition", "e" );
 const idEventDef EV_BindToJoint( "bindToJoint", "esf" );
-const idEventDef EV_Unbind( "unbind", NULL );
+const idEventDef EV_Unbind( "unbind", nullptr );
 const idEventDef EV_RemoveBinds( "removeBinds" );
-const idEventDef EV_SpawnBind( "<spawnbind>", NULL );
+const idEventDef EV_SpawnBind( "<spawnbind>", nullptr );
 const idEventDef EV_SetOwner( "setOwner", "e" );
 const idEventDef EV_SetModel( "setModel", "s" );
 const idEventDef EV_SetSkin( "setSkin", "s" );
-const idEventDef EV_GetWorldOrigin( "getWorldOrigin", NULL, 'v' );
+const idEventDef EV_GetWorldOrigin( "getWorldOrigin", nullptr, 'v' );
 const idEventDef EV_SetWorldOrigin( "setWorldOrigin", "v" );
-const idEventDef EV_GetOrigin( "getOrigin", NULL, 'v' );
+const idEventDef EV_GetOrigin( "getOrigin", nullptr, 'v' );
 const idEventDef EV_SetOrigin( "setOrigin", "v" );
-const idEventDef EV_GetAngles( "getAngles", NULL, 'v' );
+const idEventDef EV_GetAngles( "getAngles", nullptr, 'v' );
 const idEventDef EV_SetAngles( "setAngles", "v" );
-const idEventDef EV_GetLinearVelocity( "getLinearVelocity", NULL, 'v' );
+const idEventDef EV_GetLinearVelocity( "getLinearVelocity", nullptr, 'v' );
 const idEventDef EV_SetLinearVelocity( "setLinearVelocity", "v" );
-const idEventDef EV_GetAngularVelocity( "getAngularVelocity", NULL, 'v' );
+const idEventDef EV_GetAngularVelocity( "getAngularVelocity", nullptr, 'v' );
 const idEventDef EV_SetAngularVelocity( "setAngularVelocity", "v" );
-const idEventDef EV_GetSize( "getSize", NULL, 'v' );
+const idEventDef EV_GetSize( "getSize", nullptr, 'v' );
 const idEventDef EV_SetSize( "setSize", "vv" );
-const idEventDef EV_GetMins( "getMins", NULL, 'v' );
-const idEventDef EV_GetMaxs( "getMaxs", NULL, 'v' );
-const idEventDef EV_IsHidden( "isHidden", NULL, 'd' );
-const idEventDef EV_Hide( "hide", NULL );
-const idEventDef EV_Show( "show", NULL );
+const idEventDef EV_GetMins( "getMins", nullptr, 'v' );
+const idEventDef EV_GetMaxs( "getMaxs", nullptr, 'v' );
+const idEventDef EV_IsHidden( "isHidden", nullptr, 'd' );
+const idEventDef EV_Hide( "hide", nullptr );
+const idEventDef EV_Show( "show", nullptr );
 const idEventDef EV_Touches( "touches", "E", 'd' );
 const idEventDef EV_ClearSignal( "clearSignal", "d" );
 const idEventDef EV_GetShaderParm( "getShaderParm", "d", 'f' );
 const idEventDef EV_SetShaderParm( "setShaderParm", "df" );
 const idEventDef EV_SetShaderParms( "setShaderParms", "ffff" );
 const idEventDef EV_SetColor( "setColor", "fff" );
-const idEventDef EV_GetColor( "getColor", NULL, 'v' );
+const idEventDef EV_GetColor( "getColor", nullptr, 'v' );
 const idEventDef EV_CacheSoundShader( "cacheSoundShader", "s" );
 const idEventDef EV_StartSoundShader( "startSoundShader", "sd", 'f' );
 const idEventDef EV_StartSound( "startSound", "sdd", 'f' );
@@ -101,7 +101,7 @@ const idEventDef EV_GetFloatKey( "getFloatKey", "s", 'f' );
 const idEventDef EV_GetVectorKey( "getVectorKey", "s", 'v' );
 const idEventDef EV_GetEntityKey( "getEntityKey", "s", 'e' );
 const idEventDef EV_RestorePosition( "restorePosition" );
-const idEventDef EV_UpdateCameraTarget( "<updateCameraTarget>", NULL );
+const idEventDef EV_UpdateCameraTarget( "<updateCameraTarget>", nullptr );
 const idEventDef EV_DistanceTo( "distanceTo", "E", 'f' );
 const idEventDef EV_DistanceToPoint( "distanceToPoint", "v", 'f' );
 const idEventDef EV_StartFx( "startFx", "s" );
@@ -194,11 +194,11 @@ UpdateGuiParms
 */
 void UpdateGuiParms( idUserInterface* gui, const idDict* args )
 {
-	if( gui == NULL || args == NULL )
+	if( gui == nullptr || args == nullptr )
 	{
 		return;
 	}
-	const idKeyValue* kv = args->MatchPrefix( "gui_parm", NULL );
+	const idKeyValue* kv = args->MatchPrefix( "gui_parm", nullptr );
 	while( kv )
 	{
 		gui->SetStateString( kv->GetKey(), kv->GetValue() );
@@ -215,8 +215,8 @@ AddRenderGui
 */
 void AddRenderGui( const char* name, idUserInterface** gui, const idDict* args )
 {
-	const idKeyValue* kv = args->MatchPrefix( "gui_parm", NULL );
-	*gui = uiManager->FindGui( name, true, ( kv != NULL ) );
+	const idKeyValue* kv = args->MatchPrefix( "gui_parm", nullptr );
+	*gui = uiManager->FindGui( name, true, ( kv != nullptr ) );
 	UpdateGuiParms( *gui, args );
 }
 
@@ -241,7 +241,7 @@ void idGameEdit::ParseSpawnArgsToRenderEntity( const idDict* args, renderEntity_
 	
 	temp = args->GetString( "model" );
 	
-	modelDef = NULL;
+	modelDef = nullptr;
 	if( temp[0] != '\0' )
 	{
 		modelDef = static_cast<const idDeclModelDef*>( declManager->FindType( DECL_MODELDEF, temp, false ) );
@@ -295,7 +295,7 @@ void idGameEdit::ParseSpawnArgsToRenderEntity( const idDict* args, renderEntity_
 		}
 	}
 	
-	renderEntity->referenceSound = NULL;
+	renderEntity->referenceSound = nullptr;
 	
 	// get shader parms
 	args->GetVector( "_color", "1 1 1", color );
@@ -354,7 +354,7 @@ void idGameEdit::ParseSpawnArgsToRefSound( const idDict* args, refSound_t* refSo
 	
 	args->GetVector( "origin", "0 0 0", refSound->origin );
 	
-	refSound->referenceSound  = NULL;
+	refSound->referenceSound  = nullptr;
 	
 	// if a diversity is not specified, every sound start will make
 	// a random one.  Specifying diversity is usefull to make multiple
@@ -410,9 +410,9 @@ void idEntity::UpdateChangeableSpawnArgs( const idDict* source )
 	{
 		source = &spawnArgs;
 	}
-	cameraTarget = NULL;
+	cameraTarget = nullptr;
 	target = source->GetString( "cameraTarget" );
-	if( target != NULL && target[0] != '\0' )
+	if( target != nullptr && target[0] != '\0' )
 	{
 		// update the camera taget
 		PostEventMS( &EV_UpdateCameraTarget, 0 );
@@ -451,17 +451,17 @@ idEntity::idEntity():
 	thinkFlags		= 0;
 	dormantStart	= 0;
 	cinematic		= false;
-	renderView		= NULL;
-	cameraTarget	= NULL;
+	renderView		= nullptr;
+	cameraTarget	= nullptr;
 	health			= 0;
 	
-	physics			= NULL;
-	bindMaster		= NULL;
+	physics			= nullptr;
+	bindMaster		= nullptr;
 	bindJoint		= INVALID_JOINT;
 	bindBody		= -1;
-	teamMaster		= NULL;
-	teamChain		= NULL;
-	signals			= NULL;
+	teamMaster		= nullptr;
+	teamChain		= nullptr;
+	signals			= nullptr;
 	
 	snapshotsReceived = 0;
 	
@@ -481,7 +481,7 @@ idEntity::idEntity():
 	
 	timeGroup = TIME_GROUP1;
 	xrayEntityHandle = -1;
-	xraySkin = NULL;
+	xraySkin = nullptr;
 	
 	noGrab = false;
 }
@@ -520,7 +520,7 @@ void idEntity::Spawn()
 	
 	gameLocal.RegisterEntity( this, -1, gameLocal.GetSpawnArgs() );
 	
-	spawnArgs.GetString( "classname", NULL, &classname );
+	spawnArgs.GetString( "classname", nullptr, &classname );
 	const idDeclEntityDef* def = gameLocal.FindEntityDef( classname, false );
 	if( def )
 	{
@@ -536,7 +536,7 @@ void idEntity::Spawn()
 	
 	noGrab = spawnArgs.GetBool( "noGrab", "0" );
 	
-	xraySkin = NULL;
+	xraySkin = nullptr;
 	renderEntity.xrayIndex = 1;
 	
 	idStr str;
@@ -558,9 +558,9 @@ void idEntity::Spawn()
 	// don't spatialize sounds from the same entity
 	refSound.listenerId = entityNumber + 1;
 	
-	cameraTarget = NULL;
+	cameraTarget = nullptr;
 	temp = spawnArgs.GetString( "cameraTarget" );
-	if( temp != NULL && temp[0] != '\0' )
+	if( temp != nullptr && temp[0] != '\0' )
 	{
 		// update the camera taget
 		PostEventMS( &EV_UpdateCameraTarget, 0 );
@@ -624,7 +624,7 @@ void idEntity::Spawn()
 	SetAxis( axis );
 	
 	temp = spawnArgs.GetString( "model" );
-	if( temp != NULL && *temp != '\0' )
+	if( temp != nullptr && *temp != '\0' )
 	{
 		SetModel( temp );
 	}
@@ -637,11 +637,11 @@ void idEntity::Spawn()
 	// auto-start a sound on the entity
 	if( refSound.shader && !refSound.waitfortrigger )
 	{
-		StartSoundShader( refSound.shader, SND_CHANNEL_ANY, 0, false, NULL );
+		StartSoundShader( refSound.shader, SND_CHANNEL_ANY, 0, false, nullptr );
 	}
 	
 	// setup script object
-	if( ShouldConstructScriptObjectAtSpawn() && spawnArgs.GetString( "scriptobject", NULL, &scriptObjectName ) )
+	if( ShouldConstructScriptObjectAtSpawn() && spawnArgs.GetString( "scriptobject", nullptr, &scriptObjectName ) )
 	{
 		if( !scriptObject.SetType( scriptObjectName ) )
 		{
@@ -675,7 +675,7 @@ idEntity::~idEntity()
 	
 	// we have to set back the default physics object before unbinding because the entity
 	// specific physics object might be an entity variable and as such could already be destroyed.
-	SetPhysics( NULL );
+	SetPhysics( nullptr );
 	
 	// remove any entities that are bound to me
 	RemoveBinds();
@@ -687,10 +687,10 @@ idEntity::~idEntity()
 	gameLocal.RemoveEntityFromHash( name.c_str(), this );
 	
 	delete renderView;
-	renderView = NULL;
+	renderView = nullptr;
 	
 	delete signals;
-	signals = NULL;
+	signals = nullptr;
 	
 	FreeModelDef();
 	FreeSoundEmitter( false );
@@ -908,13 +908,13 @@ void idEntity::SetName( const char* newname )
 	if( name.Length() )
 	{
 		gameLocal.RemoveEntityFromHash( name.c_str(), this );
-		gameLocal.program.SetEntity( name, NULL );
+		gameLocal.program.SetEntity( name, nullptr );
 	}
 	
 	name = newname;
 	if( name.Length() )
 	{
-		if( ( name == "NULL" ) || ( name == "null_entity" ) )
+		if( ( name == "nullptr" ) || ( name == "null_entity" ) )
 		{
 			gameLocal.Error( "Cannot name entity '%s'.  '%s' is reserved for script.", name.c_str(), name.c_str() );
 		}
@@ -1263,9 +1263,9 @@ void idEntity::SetModel( const char* modelname )
 		renderEntity.hModel->Reset();
 	}
 	
-	renderEntity.callback = NULL;
+	renderEntity.callback = nullptr;
 	renderEntity.numJoints = 0;
-	renderEntity.joints = NULL;
+	renderEntity.joints = nullptr;
 	if( renderEntity.hModel )
 	{
 		renderEntity.bounds = renderEntity.hModel->Bounds( &renderEntity );
@@ -1397,7 +1397,7 @@ void idEntity::UpdateModel()
 	
 	// check if the entity has an MD5 model
 	idAnimator* animator = GetAnimator();
-	if( animator != NULL && animator->ModelHandle() != NULL )
+	if( animator != nullptr && animator->ModelHandle() != nullptr )
 	{
 		// set the callback to update the joints
 		renderEntity.callback = idEntity::ModelCallback;
@@ -1410,7 +1410,7 @@ void idEntity::UpdateModel()
 	BecomeActive( TH_UPDATEVISUALS );
 	
 	// If the entity has an xray skin, go ahead and add it
-	if( xraySkin != NULL )
+	if( xraySkin != nullptr )
 	{
 		xrayEntity = renderEntity;
 		xrayEntity.xrayIndex = 2;
@@ -1700,11 +1700,11 @@ bool idEntity::UpdateRenderEntity( renderEntity_s* renderEntity, const renderVie
 	}
 	
 	idAnimator* animator = GetAnimator();
-	if( animator != NULL )
+	if( animator != nullptr )
 	{
 		SetTimeState ts( timeGroup );
 		int currentTime = gameLocal.time;
-		if( renderEntity != NULL )
+		if( renderEntity != nullptr )
 		{
 			currentTime = gameLocal.GetTimeGroupTime( renderEntity->timeGroup );
 		}
@@ -1726,9 +1726,9 @@ bool idEntity::ModelCallback( renderEntity_s* renderEntity, const renderView_t* 
 	idEntity* ent;
 	
 	ent = gameLocal.entities[ renderEntity->entityNum ];
-	if( ent == NULL )
+	if( ent == nullptr )
 	{
-		gameLocal.Error( "idEntity::ModelCallback: callback with NULL game entity" );
+		gameLocal.Error( "idEntity::ModelCallback: callback with nullptr game entity" );
 		return false;
 	}
 	
@@ -1744,7 +1744,7 @@ Subclasses will be responsible for allocating animator.
 */
 idAnimator* idEntity::GetAnimator()
 {
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -2001,7 +2001,7 @@ void idEntity::FreeSoundEmitter( bool immediate )
 	if( refSound.referenceSound )
 	{
 		refSound.referenceSound->Free( immediate );
-		refSound.referenceSound = NULL;
+		refSound.referenceSound = nullptr;
 	}
 }
 
@@ -2264,7 +2264,7 @@ void idEntity::Unbind()
 	if( !teamMaster )
 	{
 		// Teammaster already has been freed
-		bindMaster = NULL;
+		bindMaster = nullptr;
 		return;
 	}
 	
@@ -2272,7 +2272,7 @@ void idEntity::Unbind()
 	
 	if( physics )
 	{
-		physics->SetMaster( NULL, fl.bindOrientated );
+		physics->SetMaster( nullptr, fl.bindOrientated );
 	}
 	
 	// We're still part of a team, so that means I have to extricate myself
@@ -2289,7 +2289,7 @@ void idEntity::Unbind()
 	// Find the last node in my team that is bound to me.
 	// Also find the first node not bound to me, if one exists.
 	last = this;
-	for( next = teamChain; next != NULL; next = next->teamChain )
+	for( next = teamChain; next != nullptr; next = next->teamChain )
 	{
 		if( !next->IsBoundTo( this ) )
 		{
@@ -2302,7 +2302,7 @@ void idEntity::Unbind()
 	}
 	
 	// disconnect the last member of our team from the old team
-	last->teamChain = NULL;
+	last->teamChain = nullptr;
 	
 	// connect up the previous member of the old team to the node that
 	// follow the last node bound to me (if one exists).
@@ -2311,14 +2311,14 @@ void idEntity::Unbind()
 		prev->teamChain = next;
 		if( !next && ( teamMaster == prev ) )
 		{
-			prev->teamMaster = NULL;
+			prev->teamMaster = nullptr;
 		}
 	}
 	else if( next )
 	{
 		// If we were the teamMaster, then the nodes that were not bound to me are now
 		// a disconnected chain.  Make them into their own team.
-		for( ent = next; ent->teamChain != NULL; ent = ent->teamChain )
+		for( ent = next; ent->teamChain != nullptr; ent = ent->teamChain )
 		{
 			ent->teamMaster = next;
 		}
@@ -2334,12 +2334,12 @@ void idEntity::Unbind()
 	else
 	{
 		// no longer a team
-		teamMaster = NULL;
+		teamMaster = nullptr;
 	}
 	
 	bindJoint = INVALID_JOINT;
 	bindBody = -1;
-	bindMaster = NULL;
+	bindMaster = nullptr;
 	
 	PostUnbind();
 }
@@ -2354,7 +2354,7 @@ void idEntity::RemoveBinds()
 	idEntity* ent;
 	idEntity* next;
 	
-	for( ent = teamChain; ent != NULL; ent = next )
+	for( ent = teamChain; ent != nullptr; ent = next )
 	{
 		next = ent->teamChain;
 		if( ent->bindMaster == this )
@@ -2394,7 +2394,7 @@ bool idEntity::IsBoundTo( idEntity* master ) const
 		return false;
 	}
 	
-	for( ent = bindMaster; ent != NULL; ent = ent->bindMaster )
+	for( ent = bindMaster; ent != nullptr; ent = ent->bindMaster )
 	{
 		if( ent == master )
 		{
@@ -2693,7 +2693,7 @@ void idEntity::JoinTeam( idEntity* teammember )
 		teammember->teamChain = this;
 		
 		// make anyone who's bound to me part of the new team
-		for( ent = teamChain; ent != NULL; ent = ent->teamChain )
+		for( ent = teamChain; ent != nullptr; ent = ent->teamChain )
 		{
 			ent->teamMaster = master;
 		}
@@ -2725,7 +2725,7 @@ void idEntity::JoinTeam( idEntity* teammember )
 		
 		// make anyone who's bound to me part of the new team and
 		// also find the last member of my team
-		for( ent = this; ent->teamChain != NULL; ent = ent->teamChain )
+		for( ent = this; ent->teamChain != nullptr; ent = ent->teamChain )
 		{
 			ent->teamChain->teamMaster = master;
 		}
@@ -2761,7 +2761,7 @@ void idEntity::QuitTeam()
 		if( !teamChain->teamChain )
 		{
 			// no, break up the team
-			teamChain->teamMaster = NULL;
+			teamChain->teamMaster = nullptr;
 		}
 		else
 		{
@@ -2791,12 +2791,12 @@ void idEntity::QuitTeam()
 		// if no one is left on the team, break it up
 		if( !teamMaster->teamChain )
 		{
-			teamMaster->teamMaster = NULL;
+			teamMaster->teamMaster = nullptr;
 		}
 	}
 	
-	teamMaster = NULL;
-	teamChain = NULL;
+	teamMaster = nullptr;
+	teamChain = nullptr;
 }
 
 /***********************************************************************
@@ -2813,7 +2813,7 @@ idEntity::InitDefaultPhysics
 void idEntity::InitDefaultPhysics( const idVec3& origin, const idMat3& axis )
 {
 	const char* temp;
-	idClipModel* clipModel = NULL;
+	idClipModel* clipModel = nullptr;
 	
 	// check if a clipmodel key/value pair is set
 	if( spawnArgs.GetString( "clipmodel", "", &temp ) )
@@ -2834,8 +2834,8 @@ void idEntity::InitDefaultPhysics( const idVec3& origin, const idMat3& axis )
 			idBounds bounds;
 			bool setClipModel = false;
 			
-			if( spawnArgs.GetVector( "mins", NULL, bounds[0] ) &&
-					spawnArgs.GetVector( "maxs", NULL, bounds[1] ) )
+			if( spawnArgs.GetVector( "mins", nullptr, bounds[0] ) &&
+					spawnArgs.GetVector( "maxs", nullptr, bounds[1] ) )
 			{
 				setClipModel = true;
 				if( bounds[0][0] > bounds[1][0] || bounds[0][1] > bounds[1][1] || bounds[0][2] > bounds[1][2] )
@@ -2843,7 +2843,7 @@ void idEntity::InitDefaultPhysics( const idVec3& origin, const idMat3& axis )
 					gameLocal.Error( "Invalid bounds '%s'-'%s' on entity '%s'", bounds[0].ToString(), bounds[1].ToString(), name.c_str() );
 				}
 			}
-			else if( spawnArgs.GetVector( "size", NULL, size ) )
+			else if( spawnArgs.GetVector( "size", nullptr, size ) )
 			{
 				if( ( size.x < 0.0f ) || ( size.y < 0.0f ) || ( size.z < 0.0f ) )
 				{
@@ -2879,7 +2879,7 @@ void idEntity::InitDefaultPhysics( const idVec3& origin, const idMat3& axis )
 		if( !clipModel )
 		{
 			temp = spawnArgs.GetString( "model" );
-			if( ( temp != NULL ) && ( *temp != 0 ) )
+			if( ( temp != nullptr ) && ( *temp != 0 ) )
 			{
 				if( idClipModel::CheckModel( temp ) )
 				{
@@ -2909,10 +2909,10 @@ void idEntity::SetPhysics( idPhysics* phys )
 	{
 		physics->ClearContacts();
 	}
-	// set new physics object or set the default physics if NULL
-	if( phys != NULL )
+	// set new physics object or set the default physics if nullptr
+	if( phys != nullptr )
 	{
-		defaultPhysicsObj.SetClipModel( NULL, 1.0f );
+		defaultPhysicsObj.SetClipModel( nullptr, 1.0f );
 		physics = phys;
 		physics->Activate();
 	}
@@ -2931,7 +2931,7 @@ idEntity::RestorePhysics
 */
 void idEntity::RestorePhysics( idPhysics* phys )
 {
-	assert( phys != NULL );
+	assert( phys != nullptr );
 	// restore physics pointer
 	physics = phys;
 }
@@ -2954,7 +2954,7 @@ idEntity::RunPhysics
 bool idEntity::RunPhysics()
 {
 	int			i, reachedTime;
-	idEntity* 	part = NULL, *blockedPart = NULL, *blockingEntity = NULL;
+	idEntity* 	part = nullptr, *blockedPart = nullptr, *blockingEntity = nullptr;
 	trace_t		results;
 	bool		moved;
 	
@@ -2979,10 +2979,10 @@ bool idEntity::RunPhysics()
 	const int endTime = gameLocal.time;
 	
 	gameLocal.push.InitSavingPushedEntityPositions();
-	blockedPart = NULL;
+	blockedPart = nullptr;
 	
 	// save the physics state of the whole team and disable the team for collision detection
-	for( part = this; part != NULL; part = part->teamChain )
+	for( part = this; part != nullptr; part = part->teamChain )
 	{
 		if( part->physics )
 		{
@@ -2995,7 +2995,7 @@ bool idEntity::RunPhysics()
 	}
 	
 	// move the whole team
-	for( part = this; part != NULL; part = part->teamChain )
+	for( part = this; part != nullptr; part = part->teamChain )
 	{
 	
 		if( part->physics )
@@ -3028,7 +3028,7 @@ bool idEntity::RunPhysics()
 	}
 	
 	// enable the whole team for collision detection
-	for( part = this; part != NULL; part = part->teamChain )
+	for( part = this; part != nullptr; part = part->teamChain )
 	{
 		if( part->physics )
 		{
@@ -3056,7 +3056,7 @@ bool idEntity::RunPhysics()
 				part->UpdateFromPhysics( true );
 			}
 		}
-		for( part = this; part != NULL; part = part->teamChain )
+		for( part = this; part != nullptr; part = part->teamChain )
 		{
 			if( part->physics )
 			{
@@ -3116,7 +3116,7 @@ bool idEntity::RunPhysics()
 	}
 	
 	// Propogate skipMotionBlur to all team members
-	for( part = this; part != NULL; part = part->teamChain )
+	for( part = this; part != nullptr; part = part->teamChain )
 	{
 		part->renderEntity.skipMotionBlur = renderEntity.skipMotionBlur;
 	}
@@ -3127,7 +3127,7 @@ bool idEntity::RunPhysics()
 	}
 	
 	// post reached event if the current time is at or past the end point of the motion
-	for( part = this; part != NULL; part = part->teamChain )
+	for( part = this; part != nullptr; part = part->teamChain )
 	{
 	
 		if( part->physics )
@@ -3158,7 +3158,7 @@ void idEntity::InterpolatePhysics( const float fraction )
 {
 
 	int			i, startTime, endTime;
-	idEntity* 	part = NULL, *blockedPart = NULL, *blockingEntity = NULL;
+	idEntity* 	part = nullptr, *blockedPart = nullptr, *blockingEntity = nullptr;
 	trace_t		results;
 	bool		moved;
 	
@@ -3176,7 +3176,7 @@ void idEntity::InterpolatePhysics( const float fraction )
 	// The team master probably depends on the current physics state, and may be unaware of prev/next or interpolation.
 	if( teamMaster && teamMaster != this )
 	{
-		if( physics != NULL && useClientInterpolation )
+		if( physics != nullptr && useClientInterpolation )
 		{
 			if( physics->Interpolate( fraction ) )
 			{
@@ -3190,10 +3190,10 @@ void idEntity::InterpolatePhysics( const float fraction )
 	endTime = gameLocal.time;
 	
 	gameLocal.push.InitSavingPushedEntityPositions();
-	blockedPart = NULL;
+	blockedPart = nullptr;
 	
 	// save the physics state of the whole team and disable the team for collision detection
-	for( part = this; part != NULL; part = part->teamChain )
+	for( part = this; part != nullptr; part = part->teamChain )
 	{
 		if( part->physics )
 		{
@@ -3206,7 +3206,7 @@ void idEntity::InterpolatePhysics( const float fraction )
 	}
 	
 	// move the whole team
-	for( part = this; part != NULL; part = part->teamChain )
+	for( part = this; part != nullptr; part = part->teamChain )
 	{
 	
 		if( part->physics )
@@ -3239,7 +3239,7 @@ void idEntity::InterpolatePhysics( const float fraction )
 	}
 	
 	// enable the whole team for collision detection
-	for( part = this; part != NULL; part = part->teamChain )
+	for( part = this; part != nullptr; part = part->teamChain )
 	{
 		if( part->physics )
 		{
@@ -3267,7 +3267,7 @@ void idEntity::InterpolatePhysics( const float fraction )
 				part->UpdateFromPhysics( true );
 			}
 		}
-		for( part = this; part != NULL; part = part->teamChain )
+		for( part = this; part != nullptr; part = part->teamChain )
 		{
 			if( part->physics )
 			{
@@ -3317,7 +3317,7 @@ void idEntity::InterpolatePhysicsOnly( const float fraction, bool updateTeam )
 		int endTime = gameLocal.time;
 		
 		// move the whole team
-		for( idEntity* part = this; part != NULL; part = part->teamChain )
+		for( idEntity* part = this; part != nullptr; part = part->teamChain )
 		{
 		
 			if( part->physics && part != this )
@@ -3438,7 +3438,7 @@ bool idEntity::GetFloorPos( float max_dist, idVec3& floorpos ) const
 	
 	if( !GetPhysics()->HasGroundContacts() )
 	{
-		GetPhysics()->ClipTranslation( result, GetPhysics()->GetGravityNormal() * max_dist, NULL );
+		GetPhysics()->ClipTranslation( result, GetPhysics()->GetGravityNormal() * max_dist, nullptr );
 		if( result.fraction < 1.0f )
 		{
 			floorpos = result.endpos;
@@ -3602,7 +3602,7 @@ bool idEntity::CanDamage( const idVec3& origin, idVec3& damagePoint ) const
 	midpoint = ( GetPhysics()->GetAbsBounds()[0] + GetPhysics()->GetAbsBounds()[1] ) * 0.5;
 	
 	dest = midpoint;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
+	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, nullptr );
 	if( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) )
 	{
 		damagePoint = tr.endpos;
@@ -3613,7 +3613,7 @@ bool idEntity::CanDamage( const idVec3& origin, idVec3& damagePoint ) const
 	dest = midpoint;
 	dest[0] += 15.0;
 	dest[1] += 15.0;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
+	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, nullptr );
 	if( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) )
 	{
 		damagePoint = tr.endpos;
@@ -3623,7 +3623,7 @@ bool idEntity::CanDamage( const idVec3& origin, idVec3& damagePoint ) const
 	dest = midpoint;
 	dest[0] += 15.0;
 	dest[1] -= 15.0;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
+	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, nullptr );
 	if( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) )
 	{
 		damagePoint = tr.endpos;
@@ -3633,7 +3633,7 @@ bool idEntity::CanDamage( const idVec3& origin, idVec3& damagePoint ) const
 	dest = midpoint;
 	dest[0] -= 15.0;
 	dest[1] += 15.0;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
+	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, nullptr );
 	if( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) )
 	{
 		damagePoint = tr.endpos;
@@ -3643,7 +3643,7 @@ bool idEntity::CanDamage( const idVec3& origin, idVec3& damagePoint ) const
 	dest = midpoint;
 	dest[0] -= 15.0;
 	dest[1] -= 15.0;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
+	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, nullptr );
 	if( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) )
 	{
 		damagePoint = tr.endpos;
@@ -3652,7 +3652,7 @@ bool idEntity::CanDamage( const idVec3& origin, idVec3& damagePoint ) const
 	
 	dest = midpoint;
 	dest[2] += 15.0;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
+	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, nullptr );
 	if( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) )
 	{
 		damagePoint = tr.endpos;
@@ -3661,7 +3661,7 @@ bool idEntity::CanDamage( const idVec3& origin, idVec3& damagePoint ) const
 	
 	dest = midpoint;
 	dest[2] -= 15.0;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
+	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, nullptr );
 	if( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) )
 	{
 		damagePoint = tr.endpos;
@@ -3696,7 +3696,7 @@ dir			direction of the attack for knockback in global space
 point		point at which the damage is being inflicted, used for headshots
 damage		amount of damage being inflicted
 
-inflictor, attacker, dir, and point can be NULL for environmental effects
+inflictor, attacker, dir, and point can be nullptr for environmental effects
 
 ============
 */
@@ -3721,7 +3721,7 @@ void idEntity::Damage( idEntity* inflictor, idEntity* attacker, const idVec3& di
 	}
 	
 	const idDict* damageDef = gameLocal.FindEntityDefDict( damageDefName );
-	if( damageDef == NULL )
+	if( damageDef == nullptr )
 	{
 		gameLocal.Error( "Unknown damageDef '%s'\n", damageDefName );
 		return;
@@ -3761,7 +3761,7 @@ void idEntity::AddDamageEffect( const trace_t& collision, const idVec3& velocity
 	const char* sound, *decal, *key;
 	
 	const idDeclEntityDef* def = gameLocal.FindEntityDef( damageDefName, false );
-	if( def == NULL )
+	if( def == nullptr )
 	{
 		return;
 	}
@@ -3777,7 +3777,7 @@ void idEntity::AddDamageEffect( const trace_t& collision, const idVec3& velocity
 	}
 	if( *sound != '\0' )
 	{
-		StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_BODY, 0, false, NULL );
+		StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_BODY, 0, false, nullptr );
 	}
 	
 	if( g_decals.GetBool() )
@@ -3871,7 +3871,7 @@ idThread* idEntity::ConstructScriptObject()
 	}
 	else
 	{
-		thread = NULL;
+		thread = nullptr;
 	}
 	
 	// clear out the object's memory
@@ -3984,7 +3984,7 @@ void idEntity::ClearSignal( idThread* thread, signalNum_t signalnum )
 		return;
 	}
 	
-	if( signals == NULL )
+	if( signals == nullptr )
 	{
 		return;
 	}
@@ -4011,7 +4011,7 @@ void idEntity::ClearSignalThread( signalNum_t signalnum, idThread* thread )
 		return;
 	}
 	
-	if( signals == NULL )
+	if( signals == nullptr )
 	{
 		return;
 	}
@@ -4209,7 +4209,7 @@ bool idEntity::HandleGuiCommands( idEntity* entityGui, const char* cmds )
 				if( src.ReadToken( &token2 ) )
 				{
 					const idSoundShader* shader = declManager->FindSound( token2 );
-					entityGui->StartSoundShader( shader, SND_CHANNEL_ANY, 0, false, NULL );
+					entityGui->StartSoundShader( shader, SND_CHANNEL_ANY, 0, false, nullptr );
 				}
 				continue;
 			}
@@ -4222,7 +4222,7 @@ bool idEntity::HandleGuiCommands( idEntity* entityGui, const char* cmds )
 					if( ent )
 					{
 						ent->spawnArgs.Set( token3, token4 );
-						ent->UpdateChangeableSpawnArgs( NULL );
+						ent->UpdateChangeableSpawnArgs( nullptr );
 						ent->UpdateVisuals();
 					}
 				}
@@ -4517,7 +4517,7 @@ idCurve_Spline<idVec3>* idEntity::GetSpline() const
 	kv = spawnArgs.MatchPrefix( curveTag );
 	if( !kv )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	idStr str = kv->GetKey().Right( kv->GetKey().Length() - strlen( curveTag ) );
@@ -4635,7 +4635,7 @@ void idEntity::Event_GetTarget( float index )
 	i = ( int )index;
 	if( ( i < 0 ) || i >= targets.Num() )
 	{
-		idThread::ReturnEntity( NULL );
+		idThread::ReturnEntity( nullptr );
 	}
 	else
 	{
@@ -4658,7 +4658,7 @@ void idEntity::Event_RandomTarget( const char* ignore )
 	RemoveNullTargets();
 	if( !targets.Num() )
 	{
-		idThread::ReturnEntity( NULL );
+		idThread::ReturnEntity( nullptr );
 		return;
 	}
 	
@@ -4777,7 +4777,7 @@ void idEntity::Event_SpawnBind()
 			if( spawnArgs.GetString( "bindToJoint", "", &joint ) && *joint )
 			{
 				parentAnimator = parent->GetAnimator();
-				if( parentAnimator == NULL )
+				if( parentAnimator == nullptr )
 				{
 					gameLocal.Error( "Cannot bind to joint '%s' on '%s'.  Entity does not support skeletal models.", joint, name.c_str() );
 					return;
@@ -4979,7 +4979,7 @@ idEntity::Event_StartSoundShader
 void idEntity::Event_StartSoundShader( const char* soundName, int channel )
 {
 	int length = 0;
-	if( soundName == NULL || soundName[0] == 0 )
+	if( soundName == nullptr || soundName[0] == 0 )
 	{
 		StopSound( channel, false );
 	}
@@ -5244,7 +5244,7 @@ void idEntity::Event_GetNextKey( const char* prefix, const char* lastMatch )
 	}
 	else
 	{
-		previous = NULL;
+		previous = nullptr;
 	}
 	
 	kv = spawnArgs.MatchPrefix( prefix, previous );
@@ -5266,7 +5266,7 @@ idEntity::Event_SetKey
 void idEntity::Event_SetKey( const char* key, const char* value )
 {
 	spawnArgs.Set( key, value );
-	UpdateChangeableSpawnArgs( NULL );
+	UpdateChangeableSpawnArgs( nullptr );
 }
 
 /*
@@ -5333,9 +5333,9 @@ void idEntity::Event_GetEntityKey( const char* key )
 	idEntity* ent;
 	const char* entname;
 	
-	if( !spawnArgs.GetString( key, NULL, &entname ) )
+	if( !spawnArgs.GetString( key, nullptr, &entname ) )
 	{
-		idThread::ReturnEntity( NULL );
+		idThread::ReturnEntity( nullptr );
 		return;
 	}
 	
@@ -5374,9 +5374,9 @@ void idEntity::Event_RestorePosition()
 		angles[ 2 ] = 0;
 	}
 	
-	Teleport( org, angles, NULL );
+	Teleport( org, angles, nullptr );
 	
-	for( part = teamChain; part != NULL; part = part->teamChain )
+	for( part = teamChain; part != nullptr; part = part->teamChain )
 	{
 		if( part->bindMaster != this )
 		{
@@ -5411,13 +5411,13 @@ void idEntity::Event_UpdateCameraTarget()
 	
 	cameraTarget = gameLocal.FindEntity( target );
 	
-	if( cameraTarget != NULL )
+	if( cameraTarget != nullptr )
 	{
-		kv = cameraTarget->spawnArgs.MatchPrefix( "target", NULL );
+		kv = cameraTarget->spawnArgs.MatchPrefix( "target", nullptr );
 		while( kv )
 		{
 			idEntity* ent = gameLocal.FindEntity( kv->GetValue() );
-			if( ent != NULL && idStr::Icmp( ent->GetEntityDefName(), "target_null" ) == 0 )
+			if( ent != nullptr && idStr::Icmp( ent->GetEntityDefName(), "target_null" ) == 0 )
 			{
 				dir = ent->GetPhysics()->GetOrigin() - cameraTarget->GetPhysics()->GetOrigin();
 				dir.Normalize();
@@ -5468,7 +5468,7 @@ idEntity::Event_StartFx
 */
 void idEntity::Event_StartFx( const char* fx )
 {
-	idEntityFx::StartFx( fx, NULL, NULL, this, true );
+	idEntityFx::StartFx( fx, nullptr, nullptr, this, true );
 }
 
 /*
@@ -5496,7 +5496,7 @@ void idEntity::Event_Wait( float time )
 {
 	idThread* thread = idThread::CurrentThread();
 	
-	if( thread == NULL )
+	if( thread == nullptr )
 	{
 		gameLocal.Error( "Event 'wait' called from outside thread" );
 		return;
@@ -5536,14 +5536,14 @@ void idEntity::Event_CallFunction( const char* funcname )
 	idThread* thread;
 	
 	thread = idThread::CurrentThread();
-	if( thread == NULL )
+	if( thread == nullptr )
 	{
 		gameLocal.Error( "Event 'callFunction' called from outside thread" );
 		return;
 	}
 	
 	func = scriptObject.GetFunction( funcname );
-	if( func == NULL )
+	if( func == nullptr )
 	{
 		gameLocal.Error( "Unknown function '%s' in '%s'", funcname, scriptObject.GetTypeName() );
 		return;
@@ -5584,7 +5584,7 @@ idEntity::Event_SetGui
 */
 void idEntity::Event_SetGui( int guiNum, const char* guiName )
 {
-	idUserInterface** gui = NULL;
+	idUserInterface** gui = nullptr;
 	
 	if( guiNum >= 1 && guiNum <= MAX_RENDERENTITY_GUI )
 	{
@@ -5595,7 +5595,7 @@ void idEntity::Event_SetGui( int guiNum, const char* guiName )
 	{
 		*gui = uiManager->FindGui( guiName, true, false );
 		UpdateGuiParms( *gui, &spawnArgs );
-		UpdateChangeableSpawnArgs( NULL );
+		UpdateChangeableSpawnArgs( nullptr );
 		gameRenderWorld->UpdateEntityDef( modelDefHandle, &renderEntity );
 		
 	}
@@ -6017,7 +6017,7 @@ bool idEntity::ClientReceiveEvent( int event, int time, const idBitMsg& msg )
 			{
 				shader = declManager->SoundByIndex( index, false );
 				channel = ( s_channelType )msg.ReadByte();
-				StartSoundShader( shader, channel, 0, false, NULL );
+				StartSoundShader( shader, channel, 0, false, nullptr );
 			}
 			return true;
 		}
@@ -6154,7 +6154,7 @@ idAnimatedEntity::idAnimatedEntity
 idAnimatedEntity::idAnimatedEntity()
 {
 	animator.SetEntity( this );
-	damageEffects = NULL;
+	damageEffects = nullptr;
 }
 
 /*
@@ -6399,13 +6399,13 @@ void idAnimatedEntity::AddDamageEffect( const trace_t& collision, const idVec3& 
 	idVec3 origin, dir, localDir, localOrigin, localNormal;
 	idMat3 axis;
 	
-	if( !g_bloodEffects.GetBool() || renderEntity.joints == NULL )
+	if( !g_bloodEffects.GetBool() || renderEntity.joints == nullptr )
 	{
 		return;
 	}
 	
 	const idDeclEntityDef* def = gameLocal.FindEntityDef( damageDefName, false );
-	if( def == NULL )
+	if( def == nullptr )
 	{
 		return;
 	}
@@ -6476,7 +6476,7 @@ void idAnimatedEntity::AddLocalDamageEffect( jointHandle_t jointNum, const idVec
 	}
 	if( *sound != '\0' )
 	{
-		StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_BODY, 0, false, NULL );
+		StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_BODY, 0, false, nullptr );
 	}
 	
 	// blood splats are thrown onto nearby surfaces

@@ -206,7 +206,7 @@ idToken::ClearTokenWhiteSpace
 */
 void idToken::ClearTokenWhiteSpace()
 {
-	whiteSpaceStart_p = NULL;
-	whiteSpaceEnd_p = NULL;
+	whiteSpaceStart_p = nullptr;
+	whiteSpaceEnd_p = nullptr;
 	linesCrossed = 0;
 }

@@ -120,15 +120,15 @@ void idMaterial::CommonInit()
 	cullType = CT_FRONT_SIDED;
 	deform = DFRM_NONE;
 	numOps = 0;
-	ops = NULL;
+	ops = nullptr;
 	numRegisters = 0;
-	expressionRegisters = NULL;
-	constantRegisters = NULL;
+	expressionRegisters = nullptr;
+	constantRegisters = nullptr;
 	numStages = 0;
 	numAmbientStages = 0;
-	stages = NULL;
-	editorImage = NULL;
-	lightFalloffImage = NULL;
+	stages = nullptr;
+	editorImage = nullptr;
+	lightFalloffImage = nullptr;
 	shouldCreateBackSides = false;
 	entityGui = 0;
 	fogLight = false;
@@ -138,7 +138,7 @@ void idMaterial::CommonInit()
 	hasSubview = false;
 	allowOverlays = true;
 	unsmoothedTangents = false;
-	gui = NULL;
+	gui = nullptr;
 	memset( deformRegisters, 0, sizeof( deformRegisters ) );
 	editorAlpha = 1.0;
 	spectrum = 0;
@@ -146,10 +146,10 @@ void idMaterial::CommonInit()
 	suppressInSubview = false;
 	refCount = 0;
 	portalSky = false;
-	fastPathBumpImage = NULL;
-	fastPathDiffuseImage = NULL;
-	fastPathSpecularImage = NULL;
-	deformDecl = NULL;
+	fastPathBumpImage = nullptr;
+	fastPathDiffuseImage = nullptr;
+	fastPathSpecularImage = nullptr;
+	deformDecl = nullptr;
 	
 	decalInfo.stayTime = 10000;
 	decalInfo.fadeTime = 4000;
@@ -201,34 +201,34 @@ void idMaterial::FreeData()
 		// delete any idCinematic textures
 		for( i = 0; i < numStages; i++ )
 		{
-			if( stages[i].texture.cinematic != NULL )
+			if( stages[i].texture.cinematic != nullptr )
 			{
 				delete stages[i].texture.cinematic;
-				stages[i].texture.cinematic = NULL;
+				stages[i].texture.cinematic = nullptr;
 			}
-			if( stages[i].newStage != NULL )
+			if( stages[i].newStage != nullptr )
 			{
 				Mem_Free( stages[i].newStage );
-				stages[i].newStage = NULL;
+				stages[i].newStage = nullptr;
 			}
 		}
 		R_StaticFree( stages );
-		stages = NULL;
+		stages = nullptr;
 	}
-	if( expressionRegisters != NULL )
+	if( expressionRegisters != nullptr )
 	{
 		R_StaticFree( expressionRegisters );
-		expressionRegisters = NULL;
+		expressionRegisters = nullptr;
 	}
-	if( constantRegisters != NULL )
+	if( constantRegisters != nullptr )
 	{
 		R_StaticFree( constantRegisters );
-		constantRegisters = NULL;
+		constantRegisters = nullptr;
 	}
-	if( ops != NULL )
+	if( ops != nullptr )
 	{
 		R_StaticFree( ops );
-		ops = NULL;
+		ops = nullptr;
 	}
 }
 
@@ -306,7 +306,7 @@ static infoParm_t	infoParms[] =
 	{"aasobstacle",	0,	0,	CONTENTS_AAS_OBSTACLE },// used to compile an obstacle into AAS that can be enabled/disabled
 	{"flashlight_trigger",	0,	0,	CONTENTS_FLASHLIGHT_TRIGGER }, // used for triggers that are activated by the flashlight
 	{"nonsolid",	1,	0,	0 },					// clears the solid flag
-	{"nullNormal",	0,	SURF_NULLNORMAL, 0 },		// renderbump will draw as 0x80 0x80 0x80
+	{"nullNormal",	0,	SURF_nullptrNORMAL, 0 },		// renderbump will draw as 0x80 0x80 0x80
 	
 	// utility relevant attributes
 	{"areaportal",	1,	0,	CONTENTS_AREAPORTAL },	// divides areas
@@ -2894,7 +2894,7 @@ bool idMaterial::Parse( const char* text, const int textLength, bool allowBinary
 	// See if the material is trivial for the fast path
 	SetFastPathImages();
 	
-	pd = NULL;	// the pointer will be invalid after exiting this function
+	pd = nullptr;	// the pointer will be invalid after exiting this function
 	
 	// finish things up
 	if( TestMaterialFlag( MF_DEFAULTED ) )
@@ -3182,7 +3182,7 @@ void idMaterial::CloseCinematic() const
 		{
 			stages[i].texture.cinematic->Close();
 			delete stages[i].texture.cinematic;
-			stages[i].texture.cinematic = NULL;
+			stages[i].texture.cinematic = nullptr;
 		}
 	}
 }
@@ -3242,7 +3242,7 @@ maps are constant, but 2/3 of the surface references are.
 */
 void idMaterial::CheckForConstantRegisters()
 {
-	assert( constantRegisters == NULL );
+	assert( constantRegisters == nullptr );
 	
 	if( !pd->registersAreConstant )
 	{
@@ -3301,7 +3301,7 @@ idMaterial::SetDefaultText
 bool idMaterial::SetDefaultText()
 {
 	// if there exists an image with the same name
-	if( 1 )    //fileSystem->ReadFile( GetName(), NULL ) != -1 ) {
+	if( 1 )    //fileSystem->ReadFile( GetName(), nullptr ) != -1 ) {
 	{
 		char generated[2048];
 		idStr::snPrintf( generated, sizeof( generated ),
@@ -3354,7 +3354,7 @@ const shaderStage_t* idMaterial::GetBumpStage() const
 			return &stages[i];
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -3392,11 +3392,11 @@ See if the material is trivial for the fast path
 */
 void idMaterial::SetFastPathImages()
 {
-	fastPathBumpImage = NULL;
-	fastPathDiffuseImage = NULL;
-	fastPathSpecularImage = NULL;
+	fastPathBumpImage = nullptr;
+	fastPathDiffuseImage = nullptr;
+	fastPathSpecularImage = nullptr;
 	
-	if( constantRegisters == NULL )
+	if( constantRegisters == nullptr )
 	{
 		return;
 	}
@@ -3467,20 +3467,20 @@ void idMaterial::SetFastPathImages()
 	// we also need a diffuse image, because we can't get a pure black with our YCoCg conversion
 	// from 565 DXT.  The general-path code also sets the diffuse color to 0 in the default case,
 	// but the fast path can't.
-	if( fastPathBumpImage == NULL || fastPathDiffuseImage == NULL )
+	if( fastPathBumpImage == nullptr || fastPathDiffuseImage == nullptr )
 	{
 		goto fail;
 	}
-	if( fastPathSpecularImage == NULL )
+	if( fastPathSpecularImage == nullptr )
 	{
 		fastPathSpecularImage = globalImages->blackImage;
 	}
 	return;
 	
 fail:
-	fastPathBumpImage = NULL;
-	fastPathDiffuseImage = NULL;
-	fastPathSpecularImage = NULL;
+	fastPathBumpImage = nullptr;
+	fastPathDiffuseImage = nullptr;
+	fastPathSpecularImage = nullptr;
 }
 
 //} // namespace BFG

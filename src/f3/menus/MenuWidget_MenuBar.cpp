@@ -47,7 +47,7 @@ idMenuWidget_MenuBar::Update
 void idMenuWidget_MenuBar::Update()
 {
 
-	if( GetSWFObject() == NULL )
+	if( GetSWFObject() == nullptr )
 	{
 		return;
 	}
@@ -89,9 +89,9 @@ void idMenuWidget_MenuBar::Update()
 	GetSprite()->SetXPos( xPos );
 	
 	idSWFSpriteInstance* backing = GetSprite()->GetScriptObject()->GetNestedSprite( "backing" );
-	if( backing != NULL )
+	if( backing != nullptr )
 	{
-		if( menuData != NULL && menuData->GetPlatform() != 2 )
+		if( menuData != nullptr && menuData->GetPlatform() != 2 )
 		{
 			backing->SetVisible( false );
 		}
@@ -142,7 +142,7 @@ bool idMenuWidget_MenuBar::PrepareListElement( idMenuWidget& widget, const int n
 	}
 	
 	idMenuWidget_MenuButton* const button = dynamic_cast< idMenuWidget_MenuButton* >( &widget );
-	if( button == NULL || button->GetSprite() == NULL )
+	if( button == nullptr || button->GetSprite() == nullptr )
 	{
 		return false;
 	}
@@ -155,7 +155,7 @@ bool idMenuWidget_MenuBar::PrepareListElement( idMenuWidget& widget, const int n
 	{
 		button->SetLabel( headings[navIndex] );
 		idSWFTextInstance* ti = button->GetSprite()->GetScriptObject()->GetNestedText( "txtVal" );
-		if( ti != NULL )
+		if( ti != nullptr )
 		{
 			ti->SetStrokeInfo( true, 0.7f, 1.25f );
 			ti->SetText( headings[ navIndex ] );

@@ -70,19 +70,19 @@ idMenuWidget_PDA_EmailInbox::Update
 void idMenuWidget_PDA_EmailInbox::Update()
 {
 
-	if( GetSWFObject() == NULL )
+	if( GetSWFObject() == nullptr )
 	{
 		return;
 	}
 	
 	idSWFScriptObject& root = GetSWFObject()->GetRootObject();
-	if( !BindSprite( root ) || GetSprite() == NULL )
+	if( !BindSprite( root ) || GetSprite() == nullptr )
 	{
 		return;
 	}
 	
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	if( player == NULL )
+	if( player == nullptr )
 	{
 		return;
 	}
@@ -95,11 +95,11 @@ void idMenuWidget_PDA_EmailInbox::Update()
 	const idDeclPDA* pda = player->GetInventory().pdas[ pdaIndex ];
 	
 	idSWFScriptObject* dataObj = GetSprite()->GetScriptObject()->GetNestedObj( "info" );
-	if( dataObj != NULL && pda != NULL )
+	if( dataObj != nullptr && pda != nullptr )
 	{
 	
 		idSWFTextInstance* txtOwner = dataObj->GetNestedText( "heading", "txtOwner" );
-		if( txtOwner != NULL )
+		if( txtOwner != nullptr )
 		{
 			idStr ownerText = idLocalization::GetString( "#str_01474" );
 			ownerText.Append( ": " );
@@ -126,15 +126,15 @@ void idMenuWidget_PDA_EmailInbox::Update()
 			
 		}
 		
-		if( emailList != NULL )
+		if( emailList != nullptr )
 		{
-			const idDeclEmail* email = NULL;
+			const idDeclEmail* email = nullptr;
 			emailInfo.Clear();
 			for( int index = 0; index < pda->GetNumEmails(); ++index )
 			{
 				idList< idStr > emailData;
 				email = pda->GetEmailByIndex( index );
-				if( email != NULL )
+				if( email != nullptr )
 				{
 					emailData.Append( email->GetFrom() );
 					emailData.Append( email->GetSubject() );
@@ -160,14 +160,14 @@ idMenuWidget_PDA_EmailInbox::ObserveEvent
 void idMenuWidget_PDA_EmailInbox::ObserveEvent( const idMenuWidget& widget, const idWidgetEvent& event )
 {
 	const idMenuWidget_Button* const button = dynamic_cast< const idMenuWidget_Button* >( &widget );
-	if( button == NULL )
+	if( button == nullptr )
 	{
 		return;
 	}
 	
 	const idMenuWidget* const listWidget = button->GetParent();
 	
-	if( listWidget == NULL )
+	if( listWidget == nullptr )
 	{
 		return;
 	}
@@ -178,12 +178,12 @@ void idMenuWidget_PDA_EmailInbox::ObserveEvent( const idMenuWidget& widget, cons
 		{
 			const idMenuWidget_DynamicList* const list = dynamic_cast< const idMenuWidget_DynamicList* const >( listWidget );
 			int oldIndex = pdaIndex;
-			if( list != NULL )
+			if( list != nullptr )
 			{
 				pdaIndex = list->GetViewIndex();
 				Update();
 			}
-			if( emailList != NULL && oldIndex != pdaIndex )
+			if( emailList != nullptr && oldIndex != pdaIndex )
 			{
 				emailList->SetFocusIndex( 0 );
 				emailList->SetViewIndex( 0 );
@@ -194,7 +194,7 @@ void idMenuWidget_PDA_EmailInbox::ObserveEvent( const idMenuWidget& widget, cons
 		case WIDGET_EVENT_FOCUS_OFF:
 		{
 			Update();
-			if( emailList != NULL )
+			if( emailList != nullptr )
 			{
 				emailList->SetFocusIndex( 0 );
 				emailList->SetViewIndex( 0 );

@@ -108,25 +108,25 @@ void R_FreeEntityDefDerivedData( idRenderEntityLocal* def, bool keepDecals, bool
 		if( def->parms.joints )
 		{
 			Mem_Free16( def->parms.joints );
-			def->parms.joints = NULL;
+			def->parms.joints = nullptr;
 		}
 		if( def->parms.callbackData )
 		{
 			Mem_Free( def->parms.callbackData );
-			def->parms.callbackData = NULL;
+			def->parms.callbackData = nullptr;
 		}
 		for( int i = 0; i < MAX_RENDERENTITY_GUI; i++ )
 		{
 			if( def->parms.gui[ i ] )
 			{
 				delete def->parms.gui[ i ];
-				def->parms.gui[ i ] = NULL;
+				def->parms.gui[ i ] = nullptr;
 			}
 		}
 	}
 	
 	// free all the interactions
-	while( def->firstInteraction != NULL )
+	while( def->firstInteraction != nullptr )
 	{
 		def->firstInteraction->UnlinkAndFree();
 	}
@@ -135,7 +135,7 @@ void R_FreeEntityDefDerivedData( idRenderEntityLocal* def, bool keepDecals, bool
 	// clear the dynamic model if present
 	if( def->dynamicModel )
 	{
-		def->dynamicModel = NULL;
+		def->dynamicModel = nullptr;
 	}
 	
 	if( !keepDecals )
@@ -147,12 +147,12 @@ void R_FreeEntityDefDerivedData( idRenderEntityLocal* def, bool keepDecals, bool
 	if( !keepCachedDynamicModel )
 	{
 		delete def->cachedDynamicModel;
-		def->cachedDynamicModel = NULL;
+		def->cachedDynamicModel = nullptr;
 	}
 	
 	// free the entityRefs from the areas
-	areaReference_t* next = NULL;
-	for( areaReference_t* ref = def->entityRefs; ref != NULL; ref = next )
+	areaReference_t* next = nullptr;
+	for( areaReference_t* ref = def->entityRefs; ref != nullptr; ref = next )
 	{
 		next = ref->ownerNext;
 		
@@ -163,7 +163,7 @@ void R_FreeEntityDefDerivedData( idRenderEntityLocal* def, bool keepDecals, bool
 		// put it back on the free list for reuse
 		def->world->areaReferenceAllocator.Free( ref );
 	}
-	def->entityRefs = NULL;
+	def->entityRefs = nullptr;
 }
 
 /*
@@ -173,7 +173,7 @@ R_FreeEntityDefDecals
 */
 void R_FreeEntityDefDecals( idRenderEntityLocal* def )
 {
-	def->decals = NULL;
+	def->decals = nullptr;
 }
 
 /*
@@ -183,7 +183,7 @@ R_FreeEntityDefFadedDecals
 */
 void R_FreeEntityDefFadedDecals( idRenderEntityLocal* def, int time )
 {
-	if( def->decals != NULL )
+	if( def->decals != nullptr )
 	{
 		def->decals->RemoveFadedDecals( time );
 	}
@@ -196,7 +196,7 @@ R_FreeEntityDefOverlay
 */
 void R_FreeEntityDefOverlay( idRenderEntityLocal* def )
 {
-	def->overlays = NULL;
+	def->overlays = nullptr;
 }
 
 /*
@@ -211,14 +211,14 @@ Bumps tr.viewCount, which means viewCount can change many times each frame.
 */
 void R_CreateEntityRefs( idRenderEntityLocal* entity )
 {
-	if( entity->parms.hModel == NULL )
+	if( entity->parms.hModel == nullptr )
 	{
 		entity->parms.hModel = renderModelManager->DefaultModel();
 	}
 	
 	// if the entity hasn't been fully specified due to expensive animation calcs
 	// for md5 and particles, use the provided conservative bounds.
-	if( entity->parms.callback != NULL )
+	if( entity->parms.callback != nullptr )
 	{
 		entity->localReferenceBounds = entity->parms.bounds;
 	}
@@ -249,7 +249,7 @@ void R_CreateEntityRefs( idRenderEntityLocal* entity )
 	tr.viewCount++;
 	
 	// push the model frustum down the BSP tree into areas
-	entity->world->PushFrustumIntoTree( entity, NULL, entity->inverseBaseModelProject, bounds_unitCube );
+	entity->world->PushFrustumIntoTree( entity, nullptr, entity->inverseBaseModelProject, bounds_unitCube );
 }
 
 /*
@@ -387,11 +387,11 @@ void R_DeriveLightData( idRenderLightLocal* light )
 {
 
 	// decide which light shader we are going to use
-	if( light->parms.shader != NULL )
+	if( light->parms.shader != nullptr )
 	{
 		light->lightShader = light->parms.shader;
 	}
-	else if( light->lightShader == NULL )
+	else if( light->lightShader == nullptr )
 	{
 		if( light->parms.pointLight )
 		{
@@ -406,7 +406,7 @@ void R_DeriveLightData( idRenderLightLocal* light )
 	// get the falloff image
 	light->falloffImage = light->lightShader->LightFalloffImage();
 	
-	if( light->falloffImage == NULL )
+	if( light->falloffImage == nullptr )
 	{
 		// use the falloff from the default shader of the correct type
 		const idMaterial* defaultShader;
@@ -535,20 +535,20 @@ Frees all references and lit surfaces from the light
 void R_FreeLightDefDerivedData( idRenderLightLocal* ldef )
 {
 	// remove any portal fog references
-	for( doublePortal_t* dp = ldef->foggedPortals; dp != NULL; dp = dp->nextFoggedPortal )
+	for( doublePortal_t* dp = ldef->foggedPortals; dp != nullptr; dp = dp->nextFoggedPortal )
 	{
-		dp->fogLight = NULL;
+		dp->fogLight = nullptr;
 	}
 	
 	// free all the interactions
-	while( ldef->firstInteraction != NULL )
+	while( ldef->firstInteraction != nullptr )
 	{
 		ldef->firstInteraction->UnlinkAndFree();
 	}
 	
 	// free all the references to the light
-	areaReference_t* nextRef = NULL;
-	for( areaReference_t* lref = ldef->references; lref != NULL; lref = nextRef )
+	areaReference_t* nextRef = nullptr;
+	for( areaReference_t* lref = ldef->references; lref != nullptr; lref = nextRef )
 	{
 		nextRef = lref->ownerNext;
 		
@@ -559,7 +559,7 @@ void R_FreeLightDefDerivedData( idRenderLightLocal* ldef )
 		// put it back on the free list for reuse
 		ldef->world->areaReferenceAllocator.Free( lref );
 	}
-	ldef->references = NULL;
+	ldef->references = nullptr;
 }
 
 // RB begin
@@ -702,7 +702,7 @@ encloses any portals, which may allow them to be fogged closed.
 */
 static void R_CreateLightDefFogPortals( idRenderLightLocal* ldef )
 {
-	ldef->foggedPortals = NULL;
+	ldef->foggedPortals = nullptr;
 	
 	if( !ldef->lightShader->IsFogLight() )
 	{
@@ -715,12 +715,12 @@ static void R_CreateLightDefFogPortals( idRenderLightLocal* ldef )
 		return;
 	}
 	
-	for( areaReference_t* lref = ldef->references; lref != NULL; lref = lref->ownerNext )
+	for( areaReference_t* lref = ldef->references; lref != nullptr; lref = lref->ownerNext )
 	{
 		// check all the models in this area
 		portalArea_t* area = lref->area;
 		
-		for( portal_t* prt = area->portals; prt != NULL; prt = prt->next )
+		for( portal_t* prt = area->portals; prt != nullptr; prt = prt->next )
 		{
 			doublePortal_t* dp = prt->doublePortal;
 			
@@ -770,14 +770,14 @@ void R_CreateLightRefs( idRenderLightLocal* light )
 	// we can limit the area references to those visible through the portals from the light center.
 	// We can't do this in the normal case, because shadows are cast from back facing triangles, which
 	// may be in areas not directly visible to the light projection center.
-	if( light->parms.prelightModel != NULL && r_useLightPortalFlow.GetBool() && light->lightShader->LightCastsShadows() )
+	if( light->parms.prelightModel != nullptr && r_useLightPortalFlow.GetBool() && light->lightShader->LightCastsShadows() )
 	{
 		light->world->FlowLightThroughPortals( light );
 	}
 	else
 	{
 		// push the light frustum down the BSP tree into areas
-		light->world->PushFrustumIntoTree( NULL, light, light->inverseBaseLightProject, bounds_zeroOneCube );
+		light->world->PushFrustumIntoTree( nullptr, light, light->inverseBaseLightProject, bounds_zeroOneCube );
 	}
 	
 	R_CreateLightDefFogPortals( light );
@@ -807,7 +807,7 @@ void R_FreeDerivedData()
 		for( int i = 0; i < rw->entityDefs.Num(); i++ )
 		{
 			idRenderEntityLocal* def = rw->entityDefs[i];
-			if( def == NULL )
+			if( def == nullptr )
 			{
 				continue;
 			}
@@ -817,7 +817,7 @@ void R_FreeDerivedData()
 		for( int i = 0; i < rw->lightDefs.Num(); i++ )
 		{
 			idRenderLightLocal* light = rw->lightDefs[i];
-			if( light == NULL )
+			if( light == nullptr )
 			{
 				continue;
 			}
@@ -865,7 +865,7 @@ void R_ReCreateWorldReferences()
 {
 	// let the interaction generation code know this
 	// shouldn't be optimized for a particular view
-	tr.viewDef = NULL;
+	tr.viewDef = nullptr;
 	
 	for( int j = 0; j < tr.worlds.Num(); j++ )
 	{
@@ -874,7 +874,7 @@ void R_ReCreateWorldReferences()
 		for( int i = 0; i < rw->entityDefs.Num(); i++ )
 		{
 			idRenderEntityLocal* def = rw->entityDefs[i];
-			if( def == NULL )
+			if( def == nullptr )
 			{
 				continue;
 			}
@@ -893,7 +893,7 @@ void R_ReCreateWorldReferences()
 		for( int i = 0; i < rw->lightDefs.Num(); i++ )
 		{
 			idRenderLightLocal* light = rw->lightDefs[i];
-			if( light == NULL )
+			if( light == nullptr )
 			{
 				continue;
 			}
@@ -935,7 +935,7 @@ void R_ModulateLights_f( const idCmdArgs& args )
 	for( int i = 0; i < tr.primaryWorld->lightDefs.Num(); i++ )
 	{
 		idRenderLightLocal* light = tr.primaryWorld->lightDefs[i];
-		if( light != NULL )
+		if( light != nullptr )
 		{
 			count++;
 			for( int j = 0; j < 3; j++ )

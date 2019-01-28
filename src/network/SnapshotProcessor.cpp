@@ -580,7 +580,7 @@ void idSnapshotProcessor::AddSnapObjTemplate( int objID, idBitMsg& msg )
 {
 	extern idCVar net_ssTemplateDebug;
 	idSnapShot::objectState_t* state = templateStates.S_AddObject( objID, MAX_UNSIGNED_TYPE( uint32 ), msg );
-	if( verify( state != NULL ) )
+	if( verify( state != nullptr ) )
 	{
 		if( net_ssTemplateDebug.GetBool() )
 		{

@@ -65,15 +65,15 @@ bool idWaveFile::Open( const char* filename )
 {
 	Close();
 	
-	if( filename == NULL || filename[0] == 0 )
+	if( filename == nullptr || filename[0] == 0 )
 	{
 		return false;
 	}
 	
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		file = fileSystem->OpenFileReadMemory( filename );
-		if( file == NULL )
+		if( file == nullptr )
 		{
 			return false;
 		}
@@ -218,7 +218,7 @@ typedef struct XMA2WAVEFORMAT
 ========================
 idWaveFile::ReadWaveFormat
 
-Reads a wave format header, returns NULL if it found one and read it.
+Reads a wave format header, returns nullptr if it found one and read it.
 otherwise, returns a human-readable error message.
 ========================
 */
@@ -324,7 +324,7 @@ const char* idWaveFile::ReadWaveFormat( waveFmt_t& format )
 		return "Unknown wave format tag";
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -597,10 +597,10 @@ Closes the file and frees resources.
 */
 void idWaveFile::Close()
 {
-	if( file != NULL )
+	if( file != nullptr )
 	{
 		delete file;
-		file = NULL;
+		file = nullptr;
 	}
 	chunks.SetNum( 0 );
 }

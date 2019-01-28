@@ -132,7 +132,7 @@ int idWinding::Split( const idPlane& plane, const float epsilon, idWinding** fro
 	sides[i] = sides[0];
 	dists[i] = dists[0];
 	
-	*front = *back = NULL;
+	*front = *back = nullptr;
 	
 	// if coplanar, put on the front side if the normals match
 	if( !counts[SIDE_FRONT] && !counts[SIDE_BACK] )
@@ -318,7 +318,7 @@ idWinding* idWinding::Clip( const idPlane& plane, const float epsilon, const boo
 	if( !counts[SIDE_FRONT] )
 	{
 		delete this;
-		return NULL;
+		return nullptr;
 	}
 	// if nothing at the back of the clipping plane
 	if( !counts[SIDE_BACK] )
@@ -1186,7 +1186,7 @@ idWinding* idWinding::TryMerge( const idWinding& w, const idVec3& planenormal, i
 	//
 	// find a idLib::common edge
 	//
-	p1 = p2 = NULL;	// stop compiler warning
+	p1 = p2 = nullptr;	// stop compiler warning
 	j = 0;
 	
 	for( i = 0; i < f1->numPoints; i++ )
@@ -1221,7 +1221,7 @@ idWinding* idWinding::TryMerge( const idWinding& w, const idVec3& planenormal, i
 	
 	if( i == f1->numPoints )
 	{
-		return NULL;			// no matching edges
+		return nullptr;			// no matching edges
 	}
 	
 	//
@@ -1238,7 +1238,7 @@ idWinding* idWinding::TryMerge( const idWinding& w, const idVec3& planenormal, i
 	dot = delta * normal;
 	if( dot > CONTINUOUS_EPSILON )
 	{
-		return NULL;			// not a convex polygon
+		return nullptr;			// not a convex polygon
 	}
 	
 	keep1 = ( bool )( dot < -CONTINUOUS_EPSILON );
@@ -1253,7 +1253,7 @@ idWinding* idWinding::TryMerge( const idWinding& w, const idVec3& planenormal, i
 	dot = delta * normal;
 	if( dot > CONTINUOUS_EPSILON )
 	{
-		return NULL;			// not a convex polygon
+		return nullptr;			// not a convex polygon
 	}
 	
 	keep2 = ( bool )( dot < -CONTINUOUS_EPSILON );

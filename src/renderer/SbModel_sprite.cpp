@@ -91,19 +91,19 @@ idRenderModel* 	idRenderModelSprite::InstantiateDynamicModel( const struct rende
 	if( cachedModel && !r_useCachedDynamicModels.GetBool() )
 	{
 		delete cachedModel;
-		cachedModel = NULL;
+		cachedModel = nullptr;
 	}
 	
-	if( renderEntity == NULL || viewDef == NULL )
+	if( renderEntity == nullptr || viewDef == nullptr )
 	{
 		delete cachedModel;
-		return NULL;
+		return nullptr;
 	}
 	
-	if( cachedModel != NULL )
+	if( cachedModel != nullptr )
 	{
 	
-		assert( dynamic_cast<idRenderModelStatic*>( cachedModel ) != NULL );
+		assert( dynamic_cast<idRenderModelStatic*>( cachedModel ) != nullptr );
 		assert( idStr::Icmp( cachedModel->Name(), sprite_SnapshotName ) == 0 );
 		
 		staticModel = static_cast<idRenderModelStatic*>( cachedModel );
@@ -210,7 +210,7 @@ idBounds idRenderModelSprite::Bounds( const struct renderEntity_s* renderEntity 
 	idBounds b;
 	
 	b.Zero();
-	if( renderEntity == NULL )
+	if( renderEntity == nullptr )
 	{
 		b.ExpandSelf( 8.0f );
 	}

@@ -65,7 +65,7 @@ bool idResourceContainer::Init( const char* _fileName, uint8 containerIndex )
 		resourceFile = fileSystem->OpenFileRead( _fileName );
 	}
 	
-	if( resourceFile == NULL )
+	if( resourceFile == nullptr )
 	{
 		idLib::Warning( "Unable to open resource file %s", _fileName );
 		return false;
@@ -103,7 +103,7 @@ bool idResourceContainer::Init( const char* _fileName, uint8 containerIndex )
 		
 		const int key = cacheHash.GenerateKey( rt.filename, false );
 		bool found = false;
-		//for ( int index = cacheHash.GetFirst( key ); index != idHashIndex::NULL_INDEX; index = cacheHash.GetNext( index ) ) {
+		//for ( int index = cacheHash.GetFirst( key ); index != idHashIndex::nullptr_INDEX; index = cacheHash.GetNext( index ) ) {
 		//	idResourceCacheEntry & rtc = cacheTable[ index ];
 		//	if ( idStr::Icmp( rtc.filename, rt.filename ) == 0 ) {
 		//		found = true;
@@ -133,7 +133,7 @@ void idResourceContainer::WriteManifestFile( const char* name, const idStrList& 
 	filename.SetFileExtension( "manifest" );
 	filename.Insert( "maps/", 0 );
 	idFile* outFile = fileSystem->OpenFileWrite( filename );
-	if( outFile != NULL )
+	if( outFile != nullptr )
 	{
 		int num = list.Num();
 		outFile->WriteBig( num );
@@ -153,7 +153,7 @@ idResourceContainer::ReadManifestFile
 int idResourceContainer::ReadManifestFile( const char* name, idStrList& list )
 {
 	idFile* inFile = fileSystem->OpenFileRead( name );
-	if( inFile != NULL )
+	if( inFile != nullptr )
 	{
 		list.SetGranularity( 16384 );
 		idStr str;
@@ -179,7 +179,7 @@ idResourceContainer::UpdateResourceFile
 void idResourceContainer::UpdateResourceFile( const char* _filename, const idStrList& _filesToUpdate )
 {
 	idFile* outFile = fileSystem->OpenFileWrite( va( "%s.new", _filename ) );
-	if( outFile == NULL )
+	if( outFile == nullptr )
 	{
 		idLib::Warning( "Unable to open resource file %s or new output file", _filename );
 		return;
@@ -192,7 +192,7 @@ void idResourceContainer::UpdateResourceFile( const char* _filename, const idStr
 	idStrList filesToUpdate = _filesToUpdate;
 	
 	idFile* inFile = fileSystem->OpenFileRead( _filename );
-	if( inFile == NULL )
+	if( inFile == nullptr )
 	{
 		magic = RESOURCE_FILE_MAGIC;
 		
@@ -233,14 +233,14 @@ void idResourceContainer::UpdateResourceFile( const char* _filename, const idStr
 			
 			
 			idLib::Printf( "examining %s\n", entries[ i ].filename.c_str() );
-			byte* fileData = NULL;
+			byte* fileData = nullptr;
 			
 			for( int j = filesToUpdate.Num() - 1; j >= 0; j-- )
 			{
 				if( filesToUpdate[ j ].Icmp( entries[ i ].filename ) == 0 )
 				{
 					idFile* newFile = fileSystem->OpenFileReadMemory( filesToUpdate[ j ] );
-					if( newFile != NULL )
+					if( newFile != nullptr )
 					{
 						idLib::Printf( "Updating %s\n", filesToUpdate[ j ].c_str() );
 						entries[ i ].length = newFile->Length();
@@ -252,7 +252,7 @@ void idResourceContainer::UpdateResourceFile( const char* _filename, const idStr
 				}
 			}
 			
-			if( fileData == NULL )
+			if( fileData == nullptr )
 			{
 				inFile->Seek( entries[ i ].offset, FS_SEEK_SET );
 				fileData = ( byte* )Mem_Alloc( entries[ i ].length, TAG_TEMP );
@@ -271,7 +271,7 @@ void idResourceContainer::UpdateResourceFile( const char* _filename, const idStr
 	while( filesToUpdate.Num() > 0 )
 	{
 		idFile* newFile = fileSystem->OpenFileReadMemory( filesToUpdate[ 0 ] );
-		if( newFile != NULL )
+		if( newFile != nullptr )
 		{
 			idLib::Printf( "Appending %s\n", filesToUpdate[ 0 ].c_str() );
 			idResourceCacheEntry rt;
@@ -334,7 +334,7 @@ void idResourceContainer::ExtractResourceFile( const char* _fileName, const char
 {
 	idFile* inFile = fileSystem->OpenFileRead( _fileName );
 	
-	if( inFile == NULL )
+	if( inFile == nullptr )
 	{
 		idLib::Warning( "Unable to open resource file %s", _fileName );
 		return;
@@ -367,14 +367,14 @@ void idResourceContainer::ExtractResourceFile( const char* _fileName, const char
 		rt.Read( &memFile );
 		rt.filename.BackSlashesToSlashes();
 		rt.filename.ToLower();
-		byte* fbuf = NULL;
+		byte* fbuf = nullptr;
 		if( _copyWavs && ( rt.filename.Find( ".idwav" ) >= 0 ||  rt.filename.Find( ".idxma" ) >= 0 ||  rt.filename.Find( ".idmsf" ) >= 0 ) )
 		{
 			rt.filename.SetFileExtension( "wav" );
 			rt.filename.Replace( "generated/", "" );
 			int len = fileSystem->GetFileLength( rt.filename );
 			fbuf = ( byte* )Mem_Alloc( len, TAG_RESOURCE );
-			fileSystem->ReadFile( rt.filename, ( void** )&fbuf, NULL );
+			fileSystem->ReadFile( rt.filename, ( void** )&fbuf, nullptr );
 		}
 		else
 		{
@@ -385,7 +385,7 @@ void idResourceContainer::ExtractResourceFile( const char* _fileName, const char
 		idStr outName = _outPath;
 		outName.AppendPath( rt.filename );
 		idFile* outFile = fileSystem->OpenExplicitFileWrite( outName );
-		if( outFile != NULL )
+		if( outFile != nullptr )
 		{
 			outFile->Write( ( byte* )fbuf, rt.length );
 			delete outFile;
@@ -462,7 +462,7 @@ void idResourceContainer::WriteResourceFile( const char* manifestName, const idS
 		
 		idFile* resFile = fileSystem->OpenFileWrite( fileName );
 		
-		if( resFile == NULL )
+		if( resFile == nullptr )
 		{
 			idLib::Warning( "Cannot open %s for writing.\n", fileName.c_str() );
 			return;
@@ -493,7 +493,7 @@ void idResourceContainer::WriteResourceFile( const char* manifestName, const idS
 			
 			idFile* file = fileSystem->OpenFileReadMemory( ent.filename, false );
 			idFile_Memory* fm = dynamic_cast< idFile_Memory* >( file );
-			if( fm == NULL )
+			if( fm == nullptr )
 			{
 				continue;
 			}

@@ -58,7 +58,7 @@ struct idSoundWorld
 	// get a new emitter that can play sounds in this world
 	virtual idSoundEmitter* AllocSoundEmitter() = 0;
 	
-	// for load games, index 0 will return NULL
+	// for load games, index 0 will return nullptr
 	virtual idSoundEmitter* EmitterForIndex( int index ) = 0;
 	
 	// query sound samples from all emitters reaching a given listener

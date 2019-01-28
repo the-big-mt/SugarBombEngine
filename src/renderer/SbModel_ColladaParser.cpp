@@ -60,7 +60,7 @@ using namespace Collada;
 ColladaParser::ColladaParser( const char* pFile )
 	: mFileName( pFile )
 {
-	mRootNode = NULL;
+	mRootNode = nullptr;
 	mUnitSize = 1.0f;
 	mUpDirection = UP_Z;
 	
@@ -193,7 +193,7 @@ void ColladaParser::ReadStructure()
 			//else if( IsElement( "library_cameras" ) )
 			//	ReadCameraLibrary();
 			else if( IsElement( "library_nodes" ) )
-				ReadSceneNode( NULL ); /* some hacking to reuse this piece of code */
+				ReadSceneNode( nullptr ); /* some hacking to reuse this piece of code */
 			else if( IsElement( "scene" ) )
 				ReadScene();
 			else
@@ -311,7 +311,7 @@ void ColladaParser::ReadAnimation( Collada::Animation* pParent )
 	ChannelMap channels;
 
 	// this is the anim container in case we're a container
-	Animation* anim = NULL;
+	Animation* anim = nullptr;
 
 	// optional name given as an attribute
 	idStr animName;
@@ -2688,7 +2688,7 @@ void ColladaParser::ReadSceneNode( Node* pNode )
 				ReadNodeTransformation( pNode, TF_SKEW );
 			else if( IsElement( "translate" ) )
 				ReadNodeTransformation( pNode, TF_TRANSLATE );
-			else if( IsElement( "render" ) && pNode->mParent == NULL && 0 == pNode->mPrimaryCamera.Length() )
+			else if( IsElement( "render" ) && pNode->mParent == nullptr && 0 == pNode->mPrimaryCamera.Length() )
 			{
 				// ... scene evaluation or, in other words, postprocessing pipeline,
 				// or, again in other words, a turing-complete description how to
@@ -2941,7 +2941,7 @@ void ColladaParser::ReadScene()
 					ThrowException( "Unknown reference format" );
 					
 				// find the referred scene, skip the leading #
-				Node** node = NULL;
+				Node** node = nullptr;
 				
 				if( !mNodeLibrary.Get( url + 1, &node ) )
 					ThrowException( "Unable to resolve visual_scene reference \"" + idStr( url ) + "\"." );
@@ -3073,18 +3073,18 @@ const char* ColladaParser::GetTextContent()
 }
 
 // ------------------------------------------------------------------------------------------------
-// Reads the text contents of an element, returns NULL if not given. Skips leading whitespace.
+// Reads the text contents of an element, returns nullptr if not given. Skips leading whitespace.
 const char* ColladaParser::TestTextContent()
 {
 	// present node should be the beginning of an element
 	if( mReader->getNodeType() != irr::io::EXN_ELEMENT || mReader->isEmptyElement() )
-		return NULL;
+		return nullptr;
 		
 	// read contents of the element
 	if( !mReader->read() )
-		return NULL;
+		return nullptr;
 	if( mReader->getNodeType() != irr::io::EXN_TEXT )
-		return NULL;
+		return nullptr;
 		
 	// skip leading whitespace
 	const char* text = mReader->getNodeData();

@@ -47,7 +47,7 @@ idMenuWidget_DynamicList::Update
 void idMenuWidget_DynamicList::Update()
 {
 
-	if( GetSWFObject() == NULL )
+	if( GetSWFObject() == nullptr )
 	{
 		return;
 	}
@@ -65,7 +65,7 @@ void idMenuWidget_DynamicList::Update()
 		if( optionIndex >= children.Num() )
 		{
 			idSWFSpriteInstance* item = GetSprite()->GetScriptObject()->GetNestedSprite( va( "item%d", optionIndex ) );
-			if( item != NULL )
+			if( item != nullptr )
 			{
 				item->SetVisible( false );
 				continue;
@@ -110,13 +110,13 @@ void idMenuWidget_DynamicList::Update()
 	}
 	
 	idSWFSpriteInstance* const upSprite = GetSprite()->GetScriptObject()->GetSprite( "upIndicator" );
-	if( upSprite != NULL )
+	if( upSprite != nullptr )
 	{
 		upSprite->SetVisible( GetViewOffset() > 0 );
 	}
 	
 	idSWFSpriteInstance* const downSprite = GetSprite()->GetScriptObject()->GetSprite( "downIndicator" );
-	if( downSprite != NULL )
+	if( downSprite != nullptr )
 	{
 		downSprite->SetVisible( GetViewOffset() + GetNumVisibleOptions() < GetTotalNumberOfOptions() );
 	}
@@ -148,7 +148,7 @@ bool idMenuWidget_DynamicList::PrepareListElement( idMenuWidget& widget, const i
 {
 
 	idMenuWidget_ScoreboardButton* const sbButton = dynamic_cast< idMenuWidget_ScoreboardButton* >( &widget );
-	if( sbButton != NULL )
+	if( sbButton != nullptr )
 	{
 		return true;
 	}
@@ -164,7 +164,7 @@ bool idMenuWidget_DynamicList::PrepareListElement( idMenuWidget& widget, const i
 	}
 	
 	idMenuWidget_Button* const button = dynamic_cast< idMenuWidget_Button* >( &widget );
-	if( button != NULL )
+	if( button != nullptr )
 	{
 		button->SetIgnoreColor( ignoreColor );
 		button->SetValues( listItemInfo[ childIndex ] );
@@ -206,7 +206,7 @@ void idMenuWidget_DynamicList::Recalculate()
 
 	idSWF* swf = GetSWFObject();
 	
-	if( swf == NULL )
+	if( swf == nullptr )
 	{
 		return;
 	}
@@ -232,7 +232,7 @@ idMenuWidget_ScoreboardList::Update
 void idMenuWidget_ScoreboardList::Update()
 {
 
-	if( GetSWFObject() == NULL )
+	if( GetSWFObject() == nullptr )
 	{
 		return;
 	}

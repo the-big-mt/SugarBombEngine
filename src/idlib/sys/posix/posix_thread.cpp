@@ -63,7 +63,7 @@ static int Sys_SetThreadName( pthread_t handle, const char* name )
 {
 	int ret = 0;
 #ifdef __linux__
-	// NOTE: linux only supports threadnames up to 16chars *including* terminating NULL
+	// NOTE: linux only supports threadnames up to 16chars *including* terminating nullptr
 	// http://man7.org/linux/man-pages/man3/pthread_setname_np.3.html
 	// on my machine a longer name (eg "JobListProcessor_0") caused an ENOENT error (instead of ERANGE)
 	assert( strlen( name ) < 16 );
@@ -260,7 +260,7 @@ void Sys_DestroyThread( uintptr_t threadHandle )
 	}
 #endif
 	
-	if( pthread_join( ( pthread_t )threadHandle, NULL ) != 0 )
+	if( pthread_join( ( pthread_t )threadHandle, nullptr ) != 0 )
 	{
 		idLib::common->FatalError( "ERROR: pthread_join %s failed\n", name );
 	}
@@ -295,7 +295,7 @@ Sys_SignalCreate
 */
 void Sys_SignalCreate( signalHandle_t& handle, bool manualReset )
 {
-	// handle = CreateEvent( NULL, manualReset, FALSE, NULL );
+	// handle = CreateEvent( nullptr, manualReset, FALSE, nullptr );
 	
 	handle.manualReset = manualReset;
 	// if this is true, the signal is only set to nonsignaled when Clear() is called,
@@ -314,10 +314,10 @@ void Sys_SignalCreate( signalHandle_t& handle, bool manualReset )
 	pthread_mutex_init( &mutex, &attr );
 	pthread_mutexattr_destroy( &attr );
 #else
-	pthread_mutex_init( &handle.mutex, NULL );
+	pthread_mutex_init( &handle.mutex, nullptr );
 #endif
 	
-	pthread_cond_init( &handle.cond, NULL );
+	pthread_cond_init( &handle.cond, nullptr );
 	
 }
 

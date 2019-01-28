@@ -50,7 +50,7 @@ idAnim::idAnim
 */
 idAnim::idAnim()
 {
-	modelDef = NULL;
+	modelDef = nullptr;
 	numAnims = 0;
 	memset( anims, 0, sizeof( anims ) );
 	memset( &flags, 0, sizeof( flags ) );
@@ -126,7 +126,7 @@ void idAnim::SetAnim( const idDeclModelDef* modelDef, const char* sourcename, co
 	for( i = 0; i < numAnims; i++ )
 	{
 		anims[ i ]->DecreaseRefs();
-		anims[ i ] = NULL;
+		anims[ i ] = nullptr;
 	}
 	
 	assert( ( num > 0 ) && ( num <= ANIM_MaxSyncedAnims ) );
@@ -175,14 +175,14 @@ const char* idAnim::FullName() const
 =====================
 idAnim::MD5Anim
 
-index 0 will never be NULL.  Any anim >= NumAnims will return NULL.
+index 0 will never be nullptr.  Any anim >= NumAnims will return nullptr.
 =====================
 */
 const idMD5Anim* idAnim::MD5Anim( int num ) const
 {
-	if( anims[0] == NULL )
+	if( anims[0] == nullptr )
 	{
-		return NULL;
+		return nullptr;
 	}
 	return anims[ num ];
 }
@@ -307,7 +307,7 @@ ID_INLINE bool idAnim::GetBounds( idBounds& bounds, int animNum, int currentTime
 =====================
 idAnim::AddFrameCommand
 
-Returns NULL if no error.
+Returns nullptr if no error.
 =====================
 */
 const char* idAnim::AddFrameCommand( const idDeclModelDef* modelDef, int framenum, idLexer& src, const idDict* def )
@@ -584,7 +584,7 @@ const char* idAnim::AddFrameCommand( const idDeclModelDef* modelDef, int framenu
 		fc.type = FC_SKIN;
 		if( token == "none" )
 		{
-			fc.skin = NULL;
+			fc.skin = nullptr;
 		}
 		else
 		{
@@ -938,7 +938,7 @@ const char* idAnim::AddFrameCommand( const idDeclModelDef* modelDef, int framenu
 	frameLookup[ framenum ].num++;
 	
 	// return with no error
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -991,7 +991,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 				{
 					if( !command.soundShader )
 					{
-						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_ANY, 0, false, NULL ) )
+						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_ANY, 0, false, nullptr ) )
 						{
 							gameLocal.Warning( "Framecommand 'sound' on entity '%s', anim '%s', frame %d: Could not find sound '%s'",
 											   ent->name.c_str(), FullName(), frame + 1, command.string->c_str() );
@@ -999,7 +999,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 					}
 					else
 					{
-						ent->StartSoundShader( command.soundShader, SND_CHANNEL_ANY, 0, false, NULL );
+						ent->StartSoundShader( command.soundShader, SND_CHANNEL_ANY, 0, false, nullptr );
 					}
 					break;
 				}
@@ -1007,7 +1007,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 				{
 					if( !command.soundShader )
 					{
-						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_VOICE, 0, false, NULL ) )
+						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_VOICE, 0, false, nullptr ) )
 						{
 							gameLocal.Warning( "Framecommand 'sound_voice' on entity '%s', anim '%s', frame %d: Could not find sound '%s'",
 											   ent->name.c_str(), FullName(), frame + 1, command.string->c_str() );
@@ -1015,7 +1015,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 					}
 					else
 					{
-						ent->StartSoundShader( command.soundShader, SND_CHANNEL_VOICE, 0, false, NULL );
+						ent->StartSoundShader( command.soundShader, SND_CHANNEL_VOICE, 0, false, nullptr );
 					}
 					break;
 				}
@@ -1023,7 +1023,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 				{
 					if( !command.soundShader )
 					{
-						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_VOICE2, 0, false, NULL ) )
+						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_VOICE2, 0, false, nullptr ) )
 						{
 							gameLocal.Warning( "Framecommand 'sound_voice2' on entity '%s', anim '%s', frame %d: Could not find sound '%s'",
 											   ent->name.c_str(), FullName(), frame + 1, command.string->c_str() );
@@ -1031,7 +1031,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 					}
 					else
 					{
-						ent->StartSoundShader( command.soundShader, SND_CHANNEL_VOICE2, 0, false, NULL );
+						ent->StartSoundShader( command.soundShader, SND_CHANNEL_VOICE2, 0, false, nullptr );
 					}
 					break;
 				}
@@ -1039,7 +1039,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 				{
 					if( !command.soundShader )
 					{
-						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_BODY, 0, false, NULL ) )
+						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_BODY, 0, false, nullptr ) )
 						{
 							gameLocal.Warning( "Framecommand 'sound_body' on entity '%s', anim '%s', frame %d: Could not find sound '%s'",
 											   ent->name.c_str(), FullName(), frame + 1, command.string->c_str() );
@@ -1047,7 +1047,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 					}
 					else
 					{
-						ent->StartSoundShader( command.soundShader, SND_CHANNEL_BODY, 0, false, NULL );
+						ent->StartSoundShader( command.soundShader, SND_CHANNEL_BODY, 0, false, nullptr );
 					}
 					break;
 				}
@@ -1055,7 +1055,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 				{
 					if( !command.soundShader )
 					{
-						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_BODY2, 0, false, NULL ) )
+						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_BODY2, 0, false, nullptr ) )
 						{
 							gameLocal.Warning( "Framecommand 'sound_body2' on entity '%s', anim '%s', frame %d: Could not find sound '%s'",
 											   ent->name.c_str(), FullName(), frame + 1, command.string->c_str() );
@@ -1063,7 +1063,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 					}
 					else
 					{
-						ent->StartSoundShader( command.soundShader, SND_CHANNEL_BODY2, 0, false, NULL );
+						ent->StartSoundShader( command.soundShader, SND_CHANNEL_BODY2, 0, false, nullptr );
 					}
 					break;
 				}
@@ -1071,7 +1071,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 				{
 					if( !command.soundShader )
 					{
-						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_BODY3, 0, false, NULL ) )
+						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_BODY3, 0, false, nullptr ) )
 						{
 							gameLocal.Warning( "Framecommand 'sound_body3' on entity '%s', anim '%s', frame %d: Could not find sound '%s'",
 											   ent->name.c_str(), FullName(), frame + 1, command.string->c_str() );
@@ -1079,7 +1079,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 					}
 					else
 					{
-						ent->StartSoundShader( command.soundShader, SND_CHANNEL_BODY3, 0, false, NULL );
+						ent->StartSoundShader( command.soundShader, SND_CHANNEL_BODY3, 0, false, nullptr );
 					}
 					break;
 				}
@@ -1087,7 +1087,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 				{
 					if( !command.soundShader )
 					{
-						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_WEAPON, 0, false, NULL ) )
+						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_WEAPON, 0, false, nullptr ) )
 						{
 							gameLocal.Warning( "Framecommand 'sound_weapon' on entity '%s', anim '%s', frame %d: Could not find sound '%s'",
 											   ent->name.c_str(), FullName(), frame + 1, command.string->c_str() );
@@ -1095,7 +1095,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 					}
 					else
 					{
-						ent->StartSoundShader( command.soundShader, SND_CHANNEL_WEAPON, 0, false, NULL );
+						ent->StartSoundShader( command.soundShader, SND_CHANNEL_WEAPON, 0, false, nullptr );
 					}
 					break;
 				}
@@ -1103,7 +1103,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 				{
 					if( !command.soundShader )
 					{
-						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_ANY, SSF_GLOBAL, false, NULL ) )
+						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_ANY, SSF_GLOBAL, false, nullptr ) )
 						{
 							gameLocal.Warning( "Framecommand 'sound_global' on entity '%s', anim '%s', frame %d: Could not find sound '%s'",
 											   ent->name.c_str(), FullName(), frame + 1, command.string->c_str() );
@@ -1111,7 +1111,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 					}
 					else
 					{
-						ent->StartSoundShader( command.soundShader, SND_CHANNEL_ANY, SSF_GLOBAL, false, NULL );
+						ent->StartSoundShader( command.soundShader, SND_CHANNEL_ANY, SSF_GLOBAL, false, nullptr );
 					}
 					break;
 				}
@@ -1119,7 +1119,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 				{
 					if( !command.soundShader )
 					{
-						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_ITEM, 0, false, NULL ) )
+						if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_ITEM, 0, false, nullptr ) )
 						{
 							gameLocal.Warning( "Framecommand 'sound_item' on entity '%s', anim '%s', frame %d: Could not find sound '%s'",
 											   ent->name.c_str(), FullName(), frame + 1, command.string->c_str() );
@@ -1127,7 +1127,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 					}
 					else
 					{
-						ent->StartSoundShader( command.soundShader, SND_CHANNEL_ITEM, 0, false, NULL );
+						ent->StartSoundShader( command.soundShader, SND_CHANNEL_ITEM, 0, false, nullptr );
 					}
 					break;
 				}
@@ -1137,7 +1137,7 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 					{
 						if( !command.soundShader )
 						{
-							if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_VOICE, 0, false, NULL ) )
+							if( !ent->StartSound( command.string->c_str(), SND_CHANNEL_VOICE, 0, false, nullptr ) )
 							{
 								gameLocal.Warning( "Framecommand 'sound_chatter' on entity '%s', anim '%s', frame %d: Could not find sound '%s'",
 												   ent->name.c_str(), FullName(), frame + 1, command.string->c_str() );
@@ -1145,14 +1145,14 @@ void idAnim::CallFrameCommands( idEntity* ent, int from, int to ) const
 						}
 						else
 						{
-							ent->StartSoundShader( command.soundShader, SND_CHANNEL_VOICE, 0, false, NULL );
+							ent->StartSoundShader( command.soundShader, SND_CHANNEL_VOICE, 0, false, nullptr );
 						}
 					}
 					break;
 				}
 				case FC_FX:
 				{
-					idEntityFx::StartFx( command.string->c_str(), NULL, NULL, ent, true );
+					idEntityFx::StartFx( command.string->c_str(), nullptr, nullptr, ent, true );
 					break;
 				}
 				case FC_SKIN:
@@ -1384,7 +1384,7 @@ int	idAnim::FindFrameForFrameCommand( frameCommandType_t framecommand, const fra
 	
 	if( command )
 	{
-		*command = NULL;
+		*command = nullptr;
 	}
 	
 	return -1;
@@ -1437,7 +1437,7 @@ idAnimBlend::idAnimBlend
 */
 idAnimBlend::idAnimBlend()
 {
-	Reset( NULL );
+	Reset( nullptr );
 }
 
 /*
@@ -2109,7 +2109,7 @@ const idAnim* idAnimBlend::Anim() const
 {
 	if( !modelDef )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	const idAnim* anim = modelDef->GetAnim( animNum );
@@ -2700,8 +2700,8 @@ idDeclModelDef::idDeclModelDef
 */
 idDeclModelDef::idDeclModelDef()
 {
-	modelHandle	= NULL;
-	skin		= NULL;
+	modelHandle	= nullptr;
+	skin		= nullptr;
 	offset.Zero();
 	for( int i = 0; i < ANIM_NumAnimChannels; i++ )
 	{
@@ -2770,8 +2770,8 @@ void idDeclModelDef::FreeData()
 	anims.DeleteContents( true );
 	joints.Clear();
 	jointParents.Clear();
-	modelHandle	= NULL;
-	skin = NULL;
+	modelHandle	= nullptr;
+	skin = nullptr;
 	offset.Zero();
 	for( int i = 0; i < ANIM_NumAnimChannels; i++ )
 	{
@@ -2801,7 +2801,7 @@ const jointInfo_t* idDeclModelDef::FindJoint( const char* name ) const
 	
 	if( !modelHandle )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	joint = modelHandle->GetJoints();
@@ -2813,7 +2813,7 @@ const jointInfo_t* idDeclModelDef::FindJoint( const char* name ) const
 		}
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -2987,7 +2987,7 @@ void idDeclModelDef::SetupJoints( int* numJoints, idJointMat** jointList, idBoun
 	if( !modelHandle || modelHandle->IsDefaultModel() )
 	{
 		Mem_Free16( ( *jointList ) );
-		( *jointList ) = NULL;
+		( *jointList ) = nullptr;
 		frameBounds.Clear();
 		return;
 	}
@@ -3030,7 +3030,7 @@ void idDeclModelDef::SetupJoints( int* numJoints, idJointMat** jointList, idBoun
 	*jointList = list;
 	
 	// get the bounds of the default pose
-	frameBounds = modelHandle->Bounds( NULL );
+	frameBounds = modelHandle->Bounds( nullptr );
 }
 
 /*
@@ -3223,7 +3223,7 @@ bool idDeclModelDef::ParseAnim( idLexer& src, int numDefaultAnims )
 				framenum = token.GetIntValue();
 				
 				// put the command on the specified frame of the animation
-				err = anim->AddFrameCommand( this, framenum, src, NULL );
+				err = anim->AddFrameCommand( this, framenum, src, nullptr );
 				if( err )
 				{
 					src.Warning( "%s", err );
@@ -3596,7 +3596,7 @@ const idAnim* idDeclModelDef::GetAnim( int index ) const
 {
 	if( ( index < 1 ) || ( index > anims.Num() ) )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	return anims[ index - 1 ];
@@ -3730,7 +3730,7 @@ const char* idDeclModelDef::GetJointName( int jointHandle ) const
 	
 	if( !modelHandle )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	if( ( jointHandle < 0 ) || ( jointHandle > joints.Num() ) )
@@ -3767,7 +3767,7 @@ const int* idDeclModelDef::GetChannelJoints( int channel ) const
 	if( ( channel < 0 ) || ( channel >= ANIM_NumAnimChannels ) )
 	{
 		gameLocal.Error( "idDeclModelDef::GetChannelJoints : channel out of range" );
-		return NULL;
+		return nullptr;
 	}
 	return channelJoints[ channel ].Ptr();
 }
@@ -3797,10 +3797,10 @@ idAnimator::idAnimator()
 {
 	int	i, j;
 	
-	modelDef				= NULL;
-	entity					= NULL;
+	modelDef				= nullptr;
+	entity					= nullptr;
 	numJoints				= 0;
-	joints					= NULL;
+	joints					= nullptr;
 	lastTransformTime		= -1;
 	stoppedAnimatingUpdate	= false;
 	removeOriginOffset		= false;
@@ -3818,7 +3818,7 @@ idAnimator::idAnimator()
 	{
 		for( j = 0; j < ANIM_MaxAnimsPerChannel; j++ )
 		{
-			channels[ i ][ j ].Reset( NULL );
+			channels[ i ][ j ].Reset( nullptr );
 		}
 	}
 }
@@ -4036,17 +4036,17 @@ void idAnimator::FreeData()
 	{
 		for( j = 0; j < ANIM_MaxAnimsPerChannel; j++ )
 		{
-			channels[ i ][ j ].Reset( NULL );
+			channels[ i ][ j ].Reset( nullptr );
 		}
 	}
 	
 	jointMods.DeleteContents( true );
 	
 	Mem_Free16( joints );
-	joints = NULL;
+	joints = nullptr;
 	numJoints = 0;
 	
-	modelDef = NULL;
+	modelDef = nullptr;
 	
 	ForceUpdate();
 }
@@ -4091,20 +4091,20 @@ idRenderModel* idAnimator::SetModel( const char* modelname )
 	// check if we're just clearing the model
 	if( !modelname || !*modelname )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	modelDef = static_cast<const idDeclModelDef*>( declManager->FindType( DECL_MODELDEF, modelname, false ) );
 	if( !modelDef )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	idRenderModel* renderModel = modelDef->ModelHandle();
 	if( !renderModel )
 	{
-		modelDef = NULL;
-		return NULL;
+		modelDef = nullptr;
+		return nullptr;
 	}
 	
 	// make sure model hasn't been purged
@@ -4212,7 +4212,7 @@ const idAnim* idAnimator::GetAnim( int index ) const
 {
 	if( !modelDef )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	return modelDef->GetAnim( index );
@@ -4267,7 +4267,7 @@ idRenderModel* idAnimator::ModelHandle() const
 {
 	if( !modelDef )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	return modelDef->ModelHandle();
@@ -4293,7 +4293,7 @@ idAnimBlend* idAnimator::CurrentAnim( int channelNum )
 	if( ( channelNum < 0 ) || ( channelNum >= ANIM_NumAnimChannels ) )
 	{
 		gameLocal.Error( "idAnimator::CurrentAnim : channel out of range" );
-		return NULL;
+		return nullptr;
 	}
 	
 	return &channels[ channelNum ][ 0 ];
@@ -4448,7 +4448,7 @@ void idAnimator::SetJointPos( jointHandle_t jointnum, jointModTransform_t transf
 		return;
 	}
 	
-	jointMod = NULL;
+	jointMod = nullptr;
 	for( i = 0; i < jointMods.Num(); i++ )
 	{
 		if( jointMods[ i ]->jointnum == jointnum )
@@ -4496,7 +4496,7 @@ void idAnimator::SetJointAxis( jointHandle_t jointnum, jointModTransform_t trans
 		return;
 	}
 	
-	jointMod = NULL;
+	jointMod = nullptr;
 	for( i = 0; i < jointMods.Num(); i++ )
 	{
 		if( jointMods[ i ]->jointnum == jointnum )
@@ -5552,7 +5552,7 @@ int idAnimator::GetChannelForJoint( jointHandle_t joint ) const
 {
 	if( !modelDef )
 	{
-		gameLocal.Error( "idAnimator::GetChannelForJoint: NULL model" );
+		gameLocal.Error( "idAnimator::GetChannelForJoint: nullptr model" );
 		return -1;
 	}
 	
@@ -5762,12 +5762,12 @@ const idDeclModelDef* ANIM_GetModelDefFromEntityDef( const idDict* args )
 	
 	idStr name = args->GetString( "model" );
 	modelDef = static_cast<const idDeclModelDef*>( declManager->FindType( DECL_MODELDEF, name, false ) );
-	if( modelDef != NULL && modelDef->ModelHandle() )
+	if( modelDef != nullptr && modelDef->ModelHandle() )
 	{
 		return modelDef;
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -5780,23 +5780,23 @@ idRenderModel* idGameEdit::ANIM_GetModelFromEntityDef( const idDict* args )
 	idRenderModel* model;
 	const idDeclModelDef* modelDef;
 	
-	model = NULL;
+	model = nullptr;
 	
 	idStr name = args->GetString( "model" );
 	modelDef = static_cast<const idDeclModelDef*>( declManager->FindType( DECL_MODELDEF, name, false ) );
-	if( modelDef != NULL )
+	if( modelDef != nullptr )
 	{
 		model = modelDef->ModelHandle();
 	}
 	
-	if( model == NULL )
+	if( model == nullptr )
 	{
 		model = renderModelManager->FindModel( name );
 	}
 	
-	if( model != NULL && model->IsDefaultModel() )
+	if( model != nullptr && model->IsDefaultModel() )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	return model;
@@ -5814,7 +5814,7 @@ idRenderModel* idGameEdit::ANIM_GetModelFromEntityDef( const char* classname )
 	args = gameLocal.FindEntityDefDict( classname, false );
 	if( !args )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	return ANIM_GetModelFromEntityDef( args );
@@ -5855,7 +5855,7 @@ idRenderModel* idGameEdit::ANIM_GetModelFromName( const char* modelName )
 	const idDeclModelDef* modelDef;
 	idRenderModel* model;
 	
-	model = NULL;
+	model = nullptr;
 	modelDef = static_cast<const idDeclModelDef*>( declManager->FindType( DECL_MODELDEF, modelName, false ) );
 	if( modelDef )
 	{
@@ -5885,10 +5885,10 @@ const idMD5Anim* idGameEdit::ANIM_GetAnimFromEntityDef( const char* classname, c
 	args = gameLocal.FindEntityDefDict( classname, false );
 	if( !args )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
-	md5anim = NULL;
+	md5anim = nullptr;
 	modelname = args->GetString( "model" );
 	modelDef = static_cast<const idDeclModelDef*>( declManager->FindType( DECL_MODELDEF, modelname, false ) );
 	if( modelDef )
@@ -6016,7 +6016,7 @@ void idGameEdit::ANIM_CreateAnimFrame( const idRenderModel* model, const idMD5An
 	
 	if( !joints )
 	{
-		gameLocal.Error( "ANIM_CreateAnimFrame: NULL joint frame pointer on model (%s)", model->Name() );
+		gameLocal.Error( "ANIM_CreateAnimFrame: nullptr joint frame pointer on model (%s)", model->Name() );
 	}
 	
 	if( numJoints != anim->NumJoints() )
@@ -6084,13 +6084,13 @@ idRenderModel* idGameEdit::ANIM_CreateMeshForAnim( idRenderModel* model, const c
 	
 	if( !model || model->IsDefaultModel() )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	args = gameLocal.FindEntityDefDict( classname, false );
 	if( !args )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	memset( &ent, 0, sizeof( ent ) );
@@ -6104,12 +6104,12 @@ idRenderModel* idGameEdit::ANIM_CreateMeshForAnim( idRenderModel* model, const c
 		animNum = modelDef->GetAnim( animname );
 		if( !animNum )
 		{
-			return NULL;
+			return nullptr;
 		}
 		anim = modelDef->GetAnim( animNum );
 		if( !anim )
 		{
-			return NULL;
+			return nullptr;
 		}
 		md5anim = anim->MD5Anim( 0 );
 		ent.customSkin = modelDef->GetDefaultSkin();
@@ -6130,7 +6130,7 @@ idRenderModel* idGameEdit::ANIM_CreateMeshForAnim( idRenderModel* model, const c
 	
 	if( !md5anim )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	temp = args->GetString( "skin", "" );
@@ -6146,10 +6146,10 @@ idRenderModel* idGameEdit::ANIM_CreateMeshForAnim( idRenderModel* model, const c
 	
 	SIMD_INIT_LAST_JOINT( ent.joints, ent.numJoints );
 	
-	newmodel = model->InstantiateDynamicModel( &ent, NULL, NULL );
+	newmodel = model->InstantiateDynamicModel( &ent, nullptr, nullptr );
 	
 	Mem_Free16( ent.joints );
-	ent.joints = NULL;
+	ent.joints = nullptr;
 	
 	return newmodel;
 }

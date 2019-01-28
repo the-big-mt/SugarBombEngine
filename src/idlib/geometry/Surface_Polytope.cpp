@@ -308,7 +308,7 @@ int idSurface_Polytope::SplitPolytope( const idPlane& plane, const float epsilon
 		{
 			polytopeSurfaces[s] = new idSurface_Polytope( *surface[s] );
 			delete surface[s];
-			surface[s] = NULL;
+			surface[s] = nullptr;
 		}
 	}
 	

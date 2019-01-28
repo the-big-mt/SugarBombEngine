@@ -78,7 +78,7 @@ public:
 	virtual void		Shutdown() = 0;
 	
 	// Registers a command and the function to call for it.
-	virtual void		AddCommand( const char* cmdName, cmdFunction_t function, int flags, const char* description, argCompletion_t argCompletion = NULL ) = 0;
+	virtual void		AddCommand( const char* cmdName, cmdFunction_t function, int flags, const char* description, argCompletion_t argCompletion = nullptr ) = 0;
 	// Removes a command.
 	virtual void		RemoveCommand( const char* cmdName ) = 0;
 	// Remove all commands with one of the flags set.

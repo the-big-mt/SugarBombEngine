@@ -136,7 +136,7 @@ idAchievementManager::SyncAchievments
 void idAchievementManager::SyncAchievments()
 {
 	idLocalUser* user = GetLocalUser();
-	if( user == NULL || user->GetProfile() == NULL )
+	if( user == nullptr || user->GetProfile() == nullptr )
 	{
 		return;
 	}
@@ -162,9 +162,9 @@ idAchievementManager::GetLocalUser
 */
 idLocalUser* idAchievementManager::GetLocalUser()
 {
-	if( !verify( owner != NULL ) )
+	if( !verify( owner != nullptr ) )
 	{
-		return NULL;
+		return nullptr;
 	}
 	return session->GetGameLobbyBase().GetLocalUserFromLobbyUser( gameLocal.lobbyUserIDs[ owner->GetEntityNumber() ] );
 }
@@ -224,11 +224,11 @@ void idAchievementManager::EventCompletesAchievement( const achievement_t eventI
 	}
 	
 	idLocalUser* localUser = GetLocalUser();
-	if( localUser == NULL || localUser->GetProfile() == NULL )
+	if( localUser == nullptr || localUser->GetProfile() == nullptr )
 	{
 	
 		// Send a Reliable Message to the User that needs to unlock this.
-		if( owner != NULL )
+		if( owner != nullptr )
 		{
 			int playerId = owner->entityNumber;
 			const int bufferSize = sizeof( playerId ) + sizeof( eventId );
@@ -259,7 +259,7 @@ void idAchievementManager::EventCompletesAchievement( const achievement_t eventI
 	{
 		if( !cheatingDialogShown )
 		{
-			common->Dialog().AddDialog( GDM_ACHIEVEMENTS_DISABLED_DUE_TO_CHEATING, DIALOG_ACCEPT, NULL, NULL, true );
+			common->Dialog().AddDialog( GDM_ACHIEVEMENTS_DISABLED_DUE_TO_CHEATING, DIALOG_ACCEPT, nullptr, nullptr, true );
 			cheatingDialogShown = true;
 		}
 		return;
@@ -333,7 +333,7 @@ void idAchievementManager::LocalUser_CompleteAchievement( achievement_t id )
 	
 	// Check to see if we've already given the achievement.
 	// If so, don't do again because we don't want to autosave every time a trigger is hit
-	if( localUser == NULL || localUser->GetProfile()->GetAchievement( id ) )
+	if( localUser == nullptr || localUser->GetProfile()->GetAchievement( id ) )
 	{
 		return;
 	}
@@ -343,7 +343,7 @@ void idAchievementManager::LocalUser_CompleteAchievement( achievement_t id )
 	{
 		if( !cheatingDialogShown )
 		{
-			common->Dialog().AddDialog( GDM_ACHIEVEMENTS_DISABLED_DUE_TO_CHEATING, DIALOG_ACCEPT, NULL, NULL, true );
+			common->Dialog().AddDialog( GDM_ACHIEVEMENTS_DISABLED_DUE_TO_CHEATING, DIALOG_ACCEPT, nullptr, nullptr, true );
 			cheatingDialogShown = true;
 		}
 		return;
@@ -358,10 +358,10 @@ void idAchievementManager::LocalUser_CompleteAchievement( achievement_t id )
 AchievementsReset
 =================
 */
-CONSOLE_COMMAND( AchievementsReset, "Lock an achievement", NULL )
+CONSOLE_COMMAND( AchievementsReset, "Lock an achievement", nullptr )
 {
 	idLocalUser* user = session->GetSignInManager().GetMasterLocalUser();
-	if( user == NULL )
+	if( user == nullptr )
 	{
 		idLib::Printf( "Must be signed in\n" );
 		return;
@@ -388,10 +388,10 @@ CONSOLE_COMMAND( AchievementsReset, "Lock an achievement", NULL )
 AchievementsUnlock
 =================
 */
-CONSOLE_COMMAND( AchievementsUnlock, "Unlock an achievement", NULL )
+CONSOLE_COMMAND( AchievementsUnlock, "Unlock an achievement", nullptr )
 {
 	idLocalUser* user = session->GetSignInManager().GetMasterLocalUser();
-	if( user == NULL )
+	if( user == nullptr )
 	{
 		idLib::Printf( "Must be signed in\n" );
 		return;
@@ -418,11 +418,11 @@ CONSOLE_COMMAND( AchievementsUnlock, "Unlock an achievement", NULL )
 AchievementsList
 =================
 */
-CONSOLE_COMMAND( AchievementsList, "Lists achievements and status", NULL )
+CONSOLE_COMMAND( AchievementsList, "Lists achievements and status", nullptr )
 {
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	idLocalUser* user = ( player == NULL ) ? session->GetSignInManager().GetMasterLocalUser() : session->GetGameLobbyBase().GetLocalUserFromLobbyUser( gameLocal.lobbyUserIDs[ player->GetEntityNumber() ] );
-	if( user == NULL )
+	idLocalUser* user = ( player == nullptr ) ? session->GetSignInManager().GetMasterLocalUser() : session->GetGameLobbyBase().GetLocalUserFromLobbyUser( gameLocal.lobbyUserIDs[ player->GetEntityNumber() ] );
+	if( user == nullptr )
 	{
 		idLib::Printf( "Must be signed in\n" );
 		return;
@@ -435,7 +435,7 @@ CONSOLE_COMMAND( AchievementsList, "Lists achievements and status", NULL )
 	for( int i = 0; i < ACHIEVEMENTS_NUM; i++ )
 	{
 		const char* pInfo = "";
-		if( profile == NULL )
+		if( profile == nullptr )
 		{
 			pInfo = S_COLOR_RED  "unknown" S_COLOR_DEFAULT;
 		}
@@ -465,7 +465,7 @@ CONSOLE_COMMAND( AchievementsList, "Lists achievements and status", NULL )
 		{
 			count = user->GetStatInt( i );
 		}
-		else if( player != NULL )
+		else if( player != nullptr )
 		{
 			count = player->GetAchievementManager().GetCount( ( achievement_t ) i );
 		}

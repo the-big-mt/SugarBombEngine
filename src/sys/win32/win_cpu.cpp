@@ -123,13 +123,13 @@ double Sys_ClockTicksPerSecond() {
 		if ( !RegOpenKeyEx( HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey ) ) {
 			ProcSpeed = 0;
 			buflen = sizeof( ProcSpeed );
-			ret = RegQueryValueEx( hKey, "~MHz", NULL, NULL, (LPBYTE) &ProcSpeed, &buflen );
+			ret = RegQueryValueEx( hKey, "~MHz", nullptr, nullptr, (LPBYTE) &ProcSpeed, &buflen );
 			// If we don't succeed, try some other spellings.
 			if ( ret != ERROR_SUCCESS ) {
-				ret = RegQueryValueEx( hKey, "~Mhz", NULL, NULL, (LPBYTE) &ProcSpeed, &buflen );
+				ret = RegQueryValueEx( hKey, "~Mhz", nullptr, nullptr, (LPBYTE) &ProcSpeed, &buflen );
 			}
 			if ( ret != ERROR_SUCCESS ) {
-				ret = RegQueryValueEx( hKey, "~mhz", NULL, NULL, (LPBYTE) &ProcSpeed, &buflen );
+				ret = RegQueryValueEx( hKey, "~mhz", nullptr, nullptr, (LPBYTE) &ProcSpeed, &buflen );
 			}
 			RegCloseKey( hKey );
 			if ( ret == ERROR_SUCCESS ) {
@@ -649,8 +649,8 @@ GetCPUInfo
 ========================
 */
 bool GetCPUInfo( cpuInfo_t & cpuInfo ) {
-	PSYSTEM_LOGICAL_PROCESSOR_INFORMATION buffer = NULL;
-	PSYSTEM_LOGICAL_PROCESSOR_INFORMATION ptr = NULL;
+	PSYSTEM_LOGICAL_PROCESSOR_INFORMATION buffer = nullptr;
+	PSYSTEM_LOGICAL_PROCESSOR_INFORMATION ptr = nullptr;
 	PCACHE_DESCRIPTOR Cache;
 	LPFN_GLPI	glpi;
 	BOOL		done = FALSE;
@@ -660,7 +660,7 @@ bool GetCPUInfo( cpuInfo_t & cpuInfo ) {
 	memset( & cpuInfo, 0, sizeof( cpuInfo ) );
 
 	glpi = (LPFN_GLPI)GetProcAddress( GetModuleHandle(TEXT("kernel32")), "GetLogicalProcessorInformation" );
-	if ( NULL == glpi ) {
+	if ( nullptr == glpi ) {
 		idLib::Printf( "\nGetLogicalProcessorInformation is not supported.\n" );
 		return 0;
 	}

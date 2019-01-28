@@ -267,7 +267,7 @@ idSysThread::Run
 int idSysThread::Run()
 {
 	// The Run() is not pure virtual because on destruction of a derived class
-	// the virtual function pointer will be set to NULL before the idSysThread
+	// the virtual function pointer will be set to nullptr before the idSysThread
 	// destructor actually stops the thread.
 	return 0;
 }

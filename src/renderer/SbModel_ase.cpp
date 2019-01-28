@@ -846,7 +846,7 @@ aseModel_t* ASE_Parse( const char* buffer, bool verbose )
 	ase.buffer = buffer;
 	ase.len = strlen( buffer );
 	ase.curpos = ase.buffer;
-	ase.currentObject = NULL;
+	ase.currentObject = nullptr;
 	
 	// NOTE: using new operator because aseModel_t contains idList class objects
 	ase.model = new( TAG_MODEL ) aseModel_t;
@@ -911,7 +911,7 @@ aseModel_t* ASE_Load( const char* fileName )
 	fileSystem->ReadFile( fileName, ( void** )&buf, &timeStamp );
 	if( !buf )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	ase = ASE_Parse( buf, false );

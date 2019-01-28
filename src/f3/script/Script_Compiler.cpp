@@ -47,7 +47,7 @@ const char* idCompiler::punctuation[] =
 	"+=", "-=", "*=", "/=", "%=", "&=", "|=", "++", "--",
 	"&&", "||", "<=", ">=", "==", "!=", "::", ";",  ",",
 	"~",  "!",  "*",  "/",  "%",  "(",   ")",  "-", "+",
-	"=",  "[",  "]",  ".",  "<",  ">" ,  "&",  "|", ":",  NULL
+	"=",  "[",  "]",  ".",  "<",  ">" ,  "&",  "|", ":",  nullptr
 };
 
 // RB: added const
@@ -206,7 +206,7 @@ const opcode_t idCompiler::opcodes[] =
 	{ "<BREAK>", "BREAK", -1, false, &def_float, &def_void, &def_void },
 	{ "<CONTINUE>", "CONTINUE", -1, false, &def_float, &def_void, &def_void },
 	
-	{ NULL }
+	{ nullptr }
 };
 
 /*
@@ -231,8 +231,8 @@ idCompiler::idCompiler()
 	loopDepth			= 0;
 	eof					= false;
 	braceDepth			= 0;
-	immediateType		= NULL;
-	basetype			= NULL;
+	immediateType		= nullptr;
+	basetype			= nullptr;
 	currentLineNumber	= 0;
 	currentFileNumber	= 0;
 	errorCount			= 0;
@@ -241,7 +241,7 @@ idCompiler::idCompiler()
 	
 	memset( &immediate, 0, sizeof( immediate ) );
 	memset( punctuationValid, 0, sizeof( punctuationValid ) );
-	for( ptr = punctuation; *ptr != NULL; ptr++ )
+	for( ptr = punctuation; *ptr != nullptr; ptr++ )
 	{
 		id = parserPtr->GetPunctuationId( *ptr );
 		if( ( id >= 0 ) && ( id < 256 ) )
@@ -413,7 +413,7 @@ idVarDef* idCompiler::FindImmediate( const idTypeDef* type, const eval_t* eval, 
 	etype = type->Type();
 	
 	// check for a constant with the same value
-	for( def = gameLocal.program.GetDefList( "<IMMEDIATE>" ); def != NULL; def = def->Next() )
+	for( def = gameLocal.program.GetDefList( "<IMMEDIATE>" ); def != nullptr; def = def->Next() )
 	{
 		if( def->TypeDef() != type )
 		{
@@ -487,7 +487,7 @@ idVarDef* idCompiler::FindImmediate( const idTypeDef* type, const eval_t* eval, 
 		}
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -535,13 +535,13 @@ idVarDef* idCompiler::OptimizeOpcode( const opcode_t* op, idVarDef* var_a, idVar
 	eval_t		c;
 	idTypeDef*	type;
 	
-	if( var_a == NULL || var_a->initialized != idVarDef::initializedConstant )
+	if( var_a == nullptr || var_a->initialized != idVarDef::initializedConstant )
 	{
-		return NULL;
+		return nullptr;
 	}
-	if( var_b == NULL || var_b->initialized != idVarDef::initializedConstant )
+	if( var_b == nullptr || var_b->initialized != idVarDef::initializedConstant )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	idVec3& vec_c = *reinterpret_cast<idVec3*>( &c.vector[ 0 ] );
@@ -710,13 +710,13 @@ idVarDef* idCompiler::OptimizeOpcode( const opcode_t* op, idVarDef* var_a, idVar
 			type = &type_float;
 			break;
 		default:
-			type = NULL;
+			type = nullptr;
 			break;
 	}
 	
 	if( !type )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	if( var_a )
@@ -724,7 +724,7 @@ idVarDef* idCompiler::OptimizeOpcode( const opcode_t* op, idVarDef* var_a, idVar
 		var_a->numUsers--;
 		if( var_a->numUsers <= 0 )
 		{
-			gameLocal.program.FreeDef( var_a, NULL );
+			gameLocal.program.FreeDef( var_a, nullptr );
 		}
 	}
 	if( var_b )
@@ -732,7 +732,7 @@ idVarDef* idCompiler::OptimizeOpcode( const opcode_t* op, idVarDef* var_a, idVar
 		var_b->numUsers--;
 		if( var_b->numUsers <= 0 )
 		{
-			gameLocal.program.FreeDef( var_b, NULL );
+			gameLocal.program.FreeDef( var_b, nullptr );
 		}
 	}
 	
@@ -773,7 +773,7 @@ idVarDef* idCompiler::EmitOpcode( const opcode_t* op, idVarDef* var_a, idVarDef*
 	if( ( op->type_c == &def_void ) || op->rightAssociative )
 	{
 		// ifs, gotos, and assignments don't need vars allocated
-		var_c = NULL;
+		var_c = nullptr;
 	}
 	else
 	{
@@ -823,7 +823,7 @@ bool idCompiler::EmitPush( idVarDef* expression, const idTypeDef* funcArg )
 	const opcode_t* out;
 	// RB end
 	
-	out = NULL;
+	out = nullptr;
 	for( op = &opcodes[ OP_PUSH_F ]; op->name && !strcmp( op->name, "<PUSH>" ); op++ )
 	{
 		if( ( funcArg->Type() == op->type_a->Type() ) && ( expression->Type() == op->type_b->Type() ) )
@@ -860,7 +860,7 @@ void idCompiler::NextToken()
 	int i;
 	
 	// reset our type
-	immediateType = NULL;
+	immediateType = nullptr;
 	memset( &immediate, 0, sizeof( immediate ) );
 	
 	// Save the token's line number and filename since when we emit opcodes the current
@@ -1123,9 +1123,9 @@ idTypeDef* idCompiler::CheckType()
 	else
 	{
 		type = gameLocal.program.FindType( token.c_str() );
-		if( type != NULL && !type->Inherits( &type_object ) )
+		if( type != nullptr && !type->Inherits( &type_object ) )
 		{
-			type = NULL;
+			type = nullptr;
 		}
 	}
 	
@@ -1252,7 +1252,7 @@ idVarDef* idCompiler::EmitFunctionParms( int op, idVarDef* func, int startarg, i
 	{
 		EmitOpcode( op, object, VirtualFunctionConstant( func ) );
 		
-		// need arg size separate since script object may be NULL
+		// need arg size separate since script object may be nullptr
 		statement_t& statement = gameLocal.program.GetStatement( gameLocal.program.NumStatements() - 1 );
 		statement.c = SizeConstant( func->value.functionPtr->parmTotal );
 	}
@@ -1351,7 +1351,7 @@ idVarDef* idCompiler::ParseFunctionCall( idVarDef* funcDef )
 			Error( "Built-in functions cannot be called as threads" );
 		}
 		callthread = false;
-		return EmitFunctionParms( OP_THREAD, funcDef, 0, 0, NULL );
+		return EmitFunctionParms( OP_THREAD, funcDef, 0, 0, nullptr );
 	}
 	else
 	{
@@ -1374,7 +1374,7 @@ idVarDef* idCompiler::ParseFunctionCall( idVarDef* funcDef )
 			}
 		}
 		
-		return EmitFunctionParms( OP_CALL, funcDef, 0, 0, NULL );
+		return EmitFunctionParms( OP_CALL, funcDef, 0, 0, nullptr );
 	}
 }
 
@@ -1428,7 +1428,7 @@ idVarDef* idCompiler::ParseEventCall( idVarDef* object, idVarDef* funcDef )
 		EmitPush( object, object->TypeDef() );
 	}
 	
-	return EmitFunctionParms( OP_EVENTCALL, funcDef, 0, type_object.Size(), NULL );
+	return EmitFunctionParms( OP_EVENTCALL, funcDef, 0, type_object.Size(), nullptr );
 }
 
 /*
@@ -1448,18 +1448,18 @@ idVarDef* idCompiler::ParseSysObjectCall( idVarDef* funcDef )
 		Error( "'%s' is not a function", funcDef->Name() );
 	}
 	
-	if( funcDef->value.functionPtr->eventdef == NULL )
+	if( funcDef->value.functionPtr->eventdef == nullptr )
 	{
 		Error( "\"%s\" cannot be called with object notation", funcDef->Name() );
 	}
 	
-	assert( funcDef->value.functionPtr->eventdef != NULL ); // to remove stupid analyze warning
+	assert( funcDef->value.functionPtr->eventdef != nullptr ); // to remove stupid analyze warning
 	if( !idThread::Type.RespondsTo( *funcDef->value.functionPtr->eventdef ) )
 	{
 		Error( "\"%s\" is not callable as a 'sys' function", funcDef->Name() );
 	}
 	
-	return EmitFunctionParms( OP_SYSCALL, funcDef, 0, 0, NULL );
+	return EmitFunctionParms( OP_SYSCALL, funcDef, 0, 0, nullptr );
 }
 
 /*
@@ -1482,10 +1482,10 @@ idVarDef* idCompiler::LookupDef( const char* name, const idVarDef* baseobj )
 	{
 		const idVarDef* tdef;
 		
-		def = NULL;
+		def = nullptr;
 		for( tdef = baseobj; tdef != &def_object; tdef = tdef->TypeDef()->SuperClass()->def )
 		{
-			def = gameLocal.program.GetDef( NULL, name, tdef );
+			def = gameLocal.program.GetDef( nullptr, name, tdef );
 			if( def )
 			{
 				break;
@@ -1495,7 +1495,7 @@ idVarDef* idCompiler::LookupDef( const char* name, const idVarDef* baseobj )
 	else
 	{
 		// first look through the defs in our scope
-		def = gameLocal.program.GetDef( NULL, name, scope );
+		def = gameLocal.program.GetDef( nullptr, name, scope );
 		if( !def )
 		{
 			// if we're in a member function, check types local to the object
@@ -1609,7 +1609,7 @@ idVarDef* idCompiler::ParseValue()
 	
 	ParseName( name );
 	def = LookupDef( name, basetype );
-	if( def == NULL )
+	if( def == nullptr )
 	{
 		if( basetype )
 		{
@@ -1628,10 +1628,10 @@ idVarDef* idCompiler::ParseValue()
 			ExpectToken( "::" );
 			ParseName( name );
 			namespaceDef = def;
-			def = gameLocal.program.GetDef( NULL, name, namespaceDef );
-			if( def == NULL )
+			def = gameLocal.program.GetDef( nullptr, name, namespaceDef );
+			if( def == nullptr )
 			{
-				if( namespaceDef != NULL )
+				if( namespaceDef != nullptr )
 				{
 					Error( "Unknown value \"%s::%s\"", namespaceDef->GlobalName(), name.c_str() );
 				}
@@ -2447,7 +2447,7 @@ void idCompiler::ParseStatement()
 		return;
 	}
 	
-	if( CheckType() != NULL )
+	if( CheckType() != nullptr )
 	{
 		ParseDefs();
 		return;
@@ -2476,7 +2476,7 @@ void idCompiler::ParseObjectDef( const char* objname )
 	idTypeDef*	fieldtype;
 	idStr		name;
 	const char*  fieldname;
-	idTypeDef	newtype( ev_field, NULL, "", 0, NULL );
+	idTypeDef	newtype( ev_field, nullptr, "", 0, nullptr );
 	idVarDef*	oldscope;
 	int			num;
 	int			i;
@@ -2488,7 +2488,7 @@ void idCompiler::ParseObjectDef( const char* objname )
 	}
 	
 	// make sure it doesn't exist before we create it
-	if( gameLocal.program.FindType( objname ) != NULL )
+	if( gameLocal.program.FindType( objname ) != nullptr )
 	{
 		Error( "'%s' : redefinition; different basic types", objname );
 	}
@@ -2507,7 +2507,7 @@ void idCompiler::ParseObjectDef( const char* objname )
 		}
 	}
 	
-	objtype = gameLocal.program.AllocType( ev_object, NULL, objname, parentType == &type_object ? 0 : parentType->Size(), parentType );
+	objtype = gameLocal.program.AllocType( ev_object, nullptr, objname, parentType == &type_object ? 0 : parentType->Size(), parentType );
 	objtype->def = gameLocal.program.AllocDef( objtype, objname, scope, true );
 	scope = objtype->def;
 	
@@ -2567,7 +2567,7 @@ parse a function type
 */
 idTypeDef* idCompiler::ParseFunction( idTypeDef* returnType, const char* name )
 {
-	idTypeDef	newtype( ev_function, NULL, name, type_function.Size(), returnType );
+	idTypeDef	newtype( ev_function, nullptr, name, type_function.Size(), returnType );
 	idTypeDef*	type;
 	
 	if( scope->Type() != ev_namespace )
@@ -2682,7 +2682,7 @@ void idCompiler::ParseFunctionDef( idTypeDef* returnType, const char* name )
 	if( oldscope->TypeDef()->Inherits( &type_object ) && !idStr::Icmp( name, "init" ) )
 	{
 		idTypeDef* superClass;
-		function_t* constructorFunc = NULL;
+		function_t* constructorFunc = nullptr;
 		
 		// find the superclass constructor
 		for( superClass = oldscope->TypeDef()->SuperClass(); superClass != &type_object; superClass = superClass->SuperClass() )
@@ -2714,7 +2714,7 @@ void idCompiler::ParseFunctionDef( idTypeDef* returnType, const char* name )
 	if( oldscope->TypeDef()->Inherits( &type_object ) && !idStr::Icmp( name, "destroy" ) )
 	{
 		idTypeDef* superClass;
-		function_t* destructorFunc = NULL;
+		function_t* destructorFunc = nullptr;
 		
 		// find the superclass destructor
 		for( superClass = oldscope->TypeDef()->SuperClass(); superClass != &type_object; superClass = superClass->SuperClass() )
@@ -2894,7 +2894,7 @@ void idCompiler::ParseVariableDef( idTypeDef* type, const char* name )
 	{
 		if( scope->Type() != ev_function )
 		{
-			def->SetObject( NULL );
+			def->SetObject( nullptr );
 		}
 	}
 }
@@ -2928,7 +2928,7 @@ idTypeDef* idCompiler::GetTypeForEventArg( char argType )
 			break;
 			
 		case D_EVENT_ENTITY :
-		case D_EVENT_ENTITY_NULL :
+		case D_EVENT_ENTITY_nullptr :
 			type = &type_entity;
 			break;
 			
@@ -2938,12 +2938,12 @@ idTypeDef* idCompiler::GetTypeForEventArg( char argType )
 			
 		case D_EVENT_TRACE :
 			// This data type isn't available from script
-			type = NULL;
+			type = nullptr;
 			break;
 			
 		default:
 			// probably a typo
-			type = NULL;
+			type = nullptr;
 			break;
 	}
 	
@@ -2967,7 +2967,7 @@ void idCompiler::ParseEventDef( idTypeDef* returnType, const char* name )
 	idStr			parmName;
 	
 	ev = idEventDef::FindEvent( name );
-	if( ev == NULL )
+	if( ev == nullptr )
 	{
 		Error( "Unknown event '%s'", name );
 		return;
@@ -2975,7 +2975,7 @@ void idCompiler::ParseEventDef( idTypeDef* returnType, const char* name )
 	
 	// set the return type
 	expectedType = GetTypeForEventArg( ev->GetReturnType() );
-	if( expectedType == NULL )
+	if( expectedType == nullptr )
 	{
 		Error( "Invalid return type '%c' in definition of '%s' event.", ev->GetReturnType(), name );
 		return;
@@ -2985,7 +2985,7 @@ void idCompiler::ParseEventDef( idTypeDef* returnType, const char* name )
 		Error( "Return type doesn't match internal return type '%s'", expectedType->Name() );
 	}
 	
-	idTypeDef newtype( ev_function, NULL, name, type_function.Size(), returnType );
+	idTypeDef newtype( ev_function, nullptr, name, type_function.Size(), returnType );
 	
 	ExpectToken( "(" );
 	
@@ -2994,7 +2994,7 @@ void idCompiler::ParseEventDef( idTypeDef* returnType, const char* name )
 	for( i = 0; i < num; i++ )
 	{
 		expectedType = GetTypeForEventArg( format[ i ] );
-		if( expectedType == NULL || ( expectedType == &type_void ) )
+		if( expectedType == nullptr || ( expectedType == &type_void ) )
 		{
 			Error( "Invalid parameter '%c' in definition of '%s' event.", format[ i ], name );
 			return;
@@ -3095,7 +3095,7 @@ void idCompiler::ParseDefs()
 	}
 	else if( CheckToken( "::" ) )
 	{
-		def = gameLocal.program.GetDef( NULL, name, scope );
+		def = gameLocal.program.GetDef( nullptr, name, scope );
 		if( !def )
 		{
 			Error( "Unknown object name '%s'", name.c_str() );
@@ -3176,12 +3176,12 @@ void idCompiler::CompileFile( const char* text, const char* filename, bool toCon
 	compile_time.Start();
 	
 	scope				= &def_namespace;
-	basetype			= NULL;
+	basetype			= nullptr;
 	callthread			= false;
 	loopDepth			= 0;
 	eof					= false;
 	braceDepth			= 0;
-	immediateType		= NULL;
+	immediateType		= nullptr;
 	currentLineNumber	= 0;
 	console				= toConsole;
 	

@@ -37,10 +37,10 @@ If you have questions concerning this license or the applicable additional terms
 ===============================================================================
 */
 
-idSys* 			idLib::sys			= NULL;
-idCommon* 		idLib::common		= NULL;
-idCVarSystem* 	idLib::cvarSystem	= NULL;
-idFileSystem* 	idLib::fileSystem	= NULL;
+idSys* 			idLib::sys			= nullptr;
+idCommon* 		idLib::common		= nullptr;
+idCVarSystem* 	idLib::cvarSystem	= nullptr;
+idFileSystem* 	idLib::fileSystem	= nullptr;
 int				idLib::frameNumber	= 0;
 bool			idLib::mainThreadInitialized = 0;
 ID_TLS			idLib::isMainThread = 0;

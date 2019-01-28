@@ -40,7 +40,7 @@ void idMenuScreen_PDA_UserData::Initialize( idMenuHandler* data )
 {
 	idMenuScreen::Initialize( data );
 	
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		menuGUI = data->GetGUI();
 	}
@@ -82,10 +82,10 @@ idMenuScreen_PDA_UserData::Update
 void idMenuScreen_PDA_UserData::Update()
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuWidget_CommandBar* cmdBar = dynamic_cast< idMenuWidget_CommandBar* const >( menuData->GetChildFromIndex( PDA_WIDGET_CMD_BAR ) );
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			idMenuWidget_CommandBar::buttonInfo_t* buttonInfo;
@@ -104,13 +104,13 @@ void idMenuScreen_PDA_UserData::Update()
 			
 			idPlayer* player = gameLocal.GetLocalPlayer();
 			idMenuWidget_DynamicList* pdaList = dynamic_cast< idMenuWidget_DynamicList* >( menuData->GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
-			if( pdaList != NULL && player != NULL )
+			if( pdaList != nullptr && player != nullptr )
 			{
 				int pdaIndex = pdaList->GetViewIndex();
 				if( pdaIndex < player->GetInventory().pdas.Num() )
 				{
 					const idDeclPDA* pda = player->GetInventory().pdas[ pdaIndex ];
-					if( pda != NULL && pdaIndex != 0 )
+					if( pda != nullptr && pdaIndex != 0 )
 					{
 						if( player->IsSoundChannelPlaying( SND_CHANNEL_PDA_AUDIO ) )
 						{
@@ -148,18 +148,18 @@ idMenuScreen_PDA_UserData::ShowScreen
 void idMenuScreen_PDA_UserData::ShowScreen( const mainMenuTransition_t transitionType )
 {
 
-	if( menuGUI != NULL && menuData != NULL )
+	if( menuGUI != nullptr && menuData != nullptr )
 	{
 		idSWFScriptObject& root = menuGUI->GetRootObject();
 		idSWFSpriteInstance* pdaSprite = root.GetNestedSprite( "pda_persons" );
-		if( pdaSprite != NULL && menuData != NULL && menuData->ActiveScreen() != PDA_AREA_USER_EMAIL )
+		if( pdaSprite != nullptr && menuData != nullptr && menuData->ActiveScreen() != PDA_AREA_USER_EMAIL )
 		{
 			pdaSprite->SetVisible( true );
 			pdaSprite->PlayFrame( "rollOn" );
 		}
 		
 		idSWFSpriteInstance* navBar = root.GetNestedSprite( "navBar" );
-		if( navBar != NULL && menuData != NULL && menuData->ActiveScreen() == PDA_AREA_INVALID )
+		if( navBar != nullptr && menuData != nullptr && menuData->ActiveScreen() == PDA_AREA_INVALID )
 		{
 			navBar->PlayFrame( "rollOn" );
 		}
@@ -167,10 +167,10 @@ void idMenuScreen_PDA_UserData::ShowScreen( const mainMenuTransition_t transitio
 	
 	idMenuScreen::ShowScreen( transitionType );
 	
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuWidget_DynamicList* pdaList = dynamic_cast< idMenuWidget_DynamicList* >( menuData->GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
-		if( pdaList != NULL )
+		if( pdaList != nullptr )
 		{
 			pdaList->SetFocusIndex( pdaList->GetFocusIndex() );
 		}
@@ -185,11 +185,11 @@ idMenuScreen_PDA_UserData::HideScreen
 void idMenuScreen_PDA_UserData::HideScreen( const mainMenuTransition_t transitionType )
 {
 
-	if( menuGUI != NULL )
+	if( menuGUI != nullptr )
 	{
 		idSWFScriptObject& root = menuGUI->GetRootObject();
 		idSWFSpriteInstance* pdaSprite = root.GetNestedSprite( "pda_persons" );
-		if( pdaSprite != NULL && menuData != NULL && menuData->NextScreen() != PDA_AREA_USER_EMAIL )
+		if( pdaSprite != nullptr && menuData != nullptr && menuData->NextScreen() != PDA_AREA_USER_EMAIL )
 		{
 			pdaSprite->SetVisible( true );
 			pdaSprite->PlayFrame( "rollOff" );
@@ -207,7 +207,7 @@ idMenuScreen_PDA_UserData::HandleAction
 bool idMenuScreen_PDA_UserData::HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled )
 {
 
-	if( menuData == NULL )
+	if( menuData == nullptr )
 	{
 		return true;
 	}
@@ -226,7 +226,7 @@ bool idMenuScreen_PDA_UserData::HandleAction( idWidgetAction& action, const idWi
 		{
 		
 			idMenuWidget_DynamicList* pdaList = dynamic_cast< idMenuWidget_DynamicList* >( menuData->GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
-			if( pdaList == NULL )
+			if( pdaList == nullptr )
 			{
 				return true;
 			}
@@ -238,17 +238,17 @@ bool idMenuScreen_PDA_UserData::HandleAction( idWidgetAction& action, const idWi
 			}
 			
 			idPlayer* player = gameLocal.GetLocalPlayer();
-			if( player != NULL && player->IsSoundChannelPlaying( SND_CHANNEL_PDA_AUDIO ) )
+			if( player != nullptr && player->IsSoundChannelPlaying( SND_CHANNEL_PDA_AUDIO ) )
 			{
 				player->EndAudioLog();
 			}
 			else
 			{
-				if( menuData != NULL && pdaAudioFiles.GetChildren().Num() > 0 )
+				if( menuData != nullptr && pdaAudioFiles.GetChildren().Num() > 0 )
 				{
 					int index = pdaAudioFiles.GetChildByIndex( 0 ).GetFocusIndex();
 					idMenuHandler_PDA* pdaHandler = dynamic_cast< idMenuHandler_PDA* const >( menuData );
-					if( pdaHandler != NULL )
+					if( pdaHandler != nullptr )
 					{
 						pdaHandler->PlayPDAAudioLog( pdaIndex, index );
 					}
@@ -267,7 +267,7 @@ bool idMenuScreen_PDA_UserData::HandleAction( idWidgetAction& action, const idWi
 			widgetAction_t repeatActionType = static_cast< widgetAction_t >( parms[ 0 ].ToInteger() );
 			assert( parms.Num() == 2 );
 			repeatAction.Set( repeatActionType, parms[ 1 ] );
-			if( menuData != NULL )
+			if( menuData != nullptr )
 			{
 				menuData->StartWidgetActionRepeater( widget, repeatAction, event );
 			}
@@ -275,7 +275,7 @@ bool idMenuScreen_PDA_UserData::HandleAction( idWidgetAction& action, const idWi
 		}
 		case WIDGET_ACTION_STOP_REPEATER:
 		{
-			if( menuData != NULL )
+			if( menuData != nullptr )
 			{
 				menuData->ClearWidgetActionRepeater();
 			}

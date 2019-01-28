@@ -284,12 +284,12 @@ void idImage::ActuallyLoadImage( bool fromBackEnd )
 		{
 			opts.textureType = TT_CUBIC;
 			repeat = TR_CLAMP;
-			R_LoadCubeImages( GetName(), cubeFiles, NULL, NULL, &sourceFileTime );
+			R_LoadCubeImages( GetName(), cubeFiles, nullptr, nullptr, &sourceFileTime );
 		}
 		else
 		{
 			opts.textureType = TT_2D;
-			R_LoadImageProgram( GetName(), NULL, NULL, NULL, &sourceFileTime, &usage );
+			R_LoadImageProgram( GetName(), nullptr, nullptr, nullptr, &sourceFileTime, &usage );
 		}
 	}
 	
@@ -440,7 +440,7 @@ void idImage::ActuallyLoadImage( bool fromBackEnd )
 			// load the full specification, and perform any image program calculations
 			R_LoadImageProgram( GetName(), &pic, &width, &height, &sourceFileTime, &usage );
 			
-			if( pic == NULL )
+			if( pic == nullptr )
 			{
 				idLib::Warning( "Couldn't load image: %s : %s", GetName(), generatedName.c_str() );
 				// create a default so it doesn't get continuously reloaded
@@ -650,12 +650,12 @@ void idImage::Reload( bool force )
 		ID_TIME_T current;
 		if( cubeFiles != CF_2D )
 		{
-			R_LoadCubeImages( imgName, cubeFiles, NULL, NULL, &current );
+			R_LoadCubeImages( imgName, cubeFiles, nullptr, nullptr, &current );
 		}
 		else
 		{
 			// get the current values
-			R_LoadImageProgram( imgName, NULL, NULL, NULL, &current );
+			R_LoadImageProgram( imgName, nullptr, nullptr, nullptr, &current );
 		}
 		if( current <= sourceFileTime )
 		{
@@ -718,8 +718,8 @@ void idImage::GenerateImage( const byte* pic, int width, int height, textureFilt
 		return;
 	}
 	
-	// RB: allow pic == NULL for internal framebuffer images
-	if( pic == NULL || opts.textureType == TT_2D_MULTISAMPLE )
+	// RB: allow pic == nullptr for internal framebuffer images
+	if( pic == nullptr || opts.textureType == TT_2D_MULTISAMPLE )
 	{
 		AllocImage();
 	}

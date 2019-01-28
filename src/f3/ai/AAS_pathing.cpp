@@ -163,7 +163,7 @@ bool idAASLocal::WalkPathValid( int areaNum, const idVec3& origin, int goalAreaN
 	const aasArea_t* area;
 	idVec3 p, dir;
 	
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		endPos = goalOrigin;
 		endAreaNum = 0;
@@ -319,16 +319,16 @@ idAASLocal::WalkPathToGoal
 bool idAASLocal::WalkPathToGoal( aasPath_t& path, int areaNum, const idVec3& origin, int goalAreaNum, const idVec3& goalOrigin, int travelFlags ) const
 {
 	int i, travelTime, curAreaNum, lastAreas[4], lastAreaIndex, endAreaNum;
-	idReachability* reach = NULL;
+	idReachability* reach = nullptr;
 	idVec3 endPos;
 	
 	path.type = PATHTYPE_WALK;
 	path.moveGoal = origin;
 	path.moveAreaNum = areaNum;
 	path.secondaryGoal = origin;
-	path.reachability = NULL;
+	path.reachability = nullptr;
 	
-	if( file == NULL || areaNum == goalAreaNum )
+	if( file == nullptr || areaNum == goalAreaNum )
 	{
 		path.moveGoal = goalOrigin;
 		return true;
@@ -416,7 +416,7 @@ bool idAASLocal::WalkPathToGoal( aasPath_t& path, int areaNum, const idVec3& ori
 		}
 	}
 	
-	if( reach == NULL )
+	if( reach == nullptr )
 	{
 		return false;
 	}
@@ -456,7 +456,7 @@ bool idAASLocal::FlyPathValid( int areaNum, const idVec3& origin, int goalAreaNu
 {
 	aasTrace_t trace;
 	
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		endPos = goalOrigin;
 		endAreaNum = 0;
@@ -517,16 +517,16 @@ idAASLocal::FlyPathToGoal
 bool idAASLocal::FlyPathToGoal( aasPath_t& path, int areaNum, const idVec3& origin, int goalAreaNum, const idVec3& goalOrigin, int travelFlags ) const
 {
 	int i, travelTime, curAreaNum, lastAreas[4], lastAreaIndex, endAreaNum;
-	idReachability* reach = NULL;
+	idReachability* reach = nullptr;
 	idVec3 endPos;
 	
 	path.type = PATHTYPE_WALK;
 	path.moveGoal = origin;
 	path.moveAreaNum = areaNum;
 	path.secondaryGoal = origin;
-	path.reachability = NULL;
+	path.reachability = nullptr;
 	
-	if( file == NULL || areaNum == goalAreaNum )
+	if( file == nullptr || areaNum == goalAreaNum )
 	{
 		path.moveGoal = goalOrigin;
 		return true;
@@ -608,7 +608,7 @@ bool idAASLocal::FlyPathToGoal( aasPath_t& path, int areaNum, const idVec3& orig
 		}
 	}
 	
-	if( reach == NULL )
+	if( reach == nullptr )
 	{
 		return false;
 	}
@@ -641,7 +641,7 @@ void idAASLocal::SortWallEdges( int* edges, int numEdges ) const
 	{
 		wallEdges[i].edgeNum = edges[i];
 		GetEdgeVertexNumbers( edges[i], wallEdges[i].verts );
-		wallEdges[i].next = NULL;
+		wallEdges[i].next = nullptr;
 		sequenceFirst[i] = &wallEdges[i];
 		sequenceLast[i] = &wallEdges[i];
 	}

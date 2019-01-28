@@ -41,8 +41,8 @@ idPhysics_Static::idPhysics_Static
 */
 idPhysics_Static::idPhysics_Static()
 {
-	self = NULL;
-	clipModel = NULL;
+	self = nullptr;
+	clipModel = nullptr;
 	current.origin.Zero();
 	current.axis.Identity();
 	current.localOrigin.Zero();
@@ -64,7 +64,7 @@ idPhysics_Static::~idPhysics_Static()
 {
 	if( self && self->GetPhysics() == this )
 	{
-		self->SetPhysics( NULL );
+		self->SetPhysics( nullptr );
 	}
 	idForce::DeletePhysics( this );
 	if( clipModel )
@@ -163,7 +163,7 @@ idPhysics_Static::GetNumClipModels
 */
 int idPhysics_Static::GetNumClipModels() const
 {
-	return ( clipModel != NULL );
+	return ( clipModel != nullptr );
 }
 
 /*
@@ -681,7 +681,7 @@ int idPhysics_Static::ClipContents( const idClipModel* model ) const
 		}
 		else
 		{
-			return gameLocal.clip.Contents( clipModel->GetOrigin(), clipModel, clipModel->GetAxis(), -1, NULL );
+			return gameLocal.clip.Contents( clipModel->GetOrigin(), clipModel, clipModel->GetAxis(), -1, nullptr );
 		}
 	}
 	return 0;
@@ -902,7 +902,7 @@ idPhysics_Static::GetBlockingInfo
 */
 const trace_t* idPhysics_Static::GetBlockingInfo() const
 {
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -912,7 +912,7 @@ idPhysics_Static::GetBlockingEntity
 */
 idEntity* idPhysics_Static::GetBlockingEntity() const
 {
-	return NULL;
+	return nullptr;
 }
 
 /*

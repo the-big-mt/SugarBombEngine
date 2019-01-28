@@ -39,8 +39,8 @@ idCommonLocal::InitializeMPMapsModes
 void idCommonLocal::InitializeMPMapsModes()
 {
 
-	const char** gameModes = NULL;
-	const char** gameModesDisplay = NULL;
+	const char** gameModes = nullptr;
+	const char** gameModesDisplay = nullptr;
 	int numModes = game->GetMPGameModes( &gameModes, &gameModesDisplay );
 	mpGameModes.SetNum( numModes );
 	for( int i = 0; i < numModes; i++ )

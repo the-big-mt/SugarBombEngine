@@ -42,14 +42,14 @@ idPhysics_Actor::idPhysics_Actor
 */
 idPhysics_Actor::idPhysics_Actor()
 {
-	clipModel = NULL;
+	clipModel = nullptr;
 	SetClipModelAxis();
 	mass = 100.0f;
 	invMass = 1.0f / mass;
-	masterEntity = NULL;
+	masterEntity = nullptr;
 	masterYaw = 0.0f;
 	masterDeltaYaw = 0.0f;
-	groundEntityPtr = NULL;
+	groundEntityPtr = nullptr;
 }
 
 /*
@@ -62,7 +62,7 @@ idPhysics_Actor::~idPhysics_Actor()
 	if( clipModel )
 	{
 		delete clipModel;
-		clipModel = NULL;
+		clipModel = nullptr;
 	}
 }
 
@@ -272,7 +272,7 @@ idPhysics_Actor::IsPushable
 */
 bool idPhysics_Actor::IsPushable() const
 {
-	return ( masterEntity == NULL );
+	return ( masterEntity == nullptr );
 }
 
 /*
@@ -363,7 +363,7 @@ int idPhysics_Actor::ClipContents( const idClipModel* model ) const
 	}
 	else
 	{
-		return gameLocal.clip.Contents( clipModel->GetOrigin(), clipModel, clipModel->GetAxis(), -1, NULL );
+		return gameLocal.clip.Contents( clipModel->GetOrigin(), clipModel, clipModel->GetAxis(), -1, nullptr );
 	}
 }
 

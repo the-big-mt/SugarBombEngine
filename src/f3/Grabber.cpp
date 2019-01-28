@@ -59,10 +59,10 @@ idGrabber::idGrabber
 */
 idGrabber::idGrabber()
 {
-	dragEnt = NULL;
-	owner = NULL;
-	beam = NULL;
-	beamTarget = NULL;
+	dragEnt = nullptr;
+	owner = nullptr;
+	beam = nullptr;
+	beamTarget = nullptr;
 	oldImpulseSequence = 0;
 	shakeForceFlip = false;
 	holdingAF = false;
@@ -206,8 +206,8 @@ void idGrabber::Initialize()
 	}
 	else
 	{
-		beam = NULL;
-		beamTarget = NULL;
+		beam = nullptr;
+		beamTarget = nullptr;
 		endTime = 0;
 		dragTraceDist = MAX_DRAG_TRACE_DISTANCE;
 	};
@@ -302,7 +302,7 @@ void idGrabber::StartDrag( idEntity* grabEnt, int id )
 	}
 	else if( grabEnt->IsType( idMoveableItem::Type ) )
 	{
-		// RB: 64 bit fixes, changed NULL to 0
+		// RB: 64 bit fixes, changed nullptr to 0
 		grabEnt->PostEventMS( &EV_Touch, 250, thePlayer, 0 );
 		// RB end
 	}
@@ -390,7 +390,7 @@ void idGrabber::StopDrag( bool dropOnly )
 		if( !ent->IsType( idProjectile::Type ) && ( dropOnly || drag.GetDistanceToGoal() > DRAG_FAIL_LEN ) )
 		{
 			ent->GetPhysics()->SetLinearVelocity( vec3_origin );
-			thePlayer->StartSoundShader( declManager->FindSound( "grabber_maindrop" ), SND_CHANNEL_WEAPON, 0, false, NULL );
+			thePlayer->StartSoundShader( declManager->FindSound( "grabber_maindrop" ), SND_CHANNEL_WEAPON, 0, false, nullptr );
 			
 			if( ent->IsType( idExplodingBarrel::Type ) )
 			{
@@ -404,7 +404,7 @@ void idGrabber::StopDrag( bool dropOnly )
 		{
 			// Shoot the object forward
 			ent->ApplyImpulse( thePlayer, 0, ent->GetPhysics()->GetOrigin(), thePlayer->firstPersonViewAxis[0] * THROW_SCALE * ent->GetPhysics()->GetMass() );
-			thePlayer->StartSoundShader( declManager->FindSound( "grabber_release" ), SND_CHANNEL_WEAPON, 0, false, NULL );
+			thePlayer->StartSoundShader( declManager->FindSound( "grabber_release" ), SND_CHANNEL_WEAPON, 0, false, nullptr );
 			
 			// Orient projectiles away from the player
 			if( ent->IsType( idProjectile::Type ) )
@@ -421,7 +421,7 @@ void idGrabber::StopDrag( bool dropOnly )
 				ent->GetPhysics()->SetClipMask( savedClipmask );
 				
 				idProjectile* projectile = static_cast< idProjectile* >( ent );
-				if( projectile != NULL )
+				if( projectile != nullptr )
 				{
 					projectile->SetLaunchedFromGrabber( true );
 				}
@@ -458,7 +458,7 @@ void idGrabber::StopDrag( bool dropOnly )
 	}
 	
 	lastFiredTime = gameLocal.time;
-	dragEnt = NULL;
+	dragEnt = nullptr;
 	endTime = 0;
 }
 
@@ -812,7 +812,7 @@ void idGrabber::ApplyShake()
 			impulse.Set( 0, 0, -shakeForceMagnitude * u * mass );
 		}
 		
-		dragEnt.GetEntity()->ApplyImpulse( NULL, 0, point, impulse );
+		dragEnt.GetEntity()->ApplyImpulse( nullptr, 0, point, impulse );
 	}
 }
 

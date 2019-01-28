@@ -66,10 +66,10 @@ idCVar r_useOpenGL32( "r_useOpenGL32", "1", CVAR_INTEGER, "0 = OpenGL 3.x, 1 = O
 static bool grabbed = false;
 
 #if SDL_VERSION_ATLEAST(2, 0, 0)
-static SDL_Window* window = NULL;
-static SDL_GLContext context = NULL;
+static SDL_Window* window = nullptr;
+static SDL_GLContext context = nullptr;
 #else
-static SDL_Surface* window = NULL;
+static SDL_Surface* window = nullptr;
 #define SDL_WINDOW_OPENGL SDL_OPENGL
 #define SDL_WINDOW_FULLSCREEN SDL_FULLSCREEN
 #define SDL_WINDOW_RESIZABLE SDL_RESIZABLE
@@ -460,7 +460,7 @@ bool GLimp_SetScreenParms( glimpParms_t parms )
 	}
 #else // SDL 1.2 - so much shorter, but doesn't handle multiple displays
 	SDL_Surface* s = SDL_GetVideoSurface();
-	if( s == NULL )
+	if( s == nullptr )
 	{
 		common->Warning( "GLimp_SetScreenParms: Couldn't get video information, reason: %s", SDL_GetError() );
 		return false;
@@ -479,7 +479,7 @@ bool GLimp_SetScreenParms( glimpParms_t parms )
 		flags &= ~SDL_FULLSCREEN;
 	
 	s = SDL_SetVideoMode( parms.width, parms.height, bitsperpixel, flags );
-	if( s == NULL )
+	if( s == nullptr )
 	{
 		common->Warning( "GLimp_SetScreenParms: Couldn't set video information, reason: %s", SDL_GetError() );
 		return false;
@@ -515,13 +515,13 @@ void GLimp_Shutdown()
 	if( context )
 	{
 		SDL_GL_DeleteContext( context );
-		context = NULL;
+		context = nullptr;
 	}
 	
 	if( window )
 	{
 		SDL_DestroyWindow( window );
-		window = NULL;
+		window = nullptr;
 	}
 #endif
 }
@@ -727,7 +727,7 @@ bool R_GetModeListForDisplay( const int requestedDisplayNum, idList<vidMode_t>& 
 	// DG end
 	
 	const SDL_VideoInfo* videoInfo = SDL_GetVideoInfo();
-	if( videoInfo == NULL )
+	if( videoInfo == nullptr )
 	{
 		// DG: yes, this can actually fail, e.g. if SDL_Init( SDL_INIT_VIDEO ) wasn't called
 		common->Warning( "Can't get Video Info, using default modes...\n" );

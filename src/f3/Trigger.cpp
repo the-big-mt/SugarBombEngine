@@ -40,8 +40,8 @@ If you have questions concerning this license or the applicable additional terms
 ===============================================================================
 */
 
-const idEventDef EV_Enable( "enable", NULL );
-const idEventDef EV_Disable( "disable", NULL );
+const idEventDef EV_Enable( "enable", nullptr );
+const idEventDef EV_Disable( "disable", nullptr );
 
 CLASS_DECLARATION( idEntity, idTrigger )
 EVENT( EV_Enable,	idTrigger::Event_Enable )
@@ -68,7 +68,7 @@ void idTrigger::DrawDebugInfo()
 	
 	viewTextBounds.ExpandSelf( 128.0f );
 	viewBounds.ExpandSelf( 512.0f );
-	for( ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next() )
+	for( ent = gameLocal.spawnedEntities.Next(); ent != nullptr; ent = ent->spawnNode.Next() )
 	{
 		if( ent->GetPhysics()->GetContents() & ( CONTENTS_TRIGGER | CONTENTS_FLASHLIGHT_TRIGGER ) )
 		{
@@ -78,7 +78,7 @@ void idTrigger::DrawDebugInfo()
 				for( i = 0; i < ent->targets.Num(); i++ )
 				{
 					target = ent->targets[ i ].GetEntity();
-					if( target != NULL && viewBounds.IntersectsBounds( target->GetPhysics()->GetAbsBounds() ) )
+					if( target != nullptr && viewBounds.IntersectsBounds( target->GetPhysics()->GetAbsBounds() ) )
 					{
 						show = true;
 						break;
@@ -102,7 +102,7 @@ void idTrigger::DrawDebugInfo()
 				}
 				else
 				{
-					func = NULL;
+					func = nullptr;
 				}
 				
 				if( func )
@@ -206,14 +206,14 @@ void idTrigger::Restore( idRestoreGame* savefile )
 	if( funcname.Length() )
 	{
 		scriptFunction = gameLocal.program.FindFunction( funcname );
-		if( scriptFunction == NULL )
+		if( scriptFunction == nullptr )
 		{
 			gameLocal.Warning( "idTrigger_Multi '%s' at (%s) calls unknown function '%s'", name.c_str(), GetPhysics()->GetOrigin().ToString( 0 ), funcname.c_str() );
 		}
 	}
 	else
 	{
-		scriptFunction = NULL;
+		scriptFunction = nullptr;
 	}
 }
 
@@ -244,7 +244,7 @@ idTrigger::idTrigger
 */
 idTrigger::idTrigger()
 {
-	scriptFunction = NULL;
+	scriptFunction = nullptr;
 }
 
 /*
@@ -260,14 +260,14 @@ void idTrigger::Spawn()
 	if( funcname.Length() )
 	{
 		scriptFunction = gameLocal.program.FindFunction( funcname );
-		if( scriptFunction == NULL )
+		if( scriptFunction == nullptr )
 		{
 			gameLocal.Warning( "trigger '%s' at (%s) calls unknown function '%s'", name.c_str(), GetPhysics()->GetOrigin().ToString( 0 ), funcname.c_str() );
 		}
 	}
 	else
 	{
-		scriptFunction = NULL;
+		scriptFunction = nullptr;
 	}
 }
 
@@ -860,7 +860,7 @@ void idTrigger_EntityName::Event_Touch( idEntity* other, trace_t* trace )
 ===============================================================================
 */
 
-const idEventDef EV_Timer( "<timer>", NULL );
+const idEventDef EV_Timer( "<timer>", nullptr );
 
 CLASS_DECLARATION( idTrigger, idTrigger_Timer )
 EVENT( EV_Timer,		idTrigger_Timer::Event_Timer )
@@ -1214,7 +1214,7 @@ void idTrigger_Hurt::Event_Touch( idEntity* other, trace_t* trace )
 			dir = other->GetPhysics()->GetOrigin() - GetPhysics()->GetOrigin();
 			dir.Normalize();
 		}
-		other->Damage( NULL, NULL, dir, damage, 1.0f, INVALID_JOINT );
+		other->Damage( nullptr, nullptr, dir, damage, 1.0f, INVALID_JOINT );
 		
 		ActivateTargets( other );
 		CallScript();
@@ -1287,7 +1287,7 @@ idTrigger_Touch::idTrigger_Touch
 */
 idTrigger_Touch::idTrigger_Touch()
 {
-	clipModel = NULL;
+	clipModel = nullptr;
 }
 
 /*
@@ -1301,7 +1301,7 @@ void idTrigger_Touch::Spawn()
 	clipModel = new( TAG_THREAD ) idClipModel( GetPhysics()->GetClipModel() );
 	
 	// remove the collision model from the physics object
-	GetPhysics()->SetClipModel( NULL, 1.0f );
+	GetPhysics()->SetClipModel( nullptr, 1.0f );
 	
 	if( spawnArgs.GetBool( "start_on" ) )
 	{
@@ -1340,7 +1340,7 @@ void idTrigger_Touch::TouchEntities()
 	idBounds bounds;
 	idClipModel* cm, *clipModelList[ MAX_GENTITIES ];
 	
-	if( clipModel == NULL || scriptFunction == NULL )
+	if( clipModel == nullptr || scriptFunction == nullptr )
 	{
 		return;
 	}
@@ -1445,7 +1445,7 @@ idTrigger_Flag::idTrigger_Flag()
 {
 	team		= -1;
 	player		= false;
-	eventFlag	= NULL;
+	eventFlag	= nullptr;
 }
 
 void idTrigger_Flag::Spawn()
@@ -1457,14 +1457,14 @@ void idTrigger_Flag::Spawn()
 	if( funcname.Length() )
 	{
 		eventFlag = idEventDef::FindEvent( funcname );// gameLocal.program.FindFunction( funcname );//, &idItemTeam::Type );
-		if( eventFlag == NULL )
+		if( eventFlag == nullptr )
 		{
 			gameLocal.Warning( "trigger '%s' at (%s) event unknown '%s'", name.c_str(), GetPhysics()->GetOrigin().ToString( 0 ), funcname.c_str() );
 		}
 	}
 	else
 	{
-		eventFlag = NULL;
+		eventFlag = nullptr;
 	}
 	
 	idTrigger_Multi::Spawn();
@@ -1472,7 +1472,7 @@ void idTrigger_Flag::Spawn()
 
 void idTrigger_Flag::Event_Touch( idEntity* other, trace_t* trace )
 {
-	idItemTeam* flag = NULL;
+	idItemTeam* flag = nullptr;
 	
 	if( common->IsClient() )
 	{
@@ -1532,7 +1532,7 @@ void idTrigger_Flag::Event_Touch( idEntity* other, trace_t* trace )
 				flag->PostEventMS( eventFlag, 0 );
 				break;
 				
-			// RB: 64 bit fixes, changed NULL to 0
+			// RB: 64 bit fixes, changed nullptr to 0
 			case 1 :
 				flag->PostEventMS( eventFlag, 0, 0 );
 				break;
@@ -1543,7 +1543,7 @@ void idTrigger_Flag::Event_Touch( idEntity* other, trace_t* trace )
 		}
 		
 		/*
-				ServerSendEvent( eventFlag->GetEventNum(), NULL, true );
+				ServerSendEvent( eventFlag->GetEventNum(), nullptr, true );
 		
 				idThread *thread;
 				if ( scriptFlag ) {

@@ -75,15 +75,15 @@ MapGeoBufferSet
 */
 static void MapGeoBufferSet( geoBufferSet_t& gbs )
 {
-	if( gbs.mappedVertexBase == NULL )
+	if( gbs.mappedVertexBase == nullptr )
 	{
 		gbs.mappedVertexBase = ( byte* )gbs.vertexBuffer.MapBuffer( BM_WRITE );
 	}
-	if( gbs.mappedIndexBase == NULL )
+	if( gbs.mappedIndexBase == nullptr )
 	{
 		gbs.mappedIndexBase = ( byte* )gbs.indexBuffer.MapBuffer( BM_WRITE );
 	}
-	if( gbs.mappedJointBase == NULL && gbs.jointBuffer.GetAllocedSize() != 0 )
+	if( gbs.mappedJointBase == nullptr && gbs.jointBuffer.GetAllocedSize() != 0 )
 	{
 		gbs.mappedJointBase = ( byte* )gbs.jointBuffer.MapBuffer( BM_WRITE );
 	}
@@ -96,20 +96,20 @@ UnmapGeoBufferSet
 */
 static void UnmapGeoBufferSet( geoBufferSet_t& gbs )
 {
-	if( gbs.mappedVertexBase != NULL )
+	if( gbs.mappedVertexBase != nullptr )
 	{
 		gbs.vertexBuffer.UnmapBuffer();
-		gbs.mappedVertexBase = NULL;
+		gbs.mappedVertexBase = nullptr;
 	}
-	if( gbs.mappedIndexBase != NULL )
+	if( gbs.mappedIndexBase != nullptr )
 	{
 		gbs.indexBuffer.UnmapBuffer();
-		gbs.mappedIndexBase = NULL;
+		gbs.mappedIndexBase = nullptr;
 	}
-	if( gbs.mappedJointBase != NULL )
+	if( gbs.mappedJointBase != nullptr )
 	{
 		gbs.jointBuffer.UnmapBuffer();
-		gbs.mappedJointBase = NULL;
+		gbs.mappedJointBase = nullptr;
 	}
 }
 
@@ -120,11 +120,11 @@ AllocGeoBufferSet
 */
 static void AllocGeoBufferSet( geoBufferSet_t& gbs, const int vertexBytes, const int indexBytes, const int jointBytes )
 {
-	gbs.vertexBuffer.AllocBufferObject( NULL, vertexBytes );
-	gbs.indexBuffer.AllocBufferObject( NULL, indexBytes );
+	gbs.vertexBuffer.AllocBufferObject( nullptr, vertexBytes );
+	gbs.indexBuffer.AllocBufferObject( nullptr, indexBytes );
 	if( jointBytes != 0 )
 	{
-		gbs.jointBuffer.AllocBufferObject( NULL, jointBytes / sizeof( idJointMat ) );
+		gbs.jointBuffer.AllocBufferObject( nullptr, jointBytes / sizeof( idJointMat ) );
 	}
 	ClearGeoBufferSet( gbs );
 }
@@ -212,7 +212,7 @@ vertCacheHandle_t idVertexCache::ActuallyAlloc( geoBufferSet_t& vcs, const void*
 	assert( ( bytes & 15 ) == 0 );
 	
 	// thread safe interlocked adds
-	byte** base = NULL;
+	byte** base = nullptr;
 	int	endPos = 0;
 	if( type == CACHE_INDEX )
 	{
@@ -251,7 +251,7 @@ vertCacheHandle_t idVertexCache::ActuallyAlloc( geoBufferSet_t& vcs, const void*
 	int offset = endPos - bytes;
 	
 	// Actually perform the data transfer
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		MapGeoBufferSet( vcs );
 		CopyBuffer( *base + offset, ( const byte* )data, bytes );

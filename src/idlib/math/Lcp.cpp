@@ -32,7 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 // this file is full of intentional case fall throughs
 //lint -e616
 
-// the code is correct, it can't be a NULL pointer
+// the code is correct, it can't be a nullptr pointer
 //lint -e613
 
 static idCVar lcp_showFailures( "lcp_showFailures", "0", CVAR_BOOL, "show LCP solver failures" );
@@ -1971,7 +1971,7 @@ void idLCP_Square::Swap( int i, int j )
 	hi.SwapElements( i, j );
 	a.SwapElements( i, j );
 	f.SwapElements( i, j );
-	if( boxIndex != NULL )
+	if( boxIndex != nullptr )
 	{
 		SwapValues( boxIndex[i], boxIndex[j] );
 	}
@@ -2268,14 +2268,14 @@ bool idLCP_Square::Solve( const idMatX& o_m, idVecX& o_x, const idVecX& o_b, con
 	b.SetData( o_b.GetSize(), VECX_ALLOCA( o_b.GetSize() ) );
 	lo.SetData( o_lo.GetSize(), VECX_ALLOCA( o_lo.GetSize() ) );
 	hi.SetData( o_hi.GetSize(), VECX_ALLOCA( o_hi.GetSize() ) );
-	if( o_boxIndex != NULL )
+	if( o_boxIndex != nullptr )
 	{
 		boxIndex = ( int* )_alloca16( o_x.GetSize() * sizeof( int ) );
 		memcpy( boxIndex, o_boxIndex, o_x.GetSize() * sizeof( int ) );
 	}
 	else
 	{
-		boxIndex = NULL;
+		boxIndex = nullptr;
 	}
 	
 	// we override the const on o_m here but on exit the matrix is unchanged
@@ -2677,7 +2677,7 @@ void idLCP_Symmetric::Swap( int i, int j )
 	hi.SwapElements( i, j );
 	a.SwapElements( i, j );
 	f.SwapElements( i, j );
-	if( boxIndex != NULL )
+	if( boxIndex != nullptr )
 	{
 		SwapValues( boxIndex[i], boxIndex[j] );
 	}
@@ -3048,14 +3048,14 @@ bool idLCP_Symmetric::Solve( const idMatX& o_m, idVecX& o_x, const idVecX& o_b, 
 	b.SetData( o_b.GetSize(), VECX_ALLOCA( o_b.GetSize() ) );
 	lo.SetData( o_lo.GetSize(), VECX_ALLOCA( o_lo.GetSize() ) );
 	hi.SetData( o_hi.GetSize(), VECX_ALLOCA( o_hi.GetSize() ) );
-	if( o_boxIndex != NULL )
+	if( o_boxIndex != nullptr )
 	{
 		boxIndex = ( int* )_alloca16( o_x.GetSize() * sizeof( int ) );
 		memcpy( boxIndex, o_boxIndex, o_x.GetSize() * sizeof( int ) );
 	}
 	else
 	{
-		boxIndex = NULL;
+		boxIndex = nullptr;
 	}
 	
 	// we override the const on o_m here but on exit the matrix is unchanged
@@ -3099,7 +3099,7 @@ bool idLCP_Symmetric::Solve( const idMatX& o_m, idVecX& o_x, const idVecX& o_b, 
 	
 	// permute input so all variables using the boxIndex come last
 	int boxStartIndex = m.GetNumRows();
-	if( boxIndex != NULL )
+	if( boxIndex != nullptr )
 	{
 		for( int i = m.GetNumRows() - 1; i >= numUnbounded; i-- )
 		{

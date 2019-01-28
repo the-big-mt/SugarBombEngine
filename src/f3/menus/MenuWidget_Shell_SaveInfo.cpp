@@ -37,13 +37,13 @@ idMenuWidget_Shell_SaveInfo::Update
 void idMenuWidget_Shell_SaveInfo::Update()
 {
 
-	if( GetSWFObject() == NULL )
+	if( GetSWFObject() == nullptr )
 	{
 		return;
 	}
 	
 	idSWFScriptObject& root = GetSWFObject()->GetRootObject();
-	if( !BindSprite( root ) || GetSprite() == NULL )
+	if( !BindSprite( root ) || GetSprite() == nullptr )
 	{
 		return;
 	}
@@ -124,13 +124,13 @@ void idMenuWidget_Shell_SaveInfo::Update()
 	}
 	
 	idSWFTextInstance* infoSprite = GetSprite()->GetScriptObject()->GetNestedText( "txtDesc" );
-	if( infoSprite != NULL )
+	if( infoSprite != nullptr )
 	{
 		infoSprite->SetText( info );
 	}
 	
 	idSWFSpriteInstance* img = GetSprite()->GetScriptObject()->GetNestedSprite( "img" );
-	if( img != NULL )
+	if( img != nullptr )
 	{
 		// TODO_SPARTY: until we have a thumbnail hide the image
 		img->SetVisible( false );
@@ -145,14 +145,14 @@ idMenuWidget_Help::ObserveEvent
 void idMenuWidget_Shell_SaveInfo::ObserveEvent( const idMenuWidget& widget, const idWidgetEvent& event )
 {
 	const idMenuWidget_Button* const button = dynamic_cast< const idMenuWidget_Button* >( &widget );
-	if( button == NULL )
+	if( button == nullptr )
 	{
 		return;
 	}
 	
 	const idMenuWidget* const listWidget = button->GetParent();
 	
-	if( listWidget == NULL )
+	if( listWidget == nullptr )
 	{
 		return;
 	}

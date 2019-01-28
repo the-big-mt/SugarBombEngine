@@ -47,7 +47,7 @@ StaticShadowVolumeJob
 */
 void StaticShadowVolumeJob( const staticShadowVolumeParms_t* parms )
 {
-	if( parms->tempCullBits == NULL )
+	if( parms->tempCullBits == nullptr )
 	{
 		*const_cast< byte** >( &parms->tempCullBits ) = ( byte* )_alloca16( TEMP_CULLBITS( parms->numVerts ) );
 	}
@@ -74,7 +74,7 @@ void StaticShadowVolumeJob( const staticShadowVolumeParms_t* parms )
 		if( R_ViewPotentiallyInsideInfiniteShadowVolume( parms->triangleBounds, parms->localLightOrigin, parms->localViewOrigin, parms->zNear * INSIDE_SHADOW_VOLUME_EXTRA_STRETCH ) )
 		{
 			// Optionally perform a more precise test to see whether or not the view is inside the shadow volume.
-			if( parms->useShadowPreciseInsideTest && parms->verts != NULL && parms->indexes != NULL )
+			if( parms->useShadowPreciseInsideTest && parms->verts != nullptr && parms->indexes != nullptr )
 			{
 				renderZFail = R_ViewInsideShadowVolume( parms->tempCullBits, parms->verts, parms->numVerts, parms->indexes, parms->numIndexes,
 														parms->localLightOrigin, parms->localViewOrigin, parms->zNear * INSIDE_SHADOW_VOLUME_EXTRA_STRETCH );
@@ -90,26 +90,26 @@ void StaticShadowVolumeJob( const staticShadowVolumeParms_t* parms )
 	}
 	
 	// write out the number of shadow indices
-	if( parms->numShadowIndices != NULL )
+	if( parms->numShadowIndices != nullptr )
 	{
 		*parms->numShadowIndices = numShadowIndices;
 	}
 	// write out whether or not the shadow volume needs to be rendered with Z-Fail
-	if( parms->renderZFail != NULL )
+	if( parms->renderZFail != nullptr )
 	{
 		*parms->renderZFail = renderZFail;
 	}
 	// write out the shadow depth bounds
-	if( parms->shadowZMin != NULL )
+	if( parms->shadowZMin != nullptr )
 	{
 		*parms->shadowZMin = shadowZMin;
 	}
-	if( parms->shadowZMax != NULL )
+	if( parms->shadowZMax != nullptr )
 	{
 		*parms->shadowZMax = shadowZMax;
 	}
 	// write out the shadow volume state
-	if( parms->shadowVolumeState != NULL )
+	if( parms->shadowVolumeState != nullptr )
 	{
 		*parms->shadowVolumeState = SHADOWVOLUME_DONE;
 	}

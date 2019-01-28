@@ -97,7 +97,7 @@ void idAimAssist::UpdateNewAimAssist()
 	angleCorrection = ang_zero;
 	frictionScalar = 1.0f;
 	idEntity* lastTarget = targetEntity;
-	targetEntity = NULL;
+	targetEntity = nullptr;
 	
 	// is aim assisting allowed?  If not then just bail out
 	if( !aa_targetAimAssistEnable.GetBool() )
@@ -108,7 +108,7 @@ void idAimAssist::UpdateNewAimAssist()
 	bool forceLastTarget = false;
 	idVec3 targetPos;
 	
-	idEntity* entity = NULL;
+	idEntity* entity = nullptr;
 	if( forceLastTarget )
 	{
 		entity = lastTarget;
@@ -119,7 +119,7 @@ void idAimAssist::UpdateNewAimAssist()
 		entity = FindAimAssistTarget( targetPos );
 	}
 	
-	if( entity != NULL )
+	if( entity != nullptr )
 	{
 	
 		UpdateFriction( entity, targetPos );
@@ -147,14 +147,14 @@ idAimAssist::FindAimAssistTarget
 */
 idEntity* idAimAssist::FindAimAssistTarget( idVec3& targetPos )
 {
-	if( player == NULL )
+	if( player == nullptr )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	//TO DO: Make this faster
 	//TO DO: Defer Traces
-	idEntity* 	optimalTarget = NULL;
+	idEntity* 	optimalTarget = nullptr;
 	float		currentBestScore = -idMath::INFINITY;
 	targetPos = vec3_zero;
 	
@@ -169,7 +169,7 @@ idEntity* idAimAssist::FindAimAssistTarget( idVec3& targetPos )
 	idVec3 primaryTargetPos;
 	idVec3 secondaryTargetPos;
 	
-	for( idEntity* entity = gameLocal.aimAssistEntities.Next(); entity != NULL; entity = entity->aimAssistNode.Next() )
+	for( idEntity* entity = gameLocal.aimAssistEntities.Next(); entity != nullptr; entity = entity->aimAssistNode.Next() )
 	{
 		if( !entity->IsActive() )
 		{
@@ -402,7 +402,7 @@ void idAimAssist::UpdateFriction( idEntity* pTarget, const idVec3& targetPos )
 		return;
 	}
 	
-	if( pTarget == NULL )
+	if( pTarget == nullptr )
 	{
 		return;
 	}
@@ -439,25 +439,25 @@ bool idAimAssist::ComputeTargetPos( idEntity* entity, idVec3& primaryTargetPos, 
 	primaryTargetPos = vec3_zero;
 	secondaryTargetPos = vec3_zero;
 	
-	if( entity == NULL )
+	if( entity == nullptr )
 	{
 		return false;
 	}
 	
 	// The target point on actors can now be either the head or the torso
-	idActor* actor = NULL;
+	idActor* actor = nullptr;
 	if( entity->IsType( idActor::Type ) )
 	{
 		actor = ( idActor* ) entity;
 	}
-	if( actor != NULL )
+	if( actor != nullptr )
 	{
 		// Actor AimPoint
 		
 		idVec3 torsoPos;
 		idVec3 headPos = actor->GetEyePosition();
 		
-		if( actor->GetHeadEntity() != NULL )
+		if( actor->GetHeadEntity() != nullptr )
 		{
 			torsoPos = actor->GetHeadEntity()->GetPhysics()->GetOrigin();
 		}
@@ -472,7 +472,7 @@ bool idAimAssist::ComputeTargetPos( idEntity* entity, idVec3& primaryTargetPos, 
 		return true;
 		
 	}
-	else if( entity->GetPhysics()->GetClipModel() != NULL )
+	else if( entity->GetPhysics()->GetClipModel() != nullptr )
 	{
 	
 		const idBounds& box = entity->GetPhysics()->GetClipModel()->GetAbsBounds();

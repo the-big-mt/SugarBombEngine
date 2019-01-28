@@ -93,19 +93,19 @@ idRenderModel* idRenderModelBeam::InstantiateDynamicModel( const struct renderEn
 	if( cachedModel )
 	{
 		delete cachedModel;
-		cachedModel = NULL;
+		cachedModel = nullptr;
 	}
 	
-	if( renderEntity == NULL || viewDef == NULL )
+	if( renderEntity == nullptr || viewDef == nullptr )
 	{
 		delete cachedModel;
-		return NULL;
+		return nullptr;
 	}
 	
-	if( cachedModel != NULL )
+	if( cachedModel != nullptr )
 	{
 	
-		assert( dynamic_cast<idRenderModelStatic*>( cachedModel ) != NULL );
+		assert( dynamic_cast<idRenderModelStatic*>( cachedModel ) != nullptr );
 		assert( idStr::Icmp( cachedModel->Name(), beam_SnapshotName ) == 0 );
 		
 		staticModel = static_cast<idRenderModelStatic*>( cachedModel );

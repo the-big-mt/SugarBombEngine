@@ -164,11 +164,11 @@ static void LoadTGA( const char* name, byte** pic, int* width, int* height, ID_T
 	
 	if( !pic )
 	{
-		fileSystem->ReadFile( name, NULL, timestamp );
+		fileSystem->ReadFile( name, nullptr, timestamp );
 		return;	// just getting timestamp
 	}
 	
-	*pic = NULL;
+	*pic = nullptr;
 	
 	//
 	// load the file
@@ -406,7 +406,7 @@ breakOut:
 	
 	if( ( targa_header.attributes & ( 1 << 5 ) ) )  			// image flp bit
 	{
-		if( width != NULL && height != NULL )
+		if( width != nullptr && height != nullptr )
 		{
 			R_VerticalFlip( *pic, *width, *height );
 		}
@@ -466,7 +466,7 @@ static void LoadJPG( const char* filename, unsigned char** pic, int* width, int*
 	// we need to make sure the file buffer is padded or it may crash
 	if( pic )
 	{
-		*pic = NULL;		// until proven otherwise
+		*pic = nullptr;		// until proven otherwise
 	}
 	{
 		idFile* f;
@@ -654,11 +654,11 @@ static void LoadPNG( const char* filename, unsigned char** pic, int* width, int*
 	
 	if( !pic )
 	{
-		fileSystem->ReadFile( filename, NULL, timestamp );
+		fileSystem->ReadFile( filename, nullptr, timestamp );
 		return;	// just getting timestamp
 	}
 	
-	*pic = NULL;
+	*pic = nullptr;
 	
 	//
 	// load the file
@@ -670,7 +670,7 @@ static void LoadPNG( const char* filename, unsigned char** pic, int* width, int*
 	}
 	
 	// create png_struct with the custom error handlers
-	png_structp pngPtr = png_create_read_struct( PNG_LIBPNG_VER_STRING, ( png_voidp ) NULL, png_Error, png_Warning );
+	png_structp pngPtr = png_create_read_struct( PNG_LIBPNG_VER_STRING, ( png_voidp ) nullptr, png_Error, png_Warning );
 	if( !pngPtr )
 	{
 		common->Error( "LoadPNG( %s ): png_create_read_struct failed", filename );
@@ -691,7 +691,7 @@ static void LoadPNG( const char* filename, unsigned char** pic, int* width, int*
 	
 	png_uint_32 pngWidth, pngHeight;
 	int bitDepth, colorType, interlaceType;
-	png_get_IHDR( pngPtr, infoPtr, &pngWidth, &pngHeight, &bitDepth, &colorType, &interlaceType, NULL, NULL );
+	png_get_IHDR( pngPtr, infoPtr, &pngWidth, &pngHeight, &bitDepth, &colorType, &interlaceType, nullptr, nullptr );
 	
 	// 16 bit -> 8 bit
 	png_set_strip_16( pngPtr );
@@ -757,7 +757,7 @@ static void LoadPNG( const char* filename, unsigned char** pic, int* width, int*
 	
 	png_read_end( pngPtr, infoPtr );
 	
-	png_destroy_read_struct( &pngPtr, &infoPtr, NULL );
+	png_destroy_read_struct( &pngPtr, &infoPtr, nullptr );
 	
 	R_StaticFree( rowPointers );
 	Mem_Free( fbuffer );
@@ -788,7 +788,7 @@ R_WritePNG
 */
 void R_WritePNG( const char* filename, const byte* data, int bytesPerPixel, int width, int height, bool flipVertical, const char* basePath )
 {
-	png_structp pngPtr = png_create_write_struct( PNG_LIBPNG_VER_STRING, NULL, png_Error, png_Warning );
+	png_structp pngPtr = png_create_write_struct( PNG_LIBPNG_VER_STRING, nullptr, png_Error, png_Warning );
 	if( !pngPtr )
 	{
 		common->Error( "R_WritePNG( %s ): png_create_write_struct failed", filename );
@@ -877,7 +877,7 @@ Loads any of the supported image types into a cannonical
 
 Automatically attempts to load .jpg files if .tga files fail to load.
 
-*pic will be NULL if the load failed.
+*pic will be nullptr if the load failed.
 
 Anything that is going to make this into a texture would use
 makePowerOf2 = true, but something loading an image as a lookup
@@ -886,9 +886,9 @@ table of some sort would leave it in identity form.
 It is important to do this at image load time instead of texture load
 time for bump maps.
 
-Timestamp may be NULL if the value is going to be ignored
+Timestamp may be nullptr if the value is going to be ignored
 
-If pic is NULL, the image won't actually be loaded, it will just find the
+If pic is nullptr, the image won't actually be loaded, it will just find the
 timestamp.
 =================
 */
@@ -898,7 +898,7 @@ void R_LoadImage( const char* cname, byte** pic, int* width, int* height, ID_TIM
 	
 	if( pic )
 	{
-		*pic = NULL;
+		*pic = nullptr;
 	}
 	if( timestamp )
 	{
@@ -940,7 +940,7 @@ void R_LoadImage( const char* cname, byte** pic, int* width, int* height, ID_TIM
 		
 		if( i < numImageLoaders )
 		{
-			if( pic && *pic == NULL )
+			if( pic && *pic == nullptr )
 			{
 				// image with the specified extension was not found so try all formats
 				for( i = 0; i < numImageLoaders; i++ )
@@ -948,7 +948,7 @@ void R_LoadImage( const char* cname, byte** pic, int* width, int* height, ID_TIM
 					name.SetFileExtension( imageLoaders[i].ext );
 					imageLoaders[i].ImageLoader( name.c_str(), pic, width, height, timestamp );
 					
-					if( pic && *pic != NULL )
+					if( pic && *pic != nullptr )
 					{
 						//common->Warning("image %s failed to load, using %s instead", origName.c_str(), name.c_str());
 						break;
@@ -1044,7 +1044,7 @@ bool R_LoadCubeImages( const char* imgName, cubeFiles_t extensions, byte* pics[6
 		if( !pics )
 		{
 			// just checking timestamps
-			R_LoadImageProgram( fullName, NULL, &width, &height, &thisTime );
+			R_LoadImageProgram( fullName, nullptr, &width, &height, &thisTime );
 		}
 		else
 		{

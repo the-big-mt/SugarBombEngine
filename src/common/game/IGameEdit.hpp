@@ -125,7 +125,7 @@ public:
 	
 	// In game map editing support.
 	virtual const idDict* 		MapGetEntityDict( const char* name ) const;
-	virtual void				MapSave( const char* path = NULL ) const;
+	virtual void				MapSave( const char* path = nullptr ) const;
 	virtual void				MapSetEntityKeyVal( const char* name, const char* key, const char* val ) const ;
 	virtual void				MapCopyDictToEntity( const char* name, const idDict* dict ) const;
 	virtual int					MapGetUniqueMatchingKeyVals( const char* key, const char* list[], const int max ) const;

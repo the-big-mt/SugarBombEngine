@@ -63,7 +63,7 @@ idRenderModelPrt::idRenderModelPrt
 */
 idRenderModelPrt::idRenderModelPrt()
 {
-	particleSystem = NULL;
+	particleSystem = nullptr;
 }
 
 /*
@@ -100,34 +100,34 @@ idRenderModel* idRenderModelPrt::InstantiateDynamicModel( const struct renderEnt
 	if( cachedModel && !r_useCachedDynamicModels.GetBool() )
 	{
 		delete cachedModel;
-		cachedModel = NULL;
+		cachedModel = nullptr;
 	}
 	
 	// this may be triggered by a model trace or other non-view related source, to which we should look like an empty model
-	if( renderEntity == NULL || viewDef == NULL )
+	if( renderEntity == nullptr || viewDef == nullptr )
 	{
 		delete cachedModel;
-		return NULL;
+		return nullptr;
 	}
 	
 	if( r_skipParticles.GetBool() )
 	{
 		delete cachedModel;
-		return NULL;
+		return nullptr;
 	}
 	
 	/*
 	// if the entire system has faded out
 	if ( renderEntity->shaderParms[SHADERPARM_PARTICLE_STOPTIME] && viewDef->renderView.time * 0.001f >= renderEntity->shaderParms[SHADERPARM_PARTICLE_STOPTIME] ) {
 		delete cachedModel;
-		return NULL;
+		return nullptr;
 	}
 	*/
 	
-	if( cachedModel != NULL )
+	if( cachedModel != nullptr )
 	{
 	
-		assert( dynamic_cast<idRenderModelStatic*>( cachedModel ) != NULL );
+		assert( dynamic_cast<idRenderModelStatic*>( cachedModel ) != nullptr );
 		assert( idStr::Icmp( cachedModel->Name(), parametricParticle_SnapshotName ) == 0 );
 		
 		staticModel = static_cast<idRenderModelStatic*>( cachedModel );

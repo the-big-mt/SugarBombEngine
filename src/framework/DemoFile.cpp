@@ -60,11 +60,11 @@ idDemoFile::idDemoFile
 */
 idDemoFile::idDemoFile()
 {
-	f = NULL;
-	fLog = NULL;
+	f = nullptr;
+	fLog = nullptr;
 	log = false;
-	fileImage = NULL;
-	compressor = NULL;
+	fileImage = nullptr;
+	compressor = nullptr;
 	writing = false;
 }
 
@@ -192,7 +192,7 @@ bool idDemoFile::OpenForWriting( const char* fileName )
 	Close();
 	
 	f = fileSystem->OpenFileWrite( fileName );
-	if( f == NULL )
+	if( f == nullptr )
 	{
 		return false;
 	}
@@ -229,22 +229,22 @@ void idDemoFile::Close()
 	if( f )
 	{
 		fileSystem->CloseFile( f );
-		f = NULL;
+		f = nullptr;
 	}
 	if( fLog )
 	{
 		fileSystem->CloseFile( fLog );
-		fLog = NULL;
+		fLog = nullptr;
 	}
 	if( fileImage )
 	{
 		Mem_Free( fileImage );
-		fileImage = NULL;
+		fileImage = nullptr;
 	}
 	if( compressor )
 	{
 		delete compressor;
-		compressor = NULL;
+		compressor = nullptr;
 	}
 	
 	demoStrings.DeleteContents( true );
