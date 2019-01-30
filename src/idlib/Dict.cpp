@@ -132,7 +132,7 @@ void idDict::TransferKeyValues( idDict& other )
 	
 	if( other.args.Num() && other.args[0].key->GetPool() != &globalKeys )
 	{
-		common->FatalError( "idDict::TransferKeyValues: can't transfer values across a DLL boundary" );
+		idLib::common->FatalError( "idDict::TransferKeyValues: can't transfer values across a DLL boundary" );
 		return;
 	}
 	
@@ -975,7 +975,7 @@ bool idDict::ReadFromIniFile( idFile* f )
 CONSOLE_COMMAND( TestDictIniFile, "Tests the writing/reading of various items in a dict to/from an ini file", 0 )
 {
 	// Write to the file
-	idFile* file = fileSystem->OpenFileWrite( "idDict_ini_test.ini" );
+	idFile* file = idLib::fileSystem->OpenFileWrite( "idDict_ini_test.ini" );
 	if( file == NULL )
 	{
 		idLib::Printf( "[^1FAILED^0] Couldn't open file for writing.\n" );
@@ -997,7 +997,7 @@ CONSOLE_COMMAND( TestDictIniFile, "Tests the writing/reading of various items in
 	delete file;
 	
 	// Read from the file
-	file = fileSystem->OpenFileRead( "idDict_ini_test.ini" );
+	file = idLib::fileSystem->OpenFileRead( "idDict_ini_test.ini" );
 	if( file == NULL )
 	{
 		idLib::Printf( "[^1FAILED^0] Couldn't open file for reading.\n" );
