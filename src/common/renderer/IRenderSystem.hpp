@@ -254,18 +254,14 @@ struct rendererImport_t
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
 	idFileSystem* 				fileSystem;				// file system
-	idSoundSystem* 				soundSystem;			// sound system
 	idUserInterfaceManager* 	uiManager;				// user interface manager
-	idDeclManager* 				declManager;			// declaration manager
-	idAASFileManager* 			AASFileManager;			// AAS file manager
-	idCollisionModelManager* 	collisionModelManager;	// collision model manager
 };
 
 struct rendererExport_t
 {
 	int							version;				// API version
 	idRenderSystem* 			renderSystem;			// render system
-	//idRenderModelManager* 		renderModelManager;		// render model manager
+	idRenderModelManager* 		renderModelManager;		// render model manager
 };
 
 extern "C" using GetRendererAPI_t = rendererExport_t *(*)( rendererImport_t* import );
