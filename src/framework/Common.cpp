@@ -891,6 +891,8 @@ void idCommonLocal::RenderBink( const char* path )
 		
 		Sys_GenerateEvents();
 		
+		// FIXME: DG: not sure the following code is the right way to do this...
+		
 		// queue system events ready for polling
 		Sys_GetEvent();
 		
@@ -1462,6 +1464,11 @@ void idCommonLocal::Shutdown()
 	delete loadGUI;
 	loadGUI = NULL;
 	
+#ifdef USE_CEGUI
+	printf( "idCEGUI::Destroy();\n" );
+	idCEGUI::Destroy();
+#endif
+
 	printf( "delete renderWorld;\n" );
 	delete renderWorld;
 	renderWorld = NULL;
@@ -1729,7 +1736,6 @@ bool idCommonLocal::ProcessEvent( const sysEvent_t* event )
 			{
 				if( !game->Shell_IsActive() )
 				{
-				
 					// menus / etc
 					if( MenuEvent( event ) )
 					{
