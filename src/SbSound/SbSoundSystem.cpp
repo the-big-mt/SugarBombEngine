@@ -205,8 +205,15 @@ Initialize the SoundSystem.
 */
 void idSoundSystemLocal::Init()
 {
-
 	idLib::Printf( "----- Initializing Sound System ------\n" );
+	
+#ifndef SBE_SINGLE_BINARY
+	// initialize idLib
+	//idLib::Init(); // TODO
+
+	// register static cvars declared in the module
+	idCVar::RegisterStaticVars();
+#endif
 	
 	soundTime = Sys_Milliseconds();
 	random.SetSeed( soundTime );
