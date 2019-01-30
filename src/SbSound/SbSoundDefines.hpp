@@ -66,4 +66,19 @@ ID_INLINE_EXTERN float DBtoLinear( float db )
 	return idMath::Pow( 2.0f, db * ( 1.0f / 6.0f ) );
 }
 
+// demo sound commands
+enum soundDemoCommand_t
+{
+	SCMD_STATE,				// followed by a load game state
+	SCMD_PLACE_LISTENER,
+	SCMD_ALLOC_EMITTER,
+	SCMD_FREE,
+	SCMD_UPDATE,
+	SCMD_START,
+	SCMD_MODIFY,
+	SCMD_STOP,
+	SCMD_FADE,
+	SCMD_CACHESOUNDSHADER,
+};
+
 //} // namespace sbe

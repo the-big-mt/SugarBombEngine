@@ -55,21 +55,6 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
-// demo sound commands
-enum soundDemoCommand_t
-{
-	SCMD_STATE,				// followed by a load game state
-	SCMD_PLACE_LISTENER,
-	SCMD_ALLOC_EMITTER,
-	SCMD_FREE,
-	SCMD_UPDATE,
-	SCMD_START,
-	SCMD_MODIFY,
-	SCMD_STOP,
-	SCMD_FADE,
-	SCMD_CACHESOUNDSHADER,
-};
-
 idCVar s_lockListener( "s_lockListener", "0", CVAR_BOOL, "lock listener updates" );
 idCVar s_constantAmplitude( "s_constantAmplitude", "-1", CVAR_FLOAT, "" );
 idCVar s_maxEmitterChannels( "s_maxEmitterChannels", "48", CVAR_INTEGER, "Can be set lower than the absolute max of MAX_HARDWARE_VOICES" );
