@@ -1630,6 +1630,8 @@ void idSysLocal::OpenURL( const char* url, bool quit )
 		return;
 	}
 	
+	// FIXME: this could use xdg-open
+	
 	common->Printf( "Open URL: %s\n", url );
 	// opening an URL on *nix can mean a lot of things ..
 	// just spawn a script instead of deciding for the user :-)

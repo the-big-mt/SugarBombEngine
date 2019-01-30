@@ -37,8 +37,8 @@ If you have questions concerning this license or the applicable additional terms
 //#include "../framework/EditField.h"
 //#include "../framework/Licensee.h"
 
-#include <errno.h>
-#include <float.h>
+#include <cerrno>
+#include <cfloat>
 #include <fcntl.h>
 #include <cstdio>
 #include <direct.h>

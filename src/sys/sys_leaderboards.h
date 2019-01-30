@@ -25,6 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+
 #ifndef __SYS_LEADERBOARDS_H__
 #define __SYS_LEADERBOARDS_H__
 
@@ -157,7 +158,6 @@ public:
 };
 
 const leaderboardDefinition_t* Sys_FindLeaderboardDef( int id );
-
 
 //------------------------
 // leaderboardError_t
