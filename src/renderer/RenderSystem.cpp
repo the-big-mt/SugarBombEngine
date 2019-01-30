@@ -41,6 +41,15 @@ static rendererExport_t rendererExport;
 idRenderSystemLocal	tr;
 idRenderSystem* renderSystem = &tr;
 
+#ifndef SBE_SINGLE_BINARY
+idSys *sys = nullptr;
+idCommon *common = nullptr;
+idCmdSystem *cmdSystem = nullptr;
+idCVarSystem *cvarSystem = nullptr;
+idFileSystem *fileSystem = nullptr;
+idCVar *idCVar::staticVars = nullptr;
+#endif
+
 /*
 ===========
 GetRendererAPI
@@ -53,10 +62,19 @@ rendererExport_t *GetRendererAPI(rendererImport_t *import)
 {
 	if(import->version == RENDERER_API_VERSION)
 	{
-		// set interface pointers used by the renderer
-		
-		// TODO
+		// set interface pointers used by the module
+		sys							= import->sys;
+		common						= import->common;
+		cmdSystem					= import->cmdSystem;
+		cvarSystem					= import->cvarSystem;
+		fileSystem					= import->fileSystem;
 	};
+	
+	// set interface pointers used by idLib
+	idLib::sys					= sys;
+	idLib::common				= common;
+	idLib::cvarSystem			= cvarSystem;
+	idLib::fileSystem			= fileSystem;
 	
 	// setup export interface
 	rendererExport.version = RENDERER_API_VERSION;
