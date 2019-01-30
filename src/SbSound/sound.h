@@ -31,13 +31,14 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
-#include "sound/SoundShaderParms.hpp"
+#include "SbSound/SoundShaderParms.hpp"
 
 #include "SbSoundShader.hpp"
 
-#include "sound/ISoundEmitter.hpp"
-#include "sound/ISoundWorld.hpp"
-#include "sound/ISoundSystem.hpp"
+#include "SbSound/ISoundEmitter.hpp"
+#include "SbSound/ISoundWorld.hpp"
+#include "SbSound/ISoundSystem.hpp"
+#include "SbSound/SoundTypes.hpp"
 
 //namespace sbe
 //{

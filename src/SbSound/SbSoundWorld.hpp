@@ -35,11 +35,12 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "SbSound/ISoundWorld.hpp"
 #include "SbSoundFade.hpp"
+#include "SbSoundDefines.hpp"
 
-#include "idlib/math/Mat3.h"
-#include "idlib/math/Vec3.h"
+#include "idlib/Heap.h"
+#include "idlib/math/Matrix.h"
+#include "idlib/math/Vector.h"
 #include "idlib/containers/List.h"
-#include "idlib/containers/BlockAlloc.h" // TODO
 
 //namespace sbe
 //{

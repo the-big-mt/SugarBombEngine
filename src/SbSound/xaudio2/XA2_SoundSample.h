@@ -32,8 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 //#include <XAudio2fx.h>
 
 //#include "../framework/FileSystem.h"
-//#include "../sound/WaveFile.h"
-//#include "../sound/snd_defines.h"
+
+#include "SbWaveFile.hpp"
+//#include "SbSoundDefines.hpp"
 
 //namespace BFG
 //{

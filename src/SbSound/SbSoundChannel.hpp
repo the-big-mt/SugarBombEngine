@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
-#include "sound/SoundShaderParms.hpp"
+#include "SbSound/SoundShaderParms.hpp"
 #include "SbSoundFade.hpp"
 
 //namespace sbe

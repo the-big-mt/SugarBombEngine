@@ -34,7 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <cstddef>
 //#include "precompiled.h"
 
-#include "sound/SoundShaderParms.hpp"
+#include "SbSound/SoundShaderParms.hpp"
 
 #include "idlib/containers/List.h"
 

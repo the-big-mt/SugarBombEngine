@@ -31,7 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 
 #include "SbSoundSystem.hpp"
-#include "sound/ISoundWorld.hpp"
+#include "SbSound/ISoundWorld.hpp"
 
 #include "framework/Common.h" // for MemInfo_t
 #include "framework/DeclManager.h" // for declManager, idDeclManager, etc

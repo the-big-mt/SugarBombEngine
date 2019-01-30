@@ -34,10 +34,10 @@ If you have questions concerning this license or the applicable additional terms
 #pragma once
 
 #include "SbSound/ISoundEmitter.hpp"
-#include "sound/SoundShaderParms.hpp"
+#include "SbSound/SoundShaderParms.hpp"
 
 #include "idlib/containers/StaticList.h"
-#include "idlib/math/Vec3.h"
+#include "idlib/math/Vector.h"
 
 //namespace sbe
 //{
