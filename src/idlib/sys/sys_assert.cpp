@@ -40,7 +40,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include "containers/StaticList.h"
 
 #ifndef _WIN32
-#include <signal.h> // for raise()
+#include <csignal> // for raise()
 #endif
 
 //namespace BFG
