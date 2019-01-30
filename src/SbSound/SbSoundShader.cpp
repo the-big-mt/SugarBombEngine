@@ -79,7 +79,7 @@ void idSoundShader::Init()
 {
 	leadin = false;
 	leadinVolume = 0;
-	altSound = NULL;
+	altSound = nullptr;
 }
 
 /*
@@ -133,7 +133,7 @@ bool idSoundShader::SetDefaultText()
 	wavname.DefaultFileExtension( ".wav" );		// if the name has .ogg in it, that will stay
 	
 	// if there exists a wav file with the same name
-	if( 1 )    //fileSystem->ReadFile( wavname, NULL ) != -1 ) {
+	if( 1 )    //fileSystem->ReadFile( wavname, nullptr ) != -1 ) {
 	{
 		char generated[2048];
 		idStr::snPrintf( generated, sizeof( generated ),
@@ -206,7 +206,7 @@ bool idSoundShader::ParseShader( idLexer& src )
 	parms.soundClass = 0;
 	
 	speakerMask = 0;
-	altSound = NULL;
+	altSound = nullptr;
 	
 	entries.Clear();
 	

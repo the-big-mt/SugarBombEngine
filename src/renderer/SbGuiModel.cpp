@@ -111,8 +111,8 @@ idGuiModel::BeginFrame
 */
 void idGuiModel::BeginFrame()
 {
-	vertexBlock = vertexCache.AllocVertex( NULL, ALIGN( MAX_VERTS * sizeof( idDrawVert ), VERTEX_CACHE_ALIGN ) );
-	indexBlock = vertexCache.AllocIndex( NULL, ALIGN( MAX_INDEXES * sizeof( triIndex_t ), INDEX_CACHE_ALIGN ) );
+	vertexBlock = vertexCache.AllocVertex( nullptr, ALIGN( MAX_VERTS * sizeof( idDrawVert ), VERTEX_CACHE_ALIGN ) );
+	indexBlock = vertexCache.AllocIndex( nullptr, ALIGN( MAX_INDEXES * sizeof( triIndex_t ), INDEX_CACHE_ALIGN ) );
 	vertexPointer = ( idDrawVert* )vertexCache.MappedVertexBuffer( vertexBlock );
 	indexPointer = ( triIndex_t* )vertexCache.MappedIndexBuffer( indexBlock );
 	numVerts = 0;
@@ -182,7 +182,7 @@ void idGuiModel::EmitSurfaces( float modelMatrix[16], float modelViewMatrix[16],
 		drawSurf->indexCache = indexBlock + ( ( int64 )( guiSurf.firstIndex * sizeof( triIndex_t ) ) << VERTCACHE_OFFSET_SHIFT );
 		drawSurf->shadowCache = 0;
 		drawSurf->jointCache = 0;
-		drawSurf->frontEndGeo = NULL;
+		drawSurf->frontEndGeo = nullptr;
 		drawSurf->space = guiSpace;
 		drawSurf->material = shader;
 		drawSurf->extraGLState = guiSurf.glState;
@@ -200,7 +200,7 @@ void idGuiModel::EmitSurfaces( float modelMatrix[16], float modelViewMatrix[16],
 		{
 			float* regs = ( float* )R_FrameAlloc( shader->GetNumRegisters() * sizeof( float ), FRAME_ALLOC_SHADER_REGISTER );
 			drawSurf->shaderRegisters = regs;
-			shader->EvaluateRegisters( regs, shaderParms, tr.viewDef->renderView.shaderParms, tr.viewDef->renderView.time[1] * 0.001f, NULL );
+			shader->EvaluateRegisters( regs, shaderParms, tr.viewDef->renderView.shaderParms, tr.viewDef->renderView.time[1] * 0.001f, nullptr );
 		}
 		R_LinkDrawSurfToView( drawSurf, tr.viewDef );
 		if( allowFullScreenStereoDepth )
@@ -384,9 +384,9 @@ AllocTris
 */
 idDrawVert* idGuiModel::AllocTris( int vertCount, const triIndex_t* tempIndexes, int indexCount, const idMaterial* material, const uint64 glState, const stereoDepthType_t stereoType )
 {
-	if( material == NULL )
+	if( material == nullptr )
 	{
-		return NULL;
+		return nullptr;
 	}
 	if( numIndexes + indexCount > MAX_INDEXES )
 	{
@@ -396,7 +396,7 @@ idDrawVert* idGuiModel::AllocTris( int vertCount, const triIndex_t* tempIndexes,
 			warningFrame = tr.frameCount;
 			idLib::Warning( "idGuiModel::AllocTris: MAX_INDEXES exceeded" );
 		}
-		return NULL;
+		return nullptr;
 	}
 	if( numVerts + vertCount > MAX_VERTS )
 	{
@@ -406,7 +406,7 @@ idDrawVert* idGuiModel::AllocTris( int vertCount, const triIndex_t* tempIndexes,
 			warningFrame = tr.frameCount;
 			idLib::Warning( "idGuiModel::AllocTris: MAX_VERTS exceeded" );
 		}
-		return NULL;
+		return nullptr;
 	}
 	
 	// break the current surface if we are changing to a new material or we can't

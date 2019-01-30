@@ -46,7 +46,7 @@ If you have questions concerning this license or the applicable additional terms
 //class idRenderWorld;
 //class idSoundVoice;
 
-idCVar s_noSound( "s_noSound", "0", CVAR_BOOL, "returns NULL for all sounds loaded and does not update the sound rendering" );
+idCVar s_noSound( "s_noSound", "0", CVAR_BOOL, "returns nullptr for all sounds loaded and does not update the sound rendering" );
 
 #ifdef ID_RETAIL
 idCVar s_useCompression( "s_useCompression", "1", CVAR_BOOL, "Use compressed sound files (mp3/xma)" );
@@ -294,12 +294,12 @@ void idSoundSystemLocal::Shutdown()
 ========================
 idSoundSystemLocal::ObtainStreamBuffer
 
-Get a stream buffer from the free pool, returns NULL if none are available
+Get a stream buffer from the free pool, returns nullptr if none are available
 ========================
 */
 idSoundSystemLocal::bufferContext_t* idSoundSystemLocal::ObtainStreamBufferContext()
 {
-	bufferContext_t* bufferContext = NULL;
+	bufferContext_t* bufferContext = nullptr;
 	streamBufferMutex.Lock();
 	if( freeStreamBufferContexts.Num() != 0 )
 	{
@@ -357,7 +357,7 @@ void idSoundSystemLocal::FreeSoundWorld( idSoundWorld* sw )
 ========================
 idSoundSystemLocal::SetPlayingSoundWorld
 
-Specifying NULL will cause silence to be played.
+Specifying nullptr will cause silence to be played.
 ========================
 */
 void idSoundSystemLocal::SetPlayingSoundWorld( idSoundWorld* soundWorld )
@@ -370,7 +370,7 @@ void idSoundSystemLocal::SetPlayingSoundWorld( idSoundWorld* soundWorld )
 	
 	currentSoundWorld = static_cast<idSoundWorldLocal*>( soundWorld );
 	
-	if( oldSoundWorld != NULL )
+	if( oldSoundWorld != nullptr )
 	{
 		oldSoundWorld->Update();
 	}
@@ -407,7 +407,7 @@ void idSoundSystemLocal::Render()
 	
 	SCOPED_PROFILE_EVENT( "SoundSystem::Render" );
 	
-	if( currentSoundWorld != NULL )
+	if( currentSoundWorld != nullptr )
 	{
 		currentSoundWorld->Update();
 	}
@@ -458,7 +458,7 @@ void* idSoundSystemLocal::GetIXAudio2() const
 {
 	// RB begin
 #if defined(USE_OPENAL)
-	return NULL;
+	return nullptr;
 #else
 	return ( void* )hardware.GetIXAudio2();
 #endif
@@ -565,14 +565,14 @@ void idSoundSystemLocal::StopVoicesWithSample( const idSoundSample* const sample
 	for( int w = 0; w < soundWorlds.Num(); w++ )
 	{
 		idSoundWorldLocal* sw = soundWorlds[w];
-		if( sw == NULL )
+		if( sw == nullptr )
 		{
 			continue;
 		}
 		for( int e = 0; e < sw->emitters.Num(); e++ )
 		{
 			idSoundEmitterLocal* emitter = sw->emitters[e];
-			if( emitter == NULL )
+			if( emitter == nullptr )
 			{
 				continue;
 			}
@@ -595,9 +595,9 @@ idSoundSystemLocal::FreeVoice
 cinData_t idSoundSystemLocal::ImageForTime( const int milliseconds, const bool waveform )
 {
 	cinData_t cd;
-	cd.imageY = NULL;
-	cd.imageCr = NULL;
-	cd.imageCb = NULL;
+	cd.imageY = nullptr;
+	cd.imageCr = nullptr;
+	cd.imageCb = nullptr;
 	cd.imageWidth = 0;
 	cd.imageHeight = 0;
 	cd.status = FMV_IDLE;
@@ -674,7 +674,7 @@ void idSoundSystemLocal::Preload( idPreloadManifest& manifest )
 		filename.Replace( "generated/", "" );
 		numLoaded++;
 		idSoundSample* sample = LoadSample( filename );
-		if( sample != NULL && !sample->IsLoaded() )
+		if( sample != nullptr && !sample->IsLoaded() )
 		{
 			sample->LoadResource();
 			sample->SetLevelLoadReferenced();

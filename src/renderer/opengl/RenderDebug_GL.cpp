@@ -315,7 +315,7 @@ void idRenderBackend::DBG_ShowOverdraw()
 	}
 	
 	material = declManager->FindMaterial( "textures/common/overdrawtest", false );
-	if( material == NULL )
+	if( material == nullptr )
 	{
 		return;
 	}
@@ -361,8 +361,8 @@ void idRenderBackend::DBG_ShowOverdraw()
 			const_cast<drawSurf_t*>( surf )->material = material;
 			newDrawSurfs[i++] = const_cast<drawSurf_t*>( surf );
 		}
-		vLight->localInteractions = NULL;
-		vLight->globalInteractions = NULL;
+		vLight->localInteractions = nullptr;
+		vLight->globalInteractions = nullptr;
 	}
 	
 	switch( r_showOverDraw.GetInteger() )
@@ -565,17 +565,17 @@ be updated after the triangle function completes.
 */
 void idRenderBackend::DBG_RenderDrawSurfListWithFunction( drawSurf_t** drawSurfs, int numDrawSurfs )
 {
-	currentSpace = NULL;
+	currentSpace = nullptr;
 	
 	for( int i = 0 ; i < numDrawSurfs ; i++ )
 	{
 		const drawSurf_t* drawSurf = drawSurfs[i];
-		if( drawSurf == NULL )
+		if( drawSurf == nullptr )
 		{
 			continue;
 		}
 		
-		assert( drawSurf->space != NULL );
+		assert( drawSurf->space != nullptr );
 		
 		// RB begin
 #if 1
@@ -587,7 +587,7 @@ void idRenderBackend::DBG_RenderDrawSurfListWithFunction( drawSurf_t** drawSurfs
 		}
 #else
 		
-		if( drawSurf->space != NULL )  	// is it ever NULL?  Do we need to check?
+		if( drawSurf->space != nullptr )  	// is it ever nullptr?  Do we need to check?
 		{
 			// Set these values ahead of time so we don't have to reconstruct the matrices on the consoles
 			if( drawSurf->space->weaponDepthHack )
@@ -643,7 +643,7 @@ void idRenderBackend::DBG_RenderDrawSurfListWithFunction( drawSurf_t** drawSurfs
 		DrawElementsWithCounters( drawSurf );
 		
 		// RB begin
-		/*if( drawSurf->space != NULL && ( drawSurf->space->weaponDepthHack || drawSurf->space->modelDepthHack != 0.0f ) )
+		/*if( drawSurf->space != nullptr && ( drawSurf->space->weaponDepthHack || drawSurf->space->modelDepthHack != 0.0f ) )
 		{
 			RB_LeaveDepthHack();
 		}*/
@@ -827,7 +827,7 @@ void idRenderSystemLocal::OnFrame()
 		return;
 	}
 	
-	if( tr.primaryView == NULL )
+	if( tr.primaryView == nullptr )
 	{
 		return;
 	}
@@ -1010,7 +1010,7 @@ void idRenderBackend::DBG_ShowTexturePolarity( drawSurf_t** drawSurfs, int numDr
 	{
 		drawSurf = drawSurfs[i];
 		tri = drawSurf->frontEndGeo;
-		if( tri == NULL || tri->verts == NULL )
+		if( tri == nullptr || tri->verts == nullptr )
 		{
 			continue;
 		}
@@ -1096,7 +1096,7 @@ void idRenderBackend::DBG_ShowUnsmoothedTangents( drawSurf_t** drawSurfs, int nu
 		DBG_SimpleSurfaceSetup( drawSurf );
 		
 		tri = drawSurf->frontEndGeo;
-		if( tri == NULL || tri->verts == NULL )
+		if( tri == nullptr || tri->verts == nullptr )
 		{
 			continue;
 		}
@@ -1150,7 +1150,7 @@ void idRenderBackend::DBG_ShowTangentSpace( drawSurf_t** drawSurfs, int numDrawS
 		DBG_SimpleSurfaceSetup( drawSurf );
 		
 		tri = drawSurf->frontEndGeo;
-		if( tri == NULL || tri->verts == NULL )
+		if( tri == nullptr || tri->verts == nullptr )
 		{
 			continue;
 		}
@@ -1218,7 +1218,7 @@ void idRenderBackend::DBG_ShowVertexColor( drawSurf_t** drawSurfs, int numDrawSu
 		DBG_SimpleSurfaceSetup( drawSurf );
 		
 		tri = drawSurf->frontEndGeo;
-		if( tri == NULL || tri->verts == NULL )
+		if( tri == nullptr || tri->verts == nullptr )
 		{
 			continue;
 		}
@@ -1291,7 +1291,7 @@ void idRenderBackend::DBG_ShowNormals( drawSurf_t** drawSurfs, int numDrawSurfs 
 		DBG_SimpleSurfaceSetup( drawSurf );
 		
 		tri = drawSurf->frontEndGeo;
-		if( tri == NULL || tri->verts == NULL )
+		if( tri == nullptr || tri->verts == nullptr )
 		{
 			continue;
 		}
@@ -1334,7 +1334,7 @@ void idRenderBackend::DBG_ShowNormals( drawSurf_t** drawSurfs, int numDrawSurfs 
 		{
 			drawSurf = drawSurfs[i];
 			tri = drawSurf->frontEndGeo;
-			if( tri == NULL || tri->verts == NULL )
+			if( tri == nullptr || tri->verts == nullptr )
 			{
 				continue;
 			}
@@ -1379,7 +1379,7 @@ void idRenderBackend::DBG_ShowTextureVectors( drawSurf_t** drawSurfs, int numDra
 		
 		const srfTriangles_t* tri = drawSurf->frontEndGeo;
 		
-		if( tri == NULL || tri->verts == NULL )
+		if( tri == nullptr || tri->verts == nullptr )
 		{
 			continue;
 		}
@@ -1486,7 +1486,7 @@ void idRenderBackend::DBG_ShowDominantTris( drawSurf_t** drawSurfs, int numDrawS
 		
 		tri = drawSurf->frontEndGeo;
 		
-		if( tri == NULL || tri->verts == NULL )
+		if( tri == nullptr || tri->verts == nullptr )
 		{
 			continue;
 		}
@@ -1655,7 +1655,7 @@ void idRenderBackend::DBG_ShowLights()
 	common->Printf( "volumes: " );	// FIXME: not in back end!
 	
 	int count = 0;
-	for( viewLight_t* vLight = viewDef->viewLights; vLight != NULL; vLight = vLight->next )
+	for( viewLight_t* vLight = viewDef->viewLights; vLight != nullptr; vLight = vLight->next )
 	{
 		count++;
 		
@@ -1719,7 +1719,7 @@ void idRenderBackend::DBG_ShowShadowMapLODs()
 	common->Printf( "volumes: " );	// FIXME: not in back end!
 	
 	int count = 0;
-	for( viewLight_t* vLight = viewDef->viewLights; vLight != NULL; vLight = vLight->next )
+	for( viewLight_t* vLight = viewDef->viewLights; vLight != nullptr; vLight = vLight->next )
 	{
 		if( !vLight->lightDef->LightCastsShadows() )
 		{
@@ -2662,9 +2662,9 @@ Display a single image over most of the screen
 */
 void idRenderBackend::DBG_TestImage()
 {
-	idImage*	image = NULL;
-	idImage* imageCr = NULL;
-	idImage* imageCb = NULL;
+	idImage*	image = nullptr;
+	idImage* imageCr = nullptr;
+	idImage* imageCb = nullptr;
 	int		max;
 	float	w, h;
 	
@@ -2679,7 +2679,7 @@ void idRenderBackend::DBG_TestImage()
 		cinData_t	cin;
 		
 		cin = tr.testVideo->ImageForTime( viewDef->renderView.time[1] - tr.testVideoStartTime );
-		if( cin.imageY != NULL )
+		if( cin.imageY != nullptr )
 		{
 			image = cin.imageY;
 			imageCr = cin.imageCr;
@@ -2687,7 +2687,7 @@ void idRenderBackend::DBG_TestImage()
 		}
 		else
 		{
-			tr.testImage = NULL;
+			tr.testImage = nullptr;
 			return;
 		}
 		w = 0.25;
@@ -2754,7 +2754,7 @@ void idRenderBackend::DBG_TestImage()
 	GL_Color( 1, 1, 1, 1 );
 	
 	// Bind the Texture
-	if( ( imageCr != NULL ) && ( imageCb != NULL ) )
+	if( ( imageCr != nullptr ) && ( imageCb != nullptr ) )
 	{
 		GL_SelectTexture( 0 );
 		image->Bind();
@@ -2779,7 +2779,7 @@ void idRenderBackend::DBG_TestImage()
 // RB begin
 void idRenderBackend::DBG_ShowShadowMaps()
 {
-	idImage*	image = NULL;
+	idImage*	image = nullptr;
 	int		max;
 	float	w, h;
 	
@@ -2987,7 +2987,7 @@ void idRenderBackend::DBG_ShowTrace( drawSurf_t** drawSurfs, int numDrawSurfs )
 		surf = drawSurfs[i];
 		tri = surf->frontEndGeo;
 		
-		if( tri == NULL || tri->verts == NULL )
+		if( tri == nullptr || tri->verts == nullptr )
 		{
 			continue;
 		}

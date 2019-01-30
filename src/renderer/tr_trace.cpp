@@ -625,10 +625,10 @@ localTrace_t R_LocalTrace( const idVec3& start, const idVec3& end, const float r
 	byte totalOr = 0;
 	
 	// RB: added check wether GPU skinning is available at all
-	const idJointMat* joints = ( tri->staticModelWithJoints != NULL && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? tri->staticModelWithJoints->jointsInverted : NULL;
+	const idJointMat* joints = ( tri->staticModelWithJoints != nullptr && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? tri->staticModelWithJoints->jointsInverted : nullptr;
 	// RB end
 	
-	if( joints != NULL )
+	if( joints != nullptr )
 	{
 		R_TracePointCullSkinned( cullBits, totalOr, radius, planes, tri->verts, tri->numVerts, joints );
 	}

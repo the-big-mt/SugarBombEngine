@@ -121,7 +121,7 @@ idSignInManagerWin::RegisterLocalUser
 */
 void idSignInManagerWin::RegisterLocalUser( int inputDevice )
 {
-	if( GetLocalUserByInputDevice( inputDevice ) != NULL )
+	if( GetLocalUserByInputDevice( inputDevice ) != nullptr )
 	{
 		return;
 	}
@@ -190,7 +190,7 @@ bool idSignInManagerWin::CreateNewUser( winUserState_t& state )
 	return true;
 }
 
-CONSOLE_COMMAND( testRemoveAllLocalUsers, "Forces removal of local users - mainly for PC testing", NULL )
+CONSOLE_COMMAND( testRemoveAllLocalUsers, "Forces removal of local users - mainly for PC testing", nullptr )
 {
 	session->GetSignInManager().RemoveAllLocalUsers();
 }

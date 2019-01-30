@@ -138,7 +138,7 @@ struct idRenderSystem
 	
 	virtual void			BeginAutomaticBackgroundSwaps( autoRenderIconType_t icon = AUTORENDER_DEFAULTICON ) = 0;
 	virtual void			EndAutomaticBackgroundSwaps() = 0;
-	virtual bool			AreAutomaticBackgroundSwapsRunning( autoRenderIconType_t* icon = NULL ) const = 0;
+	virtual bool			AreAutomaticBackgroundSwapsRunning( autoRenderIconType_t* icon = nullptr ) const = 0;
 	
 	// font support
 	virtual class idFont* 	RegisterFont( const char* fontName ) = 0;
@@ -203,7 +203,7 @@ struct idRenderSystem
 	// aviDemo uses this.
 	// Will automatically tile render large screen shots if necessary
 	// Samples is the number of jittered frames for anti-aliasing
-	// If ref == NULL, common->UpdateScreen will be used
+	// If ref == nullptr, common->UpdateScreen will be used
 	// This will perform swapbuffers, so it is NOT an approppriate way to
 	// generate image files that happen during gameplay, as for savegame
 	// markers.  Use WriteRender() instead.

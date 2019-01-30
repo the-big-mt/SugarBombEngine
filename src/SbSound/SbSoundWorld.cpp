@@ -83,8 +83,8 @@ idSoundWorldLocal::idSoundWorldLocal()
 	{
 		soundClassFade[i].Clear();
 	}
-	renderWorld = NULL;
-	writeDemo = NULL;
+	renderWorld = nullptr;
+	writeDemo = nullptr;
 	
 	listener.axis.Identity();
 	listener.pos.Zero();
@@ -115,7 +115,7 @@ idSoundWorldLocal::~idSoundWorldLocal()
 
 	if( soundSystemLocal.currentSoundWorld == this )
 	{
-		soundSystemLocal.currentSoundWorld = NULL;
+		soundSystemLocal.currentSoundWorld = nullptr;
 	}
 	
 	for( int i = 0; i < emitters.Num(); i++ )
@@ -131,8 +131,8 @@ idSoundWorldLocal::~idSoundWorldLocal()
 	emitterAllocator.Shutdown();
 	channelAllocator.Shutdown();
 	
-	renderWorld = NULL;
-	localSound = NULL;
+	renderWorld = nullptr;
+	localSound = nullptr;
 }
 
 /*
@@ -244,7 +244,7 @@ class idActiveChannel
 {
 public:
 	idActiveChannel() :
-		channel( NULL ),
+		channel( nullptr ),
 		sortKey( 0 ) {}
 	idActiveChannel( idSoundChannel* channel_, int sortKey_ ) :
 		channel( channel_ ),
@@ -509,7 +509,7 @@ void idSoundWorldLocal::Update()
 			voiceLine.Format( "%5.1f db [%3i:%2i] %s", chan->volumeDB, chan->emitter->index, chan->logicalChannel, chan->CanMute() ? "" : " <CANT MUTE>\n" );
 			idSoundSample* leadinSample = chan->leadinSample;
 			idSoundSample* loopingSample = chan->loopingSample;
-			if( loopingSample == NULL )
+			if( loopingSample == nullptr )
 			{
 				voiceLine.Append( va( "%ikhz*%i %s\n", leadinSample->SampleRate() / 1000, leadinSample->NumChannels(), leadinSample->GetName() ) );
 			}
@@ -525,7 +525,7 @@ void idSoundWorldLocal::Update()
 		}
 		
 		// Calculate shakes
-		if( chan->hardwareVoice == NULL )
+		if( chan->hardwareVoice == nullptr )
 		{
 			continue;
 		}
@@ -538,7 +538,7 @@ void idSoundWorldLocal::Update()
 		console->PrintOverlay( handle, JUSTIFY_LEFT, showVoiceTable.c_str() );
 	}
 	
-	if( s_drawSounds.GetBool() && renderWorld != NULL )
+	if( s_drawSounds.GetBool() && renderWorld != nullptr )
 	{
 		for( int e = 0; e < emitters.Num(); e++ )
 		{
@@ -547,7 +547,7 @@ void idSoundWorldLocal::Update()
 			float maxGain = 0.0f;
 			for( int c = 0; c < emitter->channels.Num(); c++ )
 			{
-				if( emitter->channels[c]->hardwareVoice != NULL )
+				if( emitter->channels[c]->hardwareVoice != nullptr )
 				{
 					audible = true;
 					maxGain = Max( maxGain, emitter->channels[c]->hardwareVoice->GetGain() );
@@ -618,7 +618,7 @@ idSoundEmitter* idSoundWorldLocal::EmitterForIndex( int index )
 	// Which is fine since we use index 0 for the local sound emitter anyway
 	if( index <= 0 )
 	{
-		return NULL;
+		return nullptr;
 	}
 	if( index >= emitters.Num() )
 	{
@@ -665,13 +665,13 @@ idSoundWorldLocal::PlayShaderDirectly
 */
 int idSoundWorldLocal::PlayShaderDirectly( const char* name, int channel )
 {
-	if( name == NULL || name[0] == 0 )
+	if( name == nullptr || name[0] == 0 )
 	{
 		localSound->StopSound( channel );
 		return 0;
 	}
 	const idSoundShader* shader = declManager->FindSound( name );
-	if( shader == NULL )
+	if( shader == nullptr )
 	{
 		localSound->StopSound( channel );
 		return 0;
@@ -711,7 +711,7 @@ void idSoundWorldLocal::Pause()
 			for( int i = 0; i < emitters[e]->channels.Num(); i++ )
 			{
 				idSoundChannel* channel = emitters[e]->channels[i];
-				if( !channel->CanMute() && channel->hardwareVoice != NULL )
+				if( !channel->CanMute() && channel->hardwareVoice != nullptr )
 				{
 					channel->hardwareVoice->Pause();
 				}
@@ -740,7 +740,7 @@ void idSoundWorldLocal::UnPause()
 			for( int i = 0; i < emitters[e]->channels.Num(); i++ )
 			{
 				idSoundChannel* channel = emitters[e]->channels[i];
-				if( !channel->CanMute() && channel->hardwareVoice != NULL )
+				if( !channel->CanMute() && channel->hardwareVoice != nullptr )
 				{
 					channel->hardwareVoice->UnPause();
 				}
@@ -920,7 +920,7 @@ idSoundWorldLocal::StopWritingDemo
 */
 void idSoundWorldLocal::StopWritingDemo()
 {
-	writeDemo = NULL;
+	writeDemo = nullptr;
 }
 
 /*
@@ -1265,8 +1265,8 @@ void idSoundWorldLocal::ReadFromSaveGame( idFile* savefile )
 			}
 			else
 			{
-				channel->leadinSample = NULL;
-				channel->loopingSample = NULL;
+				channel->leadinSample = nullptr;
+				channel->loopingSample = nullptr;
 			}
 			channel->startTime += timeDelta;
 			if( channel->endTime == 0 )

@@ -75,19 +75,19 @@ idMenuWidget_PDA_AudioFiles::Update
 void idMenuWidget_PDA_AudioFiles::Update()
 {
 
-	if( GetSWFObject() == NULL )
+	if( GetSWFObject() == nullptr )
 	{
 		return;
 	}
 	
 	idSWFScriptObject& root = GetSWFObject()->GetRootObject();
-	if( !BindSprite( root ) || GetSprite() == NULL )
+	if( !BindSprite( root ) || GetSprite() == nullptr )
 	{
 		return;
 	}
 	
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	if( player == NULL )
+	if( player == nullptr )
 	{
 		return;
 	}
@@ -100,11 +100,11 @@ void idMenuWidget_PDA_AudioFiles::Update()
 	const idDeclPDA* pda = player->GetInventory().pdas[ pdaIndex ];
 	
 	idSWFScriptObject* dataObj = GetSprite()->GetScriptObject()->GetNestedObj( "info" );
-	if( dataObj != NULL && pda != NULL )
+	if( dataObj != nullptr && pda != nullptr )
 	{
 	
 		idSWFTextInstance* txtOwner = dataObj->GetNestedText( "txtOwner" );
-		if( txtOwner != NULL )
+		if( txtOwner != nullptr )
 		{
 			idStr ownerText = idLocalization::GetString( "#str_04203" );
 			ownerText.Append( ": " );
@@ -113,7 +113,7 @@ void idMenuWidget_PDA_AudioFiles::Update()
 		}
 		
 		idMenuWidget_DynamicList* const audioList = dynamic_cast< idMenuWidget_DynamicList* >( &GetChildByIndex( 0 ) );
-		if( audioList != NULL )
+		if( audioList != nullptr )
 		{
 			audioFileNames.Clear();
 			if( pda->GetNumAudios() == 0 )
@@ -126,12 +126,12 @@ void idMenuWidget_PDA_AudioFiles::Update()
 			else
 			{
 				audioList->GetChildByIndex( 0 ).SetState( WIDGET_STATE_NORMAL );
-				const idDeclAudio* aud = NULL;
+				const idDeclAudio* aud = nullptr;
 				for( int index = 0; index < pda->GetNumAudios(); ++index )
 				{
 					idList< idStr > audioName;
 					aud = pda->GetAudioByIndex( index );
-					if( aud != NULL )
+					if( aud != nullptr )
 					{
 						audioName.Append( aud->GetAudioName() );
 					}
@@ -162,14 +162,14 @@ idMenuWidget_PDA_AudioFiles::ObserveEvent
 void idMenuWidget_PDA_AudioFiles::ObserveEvent( const idMenuWidget& widget, const idWidgetEvent& event )
 {
 	const idMenuWidget_Button* const button = dynamic_cast< const idMenuWidget_Button* >( &widget );
-	if( button == NULL )
+	if( button == nullptr )
 	{
 		return;
 	}
 	
 	const idMenuWidget* const listWidget = button->GetParent();
 	
-	if( listWidget == NULL )
+	if( listWidget == nullptr )
 	{
 		return;
 	}
@@ -179,7 +179,7 @@ void idMenuWidget_PDA_AudioFiles::ObserveEvent( const idMenuWidget& widget, cons
 		case WIDGET_EVENT_FOCUS_ON:
 		{
 			const idMenuWidget_DynamicList* const list = dynamic_cast< const idMenuWidget_DynamicList* const >( listWidget );
-			if( GetSprite() != NULL )
+			if( GetSprite() != nullptr )
 			{
 				if( list->GetViewIndex() == 0 )
 				{
@@ -191,7 +191,7 @@ void idMenuWidget_PDA_AudioFiles::ObserveEvent( const idMenuWidget& widget, cons
 				}
 			}
 			pdaIndex = list->GetViewIndex();
-			if( GetParent() != NULL && menuData != NULL && menuData->ActiveScreen() == PDA_AREA_USER_DATA )
+			if( GetParent() != nullptr && menuData != nullptr && menuData->ActiveScreen() == PDA_AREA_USER_DATA )
 			{
 				GetParent()->Update();
 			}
@@ -200,7 +200,7 @@ void idMenuWidget_PDA_AudioFiles::ObserveEvent( const idMenuWidget& widget, cons
 				Update();
 			}
 			idMenuWidget_DynamicList* const audioList = dynamic_cast< idMenuWidget_DynamicList* >( &GetChildByIndex( 0 ) );
-			if( audioList != NULL )
+			if( audioList != nullptr )
 			{
 				audioList->SetFocusIndex( 0 );
 				audioList->SetViewIndex( 0 );
@@ -210,7 +210,7 @@ void idMenuWidget_PDA_AudioFiles::ObserveEvent( const idMenuWidget& widget, cons
 		case WIDGET_EVENT_FOCUS_OFF:
 		{
 			idMenuWidget_DynamicList* const audioList = dynamic_cast< idMenuWidget_DynamicList* >( &GetChildByIndex( 0 ) );
-			if( audioList != NULL )
+			if( audioList != nullptr )
 			{
 				audioList->SetFocusIndex( 0 );
 				audioList->SetViewIndex( 0 );

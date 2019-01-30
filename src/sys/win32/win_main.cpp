@@ -251,7 +251,7 @@ void Sys_Error( const char *error, ... ) {
 	if ( com_productionMode.GetInteger() == 0 ) {
 		// wait for the user to quit
 		while ( 1 ) {
-			if ( !GetMessage( &msg, NULL, 0, 0 ) ) {
+			if ( !GetMessage( &msg, nullptr, 0, 0 ) ) {
 				common->Quit();
 			}
 			TranslateMessage( &msg );
@@ -279,7 +279,7 @@ void Sys_Launch( const char * path, idCmdArgs & args,  void * data, unsigned int
 
 	strcpy( szPathOrig, va( "\"%s\" %s", Sys_EXEPath(), (const char *)data ) );
 
-	if ( !CreateProcess( NULL, szPathOrig, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi ) ) {
+	if ( !CreateProcess( nullptr, szPathOrig, nullptr, nullptr, FALSE, 0, nullptr, nullptr, &si, &pi ) ) {
 		idLib::Error( "Could not start process: '%s' ", szPathOrig );
 		return;
 	}
@@ -322,7 +322,7 @@ void Sys_ReLaunch() {
 
 	CloseHandle( hProcessMutex );
 
-	if ( !CreateProcess( NULL, szPathOrig, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi ) ) {
+	if ( !CreateProcess( nullptr, szPathOrig, nullptr, nullptr, FALSE, 0, nullptr, nullptr, &si, &pi ) ) {
 		idLib::Error( "Could not start process: '%s' ", szPathOrig );
 		return;
 	}
@@ -439,7 +439,7 @@ Sys_FileTimeStamp
 */
 ID_TIME_T Sys_FileTimeStamp( idFileHandle fp ) {
 	FILETIME writeTime;
-	GetFileTime( fp, NULL, NULL, &writeTime );
+	GetFileTime( fp, nullptr, nullptr, &writeTime );
 
 	/*
 		FILETIME = number of 100-nanosecond ticks since midnight 
@@ -573,9 +573,9 @@ const char *Sys_DefaultSavePath() {
 	{
 		// RB: looks like a bug in the shlobj.h
 #if defined(__MINGW32__)
-		SHGetFolderPath( NULL, CSIDL_PERSONAL | CSIDL_FLAG_CREATE, NULL, 1, savePath );
+		SHGetFolderPath( nullptr, CSIDL_PERSONAL | CSIDL_FLAG_CREATE, nullptr, 1, savePath );
 #else
-		SHGetFolderPath( NULL, CSIDL_PERSONAL | CSIDL_FLAG_CREATE, NULL, SHGFP_TYPE_CURRENT, savePath );
+		SHGetFolderPath( nullptr, CSIDL_PERSONAL | CSIDL_FLAG_CREATE, nullptr, SHGFP_TYPE_CURRENT, savePath );
 #endif
 		// RB end
 		strcat( savePath, "\\My Games" );
@@ -593,7 +593,7 @@ Sys_EXEPath
 */
 const char *Sys_EXEPath() {
 	static char exe[ MAX_OSPATH ];
-	GetModuleFileName( NULL, exe, sizeof( exe ) - 1 );
+	GetModuleFileName( nullptr, exe, sizeof( exe ) - 1 );
 	return exe;
 }
 
@@ -650,10 +650,10 @@ Sys_GetClipboardData
 ================
 */
 char *Sys_GetClipboardData() {
-	char *data = NULL;
+	char *data = nullptr;
 	char *cliptext;
 
-	if ( OpenClipboard( NULL ) != 0 ) {
+	if ( OpenClipboard( nullptr ) != 0 ) {
 		HANDLE hClipboardData;
 
 		if ( ( hClipboardData = GetClipboardData( CF_TEXT ) ) != 0 ) {
@@ -681,12 +681,12 @@ void Sys_SetClipboardData( const char *string ) {
 
 	// allocate memory block
 	HMem = (char *)::GlobalAlloc( GMEM_MOVEABLE | GMEM_DDESHARE, strlen( string ) + 1 );
-	if ( HMem == NULL ) {
+	if ( HMem == nullptr ) {
 		return;
 	}
 	// lock allocated memory and obtain a pointer
 	PMem = (char *)::GlobalLock( HMem );
-	if ( PMem == NULL ) {
+	if ( PMem == nullptr ) {
 		return;
 	}
 	// copy text into allocated memory block
@@ -733,7 +733,7 @@ bool Sys_Exec(	const char * appPath, const char * workingPath, const char * args
 		SECURITY_ATTRIBUTES secAttr;
 		secAttr.nLength = sizeof( SECURITY_ATTRIBUTES );
 		secAttr.bInheritHandle = TRUE;
-		secAttr.lpSecurityDescriptor = NULL;
+		secAttr.lpSecurityDescriptor = nullptr;
 
 		HANDLE hStdOutRead;
 		HANDLE hStdOutWrite;
@@ -757,7 +757,7 @@ bool Sys_Exec(	const char * appPath, const char * workingPath, const char * args
 		PROCESS_INFORMATION pi;
 		memset ( &pi, 0, sizeof( pi ) );
 
-		if ( outputFn != NULL ) {
+		if ( outputFn != nullptr ) {
 			outputFn( va( "^2Executing Process: ^7%s\n^2working path: ^7%s\n^2args: ^7%s\n", appPath, workingPath, args ) );
 		} else {
 			outputFn = ExecOutputFn;
@@ -765,13 +765,13 @@ bool Sys_Exec(	const char * appPath, const char * workingPath, const char * args
 
 		// we duplicate args here so we can concatenate the exe name and args into a single command line
 		const char * imageName = appPath;
-		char * cmdLine = NULL;
+		char * cmdLine = nullptr;
 		{
 			// if we have any args, we need to copy them to a new buffer because CreateProcess modifies
 			// the command line buffer.
-			if ( args != NULL ) {
-				if ( appPath != NULL ) {
-					int len = idStr::Length( args ) + idStr::Length( appPath ) + 1 /* for space */ + 1 /* for NULL terminator */ + 2 /* app quotes */;
+			if ( args != nullptr ) {
+				if ( appPath != nullptr ) {
+					int len = idStr::Length( args ) + idStr::Length( appPath ) + 1 /* for space */ + 1 /* for nullptr terminator */ + 2 /* app quotes */;
 					cmdLine = (char*)Mem_Alloc( len, TAG_TEMP );
 					// note that we're putting quotes around the appPath here because when AAS2.exe gets an app path with spaces
 					// in the path "w:/zion/build/win32/Debug with Inlines/AAS2.exe" it gets more than one arg for the app name,
@@ -782,13 +782,13 @@ bool Sys_Exec(	const char * appPath, const char * workingPath, const char * args
 					cmdLine = (char*)Mem_Alloc( len, TAG_TEMP );
 					idStr::Copynz( cmdLine, args, len );
 				}
-				// the image name should always be NULL if we have command line arguments because it is already
+				// the image name should always be nullptr if we have command line arguments because it is already
 				// prefixed to the command line.
-				imageName = NULL;
+				imageName = nullptr;
 			}
 		}
 
-		BOOL result = CreateProcess( imageName, (LPSTR)cmdLine, NULL, NULL, TRUE, 0, NULL, workingPath, &si, &pi );
+		BOOL result = CreateProcess( imageName, (LPSTR)cmdLine, nullptr, nullptr, TRUE, 0, nullptr, workingPath, &si, &pi );
 
 		if ( result == FALSE ) {
 			TCHAR szBuf[1024]; 
@@ -798,18 +798,18 @@ bool Sys_Exec(	const char * appPath, const char * workingPath, const char * args
 			FormatMessage(
 				FORMAT_MESSAGE_ALLOCATE_BUFFER | 
 				FORMAT_MESSAGE_FROM_SYSTEM,
-				NULL,
+				nullptr,
 				dw,
 				MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
 				(LPTSTR) &lpMsgBuf,
-				0, NULL );
+				0, nullptr );
 
 			wsprintf( szBuf, "%d: %s", dw, lpMsgBuf );
-			if ( outputFn != NULL ) {
+			if ( outputFn != nullptr ) {
 				outputFn( szBuf );
 			}
 			LocalFree( lpMsgBuf );
-			if ( cmdLine != NULL ) {
+			if ( cmdLine != nullptr ) {
 				Mem_Free( cmdLine );
 			}
 			return false;
@@ -824,12 +824,12 @@ bool Sys_Exec(	const char * appPath, const char * workingPath, const char * args
 				DWORD bytesRead = 0;
 				DWORD bytesAvail = 0;
 				DWORD bytesLeft = 0;
-				BOOL ok = PeekNamedPipe( hStdOutRead, NULL, 0, NULL, &bytesAvail, &bytesLeft );
+				BOOL ok = PeekNamedPipe( hStdOutRead, nullptr, 0, nullptr, &bytesAvail, &bytesLeft );
 				if ( ok && bytesAvail != 0 ) {
-					ok = ReadFile( hStdOutRead, buffer, sizeof( buffer ) - 3, &bytesRead, NULL );
+					ok = ReadFile( hStdOutRead, buffer, sizeof( buffer ) - 3, &bytesRead, nullptr );
 					if ( ok && bytesRead > 0 ) {
 						buffer[ bytesRead ] = '\0';
-						if ( outputFn != NULL ) {
+						if ( outputFn != nullptr ) {
 							int length = 0;
 							for ( int i = 0; buffer[i] != '\0'; i++ ) {
 								if ( buffer[i] != '\r' ) {
@@ -847,7 +847,7 @@ bool Sys_Exec(	const char * appPath, const char * workingPath, const char * args
 					break;
 				}
 
-				if ( workFn != NULL ) {
+				if ( workFn != nullptr ) {
 					if ( !workFn() ) {
 						TerminateProcess( pi.hProcess, 0 );
 						break;
@@ -858,7 +858,7 @@ bool Sys_Exec(	const char * appPath, const char * workingPath, const char * args
 
 		// this assumes that windows duplicates the command line string into the created process's
 		// environment space.
-		if ( cmdLine != NULL ) {
+		if ( cmdLine != nullptr ) {
 			Mem_Free( cmdLine );
 		}
 
@@ -920,12 +920,12 @@ void Sys_DLL_Unload( intptr_t dllHandle )
 		LPVOID lpMsgBuf;
 		FormatMessage(
 			FORMAT_MESSAGE_ALLOCATE_BUFFER,
-		    NULL,
+		    nullptr,
 			lastError,
 			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
 			(LPTSTR) &lpMsgBuf,
 			0,
-			NULL 
+			nullptr 
 		);
 
 		Sys_Error( "Sys_DLL_Unload: FreeLibrary failed - %s (%d)", lpMsgBuf, lastError );
@@ -989,8 +989,8 @@ void Sys_PumpEvents() {
     MSG msg;
 
 	// pump the message loop
-	while( PeekMessage( &msg, NULL, 0, 0, PM_NOREMOVE ) ) {
-		if ( !GetMessage( &msg, NULL, 0, 0 ) ) {
+	while( PeekMessage( &msg, nullptr, 0, 0, PM_NOREMOVE ) ) {
+		if ( !GetMessage( &msg, nullptr, 0, 0 ) ) {
 			common->Quit();
 		}
 
@@ -1095,7 +1095,7 @@ returns true if there is a copy of D3 running already
 bool Sys_AlreadyRunning() {
 #ifndef DEBUG
 	if ( !win32.win_allowMultipleInstances.GetBool() ) {
-		hProcessMutex = ::CreateMutex( NULL, FALSE, "DOOM3" );
+		hProcessMutex = ::CreateMutex( nullptr, FALSE, "DOOM3" );
 		if ( ::GetLastError() == ERROR_ALREADY_EXISTS || ::GetLastError() == ERROR_ACCESS_DENIED ) {
 			return true;
 		}
@@ -1116,10 +1116,10 @@ The cvar system must already be setup
 
 void Sys_Init() {
 
-	CoInitialize( NULL );
+	CoInitialize( nullptr );
 
 	// get WM_TIMER messages pumped every millisecond
-//	SetTimer( NULL, 0, 100, NULL );
+//	SetTimer( nullptr, 0, 100, nullptr );
 
 	cmdSystem->AddCommand( "in_restart", Sys_In_Restart_f, CMD_FL_SYSTEM, "restarts the input system" );
 
@@ -1493,8 +1493,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     google_breakpad::ExceptionHandler *pHandler =
         new google_breakpad::ExceptionHandler(
                                               L"%TMP%\\", // FIXME: provide base path here, dir must exist
-                                              NULL,
-                                              NULL,
+                                              nullptr,
+                                              nullptr,
                                               0,
                                               google_breakpad::ExceptionHandler::HANDLER_ALL,
                                               MiniDumpNormal,
@@ -1546,7 +1546,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 //	Sys_FPU_EnableExceptions( TEST_FPU_EXCEPTIONS );
 	Sys_FPU_SetPrecision( FPU_PRECISION_DOUBLE_EXTENDED );
 
-	common->Init( 0, NULL, lpCmdLine );
+	common->Init( 0, nullptr, lpCmdLine );
 
 #if TEST_FPU_EXCEPTIONS != 0
 	common->Printf( Sys_FPU_GetState() );
@@ -1611,7 +1611,7 @@ void idSysLocal::OpenURL( const char *url, bool doexit ) {
 
 	common->Printf("Open URL: %s\n", url);
 
-	if ( !ShellExecute( NULL, "open", url, NULL, NULL, SW_RESTORE ) ) {
+	if ( !ShellExecute( nullptr, "open", url, nullptr, nullptr, SW_RESTORE ) ) {
 		common->Error( "Could not open url: '%s' ", url );
 		return;
 	}
@@ -1642,7 +1642,7 @@ void idSysLocal::StartProcess( const char *exePath, bool doexit ) {
 
 	strncpy( szPathOrig, exePath, _MAX_PATH );
 
-	if( !CreateProcess( NULL, szPathOrig, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi ) ) {
+	if( !CreateProcess( nullptr, szPathOrig, nullptr, nullptr, FALSE, 0, nullptr, nullptr, &si, &pi ) ) {
         common->Error( "Could not start process: '%s' ", szPathOrig );
 	    return;
 	}

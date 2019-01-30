@@ -96,7 +96,7 @@ void idAI_Vagary::Event_ChooseObjectToThrow( const idVec3& mins, const idVec3& m
 	
 	if( !enemyEnt )
 	{
-		idThread::ReturnEntity( NULL );
+		idThread::ReturnEntity( nullptr );
 		return;
 	}
 	
@@ -141,14 +141,14 @@ void idAI_Vagary::Event_ChooseObjectToThrow( const idVec3& mins, const idVec3& m
 		}
 		
 		if( PredictTrajectory( entPhys->GetOrigin() + offsetVec, enemyEyePos, speed, entPhys->GetGravity(),
-							   entPhys->GetClipModel(), entPhys->GetClipMask(), MAX_WORLD_SIZE, NULL, enemyEnt, ai_debugTrajectory.GetBool() ? 4000 : 0, vel ) )
+							   entPhys->GetClipModel(), entPhys->GetClipMask(), MAX_WORLD_SIZE, nullptr, enemyEnt, ai_debugTrajectory.GetBool() ? 4000 : 0, vel ) )
 		{
 			idThread::ReturnEntity( ent );
 			return;
 		}
 	}
 	
-	idThread::ReturnEntity( NULL );
+	idThread::ReturnEntity( nullptr );
 }
 
 /*
@@ -171,7 +171,7 @@ void idAI_Vagary::Event_ThrowObjectAtEnemy( idEntity* ent, float speed )
 	else
 	{
 		PredictTrajectory( entPhys->GetOrigin(), lastVisibleEnemyPos + lastVisibleEnemyEyeOffset, speed, entPhys->GetGravity(),
-						   entPhys->GetClipModel(), entPhys->GetClipMask(), MAX_WORLD_SIZE, NULL, enemyEnt, ai_debugTrajectory.GetBool() ? 4000 : 0, vel );
+						   entPhys->GetClipModel(), entPhys->GetClipMask(), MAX_WORLD_SIZE, nullptr, enemyEnt, ai_debugTrajectory.GetBool() ? 4000 : 0, vel );
 		vel *= speed;
 	}
 	

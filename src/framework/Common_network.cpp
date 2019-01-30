@@ -349,7 +349,7 @@ void idCommonLocal::NetReadUsercmds( int clientNum, idBitMsg& msg )
 	
 	// TODO: This shouldn't actually happen. Figure out why it does.
 	// Seen on clients when another client leaves a match.
-	if( msg.GetReadData() == NULL )
+	if( msg.GetReadData() == nullptr )
 	{
 		return;
 	}

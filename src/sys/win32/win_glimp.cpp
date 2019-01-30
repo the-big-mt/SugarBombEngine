@@ -233,7 +233,7 @@ LONG WINAPI FakeWndProc(
 	wglMakeCurrent( hDC, hGLRC );
 	
 	// free things
-	wglMakeCurrent( NULL, NULL );
+	wglMakeCurrent( nullptr, nullptr );
 	wglDeleteContext( hGLRC );
 	ReleaseDC( hWnd, hDC );
 	
@@ -303,7 +303,7 @@ static void GLW_GetWGLExtensionsWithFakeWindow()
 						 40, 40,
 						 640,
 						 480,
-						 NULL, NULL, win32.hInstance, NULL );
+						 nullptr, nullptr, win32.hInstance, nullptr );
 	if( !hWnd )
 	{
 		common->FatalError( "GLW_GetWGLExtensionsWithFakeWindow: Couldn't create fake window" );
@@ -317,7 +317,7 @@ static void GLW_GetWGLExtensionsWithFakeWindow()
 	ReleaseDC( hWnd, hDC );
 	
 	DestroyWindow( hWnd );
-	while( GetMessage( &msg, NULL, 0, 0 ) )
+	while( GetMessage( &msg, nullptr, 0, 0 ) )
 	{
 		TranslateMessage( &msg );
 		DispatchMessage( &msg );
@@ -343,7 +343,7 @@ CreateOpenGLContextOnDC
 static HGLRC CreateOpenGLContextOnDC( const HDC hdc, const bool debugContext )
 {
 	int useOpenGL32 = r_useOpenGL32.GetInteger();
-	HGLRC m_hrc = NULL;
+	HGLRC m_hrc = nullptr;
 	
 	// RB: for GLintercept 1.2.0 or otherwise we can't diff the framebuffers using the XML log
 	if( !WGLEW_ARB_create_context || useOpenGL32 == 0 )
@@ -369,7 +369,7 @@ static HGLRC CreateOpenGLContextOnDC( const HDC hdc, const bool debugContext )
 		};
 		
 		m_hrc = wglCreateContextAttribsARB( hdc, 0, attribs );
-		if( m_hrc != NULL )
+		if( m_hrc != nullptr )
 		{
 			idLib::Printf( "created OpenGL %d.%d context\n", glMajorVersion, glMinorVersion );
 			
@@ -393,7 +393,7 @@ static HGLRC CreateOpenGLContextOnDC( const HDC hdc, const bool debugContext )
 		useOpenGL32 = 0;	// fall back to OpenGL 2.0
 	}
 	
-	if( m_hrc == NULL )
+	if( m_hrc == nullptr )
 	{
 		int	err = GetLastError();
 		switch( err )
@@ -485,11 +485,11 @@ static bool GLW_InitDriver( glimpParms_t parms )
 	//
 	// get a DC for our window if we don't already have one allocated
 	//
-	if( win32.hDC == NULL )
+	if( win32.hDC == nullptr )
 	{
 		common->Printf( "...getting DC: " );
 		
-		if( ( win32.hDC = GetDC( win32.hWnd ) ) == NULL )
+		if( ( win32.hDC = GetDC( win32.hWnd ) ) == nullptr )
 		{
 			common->Printf( "^3failed^0\n" );
 			return false;
@@ -563,7 +563,7 @@ static bool GLW_InitDriver( glimpParms_t parms )
 	if( !wglMakeCurrent( win32.hDC, win32.hGLRC ) )
 	{
 		wglDeleteContext( win32.hGLRC );
-		win32.hGLRC = NULL;
+		win32.hGLRC = nullptr;
 		common->Printf( "^3failed^0\n" );
 		return false;
 	}
@@ -597,7 +597,7 @@ static void GLW_CreateWindowClasses()
 	wc.cbWndExtra    = 0;
 	wc.hInstance     = win32.hInstance;
 	wc.hIcon         = LoadIcon( win32.hInstance, MAKEINTRESOURCE( IDI_ICON1 ) );
-	wc.hCursor       = NULL;
+	wc.hCursor       = nullptr;
 	wc.hbrBackground = ( struct HBRUSH__* )COLOR_GRAYTEXT;
 	wc.lpszMenuName  = 0;
 	wc.lpszClassName = WIN32_WINDOW_CLASS_NAME;
@@ -616,7 +616,7 @@ static void GLW_CreateWindowClasses()
 	wc.cbWndExtra    = 0;
 	wc.hInstance     = win32.hInstance;
 	wc.hIcon         = LoadIcon( win32.hInstance, MAKEINTRESOURCE( IDI_ICON1 ) );
-	wc.hCursor       = LoadCursor( NULL, IDC_ARROW );
+	wc.hCursor       = LoadCursor( nullptr, IDC_ARROW );
 	wc.hbrBackground = ( struct HBRUSH__* )COLOR_GRAYTEXT;
 	wc.lpszMenuName  = 0;
 	wc.lpszClassName = WIN32_FAKE_WINDOW_CLASS_NAME;
@@ -645,7 +645,7 @@ static const char* GetDisplayName( const int deviceNum )
 				&device,
 				0 /* dwFlags */ ) )
 	{
-		return NULL;
+		return nullptr;
 	}
 	return device.DeviceName;
 }
@@ -1091,10 +1091,10 @@ static bool GLW_CreateWindow( glimpParms_t parms )
 					 GAME_NAME,
 					 stylebits,
 					 x, y, w, h,
-					 NULL,
-					 NULL,
+					 nullptr,
+					 nullptr,
 					 win32.hInstance,
-					 NULL );
+					 nullptr );
 					 
 	if( !win32.hWnd )
 	{
@@ -1102,13 +1102,13 @@ static bool GLW_CreateWindow( glimpParms_t parms )
 		return false;
 	}
 	
-	::SetTimer( win32.hWnd, 0, 100, NULL );
+	::SetTimer( win32.hWnd, 0, 100, nullptr );
 	
 	ShowWindow( win32.hWnd, SW_SHOW );
 	UpdateWindow( win32.hWnd );
 	common->Printf( "...created window @ %d,%d (%dx%d)\n", x, y, w, h );
 	
-	// makeCurrent NULL frees the DC, so get another
+	// makeCurrent nullptr frees the DC, so get another
 	win32.hDC = GetDC( win32.hWnd );
 	if( !win32.hDC )
 	{
@@ -1131,7 +1131,7 @@ static bool GLW_CreateWindow( glimpParms_t parms )
 	{
 		ShowWindow( win32.hWnd, SW_HIDE );
 		DestroyWindow( win32.hWnd );
-		win32.hWnd = NULL;
+		win32.hWnd = nullptr;
 		return false;
 	}
 	
@@ -1235,9 +1235,9 @@ static bool GLW_ChangeDislaySettingsIfNeeded( glimpParms_t parms )
 	if( ( cdsRet = ChangeDisplaySettingsEx(
 					   deviceName,
 					   &dm,
-					   NULL,
+					   nullptr,
 					   CDS_FULLSCREEN,
-					   NULL ) ) == DISP_CHANGE_SUCCESSFUL )
+					   nullptr ) ) == DISP_CHANGE_SUCCESSFUL )
 	{
 		common->Printf( "ok\n" );
 		win32.cdsFullscreen = parms.fullScreen;
@@ -1337,7 +1337,7 @@ bool GLimp_Init( glimpParms_t parms )
 	// on a 27" monitor, so get a dedicated DC for the full screen device name.
 	const idStr deviceName = GetDeviceName( Max( 0, parms.fullScreen - 1 ) );
 	
-	HDC deviceDC = CreateDC( deviceName.c_str(), deviceName.c_str(), NULL, NULL );
+	HDC deviceDC = CreateDC( deviceName.c_str(), deviceName.c_str(), nullptr, nullptr );
 	const int mmWide = GetDeviceCaps( win32.hDC, HORZSIZE );
 	DeleteDC( deviceDC );
 	
@@ -1433,11 +1433,11 @@ void GLimp_Shutdown()
 	
 	common->Printf( "Shutting down OpenGL subsystem\n" );
 	
-	// set current context to NULL
+	// set current context to nullptr
 	//if( wglMakeCurrent )
 	{
-		retVal = wglMakeCurrent( NULL, NULL ) != 0;
-		common->Printf( "...wglMakeCurrent( NULL, NULL ): %s\n", success[retVal] );
+		retVal = wglMakeCurrent( nullptr, nullptr ) != 0;
+		common->Printf( "...wglMakeCurrent( nullptr, nullptr ): %s\n", success[retVal] );
 	}
 	
 	// delete HGLRC
@@ -1445,7 +1445,7 @@ void GLimp_Shutdown()
 	{
 		retVal = wglDeleteContext( win32.hGLRC ) != 0;
 		common->Printf( "...deleting GL context: %s\n", success[retVal] );
-		win32.hGLRC = NULL;
+		win32.hGLRC = nullptr;
 	}
 	
 	// release DC
@@ -1453,7 +1453,7 @@ void GLimp_Shutdown()
 	{
 		retVal = ReleaseDC( win32.hWnd, win32.hDC ) != 0;
 		common->Printf( "...releasing DC: %s\n", success[retVal] );
-		win32.hDC   = NULL;
+		win32.hDC   = nullptr;
 	}
 	
 	// destroy window
@@ -1462,7 +1462,7 @@ void GLimp_Shutdown()
 		common->Printf( "...destroying window\n" );
 		ShowWindow( win32.hWnd, SW_HIDE );
 		DestroyWindow( win32.hWnd );
-		win32.hWnd = NULL;
+		win32.hWnd = nullptr;
 	}
 	
 	// reset display settings

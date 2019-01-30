@@ -38,7 +38,7 @@ void idMenuScreen_PDA_UserEmails::Initialize( idMenuHandler* data )
 {
 	idMenuScreen::Initialize( data );
 	
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		menuGUI = data->GetGUI();
 	}
@@ -64,7 +64,7 @@ void idMenuScreen_PDA_UserEmails::Initialize( idMenuHandler* data )
 	AddChild( &pdaInbox );
 	AddChild( &emailInfo );
 	
-	if( pdaInbox.GetEmailList() != NULL )
+	if( pdaInbox.GetEmailList() != nullptr )
 	{
 		pdaInbox.GetEmailList()->RegisterEventObserver( &emailInfo );
 		pdaInbox.GetEmailList()->RegisterEventObserver( &emailScrollbar );
@@ -73,7 +73,7 @@ void idMenuScreen_PDA_UserEmails::Initialize( idMenuHandler* data )
 		{
 			idMenuWidget& child = pdaInbox.GetEmailList()->GetChildByIndex( i );
 			idMenuWidget_Button* const button = dynamic_cast< idMenuWidget_Button* >( &child );
-			if( button != NULL )
+			if( button != nullptr )
 			{
 				button->RegisterEventObserver( &emailInfo );
 			}
@@ -110,7 +110,7 @@ void idMenuScreen_PDA_UserEmails::Initialize( idMenuHandler* data )
 		idSWFScriptVar Call( idSWFScriptObject* thisObject, const idSWFParmList& parms )
 		{
 		
-			if( widget == NULL )
+			if( widget == nullptr )
 			{
 				return idSWFScriptVar();
 			}
@@ -122,7 +122,7 @@ void idMenuScreen_PDA_UserEmails::Initialize( idMenuHandler* data )
 		idMenuWidget_InfoBox* widget;
 	};
 	
-	if( GetSWFObject() != NULL )
+	if( GetSWFObject() != nullptr )
 	{
 		GetSWFObject()->SetGlobal( "refreshInfoBox", new( TAG_SWF ) idInfoBoxRefresh( &emailInfo ) );
 	}
@@ -136,13 +136,13 @@ idMenuScreen_PDA_UserEmails::ShowScreen
 void idMenuScreen_PDA_UserEmails::ShowScreen( const mainMenuTransition_t transitionType )
 {
 
-	if( menuGUI != NULL )
+	if( menuGUI != nullptr )
 	{
 		readingEmails = false;
 		
 		idSWFScriptObject& root = menuGUI->GetRootObject();
 		idSWFSpriteInstance* pdaSprite = root.GetNestedSprite( "pda_persons" );
-		if( pdaSprite != NULL && menuData != NULL && menuData->ActiveScreen() != PDA_AREA_USER_DATA )
+		if( pdaSprite != nullptr && menuData != nullptr && menuData->ActiveScreen() != PDA_AREA_USER_DATA )
 		{
 			pdaSprite->SetVisible( true );
 			pdaSprite->PlayFrame( "rollOn" );
@@ -172,7 +172,7 @@ idMenuScreen_PDA_UserEmails::Update
 void idMenuScreen_PDA_UserEmails::Update()
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 	
 		if( menuData->NextScreen() != PDA_AREA_USER_EMAIL )
@@ -181,7 +181,7 @@ void idMenuScreen_PDA_UserEmails::Update()
 		}
 		
 		idMenuWidget_CommandBar* cmdBar = dynamic_cast< idMenuWidget_CommandBar* const >( menuData->GetChildFromIndex( PDA_WIDGET_CMD_BAR ) );
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			idMenuWidget_CommandBar::buttonInfo_t* buttonInfo;
@@ -205,16 +205,16 @@ void idMenuScreen_PDA_UserEmails::Update()
 				buttonInfo->action.Set( WIDGET_ACTION_GO_BACK );
 				
 				idMenuWidget_DynamicList* pdaList = dynamic_cast< idMenuWidget_DynamicList* >( menuData->GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
-				if( pdaList != NULL )
+				if( pdaList != nullptr )
 				{
 					int pdaIndex = pdaList->GetViewIndex();
 					idPlayer* player = gameLocal.GetLocalPlayer();
-					if( player != NULL )
+					if( player != nullptr )
 					{
 						if( pdaIndex < player->GetInventory().pdas.Num() )
 						{
 							const idDeclPDA* pda = player->GetInventory().pdas[ pdaIndex ];
-							if( pda != NULL && pdaInbox.GetEmailList() != NULL )
+							if( pda != nullptr && pdaInbox.GetEmailList() != nullptr )
 							{
 								idStr pdaFullName = pda->GetFullName();
 								int emailIndex = pdaInbox.GetEmailList()->GetViewIndex();
@@ -252,11 +252,11 @@ idMenuScreen_PDA_UserEmails::HideScreen
 void idMenuScreen_PDA_UserEmails::HideScreen( const mainMenuTransition_t transitionType )
 {
 
-	if( menuGUI != NULL )
+	if( menuGUI != nullptr )
 	{
 		idSWFScriptObject& root = menuGUI->GetRootObject();
 		idSWFSpriteInstance* pdaSprite = root.GetNestedSprite( "pda_persons" );
-		if( pdaSprite != NULL && menuData != NULL )
+		if( pdaSprite != nullptr && menuData != nullptr )
 		{
 			if( menuData->NextScreen() != PDA_AREA_USER_DATA )
 			{
@@ -287,13 +287,13 @@ idMenuScreen_PDA_UserEmails::UpdateEmail
 void idMenuScreen_PDA_UserEmails::UpdateEmail()
 {
 	idMenuWidget_DynamicList* pdaList = dynamic_cast< idMenuWidget_DynamicList* >( menuData->GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
-	if( pdaList != NULL )
+	if( pdaList != nullptr )
 	{
 	
 		int pdaIndex = pdaList->GetViewIndex();
 		
 		idPlayer* player = gameLocal.GetLocalPlayer();
-		if( player == NULL )
+		if( player == nullptr )
 		{
 			return;
 		}
@@ -304,14 +304,14 @@ void idMenuScreen_PDA_UserEmails::UpdateEmail()
 		}
 		
 		const idDeclPDA* pda = player->GetInventory().pdas[ pdaIndex ];
-		if( pda != NULL && pdaInbox.GetEmailList() != NULL )
+		if( pda != nullptr && pdaInbox.GetEmailList() != nullptr )
 		{
 			idStr pdaFullName = pda->GetFullName();
 			int emailIndex = pdaInbox.GetEmailList()->GetViewIndex();
 			if( emailIndex < pda->GetNumEmails() )
 			{
 				const idDeclEmail* email = pda->GetEmailByIndex( emailIndex );
-				if( email != NULL )
+				if( email != nullptr )
 				{
 					emailInfo.SetHeading( email->GetSubject() );
 					emailInfo.SetBody( email->GetBody() );
@@ -343,7 +343,7 @@ bool idMenuScreen_PDA_UserEmails::ScrollCorrectList( idWidgetAction& action, con
 		if( leftScroll && !scrollEmailInfo )
 		{
 			idMenuWidget_DynamicList* inbox = pdaInbox.GetEmailList();
-			if( inbox != NULL )
+			if( inbox != nullptr )
 			{
 				inbox->HandleAction( action, event, inbox );
 				UpdateEmail();
@@ -359,17 +359,17 @@ bool idMenuScreen_PDA_UserEmails::ScrollCorrectList( idWidgetAction& action, con
 	else if( !leftScroll )
 	{
 		idMenuWidget_DynamicList* inbox = pdaInbox.GetEmailList();
-		if( inbox != NULL )
+		if( inbox != nullptr )
 		{
 			inbox->HandleAction( action, event, inbox );
 			UpdateEmail();
 			handled = true;
 		}
 	}
-	else if( menuData != NULL )
+	else if( menuData != nullptr )
 	{
 		idMenuWidget_DynamicList* pdaList = dynamic_cast< idMenuWidget_DynamicList* const >( menuData->GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
-		if( pdaList != NULL )
+		if( pdaList != nullptr )
 		{
 			pdaList->HandleAction( action, event, pdaList );
 			handled = true;
@@ -387,9 +387,9 @@ idMenuScreen_PDA_UserEmails::HandleAction
 void idMenuScreen_PDA_UserEmails::ShowEmail( bool show )
 {
 
-	idSWFSpriteInstance* pdaSprite = NULL;
+	idSWFSpriteInstance* pdaSprite = nullptr;
 	
-	if( menuGUI != NULL )
+	if( menuGUI != nullptr )
 	{
 		idSWFScriptObject& root = menuGUI->GetRootObject();
 		pdaSprite = root.GetNestedSprite( "pda_persons" );
@@ -399,19 +399,19 @@ void idMenuScreen_PDA_UserEmails::ShowEmail( bool show )
 		
 			scrollEmailInfo = false;
 			
-			if( pdaSprite != NULL )
+			if( pdaSprite != nullptr )
 			{
 				pdaSprite->SetVisible( true );
 				pdaSprite->PlayFrame( "rollOff" );
 			}
 			
-			if( emailInfo.BindSprite( root ) && emailInfo.GetSprite() != NULL )
+			if( emailInfo.BindSprite( root ) && emailInfo.GetSprite() != nullptr )
 			{
 				emailInfo.GetSprite()->PlayFrame( "rollOn" );
 				emailInfo.Update();
 			}
 			
-			if( pdaInbox.BindSprite( root ) && pdaInbox.GetSprite() != NULL )
+			if( pdaInbox.BindSprite( root ) && pdaInbox.GetSprite() != nullptr )
 			{
 				pdaInbox.GetSprite()->PlayFrame( "rollOff" );
 			}
@@ -419,25 +419,25 @@ void idMenuScreen_PDA_UserEmails::ShowEmail( bool show )
 		else if( !show && readingEmails )
 		{
 		
-			if( emailInfo.BindSprite( root ) && emailInfo.GetSprite() != NULL )
+			if( emailInfo.BindSprite( root ) && emailInfo.GetSprite() != nullptr )
 			{
 				emailInfo.GetSprite()->PlayFrame( "rollOff" );
 			}
 			
-			if( pdaInbox.BindSprite( root ) && pdaInbox.GetSprite() != NULL )
+			if( pdaInbox.BindSprite( root ) && pdaInbox.GetSprite() != nullptr )
 			{
 				pdaInbox.GetSprite()->PlayFrame( "rollOn" );
 			}
 			
-			if( pdaSprite != NULL )
+			if( pdaSprite != nullptr )
 			{
 				pdaSprite->SetVisible( true );
 				pdaSprite->PlayFrame( "rollOn" );
 				
-				if( menuData != NULL )
+				if( menuData != nullptr )
 				{
 					idMenuWidget_DynamicList* pdaList = dynamic_cast< idMenuWidget_DynamicList* const >( menuData->GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
-					if( pdaList != NULL )
+					if( pdaList != nullptr )
 					{
 						pdaList->SetFocusIndex( pdaList->GetFocusIndex() );
 					}
@@ -459,7 +459,7 @@ idMenuScreen_PDA_UserEmails::HandleAction
 bool idMenuScreen_PDA_UserEmails::HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled )
 {
 
-	if( menuData == NULL )
+	if( menuData == nullptr )
 	{
 		return true;
 	}
@@ -499,11 +499,11 @@ bool idMenuScreen_PDA_UserEmails::HandleAction( idWidgetAction& action, const id
 		case WIDGET_ACTION_PDA_SELECT_EMAIL:
 		{
 		
-			if( widget->GetParent() != NULL )
+			if( widget->GetParent() != nullptr )
 			{
 				idMenuWidget_DynamicList* emailList = dynamic_cast< idMenuWidget_DynamicList* >( widget->GetParent() );
 				int index = parms[0].ToInteger();
-				if( emailList != NULL )
+				if( emailList != nullptr )
 				{
 					emailList->SetViewIndex( emailList->GetViewOffset() + index );
 					emailList->SetFocusIndex( index );
@@ -541,20 +541,20 @@ idMenuScreen_PDA_UserEmails::ObserveEvent
 void idMenuScreen_PDA_UserEmails::ObserveEvent( const idMenuWidget& widget, const idWidgetEvent& event )
 {
 
-	if( menuData != NULL && menuData->ActiveScreen() != PDA_AREA_USER_EMAIL )
+	if( menuData != nullptr && menuData->ActiveScreen() != PDA_AREA_USER_EMAIL )
 	{
 		return;
 	}
 	
 	const idMenuWidget_Button* const button = dynamic_cast< const idMenuWidget_Button* >( &widget );
-	if( button == NULL )
+	if( button == nullptr )
 	{
 		return;
 	}
 	
 	const idMenuWidget* const listWidget = button->GetParent();
 	
-	if( listWidget == NULL )
+	if( listWidget == nullptr )
 	{
 		return;
 	}

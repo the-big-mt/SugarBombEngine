@@ -104,7 +104,7 @@ punctuation_t default_punctuations[] =
 	//precompiler operator
 	{"#", P_PRECOMP},					// pre-compiler
 	{"$", P_DOLLAR},
-	{NULL, 0}
+	{nullptr, 0}
 };
 
 int default_punctuationtable[256];
@@ -1096,7 +1096,7 @@ int idLexer::ReadToken( idToken* token )
 		return 0;
 	}
 	
-	if( script_p == NULL )
+	if( script_p == nullptr )
 	{
 		return 0;
 	}
@@ -2041,9 +2041,9 @@ void idLexer::Reset()
 	// pointer in script buffer before reading token
 	idLexer::lastScript_p = idLexer::buffer;
 	// begin of white space
-	idLexer::whiteSpaceStart_p = NULL;
+	idLexer::whiteSpaceStart_p = nullptr;
 	// end of white space
-	idLexer::whiteSpaceEnd_p = NULL;
+	idLexer::whiteSpaceEnd_p = nullptr;
 	// set if there's a token available in idLexer::token
 	idLexer::tokenavailable = 0;
 	
@@ -2180,18 +2180,18 @@ void idLexer::FreeSource()
 	if( idLexer::punctuationtable && idLexer::punctuationtable != default_punctuationtable )
 	{
 		Mem_Free( ( void* ) idLexer::punctuationtable );
-		idLexer::punctuationtable = NULL;
+		idLexer::punctuationtable = nullptr;
 	}
 	if( idLexer::nextpunctuation && idLexer::nextpunctuation != default_nextpunctuation )
 	{
 		Mem_Free( ( void* ) idLexer::nextpunctuation );
-		idLexer::nextpunctuation = NULL;
+		idLexer::nextpunctuation = nullptr;
 	}
 #endif //PUNCTABLE
 	if( idLexer::allocated )
 	{
 		Mem_Free( ( void* ) idLexer::buffer );
-		idLexer::buffer = NULL;
+		idLexer::buffer = nullptr;
 		idLexer::allocated = false;
 	}
 	idLexer::tokenavailable = 0;
@@ -2209,7 +2209,7 @@ idLexer::idLexer()
 	idLexer::loaded = false;
 	idLexer::filename = "";
 	idLexer::flags = 0;
-	idLexer::SetPunctuations( NULL );
+	idLexer::SetPunctuations( nullptr );
 	idLexer::allocated = false;
 	idLexer::fileTime = 0;
 	idLexer::length = 0;
@@ -2217,7 +2217,7 @@ idLexer::idLexer()
 	idLexer::lastline = 0;
 	idLexer::tokenavailable = 0;
 	idLexer::token = "";
-	idLexer::next = NULL;
+	idLexer::next = nullptr;
 	idLexer::hadError = false;
 }
 
@@ -2231,7 +2231,7 @@ idLexer::idLexer( int flags )
 	idLexer::loaded = false;
 	idLexer::filename = "";
 	idLexer::flags = flags;
-	idLexer::SetPunctuations( NULL );
+	idLexer::SetPunctuations( nullptr );
 	idLexer::allocated = false;
 	idLexer::fileTime = 0;
 	idLexer::length = 0;
@@ -2239,7 +2239,7 @@ idLexer::idLexer( int flags )
 	idLexer::lastline = 0;
 	idLexer::tokenavailable = 0;
 	idLexer::token = "";
-	idLexer::next = NULL;
+	idLexer::next = nullptr;
 	idLexer::hadError = false;
 }
 
@@ -2252,10 +2252,10 @@ idLexer::idLexer( const char* filename, int flags, bool OSPath )
 {
 	idLexer::loaded = false;
 	idLexer::flags = flags;
-	idLexer::SetPunctuations( NULL );
+	idLexer::SetPunctuations( nullptr );
 	idLexer::allocated = false;
 	idLexer::token = "";
-	idLexer::next = NULL;
+	idLexer::next = nullptr;
 	idLexer::hadError = false;
 	idLexer::LoadFile( filename, OSPath );
 }
@@ -2269,10 +2269,10 @@ idLexer::idLexer( const char* ptr, int length, const char* name, int flags )
 {
 	idLexer::loaded = false;
 	idLexer::flags = flags;
-	idLexer::SetPunctuations( NULL );
+	idLexer::SetPunctuations( nullptr );
 	idLexer::allocated = false;
 	idLexer::token = "";
-	idLexer::next = NULL;
+	idLexer::next = nullptr;
 	idLexer::hadError = false;
 	idLexer::LoadMemory( ptr, length, name );
 }

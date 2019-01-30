@@ -113,12 +113,12 @@ public:
 	// The returned files will not include any directories or '/' unless fullRelativePath is set.
 	// The extension must include a leading dot and may not contain wildcards.
 	// If extension is "/", only subdirectories will be returned.
-	virtual idFileList* 	ListFiles( const char* relativePath, const char* extension, bool sort = false, bool fullRelativePath = false, const char* gamedir = NULL ) = 0;
+	virtual idFileList* 	ListFiles( const char* relativePath, const char* extension, bool sort = false, bool fullRelativePath = false, const char* gamedir = nullptr ) = 0;
 	// Lists files in the given directory and all subdirectories with the given extension.
 	// Directory should not have either a leading or trailing '/'
 	// The returned files include a full relative path.
 	// The extension must include a leading dot and may not contain wildcards.
-	virtual idFileList* 	ListFilesTree( const char* relativePath, const char* extension, bool sort = false, const char* gamedir = NULL ) = 0;
+	virtual idFileList* 	ListFilesTree( const char* relativePath, const char* extension, bool sort = false, const char* gamedir = nullptr ) = 0;
 	// Frees the given file list.
 	virtual void			FreeFileList( idFileList* fileList ) = 0;
 	// Converts a relative path to a full OS path.
@@ -137,7 +137,7 @@ public:
 	// As a quick check for existance. -1 length == not present.
 	// A 0 byte will always be appended at the end, so string ops are safe.
 	// The buffer should be considered read-only, because it may be cached for other uses.
-	virtual int				ReadFile( const char* relativePath, void** buffer, ID_TIME_T* timestamp = NULL ) = 0;
+	virtual int				ReadFile( const char* relativePath, void** buffer, ID_TIME_T* timestamp = nullptr ) = 0;
 	// Frees the memory allocated by ReadFile.
 	virtual void			FreeFile( void* buffer ) = 0;
 	// Writes a complete file, will create any needed subdirectories.
@@ -150,9 +150,9 @@ public:
 	// Renames a file, taken from idTech5 (minus the fsPath_t)
 	virtual bool			RenameFile( const char* relativePath, const char* newName, const char* basePath = "fs_savepath" ) = 0;
 	// Opens a file for reading.
-	virtual idFile* 		OpenFileRead( const char* relativePath, bool allowCopyFiles = true, const char* gamedir = NULL ) = 0;
+	virtual idFile* 		OpenFileRead( const char* relativePath, bool allowCopyFiles = true, const char* gamedir = nullptr ) = 0;
 	// Opens a file for reading, reads the file completely in memory and returns an idFile_Memory obj.
-	virtual idFile* 		OpenFileReadMemory( const char* relativePath, bool allowCopyFiles = true, const char* gamedir = NULL ) = 0;
+	virtual idFile* 		OpenFileReadMemory( const char* relativePath, bool allowCopyFiles = true, const char* gamedir = nullptr ) = 0;
 	// Opens a file for writing, will create any needed subdirectories.
 	virtual idFile* 		OpenFileWrite( const char* relativePath, const char* basePath = "fs_savepath" ) = 0;
 	// Opens a file for writing at the end.
@@ -184,11 +184,11 @@ public:
 	ID_TIME_T				GetTimestamp( const char* relativePath )
 	{
 		ID_TIME_T timestamp = FILE_NOT_FOUND_TIMESTAMP;
-		if( relativePath == NULL || relativePath[ 0 ] == '\0' )
+		if( relativePath == nullptr || relativePath[ 0 ] == '\0' )
 		{
 			return timestamp;
 		}
-		ReadFile( relativePath, NULL, &timestamp );
+		ReadFile( relativePath, nullptr, &timestamp );
 		return timestamp;
 	}
 	

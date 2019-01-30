@@ -54,7 +54,7 @@ void idTarget_EndLevel::Spawn( void )
 {
 	idStr		guiName;
 	
-	gui = NULL;
+	gui = nullptr;
 	noGui = spawnArgs.GetBool( "noGui" );
 	if( !noGui )
 	{
@@ -184,7 +184,7 @@ const char* idTarget_EndLevel::ExitCommand()
 {
 	if( !readyToExit )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	idStr nextMap;

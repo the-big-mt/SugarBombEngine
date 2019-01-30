@@ -127,7 +127,7 @@ struct idCVarSystem
 	virtual void			Register( idCVar* cvar ) = 0;
 	
 	// Finds the CVar with the given name.
-	// Returns NULL if there is no CVar with the given name.
+	// Returns nullptr if there is no CVar with the given name.
 	virtual idCVar* 		Find( const char* name ) = 0;
 	
 	// Sets the value of a CVar by name.

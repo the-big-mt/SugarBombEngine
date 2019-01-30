@@ -339,7 +339,7 @@ static bool Net_ExtractPort( const char* src, char* buf, int bufsize, int* port 
 	}
 	*p = '\0';
 	
-	long lport = strtol( p + 1, NULL, 10 );
+	long lport = strtol( p + 1, nullptr, 10 );
 	if( lport == 0 || lport == LONG_MIN || lport == LONG_MAX )
 	{
 		*port = 0;
@@ -379,7 +379,7 @@ static bool Net_StringToSockaddr( const char* s, sockaddr_in* sadr, bool doDNSRe
 	}
 	// buf contains the host, even if Net_ExtractPort returned false
 	h = gethostbyname( buf );
-	if( h == NULL )
+	if( h == nullptr )
 	{
 		return false;
 	}
@@ -519,7 +519,7 @@ void NET_OpenSocks( int port )
 	}
 	
 	h = gethostbyname( net_socksServer.GetString() );
-	if( h == NULL )
+	if( h == nullptr )
 	{
 		idLib::Printf( "WARNING: NET_OpenSocks: gethostbyname: %s\n", NET_ErrorString() );
 		return;
@@ -714,7 +714,7 @@ bool Net_WaitForData( int netSocket, int timeout )
 	tv.tv_sec = timeout / 1000;
 	tv.tv_usec = ( timeout % 1000 ) * 1000;
 	
-	ret = select( netSocket + 1, &set, NULL, NULL, &tv );
+	ret = select( netSocket + 1, &set, nullptr, nullptr, &tv );
 	
 	if( ret == -1 )
 	{
@@ -884,7 +884,7 @@ void Sys_InitNetworking()
 	idLib::Printf( "Winsock Initialized\n" );
 	
 	PIP_ADAPTER_INFO pAdapterInfo;
-	PIP_ADAPTER_INFO pAdapter = NULL;
+	PIP_ADAPTER_INFO pAdapter = nullptr;
 	DWORD dwRetVal = 0;
 	PIP_ADDR_STRING pIPAddrString;
 	ULONG ulOutBufLen;
@@ -935,7 +935,7 @@ void Sys_InitNetworking()
 				//skip null netmasks
 				if( !ip_m )
 				{
-					idLib::Printf( "%s NULL netmask - skipped\n", pIPAddrString->IpAddress.String );
+					idLib::Printf( "%s nullptr netmask - skipped\n", pIPAddrString->IpAddress.String );
 					pIPAddrString = pIPAddrString->Next;
 					continue;
 				}
@@ -1277,7 +1277,7 @@ const char* Sys_GetLocalIP( int i )
 {
 	if( ( i < 0 ) || ( i >= num_interfaces ) )
 	{
-		return NULL;
+		return nullptr;
 	}
 	return netint[i].addr;
 }
@@ -1325,7 +1325,7 @@ bool idUDP::InitForPort( int portNumber )
 {
 	// DG: don't specify an IP to bind for (and certainly not net_ip)
 	// => it'll listen on all addresses (0.0.0.0 / INADDR_ANY)
-	netSocket = NET_IPSocket( NULL, portNumber, &bound_to );
+	netSocket = NET_IPSocket( nullptr, portNumber, &bound_to );
 	// DG end
 	if( netSocket <= 0 )
 	{

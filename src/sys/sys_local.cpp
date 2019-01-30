@@ -43,7 +43,7 @@ If you have questions concerning this license or the applicable additional terms
 
 const char* sysLanguageNames[] =
 {
-	ID_LANG_ENGLISH, ID_LANG_FRENCH, ID_LANG_ITALIAN, ID_LANG_GERMAN, ID_LANG_SPANISH, ID_LANG_JAPANESE, NULL
+	ID_LANG_ENGLISH, ID_LANG_FRENCH, ID_LANG_ITALIAN, ID_LANG_GERMAN, ID_LANG_SPANISH, ID_LANG_JAPANESE, nullptr
 };
 
 const int numLanguages = sizeof( sysLanguageNames ) / sizeof sysLanguageNames[ 0 ] - 1;
@@ -197,7 +197,7 @@ sysEvent_t idSysLocal::GenerateMouseButtonEvent( int button, bool down )
 	ev.evValue = K_MOUSE1 + button - 1;
 	ev.evValue2 = down;
 	ev.evPtrLength = 0;
-	ev.evPtr = NULL;
+	ev.evPtr = nullptr;
 	return ev;
 }
 
@@ -208,7 +208,7 @@ sysEvent_t idSysLocal::GenerateMouseMoveEvent( int deltax, int deltay )
 	ev.evValue = deltax;
 	ev.evValue2 = deltay;
 	ev.evPtrLength = 0;
-	ev.evPtr = NULL;
+	ev.evPtr = nullptr;
 	return ev;
 }
 
@@ -229,7 +229,7 @@ const char* Sys_TimeStampToStr( ID_TIME_T timeStamp )
 	
 	time_t ts = ( time_t )timeStamp;
 	tm*	time = localtime( &ts );
-	if( time == NULL )
+	if( time == nullptr )
 	{
 		// String separated to prevent detection of trigraphs
 		return "??" "/" "??" "/" "???? ??:??";

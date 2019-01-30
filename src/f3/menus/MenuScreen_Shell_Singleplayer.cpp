@@ -39,7 +39,7 @@ void idMenuScreen_Shell_Singleplayer::Initialize( idMenuHandler* data )
 {
 	idMenuScreen::Initialize( data );
 	
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		menuGUI = data->GetGUI();
 	}
@@ -92,10 +92,10 @@ idMenuScreen_Shell_Singleplayer::Update
 void idMenuScreen_Shell_Singleplayer::Update()
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuWidget_CommandBar* cmdBar = menuData->GetCmdBar();
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			idMenuWidget_CommandBar::buttonInfo_t* buttonInfo;
@@ -119,20 +119,20 @@ void idMenuScreen_Shell_Singleplayer::Update()
 	if( BindSprite( root ) )
 	{
 		idSWFTextInstance* heading = GetSprite()->GetScriptObject()->GetNestedText( "info", "txtHeading" );
-		if( heading != NULL )
+		if( heading != nullptr )
 		{
 			heading->SetText( "#str_swf_campaign" );
 			heading->SetStrokeInfo( true, 0.75f, 1.75f );
 		}
 		
 		idSWFSpriteInstance* gradient = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "gradient" );
-		if( gradient != NULL && heading != NULL )
+		if( gradient != nullptr && heading != nullptr )
 		{
 			gradient->SetXPos( heading->GetTextLength() );
 		}
 	}
 	
-	if( btnBack != NULL )
+	if( btnBack != nullptr )
 	{
 		btnBack->BindSprite( root );
 	}
@@ -167,19 +167,19 @@ void idMenuScreen_Shell_Singleplayer::ShowScreen( const mainMenuTransition_t tra
 		
 		int index = 0;
 		idMenuWidget_Button* buttonWidget = dynamic_cast< idMenuWidget_Button* >( &options->GetChildByIndex( index ) );
-		if( buttonWidget != NULL )
+		if( buttonWidget != nullptr )
 		{
 			buttonWidget->SetDescription( "#str_swf_continue_desc" );
 		}
 		index++;
 		buttonWidget = dynamic_cast< idMenuWidget_Button* >( &options->GetChildByIndex( index ) );
-		if( buttonWidget != NULL )
+		if( buttonWidget != nullptr )
 		{
 			buttonWidget->SetDescription( "#str_02209" );
 		}
 		index++;
 		buttonWidget = dynamic_cast< idMenuWidget_Button* >( &options->GetChildByIndex( index ) );
-		if( buttonWidget != NULL )
+		if( buttonWidget != nullptr )
 		{
 			buttonWidget->SetDescription( "#str_02213" );
 		}
@@ -194,24 +194,24 @@ void idMenuScreen_Shell_Singleplayer::ShowScreen( const mainMenuTransition_t tra
 		option.Append( "#str_01867" );	// load game
 		menuOptions.Append( option );
 		
-		if( options != NULL )
+		if( options != nullptr )
 		{
 			int index = 0;
 			idMenuWidget_Button* buttonWidget = dynamic_cast< idMenuWidget_Button* >( &options->GetChildByIndex( index ) );
-			if( buttonWidget != NULL )
+			if( buttonWidget != nullptr )
 			{
 				buttonWidget->SetDescription( "#str_02209" );
 			}
 			index++;
 			buttonWidget = dynamic_cast< idMenuWidget_Button* >( &options->GetChildByIndex( index ) );
-			if( buttonWidget != NULL )
+			if( buttonWidget != nullptr )
 			{
 				buttonWidget->SetDescription( "#str_02213" );
 			}
 		}
 	}
 	
-	if( options != NULL )
+	if( options != nullptr )
 	{
 		options->SetListData( menuOptions );
 	}
@@ -275,7 +275,7 @@ idMenuScreen_Shell_Singleplayer::HandleAction
 bool idMenuScreen_Shell_Singleplayer::HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled )
 {
 
-	if( menuData == NULL )
+	if( menuData == nullptr )
 	{
 		return true;
 	}
@@ -297,7 +297,7 @@ bool idMenuScreen_Shell_Singleplayer::HandleAction( idWidgetAction& action, cons
 		}
 		case WIDGET_ACTION_PRESS_FOCUSED:
 		{
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}

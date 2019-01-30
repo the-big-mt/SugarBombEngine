@@ -41,7 +41,7 @@ idConsoleHistory::AddToHistory
 void idConsoleHistory::AddToHistory( const char* line, bool writeHistoryFile )
 {
 	// empty lines never modify history
-	if( line == NULL )
+	if( line == nullptr )
 	{
 		return;
 	}
@@ -89,7 +89,7 @@ void idConsoleHistory::AddToHistory( const char* line, bool writeHistoryFile )
 	if( writeHistoryFile )
 	{
 		idFile* f = fileSystem->OpenFileWrite( HISTORY_FILE_NAME );
-		if( f != NULL )
+		if( f != nullptr )
 		{
 			for( int i = numHistory - COMMAND_HISTORY; i < numHistory; i++ )
 			{

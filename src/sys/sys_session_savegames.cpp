@@ -340,7 +340,7 @@ void idSessionLocal::OnSaveCompleted( idSaveLoadParms* parms )
 	}
 	
 	// Only turn off the indicator if we're not also going to save the profile settings
-	if( master != NULL && master->GetProfile() != NULL && !master->GetProfile()->IsDirty() )
+	if( master != nullptr && master->GetProfile() != nullptr && !master->GetProfile()->IsDirty() )
 	{
 		common->Dialog().ShowSaveIndicator( false );
 	}
@@ -348,7 +348,7 @@ void idSessionLocal::OnSaveCompleted( idSaveLoadParms* parms )
 	if( parms->GetError() == SAVEGAME_E_NONE )
 	{
 		// Save the profile any time we save the game
-		if( master != NULL && master->GetProfile() != NULL )
+		if( master != nullptr && master->GetProfile() != nullptr )
 		{
 			master->GetProfile()->SaveSettings( false );
 		}
@@ -356,7 +356,7 @@ void idSessionLocal::OnSaveCompleted( idSaveLoadParms* parms )
 		// Update the enumerated savegames
 		saveGameDetailsList_t& detailList = session->GetSaveGameManager().GetEnumeratedSavegamesNonConst();
 		idSaveGameDetails* details = detailList.Find( parms->description );
-		if( details == NULL )
+		if( details == nullptr )
 		{
 			// add it
 			detailList.Append( parms->description );
@@ -793,13 +793,13 @@ idSessionLocal::LoadGameCheckDescriptionFile
 bool idSessionLocal::LoadGameCheckDescriptionFile( idSaveLoadParms& parms )
 {
 	idFile_SaveGame** detailsFile = FindFromGenericPtr( parms.files, SAVEGAME_DETAILS_FILENAME );
-	if( detailsFile == NULL )
+	if( detailsFile == nullptr )
 	{
 		parms.errorCode = SAVEGAME_E_FILE_NOT_FOUND;
 		return false;
 	}
 	
-	assert( *detailsFile != NULL );
+	assert( *detailsFile != nullptr );
 	( *detailsFile )->MakeReadOnly();
 	
 	if( !SavegameReadDetailsFromFile( *detailsFile, parms.description ) )
@@ -827,7 +827,7 @@ COMMANDS
 */
 CONSOLE_COMMAND( testSavegameDeleteAll, "delete all savegames without confirmation", 0 )
 {
-	if( session == NULL )
+	if( session == nullptr )
 	{
 		idLib::Printf( "Invalid session.\n" );
 		return;
@@ -847,7 +847,7 @@ CONSOLE_COMMAND( testSavegameDeleteAll, "delete all savegames without confirmati
 
 CONSOLE_COMMAND( testSavegameDelete, "deletes a savegames without confirmation", 0 )
 {
-	if( session == NULL )
+	if( session == nullptr )
 	{
 		idLib::Printf( "Invalid session.\n" );
 		return;
@@ -872,7 +872,7 @@ CONSOLE_COMMAND( testSavegameDelete, "deletes a savegames without confirmation",
 
 CONSOLE_COMMAND( testSavegameEnumerateFiles, "enumerates all the files in a folder (blank for 'current slot' folder, use 'autosave' for the autosave slot)", 0 )
 {
-	if( session == NULL )
+	if( session == nullptr )
 	{
 		idLib::Printf( "Invalid session.\n" );
 		return;
@@ -924,7 +924,7 @@ void OutputDetailList( const saveGameDetailsList_t& savegameList )
 
 CONSOLE_COMMAND( testSavegameEnumerate, "enumerates the savegames available", 0 )
 {
-	if( session == NULL )
+	if( session == nullptr )
 	{
 		idLib::Printf( "Invalid session.\n" );
 		return;
@@ -952,7 +952,7 @@ CONSOLE_COMMAND( testSaveGameCheck, "tests existence of savegame", 0 )
 
 CONSOLE_COMMAND( testSaveGameOutputEnumeratedSavegames, "outputs the list of savegames already enumerated, this does not re-enumerate", 0 )
 {
-	if( session == NULL )
+	if( session == nullptr )
 	{
 		idLib::Printf( "Invalid session.\n" );
 		return;
@@ -964,7 +964,7 @@ CONSOLE_COMMAND( testSaveGameOutputEnumeratedSavegames, "outputs the list of sav
 
 CONSOLE_COMMAND( testSavegameGetCurrentSlot, "returns the current slot in use", 0 )
 {
-	if( session == NULL )
+	if( session == nullptr )
 	{
 		idLib::Printf( "Invalid session.\n" );
 		return;
@@ -975,7 +975,7 @@ CONSOLE_COMMAND( testSavegameGetCurrentSlot, "returns the current slot in use", 
 
 CONSOLE_COMMAND( testSavegameSetCurrentSlot, "returns the current slot in use", 0 )
 {
-	if( session == NULL )
+	if( session == nullptr )
 	{
 		idLib::Printf( "Invalid session.\n" );
 		return;

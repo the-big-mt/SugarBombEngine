@@ -413,7 +413,7 @@ idMD5Anim::LoadBinary
 bool idMD5Anim::LoadBinary( idFile* file, ID_TIME_T sourceTimeStamp )
 {
 
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		return false;
 	}
@@ -508,7 +508,7 @@ idMD5Anim::WriteBinary
 void idMD5Anim::WriteBinary( idFile* file, ID_TIME_T sourceTimeStamp )
 {
 
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		return;
 	}
@@ -1158,7 +1158,7 @@ idMD5Anim* idAnimManager::GetAnim( const char* name )
 	idMD5Anim* anim;
 	
 	// see if it has been asked for before
-	animptrptr = NULL;
+	animptrptr = nullptr;
 	if( animations.Get( name, &animptrptr ) )
 	{
 		anim = *animptrptr;
@@ -1171,7 +1171,7 @@ idMD5Anim* idAnimManager::GetAnim( const char* name )
 		filename.ExtractFileExtension( extension );
 		if( extension != MD5_ANIM_EXT )
 		{
-			return NULL;
+			return nullptr;
 		}
 		
 		anim = new( TAG_ANIM ) idMD5Anim();
@@ -1179,7 +1179,7 @@ idMD5Anim* idAnimManager::GetAnim( const char* name )
 		{
 			gameLocal.Warning( "Couldn't load anim: '%s'", filename.c_str() );
 			delete anim;
-			anim = NULL;
+			anim = nullptr;
 		}
 		animations.Set( filename, anim );
 	}
@@ -1227,7 +1227,7 @@ void idAnimManager::ReloadAnims()
 	for( i = 0; i < animations.Num(); i++ )
 	{
 		animptr = animations.GetIndex( i );
-		if( animptr != NULL && *animptr != NULL )
+		if( animptr != nullptr && *animptr != nullptr )
 		{
 			( *animptr )->Reload();
 		}
@@ -1287,7 +1287,7 @@ void idAnimManager::ListAnims() const
 	for( i = 0; i < animations.Num(); i++ )
 	{
 		animptr = animations.GetIndex( i );
-		if( animptr != NULL && *animptr != NULL )
+		if( animptr != nullptr && *animptr != nullptr )
 		{
 			anim = *animptr;
 			s = anim->Size();
@@ -1321,7 +1321,7 @@ void idAnimManager::FlushUnusedAnims()
 	for( i = 0; i < animations.Num(); i++ )
 	{
 		animptr = animations.GetIndex( i );
-		if( animptr != NULL && *animptr != NULL )
+		if( animptr != nullptr && *animptr != nullptr )
 		{
 			if( ( *animptr )->NumRefs() <= 0 )
 			{

@@ -117,7 +117,7 @@ uintptr_t Sys_CreateThread( xthread_t function, void* parms, xthreadPriority pri
 	flags |= STACK_SIZE_PARAM_IS_A_RESERVATION;
 	
 	DWORD threadId;
-	HANDLE handle = CreateThread(	NULL,	// LPSECURITY_ATTRIBUTES lpsa, //-V513
+	HANDLE handle = CreateThread(	nullptr,	// LPSECURITY_ATTRIBUTES lpsa, //-V513
 									stackSize,
 									( LPTHREAD_START_ROUTINE )function,
 									parms,
@@ -203,7 +203,7 @@ Sys_SignalCreate
 */
 void Sys_SignalCreate( signalHandle_t& handle, bool manualReset )
 {
-	handle = CreateEvent( NULL, manualReset, FALSE, NULL );
+	handle = CreateEvent( nullptr, manualReset, FALSE, nullptr );
 }
 
 /*

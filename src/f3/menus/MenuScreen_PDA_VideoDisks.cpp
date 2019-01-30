@@ -39,7 +39,7 @@ idMenuScreen_PDA_VideoDisks::Initialize
 void idMenuScreen_PDA_VideoDisks::Initialize( idMenuHandler* data )
 {
 
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		menuGUI = data->GetGUI();
 	}
@@ -97,10 +97,10 @@ void idMenuScreen_PDA_VideoDisks::Update()
 
 	idPlayer* player = gameLocal.GetLocalPlayer();
 	
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuWidget_CommandBar* cmdBar = dynamic_cast< idMenuWidget_CommandBar* const >( menuData->GetChildFromIndex( PDA_WIDGET_CMD_BAR ) );
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			idMenuWidget_CommandBar::buttonInfo_t* buttonInfo;
@@ -116,9 +116,9 @@ void idMenuScreen_PDA_VideoDisks::Update()
 			buttonInfo->label = "";
 			buttonInfo->action.Set( WIDGET_ACTION_GO_BACK );
 			
-			if( player != NULL && player->GetInventory().videos.Num() > 0 )
+			if( player != nullptr && player->GetInventory().videos.Num() > 0 )
 			{
-				if( player->GetVideoMaterial() == NULL )
+				if( player->GetVideoMaterial() == nullptr )
 				{
 					buttonInfo = cmdBar->GetButton( idMenuWidget_CommandBar::BUTTON_JOY1 );
 					if( menuData->GetPlatform() != 2 )
@@ -140,9 +140,9 @@ void idMenuScreen_PDA_VideoDisks::Update()
 		}
 	}
 	
-	if( player != NULL )
+	if( player != nullptr )
 	{
-		//if ( pdaVideoList == NULL ) {
+		//if ( pdaVideoList == nullptr ) {
 		//	idMenuScreen::Update();
 		//	return;
 		//}
@@ -151,21 +151,21 @@ void idMenuScreen_PDA_VideoDisks::Update()
 		int index = pdaVideoList.GetViewIndex();
 		const idDeclVideo* video = player->GetVideo( index );
 		
-		if( video == NULL )
+		if( video == nullptr )
 		{
 			idMenuScreen::Update();
 			return;
 		}
 		
-		if( player->GetVideoMaterial() != NULL )
+		if( player->GetVideoMaterial() != nullptr )
 		{
 			// update video material
-			if( BindSprite( root ) && GetSprite() != NULL )
+			if( BindSprite( root ) && GetSprite() != nullptr )
 			{
 				idSWFSpriteInstance* videoSprite = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "details", "video", "img" );
 				const idMaterial* mat = player->GetVideoMaterial();
 				
-				if( videoSprite != NULL && mat != NULL )
+				if( videoSprite != nullptr && mat != nullptr )
 				{
 					videoSprite->SetMaterial( mat );
 				}
@@ -174,7 +174,7 @@ void idMenuScreen_PDA_VideoDisks::Update()
 		else
 		{
 			idSWFSpriteInstance* videoSprite = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "details", "video", "img" );
-			if( videoSprite != NULL )
+			if( videoSprite != nullptr )
 			{
 				videoSprite->SetMaterial( video->GetPreview() );
 			}
@@ -194,13 +194,13 @@ void idMenuScreen_PDA_VideoDisks::ShowScreen( const mainMenuTransition_t transit
 
 	videoItems.Clear();
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	if( player != NULL )
+	if( player != nullptr )
 	{
 		int numVideos = player->GetInventory().videos.Num();
 		for( int i = 0; i < numVideos; ++i )
 		{
 			const idDeclVideo* video = player->GetVideo( i );
-			if( video != NULL )
+			if( video != nullptr )
 			{
 				idList< idStr > item;
 				item.Append( video->GetVideoName() );
@@ -223,7 +223,7 @@ void idMenuScreen_PDA_VideoDisks::ToggleVideoDiskPlay()
 {
 
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	if( player == NULL )
+	if( player == nullptr )
 	{
 		return;
 	}
@@ -232,7 +232,7 @@ void idMenuScreen_PDA_VideoDisks::ToggleVideoDiskPlay()
 	int index = pdaVideoList.GetViewIndex();
 	const idDeclVideo* video = player->GetVideo( index );
 	
-	if( video == NULL )
+	if( video == nullptr )
 	{
 		return;
 	}
@@ -240,13 +240,13 @@ void idMenuScreen_PDA_VideoDisks::ToggleVideoDiskPlay()
 	if( video == activeVideo )
 	{
 		player->EndVideoDisk();
-		activeVideo = NULL;
+		activeVideo = nullptr;
 		return;
 	}
 	
 	activeVideo = video;
 	
-	if( player->GetVideoMaterial() == NULL )
+	if( player->GetVideoMaterial() == nullptr )
 	{
 		player->PlayVideoDisk( video );
 	}
@@ -265,13 +265,13 @@ void idMenuScreen_PDA_VideoDisks::SelectedVideoToPlay( int index )
 {
 
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	if( player == NULL )
+	if( player == nullptr )
 	{
 		return;
 	}
 	
 	player->EndVideoDisk();
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuHandler_PDA* pdaHandler = dynamic_cast< idMenuHandler_PDA* const >( menuData );
 		pdaHandler->ClearVideoPlaying();
@@ -282,14 +282,14 @@ void idMenuScreen_PDA_VideoDisks::SelectedVideoToPlay( int index )
 	pdaVideoList.SetFocusIndex( index );
 	const idDeclVideo* video = player->GetVideo( pdaVideoList.GetViewOffset() + index );
 	
-	if( video == NULL )
+	if( video == nullptr )
 	{
 		return;
 	}
 	
 	if( video == activeVideo )
 	{
-		activeVideo = NULL;
+		activeVideo = nullptr;
 		return;
 	}
 	
@@ -318,7 +318,7 @@ idMenuScreen_PDA_VideoDisks::HandleAction
 bool idMenuScreen_PDA_VideoDisks::HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled )
 {
 
-	if( menuData == NULL )
+	if( menuData == nullptr )
 	{
 		return true;
 	}
@@ -344,7 +344,7 @@ bool idMenuScreen_PDA_VideoDisks::HandleAction( idWidgetAction& action, const id
 			widgetAction_t repeatActionType = static_cast< widgetAction_t >( parms[ 0 ].ToInteger() );
 			assert( parms.Num() == 2 );
 			repeatAction.Set( repeatActionType, parms[ 1 ] );
-			if( menuData != NULL )
+			if( menuData != nullptr )
 			{
 				menuData->StartWidgetActionRepeater( widget, repeatAction, event );
 			}
@@ -352,7 +352,7 @@ bool idMenuScreen_PDA_VideoDisks::HandleAction( idWidgetAction& action, const id
 		}
 		case WIDGET_ACTION_STOP_REPEATER:
 		{
-			if( menuData != NULL )
+			if( menuData != nullptr )
 			{
 				menuData->ClearWidgetActionRepeater();
 			}

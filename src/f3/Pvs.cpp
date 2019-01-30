@@ -80,19 +80,19 @@ idPVS::idPVS()
 	numAreas = 0;
 	numPortals = 0;
 	
-	connectedAreas = NULL;
-	areaQueue = NULL;
-	areaPVS = NULL;
+	connectedAreas = nullptr;
+	areaQueue = nullptr;
+	areaPVS = nullptr;
 	
 	for( i = 0; i < MAX_CURRENT_PVS; i++ )
 	{
 		currentPVS[i].handle.i = -1;
 		currentPVS[i].handle.h = 0;
-		currentPVS[i].pvs = NULL;
+		currentPVS[i].pvs = nullptr;
 	}
 	
-	pvsAreas = NULL;
-	pvsPortals = NULL;
+	pvsAreas = nullptr;
+	pvsPortals = nullptr;
 }
 
 /*
@@ -204,7 +204,7 @@ void idPVS::DestroyPVSData()
 	
 	// delete all areas
 	delete[] pvsAreas;
-	pvsAreas = NULL;
+	pvsAreas = nullptr;
 	
 	// delete portal data
 	for( i = 0; i < numPortals; i++ )
@@ -216,7 +216,7 @@ void idPVS::DestroyPVSData()
 	
 	// delete portals
 	delete[] pvsPortals;
-	pvsPortals = NULL;
+	pvsPortals = nullptr;
 }
 
 /*
@@ -379,7 +379,7 @@ pvsStack_t* idPVS::FloodPassagePVS_r( pvsPortal_t* source, const pvsPortal_t* po
 	{
 		stack = reinterpret_cast<pvsStack_t*>( new byte[sizeof( pvsStack_t ) + portalVisBytes] );
 		stack->mightSee = ( reinterpret_cast<byte*>( stack ) ) + sizeof( pvsStack_t );
-		stack->next = NULL;
+		stack->next = nullptr;
 		prevStack->next = stack;
 	}
 	
@@ -478,7 +478,7 @@ void idPVS::PassagePVS() const
 	// allocate first stack entry
 	stack = reinterpret_cast<pvsStack_t*>( new byte[sizeof( pvsStack_t ) + portalVisBytes] );
 	stack->mightSee = ( reinterpret_cast<byte*>( stack ) ) + sizeof( pvsStack_t );
-	stack->next = NULL;
+	stack->next = nullptr;
 	
 	// calculate portal PVS by flooding through the passages
 	for( i = 0; i < numPortals; i++ )
@@ -679,7 +679,7 @@ void idPVS::CreatePassages() const
 			{
 				// not all portals in the area have to be visible because areas are not necesarily convex
 				// also no passage has to be created for the portal which is the opposite of the source
-				passage->canSee = NULL;
+				passage->canSee = nullptr;
 				continue;
 			}
 			
@@ -993,22 +993,22 @@ void idPVS::Shutdown()
 	if( connectedAreas )
 	{
 		delete connectedAreas;
-		connectedAreas = NULL;
+		connectedAreas = nullptr;
 	}
 	if( areaQueue )
 	{
 		delete areaQueue;
-		areaQueue = NULL;
+		areaQueue = nullptr;
 	}
 	if( areaPVS )
 	{
 		delete areaPVS;
-		areaPVS = NULL;
+		areaPVS = nullptr;
 	}
 	for( int i = 0; i < MAX_CURRENT_PVS; i++ )
 	{
 		delete currentPVS[i].pvs;
-		currentPVS[i].pvs = NULL;
+		currentPVS[i].pvs = nullptr;
 	}
 }
 

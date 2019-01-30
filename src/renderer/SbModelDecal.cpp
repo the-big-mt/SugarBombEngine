@@ -94,7 +94,7 @@ bool idRenderModelDecal::CreateProjectionParms( decalProjectionParms_t& parms, c
 		return false;
 	}
 	
-	assert( material != NULL );
+	assert( material != nullptr );
 	
 	parms.projectionOrigin = projectionOrigin;
 	parms.material = material;
@@ -471,7 +471,7 @@ void idRenderModelDecal::CreateDecal( const idRenderModel* model, const decalPro
 	for( int surfNum = 0; surfNum < model->NumSurfaces(); surfNum++ )
 	{
 		const modelSurface_t* surf = model->Surface( surfNum );
-		if( surf->geometry != NULL && surf->shader != NULL )
+		if( surf->geometry != nullptr && surf->shader != nullptr )
 		{
 			maxVerts = Max( maxVerts, surf->geometry->numVerts );
 		}
@@ -485,7 +485,7 @@ void idRenderModelDecal::CreateDecal( const idRenderModel* model, const decalPro
 		const modelSurface_t* surf = model->Surface( surfNum );
 		
 		// if no geometry or no shader
-		if( surf->geometry == NULL || surf->shader == NULL )
+		if( surf->geometry == nullptr || surf->shader == nullptr )
 		{
 			continue;
 		}
@@ -505,7 +505,7 @@ void idRenderModelDecal::CreateDecal( const idRenderModel* model, const decalPro
 		}
 		
 		// decals don't work on animated models
-		assert( tri->staticModelWithJoints == NULL );
+		assert( tri->staticModelWithJoints == nullptr );
 		
 		// catagorize all points by the planes
 		R_DecalPointCullStatic( cullBits.Ptr(), localParms.boundingPlanes, tri->verts, tri->numVerts );
@@ -794,7 +794,7 @@ drawSurf_t* idRenderModelDecal::CreateDecalDrawSurf( const viewEntity_t* space, 
 {
 	if( index < 0 || index >= numDecalMaterials )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	const idMaterial* material = decalMaterials[index];
@@ -813,7 +813,7 @@ drawSurf_t* idRenderModelDecal::CreateDecalDrawSurf( const viewEntity_t* space, 
 	
 	if( maxVerts == 0 || maxIndexes == 0 )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	// create a new triangle surface in frame memory so it gets automatically disposed of
@@ -821,8 +821,8 @@ drawSurf_t* idRenderModelDecal::CreateDecalDrawSurf( const viewEntity_t* space, 
 	newTri->numVerts = maxVerts;
 	newTri->numIndexes = maxIndexes;
 	
-	newTri->ambientCache = vertexCache.AllocVertex( NULL, ALIGN( maxVerts * sizeof( idDrawVert ), VERTEX_CACHE_ALIGN ) );
-	newTri->indexCache = vertexCache.AllocIndex( NULL, ALIGN( maxIndexes * sizeof( triIndex_t ), INDEX_CACHE_ALIGN ) );
+	newTri->ambientCache = vertexCache.AllocVertex( nullptr, ALIGN( maxVerts * sizeof( idDrawVert ), VERTEX_CACHE_ALIGN ) );
+	newTri->indexCache = vertexCache.AllocIndex( nullptr, ALIGN( maxIndexes * sizeof( triIndex_t ), INDEX_CACHE_ALIGN ) );
 	
 	idDrawVert* mappedVerts = ( idDrawVert* )vertexCache.MappedVertexBuffer( newTri->ambientCache );
 	triIndex_t* mappedIndexes = ( triIndex_t* )vertexCache.MappedIndexBuffer( newTri->indexCache );
@@ -916,7 +916,7 @@ void idRenderModelDecal::ReadFromDemoFile( idDemoFile* f )
 		f->ReadInt( decal.startTime ); // TODO: Figure out what this needs to be.
 		
 		const char* matName = f->ReadHashString();
-		decal.material = matName[ 0 ] ? declManager->FindMaterial( matName ) : NULL;
+		decal.material = matName[ 0 ] ? declManager->FindMaterial( matName ) : nullptr;
 		
 		f->ReadInt( decal.numVerts );
 		for( int j = 0; j < decal.numVerts; j++ )
@@ -950,14 +950,14 @@ void idRenderModelDecal::ReadFromDemoFile( idDemoFile* f )
 		f->ReadFloat( deferredDecal.fadeDepth );
 		
 		const char* matName = f->ReadHashString();
-		deferredDecal.material = matName[ 0 ] ? declManager->FindMaterial( matName ) : NULL;
+		deferredDecal.material = matName[ 0 ] ? declManager->FindMaterial( matName ) : nullptr;
 	}
 	
 	f->ReadUnsignedInt( numDecalMaterials );
 	for( unsigned int i = 0; i < numDecalMaterials; i++ )
 	{
 		const char* matName = f->ReadHashString();
-		decalMaterials[ i ] = matName[ 0 ] ? declManager->FindMaterial( matName ) : NULL;
+		decalMaterials[ i ] = matName[ 0 ] ? declManager->FindMaterial( matName ) : nullptr;
 	}
 }
 

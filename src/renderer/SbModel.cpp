@@ -74,7 +74,7 @@ idRenderModelStatic::idRenderModelStatic()
 	hasShadowCastingSurfaces = true;
 	timeStamp = 0;
 	numInvertedJoints = 0;
-	jointsInverted = NULL;
+	jointsInverted = nullptr;
 	jointsInvertedBuffer = 0;
 }
 
@@ -111,7 +111,7 @@ void idRenderModelStatic::Print() const
 		
 		if( !tri )
 		{
-			common->Printf( "%2i: %s, NULL surface geometry\n", i, material->GetName() );
+			common->Printf( "%2i: %s, nullptr surface geometry\n", i, material->GetName() );
 			continue;
 		}
 		
@@ -366,7 +366,7 @@ idRenderModelStatic::LoadBinaryModel
 */
 bool idRenderModelStatic::LoadBinaryModel( idFile* file, const ID_TIME_T sourceTimeStamp )
 {
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		return false;
 	}
@@ -399,7 +399,7 @@ bool idRenderModelStatic::LoadBinaryModel( idFile* file, const ID_TIME_T sourceT
 		file->ReadString( materialName );
 		if( materialName.IsEmpty() )
 		{
-			surfaces[i].shader = NULL;
+			surfaces[i].shader = nullptr;
 		}
 		else
 		{
@@ -408,7 +408,7 @@ bool idRenderModelStatic::LoadBinaryModel( idFile* file, const ID_TIME_T sourceT
 		
 		bool isGeometry;
 		file->ReadBig( isGeometry );
-		surfaces[i].geometry = NULL;
+		surfaces[i].geometry = nullptr;
 		if( isGeometry )
 		{
 			bool temp;
@@ -429,13 +429,13 @@ bool idRenderModelStatic::LoadBinaryModel( idFile* file, const ID_TIME_T sourceT
 			file->ReadBig( tri.referencedIndexes );
 			
 			file->ReadBig( tri.numVerts );
-			tri.verts = NULL;
+			tri.verts = nullptr;
 			int numInFile = 0;
 			file->ReadBig( numInFile );
 			if( numInFile > 0 )
 			{
 				R_AllocStaticTriSurfVerts( &tri, tri.numVerts );
-				assert( tri.verts != NULL );
+				assert( tri.verts != nullptr );
 				for( int j = 0; j < tri.numVerts; j++ )
 				{
 					file->ReadVec3( tri.verts[j].xyz );
@@ -450,7 +450,7 @@ bool idRenderModelStatic::LoadBinaryModel( idFile* file, const ID_TIME_T sourceT
 			file->ReadBig( numInFile );
 			if( numInFile == 0 )
 			{
-				tri.preLightShadowVertexes = NULL;
+				tri.preLightShadowVertexes = nullptr;
 			}
 			else
 			{
@@ -462,8 +462,8 @@ bool idRenderModelStatic::LoadBinaryModel( idFile* file, const ID_TIME_T sourceT
 			}
 			
 			file->ReadBig( tri.numIndexes );
-			tri.indexes = NULL;
-			tri.silIndexes = NULL;
+			tri.indexes = nullptr;
+			tri.silIndexes = nullptr;
 			if( tri.numIndexes > 0 )
 			{
 				R_AllocStaticTriSurfIndexes( &tri, tri.numIndexes );
@@ -477,7 +477,7 @@ bool idRenderModelStatic::LoadBinaryModel( idFile* file, const ID_TIME_T sourceT
 			}
 			
 			file->ReadBig( tri.numMirroredVerts );
-			tri.mirroredVerts = NULL;
+			tri.mirroredVerts = nullptr;
 			if( tri.numMirroredVerts > 0 )
 			{
 				R_AllocStaticTriSurfMirroredVerts( &tri, tri.numMirroredVerts );
@@ -485,7 +485,7 @@ bool idRenderModelStatic::LoadBinaryModel( idFile* file, const ID_TIME_T sourceT
 			}
 			
 			file->ReadBig( tri.numDupVerts );
-			tri.dupVerts = NULL;
+			tri.dupVerts = nullptr;
 			if( tri.numDupVerts > 0 )
 			{
 				R_AllocStaticTriSurfDupVerts( &tri, tri.numDupVerts );
@@ -493,11 +493,11 @@ bool idRenderModelStatic::LoadBinaryModel( idFile* file, const ID_TIME_T sourceT
 			}
 			
 			file->ReadBig( tri.numSilEdges );
-			tri.silEdges = NULL;
+			tri.silEdges = nullptr;
 			if( tri.numSilEdges > 0 )
 			{
 				R_AllocStaticTriSurfSilEdges( &tri, tri.numSilEdges );
-				assert( tri.silEdges != NULL );
+				assert( tri.silEdges != nullptr );
 				for( int j = 0; j < tri.numSilEdges; j++ )
 				{
 					file->ReadBig( tri.silEdges[j].p1 );
@@ -508,11 +508,11 @@ bool idRenderModelStatic::LoadBinaryModel( idFile* file, const ID_TIME_T sourceT
 			}
 			
 			file->ReadBig( temp );
-			tri.dominantTris = NULL;
+			tri.dominantTris = nullptr;
 			if( temp )
 			{
 				R_AllocStaticTriSurfDominantTris( &tri, tri.numVerts );
-				assert( tri.dominantTris != NULL );
+				assert( tri.dominantTris != nullptr );
 				for( int j = 0; j < tri.numVerts; j++ )
 				{
 					file->ReadBig( tri.dominantTris[j].v2 );
@@ -527,8 +527,8 @@ bool idRenderModelStatic::LoadBinaryModel( idFile* file, const ID_TIME_T sourceT
 			file->ReadBig( tri.numShadowIndexesNoCaps );
 			file->ReadBig( tri.shadowCapPlaneBits );
 			
-			tri.ambientSurface = NULL;
-			tri.nextDeferredFree = NULL;
+			tri.ambientSurface = nullptr;
+			tri.nextDeferredFree = nullptr;
 			tri.indexCache = 0;
 			tri.ambientCache = 0;
 			tri.shadowCache = 0;
@@ -562,7 +562,7 @@ idRenderModelStatic::WriteBinaryModel
 */
 void idRenderModelStatic::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp ) const
 {
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		common->Printf( "Failed to WriteBinaryModel\n" );
 		return;
@@ -570,7 +570,7 @@ void idRenderModelStatic::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp 
 	
 	file->WriteBig( BRM_MAGIC );
 	
-	if( _timeStamp != NULL )
+	if( _timeStamp != nullptr )
 	{
 		file->WriteBig( *_timeStamp );
 	}
@@ -583,7 +583,7 @@ void idRenderModelStatic::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp 
 	for( int i = 0; i < surfaces.Num(); i++ )
 	{
 		file->WriteBig( surfaces[i].id );
-		if( surfaces[i].shader != NULL && surfaces[i].shader->GetName() != NULL )
+		if( surfaces[i].shader != nullptr && surfaces[i].shader->GetName() != nullptr )
 		{
 			file->WriteString( surfaces[i].shader->GetName() );
 		}
@@ -592,8 +592,8 @@ void idRenderModelStatic::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp 
 			file->WriteString( "" );
 		}
 		
-		file->WriteBig( surfaces[i].geometry != NULL );
-		if( surfaces[i].geometry != NULL )
+		file->WriteBig( surfaces[i].geometry != nullptr );
+		if( surfaces[i].geometry != nullptr )
 		{
 			srfTriangles_t& tri = *surfaces[i].geometry;
 			
@@ -609,7 +609,7 @@ void idRenderModelStatic::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp 
 			
 			// shadow models use numVerts but have no verts
 			file->WriteBig( tri.numVerts );
-			if( tri.verts != NULL )
+			if( tri.verts != nullptr )
 			{
 				file->WriteBig( tri.numVerts );
 			}
@@ -618,7 +618,7 @@ void idRenderModelStatic::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp 
 				file->WriteBig( ( int ) 0 );
 			}
 			
-			if( tri.numVerts > 0 && tri.verts != NULL )
+			if( tri.numVerts > 0 && tri.verts != nullptr )
 			{
 				for( int j = 0; j < tri.numVerts; j++ )
 				{
@@ -631,7 +631,7 @@ void idRenderModelStatic::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp 
 				}
 			}
 			
-			if( tri.preLightShadowVertexes != NULL )
+			if( tri.preLightShadowVertexes != nullptr )
 			{
 				file->WriteBig( tri.numVerts * 2 );
 				for( int j = 0; j < tri.numVerts * 2; j++ )
@@ -651,7 +651,7 @@ void idRenderModelStatic::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp 
 				file->WriteBigArray( tri.indexes, tri.numIndexes );
 			}
 			
-			if( tri.silIndexes != NULL )
+			if( tri.silIndexes != nullptr )
 			{
 				file->WriteBig( tri.numIndexes );
 			}
@@ -660,7 +660,7 @@ void idRenderModelStatic::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp 
 				file->WriteBig( ( int ) 0 );
 			}
 			
-			if( tri.numIndexes > 0 && tri.silIndexes != NULL )
+			if( tri.numIndexes > 0 && tri.silIndexes != nullptr )
 			{
 				file->WriteBigArray( tri.silIndexes, tri.numIndexes );
 			}
@@ -689,8 +689,8 @@ void idRenderModelStatic::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp 
 				}
 			}
 			
-			file->WriteBig( tri.dominantTris != NULL );
-			if( tri.dominantTris != NULL )
+			file->WriteBig( tri.dominantTris != nullptr );
+			if( tri.dominantTris != nullptr )
 			{
 				for( int j = 0; j < tri.numVerts; j++ )
 				{
@@ -731,7 +731,7 @@ void idRenderModelStatic::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp 
 // RB begin
 void idRenderModelStatic::ExportOBJ( idFile* objFile, idFile* mtlFile, ID_TIME_T* _timeStamp ) const
 {
-	if( objFile == NULL || mtlFile == NULL )
+	if( objFile == nullptr || mtlFile == nullptr )
 	{
 		common->Printf( "Failed to ExportOBJ\n" );
 		return;
@@ -745,7 +745,7 @@ void idRenderModelStatic::ExportOBJ( idFile* objFile, idFile* mtlFile, ID_TIME_T
 	for( int i = 0; i < surfaces.Num(); i++ )
 	{
 		// shadow models use numVerts but have no verts
-		if( ( surfaces[i].geometry != NULL ) && ( surfaces[i].geometry->numVerts > 0 ) && ( surfaces[i].geometry->numIndexes > 0 ) && ( surfaces[i].geometry->verts != NULL ) )
+		if( ( surfaces[i].geometry != nullptr ) && ( surfaces[i].geometry->numVerts > 0 ) && ( surfaces[i].geometry->numIndexes > 0 ) && ( surfaces[i].geometry->verts != nullptr ) )
 		{
 			objFile->Printf( "o Geometry.%i\n", surfaces[i].id );
 			
@@ -761,7 +761,7 @@ void idRenderModelStatic::ExportOBJ( idFile* objFile, idFile* mtlFile, ID_TIME_T
 			//file->WriteBig( tri.perfectHull );
 			//file->WriteBig( tri.referencedIndexes );
 			
-			if( tri.numVerts > 0 && tri.verts != NULL )
+			if( tri.numVerts > 0 && tri.verts != nullptr )
 			{
 				for( int j = 0; j < tri.numVerts; j++ )
 				{
@@ -789,7 +789,7 @@ void idRenderModelStatic::ExportOBJ( idFile* objFile, idFile* mtlFile, ID_TIME_T
 				//file->WriteBigArray( tri.verts[j].color2, sizeof( tri.verts[j].color2 ) / sizeof( tri.verts[j].color2[0] ) );
 			}
 			
-			if( surfaces[i].shader != NULL && surfaces[i].shader->GetName() != NULL )
+			if( surfaces[i].shader != nullptr && surfaces[i].shader->GetName() != nullptr )
 			{
 				objFile->Printf( "usemtl %s\n", surfaces[i].shader->GetName() );
 				
@@ -1035,10 +1035,10 @@ idRenderModel* idRenderModelStatic::InstantiateDynamicModel( const struct render
 	if( cachedModel )
 	{
 		delete cachedModel;
-		cachedModel = NULL;
+		cachedModel = nullptr;
 	}
 	common->Error( "InstantiateDynamicModel called on static model '%s'", name.c_str() );
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -1058,7 +1058,7 @@ idRenderModelStatic::GetJoints
 */
 const idMD5Joint* idRenderModelStatic::GetJoints() const
 {
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -1088,7 +1088,7 @@ idRenderModelStatic::GetDefaultPose
 */
 const idJointQuat* idRenderModelStatic::GetDefaultPose() const
 {
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -1171,20 +1171,20 @@ void idRenderModelStatic::FinishSurfaces()
 	// decide if we are going to merge all the surfaces into one shadower
 	int	numOriginalSurfaces = surfaces.Num();
 	
-	// make sure there aren't any NULL shaders or geometry
+	// make sure there aren't any nullptr shaders or geometry
 	for( i = 0; i < numOriginalSurfaces; i++ )
 	{
 		const modelSurface_t*	surf = &surfaces[i];
 		
-		if( surf->geometry == NULL || surf->shader == NULL )
+		if( surf->geometry == nullptr || surf->shader == nullptr )
 		{
 			MakeDefaultModel();
-			common->Error( "Model %s, surface %i had NULL geometry", name.c_str(), i );
+			common->Error( "Model %s, surface %i had nullptr geometry", name.c_str(), i );
 		}
-		if( surf->shader == NULL )
+		if( surf->shader == nullptr )
 		{
 			MakeDefaultModel();
-			common->Error( "Model %s, surface %i had NULL shader", name.c_str(), i );
+			common->Error( "Model %s, surface %i had nullptr shader", name.c_str(), i );
 		}
 	}
 	
@@ -1351,7 +1351,7 @@ bool idRenderModelStatic::ConvertDAEToModelSurfaces( const ColladaParser* dae )
 	// material, but we would like to mege them together where possible
 	// meaning that this->NumSurfaces() <= ase->objects.currentElements
 	mergeTo = ( int* )_alloca( dae->mNodeLibrary.Num() * sizeof( *mergeTo ) );
-	surf.geometry = NULL;
+	surf.geometry = nullptr;
 	
 	if( dae->mMaterialLibrary.Num() == 0 )
 	{
@@ -1673,7 +1673,7 @@ bool idRenderModelStatic::ConvertDAEToModelSurfaces( const ColladaParser* dae )
 				}
 #endif
 				// find a matching vert
-				for( lastmv = NULL, mv = mvHash[v]; mv != NULL; lastmv = mv, mv = mv->next )
+				for( lastmv = nullptr, mv = mvHash[v]; mv != nullptr; lastmv = mv, mv = mv->next )
 				{
 #if 1
 					if( mv->tv != tv )
@@ -1708,7 +1708,7 @@ bool idRenderModelStatic::ConvertDAEToModelSurfaces( const ColladaParser* dae )
 					mv->tv = tv;
 					mv->normal = normal;
 					*( unsigned* )mv->color = *( unsigned* )color;
-					mv->next = NULL;
+					mv->next = nullptr;
 					
 					if( lastmv )
 					{
@@ -1844,7 +1844,7 @@ bool idRenderModelStatic::ConvertASEToModelSurfaces( const struct aseModel_s* as
 	// material, but we would like to mege them together where possible
 	// meaning that this->NumSurfaces() <= ase->objects.currentElements
 	mergeTo = ( int* )_alloca( ase->objects.Num() * sizeof( *mergeTo ) );
-	surf.geometry = NULL;
+	surf.geometry = nullptr;
 	if( ase->materials.Num() == 0 )
 	{
 		// if we don't have any materials, dump everything into a single surface
@@ -1923,7 +1923,7 @@ bool idRenderModelStatic::ConvertASEToModelSurfaces( const struct aseModel_s* as
 		// completely ignore any explict normals on surfaces with a renderbump command
 		// which will guarantee the best contours and least vertexes.
 		const char* rb = im1->GetRenderBump();
-		if( rb != NULL && rb[0] != '\0' )
+		if( rb != nullptr && rb[0] != '\0' )
 		{
 			normalsParsed = false;
 		}
@@ -2048,7 +2048,7 @@ bool idRenderModelStatic::ConvertASEToModelSurfaces( const struct aseModel_s* as
 				}
 				
 				// find a matching vert
-				for( lastmv = NULL, mv = mvHash[v]; mv != NULL; lastmv = mv, mv = mv->next )
+				for( lastmv = nullptr, mv = mvHash[v]; mv != nullptr; lastmv = mv, mv = mv->next )
 				{
 					if( mv->tv != tv )
 					{
@@ -2077,7 +2077,7 @@ bool idRenderModelStatic::ConvertASEToModelSurfaces( const struct aseModel_s* as
 					mv->tv = tv;
 					mv->normal = normal;
 					*( unsigned* )mv->color = *( unsigned* )color;
-					mv->next = NULL;
+					mv->next = nullptr;
 					if( lastmv )
 					{
 						lastmv->next = mv;
@@ -2195,7 +2195,7 @@ bool idRenderModelStatic::ConvertLWOToModelSurfaces( const struct st_lwObject* l
 	{
 		return false;
 	}
-	if( lwo->surf == NULL )
+	if( lwo->surf == nullptr )
 	{
 		return false;
 	}
@@ -2492,7 +2492,7 @@ bool idRenderModelStatic::ConvertLWOToModelSurfaces( const struct st_lwObject* l
 				}
 				
 				// find a matching vert
-				for( lastmv = NULL, mv = mvHash[v]; mv != NULL; lastmv = mv, mv = mv->next )
+				for( lastmv = nullptr, mv = mvHash[v]; mv != nullptr; lastmv = mv, mv = mv->next )
 				{
 					if( mv->tv != tv )
 					{
@@ -2521,7 +2521,7 @@ bool idRenderModelStatic::ConvertLWOToModelSurfaces( const struct st_lwObject* l
 					mv->tv = tv;
 					mv->normal = normal;
 					*( unsigned* )mv->color = *( unsigned* )color;
-					mv->next = NULL;
+					mv->next = nullptr;
 					if( lastmv )
 					{
 						lastmv->next = mv;
@@ -2599,7 +2599,7 @@ struct aseModel_s* idRenderModelStatic::ConvertLWOToASE( const struct st_lwObjec
 	
 	if( !obj )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	// NOTE: using new operator because aseModel_t contains idList class objects
@@ -2827,7 +2827,7 @@ bool idRenderModelStatic::ConvertMAToModelSurfaces( const struct maModel_s* ma )
 	// meaning that this->NumSurfaces() <= ma->objects.currentElements
 	mergeTo = ( int* )_alloca( ma->objects.Num() * sizeof( *mergeTo ) );
 	
-	surf.geometry = NULL;
+	surf.geometry = nullptr;
 	if( ma->materials.Num() == 0 )
 	{
 		// if we don't have any materials, dump everything into a single surface
@@ -2927,7 +2927,7 @@ bool idRenderModelStatic::ConvertMAToModelSurfaces( const struct maModel_s* ma )
 		// completely ignore any explict normals on surfaces with a renderbump command
 		// which will guarantee the best contours and least vertexes.
 		const char* rb = im1->GetRenderBump();
-		if( rb != NULL && rb[0] != '\0' )
+		if( rb != nullptr && rb[0] != '\0' )
 		{
 			normalsParsed = false;
 		}
@@ -3054,7 +3054,7 @@ bool idRenderModelStatic::ConvertMAToModelSurfaces( const struct maModel_s* ma )
 				}
 				
 				// find a matching vert
-				for( lastmv = NULL, mv = mvHash[v]; mv != NULL; lastmv = mv, mv = mv->next )
+				for( lastmv = nullptr, mv = mvHash[v]; mv != nullptr; lastmv = mv, mv = mv->next )
 				{
 					if( mv->tv != tv )
 					{
@@ -3083,7 +3083,7 @@ bool idRenderModelStatic::ConvertMAToModelSurfaces( const struct maModel_s* ma )
 					mv->tv = tv;
 					mv->normal = normal;
 					*( unsigned* )mv->color = *( unsigned* )color;
-					mv->next = NULL;
+					mv->next = nullptr;
 					if( lastmv )
 					{
 						lastmv->next = mv;
@@ -3179,7 +3179,7 @@ bool idRenderModelStatic::LoadASE( const char* fileName )
 	aseModel_t* ase;
 	
 	ase = ASE_Load( fileName );
-	if( ase == NULL )
+	if( ase == nullptr )
 	{
 		return false;
 	}
@@ -3203,7 +3203,7 @@ bool idRenderModelStatic::LoadLWO( const char* fileName )
 	lwObject* lwo;
 	
 	lwo = lwGetObject( fileName, &failID, &failPos );
-	if( lwo == NULL )
+	if( lwo == nullptr )
 	{
 		return false;
 	}
@@ -3225,7 +3225,7 @@ bool idRenderModelStatic::LoadMA( const char* fileName )
 	maModel_t* ma;
 	
 	ma = MA_Load( fileName );
-	if( ma == NULL )
+	if( ma == nullptr )
 	{
 		return false;
 	}
@@ -3288,10 +3288,10 @@ void idRenderModelStatic::PurgeModel()
 	}
 	surfaces.Clear();
 	
-	if( jointsInverted != NULL )
+	if( jointsInverted != nullptr )
 	{
 		Mem_Free( jointsInverted );
-		jointsInverted = NULL;
+		jointsInverted = nullptr;
 	}
 	
 	purged = true;
@@ -3309,7 +3309,7 @@ void idRenderModelStatic::FreeVertexCache()
 	for( int j = 0; j < surfaces.Num(); j++ )
 	{
 		srfTriangles_t* tri = surfaces[j].geometry;
-		if( tri == NULL )
+		if( tri == nullptr )
 		{
 			continue;
 		}

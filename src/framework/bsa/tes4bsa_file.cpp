@@ -301,9 +301,9 @@ Ogre::DataStreamPtr TES4BSAFile::getFile(const std::string& file)
 
         int ret;
         z_stream strm;
-        strm.zalloc = Z_NULL;
-        strm.zfree  = Z_NULL;
-        strm.opaque = Z_NULL;
+        strm.zalloc = Z_nullptr;
+        strm.zfree  = Z_nullptr;
+        strm.opaque = Z_nullptr;
         strm.avail_in = bufSize;
         strm.next_in = inBuf.get();
         ret = inflateInit(&strm);

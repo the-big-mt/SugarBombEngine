@@ -48,7 +48,7 @@ void idMenuScreen_Shell_SystemOptions::Initialize( idMenuHandler* data )
 {
 	idMenuScreen::Initialize( data );
 	
-	if( data != NULL )
+	if( data != nullptr )
 	{
 		menuGUI = data->GetGUI();
 	}
@@ -164,10 +164,10 @@ idMenuScreen_Shell_SystemOptions::Update
 void idMenuScreen_Shell_SystemOptions::Update()
 {
 
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		idMenuWidget_CommandBar* cmdBar = menuData->GetCmdBar();
-		if( cmdBar != NULL )
+		if( cmdBar != nullptr )
 		{
 			cmdBar->ClearAllButtons();
 			idMenuWidget_CommandBar::buttonInfo_t* buttonInfo;
@@ -187,20 +187,20 @@ void idMenuScreen_Shell_SystemOptions::Update()
 	if( BindSprite( root ) )
 	{
 		idSWFTextInstance* heading = GetSprite()->GetScriptObject()->GetNestedText( "info", "txtHeading" );
-		if( heading != NULL )
+		if( heading != nullptr )
 		{
 			heading->SetText( "#str_00183" );	// FULLSCREEN
 			heading->SetStrokeInfo( true, 0.75f, 1.75f );
 		}
 		
 		idSWFSpriteInstance* gradient = GetSprite()->GetScriptObject()->GetNestedSprite( "info", "gradient" );
-		if( gradient != NULL && heading != NULL )
+		if( gradient != nullptr && heading != nullptr )
 		{
 			gradient->SetXPos( heading->GetTextLength() );
 		}
 	}
 	
-	if( btnBack != NULL )
+	if( btnBack != nullptr )
 	{
 		btnBack->BindSprite( root );
 	}
@@ -280,7 +280,7 @@ idMenuScreen_Shell_SystemOptions::HandleAction h
 bool idMenuScreen_Shell_SystemOptions::HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled )
 {
 
-	if( menuData == NULL )
+	if( menuData == nullptr )
 	{
 		return true;
 	}
@@ -297,7 +297,7 @@ bool idMenuScreen_Shell_SystemOptions::HandleAction( idWidgetAction& action, con
 	{
 		case WIDGET_ACTION_GO_BACK:
 		{
-			if( menuData != NULL )
+			if( menuData != nullptr )
 			{
 				menuData->SetNextScreen( SHELL_AREA_SETTINGS, MENU_TRANSITION_SIMPLE );
 			}
@@ -313,7 +313,7 @@ bool idMenuScreen_Shell_SystemOptions::HandleAction( idWidgetAction& action, con
 		case WIDGET_ACTION_COMMAND:
 		{
 		
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}
@@ -349,7 +349,7 @@ bool idMenuScreen_Shell_SystemOptions::HandleAction( idWidgetAction& action, con
 		case WIDGET_ACTION_START_REPEATER:
 		{
 		
-			if( options == NULL )
+			if( options == nullptr )
 			{
 				return true;
 			}

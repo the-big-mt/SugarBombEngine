@@ -93,10 +93,10 @@ idLobby::idLobby
 idLobby::idLobby()
 {
 	lobbyType				= TYPE_INVALID;
-	sessionCB				= NULL;
+	sessionCB				= nullptr;
 	
-	localReadSS				= NULL;
-	objMemory				= NULL;
+	localReadSS				= nullptr;
+	objMemory				= nullptr;
 	haveSubmittedSnaps		= false;
 	
 	state					= STATE_IDLE;
@@ -152,7 +152,7 @@ idLobby::Initialize
 */
 void idLobby::Initialize( lobbyType_t sessionType_, idSessionCallbacks* callbacks )
 {
-	assert( callbacks != NULL );
+	assert( callbacks != nullptr );
 	
 	lobbyType = sessionType_;
 	sessionCB	= callbacks;
@@ -184,7 +184,7 @@ void idLobby::StartHosting( const idMatchParameters& parms_ )
 	Shutdown();		// Make sure we're in a shutdown state before proceeding
 	
 	assert( GetNumLobbyUsers() == 0 );
-	assert( lobbyBackend == NULL );
+	assert( lobbyBackend == nullptr );
 	
 	// Get the skill level of all the players that will eventually go into the lobby
 	StartCreating();
@@ -202,7 +202,7 @@ void idLobby::StartFinding( const idMatchParameters& parms_ )
 	Shutdown();		// Make sure we're in a shutdown state before proceeding
 	
 	assert( GetNumLobbyUsers() == 0 );
-	assert( lobbyBackend == NULL );
+	assert( lobbyBackend == nullptr );
 	
 	// Clear search results
 	searchResults.Clear();
@@ -294,7 +294,7 @@ void idLobby::Shutdown( bool retainMigrationInfo, bool skipGoodbye )
 	
 	failedReason = FAILED_UNKNOWN;
 	
-	if( lobbyBackend == NULL )
+	if( lobbyBackend == nullptr )
 	{
 		NET_VERBOSE_PRINT( "NET: ShutdownLobby (already shutdown) (%s)\n", GetLobbyName() );
 		
@@ -356,7 +356,7 @@ void idLobby::Shutdown( bool retainMigrationInfo, bool skipGoodbye )
 	if( !retainMigrationInfo )
 	{
 		sessionCB->DestroyLobbyBackend( lobbyBackend );
-		lobbyBackend = NULL;
+		lobbyBackend = nullptr;
 	}
 	
 	state = STATE_IDLE;
@@ -456,7 +456,7 @@ void idLobby::HandlePacket( lobbyAddress_t& remoteAddress, idBitMsg fragMsg, idP
 			lobbyConnectInfo_t connectInfo;
 			connectInfo.ReadFromMsg( msg );
 			
-			if( lobbyBackend != NULL && lobbyBackend->GetState() != idLobbyBackend::STATE_FAILED && lobbyBackend->IsOwnerOfConnectInfo( connectInfo ) )  		// Ignore duplicate invites
+			if( lobbyBackend != nullptr && lobbyBackend->GetState() != idLobbyBackend::STATE_FAILED && lobbyBackend->IsOwnerOfConnectInfo( connectInfo ) )  		// Ignore duplicate invites
 			{
 				idLib::Printf( "NET: Already migrated to %s.\n", remoteAddress.ToString() );
 				return;
@@ -512,7 +512,7 @@ void idLobby::HandlePacket( lobbyAddress_t& remoteAddress, idBitMsg fragMsg, idP
 			// Connect to the lobby
 			ConnectTo( connectInfo, true );		// Pass in true for the invite flag, so we can connect to invite only lobby if we need to
 			
-			if( verify( sessionCB != NULL ) )
+			if( verify( sessionCB != nullptr ) )
 			{
 				if( sessionCB->BecomingPeer( *this ) )
 				{
@@ -685,7 +685,7 @@ void idLobby::HandlePacket( lobbyAddress_t& remoteAddress, idBitMsg fragMsg, idP
 					common->NetReceiveSnapshot( localSnap );
 				}
 				
-				localReadSS = NULL;
+				localReadSS = nullptr;
 				
 			}
 			else
@@ -787,7 +787,7 @@ idLobby::State_Idle
 void idLobby::State_Idle()
 {
 	// If lobbyBackend is in a failed state, shutdown, go to a failed state ourself, and return
-	if( lobbyBackend != NULL && lobbyBackend->GetState() == idLobbyBackend::STATE_FAILED )
+	if( lobbyBackend != nullptr && lobbyBackend->GetState() == idLobbyBackend::STATE_FAILED )
 	{
 		HandleConnectionAttemptFailed();
 		common->Dialog().ClearDialog( GDM_MIGRATING );
@@ -814,13 +814,13 @@ idLobby::State_Create_Lobby_Backend
 */
 void idLobby::State_Create_Lobby_Backend()
 {
-	if( !verify( lobbyBackend != NULL ) )
+	if( !verify( lobbyBackend != nullptr ) )
 	{
 		SetState( STATE_FAILED );
 		return;
 	}
 	
-	assert( lobbyBackend != NULL );
+	assert( lobbyBackend != nullptr );
 	
 	if( migrationInfo.state == MIGRATE_BECOMING_HOST )
 	{
@@ -862,7 +862,7 @@ idLobby::State_Searching
 */
 void idLobby::State_Searching()
 {
-	if( !verify( lobbyBackend != NULL ) )
+	if( !verify( lobbyBackend != nullptr ) )
 	{
 		SetState( STATE_FAILED );
 		return;
@@ -1050,7 +1050,7 @@ idLobby::StartCreating
 */
 void idLobby::StartCreating()
 {
-	assert( lobbyBackend == NULL );
+	assert( lobbyBackend == nullptr );
 	assert( state == STATE_IDLE );
 	
 	float skillLevel = GetAverageLocalUserLevel( true );
@@ -1108,7 +1108,7 @@ int idLobby::FindPeer( const lobbyAddress_t& remoteAddress, idPacketProcessor::s
 					if( searchStart == sessionID )
 					{
 						idLib::Printf( "NET: Rolling session ID check found new ID: %i\n", searchStart );
-						if( peers[p].packetProc != NULL )
+						if( peers[p].packetProc != nullptr )
 						{
 							peers[p].packetProc->VerifyEmptyReliableQueue( RELIABLE_GAME_DATA, RELIABLE_DUMMY_MSG );
 						}
@@ -1311,8 +1311,8 @@ void idLobby::SetPeerConnectionState( int p, connectionState_t newState, bool sk
 	{
 		idLib::Printf( "NET: SetPeerConnectionState: Peer already in state %i\n", newState );
 		assert( 0 );	// This case means something is most likely bad, and it's the programmers fault
-		assert( ( peer.packetProc != NULL ) == peer.IsActive() );
-		assert( ( ( peer.snapProc != NULL ) == peer.IsActive() ) == ( actingGameStateLobbyType == lobbyType ) );
+		assert( ( peer.packetProc != nullptr ) == peer.IsActive() );
+		assert( ( ( peer.snapProc != nullptr ) == peer.IsActive() ) == ( actingGameStateLobbyType == lobbyType ) );
 		return;
 	}
 	
@@ -1323,12 +1323,12 @@ void idLobby::SetPeerConnectionState( int p, connectionState_t newState, bool sk
 		// We better be coming from a free connection state if we are trying to connect
 		assert( peer.GetConnectionState() == CONNECTION_FREE );
 		
-		assert( peer.packetProc == NULL );
+		assert( peer.packetProc == nullptr );
 		peer.packetProc = new( TAG_NETWORKING )idPacketProcessor();
 		
 		if( lobbyType == actingGameStateLobbyType )
 		{
-			assert( peer.snapProc == NULL );
+			assert( peer.snapProc == nullptr );
 			peer.snapProc = new( TAG_NETWORKING )idSnapshotProcessor();
 		}
 		
@@ -1353,17 +1353,17 @@ void idLobby::SetPeerConnectionState( int p, connectionState_t newState, bool sk
 	
 	if( !peer.IsActive() )
 	{
-		if( peer.packetProc != NULL )
+		if( peer.packetProc != nullptr )
 		{
 			delete peer.packetProc;
-			peer.packetProc = NULL;
+			peer.packetProc = nullptr;
 		}
 		
-		if( peer.snapProc != NULL )
+		if( peer.snapProc != nullptr )
 		{
 			assert( lobbyType == actingGameStateLobbyType );
 			delete peer.snapProc;
-			peer.snapProc = NULL;
+			peer.snapProc = nullptr;
 		}
 	}
 	
@@ -1983,17 +1983,17 @@ int idLobby::HandleInitialPeerConnection( idBitMsg& msg, const lobbyAddress_t& p
 		// We want to set the connection back to FREE manually, so we don't send a goodbye
 		existingPeer.connectionState = CONNECTION_FREE;
 		
-		if( existingPeer.packetProc != NULL )
+		if( existingPeer.packetProc != nullptr )
 		{
 			delete existingPeer.packetProc;
-			existingPeer.packetProc = NULL;
+			existingPeer.packetProc = nullptr;
 		}
 		
-		if( existingPeer.snapProc != NULL )
+		if( existingPeer.snapProc != nullptr )
 		{
 			assert( lobbyType == TYPE_GAME );		// Only games sessions should be creating snap processors
 			delete existingPeer.snapProc;
-			existingPeer.snapProc = NULL;
+			existingPeer.snapProc = nullptr;
 		}
 		
 		RemoveUsersWithDisconnectedPeers();
@@ -2033,7 +2033,7 @@ int idLobby::HandleInitialPeerConnection( idBitMsg& msg, const lobbyAddress_t& p
 	peer_t& newPeer = peers[peerNum];
 	
 	assert( newPeer.GetConnectionState() == CONNECTION_CONNECTING );
-	assert( lobbyType != GetActingGameStateLobbyType() || newPeer.snapProc != NULL );
+	assert( lobbyType != GetActingGameStateLobbyType() || newPeer.snapProc != nullptr );
 	
 	// First, add users from this new peer to our user list
 	// (which will then forward the list to all peers except peerNum)
@@ -2133,7 +2133,7 @@ idLobby::InitStateLobbyHost
 */
 void idLobby::InitStateLobbyHost()
 {
-	assert( lobbyBackend != NULL );
+	assert( lobbyBackend != nullptr );
 	
 	// We will be the host
 	isHost = true;
@@ -2221,7 +2221,7 @@ idLobby::SendMembersToLobby
 */
 void idLobby::SendMembersToLobby( idLobby& destLobby, bool waitForOtherMembers )
 {
-	if( destLobby.lobbyBackend == NULL )
+	if( destLobby.lobbyBackend == nullptr )
 	{
 		return;		// We don't have a game lobbyBackend to get an address for
 	}
@@ -2280,12 +2280,12 @@ void idLobby::SendPeerMembersToLobby( int peerIndex, lobbyType_t destLobbyType, 
 {
 	idLobby* lobby = sessionCB->GetLobbyFromType( destLobbyType );
 	
-	if( !verify( lobby != NULL ) )
+	if( !verify( lobby != nullptr ) )
 	{
 		return;
 	}
 	
-	if( !verify( lobby->lobbyBackend != NULL ) )
+	if( !verify( lobby->lobbyBackend != nullptr ) )
 	{
 		return;
 	}
@@ -2345,7 +2345,7 @@ uint32 idLobby::GetPartyTokenAsHost()
 		unsigned int seed = Sys_Milliseconds(); // time app has been running
 		// DG end
 		idLocalUser* masterUser = session->GetSignInManager().GetMasterLocalUser();
-		if( masterUser != NULL )
+		if( masterUser != nullptr )
 		{
 			seed += idStr::Hash( masterUser->GetGamerTag() );
 		}
@@ -2533,7 +2533,7 @@ void idLobby::HandleHelloAck( int p, idBitMsg& msg )
 	parms.Read( msg );
 	
 	// Update lobbyBackend with parms
-	if( lobbyBackend != NULL )
+	if( lobbyBackend != nullptr )
 	{
 		lobbyBackend->UpdateMatchParms( parms );
 	}
@@ -2566,7 +2566,7 @@ const char* idLobby::GetLobbyUserName( lobbyUserID_t lobbyUserID ) const
 	const int index = GetLobbyUserIndexByID( lobbyUserID );
 	const lobbyUser_t* user = GetLobbyUser( index );
 	
-	if( user == NULL )
+	if( user == nullptr )
 	{
 		for( int i = 0; i < disconnectedUsers.Num(); i++ )
 		{
@@ -2645,7 +2645,7 @@ int idLobby::GetLobbyUserQoS( lobbyUserID_t lobbyUserID ) const
 	
 	const lobbyUser_t* user = GetLobbyUser( userIndex );
 	
-	if( !verify( user != NULL ) )
+	if( !verify( user != nullptr ) )
 	{
 		return 0;
 	}
@@ -2675,7 +2675,7 @@ bool idLobby::SetLobbyUserTeam( lobbyUserID_t lobbyUserID, int teamNumber )
 	const int userIndex = GetLobbyUserIndexByID( lobbyUserID );
 	lobbyUser_t* user = GetLobbyUser( userIndex );
 	
-	if( user != NULL )
+	if( user != nullptr )
 	{
 		if( teamNumber != user->teamNumber )
 		{
@@ -2716,20 +2716,20 @@ idPlayerProfile* idLobby::GetProfileFromLobbyUser( lobbyUserID_t lobbyUserID )
 {
 	const int userIndex = GetLobbyUserIndexByID( lobbyUserID );
 	
-	idPlayerProfile* profile = NULL;
+	idPlayerProfile* profile = nullptr;
 	
 	idLocalUser* localUser = GetLocalUserFromLobbyUserIndex( userIndex );
 	
-	if( localUser != NULL )
+	if( localUser != nullptr )
 	{
 		profile = localUser->GetProfile();
 	}
 	
-	if( profile == NULL )
+	if( profile == nullptr )
 	{
 		// Whoops
 		profile = session->GetSignInManager().GetDefaultProfile();
-		//idLib::Warning( "Returning fake profile until the code is fixed to handle NULL profiles." );
+		//idLib::Warning( "Returning fake profile until the code is fixed to handle nullptr profiles." );
 	}
 	
 	return profile;
@@ -2775,7 +2775,7 @@ const char* idLobby::GetPeerName( int peerNum ) const
 
 	for( int i = 0; i < GetNumLobbyUsers(); ++i )
 	{
-		if( !verify( GetLobbyUser( i ) != NULL ) )
+		if( !verify( GetLobbyUser( i ) != nullptr ) )
 		{
 			continue;
 		}
@@ -2794,7 +2794,7 @@ const char* idLobby::GetPeerName( int peerNum ) const
 idLobby::HandleReliableMsg
 ========================
 */
-void idLobby::HandleReliableMsg( int p, idBitMsg& msg, const lobbyAddress_t* remoteAddress /* = NULL */ )
+void idLobby::HandleReliableMsg( int p, idBitMsg& msg, const lobbyAddress_t* remoteAddress /* = nullptr */ )
 {
 	peer_t& peer = peers[p];
 	
@@ -2847,7 +2847,7 @@ void idLobby::HandleReliableMsg( int p, idBitMsg& msg, const lobbyAddress_t* rem
 	else if( reliableType == RELIABLE_KICK_PLAYER )
 	{
 		VERIFY_FROM_HOST( p, lobbyType, RELIABLE_KICK_PLAYER );
-		common->Dialog().AddDialog( GDM_KICKED, DIALOG_ACCEPT, NULL, NULL, false );
+		common->Dialog().AddDialog( GDM_KICKED, DIALOG_ACCEPT, nullptr, nullptr, false );
 		if( sessionCB->GetPartyLobby().IsHost() )
 		{
 			session->SetSessionOption( idSession::OPTION_LEAVE_WITH_PARTY );
@@ -2877,7 +2877,7 @@ void idLobby::HandleReliableMsg( int p, idBitMsg& msg, const lobbyAddress_t* rem
 	{
 		parms.Read( msg );
 		// Update lobby with parms
-		if( lobbyBackend != NULL )
+		if( lobbyBackend != nullptr )
 		{
 			lobbyBackend->UpdateMatchParms( parms );
 		}
@@ -2998,7 +2998,7 @@ void idLobby::HandleReliableMsg( int p, idBitMsg& msg, const lobbyAddress_t* rem
 		for( int i = 0; i < GetNumLobbyUsers(); i++ )
 		{
 			lobbyUser_t* user = GetLobbyUser( i );
-			if( !verify( user != NULL ) )
+			if( !verify( user != nullptr ) )
 			{
 				continue;
 			}
@@ -3354,7 +3354,7 @@ void idLobby::DrawDebugNetworkHUD_ServerSnapshotMetrics( bool draw )
 		{
 			for( int i = 0; i < peers[p].debugGraphs.Num(); i++ )
 			{
-				if( peers[p].debugGraphs[i] != NULL )
+				if( peers[p].debugGraphs[i] != nullptr )
 				{
 					peers[p].debugGraphs[i]->Enable( false );
 				}
@@ -3383,7 +3383,7 @@ void idLobby::DrawDebugNetworkHUD_ServerSnapshotMetrics( bool draw )
 		idPacketProcessor* packetProc = peer.packetProc;
 		idSnapshotProcessor* snapProc = peer.snapProc;
 		
-		if( !verify( packetProc != NULL && snapProc != NULL ) )
+		if( !verify( packetProc != nullptr && snapProc != nullptr ) )
 		{
 			continue;
 		}
@@ -3405,14 +3405,14 @@ void idLobby::DrawDebugNetworkHUD_ServerSnapshotMetrics( bool draw )
 			GRAPH_MAX
 		};
 		
-		peer.debugGraphs.SetNum( GRAPH_MAX, NULL );
+		peer.debugGraphs.SetNum( GRAPH_MAX, nullptr );
 		for( int i = 0; i < GRAPH_MAX; i++ )
 		{
 			// Initialize graphs
-			if( peer.debugGraphs[i] == NULL )
+			if( peer.debugGraphs[i] == nullptr )
 			{
 				peer.debugGraphs[i] = console->CreateGraph( 500 );
-				if( !verify( peer.debugGraphs[i] != NULL ) )
+				if( !verify( peer.debugGraphs[i] != nullptr ) )
 				{
 					continue;
 				}
@@ -3450,7 +3450,7 @@ void idLobby::DrawDebugNetworkHUD_ServerSnapshotMetrics( bool draw )
 		
 		
 		
-		if( peer.debugGraphs[GRAPH_SNAPSENT] != NULL )
+		if( peer.debugGraphs[GRAPH_SNAPSENT] != nullptr )
 		{
 			if( peer.lastSnapTime > lastTime )
 			{
@@ -3462,7 +3462,7 @@ void idLobby::DrawDebugNetworkHUD_ServerSnapshotMetrics( bool draw )
 			}
 		}
 		
-		if( peer.debugGraphs[GRAPH_OUTGOING] != NULL )
+		if( peer.debugGraphs[GRAPH_OUTGOING] != nullptr )
 		{
 			idVec4 bgColor( vec4_zero );
 			peer.debugGraphs[GRAPH_OUTGOING]->SetBackgroundColor( bgColor );
@@ -3475,7 +3475,7 @@ void idLobby::DrawDebugNetworkHUD_ServerSnapshotMetrics( bool draw )
 		}
 		
 		
-		if( peer.debugGraphs[GRAPH_INCOMINGREPORTED] != NULL )
+		if( peer.debugGraphs[GRAPH_INCOMINGREPORTED] != nullptr )
 		{
 			idVec4 lineColor = colorYellow;
 			extern idCVar net_peer_throttle_bps_peer_threshold_pct;
@@ -3804,7 +3804,7 @@ void idLobby::BeginBandwidthTest()
 			continue;
 		}
 		
-		if( !verify( peers[ p ].packetProc != NULL ) )
+		if( !verify( peers[ p ].packetProc != nullptr ) )
 		{
 			continue;
 		}
@@ -4197,7 +4197,7 @@ void idLobby::PumpPings()
 			for( int userIndex = 0; userIndex < GetNumLobbyUsers(); ++userIndex )
 			{
 				lobbyUser_t* user = GetLobbyUser( userIndex );
-				if( !verify( user != NULL ) )
+				if( !verify( user != nullptr ) )
 				{
 					continue;
 				}
@@ -4490,7 +4490,7 @@ void idLobby::ResendReliables( int p )
 	if( peer.packetProc->NumQueuedReliables() > 0 || peer.packetProc->NeedToSendReliableAck() )
 	{
 		//NET_VERBOSE_PRINT( "NET: ResendReliables %s\n", GetLobbyName() );
-		ProcessOutgoingMsg( p, NULL, 0, false, 0 );		// Force an empty unreliable msg so any reliables will get processed as well
+		ProcessOutgoingMsg( p, nullptr, 0, false, 0 );		// Force an empty unreliable msg so any reliables will get processed as well
 	}
 }
 
@@ -4528,7 +4528,7 @@ void idLobby::PumpPackets()
 		if( newTime - peers[p].lastProcTime > 1000 * PEER_HEARTBEAT_IN_SECONDS )
 		{
 			//NET_VERBOSE_PRINT( "NET: ProcessOutgoing Heartbeat %s\n", GetLobbyName() );
-			ProcessOutgoingMsg( p, NULL, 0, false, 0 );
+			ProcessOutgoingMsg( p, nullptr, 0, false, 0 );
 		}
 	}
 	
@@ -4554,7 +4554,7 @@ void idLobby::UpdateMatchParms( const idMatchParameters& p )
 	parms = p;
 	
 	// Update lobbyBackend with parms
-	if( lobbyBackend != NULL )
+	if( lobbyBackend != nullptr )
 	{
 		lobbyBackend->UpdateMatchParms( parms );
 	}
@@ -4708,7 +4708,7 @@ idSessionLocal::reliablePlayerToPlayerHeader_t::Read
 */
 bool idLobby::reliablePlayerToPlayerHeader_t::Read( idLobby* lobby, idBitMsg& msg )
 {
-	assert( lobby != NULL );
+	assert( lobby != nullptr );
 	
 	lobbyUserID_t lobbyUserIDFrom;
 	lobbyUserID_t lobbyUserIDTo;
@@ -4719,12 +4719,12 @@ bool idLobby::reliablePlayerToPlayerHeader_t::Read( idLobby* lobby, idBitMsg& ms
 	fromSessionUserIndex	= lobby->GetLobbyUserIndexByID( lobbyUserIDFrom );
 	toSessionUserIndex		= lobby->GetLobbyUserIndexByID( lobbyUserIDTo );
 	
-	if( !verify( lobby->GetLobbyUser( fromSessionUserIndex ) != NULL ) )
+	if( !verify( lobby->GetLobbyUser( fromSessionUserIndex ) != nullptr ) )
 	{
 		return false;
 	}
 	
-	if( !verify( lobby->GetLobbyUser( toSessionUserIndex ) != NULL ) )
+	if( !verify( lobby->GetLobbyUser( toSessionUserIndex ) != nullptr ) )
 	{
 		return false;
 	}
@@ -4741,12 +4741,12 @@ bool idLobby::reliablePlayerToPlayerHeader_t::Write( idLobby* lobby, idBitMsg& m
 {
 
 
-	if( !verify( lobby->GetLobbyUser( fromSessionUserIndex ) != NULL ) )
+	if( !verify( lobby->GetLobbyUser( fromSessionUserIndex ) != nullptr ) )
 	{
 		return false;
 	}
 	
-	if( !verify( lobby->GetLobbyUser( toSessionUserIndex ) != NULL ) )
+	if( !verify( lobby->GetLobbyUser( toSessionUserIndex ) != nullptr ) )
 	{
 		return false;
 	}
@@ -4806,7 +4806,7 @@ int	idLobby::PeerIndexFromLobbyUser( lobbyUserID_t lobbyUserID ) const
 	
 	const lobbyUser_t* user = GetLobbyUser( lobbyUserIndex );
 	
-	if( user == NULL )
+	if( user == nullptr )
 	{
 		// This needs to be OK for bot support ( or else add bots at the session level )
 		return -1;

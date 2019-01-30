@@ -32,19 +32,19 @@ If you have questions concerning this license or the applicable additional terms
 void idMenuWidget_PDA_VideoInfo::Update()
 {
 
-	if( GetSWFObject() == NULL )
+	if( GetSWFObject() == nullptr )
 	{
 		return;
 	}
 	
 	idSWFScriptObject& root = GetSWFObject()->GetRootObject();
-	if( !BindSprite( root ) || GetSprite() == NULL )
+	if( !BindSprite( root ) || GetSprite() == nullptr )
 	{
 		return;
 	}
 	
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	if( player == NULL )
+	if( player == nullptr )
 	{
 		return;
 	}
@@ -56,14 +56,14 @@ void idMenuWidget_PDA_VideoInfo::Update()
 	if( numVideos != 0 )
 	{
 		const idDeclVideo* video = player->GetVideo( videoIndex );
-		if( video != NULL )
+		if( video != nullptr )
 		{
-			if( txtHeading != NULL )
+			if( txtHeading != nullptr )
 			{
 				txtHeading->SetText( video->GetVideoName() );
 			}
 			
-			if( txtInfo != NULL )
+			if( txtInfo != nullptr )
 			{
 				txtInfo->SetText( video->GetInfo() );
 			}
@@ -71,12 +71,12 @@ void idMenuWidget_PDA_VideoInfo::Update()
 	}
 	else
 	{
-		if( txtHeading != NULL )
+		if( txtHeading != nullptr )
 		{
 			txtHeading->SetText( "" );
 		}
 		
-		if( txtInfo != NULL )
+		if( txtInfo != nullptr )
 		{
 			txtInfo->SetText( "" );
 		}
@@ -86,14 +86,14 @@ void idMenuWidget_PDA_VideoInfo::Update()
 void idMenuWidget_PDA_VideoInfo::ObserveEvent( const idMenuWidget& widget, const idWidgetEvent& event )
 {
 	const idMenuWidget_Button* const button = dynamic_cast< const idMenuWidget_Button* >( &widget );
-	if( button == NULL )
+	if( button == nullptr )
 	{
 		return;
 	}
 	
 	const idMenuWidget* const listWidget = button->GetParent();
 	
-	if( listWidget == NULL )
+	if( listWidget == nullptr )
 	{
 		return;
 	}
@@ -106,26 +106,26 @@ void idMenuWidget_PDA_VideoInfo::ObserveEvent( const idMenuWidget& widget, const
 			videoIndex = list->GetViewIndex();
 			
 			idPlayer* player = gameLocal.GetLocalPlayer();
-			if( player != NULL )
+			if( player != nullptr )
 			{
 				player->EndVideoDisk();
 				
 				const idDeclVideo* video = player->GetVideo( videoIndex );
 				
-				if( video != NULL )
+				if( video != nullptr )
 				{
 					idSWFSpriteInstance* videoSprite = GetSprite()->GetScriptObject()->GetNestedSprite( "video", "img" );
-					if( videoSprite != NULL )
+					if( videoSprite != nullptr )
 					{
 						videoSprite->SetMaterial( video->GetPreview() );
 					}
 				}
 			}
 			
-			if( GetParent() != NULL )
+			if( GetParent() != nullptr )
 			{
 				idMenuScreen_PDA_VideoDisks* screen = dynamic_cast< idMenuScreen_PDA_VideoDisks* const >( GetParent() );
-				if( screen != NULL )
+				if( screen != nullptr )
 				{
 					screen->Update();
 				}

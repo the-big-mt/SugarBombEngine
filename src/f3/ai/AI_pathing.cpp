@@ -88,7 +88,7 @@ void pathNode_s::Init()
 	obstacle = -1;
 	edgeNum = -1;
 	numNodes = 0;
-	parent = children[0] = children[1] = next = NULL;
+	parent = children[0] = children[1] = next = nullptr;
 }
 
 idBlockAlloc<pathNode_t, 128>	pathNodeAllocator;
@@ -198,7 +198,7 @@ void GetPointOutsideObstacles( const obstacle_t* obstacles, const int numObstacl
 			bestEdgeNum = i;
 		}
 		// if this is a wall always try to pop out at the first edge
-		if( obstacles[bestObstacle].entity == NULL )
+		if( obstacles[bestObstacle].entity == nullptr )
 		{
 			break;
 		}
@@ -528,7 +528,7 @@ int GetObstacles( const idPhysics* physics, const idAAS* aas, const idEntity* ig
 				obstacle.winding[0] += edgeDir;
 			}
 			obstacle.winding.GetBounds( obstacle.bounds );
-			obstacle.entity = NULL;
+			obstacle.entity = nullptr;
 			
 			memcpy( lastVerts, verts, sizeof( lastVerts ) );
 			lastEdgeNormal = edgeNormal;
@@ -698,7 +698,7 @@ pathNode_t* BuildPathTree( const obstacle_t* obstacles, int numObstacles, const 
 	root->numNodes = 0;
 	pathNodeQueue.Add( root );
 	
-	for( node = pathNodeQueue.Get(); node != NULL && pathNodeAllocator.GetAllocCount() < MAX_PATH_NODES; node = pathNodeQueue.Get() )
+	for( node = pathNodeQueue.Get(); node != nullptr && pathNodeAllocator.GetAllocCount() < MAX_PATH_NODES; node = pathNodeQueue.Get() )
 	{
 	
 		treeQueue.Add( node );
@@ -721,7 +721,7 @@ pathNode_t* BuildPathTree( const obstacle_t* obstacles, int numObstacles, const 
 		if( GetFirstBlockingObstacle( obstacles, numObstacles, node->obstacle, node->pos, node->delta, blockingScale, blockingObstacle, blockingEdgeNum ) )
 		{
 		
-			if( path.firstObstacle == NULL )
+			if( path.firstObstacle == nullptr )
 			{
 				path.firstObstacle = obstacles[blockingObstacle].entity;
 			}
@@ -849,7 +849,7 @@ void PrunePathTree( pathNode_t* root, const idVec2& seekPos )
 				if( bestNode->children[i] )
 				{
 					FreePathTree_r( bestNode->children[i] );
-					bestNode->children[i] = NULL;
+					bestNode->children[i] = nullptr;
 				}
 			}
 			
@@ -1046,11 +1046,11 @@ bool FindOptimalPath( const pathNode_t* root, const obstacle_t* obstacles, int n
 		}
 	}
 	
-	if( root != NULL )
+	if( root != nullptr )
 	{
 		if( !pathToGoalExists )
 		{
-			if( root->children[0] != NULL )
+			if( root->children[0] != nullptr )
 			{
 				seekPos.ToVec2() = root->children[0]->pos;
 			}
@@ -1099,11 +1099,11 @@ bool idAI::FindPathAroundObstacles( const idPhysics* physics, const idAAS* aas, 
 	bool pathToGoalExists;
 	
 	path.seekPos = seekPos;
-	path.firstObstacle = NULL;
+	path.firstObstacle = nullptr;
 	path.startPosOutsideObstacles = startPos;
-	path.startPosObstacle = NULL;
+	path.startPosObstacle = nullptr;
 	path.seekPosOutsideObstacles = seekPos;
-	path.seekPosObstacle = NULL;
+	path.seekPosObstacle = nullptr;
 	
 	if( !aas )
 	{
@@ -1122,14 +1122,14 @@ bool idAI::FindPathAroundObstacles( const idPhysics* physics, const idAAS* aas, 
 	numObstacles = GetObstacles( physics, aas, ignore, areaNum, path.startPosOutsideObstacles, path.seekPosOutsideObstacles, obstacles, MAX_OBSTACLES, clipBounds );
 	
 	// get a source position outside the obstacles
-	GetPointOutsideObstacles( obstacles, numObstacles, path.startPosOutsideObstacles.ToVec2(), &insideObstacle, NULL );
+	GetPointOutsideObstacles( obstacles, numObstacles, path.startPosOutsideObstacles.ToVec2(), &insideObstacle, nullptr );
 	if( insideObstacle != -1 )
 	{
 		path.startPosObstacle = obstacles[insideObstacle].entity;
 	}
 	
 	// get a goal position outside the obstacles
-	GetPointOutsideObstacles( obstacles, numObstacles, path.seekPosOutsideObstacles.ToVec2(), &insideObstacle, NULL );
+	GetPointOutsideObstacles( obstacles, numObstacles, path.seekPosOutsideObstacles.ToVec2(), &insideObstacle, nullptr );
 	if( insideObstacle != -1 )
 	{
 		path.seekPosObstacle = obstacles[insideObstacle].entity;
@@ -1297,7 +1297,7 @@ bool PathTrace( const idEntity* ent, const idAAS* aas, const idVec3& start, cons
 	
 	if( trace.fraction >= 1.0f )
 	{
-		trace.blockingEntity = NULL;
+		trace.blockingEntity = nullptr;
 	}
 	
 	return false;
@@ -1340,7 +1340,7 @@ bool idAI::PredictPath( const idEntity* ent, const idAAS* aas, const idVec3& sta
 	path.endNormal.Zero();
 	path.endEvent = 0;
 	path.endTime = 0;
-	path.blockingEntity = NULL;
+	path.blockingEntity = nullptr;
 	
 	curStart = start;
 	curVelocity = velocity;
@@ -1691,7 +1691,7 @@ bool idAI::PredictTrajectory( const idVec3& firePos, const idVec3& target, float
 	idVec3 velocity;
 	idVec3 lastPos, pos;
 	
-	if( targetEntity == NULL )
+	if( targetEntity == nullptr )
 	{
 		return false;
 	}

@@ -90,7 +90,7 @@ static drawSurf_t* R_FinishDeform( drawSurf_t* surf, srfTriangles_t* newTri, con
 	surf->indexCache = newTri->indexCache;
 	surf->shadowCache = 0;
 	surf->jointCache = 0;
-	surf->nextOnLight = NULL;
+	surf->nextOnLight = nullptr;
 	
 	return surf;
 }
@@ -110,16 +110,16 @@ static drawSurf_t* R_AutospriteDeform( drawSurf_t* surf )
 	if( srcTri->numVerts & 3 )
 	{
 		common->Warning( "R_AutospriteDeform: shader had odd vertex count" );
-		return NULL;
+		return nullptr;
 	}
 	if( srcTri->numIndexes != ( srcTri->numVerts >> 2 ) * 6 )
 	{
 		common->Warning( "R_AutospriteDeform: autosprite had odd index count" );
-		return NULL;
+		return nullptr;
 	}
 	
 	// RB: added check wether GPU skinning is available at all
-	const idJointMat* joints = ( srcTri->staticModelWithJoints != NULL && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? srcTri->staticModelWithJoints->jointsInverted : NULL;
+	const idJointMat* joints = ( srcTri->staticModelWithJoints != nullptr && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? srcTri->staticModelWithJoints->jointsInverted : nullptr;
 	// RB end
 	
 	idVec3 leftDir;
@@ -216,7 +216,7 @@ static drawSurf_t* R_TubeDeform( drawSurf_t* surf )
 	}
 	
 	// RB: added check wether GPU skinning is available at all
-	const idJointMat* joints = ( srcTri->staticModelWithJoints != NULL && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? srcTri->staticModelWithJoints->jointsInverted : NULL;
+	const idJointMat* joints = ( srcTri->staticModelWithJoints != nullptr && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? srcTri->staticModelWithJoints->jointsInverted : nullptr;
 	// RB end
 	
 	// we need the view direction to project the minor axis of the tube
@@ -427,13 +427,13 @@ static drawSurf_t* R_FlareDeform( drawSurf_t* surf )
 {
 	const srfTriangles_t* srcTri = surf->frontEndGeo;
 	
-	assert( srcTri->staticModelWithJoints == NULL );
+	assert( srcTri->staticModelWithJoints == nullptr );
 	
 	if( srcTri->numVerts != 4 || srcTri->numIndexes != 6 )
 	{
 		// FIXME: temp hack for flares on tripleted models
 		common->Warning( "R_FlareDeform: not a single quad" );
-		return NULL;
+		return nullptr;
 	}
 	
 	// find the plane
@@ -446,7 +446,7 @@ static drawSurf_t* R_FlareDeform( drawSurf_t* surf )
 	float distFromPlane = localViewer * plane.Normal() + plane[3];
 	if( distFromPlane <= 0 )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	idVec3 center = srcTri->verts[0].xyz;
@@ -474,7 +474,7 @@ static drawSurf_t* R_FlareDeform( drawSurf_t* surf )
 	// only deal with quads
 	if( numIndexes != 4 )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	const int maxVerts = 16;
@@ -565,7 +565,7 @@ static drawSurf_t* R_ExpandDeform( drawSurf_t* surf )
 {
 	const srfTriangles_t* srcTri = surf->frontEndGeo;
 	
-	assert( srcTri->staticModelWithJoints == NULL );
+	assert( srcTri->staticModelWithJoints == nullptr );
 	
 	// the srfTriangles_t are in frame memory and will be automatically disposed of
 	srfTriangles_t* newTri = ( srfTriangles_t* )R_ClearedFrameAlloc( sizeof( *newTri ), FRAME_ALLOC_SURFACE_TRIANGLES );
@@ -595,7 +595,7 @@ static drawSurf_t* R_MoveDeform( drawSurf_t* surf )
 {
 	const srfTriangles_t* srcTri = surf->frontEndGeo;
 	
-	assert( srcTri->staticModelWithJoints == NULL );
+	assert( srcTri->staticModelWithJoints == nullptr );
 	
 	// the srfTriangles_t are in frame memory and will be automatically disposed of
 	srfTriangles_t* newTri = ( srfTriangles_t* )R_ClearedFrameAlloc( sizeof( *newTri ), FRAME_ALLOC_SURFACE_TRIANGLES );
@@ -625,7 +625,7 @@ static drawSurf_t* R_TurbulentDeform( drawSurf_t* surf )
 {
 	const srfTriangles_t* srcTri = surf->frontEndGeo;
 	
-	assert( srcTri->staticModelWithJoints == NULL );
+	assert( srcTri->staticModelWithJoints == nullptr );
 	
 	// the srfTriangles_t are in frame memory and will be automatically disposed of
 	srfTriangles_t* newTri = ( srfTriangles_t* )R_ClearedFrameAlloc( sizeof( *newTri ), FRAME_ALLOC_SURFACE_TRIANGLES );
@@ -688,7 +688,7 @@ static void AddTriangleToIsland_r( const srfTriangles_t* tri, int triangleNum, b
 	island->numTris++;
 	
 	// RB: added check wether GPU skinning is available at all
-	const idJointMat* joints = ( tri->staticModelWithJoints != NULL && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? tri->staticModelWithJoints->jointsInverted : NULL;
+	const idJointMat* joints = ( tri->staticModelWithJoints != nullptr && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? tri->staticModelWithJoints->jointsInverted : nullptr;
 	// RB end
 	
 	// recurse into all neighbors
@@ -743,7 +743,7 @@ static drawSurf_t* R_EyeballDeform( drawSurf_t* surf )
 	if( numTri > MAX_EYEBALL_ISLANDS * MAX_EYEBALL_TRIS )
 	{
 		common->Printf( "R_EyeballDeform: too many triangles in surface" );
-		return NULL;
+		return nullptr;
 	}
 	
 	eyeIsland_t islands[MAX_EYEBALL_ISLANDS];
@@ -774,11 +774,11 @@ static drawSurf_t* R_EyeballDeform( drawSurf_t* surf )
 	if( numIslands != 3 )
 	{
 		common->Printf( "R_EyeballDeform: %i triangle islands\n", numIslands );
-		return NULL;
+		return nullptr;
 	}
 	
 	// RB: added check wether GPU skinning is available at all
-	const idJointMat* joints = ( srcTri->staticModelWithJoints != NULL && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? srcTri->staticModelWithJoints->jointsInverted : NULL;
+	const idJointMat* joints = ( srcTri->staticModelWithJoints != nullptr && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? srcTri->staticModelWithJoints->jointsInverted : nullptr;
 	// RB end
 	
 	// the srfTriangles_t are in frame memory and will be automatically disposed of
@@ -900,7 +900,7 @@ static drawSurf_t* R_ParticleDeform( drawSurf_t* surf, bool useArea )
 	
 	if( r_skipParticles.GetBool() )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	//
@@ -908,10 +908,10 @@ static drawSurf_t* R_ParticleDeform( drawSurf_t* surf, bool useArea )
 	//
 	int numSourceTris = surf->frontEndGeo->numIndexes / 3;
 	float totalArea = 0.0f;
-	float* sourceTriAreas = NULL;
+	float* sourceTriAreas = nullptr;
 	
 	// RB: added check wether GPU skinning is available at all
-	const idJointMat* joints = ( ( srcTri->staticModelWithJoints != NULL ) && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? srcTri->staticModelWithJoints->jointsInverted : NULL;
+	const idJointMat* joints = ( ( srcTri->staticModelWithJoints != nullptr ) && r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable ) ? srcTri->staticModelWithJoints->jointsInverted : nullptr;
 	// RB end
 	
 	if( useArea )
@@ -946,7 +946,7 @@ static drawSurf_t* R_ParticleDeform( drawSurf_t* surf, bool useArea )
 	{
 		idParticleStage* stage = particleSystem->stages[stageNum];
 		
-		if( stage->material == NULL )
+		if( stage->material == nullptr )
 		{
 			continue;
 		}
@@ -971,7 +971,7 @@ static drawSurf_t* R_ParticleDeform( drawSurf_t* surf, bool useArea )
 	
 	if( maxQuads == 0 )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	idTempArray<byte> tempVerts( ALIGN( maxQuads * 4 * sizeof( idDrawVert ), 16 ) );
@@ -979,7 +979,7 @@ static drawSurf_t* R_ParticleDeform( drawSurf_t* surf, bool useArea )
 	idTempArray<byte> tempIndex( ALIGN( maxQuads * 6 * sizeof( triIndex_t ), 16 ) );
 	triIndex_t* newIndexes = ( triIndex_t* ) tempIndex.Ptr();
 	
-	drawSurf_t* drawSurfList = NULL;
+	drawSurf_t* drawSurfList = nullptr;
 	
 	for( int stageNum = 0; stageNum < particleSystem->stages.Num(); stageNum++ )
 	{
@@ -1142,7 +1142,7 @@ static drawSurf_t* R_ParticleDeform( drawSurf_t* surf, bool useArea )
 		
 		R_SetupDrawSurfShader( drawSurf, stage->material, renderEntity );
 		
-		drawSurf->linkChain = NULL;
+		drawSurf->linkChain = nullptr;
 		drawSurf->nextOnLight = drawSurfList;
 		drawSurfList = drawSurf;
 	}
@@ -1157,9 +1157,9 @@ R_DeformDrawSurf
 */
 drawSurf_t* R_DeformDrawSurf( drawSurf_t* drawSurf )
 {
-	if( drawSurf->material == NULL )
+	if( drawSurf->material == nullptr )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	if( r_skipDeforms.GetBool() )
@@ -1187,7 +1187,7 @@ drawSurf_t* R_DeformDrawSurf( drawSurf_t* drawSurf )
 		case DFRM_PARTICLE2:
 			return R_ParticleDeform( drawSurf, false );
 		default:
-			return NULL;
+			return nullptr;
 	}
 }
 

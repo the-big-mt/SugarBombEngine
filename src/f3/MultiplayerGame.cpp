@@ -130,8 +130,8 @@ idMultiplayerGame::idMultiplayerGame
 idMultiplayerGame::idMultiplayerGame()
 {
 
-	teamFlags[0] = NULL;
-	teamFlags[1] = NULL;
+	teamFlags[0] = nullptr;
+	teamFlags[1] = nullptr;
 	
 	teamPoints[0] = 0;
 	teamPoints[1] = 0;
@@ -143,7 +143,7 @@ idMultiplayerGame::idMultiplayerGame()
 	
 	Clear();
 	
-	scoreboardManager = NULL;
+	scoreboardManager = nullptr;
 }
 
 /*
@@ -169,7 +169,7 @@ void idMultiplayerGame::Reset()
 	if( common->IsMultiplayer() )
 	{
 		scoreboardManager = new idMenuHandler_Scoreboard();
-		if( scoreboardManager != NULL )
+		if( scoreboardManager != nullptr )
 		{
 			scoreboardManager->Initialize( "scoreboard", common->SW() );
 		}
@@ -262,10 +262,10 @@ idMultiplayerGame::Clear
 */
 void idMultiplayerGame::CleanupScoreboard()
 {
-	if( scoreboardManager != NULL )
+	if( scoreboardManager != nullptr )
 	{
 		delete scoreboardManager;
-		scoreboardManager = NULL;
+		scoreboardManager = nullptr;
 	}
 }
 
@@ -395,7 +395,7 @@ idMultiplayerGame::IsScoreboardActive
 bool idMultiplayerGame::IsScoreboardActive()
 {
 
-	if( scoreboardManager != NULL )
+	if( scoreboardManager != nullptr )
 	{
 		return scoreboardManager->IsActive();
 	}
@@ -411,7 +411,7 @@ idMultiplayerGame::HandleGuiEvent
 bool idMultiplayerGame::HandleGuiEvent( const sysEvent_t* sev )
 {
 
-	if( scoreboardManager != NULL && scoreboardManager->IsActive() )
+	if( scoreboardManager != nullptr && scoreboardManager->IsActive() )
 	{
 		scoreboardManager->HandleGuiEvent( sev );
 		return true;
@@ -428,7 +428,7 @@ idMultiplayerGame::UpdateScoreboard
 void idMultiplayerGame::UpdateScoreboard( idMenuHandler_Scoreboard* scoreboard, idPlayer* owner )
 {
 
-	if( owner == NULL )
+	if( owner == nullptr )
 	{
 		return;
 	}
@@ -740,7 +740,7 @@ bool idMultiplayerGame::EnoughClientsToPlay()
 ================
 idMultiplayerGame::FragLimitHit
 return the winning player (team player)
-if there is no FragLeader(), the game is tied and we return NULL
+if there is no FragLeader(), the game is tied and we return nullptr
 ================
 */
 idPlayer* idMultiplayerGame::FragLimitHit()
@@ -750,12 +750,12 @@ idPlayer* idMultiplayerGame::FragLimitHit()
 	idPlayer* leader;
 	
 	if( IsGametypeFlagBased() )  /* CTF */
-		return NULL;
+		return nullptr;
 		
 	leader = FragLeader();
 	if( !leader )
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	if( fragLimit <= 0 )
@@ -784,7 +784,7 @@ idPlayer* idMultiplayerGame::FragLimitHit()
 			}
 			if( playerState[ ent->entityNumber ].fragCount > 0 )
 			{
-				return NULL;
+				return nullptr;
 			}
 		}
 		// there is a leader, his score may even be negative, but no one else has frags left or is !lastManOver
@@ -805,7 +805,7 @@ idPlayer* idMultiplayerGame::FragLimitHit()
 		}
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -871,14 +871,14 @@ bool idMultiplayerGame::PointLimitHit()
 ================
 idMultiplayerGame::FragLeader
 return the current winner ( or a player from the winning team )
-NULL if even
+nullptr if even
 ================
 */
 idPlayer* idMultiplayerGame::FragLeader()
 {
 	int i;
 	int frags[ MAX_CLIENTS ];
-	idPlayer* leader = NULL;
+	idPlayer* leader = nullptr;
 	idEntity* ent;
 	idPlayer* p;
 	int high = -9999;
@@ -958,7 +958,7 @@ idPlayer* idMultiplayerGame::FragLeader()
 		// more than one player at the highest frags
 		if( count > 1 )
 		{
-			return NULL;
+			return nullptr;
 		}
 		else
 		{
@@ -970,7 +970,7 @@ idPlayer* idMultiplayerGame::FragLeader()
 		if( teamLead[ 0 ] && teamLead[ 1 ] )
 		{
 			// even game in team play
-			return NULL;
+			return nullptr;
 		}
 		return leader;
 	}
@@ -1181,9 +1181,9 @@ void idMultiplayerGame::PlayerDeath( idPlayer* dead, idPlayer* killer, bool tele
 		return;
 	}
 	
-	if( dead == NULL )
+	if( dead == nullptr )
 	{
-		idLib::Warning( "idMultiplayerGame::PlayerDeath dead ptr == NULL, kill will not count" );
+		idLib::Warning( "idMultiplayerGame::PlayerDeath dead ptr == nullptr, kill will not count" );
 		return;
 	}
 	
@@ -1710,7 +1710,7 @@ void idMultiplayerGame::GameHasBeenWon()
 	for( int i = 0; i < gameLocal.numClients; i++ )
 	{
 		idPlayer* player = static_cast< idPlayer* >( gameLocal.entities[ i ] );
-		if( player == NULL )
+		if( player == nullptr )
 		{
 			continue;
 		}
@@ -1773,7 +1773,7 @@ void idMultiplayerGame::Run()
 	for( i = 0; i < gameLocal.numClients; i++ )
 	{
 		idPlayer* player = static_cast<idPlayer*>( gameLocal.entities[i] );
-		if( player != NULL )
+		if( player != nullptr )
 		{
 			playerState[i].ping = lobby.GetLobbyUserQoS( gameLocal.lobbyUserIDs[i] );
 		}
@@ -1871,7 +1871,7 @@ void idMultiplayerGame::Run()
 					int team = WinningTeam();
 					assert( team != -1 );
 					
-					NewState( GAMEREVIEW, NULL );
+					NewState( GAMEREVIEW, nullptr );
 					PrintMessageEvent( MSG_POINTLIMIT, team );
 					GameHasBeenWon();
 					
@@ -1885,7 +1885,7 @@ void idMultiplayerGame::Run()
 					}
 					else
 					{
-						NewState( GAMEREVIEW, NULL );
+						NewState( GAMEREVIEW, nullptr );
 						PrintMessageEvent( MSG_TIMELIMIT );
 						GameHasBeenWon();
 					}
@@ -1949,7 +1949,7 @@ void idMultiplayerGame::Run()
 				if( team != -1 )
 				{
 					// TODO : implement pointLimitTimeout
-					NewState( GAMEREVIEW, NULL );
+					NewState( GAMEREVIEW, nullptr );
 					PrintMessageEvent( MSG_POINTLIMIT, team );
 					GameHasBeenWon();
 				}
@@ -2005,7 +2005,7 @@ bool idMultiplayerGame::Draw( int clientNum )
 	
 	player = viewPlayer = static_cast<idPlayer*>( gameLocal.entities[ clientNum ] );
 	
-	if( player == NULL )
+	if( player == nullptr )
 	{
 		return false;
 	}
@@ -2013,7 +2013,7 @@ bool idMultiplayerGame::Draw( int clientNum )
 	if( player->spectating )
 	{
 		viewPlayer = static_cast<idPlayer*>( gameLocal.entities[ player->spectator ] );
-		if( viewPlayer == NULL )
+		if( viewPlayer == nullptr )
 		{
 			return false;
 		}
@@ -2041,7 +2041,7 @@ bool idMultiplayerGame::Draw( int clientNum )
 	idStr spectatetext[ 2 ];
 	GetSpectateText( player, spectatetext, true );
 	
-	if( scoreboardManager != NULL )
+	if( scoreboardManager != nullptr )
 	{
 		scoreboardManager->UpdateSpectating( spectatetext[0].c_str(), spectatetext[1].c_str() );
 	}
@@ -2190,7 +2190,7 @@ void idMultiplayerGame::UpdateHud( idPlayer* player, idMenuHandler_HUD* hudManag
 				for( int i = 0; i < gameLocal.numClients; ++i )
 				{
 					idEntity* ent = gameLocal.entities[ i ];
-					if( ent == NULL || !ent->IsType( idPlayer::Type ) )
+					if( ent == nullptr || !ent->IsType( idPlayer::Type ) )
 					{
 						continue;
 					}
@@ -2220,7 +2220,7 @@ idMultiplayerGame::SetScoreboardActive
 */
 void idMultiplayerGame::SetScoreboardActive( bool active )
 {
-	if( scoreboardManager != NULL )
+	if( scoreboardManager != nullptr )
 	{
 		if( active )
 		{
@@ -2603,7 +2603,7 @@ void idMultiplayerGame::PrintMessageEvent( msg_evt_t evt, int parm1, int parm2 )
 			break;
 			
 		case MSG_FLAGTAKEN :
-			if( gameLocal.GetLocalPlayer() == NULL )
+			if( gameLocal.GetLocalPlayer() == nullptr )
 				break;
 				
 			if( parm2 < 0 || parm2 >= MAX_CLIENTS )
@@ -2620,7 +2620,7 @@ void idMultiplayerGame::PrintMessageEvent( msg_evt_t evt, int parm1, int parm2 )
 			break;
 			
 		case MSG_FLAGDROP :
-			if( gameLocal.GetLocalPlayer() == NULL )
+			if( gameLocal.GetLocalPlayer() == nullptr )
 				break;
 				
 			if( gameLocal.GetLocalPlayer()->team != parm1 )
@@ -2634,7 +2634,7 @@ void idMultiplayerGame::PrintMessageEvent( msg_evt_t evt, int parm1, int parm2 )
 			break;
 			
 		case MSG_FLAGRETURN :
-			if( gameLocal.GetLocalPlayer() == NULL )
+			if( gameLocal.GetLocalPlayer() == nullptr )
 				break;
 				
 			if( parm2 >= 0 && parm2 < MAX_CLIENTS )
@@ -2655,7 +2655,7 @@ void idMultiplayerGame::PrintMessageEvent( msg_evt_t evt, int parm1, int parm2 )
 			break;
 			
 		case MSG_FLAGCAPTURE :
-			if( gameLocal.GetLocalPlayer() == NULL )
+			if( gameLocal.GetLocalPlayer() == nullptr )
 				break;
 				
 			if( parm2 < 0 || parm2 >= MAX_CLIENTS )
@@ -3194,8 +3194,8 @@ void idMultiplayerGame::SwitchToTeam( int clientNum, int oldteam, int newteam )
 		// when changing teams during game, kill and respawn
 		if( p->IsInTeleport() )
 		{
-			p->ServerSendEvent( idPlayer::EVENT_ABORT_TELEPORTER, NULL, false );
-			p->SetPrivateCameraView( NULL );
+			p->ServerSendEvent( idPlayer::EVENT_ABORT_TELEPORTER, nullptr, false );
+			p->SetPrivateCameraView( nullptr );
 		}
 		p->Kill( true, true );
 		if( IsGametypeFlagBased() )
@@ -3217,7 +3217,7 @@ void idMultiplayerGame::ProcessChatMessage( int clientNum, bool team, const char
 {
 	idBitMsg	outMsg;
 	byte		msgBuf[ 256 ];
-	const char* prefix = NULL;
+	const char* prefix = nullptr;
 	int			send_to; // 0 - all, 1 - specs, 2 - team
 	int			i;
 	idEntity*	 ent;
@@ -3262,7 +3262,7 @@ void idMultiplayerGame::ProcessChatMessage( int clientNum, bool team, const char
 	}
 	else
 	{
-		pfrom = NULL;
+		pfrom = nullptr;
 		send_to = 0;
 	}
 	// put the message together
@@ -3456,7 +3456,7 @@ void idMultiplayerGame::VoiceChat( const idCmdArgs& args, bool team )
 	{
 		return;
 	}
-	if( gameLocal.GetLocalPlayer() == NULL )
+	if( gameLocal.GetLocalPlayer() == nullptr )
 	{
 		return;
 	}
@@ -3465,7 +3465,7 @@ void idMultiplayerGame::VoiceChat( const idCmdArgs& args, bool team )
 	
 	spawnArgs = &gameLocal.GetLocalPlayer()->spawnArgs;
 	
-	keyval = spawnArgs->MatchPrefix( "snd_voc_", NULL );
+	keyval = spawnArgs->MatchPrefix( "snd_voc_", nullptr );
 	index = 0;
 	while( keyval )
 	{
@@ -3517,7 +3517,7 @@ void idMultiplayerGame::ProcessVoiceChat( int clientNum, bool team, int index )
 	// lookup the sound def
 	spawnArgs = &p->spawnArgs;
 	
-	keyval = spawnArgs->MatchPrefix( "snd_voc_", NULL );
+	keyval = spawnArgs->MatchPrefix( "snd_voc_", nullptr );
 	while( index > 0 && keyval )
 	{
 		keyval = spawnArgs->MatchPrefix( "snd_voc_", keyval );
@@ -3537,8 +3537,8 @@ void idMultiplayerGame::ProcessVoiceChat( int clientNum, bool team, int index )
 	}
 	else
 	{
-		p->StartSound( snd_key, SND_CHANNEL_ANY, 0, true, NULL );
-		ProcessChatMessage( clientNum, team, name, spawnArgs->GetString( text_key ), NULL );
+		p->StartSound( snd_key, SND_CHANNEL_ANY, 0, true, nullptr );
+		ProcessChatMessage( clientNum, team, name, spawnArgs->GetString( text_key ), nullptr );
 	}
 }
 
@@ -3599,7 +3599,7 @@ void idMultiplayerGame::ClientReadStartState( const idBitMsg& msg )
 	{
 	
 		// Do not process players that are not here.
-		if( gameLocal.entities[ client ] == NULL )
+		if( gameLocal.entities[ client ] == nullptr )
 		{
 			continue;
 		}
@@ -3652,7 +3652,7 @@ void idMultiplayerGame::ClientReadAchievementUnlock( const idBitMsg& msg )
 	
 	idPlayer* player = static_cast<idPlayer*>( gameLocal.entities[ playerid ] );
 	
-	if( player != NULL )
+	if( player != nullptr )
 	{
 	
 		idLib::Printf( "Client Receiving Achievement\n" );
@@ -3721,7 +3721,7 @@ idItemTeam* idMultiplayerGame::GetTeamFlag( int team )
 	assert( team == 0 || team == 1 );
 	
 	if( !IsGametypeFlagBased() || ( team != 0 && team != 1 ) )  /* CTF */
-		return NULL;
+		return nullptr;
 		
 	// TODO : just call on map start
 	FindTeamFlags();
@@ -3744,10 +3744,10 @@ void idMultiplayerGame::FindTeamFlags()
 	
 	for( int i = 0; i < 2; i++ )
 	{
-		idEntity* entity = gameLocal.FindEntityUsingDef( NULL, flagDefs[i] );
+		idEntity* entity = gameLocal.FindEntityUsingDef( nullptr, flagDefs[i] );
 		do
 		{
-			if( entity == NULL )
+			if( entity == nullptr )
 				return;
 				
 			idItemTeam* flag = static_cast<idItemTeam*>( entity );
@@ -3774,9 +3774,9 @@ flagStatus_t idMultiplayerGame::GetFlagStatus( int team )
 	//assert( IsGametypeFlagBased() );
 	
 	idItemTeam* teamFlag = GetTeamFlag( team );
-	//assert( teamFlag != NULL );
+	//assert( teamFlag != nullptr );
 	
-	if( teamFlag != NULL )
+	if( teamFlag != nullptr )
 	{
 		if( teamFlag->carried == false && teamFlag->dropped == false )
 			return FLAGSTATUS_INBASE;
@@ -3820,7 +3820,7 @@ idMultiplayerGame::ReloadScoreboard
 void idMultiplayerGame::ReloadScoreboard()
 {
 
-	if( scoreboardManager != NULL )
+	if( scoreboardManager != nullptr )
 	{
 		scoreboardManager->Initialize( "scoreboard", common->SW() );
 	}

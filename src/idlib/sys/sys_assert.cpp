@@ -36,7 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include "../idlib/Lib.h"
 //#include "../idlib/Lib.h"               // for idLib
 //#include "../idlib/containers/StaticList.h"      // for idStaticList
-//#include "../idlib/sys/sys_types.h"     // for NULL
+//#include "../idlib/sys/sys_types.h"     // for nullptr
 //#include "containers/StaticList.h"
 
 #ifndef _WIN32
@@ -57,7 +57,7 @@ idCVar com_assertOutOfDebugger( "com_assertOutOfDebugger", "0", CVAR_BOOL, "by d
 struct skippedAssertion_t
 {
 	skippedAssertion_t() :
-		file( NULL ),
+		file( nullptr ),
 		line( -1 )
 	{
 	}

@@ -84,7 +84,7 @@ void idRenderModelMD3::InitFromFile( const char* fileName )
 	
 	name = fileName;
 	
-	size = fileSystem->ReadFile( fileName, &buffer, NULL );
+	size = fileSystem->ReadFile( fileName, &buffer, nullptr );
 	if( !size || size < 0 )
 	{
 		return;
@@ -330,7 +330,7 @@ idRenderModel* idRenderModelMD3::InstantiateDynamicModel( const struct renderEnt
 	if( cachedModel )
 	{
 		delete cachedModel;
-		cachedModel = NULL;
+		cachedModel = nullptr;
 	}
 	
 	staticModel = new( TAG_MODEL ) idRenderModelStatic;

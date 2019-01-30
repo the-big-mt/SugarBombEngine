@@ -67,7 +67,7 @@ bool IN_StartupKeyboard()
 	if( win32.g_pKeyboard )
 	{
 		win32.g_pKeyboard->Release();
-		win32.g_pKeyboard = NULL;
+		win32.g_pKeyboard = nullptr;
 	}
 	
 	// Detrimine where the buffer would like to be allocated
@@ -91,7 +91,7 @@ bool IN_StartupKeyboard()
 		dwCoopFlags |= DISCL_NOWINKEY;
 		
 	// Obtain an interface to the system keyboard device.
-	if( FAILED( hr = win32.g_pdi->CreateDevice( GUID_SysKeyboard, &win32.g_pKeyboard, NULL ) ) )
+	if( FAILED( hr = win32.g_pdi->CreateDevice( GUID_SysKeyboard, &win32.g_pKeyboard, nullptr ) ) )
 	{
 		common->Printf( "keyboard: couldn't find a keyboard device\n" );
 		return false;
@@ -186,16 +186,16 @@ void IN_InitDirectInput()
 	
 	common->Printf( "Initializing DirectInput...\n" );
 	
-	if( win32.g_pdi != NULL )
+	if( win32.g_pdi != nullptr )
 	{
 		win32.g_pdi->Release();			// if the previous window was destroyed we need to do this
-		win32.g_pdi = NULL;
+		win32.g_pdi = nullptr;
 	}
 	
 	// Register with the DirectInput subsystem and get a pointer
 	// to a IDirectInput interface we can use.
 	// Create the base DirectInput object
-	if( FAILED( hr = DirectInput8Create( GetModuleHandle( NULL ), DIRECTINPUT_VERSION, IID_IDirectInput8, ( void** )&win32.g_pdi, NULL ) ) )
+	if( FAILED( hr = DirectInput8Create( GetModuleHandle( nullptr ), DIRECTINPUT_VERSION, IID_IDirectInput8, ( void** )&win32.g_pdi, nullptr ) ) )
 	{
 		common->Printf( "DirectInputCreate failed\n" );
 	}
@@ -210,13 +210,13 @@ bool IN_InitDIMouse()
 {
 	HRESULT		hr;
 	
-	if( win32.g_pdi == NULL )
+	if( win32.g_pdi == nullptr )
 	{
 		return false;
 	}
 	
 	// obtain an interface to the system mouse device.
-	hr = win32.g_pdi->CreateDevice( GUID_SysMouse, &win32.g_pMouse, NULL );
+	hr = win32.g_pdi->CreateDevice( GUID_SysMouse, &win32.g_pMouse, nullptr );
 	
 	if( FAILED( hr ) )
 	{
@@ -375,19 +375,19 @@ void Sys_ShutdownInput()
 	if( win32.g_pKeyboard )
 	{
 		win32.g_pKeyboard->Release();
-		win32.g_pKeyboard = NULL;
+		win32.g_pKeyboard = nullptr;
 	}
 	
 	if( win32.g_pMouse )
 	{
 		win32.g_pMouse->Release();
-		win32.g_pMouse = NULL;
+		win32.g_pMouse = nullptr;
 	}
 	
 	if( win32.g_pdi )
 	{
 		win32.g_pdi->Release();
-		win32.g_pdi = NULL;
+		win32.g_pdi = nullptr;
 	}
 }
 
@@ -450,7 +450,7 @@ void IN_Frame()
 	
 	if( shouldGrab != win32.mouseGrabbed )
 	{
-		if( usercmdGen != NULL )
+		if( usercmdGen != nullptr )
 		{
 			usercmdGen->Clear();
 		}
@@ -507,7 +507,7 @@ int Sys_PollKeyboardInputEvents()
 	DWORD              dwElements;
 	HRESULT            hr;
 	
-	if( win32.g_pKeyboard == NULL )
+	if( win32.g_pKeyboard == nullptr )
 	{
 		return 0;
 	}
@@ -533,7 +533,7 @@ int Sys_PollKeyboardInputEvents()
 			//Bug 951: The following command really clears the garbage input.
 			//The original will still process keys in the buffer and was causing
 			//some problems.
-			win32.g_pKeyboard->GetDeviceData( sizeof( DIDEVICEOBJECTDATA ), NULL, &dwElements, 0 );
+			win32.g_pKeyboard->GetDeviceData( sizeof( DIDEVICEOBJECTDATA ), nullptr, &dwElements, 0 );
 			dwElements = 0;
 		}
 		// hr may be DIERR_OTHERAPPHASPRIO or other errors.  This
@@ -563,7 +563,7 @@ int Sys_PollKeyboardInputEvents()
 {
 	HRESULT            hr;
 	
-	if( win32.g_pKeyboard == NULL )
+	if( win32.g_pKeyboard == nullptr )
 	{
 		return 0;
 	}
@@ -629,7 +629,7 @@ int Sys_ReturnKeyboardInputEvent( const int n, int& ch, bool& state )
 		// windows doesn't send keydown events to the WndProc for this key.
 		// ctrl and alt are handled here to get around windows sending ctrl and
 		// alt messages when the right-alt is pressed on non-US 102 keyboards.
-		Sys_QueEvent( SE_KEY, ch, state, 0, NULL, 0 );
+		Sys_QueEvent( SE_KEY, ch, state, 0, nullptr, 0 );
 	}
 	return ch;
 }
@@ -686,7 +686,7 @@ int Sys_PollMouseInputEvents( int mouseEvents[MAX_MOUSE_EVENTS][2] )
 			const bool mouseDown = ( polled_didod[i].dwData & 0x80 ) == 0x80;
 			mouseEvents[i][0] = M_ACTION1 + mouseButton;
 			mouseEvents[i][1] = mouseDown;
-			Sys_QueEvent( SE_KEY, K_MOUSE1 + mouseButton, mouseDown, 0, NULL, 0 );
+			Sys_QueEvent( SE_KEY, K_MOUSE1 + mouseButton, mouseDown, 0, nullptr, 0 );
 		}
 		else
 		{
@@ -697,13 +697,13 @@ int Sys_PollMouseInputEvents( int mouseEvents[MAX_MOUSE_EVENTS][2] )
 			{
 				mouseEvents[i][0] = M_DELTAX;
 				mouseEvents[i][1] = polled_didod[i].dwData;
-				Sys_QueEvent( SE_MOUSE, polled_didod[i].dwData, 0, 0, NULL, 0 );
+				Sys_QueEvent( SE_MOUSE, polled_didod[i].dwData, 0, 0, nullptr, 0 );
 			}
 			else if( diaction == DIMOFS_Y )
 			{
 				mouseEvents[i][0] = M_DELTAY;
 				mouseEvents[i][1] = polled_didod[i].dwData;
-				Sys_QueEvent( SE_MOUSE, 0, polled_didod[i].dwData, 0, NULL, 0 );
+				Sys_QueEvent( SE_MOUSE, 0, polled_didod[i].dwData, 0, nullptr, 0 );
 			}
 			else if( diaction == DIMOFS_Z )
 			{
@@ -715,8 +715,8 @@ int Sys_PollMouseInputEvents( int mouseEvents[MAX_MOUSE_EVENTS][2] )
 					const int iterations = abs( value );
 					for( int i = 0; i < iterations; i++ )
 					{
-						Sys_QueEvent( SE_KEY, key, true, 0, NULL, 0 );
-						Sys_QueEvent( SE_KEY, key, false, 0, NULL, 0 );
+						Sys_QueEvent( SE_KEY, key, true, 0, nullptr, 0 );
+						Sys_QueEvent( SE_KEY, key, false, 0, nullptr, 0 );
 					}
 				}
 			}
@@ -870,16 +870,16 @@ bool idJoystickWin32::Init()
 	
 	// setup the timer that the high frequency thread will wait on
 	// to fire every 4 msec
-	timer = CreateWaitableTimer( NULL, FALSE, "JoypadTimer" );
+	timer = CreateWaitableTimer( nullptr, FALSE, "JoypadTimer" );
 	LARGE_INTEGER dueTime;
 	dueTime.QuadPart = -1;
-	if( !SetWaitableTimer( timer, &dueTime, 4, NULL, NULL, FALSE ) )
+	if( !SetWaitableTimer( timer, &dueTime, 4, nullptr, nullptr, FALSE ) )
 	{
 		idLib::FatalError( "SetWaitableTimer for joystick failed" );
 	}
 	
 	// spawn the high frequency joystick reading thread
-	Sys_CreateThread( ( xthread_t )JoystickSamplingThread, NULL, THREAD_HIGHEST, "Joystick", CORE_1A );
+	Sys_CreateThread( ( xthread_t )JoystickSamplingThread, nullptr, THREAD_HIGHEST, "Joystick", CORE_1A );
 	
 	return false;
 }
@@ -960,7 +960,7 @@ void idJoystickWin32::PostInputEvent( int inputDeviceNum, int event, int value, 
 		if( joyAxis[inputDeviceNum][axis] != percent )
 		{
 			joyAxis[inputDeviceNum][axis] = percent;
-			Sys_QueEvent( SE_JOYSTICK, axis, percent, 0, NULL, inputDeviceNum );
+			Sys_QueEvent( SE_JOYSTICK, axis, percent, 0, nullptr, inputDeviceNum );
 		}
 	}
 	
@@ -1110,7 +1110,7 @@ void idJoystickWin32::PushButton( int inputDeviceNum, int key, bool value )
 	if( buttonStates[inputDeviceNum][key] != value )
 	{
 		buttonStates[inputDeviceNum][key] = value;
-		Sys_QueEvent( SE_KEY, key, value, 0, NULL, inputDeviceNum );
+		Sys_QueEvent( SE_KEY, key, value, 0, nullptr, inputDeviceNum );
 	}
 }
 

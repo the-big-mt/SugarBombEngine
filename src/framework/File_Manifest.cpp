@@ -46,7 +46,7 @@ idPreloadManifest::LoadManifest
 bool idPreloadManifest::LoadManifest( const char* fileName )
 {
 	idFile* inFile = fileSystem->OpenFileReadMemory( fileName );
-	if( inFile != NULL )
+	if( inFile != nullptr )
 	{
 		int numEntries;
 		inFile->ReadBig( numEntries );
@@ -77,7 +77,7 @@ idFileManifest::LoadManifest
 bool idFileManifest::LoadManifest( const char* _fileName )
 {
 	idFile* file = fileSystem->OpenFileRead( _fileName , false );
-	if( file != NULL )
+	if( file != nullptr )
 	{
 		return LoadManifestFromFile( file );
 	}
@@ -93,7 +93,7 @@ idFileManifest::LoadManifestFromFile
 */
 bool idFileManifest::LoadManifestFromFile( idFile* file )
 {
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		return false;
 	}
@@ -105,7 +105,7 @@ bool idFileManifest::LoadManifestFromFile( idFile* file )
 	for( int i = 0; i < num; i++ )
 	{
 		file->ReadString( cacheTable[ i ] );
-		//if ( FindFile( cacheTable[ i ].filename ) == NULL ) {
+		//if ( FindFile( cacheTable[ i ].filename ) == nullptr ) {
 		// we only care about the first usage
 		const int key = cacheHash.GenerateKey( cacheTable[ i ], false );
 		cacheHash.Add( key, i );
@@ -123,7 +123,7 @@ idFileManifest::WriteManifestFile
 void idFileManifest::WriteManifestFile( const char* fileName )
 {
 	idFile* file = fileSystem->OpenFileWrite( fileName );
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		return;
 	}
@@ -145,7 +145,7 @@ idPreloadManifest::WriteManifestFile
 void idPreloadManifest::WriteManifest( const char* fileName )
 {
 	idFile* file = fileSystem->OpenFileWrite( fileName, "fs_savepath" );
-	if( file != NULL )
+	if( file != nullptr )
 	{
 		WriteManifestToFile( file );
 		delete file;
@@ -160,7 +160,7 @@ idFileManifest::FindFile
 int idFileManifest::FindFile( const char* fileName )
 {
 	const int key = cacheHash.GenerateKey( fileName, false );
-	for( int index = cacheHash.GetFirst( key ); index != idHashIndex::NULL_INDEX; index = cacheHash.GetNext( index ) )
+	for( int index = cacheHash.GetFirst( key ); index != idHashIndex::nullptr_INDEX; index = cacheHash.GetNext( index ) )
 	{
 		if( idStr::Icmp( cacheTable[ index ], fileName ) == 0 )
 		{
@@ -209,7 +209,7 @@ idFileManifest::AddFile
 */
 void idFileManifest::AddFile( const char* fileName )
 {
-	//if ( FindFile( fileName ) == NULL ) {
+	//if ( FindFile( fileName ) == nullptr ) {
 	// we only care about the first usage
 	const int key = cacheHash.GenerateKey( fileName, false );
 	int idx = cacheTable.Append( fileName );

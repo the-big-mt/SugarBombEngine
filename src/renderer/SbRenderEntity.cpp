@@ -50,22 +50,22 @@ idRenderEntityLocal::idRenderEntityLocal()
 	memset( &parms, 0, sizeof( parms ) );
 	memset( modelMatrix, 0, sizeof( modelMatrix ) );
 	
-	world					= NULL;
+	world					= nullptr;
 	index					= 0;
 	lastModifiedFrameNum	= 0;
 	archived				= false;
-	dynamicModel			= NULL;
+	dynamicModel			= nullptr;
 	dynamicModelFrameCount	= 0;
-	cachedDynamicModel		= NULL;
+	cachedDynamicModel		= nullptr;
 	localReferenceBounds	= bounds_zero;
 	globalReferenceBounds	= bounds_zero;
 	viewCount				= 0;
-	viewEntity				= NULL;
-	decals					= NULL;
-	overlays				= NULL;
-	entityRefs				= NULL;
-	firstInteraction		= NULL;
-	lastInteraction			= NULL;
+	viewEntity				= nullptr;
+	decals					= nullptr;
+	overlays				= nullptr;
+	entityRefs				= nullptr;
+	firstInteraction		= nullptr;
+	lastInteraction			= nullptr;
 	needsPortalSky			= false;
 }
 
@@ -105,20 +105,20 @@ idRenderLightLocal::idRenderLightLocal()
 	memset( lightProject, 0, sizeof( lightProject ) );
 	
 	lightHasMoved			= false;
-	world					= NULL;
+	world					= nullptr;
 	index					= 0;
 	areaNum					= 0;
 	lastModifiedFrameNum	= 0;
 	archived				= false;
-	lightShader				= NULL;
-	falloffImage			= NULL;
+	lightShader				= nullptr;
+	falloffImage			= nullptr;
 	globalLightOrigin		= vec3_zero;
 	viewCount				= 0;
-	viewLight				= NULL;
-	references				= NULL;
-	foggedPortals			= NULL;
-	firstInteraction		= NULL;
-	lastInteraction			= NULL;
+	viewLight				= nullptr;
+	references				= nullptr;
+	foggedPortals			= nullptr;
+	firstInteraction		= nullptr;
+	lastInteraction			= nullptr;
 	
 	baseLightProject.Zero();
 	inverseBaseLightProject.Zero();
@@ -147,18 +147,18 @@ void idRenderEntityLocal::ReadFromDemoFile( class idDemoFile* f )
 	int i;
 	renderEntity_t ent;
 	/* Initialize Pointers */
-	decals = NULL;
-	overlays = NULL;
-	dynamicModel = NULL;
-	ent.referenceShader = NULL;
-	ent.referenceSound = NULL;
-	ent.hModel = NULL;
-	ent.customSkin = NULL;
-	ent.customShader = NULL;
-	ent.joints = NULL;
-	ent.callback = NULL;
-	ent.callbackData = NULL;
-	ent.remoteRenderView = NULL;
+	decals = nullptr;
+	overlays = nullptr;
+	dynamicModel = nullptr;
+	ent.referenceShader = nullptr;
+	ent.referenceSound = nullptr;
+	ent.hModel = nullptr;
+	ent.customSkin = nullptr;
+	ent.customShader = nullptr;
+	ent.joints = nullptr;
+	ent.callback = nullptr;
+	ent.callbackData = nullptr;
+	ent.remoteRenderView = nullptr;
 	
 	f->ReadInt( index );
 	f->ReadInt( dynamicModelFrameCount );
@@ -179,7 +179,7 @@ void idRenderEntityLocal::ReadFromDemoFile( class idDemoFile* f )
 	for( i = 0; i < MAX_RENDERENTITY_GUI; i++ )
 	{
 		f->ReadInt( ( int& )ent.gui[ i ] );
-		ent.gui[ i ] = NULL;
+		ent.gui[ i ] = nullptr;
 	}
 	f->ReadInt( i ); //( int& )ent.remoteRenderView
 	f->ReadInt( ent.numJoints );
@@ -191,25 +191,25 @@ void idRenderEntityLocal::ReadFromDemoFile( class idDemoFile* f )
 	f->ReadBool( ent.weaponDepthHack );
 	f->ReadInt( ent.forceUpdate );
 	
-	const char* declName = NULL;
+	const char* declName = nullptr;
 	
 	declName = f->ReadHashString();
-	ent.customShader = ( declName[ 0 ] != 0 ) ? declManager->FindMaterial( declName ) : NULL;
+	ent.customShader = ( declName[ 0 ] != 0 ) ? declManager->FindMaterial( declName ) : nullptr;
 	
 	declName = f->ReadHashString();
-	ent.referenceShader = ( declName[ 0 ] != 0 ) ? declManager->FindMaterial( declName ) : NULL;
+	ent.referenceShader = ( declName[ 0 ] != 0 ) ? declManager->FindMaterial( declName ) : nullptr;
 	
 	declName = f->ReadHashString();
-	ent.customSkin = ( declName[ 0 ] != 0 ) ? declManager->FindSkin( declName ) : NULL;
+	ent.customSkin = ( declName[ 0 ] != 0 ) ? declManager->FindSkin( declName ) : nullptr;
 	
 	int soundIndex = -1;
 	f->ReadInt( soundIndex );
-	ent.referenceSound = soundIndex != -1 ? common->SW()->EmitterForIndex( soundIndex ) : NULL;
+	ent.referenceSound = soundIndex != -1 ? common->SW()->EmitterForIndex( soundIndex ) : nullptr;
 	
 	const char* mdlName = f->ReadHashString();
-	ent.hModel = ( mdlName[ 0 ] != 0 ) ? renderModelManager->FindModel( mdlName ) : NULL;
+	ent.hModel = ( mdlName[ 0 ] != 0 ) ? renderModelManager->FindModel( mdlName ) : nullptr;
 	
-	/*if( ent.hModel != NULL )
+	/*if( ent.hModel != nullptr )
 	{
 		bool dynamicModel = false;
 		f->ReadBool( dynamicModel );
@@ -257,7 +257,7 @@ void idRenderEntityLocal::ReadFromDemoFile( class idDemoFile* f )
 	}
 	if( r_showDemo.GetBool() )
 	{
-		common->Printf( "DC_UPDATE_ENTITYDEF: %i = %s\n", index, parms.hModel ? parms.hModel->Name() : "NULL" );
+		common->Printf( "DC_UPDATE_ENTITYDEF: %i = %s\n", index, parms.hModel ? parms.hModel->Name() : "nullptr" );
 	}
 }
 void idRenderEntityLocal::WriteToDemoFile( class idDemoFile* f ) const
@@ -331,6 +331,6 @@ void idRenderEntityLocal::WriteToDemoFile( class idDemoFile* f ) const
 	
 	if( r_showDemo.GetBool() )
 	{
-		common->Printf( "write DC_UPDATE_ENTITYDEF: %i = %s\n", index, parms.hModel ? parms.hModel->Name() : "NULL" );
+		common->Printf( "write DC_UPDATE_ENTITYDEF: %i = %s\n", index, parms.hModel ? parms.hModel->Name() : "nullptr" );
 	}
 }

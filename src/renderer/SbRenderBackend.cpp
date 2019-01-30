@@ -570,7 +570,7 @@ void idRenderBackend::BindVariableStageImage( const textureStage_t* texture, con
 		// We make no attempt to optimize for multiple identical cinematics being in view, or
 		// for cinematics going at a lower framerate than the renderer.
 		cin = texture->cinematic->ImageForTime( viewDef->renderView.time[0] + idMath::Ftoi( 1000.0f * viewDef->renderView.shaderParms[11] ) );
-		if( cin.imageY != NULL )
+		if( cin.imageY != nullptr )
 		{
 			GL_SelectTexture( 0 );
 			cin.imageY->Bind();
@@ -581,7 +581,7 @@ void idRenderBackend::BindVariableStageImage( const textureStage_t* texture, con
 			// DG: imageY is only used for bink videos (with libbinkdec), so the bink shader must be used
 			renderProgManager.BindShader_Bink();
 		}
-		else if( cin.image != NULL )
+		else if( cin.image != nullptr )
 		{
 			// Carl: A single RGB image works better with the FFMPEG BINK codec.
 			GL_SelectTexture( 0 );
@@ -610,7 +610,7 @@ void idRenderBackend::BindVariableStageImage( const textureStage_t* texture, con
 	else
 	{
 		// FIXME: see why image is invalid
-		if( texture->image != NULL )
+		if( texture->image != nullptr )
 		{
 			texture->image->Bind();
 		}
@@ -635,7 +635,7 @@ void idRenderBackend::PrepareStageTexturing( const shaderStage_t* pStage,  const
 	
 		// see if there is also a bump map specified
 		const shaderStage_t* bumpStage = surf->material->GetBumpStage();
-		if( bumpStage != NULL )
+		if( bumpStage != nullptr )
 		{
 			// per-pixel reflection mapping with bump mapping
 			GL_SelectTexture( 1 );
@@ -803,7 +803,7 @@ void idRenderBackend::FinishStageTexturing( const shaderStage_t* pStage, const d
 	{
 		// see if there is also a bump map specified
 		const shaderStage_t* bumpStage = surf->material->GetBumpStage();
-		if( bumpStage != NULL )
+		if( bumpStage != nullptr )
 		{
 			// per-pixel reflection mapping with bump mapping
 			GL_SelectTexture( 0 );
@@ -1082,7 +1082,7 @@ void idRenderBackend::FillDepthBufferFast( drawSurf_t** drawSurfs, int numDrawSu
 	}
 	
 	// if we are just doing 2D rendering, no need to fill the depth buffer
-	if( viewDef->viewEntitys == NULL )
+	if( viewDef->viewEntitys == nullptr )
 	{
 		return;
 	}
@@ -1091,7 +1091,7 @@ void idRenderBackend::FillDepthBufferFast( drawSurf_t** drawSurfs, int numDrawSu
 	renderLog.OpenBlock( "RB_FillDepthBufferFast" );
 	
 	// force MVP change on first surface
-	currentSpace = NULL;
+	currentSpace = nullptr;
 	
 	// draw all the subview surfaces, which will already be at the start of the sorted list,
 	// with the general purpose path
@@ -1234,7 +1234,7 @@ void idRenderBackend::SetupInteractionStage( const shaderStage_t* surfaceStage, 
 		matrix[1][3] = 0.0f;
 	}
 	
-	if( color != NULL )
+	if( color != nullptr )
 	{
 		for( int i = 0; i < 4; i++ )
 		{
@@ -1253,19 +1253,19 @@ idRenderBackend::DrawSingleInteraction
 */
 void idRenderBackend::DrawSingleInteraction( drawInteraction_t* din )
 {
-	if( din->bumpImage == NULL )
+	if( din->bumpImage == nullptr )
 	{
 		// stage wasn't actually an interaction
 		return;
 	}
 	
-	if( din->diffuseImage == NULL || r_skipDiffuse.GetBool() )
+	if( din->diffuseImage == nullptr || r_skipDiffuse.GetBool() )
 	{
 		// this isn't a YCoCg black, but it doesn't matter, because
 		// the diffuseColor will also be 0
 		din->diffuseImage = globalImages->blackImage;
 	}
-	if( din->specularImage == NULL || r_skipSpecular.GetBool() || din->ambientLight )
+	if( din->specularImage == nullptr || r_skipSpecular.GetBool() || din->ambientLight )
 	{
 		din->specularImage = globalImages->blackImage;
 	}
@@ -1355,7 +1355,7 @@ With added sorting and trivial path work.
 */
 void idRenderBackend::RenderInteractions( const drawSurf_t* surfList, const viewLight_t* vLight, int depthFunc, bool performStencilTest, bool useLightDepthBounds )
 {
-	if( surfList == NULL )
+	if( surfList == nullptr )
 	{
 		return;
 	}
@@ -1400,7 +1400,7 @@ void idRenderBackend::RenderInteractions( const drawSurf_t* surfList, const view
 	static const int MAX_COMPLEX_INTERACTIONS_PER_LIGHT = 256;
 	idStaticList< const drawSurf_t*, MAX_INTERACTIONS_PER_LIGHT > allSurfaces;
 	idStaticList< const drawSurf_t*, MAX_COMPLEX_INTERACTIONS_PER_LIGHT > complexSurfaces;
-	for( const drawSurf_t* walk = surfList; walk != NULL; walk = walk->nextOnLight )
+	for( const drawSurf_t* walk = surfList; walk != nullptr; walk = walk->nextOnLight )
 	{
 	
 		// make sure the triangle culling is done
@@ -1556,7 +1556,7 @@ void idRenderBackend::RenderInteractions( const drawSurf_t* surfList, const view
 		RB_SetupForFastPathInteractions( diffuseColor, specularColor );
 		
 		// even if the space does not change between light stages, each light stage may need a different lightTextureMatrix baked in
-		currentSpace = NULL;
+		currentSpace = nullptr;
 		
 		for( int sortedSurfNum = 0; sortedSurfNum < allSurfaces.Num(); sortedSurfNum++ )
 		{
@@ -1782,9 +1782,9 @@ void idRenderBackend::RenderInteractions( const drawSurf_t* surfList, const view
 			
 			renderLog.OpenBlock( surf->material->GetName() );
 			
-			inter.bumpImage = NULL;
-			inter.specularImage = NULL;
-			inter.diffuseImage = NULL;
+			inter.bumpImage = nullptr;
+			inter.specularImage = nullptr;
+			inter.diffuseImage = nullptr;
 			inter.diffuseColor[0] = inter.diffuseColor[1] = inter.diffuseColor[2] = inter.diffuseColor[3] = 0;
 			inter.specularColor[0] = inter.specularColor[1] = inter.specularColor[2] = inter.specularColor[3] = 0;
 			
@@ -1820,14 +1820,14 @@ void idRenderBackend::RenderInteractions( const drawSurf_t* surfList, const view
 							break;
 						}
 						// draw any previous interaction
-						if( inter.bumpImage != NULL )
+						if( inter.bumpImage != nullptr )
 						{
 							DrawSingleInteraction( &inter );
 						}
 						inter.bumpImage = surfaceStage->texture.image;
-						inter.diffuseImage = NULL;
-						inter.specularImage = NULL;
-						SetupInteractionStage( surfaceStage, surfaceRegs, NULL, inter.bumpMatrix, NULL );
+						inter.diffuseImage = nullptr;
+						inter.specularImage = nullptr;
+						SetupInteractionStage( surfaceStage, surfaceRegs, nullptr, inter.bumpMatrix, nullptr );
 						break;
 					}
 					case SL_DIFFUSE:
@@ -1838,7 +1838,7 @@ void idRenderBackend::RenderInteractions( const drawSurf_t* surfList, const view
 							break;
 						}
 						// draw any previous interaction
-						if( inter.diffuseImage != NULL )
+						if( inter.diffuseImage != nullptr )
 						{
 							DrawSingleInteraction( &inter );
 						}
@@ -1856,7 +1856,7 @@ void idRenderBackend::RenderInteractions( const drawSurf_t* surfList, const view
 							break;
 						}
 						// draw any previous interaction
-						if( inter.specularImage != NULL )
+						if( inter.specularImage != nullptr )
 						{
 							DrawSingleInteraction( &inter );
 						}
@@ -1922,12 +1922,12 @@ void idRenderBackend::AmbientPass( const drawSurf_t* const* drawSurfs, int numDr
 	}
 	
 	// if we are just doing 2D rendering, no need to fill the depth buffer
-	if( viewDef->viewEntitys == NULL )
+	if( viewDef->viewEntitys == nullptr )
 	{
 		return;
 	}
 	
-	const bool hdrIsActive = ( r_useHDR.GetBool() && globalFramebuffers.hdrFBO != NULL && globalFramebuffers.hdrFBO->IsBound() );
+	const bool hdrIsActive = ( r_useHDR.GetBool() && globalFramebuffers.hdrFBO != nullptr && globalFramebuffers.hdrFBO->IsBound() );
 	
 	/*
 	if( fillGbuffer )
@@ -1946,7 +1946,7 @@ void idRenderBackend::AmbientPass( const drawSurf_t* const* drawSurfs, int numDr
 	// GL_StartDepthPass( backEnd.viewDef->scissor );
 	
 	// force MVP change on first surface
-	currentSpace = NULL;
+	currentSpace = nullptr;
 	
 	// draw all the subview surfaces, which will already be at the start of the sorted list,
 	// with the general purpose path
@@ -2173,9 +2173,9 @@ void idRenderBackend::AmbientPass( const drawSurf_t* const* drawSurfs, int numDr
 		
 		drawInteraction_t inter = {};
 		inter.surf = drawSurf;
-		inter.bumpImage = NULL;
-		inter.specularImage = NULL;
-		inter.diffuseImage = NULL;
+		inter.bumpImage = nullptr;
+		inter.specularImage = nullptr;
+		inter.diffuseImage = nullptr;
 		
 		inter.diffuseColor[0] = inter.diffuseColor[1] = inter.diffuseColor[2] = inter.diffuseColor[3] = 1;
 		inter.specularColor[0] = inter.specularColor[1] = inter.specularColor[2] = inter.specularColor[3] = 0;
@@ -2208,15 +2208,15 @@ void idRenderBackend::AmbientPass( const drawSurf_t* const* drawSurfs, int numDr
 						break;
 					}
 					// draw any previous interaction
-					if( inter.bumpImage != NULL )
+					if( inter.bumpImage != nullptr )
 					{
 						DrawSingleInteraction( &inter );
 					}
 					inter.bumpImage = surfaceStage->texture.image;
-					inter.diffuseImage = NULL;
-					inter.specularImage = NULL;
-					SetupInteractionStage( surfaceStage, surfaceRegs, NULL,
-										   inter.bumpMatrix, NULL );
+					inter.diffuseImage = nullptr;
+					inter.specularImage = nullptr;
+					SetupInteractionStage( surfaceStage, surfaceRegs, nullptr,
+										   inter.bumpMatrix, nullptr );
 					break;
 				}
 				
@@ -2229,7 +2229,7 @@ void idRenderBackend::AmbientPass( const drawSurf_t* const* drawSurfs, int numDr
 					}
 					
 					// draw any previous interaction
-					if( inter.diffuseImage != NULL )
+					if( inter.diffuseImage != nullptr )
 					{
 						DrawSingleInteraction( &inter );
 					}
@@ -2249,7 +2249,7 @@ void idRenderBackend::AmbientPass( const drawSurf_t* const* drawSurfs, int numDr
 						break;
 					}
 					// draw any previous interaction
-					if( inter.specularImage != NULL )
+					if( inter.specularImage != nullptr )
 					{
 						DrawSingleInteraction( &inter );
 					}
@@ -2325,7 +2325,7 @@ void idRenderBackend::StencilShadowPass( const drawSurf_t* drawSurfs, const view
 		return;
 	}
 	
-	if( drawSurfs == NULL )
+	if( drawSurfs == nullptr )
 	{
 		return;
 	}
@@ -2373,9 +2373,9 @@ void idRenderBackend::StencilShadowPass( const drawSurf_t* drawSurfs, const view
 	
 	
 	// process the chain of shadows with the current rendering state
-	currentSpace = NULL;
+	currentSpace = nullptr;
 	
-	for( const drawSurf_t* drawSurf = drawSurfs; drawSurf != NULL; drawSurf = drawSurf->nextOnLight )
+	for( const drawSurf_t* drawSurf = drawSurfs; drawSurf != nullptr; drawSurf = drawSurf->nextOnLight )
 	{
 		if( drawSurf->scissorRect.IsEmpty() )
 		{
@@ -2502,7 +2502,7 @@ void idRenderBackend::StencilShadowPass( const drawSurf_t* drawSurfs, const view
 			const uint64 frameNum = ( int )( vbHandle >> VERTCACHE_FRAME_SHIFT ) & VERTCACHE_FRAME_MASK;
 			if( frameNum != ( ( vertexCache.currentFrame - 1 ) & VERTCACHE_FRAME_MASK ) )
 			{
-				idLib::Warning( "RB_DrawElementsWithCounters, vertexBuffer == NULL" );
+				idLib::Warning( "RB_DrawElementsWithCounters, vertexBuffer == nullptr" );
 				continue;
 			}
 			vertexBuffer = &vertexCache.frameData[vertexCache.drawListNum].vertexBuffer;
@@ -2521,7 +2521,7 @@ void idRenderBackend::StencilShadowPass( const drawSurf_t* drawSurfs, const view
 			const uint64 frameNum = ( int )( ibHandle >> VERTCACHE_FRAME_SHIFT ) & VERTCACHE_FRAME_MASK;
 			if( frameNum != ( ( vertexCache.currentFrame - 1 ) & VERTCACHE_FRAME_MASK ) )
 			{
-				idLib::Warning( "RB_DrawElementsWithCounters, indexBuffer == NULL" );
+				idLib::Warning( "RB_DrawElementsWithCounters, indexBuffer == nullptr" );
 				continue;
 			}
 			indexBuffer = &vertexCache.frameData[vertexCache.drawListNum].indexBuffer;
@@ -2544,7 +2544,7 @@ void idRenderBackend::StencilShadowPass( const drawSurf_t* drawSurfs, const view
 			idJointBuffer jointBuffer;
 			if( !vertexCache.GetJointBuffer( drawSurf->jointCache, &jointBuffer ) )
 			{
-				idLib::Warning( "RB_DrawElementsWithCounters, jointBuffer == NULL" );
+				idLib::Warning( "RB_DrawElementsWithCounters, jointBuffer == nullptr" );
 				continue;
 			}
 			assert( ( jointBuffer.GetOffset() & ( glConfig.uniformBufferOffsetAlignment - 1 ) ) == 0 );
@@ -2847,7 +2847,7 @@ void idRenderBackend::ShadowMapPass( const drawSurf_t* drawSurfs, const viewLigh
 		return;
 	}
 	
-	if( drawSurfs == NULL )
+	if( drawSurfs == nullptr )
 	{
 		return;
 	}
@@ -3192,9 +3192,9 @@ void idRenderBackend::ShadowMapPass( const drawSurf_t* drawSurfs, const viewLigh
 	glClear( GL_DEPTH_BUFFER_BIT );
 	
 	// process the chain of shadows with the current rendering state
-	currentSpace = NULL;
+	currentSpace = nullptr;
 	
-	for( const drawSurf_t* drawSurf = drawSurfs; drawSurf != NULL; drawSurf = drawSurf->nextOnLight )
+	for( const drawSurf_t* drawSurf = drawSurfs; drawSurf != nullptr; drawSurf = drawSurf->nextOnLight )
 	{
 	
 #if 1
@@ -3428,7 +3428,7 @@ void idRenderBackend::DrawInteractions( const viewDef_t* _viewDef )
 	//
 	// for each light, perform shadowing and adding
 	//
-	for( const viewLight_t* vLight = viewDef->viewLights; vLight != NULL; vLight = vLight->next )
+	for( const viewLight_t* vLight = viewDef->viewLights; vLight != nullptr; vLight = vLight->next )
 	{
 		// do fogging later
 		if( vLight->lightShader->IsFogLight() )
@@ -3440,7 +3440,7 @@ void idRenderBackend::DrawInteractions( const viewDef_t* _viewDef )
 			continue;
 		}
 		
-		if( vLight->localInteractions == NULL && vLight->globalInteractions == NULL && vLight->translucentInteractions == NULL )
+		if( vLight->localInteractions == nullptr && vLight->globalInteractions == nullptr && vLight->translucentInteractions == nullptr )
 		{
 			continue;
 		}
@@ -3491,14 +3491,14 @@ void idRenderBackend::DrawInteractions( const viewDef_t* _viewDef )
 			// go back from light view to default camera view
 			ResetViewportAndScissorToDefaultCamera( _viewDef );
 			
-			if( vLight->localInteractions != NULL )
+			if( vLight->localInteractions != nullptr )
 			{
 				renderLog.OpenBlock( "Local Light Interactions" );
 				RenderInteractions( vLight->localInteractions, vLight, GLS_DEPTHFUNC_EQUAL, false, useLightDepthBounds );
 				renderLog.CloseBlock();
 			}
 			
-			if( vLight->globalInteractions != NULL )
+			if( vLight->globalInteractions != nullptr )
 			{
 				renderLog.OpenBlock( "Global Light Interactions" );
 				RenderInteractions( vLight->globalInteractions, vLight, GLS_DEPTHFUNC_EQUAL, false, useLightDepthBounds );
@@ -3508,7 +3508,7 @@ void idRenderBackend::DrawInteractions( const viewDef_t* _viewDef )
 		else
 		{
 			// only need to clear the stencil buffer and perform stencil testing if there are shadows
-			const bool performStencilTest = ( vLight->globalShadows != NULL || vLight->localShadows != NULL ) && !r_useShadowMapping.GetBool();
+			const bool performStencilTest = ( vLight->globalShadows != nullptr || vLight->localShadows != nullptr ) && !r_useShadowMapping.GetBool();
 			
 			// mirror flips the sense of the stencil select, and I don't want to risk accidentally breaking it
 			// in the normal case, so simply disable the stencil select in the mirror case
@@ -3544,28 +3544,28 @@ void idRenderBackend::DrawInteractions( const viewDef_t* _viewDef )
 				}
 			}
 			
-			if( vLight->globalShadows != NULL )
+			if( vLight->globalShadows != nullptr )
 			{
 				renderLog.OpenBlock( "Global Light Shadows" );
 				StencilShadowPass( vLight->globalShadows, vLight );
 				renderLog.CloseBlock();
 			}
 			
-			if( vLight->localInteractions != NULL )
+			if( vLight->localInteractions != nullptr )
 			{
 				renderLog.OpenBlock( "Local Light Interactions" );
 				RenderInteractions( vLight->localInteractions, vLight, GLS_DEPTHFUNC_EQUAL, performStencilTest, useLightDepthBounds );
 				renderLog.CloseBlock();
 			}
 			
-			if( vLight->localShadows != NULL )
+			if( vLight->localShadows != nullptr )
 			{
 				renderLog.OpenBlock( "Local Light Shadows" );
 				StencilShadowPass( vLight->localShadows, vLight );
 				renderLog.CloseBlock();
 			}
 			
-			if( vLight->globalInteractions != NULL )
+			if( vLight->globalInteractions != nullptr )
 			{
 				renderLog.OpenBlock( "Global Light Interactions" );
 				RenderInteractions( vLight->globalInteractions, vLight, GLS_DEPTHFUNC_EQUAL, performStencilTest, useLightDepthBounds );
@@ -3574,7 +3574,7 @@ void idRenderBackend::DrawInteractions( const viewDef_t* _viewDef )
 		}
 		// RB end
 		
-		if( vLight->translucentInteractions != NULL && !r_skipTranslucent.GetBool() )
+		if( vLight->translucentInteractions != nullptr && !r_skipTranslucent.GetBool() )
 		{
 			renderLog.OpenBlock( "Translucent Interactions" );
 			
@@ -3648,7 +3648,7 @@ int idRenderBackend::DrawShaderPasses( const drawSurf_t* const* const drawSurfs,
 	
 	GL_SelectTexture( 0 );
 	
-	currentSpace = ( const viewEntity_t* )1;	// using NULL makes /analyze think surf->space needs to be checked...
+	currentSpace = ( const viewEntity_t* )1;	// using nullptr makes /analyze think surf->space needs to be checked...
 	float currentGuiStereoOffset = 0.0f;
 	
 	int i = 0;
@@ -3806,7 +3806,7 @@ int idRenderBackend::DrawShaderPasses( const drawSurf_t* const* const drawSurfs,
 			
 			// see if we are a new-style stage
 			newShaderStage_t* newStage = pStage->newStage;
-			if( newStage != NULL )
+			if( newStage != nullptr )
 			{
 				//--------------------------
 				//
@@ -3847,7 +3847,7 @@ int idRenderBackend::DrawShaderPasses( const drawSurf_t* const* const drawSurfs,
 				for( int j = 0; j < newStage->numFragmentProgramImages; j++ )
 				{
 					idImage* image = newStage->fragmentProgramImages[j];
-					if( image != NULL )
+					if( image != nullptr )
 					{
 						GL_SelectTexture( j );
 						image->Bind();
@@ -4031,9 +4031,9 @@ idRenderBackend::T_BlendLight
 */
 void idRenderBackend::T_BlendLight( const drawSurf_t* drawSurfs, const viewLight_t* vLight )
 {
-	currentSpace = NULL;
+	currentSpace = nullptr;
 	
-	for( const drawSurf_t* drawSurf = drawSurfs; drawSurf != NULL; drawSurf = drawSurf->nextOnLight )
+	for( const drawSurf_t* drawSurf = drawSurfs; drawSurf != nullptr; drawSurf = drawSurf->nextOnLight )
 	{
 		if( drawSurf->scissorRect.IsEmpty() )
 		{
@@ -4086,7 +4086,7 @@ mode to the framebuffer, instead of interacting with the surface texture
 */
 void idRenderBackend::BlendLight( const drawSurf_t* drawSurfs, const drawSurf_t* drawSurfs2, const viewLight_t* vLight )
 {
-	if( drawSurfs == NULL )
+	if( drawSurfs == nullptr )
 	{
 		return;
 	}
@@ -4160,9 +4160,9 @@ idRenderBackend::T_BasicFog
 */
 void idRenderBackend::T_BasicFog( const drawSurf_t* drawSurfs, const idPlane fogPlanes[4], const idRenderMatrix* inverseBaseLightProject )
 {
-	currentSpace = NULL;
+	currentSpace = nullptr;
 	
-	for( const drawSurf_t* drawSurf = drawSurfs; drawSurf != NULL; drawSurf = drawSurf->nextOnLight )
+	for( const drawSurf_t* drawSurf = drawSurfs; drawSurf != nullptr; drawSurf = drawSurf->nextOnLight )
 	{
 		if( drawSurf->scissorRect.IsEmpty() )
 		{
@@ -4184,7 +4184,7 @@ void idRenderBackend::T_BasicFog( const drawSurf_t* drawSurfs, const idPlane fog
 		if( drawSurf->space != currentSpace )
 		{
 			idPlane localFogPlanes[4];
-			if( inverseBaseLightProject == NULL )
+			if( inverseBaseLightProject == nullptr )
 			{
 				RB_SetMVP( drawSurf->space->mvp );
 				for( int i = 0; i < 4; i++ )
@@ -4208,7 +4208,7 @@ void idRenderBackend::T_BasicFog( const drawSurf_t* drawSurfs, const idPlane fog
 			SetVertexParm( RENDERPARM_TEXGEN_1_T, localFogPlanes[2].ToFloatPtr() );
 			SetVertexParm( RENDERPARM_TEXGEN_1_S, localFogPlanes[3].ToFloatPtr() );
 			
-			currentSpace = ( inverseBaseLightProject == NULL ) ? drawSurf->space : NULL;
+			currentSpace = ( inverseBaseLightProject == nullptr ) ? drawSurf->space : nullptr;
 		}
 		
 		if( drawSurf->jointCache )
@@ -4302,8 +4302,8 @@ void idRenderBackend::FogPass( const drawSurf_t* drawSurfs,  const drawSurf_t* d
 	
 	// draw it
 	GL_State( GLS_DEPTHMASK | GLS_SRCBLEND_SRC_ALPHA | GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA | GLS_DEPTHFUNC_EQUAL );
-	T_BasicFog( drawSurfs, fogPlanes, NULL );
-	T_BasicFog( drawSurfs2, fogPlanes, NULL );
+	T_BasicFog( drawSurfs, fogPlanes, nullptr );
+	T_BasicFog( drawSurfs2, fogPlanes, nullptr );
 	
 	// the light frustum bounding planes aren't in the depth buffer, so use depthfunc_less instead
 	// of depthfunc_equal
@@ -4339,9 +4339,9 @@ void idRenderBackend::FogAllLights()
 	renderLog.OpenBlock( "RB_FogAllLights" );
 	
 	// force fog plane to recalculate
-	currentSpace = NULL;
+	currentSpace = nullptr;
 	
-	for( viewLight_t* vLight = viewDef->viewLights; vLight != NULL; vLight = vLight->next )
+	for( viewLight_t* vLight = viewDef->viewLights; vLight != nullptr; vLight = vLight->next )
 	{
 		if( vLight->lightShader->IsFogLight() )
 		{
@@ -4731,7 +4731,7 @@ void idRenderBackend::DrawScreenSpaceAmbientOcclusion( const viewDef_t* _viewDef
 	
 	GL_SelectTexture( 0 );
 	globalImages->blackImage->Bind();
-	backEnd.currentSpace = NULL;
+	backEnd.currentSpace = nullptr;
 	
 	drawSurf_t** drawSurfs = ( drawSurf_t** )&backEnd.viewDef->drawSurfs[0];
 	for( int surfNum = 0; surfNum < backEnd.viewDef->numDrawSurfs; surfNum++ )
@@ -4796,7 +4796,7 @@ void idRenderBackend::DrawScreenSpaceAmbientOcclusion( const viewDef_t* _viewDef
 	currentSpace = &viewDef->worldSpace;
 	RB_SetMVP( viewDef->worldSpace.mvp );
 	
-	const bool hdrIsActive = ( r_useHDR.GetBool() && globalFramebuffers.hdrFBO != NULL && globalFramebuffers.hdrFBO->IsBound() );
+	const bool hdrIsActive = ( r_useHDR.GetBool() && globalFramebuffers.hdrFBO != nullptr && globalFramebuffers.hdrFBO->IsBound() );
 	
 	int screenWidth = renderSystem->GetWidth();
 	int screenHeight = renderSystem->GetHeight();
@@ -5029,7 +5029,7 @@ void idRenderBackend::DrawScreenSpaceGlobalIllumination( const viewDef_t* _viewD
 	currentSpace = &viewDef->worldSpace;
 	RB_SetMVP( viewDef->worldSpace.mvp );
 	
-	const bool hdrIsActive = ( r_useHDR.GetBool() && globalFramebuffers.hdrFBO != NULL && globalFramebuffers.hdrFBO->IsBound() );
+	const bool hdrIsActive = ( r_useHDR.GetBool() && globalFramebuffers.hdrFBO != nullptr && globalFramebuffers.hdrFBO->IsBound() );
 	
 	int screenWidth = renderSystem->GetWidth();
 	int screenHeight = renderSystem->GetHeight();
@@ -5300,7 +5300,7 @@ void idRenderBackend::DrawViewInternal( const viewDef_t* _viewDef, const int ste
 	for( int i = 0; i < numDrawSurfs; i++ )
 	{
 		const drawSurf_t* ds = _viewDef->drawSurfs[ i ];
-		if( ds->material != NULL )
+		if( ds->material != nullptr )
 		{
 			const_cast<idMaterial*>( ds->material )->EnsureNotPurged();
 		}
@@ -5427,7 +5427,7 @@ void idRenderBackend::DrawViewInternal( const viewDef_t* _viewDef, const int ste
 	{
 		renderLog.OpenMainBlock( MRB_DRAW_SHADER_PASSES );
 		float guiScreenOffset;
-		if( _viewDef->viewEntitys != NULL )
+		if( _viewDef->viewEntitys != nullptr )
 		{
 			// guiScreenOffset will be 0 in non-gui views
 			guiScreenOffset = 0.0f;
@@ -5596,7 +5596,7 @@ void idRenderBackend::MotionBlur()
 	GL_Color( 0, 0, 0, 0 );
 	GL_SelectTexture( 0 );
 	globalImages->blackImage->Bind();
-	currentSpace = NULL;
+	currentSpace = nullptr;
 	
 	drawSurf_t** drawSurfs = ( drawSurf_t** )&viewDef->drawSurfs[0];
 	for( int surfNum = 0; surfNum < viewDef->numDrawSurfs; surfNum++ )
@@ -5708,7 +5708,7 @@ void idRenderBackend::DrawView( const void* data, const int stereoEye )
 		return;
 	}
 	
-	// skip render context sets the wgl context to NULL,
+	// skip render context sets the wgl context to nullptr,
 	// which should factor out the API cost, under the assumption
 	// that all gl calls just return if the context isn't valid
 	

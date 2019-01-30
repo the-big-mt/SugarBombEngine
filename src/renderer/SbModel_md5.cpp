@@ -110,13 +110,13 @@ idMD5Mesh::idMD5Mesh
 */
 idMD5Mesh::idMD5Mesh()
 {
-	shader				= NULL;
+	shader				= nullptr;
 	numVerts			= 0;
 	numTris				= 0;
-	meshJoints			= NULL;
+	meshJoints			= nullptr;
 	numMeshJoints		= 0;
 	maxJointVertDist	= 0.0f;
-	deformInfo			= NULL;
+	deformInfo			= nullptr;
 	surfaceNum			= 0;
 }
 
@@ -127,15 +127,15 @@ idMD5Mesh::~idMD5Mesh
 */
 idMD5Mesh::~idMD5Mesh()
 {
-	if( meshJoints != NULL )
+	if( meshJoints != nullptr )
 	{
 		Mem_Free( meshJoints );
-		meshJoints = NULL;
+		meshJoints = nullptr;
 	}
-	if( deformInfo != NULL )
+	if( deformInfo != nullptr )
 	{
 		R_FreeDeformInfo( deformInfo );
-		deformInfo = NULL;
+		deformInfo = nullptr;
 	}
 }
 
@@ -533,7 +533,7 @@ void idMD5Mesh::UpdateSurface( const struct renderEntity_s* ent, const idJointMa
 	
 	surf->shader = shader;
 	
-	if( surf->geometry != NULL )
+	if( surf->geometry != nullptr )
 	{
 		// if the number of verts and indexes are the same we can re-use the triangle surface
 		if( surf->geometry->numVerts == deformInfo->numOutputVerts && surf->geometry->numIndexes == deformInfo->numIndexes )
@@ -572,7 +572,7 @@ void idMD5Mesh::UpdateSurface( const struct renderEntity_s* ent, const idJointMa
 	// RB: added check wether GPU skinning is available at all
 	if( r_useGPUSkinning.GetBool() && glConfig.gpuSkinningAvailable )
 	{
-		if( tri->verts != NULL && tri->verts != deformInfo->verts )
+		if( tri->verts != nullptr && tri->verts != deformInfo->verts )
 		{
 			R_FreeStaticTriSurfVerts( tri );
 		}
@@ -583,11 +583,11 @@ void idMD5Mesh::UpdateSurface( const struct renderEntity_s* ent, const idJointMa
 	}
 	else
 	{
-		if( tri->verts == NULL || tri->verts == deformInfo->verts )
+		if( tri->verts == nullptr || tri->verts == deformInfo->verts )
 		{
-			tri->verts = NULL;
+			tri->verts = nullptr;
 			R_AllocStaticTriSurfVerts( tri, deformInfo->numOutputVerts );
-			assert( tri->verts != NULL );	// quiet analyze warning
+			assert( tri->verts != nullptr );	// quiet analyze warning
 			memcpy( tri->verts, deformInfo->verts, deformInfo->numOutputVerts * sizeof( deformInfo->verts[0] ) );	// copy over the texture coordinates
 		}
 		TransformVertsAndTangents( tri->verts, deformInfo->numOutputVerts, deformInfo->verts, entJointsInverted );
@@ -722,7 +722,7 @@ void idRenderModelMD5::ParseJoint( idLexer& parser, idMD5Joint* joint, idJointQu
 	int num = parser.ParseInt();
 	if( num < 0 )
 	{
-		joint->parent = NULL;
+		joint->parent = nullptr;
 	}
 	else
 	{
@@ -786,7 +786,7 @@ bool idRenderModelMD5::LoadBinaryModel( idFile* file, const ID_TIME_T sourceTime
 		}
 		else
 		{
-			joints[i].parent = NULL;
+			joints[i].parent = nullptr;
 		}
 	}
 	
@@ -818,7 +818,7 @@ bool idRenderModelMD5::LoadBinaryModel( idFile* file, const ID_TIME_T sourceTime
 		file->ReadString( materialName );
 		if( materialName.IsEmpty() )
 		{
-			meshes[i].shader = NULL;
+			meshes[i].shader = nullptr;
 		}
 		else
 		{
@@ -881,7 +881,7 @@ bool idRenderModelMD5::LoadBinaryModel( idFile* file, const ID_TIME_T sourceTime
 		{
 			R_AllocStaticTriSurfSilEdges( &tri, deform.numSilEdges );
 			deform.silEdges = tri.silEdges;
-			assert( deform.silEdges != NULL );
+			assert( deform.silEdges != nullptr );
 			for( int j = 0; j < deform.numSilEdges; j++ )
 			{
 				file->ReadBig( deform.silEdges[j].p1 );
@@ -916,7 +916,7 @@ void idRenderModelMD5::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp ) c
 
 	idRenderModelStatic::WriteBinaryModel( file );
 	
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		return;
 	}
@@ -928,7 +928,7 @@ void idRenderModelMD5::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp ) c
 	{
 		file->WriteString( joints[i].name );
 		int offset = -1;
-		if( joints[i].parent != NULL )
+		if( joints[i].parent != nullptr )
 		{
 			offset = joints[i].parent - joints.Ptr();
 		}
@@ -955,7 +955,7 @@ void idRenderModelMD5::WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp ) c
 	for( int i = 0; i < meshes.Num(); i++ )
 	{
 	
-		if( meshes[i].shader != NULL && meshes[i].shader->GetName() != NULL )
+		if( meshes[i].shader != nullptr && meshes[i].shader->GetName() != nullptr )
 		{
 			file->WriteString( meshes[i].shader->GetName() );
 		}
@@ -1131,7 +1131,7 @@ void idRenderModelMD5::LoadModel()
 	}
 	
 	// set the timestamp for reloadmodels
-	fileSystem->ReadFile( name, NULL, &timeStamp );
+	fileSystem->ReadFile( name, nullptr, &timeStamp );
 	
 	common->UpdateLevelLoadPacifier();
 }
@@ -1199,7 +1199,7 @@ transforming all the points
 */
 idBounds idRenderModelMD5::Bounds( const renderEntity_t* ent ) const
 {
-	if( ent == NULL )
+	if( ent == nullptr )
 	{
 		// this is the bounds for the reference pose
 		return bounds;
@@ -1370,10 +1370,10 @@ idRenderModelMD5::InstantiateDynamicModel
 */
 idRenderModel* idRenderModelMD5::InstantiateDynamicModel( const struct renderEntity_s* ent, const viewDef_t* view, idRenderModel* cachedModel )
 {
-	if( cachedModel != NULL && !r_useCachedDynamicModels.GetBool() )
+	if( cachedModel != nullptr && !r_useCachedDynamicModels.GetBool() )
 	{
 		delete cachedModel;
-		cachedModel = NULL;
+		cachedModel = nullptr;
 	}
 	
 	if( purged )
@@ -1384,23 +1384,23 @@ idRenderModel* idRenderModelMD5::InstantiateDynamicModel( const struct renderEnt
 	
 	if( !ent->joints )
 	{
-		common->Printf( "idRenderModelMD5::InstantiateDynamicModel: NULL joints on renderEntity for '%s'\n", Name() );
+		common->Printf( "idRenderModelMD5::InstantiateDynamicModel: nullptr joints on renderEntity for '%s'\n", Name() );
 		delete cachedModel;
-		return NULL;
+		return nullptr;
 	}
 	else if( ent->numJoints != joints.Num() )
 	{
 		common->Printf( "idRenderModelMD5::InstantiateDynamicModel: renderEntity has different number of joints than model for '%s'\n", Name() );
 		delete cachedModel;
-		return NULL;
+		return nullptr;
 	}
 	
 	tr.pc.c_generateMd5++;
 	
 	idRenderModelStatic* staticModel;
-	if( cachedModel != NULL )
+	if( cachedModel != nullptr )
 	{
-		assert( dynamic_cast<idRenderModelStatic*>( cachedModel ) != NULL );
+		assert( dynamic_cast<idRenderModelStatic*>( cachedModel ) != nullptr );
 		assert( idStr::Icmp( cachedModel->Name(), MD5_SnapshotName ) == 0 );
 		staticModel = static_cast<idRenderModelStatic*>( cachedModel );
 	}
@@ -1414,7 +1414,7 @@ idRenderModel* idRenderModelMD5::InstantiateDynamicModel( const struct renderEnt
 	
 	if( r_showSkel.GetInteger() )
 	{
-		if( ( view != NULL ) && ( !r_skipSuppress.GetBool() || !ent->suppressSurfaceInViewID || ( ent->suppressSurfaceInViewID != view->renderView.viewID ) ) )
+		if( ( view != nullptr ) && ( !r_skipSuppress.GetBool() || !ent->suppressSurfaceInViewID || ( ent->suppressSurfaceInViewID != view->renderView.viewID ) ) )
 		{
 			// only draw the skeleton
 			DrawJoints( ent, view );
@@ -1430,7 +1430,7 @@ idRenderModel* idRenderModelMD5::InstantiateDynamicModel( const struct renderEnt
 	
 	// update the GPU joints array
 	const int numInvertedJoints = SIMD_ROUND_JOINTS( joints.Num() );
-	if( staticModel->jointsInverted == NULL )
+	if( staticModel->jointsInverted == nullptr )
 	{
 		staticModel->numInvertedJoints = numInvertedJoints;
 		const int alignment = glConfig.uniformBufferOffsetAlignment;
@@ -1472,13 +1472,13 @@ idRenderModel* idRenderModelMD5::InstantiateDynamicModel( const struct renderEnt
 		{
 			mesh->surfaceNum = staticModel->NumSurfaces();
 			surf = &staticModel->surfaces.Alloc();
-			surf->geometry = NULL;
-			surf->shader = NULL;
+			surf->geometry = nullptr;
+			surf->shader = nullptr;
 			surf->id = i;
 		}
 		
 		mesh->UpdateSurface( ent, ent->joints, staticModel->jointsInverted, surf );
-		assert( surf->geometry != NULL );	// to get around compiler warning
+		assert( surf->geometry != nullptr );	// to get around compiler warning
 		
 		// the deformation of the tangents can be deferred until each surface is added to the view
 		surf->geometry->staticModelWithJoints = staticModel;

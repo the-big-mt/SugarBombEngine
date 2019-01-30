@@ -50,12 +50,12 @@ idMenuScreen_HUD::ShowScreen
 */
 void idMenuScreen_HUD::ShowScreen( const mainMenuTransition_t transitionType )
 {
-	if( menuData != NULL )
+	if( menuData != nullptr )
 	{
 		menuGUI = menuData->GetGUI();
 	}
 	
-	if( menuGUI == NULL )
+	if( menuGUI == nullptr )
 	{
 		return;
 	}
@@ -153,7 +153,7 @@ void idMenuScreen_HUD::ShowScreen( const mainMenuTransition_t transitionType )
 		idSWFScriptVar Call( idSWFScriptObject* thisObject, const idSWFParmList& parms )
 		{
 		
-			if( screen == NULL )
+			if( screen == nullptr )
 			{
 				return idSWFScriptVar();
 			}
@@ -202,7 +202,7 @@ void idMenuScreen_HUD::Update()
 {
 
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	if( player == NULL )
+	if( player == nullptr )
 	{
 		return;
 	}
@@ -233,7 +233,7 @@ void idMenuScreen_HUD::UpdateHealthArmor( idPlayer* player )
 	}
 	
 	idSWFTextInstance* txtVal = playerInfo->GetNestedText( "health", "txtVal" );
-	if( txtVal != NULL )
+	if( txtVal != nullptr )
 	{
 		txtVal->SetText( va( "%d", player->health ) );
 		txtVal->SetStrokeInfo( true, 0.75f, 1.5f );
@@ -261,12 +261,12 @@ void idMenuScreen_HUD::UpdateHealthArmor( idPlayer* player )
 	}
 	
 	txtVal = playerInfo->GetNestedText( "armor", "txtVal" );
-	if( txtVal != NULL )
+	if( txtVal != nullptr )
 	{
 		txtVal->SetText( va( "%d", player->inventory.armor ) );
 		txtVal->SetStrokeInfo( true, 0.75f, 1.5f );
 		
-		if( armorFrame != NULL )
+		if( armorFrame != nullptr )
 		{
 			if( player->inventory.armor == 0 )
 			{
@@ -279,16 +279,16 @@ void idMenuScreen_HUD::UpdateHealthArmor( idPlayer* player )
 		}
 	}
 	
-	if( healthBorder != NULL )
+	if( healthBorder != nullptr )
 	{
 		healthBorder->StopFrame( 100 - player->health + 1 );
 	}
 	
-	if( healthPulse != NULL )
+	if( healthPulse != nullptr )
 	{
 		if( player->healthPulse )
 		{
-			player->StartSound( "snd_healthpulse", SND_CHANNEL_ITEM, 0, false, NULL );
+			player->StartSound( "snd_healthpulse", SND_CHANNEL_ITEM, 0, false, nullptr );
 			player->healthPulse = false;
 			healthPulse->SetVisible( true );
 			healthPulse->PlayFrame( "rollOn" );
@@ -296,7 +296,7 @@ void idMenuScreen_HUD::UpdateHealthArmor( idPlayer* player )
 		
 		if( player->healthTake )
 		{
-			player->StartSound( "snd_healthtake", SND_CHANNEL_ITEM, 0, false, NULL );
+			player->StartSound( "snd_healthtake", SND_CHANNEL_ITEM, 0, false, nullptr );
 			player->healthTake = false;
 			healthPulse->SetVisible( true );
 			healthPulse->PlayFrame( "rollOn" );
@@ -318,7 +318,7 @@ void idMenuScreen_HUD::UpdateStamina( idPlayer* player )
 	}
 	
 	idSWFSpriteInstance* stamSprite = stamina->GetSprite();
-	if( stamSprite != NULL )
+	if( stamSprite != nullptr )
 	{
 	
 		if( common->IsMultiplayer() )
@@ -475,14 +475,14 @@ void idMenuScreen_HUD::UpdateWeaponInfo( idPlayer* player )
 					txtClipSprite->StopFrame( 1 );
 				}
 				
-				if( txtClip != NULL )
+				if( txtClip != nullptr )
 				{
 					txtClip->SetText( playerAmmo );
 					txtClip->SetStrokeInfo( true, 0.75f, 1.5f );
 				}
 			}
 			
-			if( txtAmmo != NULL )
+			if( txtAmmo != nullptr )
 			{
 			
 				if( ammoEmptySprite && txtAmmoSprite )
@@ -520,7 +520,7 @@ void idMenuScreen_HUD::UpdateWeaponInfo( idPlayer* player )
 			
 			idSWFTextInstance* txtAmmo = ammoInfo->GetScriptObject()->GetNestedText( "info", "txtVal" );
 			
-			if( txtAmmo != NULL )
+			if( txtAmmo != nullptr )
 			{
 				txtAmmo->SetText( totalAmmo );
 				txtAmmo->SetStrokeInfo( true, 0.75f, 1.5f );
@@ -545,10 +545,10 @@ void idMenuScreen_HUD::GiveWeapon( idPlayer* player, int weaponIndex )
 	
 	const char* weapnum = va( "def_weapon%d", weaponIndex );
 	const char* weap = player->spawnArgs.GetString( weapnum );
-	if( weap != NULL && *weap != '\0' )
+	if( weap != nullptr && *weap != '\0' )
 	{
 		const idDeclEntityDef* weaponDef = gameLocal.FindEntityDef( weap, false );
-		if( weaponDef != NULL )
+		if( weaponDef != nullptr )
 		{
 			const char* hudIconName = weaponDef->dict.GetString( "hudIcon" );
 			if( hudIconName[ 0 ] == '\0' )
@@ -558,7 +558,7 @@ void idMenuScreen_HUD::GiveWeapon( idPlayer* player, int weaponIndex )
 			}
 			
 			const idMaterial* hudIcon = declManager->FindMaterial( hudIconName, false );
-			if( newWeapon != NULL )
+			if( newWeapon != nullptr )
 			{
 				newWeapon->SetVisible( true );
 				newWeapon->PlayFrame( 2 );
@@ -590,7 +590,7 @@ void idMenuScreen_HUD::UpdatePickupInfo( int index, const idStr& name )
 	}
 	
 	idSWFTextInstance* txtItem = pickupInfo->GetScriptObject()->GetNestedText( va( "item%d", index ), "txtVal" );
-	if( txtItem != NULL )
+	if( txtItem != nullptr )
 	{
 		txtItem->SetText( name );
 		txtItem->SetStrokeInfo( true, 0.6f, 2.0f );
@@ -998,7 +998,7 @@ void idMenuScreen_HUD::ShowRespawnMessage( bool show )
 		respawnMessage->PlayFrame( "rollOn" );
 		
 		idSWFTextInstance* message = respawnMessage->GetScriptObject()->GetNestedText( "info", "txtMessage" );
-		if( message != NULL )
+		if( message != nullptr )
 		{
 			message->tooltip = true;
 			message->SetText( "#str_respawn_message" );
@@ -1028,7 +1028,7 @@ void idMenuScreen_HUD::UpdateWeaponStates( idPlayer* player, bool weaponChanged 
 		return;
 	}
 	
-	if( player == NULL )
+	if( player == nullptr )
 	{
 		return;
 	}
@@ -1138,13 +1138,13 @@ void idMenuScreen_HUD::UpdateWeaponStates( idPlayer* player, bool weaponChanged 
 				}
 				
 				int weapState = 1;
-				const idMaterial* hudIcon = NULL;
+				const idMaterial* hudIcon = nullptr;
 				const char* weapNum = weaponDefNames[ weaponIndex ];
 				const char* weap = player->spawnArgs.GetString( weapNum );
-				if( weap != NULL && *weap != '\0' )
+				if( weap != nullptr && *weap != '\0' )
 				{
 					const idDeclEntityDef* weaponDef = gameLocal.FindEntityDef( weap, false );
-					if( weaponDef != NULL )
+					if( weaponDef != nullptr )
 					{
 						hudIcon = declManager->FindMaterial( weaponDef->dict.GetString( "hudIcon" ), false );
 						if( i == 0 )
@@ -1195,7 +1195,7 @@ void idMenuScreen_HUD::UpdateWeaponStates( idPlayer* player, bool weaponChanged 
 	{
 	
 		bool hasWeapons = false;
-		const idMaterial* hudIcon = NULL;
+		const idMaterial* hudIcon = nullptr;
 		
 		for( int i = 0; i < MAX_WEAPONS; i++ )
 		{
@@ -1205,7 +1205,7 @@ void idMenuScreen_HUD::UpdateWeaponStates( idPlayer* player, bool weaponChanged 
 			{
 				hasWeapons = true;
 				const char* weap = player->spawnArgs.GetString( weapnum );
-				if( weap != NULL && *weap != '\0' )
+				if( weap != nullptr && *weap != '\0' )
 				{
 					weapstate++;
 				}
@@ -1213,7 +1213,7 @@ void idMenuScreen_HUD::UpdateWeaponStates( idPlayer* player, bool weaponChanged 
 				{
 				
 					const idDeclEntityDef* weaponDef = gameLocal.FindEntityDef( weap, false );
-					if( weaponDef != NULL )
+					if( weaponDef != nullptr )
 					{
 						hudIcon = declManager->FindMaterial( weaponDef->dict.GetString( "hudIcon" ), false );
 						displayName = weaponDef->dict.GetString( "display_name" );
@@ -1241,7 +1241,7 @@ void idMenuScreen_HUD::UpdateWeaponStates( idPlayer* player, bool weaponChanged 
 		
 		if( weaponImg )
 		{
-			if( weaponChanged && hudIcon != NULL )
+			if( weaponChanged && hudIcon != nullptr )
 			{
 				weaponImg->SetVisible( true );
 				weaponImg->PlayFrame( 2 );
@@ -1249,7 +1249,7 @@ void idMenuScreen_HUD::UpdateWeaponStates( idPlayer* player, bool weaponChanged 
 				idSWFSpriteInstance* topImg = weaponImg->GetScriptObject()->GetNestedSprite( "topImg" );
 				idSWFSpriteInstance* botImg = weaponImg->GetScriptObject()->GetNestedSprite( "botImg" );
 				
-				if( topImg != NULL && botImg != NULL )
+				if( topImg != nullptr && botImg != nullptr )
 				{
 					topImg->SetMaterial( hudIcon );
 					botImg->SetMaterial( hudIcon );
@@ -1260,7 +1260,7 @@ void idMenuScreen_HUD::UpdateWeaponStates( idPlayer* player, bool weaponChanged 
 					weaponName->GetSprite()->PlayFrame( 2 );
 				
 					idSWFTextInstance * txtVal = weaponName->GetNestedText( "info", "txtVal" );
-					if ( txtVal != NULL ) {
+					if ( txtVal != nullptr ) {
 						txtVal->SetText( displayName );
 						txtVal->SetStrokeInfo( true, 0.6f, 2.0f );
 					}
@@ -1288,7 +1288,7 @@ void idMenuScreen_HUD::UpdateLocation( idPlayer* player )
 	if( player->spectating && player->spectator != player->entityNumber )
 	{
 		playertoLoc = static_cast< idPlayer* >( gameLocal.entities[ player->spectator ] );
-		if( playertoLoc == NULL )
+		if( playertoLoc == nullptr )
 		{
 			playertoLoc = player;
 		}
@@ -1333,13 +1333,13 @@ void idMenuScreen_HUD::ShowTip( const char* title, const char* tip )
 	idSWFTextInstance* txtTitle = tipInfo->GetNestedText( "info", "txtTitle" );
 	idSWFTextInstance* txtTip = tipInfo->GetNestedText( "info", "txtTip" );
 	
-	if( txtTitle != NULL )
+	if( txtTitle != nullptr )
 	{
 		txtTitle->SetText( title );
 		txtTitle->SetStrokeInfo( true, 0.75f, 1.5f );
 	}
 	
-	if( txtTip != NULL )
+	if( txtTip != nullptr )
 	{
 		txtTip->SetText( tip );
 		txtTip->tooltip = true;
@@ -1350,7 +1350,7 @@ void idMenuScreen_HUD::ShowTip( const char* title, const char* tip )
 			numLines = 1;
 		}
 		idSWFSpriteInstance* backing = tipInfo->GetNestedSprite( "info", "backing" );
-		if( backing != NULL )
+		if( backing != nullptr )
 		{
 			backing->StopFrame( numLines );
 		}
@@ -1398,7 +1398,7 @@ void idMenuScreen_HUD::DownloadPDA( const idDeclPDA* pda, bool newSecurity )
 		newPDAName = newPDADownload->GetScriptObject()->GetNestedText( "info", "txtName" );
 		newPDAHeading = newPDADownload->GetScriptObject()->GetNestedText( "info", "txtHeading" );
 		
-		if( newPDAName && GetSWFObject() != NULL )
+		if( newPDAName && GetSWFObject() != nullptr )
 		{
 			idStr pdaName = pda->GetPdaName();
 			pdaName.RemoveColors();
@@ -1406,7 +1406,7 @@ void idMenuScreen_HUD::DownloadPDA( const idDeclPDA* pda, bool newSecurity )
 			newPDAName->SetStrokeInfo( true, 0.9f, 2.0f );
 		}
 		
-		if( newPDAHeading && GetSWFObject() != NULL )
+		if( newPDAHeading && GetSWFObject() != nullptr )
 		{
 			GetSWFObject()->SetGlobal( "pdaDownloadHeading", "#str_02031" );
 			newPDAHeading->SetStrokeInfo( true, 0.9f, 2.0f );
@@ -1449,7 +1449,7 @@ idMenuScreen_HUD::UpdatedSecurity
 */
 void idMenuScreen_HUD::UpdatedSecurity()
 {
-	if( security != NULL && securityText != NULL )
+	if( security != nullptr && securityText != nullptr )
 	{
 		security->SetVisible( true );
 		security->PlayFrame( "rollOn" );
@@ -1557,7 +1557,7 @@ void  idMenuScreen_HUD::UpdateAudioLog( bool show )
 		for( int index = 0; index < 13; ++index )
 		{
 			idSWFSpriteInstance* node = audioLog->GetScriptObject()->GetNestedSprite( "bar", va( "node%d", index ) );
-			if( node != NULL )
+			if( node != nullptr )
 			{
 				int frame = gameLocal.random.RandomInt( 100 );
 				node->SetScale( 100.0f, frame );
@@ -1584,7 +1584,7 @@ void  idMenuScreen_HUD::UpdateAudioLog( bool show )
 		for( int index = 0; index < 13; ++index )
 		{
 			idSWFSpriteInstance* node = audioLog->GetScriptObject()->GetNestedSprite( "bar", va( "node%d", index ) );
-			if( node != NULL )
+			if( node != nullptr )
 			{
 				float diff = gameLocal.time - audioLogPrevTime;
 				float speed = ( diff / 350.0f ) * 100.0f;
@@ -1634,7 +1634,7 @@ void  idMenuScreen_HUD::UpdateCommunication( bool show, idPlayer* player )
 		for( int index = 0; index < 16; ++index )
 		{
 			idSWFSpriteInstance* node = communication->GetScriptObject()->GetNestedSprite( "info", "bar", va( "node%d", index ) );
-			if( node != NULL )
+			if( node != nullptr )
 			{
 				int frame = gameLocal.random.RandomInt( 100 );
 				node->SetScale( 100.0f, frame );
@@ -1670,7 +1670,7 @@ void  idMenuScreen_HUD::UpdateCommunication( bool show, idPlayer* player )
 		for( int index = 0; index < 16; ++index )
 		{
 			idSWFSpriteInstance* node = communication->GetScriptObject()->GetNestedSprite( "info", "bar", va( "node%d", index ) );
-			if( node != NULL )
+			if( node != nullptr )
 			{
 				float diff = gameLocal.time - commPrevTime;
 				float speed = ( diff / 350.0f ) * 100.0f;
@@ -1712,7 +1712,7 @@ void  idMenuScreen_HUD::UpdateOxygen( bool show, int val )
 		}
 		
 		idSWFSpriteInstance* info = oxygen->GetScriptObject()->GetNestedSprite( "info" );
-		if( info != NULL )
+		if( info != nullptr )
 		{
 			info->StopFrame( val + 1 );
 		}
@@ -1720,7 +1720,7 @@ void  idMenuScreen_HUD::UpdateOxygen( bool show, int val )
 		idSWFSpriteInstance* goodFrame = oxygen->GetScriptObject()->GetNestedSprite( "goodFrame" );
 		idSWFSpriteInstance* badFrame = oxygen->GetScriptObject()->GetNestedSprite( "badFrame" );
 		
-		if( goodFrame != NULL && badFrame != NULL )
+		if( goodFrame != nullptr && badFrame != nullptr )
 		{
 			if( val + 1 >= 36 )
 			{
@@ -1735,14 +1735,14 @@ void  idMenuScreen_HUD::UpdateOxygen( bool show, int val )
 		}
 		
 		idSWFTextInstance* txtVal = oxygen->GetScriptObject()->GetNestedText( "info", "txtHeading" );
-		if( txtVal != NULL )
+		if( txtVal != nullptr )
 		{
 			txtVal->SetText( "#str_00100922" );
 			txtVal->SetStrokeInfo( true, 0.9f, 2.0f );
 		}
 		
 		txtVal = oxygen->GetScriptObject()->GetNestedText( "info", "txtVal" );
-		if( txtVal != NULL )
+		if( txtVal != nullptr )
 		{
 			txtVal->SetText( va( "%d", val ) );
 			txtVal->SetStrokeInfo( true, 0.9f, 2.0f );
@@ -1803,17 +1803,17 @@ void idMenuScreen_HUD::ShowObjective( bool complete )
 		idSWFTextInstance* txtTitle = objectiveComplete->GetScriptObject()->GetNestedText( "info", "txtTitle" );
 		idSWFSpriteInstance* rightArrow = objectiveComplete->GetScriptObject()->GetNestedSprite( "info", "right_arrows" );
 		
-		if( txtComplete != NULL )
+		if( txtComplete != nullptr )
 		{
 			txtComplete->SetStrokeInfo( true, 0.9f, 2.0f );
 			
-			if( rightArrow != NULL )
+			if( rightArrow != nullptr )
 			{
 				rightArrow->SetXPos( txtComplete->GetTextLength() + 30.0f );
 			}
 		}
 		
-		if( txtTitle != NULL )
+		if( txtTitle != nullptr )
 		{
 			txtTitle->SetText( objCompleteTitle );
 			txtTitle->SetStrokeInfo( true, 0.9f, 2.0f );
@@ -1837,17 +1837,17 @@ void idMenuScreen_HUD::ShowObjective( bool complete )
 		idSWFSpriteInstance* img = objective->GetScriptObject()->GetNestedSprite( "info", "img" );
 		idSWFSpriteInstance* rightArrow = objective->GetScriptObject()->GetNestedSprite( "info", "right_arrows" );
 		
-		if( txtNew != NULL )
+		if( txtNew != nullptr )
 		{
 			txtNew->SetStrokeInfo( true, 0.9f, 2.0f );
 			
-			if( rightArrow != NULL )
+			if( rightArrow != nullptr )
 			{
 				rightArrow->SetXPos( txtNew->GetTextLength() + 55.0f );
 			}
 		}
 		
-		if( txtTitle != NULL )
+		if( txtTitle != nullptr )
 		{
 			txtTitle->SetText( objTitle );
 			txtTitle->SetStrokeInfo( true, 0.9f, 2.0f );
@@ -1858,7 +1858,7 @@ void idMenuScreen_HUD::ShowObjective( bool complete )
 			txtDesc->SetText( objDesc );
 		}
 		
-		if( img != NULL )
+		if( img != nullptr )
 		{
 			img->SetMaterial( objScreenshot );
 		}
@@ -1985,7 +1985,7 @@ void idMenuScreen_HUD::SetFlagState( int team, int state )
 	}
 	
 	
-	idSWFSpriteInstance* flag = NULL;
+	idSWFSpriteInstance* flag = nullptr;
 	if( team == 0 )
 	{
 		flag = mpInfo->GetScriptObject()->GetNestedSprite( "redFlag" );
@@ -2023,7 +2023,7 @@ void idMenuScreen_HUD::SetTeamScore( int team, int score )
 		return;
 	}
 	
-	idSWFTextInstance* txtScore = NULL;
+	idSWFTextInstance* txtScore = nullptr;
 	
 	if( team == 0 )
 	{
@@ -2201,19 +2201,19 @@ void idMenuScreen_HUD::ShowNewItem( const char* name, const char* icon )
 	idSWFTextInstance* itemName = newItem->GetScriptObject()->GetNestedText( "info", "txtItem" );
 	
 	const idMaterial* mat = declManager->FindMaterial( icon, false );
-	if( topImg != NULL && botImg != NULL && mat != NULL )
+	if( topImg != nullptr && botImg != nullptr && mat != nullptr )
 	{
 		topImg->SetMaterial( mat );
 		botImg->SetMaterial( mat );
 	}
 	
-	if( heading != NULL )
+	if( heading != nullptr )
 	{
 		heading->SetText( "#str_02027" );
 		heading->SetStrokeInfo( true, 0.75f, 1.5f );
 	}
 	
-	if( itemName != NULL )
+	if( itemName != nullptr )
 	{
 		itemName->SetText( name );
 		itemName->SetStrokeInfo( true, 0.75f, 1.5f );
@@ -2274,7 +2274,7 @@ void idMenuScreen_HUD::UpdateChattingHud( idPlayer* player )
 			mpChatObject->StopFrame( 1 );
 			gui->ForceInhibitControl( false );
 			
-			// RB: 64 bit fixes, changed NULL to 0
+			// RB: 64 bit fixes, changed nullptr to 0
 			gui->SetGlobal( "focusWindow", 0 );
 			// RB end
 		}
@@ -2310,7 +2310,7 @@ void idMenuScreen_HUD::UpdateChattingHud( idPlayer* player )
 			}
 			
 			idSWFTextInstance* say = mpChatObject->GetScriptObject()->GetNestedText( "info", "textEntry", "txtVal" );
-			if( say != NULL )
+			if( say != nullptr )
 			{
 				say->SetIgnoreColor( false );
 				say->SetText( "" );
@@ -2319,7 +2319,7 @@ void idMenuScreen_HUD::UpdateChattingHud( idPlayer* player )
 			}
 			
 			idSWFScriptObject* const sayObj = mpChatObject->GetScriptObject()->GetNestedObj( "info", "textEntry", "txtVal" );
-			if( sayObj != NULL )
+			if( sayObj != nullptr )
 			{
 			
 				gui->SetGlobal( "focusWindow", sayObj );
@@ -2384,7 +2384,7 @@ void idMenuScreen_HUD::UpdateChattingHud( idPlayer* player )
 				sayObj->Set( "onPress", new( TAG_SWF ) idPostTextChat( player, say ) );
 				
 				idSWFScriptObject* const shortcutKeys = gui->GetGlobal( "shortcutKeys" ).GetObject();
-				if( verify( shortcutKeys != NULL ) )
+				if( verify( shortcutKeys != nullptr ) )
 				{
 					shortcutKeys->Set( "ENTER", sayObj );
 					shortcutKeys->Set( "ESCAPE", new( TAG_SWF ) idCancelTextChat( player ) );

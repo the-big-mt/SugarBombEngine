@@ -37,19 +37,19 @@ idMenuWidget_PDA_Objective::Update
 void idMenuWidget_PDA_Objective::Update()
 {
 
-	if( GetSWFObject() == NULL )
+	if( GetSWFObject() == nullptr )
 	{
 		return;
 	}
 	
 	idSWFScriptObject& root = GetSWFObject()->GetRootObject();
-	if( !BindSprite( root ) || GetSprite() == NULL )
+	if( !BindSprite( root ) || GetSprite() == nullptr )
 	{
 		return;
 	}
 	
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	if( player == NULL )
+	if( player == nullptr )
 	{
 		return;
 	}
@@ -57,7 +57,7 @@ void idMenuWidget_PDA_Objective::Update()
 	idSWFScriptObject* dataObj = GetSprite()->GetScriptObject()->GetNestedObj( "info" );
 	idSWFSpriteInstance* dataSprite = dataObj->GetSprite();
 	
-	if( dataObj != NULL && dataSprite != NULL )
+	if( dataObj != nullptr && dataSprite != nullptr )
 	{
 	
 		idSWFSpriteInstance* img = dataObj->GetNestedSprite( "objImg", "img" );
@@ -88,9 +88,9 @@ void idMenuWidget_PDA_Objective::Update()
 			for( int index = numObjectives - 1; displayCount < 2 && index >= 0; --index )
 			{
 			
-				if( img != NULL )
+				if( img != nullptr )
 				{
-					if( player->GetInventory().objectiveNames[index].screenshot == NULL )
+					if( player->GetInventory().objectiveNames[index].screenshot == nullptr )
 					{
 						img->SetVisible( false );
 					}
@@ -104,7 +104,7 @@ void idMenuWidget_PDA_Objective::Update()
 				idSWFSpriteInstance* objSel = dataObj->GetNestedSprite( va( "obj%d", objStartIndex - displayCount ), "sel" );
 				idSWFTextInstance* txtNote = dataObj->GetNestedText( va( "obj%d", objStartIndex - displayCount ), "txtVal" );
 				
-				if( objSel != NULL )
+				if( objSel != nullptr )
 				{
 					if( displayCount == 0 )
 					{
@@ -116,7 +116,7 @@ void idMenuWidget_PDA_Objective::Update()
 					}
 				}
 				
-				if( txtNote != NULL )
+				if( txtNote != nullptr )
 				{
 					txtNote->SetText( player->GetInventory().objectiveNames[index].title.c_str() );
 				}
@@ -133,9 +133,9 @@ void idMenuWidget_PDA_Objective::Update()
 		// Set the main objective text
 		idTarget_SetPrimaryObjective* mainObj = player->GetPrimaryObjective();
 		idSWFTextInstance* txtMainObj = dataObj->GetNestedText( "txtObj" );
-		if( txtMainObj != NULL )
+		if( txtMainObj != nullptr )
 		{
-			if( mainObj != NULL )
+			if( mainObj != nullptr )
 			{
 				txtMainObj->SetText( mainObj->spawnArgs.GetString( "text", idLocalization::GetString( "#str_04253" ) ) );
 			}
@@ -155,14 +155,14 @@ idMenuWidget_Help::ObserveEvent
 void idMenuWidget_PDA_Objective::ObserveEvent( const idMenuWidget& widget, const idWidgetEvent& event )
 {
 	const idMenuWidget_Button* const button = dynamic_cast< const idMenuWidget_Button* >( &widget );
-	if( button == NULL )
+	if( button == nullptr )
 	{
 		return;
 	}
 	
 	const idMenuWidget* const listWidget = button->GetParent();
 	
-	if( listWidget == NULL )
+	if( listWidget == nullptr )
 	{
 		return;
 	}
@@ -172,7 +172,7 @@ void idMenuWidget_PDA_Objective::ObserveEvent( const idMenuWidget& widget, const
 		case WIDGET_EVENT_FOCUS_ON:
 		{
 			const idMenuWidget_DynamicList* const list = dynamic_cast< const idMenuWidget_DynamicList* const >( listWidget );
-			if( GetSprite() != NULL )
+			if( GetSprite() != nullptr )
 			{
 				if( list->GetViewIndex() == 0 )
 				{

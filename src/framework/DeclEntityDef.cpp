@@ -109,7 +109,7 @@ bool idDeclEntityDef::Parse( const char* text, const int textLength, bool allowB
 	while( 1 )
 	{
 		const idKeyValue* kv;
-		kv = dict.MatchPrefix( "inherit", NULL );
+		kv = dict.MatchPrefix( "inherit", nullptr );
 		if( !kv )
 		{
 			break;

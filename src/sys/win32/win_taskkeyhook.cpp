@@ -46,7 +46,7 @@ LPCTSTR VAL_DisableTaskMgr = "DisableTaskMgr";
 // The section is SHARED among all instances of this DLL.
 // A low-level keyboard hook is always a system-wide hook.
 #pragma data_seg (".mydata")
-HHOOK g_hHookKbdLL = NULL;	// hook handle
+HHOOK g_hHookKbdLL = nullptr;	// hook handle
 BOOL  g_bBeep = FALSE;		// beep on illegal key
 #pragma data_seg ()
 #pragma comment(linker, "/SECTION:.mydata,RWS") // tell linker: make it shared
@@ -94,7 +94,7 @@ AreTaskKeysDisabled
 */
 BOOL AreTaskKeysDisabled()
 {
-	return g_hHookKbdLL != NULL;
+	return g_hHookKbdLL != nullptr;
 }
 
 /*
@@ -113,7 +113,7 @@ BOOL IsTaskMgrDisabled()
 	
 	DWORD val = 0;
 	DWORD len = 4;
-	return RegQueryValueEx( hk, VAL_DisableTaskMgr, NULL, NULL, ( BYTE* )&val, &len ) == ERROR_SUCCESS && val == 1;
+	return RegQueryValueEx( hk, VAL_DisableTaskMgr, nullptr, nullptr, ( BYTE* )&val, &len ) == ERROR_SUCCESS && val == 1;
 }
 
 /*
@@ -132,10 +132,10 @@ void DisableTaskKeys( BOOL bDisable, BOOL bBeep, BOOL bTaskMgr )
 			g_hHookKbdLL = SetWindowsHookEx( WH_KEYBOARD_LL, MyTaskKeyHookLL, win32.hInstance, 0 );
 		}
 	}
-	else if( g_hHookKbdLL != NULL )
+	else if( g_hHookKbdLL != nullptr )
 	{
 		UnhookWindowsHookEx( g_hHookKbdLL );
-		g_hHookKbdLL = NULL;
+		g_hHookKbdLL = nullptr;
 	}
 	g_bBeep = bBeep;
 	
@@ -151,7 +151,7 @@ void DisableTaskKeys( BOOL bDisable, BOOL bBeep, BOOL bTaskMgr )
 		{
 			// disable TM: set policy = 1
 			DWORD val = 1;
-			RegSetValueEx( hk, VAL_DisableTaskMgr, NULL, REG_DWORD, ( BYTE* )&val, sizeof( val ) );
+			RegSetValueEx( hk, VAL_DisableTaskMgr, nullptr, REG_DWORD, ( BYTE* )&val, sizeof( val ) );
 		}
 		else
 		{

@@ -333,7 +333,7 @@ int Sys_Milliseconds()
 	int curtime;
 	struct timeval tp;
 	
-	gettimeofday( &tp, NULL );
+	gettimeofday( &tp, nullptr );
 	
 	if( !sys_timeBase )
 	{
@@ -537,7 +537,7 @@ int Sys_ListFiles( const char* directory, const char* extension, idStrList& list
 	// DG end
 	
 	// NOTE: case sensitivity of directory path can screw us up here
-	if( ( fdir = opendir( directory ) ) == NULL )
+	if( ( fdir = opendir( directory ) ) == nullptr )
 	{
 		if( debug )
 		{
@@ -555,14 +555,14 @@ int Sys_ListFiles( const char* directory, const char* extension, idStrList& list
 	
 	struct dirent* entry = ( struct dirent* )Mem_Alloc( direntLen, TAG_CRAP );
 	
-	if( entry == NULL )
+	if( entry == nullptr )
 	{
 		common->Warning( "Sys_ListFiles: Mem_Alloc for entry failed!" );
 		closedir( fdir );
 		return 0;
 	}
 	
-	while( readdir_r( fdir, entry, &d ) == 0 && d != NULL )
+	while( readdir_r( fdir, entry, &d ) == 0 && d != nullptr )
 	{
 		// DG end
 		idStr::snPrintf( search, sizeof( search ), "%s/%s", directory, d->d_name );
@@ -631,7 +631,7 @@ void Posix_QueEvent( sysEventType_t type, int value, int value2,
 		if( ev->evPtr )
 		{
 			Mem_Free( ev->evPtr );
-			ev->evPtr = NULL;
+			ev->evPtr = nullptr;
 		}
 		eventTail++;
 	}
@@ -771,7 +771,7 @@ void* Sys_DLL_GetProcAddress( intptr_t handle, const char* sym )
 // RB end
 	const char* error;
 	void* ret = dlsym( ( void* )handle, sym );
-	if( ( error = dlerror() ) != NULL )
+	if( ( error = dlerror() ) != nullptr )
 	{
 		Sys_Printf( "dlsym '%s' failed: %s\n", sym, error );
 	}
@@ -1181,7 +1181,7 @@ void tty_FlushIn()
 ================
 Posix_ConsoleInput
 Checks for a complete line of text typed in at the console.
-Return NULL if a complete line is not ready.
+Return nullptr if a complete line is not ready.
 ================
 */
 char* Posix_ConsoleInput()
@@ -1242,7 +1242,7 @@ char* Posix_ConsoleInput()
 						tty_FlushIn();
 						assert( hidden );
 						tty_Show();
-						return NULL;
+						return nullptr;
 					}
 					switch( key )
 					{
@@ -1254,7 +1254,7 @@ char* Posix_ConsoleInput()
 								tty_FlushIn();
 								assert( hidden );
 								tty_Show();
-								return NULL;
+								return nullptr;
 							}
 							switch( key )
 							{
@@ -1271,7 +1271,7 @@ char* Posix_ConsoleInput()
 									tty_FlushIn();
 									assert( hidden );
 									tty_Show();
-									return NULL;
+									return nullptr;
 							}
 							break;
 						case 91:
@@ -1283,7 +1283,7 @@ char* Posix_ConsoleInput()
 								tty_FlushIn();
 								assert( hidden );
 								tty_Show();
-								return NULL;
+								return nullptr;
 							}
 							switch( key )
 							{
@@ -1296,7 +1296,7 @@ char* Posix_ConsoleInput()
 										tty_FlushIn();
 										assert( hidden );
 										tty_Show();
-										return NULL;
+										return nullptr;
 									}
 									// only screen and linux terms
 									input_field.SetCursor( 0 );
@@ -1311,7 +1311,7 @@ char* Posix_ConsoleInput()
 										tty_FlushIn();
 										assert( hidden );
 										tty_Show();
-										return NULL;
+										return nullptr;
 									}
 									// all terms
 									input_field.KeyDownEvent( K_INS );
@@ -1326,7 +1326,7 @@ char* Posix_ConsoleInput()
 										tty_FlushIn();
 										assert( hidden );
 										tty_Show();
-										return NULL;
+										return nullptr;
 									}
 									// only screen and linux terms
 									input_field.SetCursor( strlen( input_field.GetBuffer() ) );
@@ -1341,7 +1341,7 @@ char* Posix_ConsoleInput()
 										tty_FlushIn();
 										assert( hidden );
 										tty_Show();
-										return NULL;
+										return nullptr;
 									}
 									if( key == 126 )
 									{
@@ -1352,7 +1352,7 @@ char* Posix_ConsoleInput()
 									tty_FlushIn();
 									assert( hidden );
 									tty_Show();
-									return NULL;
+									return nullptr;
 								}
 								case 65:
 								case 66:
@@ -1397,7 +1397,7 @@ char* Posix_ConsoleInput()
 									}
 									assert( hidden );
 									tty_Show();
-									return NULL;
+									return nullptr;
 								}
 								case 67:
 									input_field.KeyDownEvent( K_RIGHTARROW );
@@ -1410,7 +1410,7 @@ char* Posix_ConsoleInput()
 									tty_FlushIn();
 									assert( hidden );
 									tty_Show();
-									return NULL;
+									return nullptr;
 							}
 							break;
 						}
@@ -1419,7 +1419,7 @@ char* Posix_ConsoleInput()
 							tty_FlushIn();
 							assert( hidden );
 							tty_Show();
-							return NULL;
+							return nullptr;
 					}
 					break;
 				}
@@ -1433,14 +1433,14 @@ char* Posix_ConsoleInput()
 					tty_FlushIn();
 					assert( hidden );
 					tty_Show();
-					return NULL;
+					return nullptr;
 			}
 		}
 		if( hidden )
 		{
 			tty_Show();
 		}
-		return NULL;
+		return nullptr;
 	}
 	else
 	{
@@ -1456,22 +1456,22 @@ char* Posix_ConsoleInput()
 		FD_SET( STDIN_FILENO, &fdset );
 		timeout.tv_sec = 0;
 		timeout.tv_usec = 0;
-		if( select( 1, &fdset, NULL, NULL, &timeout ) == -1 || !FD_ISSET( 0, &fdset ) )
+		if( select( 1, &fdset, nullptr, nullptr, &timeout ) == -1 || !FD_ISSET( 0, &fdset ) )
 		{
-			return NULL;
+			return nullptr;
 		}
 		
 		len = read( 0, input_ret, sizeof( input_ret ) );
 		if( len == 0 )
 		{
 			// EOF
-			return NULL;
+			return nullptr;
 		}
 		
 		if( len < 1 )
 		{
 			Sys_Printf( "read failed: %s\n", strerror( errno ) );	// something bad happened, cancel this line and print an error
-			return NULL;
+			return nullptr;
 		}
 		
 		if( len == sizeof( input_ret ) )
@@ -1483,7 +1483,7 @@ char* Posix_ConsoleInput()
 		return input_ret;
 #endif
 	}
-	return NULL;
+	return nullptr;
 }
 
 /*

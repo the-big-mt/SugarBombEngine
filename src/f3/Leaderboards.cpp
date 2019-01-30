@@ -109,8 +109,8 @@ void LeaderboardLocal_Init()
 
 	const idList< mpMap_t > maps = common->GetMapList();
 	
-	const char** gameModes = NULL;
-	const char** gameModesDisplay = NULL;
+	const char** gameModes = nullptr;
+	const char** gameModesDisplay = nullptr;
 	int numModes = game->GetMPGameModes( &gameModes, &gameModesDisplay );
 	
 	// Iterate through all the available maps, and generate leaderboard Defs, and IDs for each.
@@ -184,7 +184,7 @@ void LeaderboardLocal_Upload( lobbyUserID_t lobbyUserID, int gameType, leaderboa
 	int mapIdx = 0;
 	
 	// Need to figure out  What stat columns we want to base rank on. ( for now we'll use wins )
-	const column_t* gameTypeColumn = NULL;
+	const column_t* gameTypeColumn = nullptr;
 	const column_t defaultStats[] = { stats.wins };
 	
 	// calculate DM score.

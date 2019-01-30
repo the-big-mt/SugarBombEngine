@@ -37,7 +37,7 @@ idMenuWidget_NavButton::Update
 void idMenuWidget_NavButton::Update()
 {
 
-	if( GetSprite() == NULL )
+	if( GetSprite() == nullptr )
 	{
 		return;
 	}
@@ -52,7 +52,7 @@ void idMenuWidget_NavButton::Update()
 	
 	idSWFScriptObject* const spriteObject = GetSprite()->GetScriptObject();
 	idSWFTextInstance* const text = spriteObject->GetNestedText( "txtVal" );
-	if( text != NULL )
+	if( text != nullptr )
 	{
 		text->SetText( btnLabel.c_str() );
 		text->SetStrokeInfo( true, 0.7f, 1.25f );
@@ -63,7 +63,7 @@ void idMenuWidget_NavButton::Update()
 	if( navState == NAV_WIDGET_SELECTED )
 	{
 		idSWFSpriteInstance* backing = GetSprite()->GetScriptObject()->GetNestedSprite( "backing" );
-		if( backing != NULL && text != NULL )
+		if( backing != nullptr && text != nullptr )
 		{
 			backing->SetXPos( text->GetTextLength() + 53.0f );
 		}
@@ -75,14 +75,14 @@ void idMenuWidget_NavButton::Update()
 	
 	idSWFScriptObject* textObj = spriteObject->GetNestedObj( "txtVal" );
 	
-	if( textObj != NULL )
+	if( textObj != nullptr )
 	{
 	
 		textObj->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_PRESS, 0 ) );
 		textObj->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_RELEASE, 0 ) );
 		
 		idSWFScriptObject* hitBox = spriteObject->GetObject( "hitBox" );
-		if( hitBox == NULL )
+		if( hitBox == nullptr )
 		{
 			hitBox = textObj;
 		}
@@ -142,7 +142,7 @@ idMenuWidget_NavButton::Update
 void idMenuWidget_MenuButton::Update()
 {
 
-	if( GetSprite() == NULL )
+	if( GetSprite() == nullptr )
 	{
 		return;
 	}
@@ -157,7 +157,7 @@ void idMenuWidget_MenuButton::Update()
 	
 	idSWFScriptObject* const spriteObject = GetSprite()->GetScriptObject();
 	idSWFTextInstance* const text = spriteObject->GetNestedText( "txtVal" );
-	if( text != NULL )
+	if( text != nullptr )
 	{
 		text->SetText( btnLabel.c_str() );
 		text->SetStrokeInfo( true, 0.7f, 1.25f );
@@ -165,20 +165,20 @@ void idMenuWidget_MenuButton::Update()
 		idSWFSpriteInstance* selBar = spriteObject->GetNestedSprite( "sel", "bar" );
 		idSWFSpriteInstance* hoverBar = spriteObject->GetNestedSprite( "hover", "bar" );
 		
-		if( selBar != NULL )
+		if( selBar != nullptr )
 		{
 			selBar->SetXPos( text->GetTextLength() / 2.0f );
 			selBar->SetScale( 100.0f * ( text->GetTextLength() / 300.0f ), 100.0f );
 		}
 		
-		if( hoverBar != NULL )
+		if( hoverBar != nullptr )
 		{
 			hoverBar->SetXPos( text->GetTextLength() / 2.0f );
 			hoverBar->SetScale( 100.0f * ( text->GetTextLength() / 352.0f ), 100.0f );
 		}
 		
 		idSWFSpriteInstance* hitBox = spriteObject->GetNestedSprite( "hitBox" );
-		if( hitBox != NULL )
+		if( hitBox != nullptr )
 		{
 			hitBox->SetScale( 100.0f * ( text->GetTextLength() / 235 ), 100.0f );
 		}
@@ -188,14 +188,14 @@ void idMenuWidget_MenuButton::Update()
 	
 	idSWFScriptObject* textObj = spriteObject->GetNestedObj( "txtVal" );
 	
-	if( textObj != NULL )
+	if( textObj != nullptr )
 	{
 	
 		textObj->Set( "onPress", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_PRESS, 0 ) );
 		textObj->Set( "onRelease", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_RELEASE, 0 ) );
 		
 		idSWFScriptObject* hitBox = spriteObject->GetObject( "hitBox" );
-		if( hitBox == NULL )
+		if( hitBox == nullptr )
 		{
 			hitBox = textObj;
 		}

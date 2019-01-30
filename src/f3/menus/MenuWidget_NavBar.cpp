@@ -47,7 +47,7 @@ idMenuWidget_NavBar::PrepareListElement
 void idMenuWidget_NavBar::Update()
 {
 
-	if( GetSWFObject() == NULL )
+	if( GetSWFObject() == nullptr )
 	{
 		return;
 	}
@@ -159,14 +159,14 @@ bool idMenuWidget_NavBar::PrepareListElement( idMenuWidget& widget, const int na
 	}
 	
 	idMenuWidget_NavButton* const button = dynamic_cast< idMenuWidget_NavButton* >( &widget );
-	if( button == NULL || button->GetSprite() == NULL )
+	if( button == nullptr || button->GetSprite() == nullptr )
 	{
 		return false;
 	}
 	
 	button->SetLabel( headings[navIndex] );
 	idSWFTextInstance* ti = button->GetSprite()->GetScriptObject()->GetNestedText( "txtVal" );
-	if( ti != NULL )
+	if( ti != nullptr )
 	{
 		ti->SetStrokeInfo( true, 0.7f, 1.25f );
 		if( navIndex < GetFocusIndex() )
