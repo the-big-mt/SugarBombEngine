@@ -404,7 +404,6 @@ struct sysImport_t
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
 	idFileSystem* 				fileSystem;				// file system
-	idDeclManager* 				declManager;			// declaration manager
 };
 
 struct sysExport_t
