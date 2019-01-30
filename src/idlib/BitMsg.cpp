@@ -248,7 +248,7 @@ void idBitMsg::WriteData( const void* data, int length )
 idBitMsg::WriteNetadr
 ========================
 */
-void idBitMsg::WriteNetadr( const netadr_t adr )
+void idBitMsg::WriteNetadr( const netadr_t &adr )
 {
 	WriteData( adr.ip, 4 );
 	WriteUShort( adr.port );

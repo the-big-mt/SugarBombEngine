@@ -28,6 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __BITMSG_H__
 #define __BITMSG_H__
 
+struct netadr_t;
+
 /*
 ================================================
 idBitMsg operates on a sequence of individual bits. It handles byte ordering and
@@ -161,7 +163,7 @@ public:
 	void			WriteDir( const idVec3& dir, int numBits );
 	void			WriteString( const char* s, int maxLength = -1, bool make7Bit = true );
 	void			WriteData( const void* data, int length );
-	void			WriteNetadr( const netadr_t adr );
+	void			WriteNetadr( const netadr_t &adr );
 	
 	void			WriteUNorm8( float f )
 	{
