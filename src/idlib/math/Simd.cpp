@@ -34,8 +34,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <mach/mach_time.h>
 #endif
 
-#include "Simd_Generic.h"
-#include "Simd_SSE.h"
+#include "idlib/math/Simd_Generic.h"
+#include "idlib/math/Simd_SSE.h"
 
 idSIMDProcessor*		processor = NULL;			// pointer to SIMD processor
 idSIMDProcessor* 	generic = NULL;				// pointer to generic SIMD implementation
@@ -1394,7 +1394,7 @@ void idSIMD::Test_f( const idCmdArgs& args )
 		{
 			if( !( cpuid & CPUID_MMX ) || !( cpuid & CPUID_SSE ) )
 			{
-				common->Printf( "CPU does not support MMX & SSE\n" );
+				idLib::common->Printf( "CPU does not support MMX & SSE\n" );
 				return;
 			}
 			p_simd = new( TAG_MATH ) idSIMD_SSE;
@@ -1402,7 +1402,7 @@ void idSIMD::Test_f( const idCmdArgs& args )
 		else
 #endif
 		{
-			common->Printf( "invalid argument, use: MMX, 3DNow, SSE, SSE2, SSE3, AltiVec\n" );
+			idLib::common->Printf( "invalid argument, use: MMX, 3DNow, SSE, SSE2, SSE3, AltiVec\n" );
 			return;
 		}
 	}
