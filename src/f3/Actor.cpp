@@ -4003,3 +4003,872 @@ void idActor::Event_GetWaitState()
 		idThread::ReturnString( "" );
 	}
 }
+
+/*
+void idActor::calculateDynamicStats ()
+{
+	CreatureStats& creatureStats = actor.getClass().getCreatureStats (actor);
+
+	int intelligence = creatureStats.getAttribute(ESM::Attribute::Intelligence).getModified();
+
+	float base = 1.f;
+	if (actor == getPlayer())
+		base = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find("fPCbaseMagickaMult")->mValue.getFloat();
+	else
+		base = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find("fNPCbaseMagickaMult")->mValue.getFloat();
+
+	double magickaFactor = base +
+		creatureStats.getMagicEffects().get (EffectKey (ESM::MagicEffect::FortifyMaximumMagicka)).getMagnitude() * 0.1;
+
+	DynamicStat<float> magicka = creatureStats.getMagicka();
+	float diff = (static_cast<int>(magickaFactor*intelligence)) - magicka.getBase();
+	float currentToBaseRatio = (magicka.getCurrent() / magicka.getBase());
+	magicka.setModified(magicka.getModified() + diff, 0);
+	magicka.setCurrent(magicka.getBase() * currentToBaseRatio, false, true);
+	creatureStats.setMagicka(magicka);
+}
+
+void idActor::restoreDynamicStats (bool sleep)
+{
+	MWMechanics::CreatureStats& stats = actor.getClass().getCreatureStats (actor);
+	if (stats.isDead())
+		return;
+
+	const MWWorld::Store<ESM::GameSetting>& settings = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>();
+
+	if (sleep)
+	{
+		float health, magicka;
+		getRestorationPerHourOfSleep(actor, health, magicka);
+
+		DynamicStat<float> stat = stats.getHealth();
+		stat.setCurrent(stat.getCurrent() + health);
+		stats.setHealth(stat);
+
+		stat = stats.getMagicka();
+		stat.setCurrent(stat.getCurrent() + magicka);
+		stats.setMagicka(stat);
+	}
+
+	// Current fatigue can be above base value due to a fortify effect.
+	// In that case stop here and don't try to restore.
+	DynamicStat<float> fatigue = stats.getFatigue();
+	if (fatigue.getCurrent() >= fatigue.getBase())
+		return;
+
+	// Restore fatigue
+	float fFatigueReturnBase = settings.find("fFatigueReturnBase")->mValue.getFloat ();
+	float fFatigueReturnMult = settings.find("fFatigueReturnMult")->mValue.getFloat ();
+	float fEndFatigueMult = settings.find("fEndFatigueMult")->mValue.getFloat ();
+
+	int endurance = stats.getAttribute (ESM::Attribute::Endurance).getModified ();
+
+	float normalizedEncumbrance = actor.getClass().getNormalizedEncumbrance(actor);
+	if (normalizedEncumbrance > 1)
+		normalizedEncumbrance = 1;
+
+	float x = fFatigueReturnBase + fFatigueReturnMult * (1 - normalizedEncumbrance);
+	x *= fEndFatigueMult * endurance;
+
+	fatigue.setCurrent (fatigue.getCurrent() + 3600 * x);
+	stats.setFatigue (fatigue);
+}
+
+void idActor::updateHeadTracking(const MWWorld::Ptr& targetActor, MWWorld::Ptr& headTrackTarget, float& sqrHeadTrackDistance)
+{
+	if (!actor.getRefData().getBaseNode())
+		return;
+
+	if (targetActor.getClass().getCreatureStats(targetActor).isDead())
+		return;
+
+	static const float fMaxHeadTrackDistance = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>()
+			.find("fMaxHeadTrackDistance")->mValue.getFloat();
+	static const float fInteriorHeadTrackMult = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>()
+			.find("fInteriorHeadTrackMult")->mValue.getFloat();
+	float maxDistance = fMaxHeadTrackDistance;
+	const ESM::Cell* currentCell = actor.getCell()->getCell();
+	if (!currentCell->isExterior() && !(currentCell->mData.mFlags & ESM::Cell::QuasiEx))
+		maxDistance *= fInteriorHeadTrackMult;
+
+	const osg::Vec3f actor1Pos(actor.getRefData().getPosition().asVec3());
+	const osg::Vec3f actor2Pos(targetActor.getRefData().getPosition().asVec3());
+	float sqrDist = (actor1Pos - actor2Pos).length2();
+
+	if (sqrDist > maxDistance*maxDistance)
+		return;
+
+	// stop tracking when target is behind the actor
+	osg::Vec3f actorDirection = actor.getRefData().getBaseNode()->getAttitude() * osg::Vec3f(0,1,0);
+	osg::Vec3f targetDirection(actor2Pos - actor1Pos);
+	actorDirection.z() = 0;
+	targetDirection.z() = 0;
+	actorDirection.normalize();
+	targetDirection.normalize();
+	if (std::acos(actorDirection * targetDirection) < osg::DegreesToRadians(90.f)
+		&& sqrDist <= sqrHeadTrackDistance
+		&& MWBase::Environment::get().getWorld()->getLOS(actor, targetActor) // check LOS and awareness last as it's the most expensive function
+		&& MWBase::Environment::get().getMechanicsManager()->awarenessCheck(targetActor, actor))
+	{
+		sqrHeadTrackDistance = sqrDist;
+		headTrackTarget = targetActor;
+	}
+}
+
+void idActor::addBoundItem (const std::string& itemId)
+{
+	MWWorld::InventoryStore& store = actor.getClass().getInventoryStore(actor);
+	int slot = getBoundItemSlot(itemId);
+
+	if (actor.getClass().getContainerStore(actor).count(itemId) != 0)
+		return;
+
+	MWWorld::ContainerStoreIterator prevItem = store.getSlot(slot);
+
+	MWWorld::Ptr boundPtr = *store.MWWorld::ContainerStore::add(itemId, 1, actor);
+	MWWorld::ActionEquip action(boundPtr);
+	action.execute(actor);
+
+	if (actor != MWMechanics::getPlayer())
+		return;
+
+	MWWorld::Ptr newItem = *store.getSlot(slot);
+
+	if (newItem.isEmpty() || boundPtr != newItem)
+		return;
+
+	MWWorld::Player& player = MWBase::Environment::get().getWorld()->getPlayer();
+
+	// change draw state only if the item is in player's right hand
+	if (slot == MWWorld::InventoryStore::Slot_CarriedRight)
+		player.setDrawState(MWMechanics::DrawState_Weapon);
+
+	if (prevItem != store.end())
+		player.setPreviousItem(itemId, prevItem->getCellRef().getRefId());
+}
+
+void idActor::removeBoundItem (const std::string& itemId)
+{
+	MWWorld::InventoryStore& store = actor.getClass().getInventoryStore(actor);
+	int slot = getBoundItemSlot(itemId);
+
+	MWWorld::ContainerStoreIterator currentItem = store.getSlot(slot);
+
+	bool wasEquipped = currentItem != store.end() && Misc::StringUtils::ciEqual(currentItem->getCellRef().getRefId(), itemId);
+
+	store.remove(itemId, 1, actor, true);
+
+	if (actor != MWMechanics::getPlayer())
+		return;
+
+	MWWorld::Player& player = MWBase::Environment::get().getWorld()->getPlayer();
+	std::string prevItemId = player.getPreviousItem(itemId);
+	player.erasePreviousItem(itemId);
+
+	if (prevItemId.empty())
+		return;
+
+	// Find previous item (or its replacement) by id.
+	// we should equip previous item only if expired bound item was equipped.
+	MWWorld::Ptr item = store.findReplacement(prevItemId);
+	if (item.isEmpty() || !wasEquipped)
+		return;
+
+	MWWorld::ActionEquip action(item);
+	action.execute(actor);
+}
+
+void idActor::calculateCreatureStatModifiers (const MWWorld::Ptr& ptr, float duration)
+{
+	CreatureStats &creatureStats = ptr.getClass().getCreatureStats(ptr);
+	const MagicEffects &effects = creatureStats.getMagicEffects();
+
+	bool wasDead = creatureStats.isDead();
+
+	if (duration > 0)
+	{
+		// Apply correct magnitude for tickable effects that have just expired,
+		// in case duration > remaining time of effect.
+		// One case where this will happen is when the player uses the rest/wait command
+		// while there is a tickable effect active that should expire before the end of the rest/wait.
+		ExpiryVisitor visitor(ptr, duration);
+		creatureStats.getActiveSpells().visitEffectSources(visitor);
+
+		for (MagicEffects::Collection::const_iterator it = effects.begin(); it != effects.end(); ++it)
+		{
+			// tickable effects (i.e. effects having a lasting impact after expiry)
+			effectTick(creatureStats, ptr, it->first, it->second.getMagnitude() * duration);
+
+			// instant effects are already applied on spell impact in spellcasting.cpp, but may also come from permanent abilities
+			if (it->second.getMagnitude() > 0)
+			{
+				CastSpell cast(ptr, ptr);
+				if (cast.applyInstantEffect(ptr, ptr, it->first, it->second.getMagnitude()))
+				{
+					creatureStats.getSpells().purgeEffect(it->first.mId);
+					creatureStats.getActiveSpells().purgeEffect(it->first.mId);
+					if (ptr.getClass().hasInventoryStore(ptr))
+						ptr.getClass().getInventoryStore(ptr).purgeEffect(it->first.mId);
+				}
+			}
+		}
+	}
+
+	// purge levitate effect if levitation is disabled
+	// check only modifier, because base value can be setted from SetFlying console command.
+	if (MWBase::Environment::get().getWorld()->isLevitationEnabled() == false && effects.get(ESM::MagicEffect::Levitate).getModifier() > 0)
+	{
+		creatureStats.getSpells().purgeEffect(ESM::MagicEffect::Levitate);
+		creatureStats.getActiveSpells().purgeEffect(ESM::MagicEffect::Levitate);
+		if (ptr.getClass().hasInventoryStore(ptr))
+			ptr.getClass().getInventoryStore(ptr).purgeEffect(ESM::MagicEffect::Levitate);
+
+		if (ptr == getPlayer())
+		{
+			MWBase::Environment::get().getWindowManager()->messageBox ("#{sLevitateDisabled}");
+		}
+	}
+
+	// dynamic stats
+	for (int i = 0; i < 3; ++i)
+	{
+		DynamicStat<float> stat = creatureStats.getDynamic(i);
+		stat.setCurrentModifier(effects.get(ESM::MagicEffect::FortifyHealth + i).getMagnitude() -
+			effects.get(ESM::MagicEffect::DrainHealth + i).getMagnitude(),
+			// Magicka can be decreased below zero due to a fortify effect wearing off
+			// Fatigue can be decreased below zero meaning the actor will be knocked out
+			i == 1 || i == 2);
+
+		creatureStats.setDynamic(i, stat);
+	}
+
+	// attributes
+	for(int i = 0;i < ESM::Attribute::Length;++i)
+	{
+		AttributeValue stat = creatureStats.getAttribute(i);
+		stat.setModifier(static_cast<int>(effects.get(EffectKey(ESM::MagicEffect::FortifyAttribute, i)).getMagnitude() -
+						 effects.get(EffectKey(ESM::MagicEffect::DrainAttribute, i)).getMagnitude() -
+						 effects.get(EffectKey(ESM::MagicEffect::AbsorbAttribute, i)).getMagnitude()));
+
+		creatureStats.setAttribute(i, stat);
+	}
+
+	if (creatureStats.needToRecalcDynamicStats())
+		calculateDynamicStats(ptr);
+
+	{
+		Spells & spells = creatureStats.getSpells();
+		for (Spells::TIterator it = spells.begin(); it != spells.end(); ++it)
+		{
+			if (spells.getCorprusSpells().find(it->first) != spells.getCorprusSpells().end())
+			{
+				if (MWBase::Environment::get().getWorld()->getTimeStamp() >= spells.getCorprusSpells().at(it->first).mNextWorsening)
+				{
+					spells.worsenCorprus(it->first);
+
+					if (ptr == getPlayer())
+						MWBase::Environment::get().getWindowManager()->messageBox("#{sMagicCorprusWorsens}");
+				}
+			}
+		}
+	}
+
+	// AI setting modifiers
+	int creature = !ptr.getClass().isNpc();
+	if (creature && ptr.get<ESM::Creature>()->mBase->mData.mType == ESM::Creature::Humanoid)
+		creature = false;
+	// Note: the Creature variants only work on normal creatures, not on daedra or undead creatures.
+	if (!creature || ptr.get<ESM::Creature>()->mBase->mData.mType == ESM::Creature::Creatures)
+	{
+		Stat<int> stat = creatureStats.getAiSetting(CreatureStats::AI_Fight);
+		stat.setModifier(static_cast<int>(effects.get(ESM::MagicEffect::FrenzyHumanoid + creature).getMagnitude()
+			- effects.get(ESM::MagicEffect::CalmHumanoid+creature).getMagnitude()));
+		creatureStats.setAiSetting(CreatureStats::AI_Fight, stat);
+
+		stat = creatureStats.getAiSetting(CreatureStats::AI_Flee);
+		stat.setModifier(static_cast<int>(effects.get(ESM::MagicEffect::DemoralizeHumanoid + creature).getMagnitude()
+			- effects.get(ESM::MagicEffect::RallyHumanoid+creature).getMagnitude()));
+		creatureStats.setAiSetting(CreatureStats::AI_Flee, stat);
+	}
+	if (creature && ptr.get<ESM::Creature>()->mBase->mData.mType == ESM::Creature::Undead)
+	{
+		Stat<int> stat = creatureStats.getAiSetting(CreatureStats::AI_Flee);
+		stat.setModifier(static_cast<int>(effects.get(ESM::MagicEffect::TurnUndead).getMagnitude()));
+		creatureStats.setAiSetting(CreatureStats::AI_Flee, stat);
+	}
+
+	if (!wasDead && creatureStats.isDead())
+	{
+		// The actor was killed by a magic effect. Figure out if the player was responsible for it.
+		const ActiveSpells& spells = creatureStats.getActiveSpells();
+		MWWorld::Ptr player = getPlayer();
+		std::set<MWWorld::Ptr> playerFollowers;
+		getActorsSidingWith(player, playerFollowers);
+
+		for (ActiveSpells::TIterator it = spells.begin(); it != spells.end(); ++it)
+		{
+			bool actorKilled = false;
+
+			const ActiveSpells::ActiveSpellParams& spell = it->second;
+			MWWorld::Ptr caster = MWBase::Environment::get().getWorld()->searchPtrViaActorId(spell.mCasterActorId);
+			for (std::vector<ActiveSpells::ActiveEffect>::const_iterator effectIt = spell.mEffects.begin();
+				 effectIt != spell.mEffects.end(); ++effectIt)
+			{
+				int effectId = effectIt->mEffectId;
+				bool isDamageEffect = false;
+
+				int damageEffects[] = {
+					ESM::MagicEffect::FireDamage, ESM::MagicEffect::ShockDamage, ESM::MagicEffect::FrostDamage, ESM::MagicEffect::Poison,
+					ESM::MagicEffect::SunDamage, ESM::MagicEffect::DamageHealth, ESM::MagicEffect::AbsorbHealth
+				};
+
+				for (unsigned int i=0; i<sizeof(damageEffects)/sizeof(int); ++i)
+				{
+					if (damageEffects[i] == effectId)
+						isDamageEffect = true;
+				}
+
+				if (isDamageEffect)
+				{
+					if (caster == player || playerFollowers.find(caster) != playerFollowers.end())
+					{
+						if (caster.getClass().getNpcStats(caster).isWerewolf())
+							caster.getClass().getNpcStats(caster).addWerewolfKill();
+
+						MWBase::Environment::get().getMechanicsManager()->actorKilled(ptr, player);
+						actorKilled = true;
+						break;
+					}
+				}
+			}
+
+			if (actorKilled)
+				break;
+		}
+	}
+
+	// TODO: dirty flag for magic effects to avoid some unnecessary work below?
+
+	// any value of calm > 0 will stop the actor from fighting
+	if ((effects.get(ESM::MagicEffect::CalmHumanoid).getMagnitude() > 0 && ptr.getClass().isNpc())
+		|| (effects.get(ESM::MagicEffect::CalmCreature).getMagnitude() > 0 && !ptr.getClass().isNpc()))
+		creatureStats.getAiSequence().stopCombat();
+
+	// Update bound effects
+	// Note: in vanilla MW multiple bound items of the same type can be created by different spells.
+	// As these extra copies are kinda useless this may or may not be important.
+	static std::map<int, std::string> boundItemsMap;
+	if (boundItemsMap.empty())
+	{
+		boundItemsMap[ESM::MagicEffect::BoundBattleAxe] = "sMagicBoundBattleAxeID";
+		boundItemsMap[ESM::MagicEffect::BoundBoots] = "sMagicBoundBootsID";
+		boundItemsMap[ESM::MagicEffect::BoundCuirass] = "sMagicBoundCuirassID";
+		boundItemsMap[ESM::MagicEffect::BoundDagger] = "sMagicBoundDaggerID";
+		boundItemsMap[ESM::MagicEffect::BoundGloves] = "sMagicBoundLeftGauntletID"; // Note: needs RightGauntlet variant too (see below)
+		boundItemsMap[ESM::MagicEffect::BoundHelm] = "sMagicBoundHelmID";
+		boundItemsMap[ESM::MagicEffect::BoundLongbow] = "sMagicBoundLongbowID";
+		boundItemsMap[ESM::MagicEffect::BoundLongsword] = "sMagicBoundLongswordID";
+		boundItemsMap[ESM::MagicEffect::BoundMace] = "sMagicBoundMaceID";
+		boundItemsMap[ESM::MagicEffect::BoundShield] = "sMagicBoundShieldID";
+		boundItemsMap[ESM::MagicEffect::BoundSpear] = "sMagicBoundSpearID";
+	}
+
+	for (std::map<int, std::string>::iterator it = boundItemsMap.begin(); it != boundItemsMap.end(); ++it)
+	{
+		bool found = creatureStats.mBoundItems.find(it->first) != creatureStats.mBoundItems.end();
+		float magnitude = effects.get(it->first).getMagnitude();
+		if (found != (magnitude > 0))
+		{
+			if (magnitude > 0)
+				creatureStats.mBoundItems.insert(it->first);
+			else
+				creatureStats.mBoundItems.erase(it->first);
+
+			std::string itemGmst = it->second;
+			std::string item = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find(
+						itemGmst)->mValue.getString();
+
+			magnitude > 0 ? addBoundItem(item, ptr) : removeBoundItem(item, ptr);
+
+			if (it->first == ESM::MagicEffect::BoundGloves)
+			{
+				item = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find(
+							"sMagicBoundRightGauntletID")->mValue.getString();
+				magnitude > 0 ? addBoundItem(item, ptr) : removeBoundItem(item, ptr);
+			}
+		}
+	}
+
+	bool hasSummonEffect = false;
+	for (MagicEffects::Collection::const_iterator it = effects.begin(); it != effects.end(); ++it)
+		if (isSummoningEffect(it->first.mId))
+			hasSummonEffect = true;
+
+	if (!creatureStats.getSummonedCreatureMap().empty() || !creatureStats.getSummonedCreatureGraveyard().empty() || hasSummonEffect)
+	{
+		UpdateSummonedCreatures updateSummonedCreatures(ptr);
+		creatureStats.getActiveSpells().visitEffectSources(updateSummonedCreatures);
+		if (ptr.getClass().hasInventoryStore(ptr))
+			ptr.getClass().getInventoryStore(ptr).visitEffectSources(updateSummonedCreatures);
+		updateSummonedCreatures.process(mTimerDisposeSummonsCorpses == 0.f);
+	}
+}
+
+void idActor::calculateNpcStatModifiers (float duration)
+{
+	NpcStats &npcStats = actor.getClass().getNpcStats(actor);
+	const MagicEffects &effects = npcStats.getMagicEffects();
+
+	// skills
+	for(int i = 0;i < ESM::Skill::Length;++i)
+	{
+		SkillValue& skill = npcStats.getSkill(i);
+		skill.setModifier(static_cast<int>(effects.get(EffectKey(ESM::MagicEffect::FortifySkill, i)).getMagnitude() -
+						 effects.get(EffectKey(ESM::MagicEffect::DrainSkill, i)).getMagnitude() -
+						 effects.get(EffectKey(ESM::MagicEffect::AbsorbSkill, i)).getMagnitude()));
+	}
+}
+
+bool idActor::isAttackPreparing()
+{
+	return getCharacterController()->isAttackPreparing();
+}
+
+bool idActor::isRunning()
+{
+	return getCharacterController()->isRunning();
+}
+
+bool idActor::isSneaking()
+{
+	return getCharacterController()->isSneaking();
+}
+
+void idActor::updateDrowning(const MWWorld::Ptr& ptr, float duration, bool isKnockedOut, bool isPlayer)
+{
+	NpcStats &stats = ptr.getClass().getNpcStats(ptr);
+
+	// When npc stats are just initialized, mTimeToStartDrowning == -1 and we should get value from GMST
+	static const float fHoldBreathTime = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find("fHoldBreathTime")->mValue.getFloat();
+	if (stats.getTimeToStartDrowning() == -1.f)
+		stats.setTimeToStartDrowning(fHoldBreathTime);
+
+	if (!isPlayer && stats.getTimeToStartDrowning() < fHoldBreathTime / 2)
+	{
+		AiSequence& seq = ptr.getClass().getCreatureStats(ptr).getAiSequence();
+		if (seq.getTypeId() != AiPackage::TypeIdBreathe) //Only add it once
+			seq.stack(AiBreathe(), ptr);
+	}
+
+	MWBase::World *world = MWBase::Environment::get().getWorld();
+	bool knockedOutUnderwater = (isKnockedOut && world->isUnderwater(ptr.getCell(), osg::Vec3f(ptr.getRefData().getPosition().asVec3())));
+	if((world->isSubmerged(ptr) || knockedOutUnderwater)
+	   && stats.getMagicEffects().get(ESM::MagicEffect::WaterBreathing).getMagnitude() == 0)
+	{
+		float timeLeft = 0.0f;
+		if(knockedOutUnderwater)
+			stats.setTimeToStartDrowning(0);
+		else
+		{
+			timeLeft = stats.getTimeToStartDrowning() - duration;
+			if(timeLeft < 0.0f)
+				timeLeft = 0.0f;
+			stats.setTimeToStartDrowning(timeLeft);
+		}
+
+		bool godmode = isPlayer && MWBase::Environment::get().getWorld()->getGodModeState();
+
+		if(timeLeft == 0.0f && !godmode)
+		{
+			// If drowning, apply 3 points of damage per second
+			static const float fSuffocationDamage = world->getStore().get<ESM::GameSetting>().find("fSuffocationDamage")->mValue.getFloat();
+			DynamicStat<float> health = stats.getHealth();
+			health.setCurrent(health.getCurrent() - fSuffocationDamage*duration);
+			stats.setHealth(health);
+
+			// Play a drowning sound
+			MWBase::SoundManager *sndmgr = MWBase::Environment::get().getSoundManager();
+			if(!sndmgr->getSoundPlaying(ptr, "drown"))
+				sndmgr->playSound3D(ptr, "drown", 1.0f, 1.0f);
+
+			if(isPlayer)
+				MWBase::Environment::get().getWindowManager()->activateHitOverlay(false);
+		}
+	}
+	else
+		stats.setTimeToStartDrowning(fHoldBreathTime);
+}
+
+void idActor::updateEquippedLight (const MWWorld::Ptr& ptr, float duration, bool mayEquip)
+{
+	bool isPlayer = (ptr == getPlayer());
+
+	MWWorld::InventoryStore &inventoryStore = ptr.getClass().getInventoryStore(ptr);
+	MWWorld::ContainerStoreIterator heldIter =
+			inventoryStore.getSlot(MWWorld::InventoryStore::Slot_CarriedLeft);
+	// Automatically equip NPCs torches at night and unequip them at day
+	if (!isPlayer)
+	{
+		MWWorld::ContainerStoreIterator torch = inventoryStore.end();
+		for (MWWorld::ContainerStoreIterator it = inventoryStore.begin(); it != inventoryStore.end(); ++it)
+		{
+			if (it->getTypeName() == typeid(ESM::Light).name() &&
+				it->getClass().canBeEquipped(*it, ptr).first)
+			{
+				torch = it;
+				break;
+			}
+		}
+
+		if (mayEquip)
+		{
+			if (torch != inventoryStore.end())
+			{
+				if (!ptr.getClass().getCreatureStats (ptr).getAiSequence().isInCombat())
+				{
+					// For non-hostile NPCs, unequip whatever is in the left slot in favor of a light.
+					if (heldIter != inventoryStore.end() && heldIter->getTypeName() != typeid(ESM::Light).name())
+						inventoryStore.unequipItem(*heldIter, ptr);
+				}
+
+				heldIter = inventoryStore.getSlot(MWWorld::InventoryStore::Slot_CarriedLeft);
+
+				// If we have a torch and can equip it, then equip it now.
+				if (heldIter == inventoryStore.end())
+				{
+					inventoryStore.equip(MWWorld::InventoryStore::Slot_CarriedLeft, torch, ptr);
+				}
+			}
+		}
+		else
+		{
+			if (heldIter != inventoryStore.end() && heldIter->getTypeName() == typeid(ESM::Light).name())
+			{
+				// At day, unequip lights and auto equip shields or other suitable items
+				// (Note: autoEquip will ignore lights)
+				inventoryStore.autoEquip(ptr);
+			}
+		}
+	}
+
+	heldIter = inventoryStore.getSlot(MWWorld::InventoryStore::Slot_CarriedLeft);
+
+	//If holding a light...
+	if(heldIter.getType() == MWWorld::ContainerStore::Type_Light)
+	{
+		// Use time from the player's light
+		if(isPlayer)
+		{
+			float timeRemaining = heldIter->getClass().getRemainingUsageTime(*heldIter);
+
+			// -1 is infinite light source. Other negative values are treated as 0.
+			if(timeRemaining != -1.0f)
+			{
+				timeRemaining -= duration;
+
+				if(timeRemaining > 0.0f)
+					heldIter->getClass().setRemainingUsageTime(*heldIter, timeRemaining);
+				else
+				{
+					inventoryStore.remove(*heldIter, 1, ptr); // remove it
+					return;
+				}
+			}
+		}
+
+		// Both NPC and player lights extinguish in water.
+		if(MWBase::Environment::get().getWorld()->isSwimming(ptr))
+		{
+			inventoryStore.remove(*heldIter, 1, ptr); // remove it
+
+			// ...But, only the player makes a sound.
+			if(isPlayer)
+				MWBase::Environment::get().getSoundManager()->playSound("torch out",
+						1.0, 1.0, MWSound::Type::Sfx, MWSound::PlayMode::NoEnv);
+		}
+	}
+}
+
+void idActor::updateCrimePursuit(const MWWorld::Ptr& ptr, float duration)
+{
+	MWWorld::Ptr player = getPlayer();
+	if (ptr != player && ptr.getClass().isNpc())
+	{
+		// get stats of witness
+		CreatureStats& creatureStats = ptr.getClass().getCreatureStats(ptr);
+		NpcStats& npcStats = ptr.getClass().getNpcStats(ptr);
+
+		if (player.getClass().getNpcStats(player).isWerewolf())
+			return;
+
+		if (ptr.getClass().isClass(ptr, "Guard") && creatureStats.getAiSequence().getTypeId() != AiPackage::TypeIdPursue && !creatureStats.getAiSequence().isInCombat()
+			&& creatureStats.getMagicEffects().get(ESM::MagicEffect::CalmHumanoid).getMagnitude() == 0)
+		{
+			const MWWorld::ESMStore& esmStore = MWBase::Environment::get().getWorld()->getStore();
+			static const int cutoff = esmStore.get<ESM::GameSetting>().find("iCrimeThreshold")->mValue.getInteger();
+			// Force dialogue on sight if bounty is greater than the cutoff
+			// In vanilla morrowind, the greeting dialogue is scripted to either arrest the player (< 5000 bounty) or attack (>= 5000 bounty)
+			if (   player.getClass().getNpcStats(player).getBounty() >= cutoff
+				   // TODO: do not run these two every frame. keep an Aware state for each actor and update it every 0.2 s or so?
+				&& MWBase::Environment::get().getWorld()->getLOS(ptr, player)
+				&& MWBase::Environment::get().getMechanicsManager()->awarenessCheck(player, ptr))
+			{
+				static const int iCrimeThresholdMultiplier = esmStore.get<ESM::GameSetting>().find("iCrimeThresholdMultiplier")->mValue.getInteger();
+				if (player.getClass().getNpcStats(player).getBounty() >= cutoff * iCrimeThresholdMultiplier)
+				{
+					MWBase::Environment::get().getMechanicsManager()->startCombat(ptr, player);
+					creatureStats.setHitAttemptActorId(player.getClass().getCreatureStats(player).getActorId()); // Stops the guard from quitting combat if player is unreachable
+				}
+				else
+					creatureStats.getAiSequence().stack(AiPursue(player), ptr);
+				creatureStats.setAlarmed(true);
+				npcStats.setCrimeId(MWBase::Environment::get().getWorld()->getPlayer().getNewCrimeId());
+			}
+		}
+
+		// if I was a witness to a crime
+		if (npcStats.getCrimeId() != -1)
+		{
+			// if you've paid for your crimes and I havent noticed
+			if( npcStats.getCrimeId() <= MWBase::Environment::get().getWorld()->getPlayer().getCrimeId() )
+			{
+				// Calm witness down
+				if (ptr.getClass().isClass(ptr, "Guard"))
+					creatureStats.getAiSequence().stopPursuit();
+				creatureStats.getAiSequence().stopCombat();
+
+				// Reset factors to attack
+				creatureStats.setAttacked(false);
+				creatureStats.setAlarmed(false);
+				creatureStats.setAiSetting(CreatureStats::AI_Fight, ptr.getClass().getBaseFightRating(ptr));
+
+				// Update witness crime id
+				npcStats.setCrimeId(-1);
+			}
+		}
+	}
+}
+
+void idActor::adjustMagicEffects (const MWWorld::Ptr& creature)
+{
+	CreatureStats& creatureStats =  creature.getClass().getCreatureStats (creature);
+	if (creatureStats.isDead())
+		return;
+
+	MagicEffects now = creatureStats.getSpells().getMagicEffects();
+
+	if (creature.getTypeName()==typeid (ESM::NPC).name())
+	{
+		MWWorld::InventoryStore& store = creature.getClass().getInventoryStore (creature);
+		now += store.getMagicEffects();
+	}
+
+	now += creatureStats.getActiveSpells().getMagicEffects();
+
+	creatureStats.modifyMagicEffects(now);
+}
+
+void idActor::calculateRestoration (const MWWorld::Ptr& ptr, float duration)
+{
+	if (ptr.getClass().getCreatureStats(ptr).isDead())
+		return;
+
+	MWMechanics::CreatureStats& stats = ptr.getClass().getCreatureStats (ptr);
+
+	// Current fatigue can be above base value due to a fortify effect.
+	// In that case stop here and don't try to restore.
+	DynamicStat<float> fatigue = stats.getFatigue();
+	if (fatigue.getCurrent() >= fatigue.getBase())
+		return;
+
+	// Restore fatigue
+	int endurance = stats.getAttribute(ESM::Attribute::Endurance).getModified();
+	const MWWorld::Store<ESM::GameSetting>& settings = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>();
+	static const float fFatigueReturnBase = settings.find("fFatigueReturnBase")->mValue.getFloat ();
+	static const float fFatigueReturnMult = settings.find("fFatigueReturnMult")->mValue.getFloat ();
+
+	float x = fFatigueReturnBase + fFatigueReturnMult * endurance;
+
+	fatigue.setCurrent (fatigue.getCurrent() + duration * x);
+	stats.setFatigue (fatigue);
+}
+
+void idActor::castSpell(const std::string spellId, bool manualSpell)
+{
+	getCharacterController()->castSpell(spellId, manualSpell);
+}
+
+bool idActor::isActorDetected(const MWWorld::Ptr& observer)
+{
+	if (!actor.getClass().isActor())
+		return false;
+
+	// If an observer is NPC, check if he detected an actor
+	if (!observer.isEmpty() && observer.getClass().isNpc())
+	{
+		return
+			MWBase::Environment::get().getWorld()->getLOS(observer, actor) &&
+			MWBase::Environment::get().getMechanicsManager()->awarenessCheck(actor, observer);
+	}
+
+	// Otherwise check if any actor in AI processing range sees the target actor
+	std::vector<MWWorld::Ptr> neighbors;
+	osg::Vec3f position (actor.getRefData().getPosition().asVec3());
+	getObjectsInRange(position, mActorsProcessingRange, neighbors);
+	for (const MWWorld::Ptr &neighbor : neighbors)
+	{
+		if (neighbor == actor)
+			continue;
+
+		bool result = MWBase::Environment::get().getWorld()->getLOS(neighbor, actor)
+				   && MWBase::Environment::get().getMechanicsManager()->awarenessCheck(actor, neighbor);
+
+		if (result)
+			return true;
+	}
+
+	return false;
+}
+
+int idActor::getHoursToRest() const
+{
+	float healthPerHour, magickaPerHour;
+	getRestorationPerHourOfSleep(actor, healthPerHour, magickaPerHour);
+
+	CreatureStats& stats = actor.getClass().getCreatureStats(actor);
+
+	float healthHours  = healthPerHour > 0
+						 ? (stats.getHealth().getModified() - stats.getHealth().getCurrent()) / healthPerHour
+						 : 1.0f;
+	float magickaHours = magickaPerHour > 0
+						  ? (stats.getMagicka().getModified() - stats.getMagicka().getCurrent()) / magickaPerHour
+						  : 1.0f;
+
+	int autoHours = static_cast<int>(std::ceil(std::max(1.f, std::max(healthHours, magickaHours))));
+	return autoHours;
+}
+
+void idActor::forceStateUpdate()
+{
+	getCharacterController()->forceStateUpdate();
+}
+
+bool idActor::playAnimationGroup(const MWWorld::Ptr& ptr, const std::string& groupName, int mode, int number, bool persist)
+{
+	PtrActorMap::iterator iter = mActors.find(ptr);
+	if(iter != mActors.end())
+	{
+		return iter->second->getCharacterController()->playGroup(groupName, mode, number, persist);
+	}
+	else
+	{
+		Log(Debug::Warning) << "Warning: Actors::playAnimationGroup: Unable to find " << ptr.getCellRef().getRefId();
+		return false;
+	}
+}
+void idActor::skipAnimation()
+{
+	getCharacterController()->skipAnim();
+}
+
+bool idActor::checkAnimationPlaying(const std::string& groupName)
+{
+	PtrActorMap::iterator iter = mActors.find(actor);
+	if(iter != mActors.end())
+		return iter->second->getCharacterController()->isAnimPlaying(groupName);
+	return false;
+}
+
+std::list<MWWorld::Ptr> idActor::getActorsFollowing()
+{
+	std::list<MWWorld::Ptr> list;
+	for(PtrActorMap::iterator iter(mActors.begin());iter != mActors.end();++iter)
+	{
+		const MWWorld::Ptr &iteratedActor = iter->first;
+		if (iteratedActor == getPlayer() || iteratedActor == actor)
+			continue;
+
+		const CreatureStats &stats = iteratedActor.getClass().getCreatureStats(iteratedActor);
+		if (stats.isDead())
+			continue;
+
+		// An actor counts as following if AiFollow is the current AiPackage, 
+		// or there are only Combat and Wander packages before the AiFollow package
+		for (const AiPackage* package : stats.getAiSequence())
+		{
+			if (package->followTargetThroughDoors() && package->getTarget() == actor)
+				list.push_back(iteratedActor);
+			else if (package->getTypeId() != AiPackage::TypeIdCombat && package->getTypeId() != AiPackage::TypeIdWander)
+				break;
+		}
+	}
+	return list;
+}
+
+std::list<MWWorld::Ptr> idActor::getActorsFighting()
+{
+	std::list<MWWorld::Ptr> list;
+	std::vector<MWWorld::Ptr> neighbors;
+	osg::Vec3f position (actor.getRefData().getPosition().asVec3());
+	getObjectsInRange(position, mActorsProcessingRange, neighbors);
+	for(const MWWorld::Ptr neighbor : neighbors)
+	{
+		if (neighbor == actor)
+			continue;
+
+		const CreatureStats &stats = neighbor.getClass().getCreatureStats(neighbor);
+		if (stats.isDead())
+			continue;
+
+		if (stats.getAiSequence().isInCombat(actor))
+			list.push_front(neighbor);
+	}
+	return list;
+}
+
+std::list<MWWorld::Ptr> idActor::getEnemiesNearby()
+{
+	std::list<MWWorld::Ptr> list;
+	std::vector<MWWorld::Ptr> neighbors;
+	osg::Vec3f position (actor.getRefData().getPosition().asVec3());
+	getObjectsInRange(position, mActorsProcessingRange, neighbors);
+
+	std::set<MWWorld::Ptr> followers;
+	getActorsFollowing(actor, followers);
+	for (auto neighbor = neighbors.begin(); neighbor != neighbors.end(); ++neighbor)
+	{
+		const CreatureStats &stats = neighbor->getClass().getCreatureStats(*neighbor);
+		if (stats.isDead() || *neighbor == actor || neighbor->getClass().isPureWaterCreature(*neighbor))
+			continue;
+
+		const bool isFollower = followers.find(*neighbor) != followers.end();
+
+		if (stats.getAiSequence().isInCombat(actor) || (MWBase::Environment::get().getMechanicsManager()->isAggressive(*neighbor, actor) && !isFollower))
+			list.push_back(*neighbor);
+	}
+	return list;
+}
+
+void idActor::updateMagicEffects()
+{
+	adjustMagicEffects(actor);
+	calculateCreatureStatModifiers(actor, 0.f);
+	if (actor.getClass().isNpc())
+		calculateNpcStatModifiers(actor, 0.f);
+}
+
+bool idActor::isReadyToBlock() const
+{
+	return getCharacterController()->isReadyToBlock();
+}
+
+bool idActor::isCastingSpell() const
+{
+	return getCharacterController()->isCastingSpell();
+}
+
+bool idActor::isAttackingOrSpell() const
+{
+	return getCharacterController()->isAttackingOrSpell();
+}
+*/
