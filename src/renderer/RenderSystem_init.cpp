@@ -2843,6 +2843,15 @@ idRenderSystemLocal::Init
 void idRenderSystemLocal::Init()
 {
 	common->Printf( "------- Initializing renderSystem --------\n" );
+
+#ifndef SBE_SINGLE_BINARY
+	// initialize idLib
+	//idLib::Init(); // TODO
+
+	// register static cvars declared in the module
+	idCVar::RegisterStaticVars();
+#endif
+
 	// clear all our internal state
 	viewCount = 1;		// so cleared structures never match viewCount
 	// we used to memset tr, but now that it is a class, we can't, so
