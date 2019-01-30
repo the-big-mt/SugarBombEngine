@@ -27,8 +27,11 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+
 #pragma hdrstop
 #include "precompiled.h"
+
+#include "BinaryImage.h"
 #include "framework/Common_local.h"
 
 /*

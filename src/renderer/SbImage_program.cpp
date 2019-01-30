@@ -53,7 +53,6 @@ Manager
 #pragma hdrstop
 #include "precompiled.h"
 
-
 // tr_imageprogram.c
 
 #include "RenderCommon.h"

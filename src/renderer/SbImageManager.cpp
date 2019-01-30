@@ -29,7 +29,6 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
-
 #include "RenderCommon.h"
 
 // do this with a pointer, in case we want to make the actual manager

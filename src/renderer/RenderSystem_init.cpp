@@ -2842,9 +2842,7 @@ idRenderSystemLocal::Init
 */
 void idRenderSystemLocal::Init()
 {
-
 	common->Printf( "------- Initializing renderSystem --------\n" );
-	
 	// clear all our internal state
 	viewCount = 1;		// so cleared structures never match viewCount
 	// we used to memset tr, but now that it is a class, we can't, so
