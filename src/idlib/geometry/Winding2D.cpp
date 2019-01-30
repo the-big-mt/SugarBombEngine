@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "precompiled.h"
-#include "Winding2D.h"
+#include "idlib/geometry/Winding2D.h"
 
 /*
 ============
