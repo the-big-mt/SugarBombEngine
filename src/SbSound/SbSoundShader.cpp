@@ -46,6 +46,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/containers/List.h"
 #include "idlib/containers/StrList.h"
 
+#include "SbSoundShader.hpp"
+#include "SbSoundDefines.hpp"
+
 #if defined(USE_OPENAL)
 #	include "openal/AL_SoundSample.h"
 #else
@@ -428,13 +431,13 @@ void idSoundShader::List() const
 {
 	idStrList	shaders;
 	
-	common->Printf( "%4i: %s\n", Index(), GetName() );
+	idLib::common->Printf( "%4i: %s\n", Index(), GetName() );
 	for( int k = 0; k < entries.Num(); k++ )
 	{
 		const idSoundSample* objectp = entries[k];
 		if( objectp )
 		{
-			common->Printf( "      %5dms %4dKb %s\n", objectp->LengthInMsec(), ( objectp->BufferSize() / 1024 ), objectp->GetName() );
+			idLib::common->Printf( "      %5dms %4dKb %s\n", objectp->LengthInMsec(), ( objectp->BufferSize() / 1024 ), objectp->GetName() );
 		}
 	}
 }
