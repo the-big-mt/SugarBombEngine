@@ -101,6 +101,7 @@ If you have questions concerning this license or the applicable additional terms
 #define WIN32
 #endif
 
+#define EXPORT [[dllexport]]
 
 #elif defined(__linux__) || defined(__FreeBSD__) || defined(__APPLE__) || defined(__GNUC__) || defined(__clang__)
 
@@ -152,6 +153,8 @@ If you have questions concerning this license or the applicable additional terms
 #define CALLBACK
 #define __cdecl
 
+#define EXPORT [[visibility("default")]]
+
 #else
 #error unknown build enviorment
 #endif
@@ -183,6 +186,7 @@ private:									\
   TypeName(const TypeName&);				\
   void operator=(const TypeName&);
 
+#define C_EXPORT extern "C" EXPORT
 
 /*
 ================================================================================================
