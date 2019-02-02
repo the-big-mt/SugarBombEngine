@@ -79,7 +79,7 @@ LONG WINAPI MainWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam );
 
 void Conbuf_AppendText( const char* msg );
 
-typedef struct Win32Vars_t
+struct Win32Vars_t
 {
 	HWND			hWnd;
 	HINSTANCE		hInstance;
