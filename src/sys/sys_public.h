@@ -358,22 +358,7 @@ const char* Sys_Lang( int idx );
 ==============================================================
 */
 
-typedef enum
-{
-	NA_BAD,					// an address lookup failed
-	NA_LOOPBACK,
-	NA_BROADCAST,
-	NA_IP
-} netadrtype_t;
-
-typedef struct
-{
-	netadrtype_t	type;
-	unsigned char	ip[4];
-	unsigned short	port;
-} netadr_t;
-
-#define	PORT_ANY			-1
+#include "network/NetworkTypes.hpp"
 
 /*
 ================================================
