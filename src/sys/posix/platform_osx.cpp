@@ -441,35 +441,4 @@ int clock_gettime( clk_id_t clock, struct timespec* tp )
 	return 0;
 }
 
-/*
-===============
-main
-===============
-*/
-int main( int argc, const char** argv )
-{
-	// DG: needed for Sys_ReLaunch()
-	cmdargc = argc;
-	cmdargv = argv;
-	// DG end
-	
-	Posix_EarlyInit( );
-	
-	if( argc > 1 )
-	{
-		common->Init( argc - 1, &argv[1], nullptr );
-	}
-	else
-	{
-		common->Init( 0, nullptr, nullptr );
-	}
-	
-	Posix_LateInit( );
-	
-	while( 1 )
-	{
-		common->Frame();
-	}
-}
-
 //} // namespace BFG
