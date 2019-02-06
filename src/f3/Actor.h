@@ -390,6 +390,29 @@ private:
 	void					Event_GetWaitState();
 	
 	std::unique_ptr<CharacterController> mCharacterController;
+	// vaultmp
+public:
+	static const std::map<unsigned char, std::pair<const float, const float>> default_values;
+private:
+	std::unordered_map<unsigned char, Value<float>> Values;
+	std::unordered_map<unsigned char, Value<float>> BaseValues;
+	
+	Value<unsigned int> Race;
+	Value<int> Age;
+	
+	Value<unsigned int> anim_Idle;
+	Value<unsigned char> anim_Moving;
+	Value<unsigned char> anim_Weapon;
+	
+	Value<unsigned char> state_MovingXY;
+	
+	Value<bool> state_Female;
+	Value<bool> state_Alerted;
+	Value<bool> state_Sneaking;
+	Value<bool> state_Dead;
+	
+	Value<unsigned short> death_Limbs;
+	Value<char> death_Cause;
 };
 
 //}; // namespace MWMechanics

@@ -453,6 +453,45 @@ EVENT( EV_SetWaitState,				idActor::Event_SetWaitState )
 EVENT( EV_GetWaitState,				idActor::Event_GetWaitState )
 END_CLASS
 
+const map<unsigned char, pair<const float, const float>> Actor::default_values = {
+	{ActorVal_Energy, {50, 50}},
+	{ActorVal_Responsibility, {50, 50}},
+	{ActorVal_Strength, {5, 5}},
+	{ActorVal_Perception, {5, 5}},
+	{ActorVal_Endurance, {5, 5}},
+	{ActorVal_Charisma, {5, 5}},
+	{ActorVal_Intelligence, {5, 5}},
+	{ActorVal_Agility, {5, 5}},
+	{ActorVal_Luck, {5, 5}},
+	{ActorVal_ActionPoints, {75, 75}},
+	{ActorVal_CarryWeight, {200, 200}},
+	{ActorVal_Health, {200, 200}},
+	{ActorVal_PoisonResistance, {20, 20}},
+	{ActorVal_RadResistance, {8, 8}},
+	{ActorVal_SpeedMultiplier, {100, 100}},
+	{ActorVal_Fatigue, {200, 200}},
+	{ActorVal_Head, {100, 100}},
+	{ActorVal_Torso, {100, 100}},
+	{ActorVal_LeftArm, {100, 100}},
+	{ActorVal_RightArm, {100, 100}},
+	{ActorVal_LeftLeg, {100, 100}},
+	{ActorVal_RightLeg, {100, 100}},
+	{ActorVal_Brain, {100, 100}},
+	{ActorVal_Barter, {15, 15}},
+	{ActorVal_BigGuns, {15, 15}},
+	{ActorVal_EnergyWeapons, {15, 15}},
+	{ActorVal_Explosives, {15, 15}},
+	{ActorVal_Lockpick, {15, 15}},
+	{ActorVal_Medicine, {15, 15}},
+	{ActorVal_MeleeWeapons, {15, 15}},
+	{ActorVal_Repair, {15, 15}},
+	{ActorVal_Science, {15, 15}},
+	{ActorVal_SmallGuns, {15, 15}},
+	{ActorVal_Sneak, {15, 15}},
+	{ActorVal_Speech, {15, 15}},
+	{ActorVal_Unarmed, {15, 15}},
+};
+
 /*
 =====================
 idActor::idActor
@@ -508,6 +547,12 @@ idActor::idActor()
 	aimAssistNode.AddToEnd( gameLocal.aimAssistEntities );
 	
 	damageCap = -1;
+	
+	for(const auto &value : default_values)
+	{
+		this->SetActorBaseValue(value.first, value.second.first);
+		this->SetActorValue(value.first, value.second.second);
+	};
 }
 
 /*
