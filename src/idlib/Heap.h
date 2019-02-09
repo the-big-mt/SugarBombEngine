@@ -69,7 +69,7 @@ char* 		Mem_CopyString( const char* in );
 
 ID_INLINE void* operator new( size_t s )
 #if !defined(_MSC_VER)
-throw( std::bad_alloc ) // DG: standard signature seems to include throw(..)
+noexcept(false) // DG: standard signature seems to include throw(..)
 #endif
 {
 	return Mem_Alloc( s, TAG_NEW );
@@ -84,7 +84,7 @@ throw() // DG: delete musn't throw
 }
 ID_INLINE void* operator new[]( size_t s )
 #if !defined(_MSC_VER)
-throw( std::bad_alloc ) // DG: standard signature seems to include throw(..)
+noexcept(false) // DG: standard signature seems to include throw(..)
 #endif
 {
 	return Mem_Alloc( s, TAG_NEW );
