@@ -61,7 +61,7 @@ struct idSoundSystem
 	virtual idSoundWorld* 	GetPlayingSoundWorld() = 0;
 	
 	// Sends the current playing sound world information to the sound hardware.
-	virtual void			Render() = 0;
+	virtual void			Render(float afTimeStep) = 0;
 	
 	virtual void			MuteBackgroundMusic( bool mute ) = 0;
 	
