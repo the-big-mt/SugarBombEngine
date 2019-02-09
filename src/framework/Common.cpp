@@ -1779,44 +1779,6 @@ bool idCommonLocal::ProcessEvent( const sysEvent_t* event )
 		return true;
 	}
 	
-	// RB begin
-#if defined(USE_DOOMCLASSIC)
-	
-	// Let Doom classic run events.
-	if( IsPlayingDoomClassic() )
-	{
-		// Translate the event to Doom classic format.
-		event_t classicEvent;
-		if( event->evType == SE_KEY )
-		{
-		
-			if( event->evValue2 == 1 )
-			{
-				classicEvent.type = ev_keydown;
-			}
-			else if( event->evValue2 == 0 )
-			{
-				classicEvent.type = ev_keyup;
-			}
-			
-			DoomLib::SetPlayer( 0 );
-			
-			extern Globals* g;
-			if( g != nullptr )
-			{
-				classicEvent.data1 =  DoomLib::RemapControl( event->GetKey() );
-				
-				D_PostEvent( &classicEvent );
-			}
-			DoomLib::SetPlayer( -1 );
-		}
-		
-		// Let the classics eat all events.
-		return true;
-	}
-#endif
-	// RB end
-	
 	// menus / etc
 	if( MenuEvent( event ) )
 	{
