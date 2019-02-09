@@ -31,39 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
-#include "SbSound/SoundShaderParms.hpp"
-
-#include "SbSoundShader.hpp"
-
-#include "SbSound/ISoundEmitter.hpp"
-#include "SbSound/ISoundWorld.hpp"
-#include "SbSound/ISoundSystem.hpp"
-#include "SbSound/SoundTypes.hpp"
-
 //namespace sbe
 //{
 
-//extern idCVar timescale;
-
 const float DB_SILENCE = -60.0f;
 
-// TODO: unused?
-/*
-struct soundDecoderInfo_t
-{
-	idStr					name;
-	idStr					format;
-	int						numChannels;
-	int						numSamplesPerSecond;
-	int						num44kHzSamples;
-	int						numBytes;
-	bool					looping;
-	float					lastVolume;
-	int						start44kHzTime;
-	int						current44kHzTime;
-};
-*/
-
-extern idSoundSystem *soundSystem;
-
-//} // namespace sbe
+//}; // namespace sbe
