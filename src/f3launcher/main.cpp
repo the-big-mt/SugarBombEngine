@@ -23,16 +23,16 @@
  * Workaround for problems with whitespaces in paths in older versions of Boost library
  */
 #if (BOOST_VERSION <= 104600)
-namespace boost
+namespace std
 {
 
 template<>
-inline boost::filesystem::path lexical_cast<boost::filesystem::path, std::string>(const std::string& arg)
+inline std::filesystem::path lexical_cast<std::filesystem::path, std::string>(const std::string& arg)
 {
-    return boost::filesystem::path(arg);
+    return std::filesystem::path(arg);
 }
 
-} /* namespace boost */
+} /* namespace std */
 #endif /* (BOOST_VERSION <= 104600) */
 
 
@@ -247,8 +247,8 @@ bool parseOptions (int argc, char** argv, OMW::Engine& engine, Files::Configurat
 int runApplication(int argc, char *argv[])
 {
 #ifdef __APPLE__
-    boost::filesystem::path binary_path = boost::filesystem::system_complete(boost::filesystem::path(argv[0]));
-    boost::filesystem::current_path(binary_path.parent_path());
+    std::filesystem::path binary_path = std::filesystem::system_complete(std::filesystem::path(argv[0]));
+    std::filesystem::current_path(binary_path.parent_path());
     setenv("OSG_GL_TEXTURE_STORAGE", "OFF", 0);
 #endif
 
