@@ -35,6 +35,38 @@ If you have questions concerning this license or the applicable additional terms
 /*
 ================================================================================================
 
+	Common Include Files
+
+================================================================================================
+*/
+
+#if !defined( _DEBUG ) && !defined( NDEBUG )
+// don't generate asserts
+#define NDEBUG
+#endif
+
+#include <cstdio>
+#include <cstdlib>
+#include <cstdarg>
+#include <cstring>
+#include <cassert>
+#include <ctime>
+#include <cctype>
+#include <typeinfo>
+#include <cerrno>
+#include <cmath>
+#include <climits>
+#include <memory>
+// RB: added <cstdint> for missing uintptr_t with MinGW
+#include <cstdint>
+// RB end
+// Yamagi: <cstddef> for ptrdiff_t on FreeBSD
+#include <cstddef>
+// Yamagi end
+
+/*
+================================================================================================
+
 	Windows
 
 ================================================================================================
@@ -119,39 +151,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <stdlib.h>							// no malloc.h on mac or unix
 #undef FindText								// fix namespace pollution
-
-
-/*
-================================================================================================
-
-	Common Include Files
-
-================================================================================================
-*/
-
-#if !defined( _DEBUG ) && !defined( NDEBUG )
-// don't generate asserts
-#define NDEBUG
-#endif
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-#include <assert.h>
-#include <time.h>
-#include <ctype.h>
-#include <typeinfo>
-#include <errno.h>
-#include <math.h>
-#include <limits.h>
-#include <memory>
-// RB: added <stdint.h> for missing uintptr_t with MinGW
-#include <stdint.h>
-// RB end
-// Yamagi: <stddef.h> for ptrdiff_t on FreeBSD
-#include <stddef.h>
-// Yamagi end
 
 //-----------------------------------------------------
 
