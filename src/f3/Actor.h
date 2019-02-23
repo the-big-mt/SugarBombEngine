@@ -476,6 +476,46 @@ public:
 		
 		IgnoreCrippledLimbs = 0x48,
 	};
+	
+	/**
+	 * \brief Limb values
+	 */
+	enum class Limbs //: unsigned short
+	{
+		Limb_None = -1,
+		Limb_Torso = 0,
+		Limb_Head1 = 1,
+		Limb_Head2 = 2,
+		Limb_LeftArm1 = 3,
+		Limb_LeftArm2 = 4,
+		Limb_RightArm1 = 5,
+		Limb_RightArm2 = 6,
+		Limb_LeftLeg1 = 7,
+		Limb_LeftLeg2 = 8,
+		Limb_LeftLeg3 = 9,
+		Limb_RightLeg1 = 10,
+		Limb_RightLeg2 = 11,
+		Limb_RightLeg3 = 12,
+		Limb_Brain = 13,
+		Limb_Weapon = 14,
+	};
+	
+	/**
+	 * \brief Cause of death values
+	 */
+	enum class Death/*Type/Cause*/ //: char
+	{
+		None = -1,
+		
+		Explosion = 0,
+		
+		Gun = 2,
+		BluntWeapon,
+		HandToHand,
+		ObjectImpact,
+		Poison,
+		Radiation,
+	};
 
 	static const std::map<unsigned char, std::pair<const float, const float>> default_values;
 private:
