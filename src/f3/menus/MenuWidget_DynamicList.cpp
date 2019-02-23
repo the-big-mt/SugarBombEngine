@@ -25,9 +25,26 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+/*
+#include <cstddef>
+
+#include "../d3xp/menus/MenuWidget.h"
+#include "../idlib/Heap.h"
+#include "../idlib/Str.h"
+#include "../idlib/containers/List.h"
+#include "../swf/SWF.h"
+#include "../swf/SWF_ScriptObject.h"
+#include "../swf/SWF_SpriteInstance.h"
+*/
+
 #pragma hdrstop
 #include "precompiled.h"
 #include "../Game_local.h"
+
+//namespace BFG
+//{
+
+//class idMenuHandler;
 
 /*
 ========================
@@ -277,3 +294,5 @@ int idMenuWidget_ScoreboardList::GetTotalNumberOfOptions() const
 {
 	return GetChildren().Num();
 }
+
+//} // namespace BFG

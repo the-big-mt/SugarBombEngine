@@ -28,6 +28,21 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MENU_WIDGET_H__
 #define __MENU_WIDGET_H__
 
+/*
+#include "../swf/SWF.h"        // for idSWF
+#include "../swf/SWF_ParmList.h"        // for idSWFParmList
+#include "../swf/SWF_ScriptObject.h"    // for idSWFScriptObject
+#include "../swf/SWF_ScriptVar.h"       // for idSWFScriptVar
+#include "../swf/SWF_ScriptFunction.h"  // for idSWFScriptFunction
+
+#include "../sys/sys_session.h"  // for voiceStateDisplay_t
+
+#include "../d3xp/Player.h"             // for idPlayer
+
+namespace BFG
+{
+*/
+
 class idMenuHandler;
 class idMenuWidget;
 
@@ -165,7 +180,7 @@ enum actionHandler_t
 struct widgetTransition_t
 {
 	widgetTransition_t() :
-		animationName( NULL )
+		animationName( nullptr )
 	{
 	
 	}
@@ -235,7 +250,7 @@ public:
 	idWidgetEvent() :
 		type( WIDGET_EVENT_PRESS ),
 		arg( 0 ),
-		thisObject( NULL )
+		thisObject( nullptr )
 	{
 	
 	}
@@ -264,7 +279,7 @@ class idWidgetAction
 public:
 	idWidgetAction() :
 		action( WIDGET_ACTION_NONE ),
-		scriptFunction( NULL )
+		scriptFunction( nullptr )
 	{
 	}
 	
@@ -273,7 +288,7 @@ public:
 		action = src.action;
 		parms = src.parms;
 		scriptFunction = src.scriptFunction;
-		if( scriptFunction != NULL )
+		if( scriptFunction != nullptr )
 		{
 			scriptFunction->AddRef();
 		}
@@ -281,7 +296,7 @@ public:
 	
 	~idWidgetAction()
 	{
-		if( scriptFunction != NULL )
+		if( scriptFunction != nullptr )
 		{
 			scriptFunction->Release();
 		}
@@ -292,7 +307,7 @@ public:
 		action = src.action;
 		parms = src.parms;
 		scriptFunction = src.scriptFunction;
-		if( scriptFunction != NULL )
+		if( scriptFunction != nullptr )
 		{
 			scriptFunction->AddRef();
 		}
@@ -323,7 +338,7 @@ public:
 	void Set( idSWFScriptFunction* function )
 	{
 		action = WIDGET_ACTION_FUNCTION;
-		if( scriptFunction != NULL )
+		if( scriptFunction != nullptr )
 		{
 			scriptFunction->Release();
 		}
@@ -477,7 +492,7 @@ public:
 	bool								BindSprite( idSWFScriptObject& root );
 	void								ClearSprite();
 	
-	void								SetSpritePath( const char* arg1, const char* arg2 = NULL, const char* arg3 = NULL, const char* arg4 = NULL, const char* arg5 = NULL );
+	void								SetSpritePath( const char* arg1, const char* arg2 = nullptr, const char* arg3 = NULL, const char* arg4 = NULL, const char* arg5 = NULL );
 	void								SetSpritePath( const idList< idStr >& spritePath_, const char* arg1 = NULL, const char* arg2 = NULL, const char* arg3 = NULL, const char* arg4 = NULL, const char* arg5 = NULL );
 	idList< idStr, TAG_IDLIB_LIST_MENU >& 					GetSpritePath()
 	{
@@ -514,7 +529,7 @@ public:
 	// through the standard focus order.
 	virtual bool						ExecuteEvent( const idWidgetEvent& event );
 	
-	// returns the list of actions for a given event, or NULL if no actions are registered for
+	// returns the list of actions for a given event, or nullptr if no actions are registered for
 	// that event.  Events should not be directly added to the returned list.  Instead use
 	// AddEventAction for adding new events.
 	idList< idWidgetAction, TAG_IDLIB_LIST_MENU >* 			GetEventActions( const widgetEvent_t eventType );
@@ -542,7 +557,7 @@ public:
 	
 	idMenuWidget* 						GetFocus()
 	{
-		return ( focusIndex >= 0 && focusIndex < children.Num() ) ? children[ focusIndex ] : NULL;
+		return ( focusIndex >= 0 && focusIndex < children.Num() ) ? children[ focusIndex ] : nullptr;
 	}
 	int									GetFocusIndex() const
 	{
@@ -652,7 +667,7 @@ public:
 	
 	idMenuWidget_Button() :
 		animState( ANIM_STATE_UP ),
-		img( NULL ),
+		img( nullptr ),
 		ignoreColor( false )
 	{
 	}
@@ -1415,7 +1430,7 @@ class idMenuWidget_InfoBox: public idMenuWidget
 {
 public:
 	idMenuWidget_InfoBox() :
-		scrollbar( NULL )
+		scrollbar( nullptr )
 	{
 	}
 	
@@ -1516,8 +1531,8 @@ class idMenuWidget_PDA_EmailInbox: public idMenuWidget
 {
 public:
 	idMenuWidget_PDA_EmailInbox() :
-		emailList( NULL ),
-		scrollbar( NULL ),
+		emailList( nullptr ),
+		scrollbar( nullptr ),
 		pdaIndex( 0 )
 	{
 	}
@@ -1709,4 +1724,6 @@ private:
 	widgetEvent_t targetEvent;
 };
 
-#endif
+//} // namespace BFG
+
+#endif // __MENU_WIDGET_H__

@@ -26,10 +26,41 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+/*
+#include <cassert>
+#include <cstddef>
+
+#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuWidget.h"
+#include "../framework/CVarSystem.h"
+#include "../framework/Common.h"
+#include "../framework/DeclManager.h"
+#include "../idlib/Heap.h"
+#include "../idlib/LangDict.h"
+#include "../idlib/Lib.h"
+#include "../idlib/Str.h"
+#include "../idlib/containers/List.h"
+#include "../idlib/containers/StaticList.h"
+#include "../swf/SWF.h"
+#include "../swf/SWF_ParmList.h"
+#include "../swf/SWF_ScriptFunction.h"
+#include "../swf/SWF_ScriptObject.h"
+#include "../swf/SWF_ScriptVar.h"
+#include "../swf/SWF_SpriteInstance.h"
+#include "../sys/sys_session.h"
+#include "../sys/sys_signin.h"
+*/
+
 #pragma hdrstop
 #include "precompiled.h"
 #include "../Game_local.h"
 #include "../../framework/Common_local.h"
+
+//namespace BFG
+//{
+
+//class idMaterial;
 
 static const int NUM_GAME_SELECTIONS_VISIBLE = 5;
 extern idCVar g_demoMode;
@@ -104,9 +135,8 @@ void idMenuScreen_Shell_PressStart::Initialize( idMenuHandler* data )
 	AddEventAction( WIDGET_EVENT_SCROLL_LEFT_LSTICK_RELEASE ).Set( new( TAG_SWF ) idWidgetActionHandler( this, WIDGET_ACTION_EVENT_STOP_REPEATER, WIDGET_EVENT_SCROLL_LEFT_LSTICK_RELEASE ) );
 	AddEventAction( WIDGET_EVENT_SCROLL_RIGHT_LSTICK_RELEASE ).Set( new( TAG_SWF ) idWidgetActionHandler( this, WIDGET_ACTION_EVENT_STOP_REPEATER, WIDGET_EVENT_SCROLL_RIGHT_LSTICK_RELEASE ) );
 	
-	doomCover = declManager->FindMaterial( "guis/assets/mainmenu/doom_cover.tga" );
-	doom2Cover = declManager->FindMaterial( "guis/assets/mainmenu/doom2_cover.tga" );
-	doom3Cover = declManager->FindMaterial( "guis/assets/mainmenu/doom3_cover.tga" );
+	f3Cover = declManager->FindMaterial( "guis/assets/mainmenu/doom3_cover.tga" );
+	//fnvCover = declManager->FindMaterial( "guis/assets/mainmenu/doom3_cover.tga" );
 	
 	startButton = new idMenuWidget_Button();
 	startButton->SetSpritePath( GetSpritePath(), "info", "btnStart" );
@@ -181,9 +211,8 @@ void idMenuScreen_Shell_PressStart::ShowScreen( const mainMenuTransition_t trans
 		
 			idList<const idMaterial*> coverIcons;
 			
-			coverIcons.Append( doomCover );
-			coverIcons.Append( doom3Cover );
-			coverIcons.Append( doom2Cover );
+			coverIcons.Append( f3Cover );
+			//coverIcons.Append( fnvCover );
 			
 			if( itemList != nullptr )
 			{
@@ -365,3 +394,5 @@ bool idMenuScreen_Shell_PressStart::HandleAction( idWidgetAction& action, const 
 	
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
+
+//} // namespace BFG

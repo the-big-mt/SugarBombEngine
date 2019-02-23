@@ -25,9 +25,26 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+/*
+#include <cstddef>
+
+#include "../d3xp/menus/MenuWidget.h"
+#include "../idlib/Str.h"
+#include "../idlib/containers/List.h"
+#include "../swf/SWF.h"
+#include "../swf/SWF_ScriptObject.h"
+#include "../swf/SWF_SpriteInstance.h"
+#include "../swf/SWF_TextInstance.h"
+*/
+
 #pragma hdrstop
 #include "precompiled.h"
 #include "../Game_local.h"
+
+//namespace BFG
+//{
+
+//class idMenuHandler;
 
 /*
 ========================
@@ -200,3 +217,5 @@ bool idMenuWidget_NavBar::PrepareListElement( idMenuWidget& widget, const int na
 	return true;
 	
 }
+
+//} // namespace BFG

@@ -25,9 +25,24 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+/*
+#include <cstddef>
+
+#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuWidget.h"
+#include "../idlib/Heap.h"
+#include "../idlib/Str.h"
+#include "../swf/SWF_ScriptObject.h"
+#include "../swf/SWF_SpriteInstance.h"
+#include "../swf/SWF_TextInstance.h"
+*/
+
 #pragma hdrstop
 #include "precompiled.h"
 #include "../Game_local.h"
+
+//namespace BFG
+//{
 
 /*
 ========================
@@ -204,3 +219,5 @@ void idMenuWidget_MenuButton::Update()
 		hitBox->Set( "onRollOut", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_ROLL_OUT, 0 ) );
 	}
 }
+
+//} // namespace BFG

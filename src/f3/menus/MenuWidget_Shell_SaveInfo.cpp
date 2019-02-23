@@ -25,9 +25,29 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+//#include <cstddef>
+
+//#include "../d3xp/Player.h"
+//#include "../d3xp/menus/MenuScreen.h"
+//#include "../d3xp/menus/MenuWidget.h"
+//#include "../framework/BuildVersion.h"
+//#include "../idlib/LangDict.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/StrStatic.h"
+//#include "../swf/SWF.h"
+//#include "../swf/SWF_ScriptObject.h"
+//#include "../swf/SWF_SpriteInstance.h"
+//#include "../swf/SWF_TextInstance.h"
+//#include "../sys/sys_public.h"
+//#include "../sys/sys_session.h"
+//#include "sys/sys_savegame.h"
+
 #pragma hdrstop
 #include "precompiled.h"
 #include "../Game_local.h"
+
+//namespace BFG
+//{
 
 /*
 ========================
@@ -198,3 +218,5 @@ void idMenuWidget_Shell_SaveInfo::ObserveEvent( const idMenuWidget& widget, cons
 		}
 	}
 }
+
+//} // namespace BFG

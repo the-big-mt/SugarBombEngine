@@ -25,9 +25,25 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+/*
+#include <cstddef>
+
+#include "../d3xp/Player.h"
+#include "../d3xp/menus/MenuWidget.h"
+#include "../idlib/Str.h"
+#include "../swf/SWF.h"
+#include "../swf/SWF_ScriptObject.h"
+#include "../swf/SWF_SpriteInstance.h"
+*/
+
 #pragma hdrstop
 #include "precompiled.h"
 #include "../Game_local.h"
+
+//namespace BFG
+//{
+
+//class idMaterial;
 
 void idMenuWidget_ItemAssignment::SetIcon( int index, const idMaterial* icon )
 {
@@ -124,3 +140,5 @@ void idMenuWidget_ItemAssignment::Update()
 		}
 	}
 }
+
+//} // namespace BFG

@@ -26,8 +26,47 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
+//#include <cstddef>
 #include "precompiled.h"
 #include "../Game_local.h"
+/*
+#include "../d3xp/Game.h"
+#include "../d3xp/Leaderboards.h"
+#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuWidget.h"
+#include "../framework/Common.h"
+#include "../framework/Common_dialog.h"
+#include "../idlib/Heap.h"
+#include "../idlib/LangDict.h"
+#include "../idlib/Lib.h"
+#include "../idlib/Str.h"
+#include "../idlib/containers/Array.h"
+#include "../idlib/containers/List.h"
+#include "../idlib/containers/StaticList.h"
+#include "../idlib/math/Math.h"
+#include "../idlib/sys/sys_assert.h"
+#include "../idlib/sys/sys_types.h"
+#include "../swf/SWF.h"
+#include "../swf/SWF_ParmList.h"
+#include "../swf/SWF_ScriptObject.h"
+#include "../swf/SWF_ScriptVar.h"
+#include "../swf/SWF_SpriteInstance.h"
+#include "../swf/SWF_TextInstance.h"
+
+#if 0  // no steam api
+#include "../sys/sys_leaderboards.h"
+#else
+#include "../sys/sys_stats.h"
+#endif
+
+#include "../sys/sys_public.h"
+#include "../sys/sys_session.h"
+#include "../sys/sys_signin.h"
+
+namespace BFG
+{
+*/
 
 const static int NUM_LEADERBOARD_ITEMS = 16;
 const int MAX_STAT_LISTINGS = 16;
@@ -1224,3 +1263,5 @@ idMainMenu::SetSPLeaderboardFromMenuSettings
 void idLBCache::DisplayGamerCardUI( const idLeaderboardCallback::row_t* row )
 {
 }
+
+//} // namespace BFG

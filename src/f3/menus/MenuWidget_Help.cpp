@@ -25,9 +25,23 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+/*
+#include <cstddef>
+
+#include "../d3xp/menus/MenuWidget.h"
+#include "../idlib/Str.h"
+#include "../swf/SWF.h"
+#include "../swf/SWF_ScriptObject.h"
+#include "../swf/SWF_SpriteInstance.h"
+#include "../swf/SWF_TextInstance.h"
+*/
+
 #pragma hdrstop
 #include "precompiled.h"
 #include "../Game_local.h"
+
+//namespace BFG
+//{
 
 /*
 ================================================================================================
@@ -156,3 +170,4 @@ void idMenuWidget_Help::ObserveEvent( const idMenuWidget& widget, const idWidget
 	}
 }
 
+//} // namespace BFG

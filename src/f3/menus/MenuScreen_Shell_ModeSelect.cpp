@@ -25,9 +25,33 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+
 #pragma hdrstop
+//#include <cstddef>
 #include "precompiled.h"
+
 #include "../Game_local.h"
+//#include "../d3xp/menus/MenuHandler.h"
+//#include "../d3xp/menus/MenuScreen.h"
+//#include "../d3xp/menus/MenuWidget.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../idlib/Dict.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/containers/StaticList.h"
+//#include "../idlib/containers/StrList.h"
+//#include "../swf/SWF.h"
+//#include "../swf/SWF_ParmList.h"
+//#include "../swf/SWF_ScriptObject.h"
+//#include "../swf/SWF_ScriptVar.h"
+//#include "../swf/SWF_SpriteInstance.h"
+//#include "../swf/SWF_TextInstance.h"
+//#include "../sys/sys_session.h"
+
+//namespace BFG
+//{
 
 const static int NUM_SETTING_OPTIONS = 8;
 
@@ -251,3 +275,5 @@ bool idMenuScreen_Shell_ModeSelect::HandleAction( idWidgetAction& action, const 
 	
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
+
+//} // namespace BFG
