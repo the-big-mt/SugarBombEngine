@@ -1081,6 +1081,93 @@ void idCommonLocal::ShutdownRenderSystem()
 #endif
 };
 
+/*
+=================
+idCommonLocal::LoadSoundModule
+=================
+*/
+void idCommonLocal::InitSoundSystem()
+{
+#ifndef SBE_SINGLE_BINARY
+	char			dllPath[ MAX_OSPATH ];
+	
+	soundImport_t	soundImport;
+	soundExport_t	soundExport;
+	GetSoundAPI_t	GetSoundAPI;
+	
+	fileSystem->FindDLL( "SbSound", dllPath, true );
+	
+	if( !dllPath[ 0 ] )
+	{
+		common->FatalError( "couldn't find sound dynamic library" );
+		return;
+	}
+	common->DPrintf( "Loading sound DLL: '%s'\n", dllPath );
+	soundDLL = sys->DLL_Load( dllPath );
+	if( !soundDLL )
+	{
+		common->FatalError( "couldn't load sound dynamic library" );
+		return;
+	}
+	
+	const char* functionName = "GetSoundAPI";
+	GetSoundAPI = ( GetSoundAPI_t ) Sys_DLL_GetProcAddress( soundDLL, functionName );
+	if( !GetSoundAPI )
+	{
+		Sys_DLL_Unload( soundDLL );
+		soundDLL = nullptr;
+		common->FatalError( "couldn't find sound DLL API" );
+		return;
+	}
+	
+	soundImport.version					= SOUND_API_VERSION;
+	soundImport.sys						= ::sys;
+	soundImport.common					= ::common;
+	soundImport.cmdSystem				= ::cmdSystem;
+	soundImport.cvarSystem				= ::cvarSystem;
+	soundImport.fileSystem				= ::fileSystem;
+	soundImport.renderSystem				= ::renderSystem;
+	soundImport.declManager				= ::declManager;
+	
+	soundExport							= *GetSoundAPI( &soundImport );
+	
+	if( soundExport.version != SOUND_API_VERSION )
+	{
+		Sys_DLL_Unload( soundDLL );
+		soundDLL = nullptr;
+		common->FatalError( "wrong sound DLL API version" );
+		return;
+	}
+	
+	soundSystem								= soundExport.soundSystem;
+	
+#endif
+	
+	// initialize the sound object
+	if( soundSystem != nullptr )
+		soundSystem->Init();
+}
+
+/*
+=================
+idCommonLocal::UnloadGameModule
+=================
+*/
+void idCommonLocal::ShutdownSoundSystem()
+{
+	// shut down the sound object
+	if( soundSystem != nullptr )
+		soundSystem->Shutdown();
+	
+#ifndef SBE_SINGLE_BINARY
+	if( soundDLL )
+	{
+		Sys_DLL_Unload( soundDLL );
+		soundDLL = nullptr;
+	};
+	soundSystem = nullptr;
+#endif
+}
 
 /*
 =================
