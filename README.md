@@ -25,7 +25,9 @@ If you don't want to use git, you can download the source as a zip file at
 https://gitlab.com/BlackPhrase/sugarbombengine/-/archive/master/sugarbombengine-master.zip  
 
 In case GitLab is not accessible for some reason you can use GitHub as an alternative variant 
-(it contains a backup of the "master" branch which might be a bit out-of-date)
+(it contains a backup of the "master" branch which might be a bit out-of-date). It is not recommended, though, 
+in case you want to contribute to the original repo, because all GitHub PRs (Pull Requests) will be ignored. You 
+still can do that in case you want to fork the engine and use for your own purposes
 
 	> git clone https://github.com/BlackPhrase/SugarBombEngine.git
 
