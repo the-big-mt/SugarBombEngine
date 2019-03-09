@@ -269,38 +269,6 @@ void			Sys_GenerateEvents();
 sysEvent_t		Sys_GetEvent();
 void			Sys_ClearEvents();
 
-// input is tied to windows, so it needs to be started up and shut down whenever
-// the main window is recreated
-void			Sys_InitInput();
-void			Sys_ShutdownInput();
-
-// keyboard input polling
-int				Sys_PollKeyboardInputEvents();
-int				Sys_ReturnKeyboardInputEvent( const int n, int& ch, bool& state );
-void			Sys_EndKeyboardInputEvents();
-
-// DG: currently this is only used by idKeyInput::LocalizedKeyName() for !windows
-#ifndef _WIN32
-// return a human readable name for the key in the current keyboard layout (keynum is a directinput scancode)
-const char*		Sys_GetKeyName( keyNum_t keynum );
-#endif
-// DG end
-
-// mouse input polling
-static const int MAX_MOUSE_EVENTS = 256;
-int				Sys_PollMouseInputEvents( int mouseEvents[MAX_MOUSE_EVENTS][2] );
-
-// joystick input polling
-void			Sys_SetRumble( int device, int low, int hi );
-int				Sys_PollJoystickInputEvents( int deviceNum );
-int				Sys_ReturnJoystickInputEvent( const int n, int& action, int& value );
-void			Sys_EndJoystickInputEvents();
-
-// when the console is down, or the game is about to perform a lengthy
-// operation like map loading, the system can release the mouse cursor
-// when in windowed mode
-void			Sys_GrabMouseCursor( bool grabIt );
-
 void			Sys_ShowWindow( bool show );
 bool			Sys_IsWindowVisible();
 void			Sys_ShowConsole( int visLevel, bool quitOnClose );
