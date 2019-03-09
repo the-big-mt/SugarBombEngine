@@ -253,8 +253,7 @@ int runApplication(int argc, char *argv[])
 #endif
 
     Files::ConfigurationManager cfgMgr;
-    std::unique_ptr<OMW::Engine> engine;
-    engine.reset(new OMW::Engine(cfgMgr));
+    auto engine = std::make_unique<OMW::Engine>(cfgMgr);
 
     if (parseOptions(argc, argv, *engine, cfgMgr))
     {
