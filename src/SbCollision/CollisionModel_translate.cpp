@@ -35,10 +35,30 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cmath>
+//#include <cstdlib>
+//#include <cstring>
 #include "precompiled.h"
 
-
+//#include "../cm/CollisionModel.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/geometry/TraceModel.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Pluecker.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/RenderWorld.h"
 #include "CollisionModel_local.h"
+
+//namespace BFG
+//{
 
 /*
 ===============================================================================
@@ -1233,3 +1253,5 @@ void idCollisionModelManagerLocal::Translation( trace_t* results, const idVec3& 
 	}
 #endif
 }
+
+//} // namespace BFG

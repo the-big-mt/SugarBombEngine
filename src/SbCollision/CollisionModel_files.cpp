@@ -35,10 +35,31 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cstddef>
 #include "precompiled.h"
 
-
+//#include "../framework/Common.h"
+//#include "../framework/DeclManager.h"
+//#include "../framework/File.h"
+//#include "../framework/FileSystem.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lexer.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/StrStatic.h"
+//#include "../idlib/Token.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/geometry/TraceModel.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/Material.h"
 #include "CollisionModel_local.h"
+
+//namespace BFG
+//{
+
+//class idMapEntity;
 
 #define CM_FILE_EXT			"cm"
 #define CM_BINARYFILE_EXT	"bcm"
@@ -748,3 +769,5 @@ bool idCollisionModelManagerLocal::LoadCollisionModelFile( const char* name, uns
 	
 	return true;
 }
+
+//} // namespace BFG

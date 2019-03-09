@@ -507,11 +507,11 @@ void idCollisionModelManagerLocal::DebugOutput( const idVec3& origin )
 	total_translation += t;
 	if( cm_testTimes.GetInteger() > 9999 )
 	{
-		sprintf( buf, "%3dK", ( int )( cm_testTimes.GetInteger() / 1000 ) );
+		std::sprintf( buf, "%3dK", ( int )( cm_testTimes.GetInteger() / 1000 ) );
 	}
 	else
 	{
-		sprintf( buf, "%4d", cm_testTimes.GetInteger() );
+		std::sprintf( buf, "%4d", cm_testTimes.GetInteger() );
 	}
 	common->Printf( "%s translations: %4d milliseconds, (min = %d, max = %d, av = %1.1f)\n", buf, t, min_translation, max_translation, ( float ) total_translation / num_translation );
 	
@@ -561,11 +561,11 @@ void idCollisionModelManagerLocal::DebugOutput( const idVec3& origin )
 		total_rotation += t;
 		if( cm_testTimes.GetInteger() > 9999 )
 		{
-			sprintf( buf, "%3dK", ( int )( cm_testTimes.GetInteger() / 1000 ) );
+			std::sprintf( buf, "%3dK", ( int )( cm_testTimes.GetInteger() / 1000 ) );
 		}
 		else
 		{
-			sprintf( buf, "%4d", cm_testTimes.GetInteger() );
+			std::sprintf( buf, "%4d", cm_testTimes.GetInteger() );
 		}
 		common->Printf( "%s rotation: %4d milliseconds, (min = %d, max = %d, av = %1.1f)\n", buf, t, min_rotation, max_rotation, ( float ) total_rotation / num_rotation );
 	}
@@ -573,3 +573,5 @@ void idCollisionModelManagerLocal::DebugOutput( const idVec3& origin )
 	Mem_Free( testend );
 	testend = nullptr;
 }
+
+//} // namespace BFG

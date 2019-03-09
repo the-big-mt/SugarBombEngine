@@ -37,8 +37,14 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
-
+//#include "../cm/CollisionModel.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Rotation.h"
+//#include "../idlib/math/Vector.h"
 #include "CollisionModel_local.h"
+
+//namespace BFG
+//{
 
 /*
 ===============================================================================
@@ -294,3 +300,5 @@ void idCollisionModelManagerLocal::TraceThroughModel( cm_traceWork_t* tw )
 		idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r( tw, tw->model->node, 0, 1, start, tw->end );
 	}
 }
+
+//} // namespace BFG

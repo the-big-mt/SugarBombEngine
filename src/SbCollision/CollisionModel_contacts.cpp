@@ -37,8 +37,15 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
-
+//#include "../cm/CollisionModel.h"
+//#include "../idlib/math/Vector.h"
 #include "CollisionModel_local.h"
+
+//namespace BFG
+//{
+
+//class idMat3;
+//class idTraceModel;
 
 /*
 ===============================================================================
@@ -76,3 +83,5 @@ int idCollisionModelManagerLocal::Contacts( contactInfo_t* contacts, const int m
 	
 	return idCollisionModelManagerLocal::numContacts;
 }
+
+//} // namespace BFG
