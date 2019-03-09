@@ -155,14 +155,14 @@ bool parseOptions (int argc, char** argv, OMW::Engine& engine, Files::Configurat
     {
         cfgMgr.readConfiguration(variables, desc, true);
 
-        Version::Version v = Version::getOpenmwVersion(variables["resources"].as<Files::EscapeHashString>().toStdString());
+        auto v = Version::getOpenmwVersion(variables["resources"].as<Files::EscapeHashString>().toStdString());
         std::cout << v.describe() << std::endl;
         return false;
     }
 
     cfgMgr.readConfiguration(variables, desc);
 
-    Version::Version v = Version::getOpenmwVersion(variables["resources"].as<Files::EscapeHashString>().toStdString());
+    auto v = Version::getOpenmwVersion(variables["resources"].as<Files::EscapeHashString>().toStdString());
     std::cout << v.describe() << std::endl;
 
     engine.setGrabMouse(!variables["no-grab"].as<bool>());
@@ -175,9 +175,9 @@ bool parseOptions (int argc, char** argv, OMW::Engine& engine, Files::Configurat
     // directory settings
     engine.enableFSStrict(variables["fs-strict"].as<bool>());
 
-    Files::PathContainer dataDirs(Files::EscapePath::toPathContainer(variables["data"].as<Files::EscapePathContainer>()));
+    auto dataDirs(Files::EscapePath::toPathContainer(variables["data"].as<Files::EscapePathContainer>()));
 
-    std::string local(variables["data-local"].as<Files::EscapeHashString>().toStdString());
+    auto local(variables["data-local"].as<Files::EscapeHashString>().toStdString());
     if (!local.empty())
     {
         if (local.front() == '\"')
@@ -191,29 +191,29 @@ bool parseOptions (int argc, char** argv, OMW::Engine& engine, Files::Configurat
     engine.setDataDirs(dataDirs);
 
     // fallback archives
-    StringsVector archives = variables["fallback-archive"].as<Files::EscapeStringVector>().toStdStringVector();
-    for (StringsVector::const_iterator it = archives.begin(); it != archives.end(); ++it)
+    auto archives = variables["fallback-archive"].as<Files::EscapeStringVector>().toStdStringVector();
+    for (auto it = archives.begin(); it != archives.end(); ++it)
     {
         engine.addArchive(*it);
     }
 
-	StringsVector tes4archives = variables["fallback-tes4archive"].as<StringsVector>();
-    for (StringsVector::const_iterator it = tes4archives.begin(); it != tes4archives.end(); ++it)
+	auto tes4archives = variables["fallback-tes4archive"].as<StringsVector>();
+    for (auto it = tes4archives.begin(); it != tes4archives.end(); ++it)
     {
         engine.addTES4Archive(*it);
     }
 
     engine.setResourceDir(variables["resources"].as<Files::EscapeHashString>().toStdString());
 
-    StringsVector content = variables["content"].as<Files::EscapeStringVector>().toStdStringVector();
+    auto content = variables["content"].as<Files::EscapeStringVector>().toStdStringVector();
     if (content.empty())
     {
         Log(Debug::Error) << "No content file given (esm/esp, nor omwgame/omwaddon). Aborting...";
         return false;
     }
 
-    StringsVector::const_iterator it(content.begin());
-    StringsVector::const_iterator end(content.end());
+    auto it(content.begin());
+    auto end(content.end());
     for (; it != end; ++it)
     {
       engine.addContentFile(*it);
