@@ -28,6 +28,16 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "precompiled.h"
+/*
+#include "../idlib/Str.h"
+#include "../idlib/math/Math.h"
+#include "../idlib/math/Matrix.h"
+#include "../idlib/math/Plane.h"
+#include "../idlib/math/Vector.h"
+
+namespace BFG
+{
+*/
 
 idPlane plane_origin( 0.0f, 0.0f, 0.0f, 0.0f );
 
@@ -171,3 +181,5 @@ const char* idPlane::ToString( int precision ) const
 {
 	return idStr::FloatArrayToString( ToFloatPtr(), GetDimension(), precision );
 }
+
+//} // namespace BFG

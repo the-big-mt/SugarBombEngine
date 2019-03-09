@@ -29,6 +29,14 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 #pragma hdrstop
 
+//#include <cstddef>
+
+//#include "../idlib/Token.h"
+//#include "../idlib/math/Math.h"
+//#include "sys/sys_assert.h"
+
+//namespace BFG
+//{
 
 /*
 ================
@@ -210,3 +218,5 @@ void idToken::ClearTokenWhiteSpace()
 	whiteSpaceEnd_p = nullptr;
 	linesCrossed = 0;
 }
+
+//} // namespace BFG

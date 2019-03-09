@@ -28,6 +28,15 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "precompiled.h"
+/*
+#include "../idlib/Str.h"
+#include "../idlib/math/Plane.h"
+#include "../idlib/math/Pluecker.h"
+#include "../idlib/math/Vector.h"
+
+namespace BFG
+{
+*/
 
 idPluecker pluecker_origin( 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f );
 
@@ -88,3 +97,5 @@ const char* idPluecker::ToString( int precision ) const
 {
 	return idStr::FloatArrayToString( ToFloatPtr(), GetDimension(), precision );
 }
+
+//} // namespace BFG

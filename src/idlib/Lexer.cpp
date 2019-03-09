@@ -28,6 +28,23 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "precompiled.h"
 #pragma hdrstop
+//#include <cstdarg>
+//#include <cstdio>
+//#include <cstring>
+
+//#include "../framework/Common.h"
+//#include "../framework/File.h"
+//#include "../framework/FileSystem.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lexer.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/Token.h"
+//#include "sys/sys_assert.h"
+//#include "sys/sys_defines.h"
+
+//namespace BFG
+//{
 
 #define PUNCTABLE
 
@@ -247,7 +264,7 @@ void idLexer::Error( const char* str, ... )
 	}
 	
 	va_start( ap, str );
-	vsprintf( text, str, ap );
+	std::vsprintf( text, str, ap );
 	va_end( ap );
 	
 	if( idLexer::flags & LEXFL_NOFATALERRORS )
@@ -276,7 +293,7 @@ void idLexer::Warning( const char* str, ... )
 	}
 	
 	va_start( ap, str );
-	vsprintf( text, str, ap );
+	std::vsprintf( text, str, ap );
 	va_end( ap );
 	idLib::common->Warning( "file %s, line %d: %s", idLexer::filename.c_str(), idLexer::line, text );
 }
@@ -2307,3 +2324,4 @@ bool idLexer::HadError() const
 	return hadError;
 }
 
+//} // namespace BFG

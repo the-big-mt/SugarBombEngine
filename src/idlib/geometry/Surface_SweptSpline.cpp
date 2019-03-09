@@ -28,6 +28,22 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "precompiled.h"
+/*
+#include "../idlib/geometry/Surface_SweptSpline.h"
+
+#include "../idlib/math/Curve.h"
+#include "../idlib/math/Math.h"
+#include "../idlib/math/Matrix.h"
+#include "../idlib/math/Vector.h"
+#include "Heap.h"
+#include "containers/List.h"
+#include "geometry/DrawVert.h"
+#include "geometry/Surface.h"
+#include "sys/sys_types.h"
+
+namespace BFG
+{
+*/
 
 /*
 ====================
@@ -235,3 +251,5 @@ void idSurface_SweptSpline::Tessellate( const int splineSubdivisions, const int 
 	
 	GenerateEdgeIndexes();
 }
+
+//} // namespace BFG

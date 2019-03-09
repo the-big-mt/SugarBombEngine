@@ -29,6 +29,20 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/bv/Box.h"
+//#include "../idlib/math/MatX.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/VecX.h"
+//#include "../idlib/math/Vector.h"
+
+//namespace BFG
+//{
+
+//class idRotation;
+
 idBox box_zero( vec3_zero, vec3_zero, mat3_identity );
 
 /*
@@ -919,3 +933,5 @@ int idBox::GetParallelProjectionSilhouetteVerts( const idVec3& projectionDir, id
 	
 	return index[0];
 }
+
+//} // namespace BFG

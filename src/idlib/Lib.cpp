@@ -29,6 +29,37 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 #pragma hdrstop
 
+//#if defined( MACOS_X )
+//#	include <csignal>
+//#	include <sys/types.h>
+//#endif
+
+//#ifndef _MSC_VER
+//#	include <unistd.h>
+//#endif
+
+//#include <cstdarg>                     // for va_end, va_list, va_start
+//#include <cstddef>                     // for NULL
+
+//#include "../framework/Common.h"        // for idCommon
+//#include "../idlib/Dict.h"              // for idDict
+//#include "../idlib/Lib.h"               // for idLib, MAX_STRING_CHARS, etc
+//#include "../idlib/Str.h"               // for idStr
+//#include "../idlib/math/Math.h"         // for idMath
+//#include "../idlib/math/Polynomial.h"   // for idPolynomial
+//#include "../idlib/math/Simd.h"         // for idSIMD
+//#include "../idlib/math/Vector.h"       // for idVec4, idVec3
+//#include "../idlib/sys/sys_assert.h"             // for assert
+//#include "../idlib/sys/sys_threading.h"          // for idSysThreadLocalStorage, etc
+//#include "../idlib/sys/sys_types.h"              // for byte, dword
+
+//namespace BFG
+//{
+
+//class idCVarSystem;
+//class idFileSystem;
+//class idSys;
+
 /*
 ===============================================================================
 
@@ -677,3 +708,5 @@ BreakOnListDefault
 void BreakOnListDefault()
 {
 }
+
+//} // namespace BFG

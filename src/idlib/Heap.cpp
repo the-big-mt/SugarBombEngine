@@ -36,7 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 //	memory allocation all in one place
 //
 //===============================================================
-#include <stdlib.h>
+#include <cstdlib>
 #undef new
 
 /*
@@ -110,3 +110,4 @@ char* Mem_CopyString( const char* in )
 	return out;
 }
 
+//} // namespace BFG

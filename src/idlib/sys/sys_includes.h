@@ -143,13 +143,13 @@ If you have questions concerning this license or the applicable additional terms
 
 #elif defined(__linux__) || defined(__FreeBSD__)
 
-#include <signal.h>
+#include <csignal>
 #include <pthread.h>
 
 #endif // #if defined(_WIN32)
 // RB end
 
-#include <stdlib.h>							// no malloc.h on mac or unix
+#include <cstdlib>							// no malloc.h on mac or unix
 #undef FindText								// fix namespace pollution
 
 //-----------------------------------------------------

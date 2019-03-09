@@ -28,6 +28,18 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "precompiled.h"
 #pragma hdrstop
+//#include "../idlib/Timer.h"
+
+//#include "../framework/../idlib/containers/StrList.h"
+//#include "../framework/Common.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Str.h"
+//#include "Heap.h"
+//#include "containers/List.h"
+//#include "sys/sys_assert.h"
+
+//namespace BFG
+//{
 
 double idTimer::base = -1.0;
 
@@ -176,3 +188,5 @@ void idTimerReport::PrintReport()
 	}
 	idLib::common->Printf( "Total time for report %s was %5.2f\n\n", reportName.c_str(), total * 0.001f );
 }
+
+//} // namespace BFG

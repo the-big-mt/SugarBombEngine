@@ -128,8 +128,10 @@ struct idNullPtr
 //#endif
 
 // C99 Standard
+#ifndef _WIN32
 #ifndef nullptr
 #define nullptr	idNullPtr()
+#endif
 #endif
 
 #ifndef BIT
