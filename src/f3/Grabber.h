@@ -26,6 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+#pragma once
+
 /*
 ===============================================================================
 
@@ -35,7 +37,18 @@ If you have questions concerning this license or the applicable additional terms
 ===============================================================================
 */
 
+//#include "../d3xp/Entity.h"
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/physics/Force_Grab.h"
+//#include "../idlib/math/Vector.h"
+
+//namespace BFG
+//{
+
 class idBeam;
+//class idPlayer;
+//class idRestoreGame;
+//class idSaveGame;
 
 class idGrabber : public idEntity
 {
@@ -83,3 +96,4 @@ private:
 	void					ApplyShake();
 };
 
+//} // namespace BFG

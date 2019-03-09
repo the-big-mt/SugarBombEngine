@@ -29,6 +29,20 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_CAMERA_H__
 #define __GAME_CAMERA_H__
 
+/*
+#include "../d3xp/Entity.h"
+#include "../d3xp/gamesys/Class.h"
+#include "../idlib/containers/List.h"
+#include "../idlib/math/Quat.h"
+#include "../idlib/math/Vector.h"
+#include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
+
+class idRestoreGame;
+class idSaveGame;
+*/
 
 /*
 ===============================================================================
@@ -132,5 +146,7 @@ private:
 	void					Event_SetCallback();
 	void					Event_Activate( idEntity* activator );
 };
+
+//} // namespace BFG
 
 #endif /* !__GAME_CAMERA_H__ */

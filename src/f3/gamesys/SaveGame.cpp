@@ -27,10 +27,49 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cstdarg>
+//#include <cstdio>
+//#include <cstring>
 #include "precompiled.h"
 
-
 #include "../Game_local.h"
+//#include "../cm/CollisionModel.h"
+//#include "../d3xp/Entity.h"
+//#include "../d3xp/Game.h"
+//#include "../d3xp/anim/Anim.h"
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/gamesys/SaveGame.h"
+//#include "../d3xp/physics/Clip.h"
+//#include "../framework/BuildVersion.h"
+//#include "../framework/DeclFX.h"
+//#include "../framework/DeclManager.h"
+//#include "../framework/DeclParticle.h"
+//#include "../framework/DeclSkin.h"
+//#include "../framework/File.h"
+//#include "../framework/UsercmdGen.h"
+//#include "../idlib/Dict.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/containers/HashIndex.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/geometry/TraceModel.h"
+//#include "../idlib/geometry/Winding.h"
+//#include "../idlib/math/Angles.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_types.h"
+//#include "../renderer/Material.h"
+//#include "../renderer/Model.h"
+//#include "../renderer/ModelManager.h"
+//#include "../renderer/RenderWorld.h"
+//#include "../sound/sound.h"
+//#include "../ui/UserInterface.h"
+//#include "sys/sys_savegame.h"
+
+//namespace BFG
+//{
 
 /*
 Save game related helper classes.
@@ -1070,7 +1109,7 @@ void idRestoreGame::Error( const char* fmt, ... )
 	char	text[ 1024 ];
 	
 	va_start( argptr, fmt );
-	vsprintf( text, fmt, argptr );
+	std::vsprintf( text, fmt, argptr );
 	va_end( argptr );
 	
 	objects.DeleteContents( true );
@@ -1808,3 +1847,5 @@ void idRestoreGame::ReadSoundCommands()
 	gameSoundWorld->StopAllSounds();
 	gameSoundWorld->ReadFromSaveGame( file );
 }
+
+//} // namespace BFG

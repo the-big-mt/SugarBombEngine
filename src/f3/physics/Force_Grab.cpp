@@ -27,10 +27,24 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cstddef>
 #include "precompiled.h"
 
-
 #include "../Game_local.h"
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/gamesys/SaveGame.h"
+//#include "../d3xp/gamesys/SysCvar.h"
+//#include "../d3xp/physics/Force_Grab.h"
+//#include "../d3xp/physics/Physics.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Random.h"
+//#include "../idlib/math/Vector.h"
+
+//namespace BFG
+//{
 
 CLASS_DECLARATION( idForce, idForce_Grab )
 END_CLASS
@@ -203,3 +217,4 @@ void idForce_Grab::RemovePhysics( const idPhysics* phys )
 	}
 }
 
+//} // namespace BFG

@@ -27,10 +27,34 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstring>
 #include "precompiled.h"
 
 #include "../Game_local.h"
+//#include "../cm/CollisionModel.h"
+//#include "../d3xp/AFEntity.h"
+//#include "../d3xp/Actor.h"
+//#include "../d3xp/Entity.h"
+//#include "../d3xp/Game_defines.h"
+//#include "../d3xp/Item.h"
+//#include "../d3xp/Moveable.h"
+//#include "../d3xp/Player.h"
+//#include "../d3xp/Projectile.h"
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/physics/Clip.h"
+//#include "../d3xp/physics/Physics.h"
+//#include "../d3xp/physics/Physics_Actor.h"
+//#include "../d3xp/physics/Push.h"
+//#include "../idlib/Dict.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/math/Angles.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Rotation.h"
+//#include "../idlib/math/Vector.h"
 
+//namespace BFG
+//{
 
 /*
 ============
@@ -1640,3 +1664,5 @@ float idPush::ClipPush( trace_t& results, idEntity* pusher, const int flags,
 	
 	return mass;
 }
+
+//} // namespace BFG

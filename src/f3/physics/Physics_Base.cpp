@@ -27,9 +27,32 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstring>
 #include "precompiled.h"
 
 #include "../Game_local.h"
+//#include "../cm/CollisionModel.h"
+//#include "../d3xp/Entity.h"
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/gamesys/SaveGame.h"
+//#include "../d3xp/physics/Clip.h"
+//#include "../d3xp/physics/Force.h"
+//#include "../d3xp/physics/Physics.h"
+//#include "../d3xp/physics/Physics_Base.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Rotation.h"
+//#include "../idlib/math/Vector.h"
+//#include "../renderer/RenderWorld.h"
+
+//namespace BFG
+//{
+
+//class idBitMsg;
 
 CLASS_DECLARATION( idPhysics, idPhysics_Base )
 END_CLASS
@@ -961,3 +984,5 @@ idPhysics_Base::ReadFromSnapshot
 void idPhysics_Base::ReadFromSnapshot( const idBitMsg& msg )
 {
 }
+
+//} // namespace BFG

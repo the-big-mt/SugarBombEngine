@@ -28,9 +28,19 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "precompiled.h"
-
+//#include <cstdio>
 
 #include "../Game_local.h"
+//#include "../d3xp/Game_defines.h"
+//#include "../d3xp/MultiplayerGame.h"
+//#include "../framework/BuildVersion.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/CmdSystem.h"
+//#include "../framework/Licensee.h"
+//#include "../idlib/sys/sys_defines.h"
+
+//namespace BFG
+//{
 
 #if defined( _DEBUG )
 	#define	BUILD_DEBUG	"-debug"
@@ -43,7 +53,7 @@ All game cvars should be defined here.
 */
 
 struct gameVersion_s {
-	gameVersion_s() { sprintf( string, "%s.%d%s %s %s %s", ENGINE_VERSION, BUILD_NUMBER, BUILD_DEBUG, BUILD_STRING, __DATE__, __TIME__ ); }
+	gameVersion_s() { std::sprintf( string, "%s.%d%s %s %s %s", ENGINE_VERSION, BUILD_NUMBER, BUILD_DEBUG, BUILD_STRING, __DATE__, __TIME__ ); }
 	char	string[256];
 } gameVersion;
 
@@ -323,3 +333,5 @@ idCVar g_grabberHardStop(			"g_grabberHardStop",		"1",			CVAR_GAME | CVAR_BOOL |
 idCVar g_grabberDamping(			"g_grabberDamping",			"0.5",			CVAR_GAME | CVAR_FLOAT | CVAR_CHEAT, "damping of grabber" );
 
 idCVar g_xp_bind_run_once( "g_xp_bind_run_once", "0", CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "Rebind all controls once for D3XP." );
+
+//} // namespace BFG

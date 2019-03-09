@@ -29,6 +29,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __AAS_H__
 #define __AAS_H__
 
+//#include "../aas/AASFile.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/math/Vector.h"
+
+//namespace BFG
+//{
+
+//class idPlane;
+
 /*
 ===============================================================================
 
@@ -143,5 +153,7 @@ public:
 	// Find the nearest goal which satisfies the callback.
 	virtual bool				FindNearestGoal( aasGoal_t& goal, int areaNum, const idVec3 origin, const idVec3& target, int travelFlags, aasObstacle_t* obstacles, int numObstacles, idAASCallback& callback ) const = 0;
 };
+
+//} // namespace BFG
 
 #endif /* !__AAS_H__ */

@@ -30,6 +30,18 @@ If you have questions concerning this license or the applicable additional terms
 #define __GAME_PVS_H__
 
 /*
+#include "../idlib/sys/sys_types.h"
+
+namespace BFG
+{
+
+class idBounds;
+class idPlane;
+class idVec3;
+class idWinding;
+*/
+
+/*
 ===================================================================================
 
 	PVS
@@ -126,5 +138,7 @@ private:
 	void				GetConnectedAreas( int srcArea, bool* connectedAreas ) const;
 	pvsHandle_t			AllocCurrentPVS( unsigned int h ) const;
 };
+
+//} // namespace BFG
 
 #endif /* !__GAME_PVS_H__ */

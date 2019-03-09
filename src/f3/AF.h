@@ -29,6 +29,32 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_AF_H__
 #define __GAME_AF_H__
 
+/*
+#include <cstddef>
+
+#include "../d3xp/anim/Anim.h"
+//#include "../d3xp/physics/Physics.h"
+#include "../d3xp/physics/Physics_AF.h"
+#include "../idlib/Heap.h"
+#include "../idlib/Str.h"
+#include "../idlib/bv/Bounds.h"
+#include "../idlib/containers/List.h"
+#include "../idlib/math/Matrix.h"
+#include "../idlib/math/Vector.h"
+#include "../renderer/Model.h"
+
+namespace BFG
+{
+
+class idClipModel;
+class idDeclAF_Body;
+class idDeclAF_Constraint;
+class idDict;
+class idEntity;
+class idJointMat;
+class idRestoreGame;
+class idSaveGame;
+*/
 
 /*
 ===============================================================================
@@ -137,5 +163,7 @@ protected:
 	
 	bool					TestSolid() const;
 };
+
+//} // namespace BFG
 
 #endif /* !__GAME_AF_H__ */

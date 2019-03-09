@@ -27,11 +27,27 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cstddef>
+//#include <cstring>
 #include "precompiled.h"
-
 
 #include "AAS_local.h"
 #include "../Game_local.h"		// for print and error
+//#include "../aas/AASFile.h"
+//#include "../d3xp/ai/AAS.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Simd.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
+
+//namespace BFG
+//{
 
 #define CACHETYPE_AREA				1
 #define CACHETYPE_PORTAL			2
@@ -1556,3 +1572,5 @@ bool idAASLocal::FindNearestGoal( aasGoal_t& goal, int areaNum, const idVec3 ori
 	
 	return false;
 }
+
+//} // namespace BFG

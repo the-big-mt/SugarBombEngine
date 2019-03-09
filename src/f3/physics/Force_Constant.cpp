@@ -26,10 +26,22 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+//#include <cstddef>
+
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/gamesys/SaveGame.h"
+//#include "../d3xp/physics/Force_Constant.h"
+//#include "../d3xp/physics/Physics.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Vector.h"
+
 #pragma hdrstop
 #include "precompiled.h"
 
 #include "../Game_local.h"
+
+//namespace BFG
+//{
 
 CLASS_DECLARATION( idForce, idForce_Constant )
 END_CLASS
@@ -144,3 +156,5 @@ void idForce_Constant::RemovePhysics( const idPhysics* phys )
 		physics = nullptr;
 	}
 }
+
+//} // namespace BFG

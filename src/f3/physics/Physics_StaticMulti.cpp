@@ -27,10 +27,33 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstring>
 #include "precompiled.h"
 
-
 #include "../Game_local.h"
+//#include "../cm/CollisionModel.h"
+//#include "../d3xp/Entity.h"
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/gamesys/SaveGame.h"
+//#include "../d3xp/gamesys/SysCvar.h"
+//#include "../d3xp/physics/Clip.h"
+//#include "../d3xp/physics/Force.h"
+//#include "../d3xp/physics/Physics.h"
+//#include "../d3xp/physics/Physics_Static.h"
+//#include "../d3xp/physics/Physics_StaticMulti.h"
+//#include "../framework/CVarSystem.h"
+//#include "../idlib/BitMsg.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Quat.h"
+//#include "../idlib/math/Rotation.h"
+//#include "../idlib/math/Vector.h"
+
+//namespace BFG
+//{
 
 CLASS_DECLARATION( idPhysics, idPhysics_StaticMulti )
 END_CLASS
@@ -1268,3 +1291,5 @@ void idPhysics_StaticMulti::ReadFromSnapshot( const idBitMsg& msg )
 		next[i] = ReadStaticInterpolatePStateFromSnapshot( msg );
 	}
 }
+
+//} // namespace BFG

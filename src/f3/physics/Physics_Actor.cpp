@@ -27,10 +27,28 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstddef>
 #include "precompiled.h"
 
-
 #include "../Game_local.h"
+//#include "../cm/CollisionModel.h"
+//#include "../d3xp/Entity.h"
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/gamesys/SaveGame.h"
+//#include "../d3xp/physics/Clip.h"
+//#include "../d3xp/physics/Physics_Actor.h"
+//#include "../d3xp/physics/Physics_Base.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Vector.h"
+
+//namespace BFG
+//{
+
+//class idBounds;
+//class idRotation;
 
 CLASS_DECLARATION( idPhysics_Base, idPhysics_Actor )
 END_CLASS
@@ -422,3 +440,5 @@ bool idPhysics_Actor::EvaluateContacts()
 	
 	return ( contacts.Num() != 0 );
 }
+
+//} // namespace BFG

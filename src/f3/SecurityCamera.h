@@ -30,6 +30,21 @@ If you have questions concerning this license or the applicable additional terms
 #define __GAME_SECURITYCAMERA_H__
 
 /*
+#include "../d3xp/Entity.h"
+#include "../d3xp/gamesys/Class.h"
+#include "../d3xp/physics/Physics_RigidBody.h"
+#include "../idlib/geometry/TraceModel.h"
+#include "../idlib/math/Vector.h"
+#include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
+
+class idRestoreGame;
+class idSaveGame;
+*/
+
+/*
 ===================================================================================
 
 	Security camera
@@ -94,5 +109,7 @@ private:
 	void					Event_Alert();
 	void					Event_AddLight();
 };
+
+//} // namespace BFG
 
 #endif /* !__GAME_SECURITYCAMERA_H__ */

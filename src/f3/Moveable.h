@@ -30,6 +30,28 @@ If you have questions concerning this license or the applicable additional terms
 #define __GAME_MOVEABLE_H__
 
 /*
+#include "../cm/CollisionModel.h"
+#include "../d3xp/Entity.h"
+#include "../d3xp/gamesys/Class.h"
+#include "../d3xp/gamesys/Event.h"
+#include "../d3xp/physics/Physics_RigidBody.h"
+#include "../idlib/Lib.h"
+#include "../idlib/Str.h"
+#include "../idlib/math/Matrix.h"
+#include "../idlib/math/Vector.h"
+#include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
+
+class idBitMsg;
+class idMaterial;
+class idRestoreGame;
+class idSaveGame;
+template <class type> class idCurve_Spline;
+*/
+
+/*
 ===============================================================================
 
   Entity using rigid body physics.
@@ -214,5 +236,7 @@ private:
 	void					Event_Explode();
 	void					Event_TriggerTargets();
 };
+
+//} // namespace BFG
 
 #endif /* !__GAME_MOVEABLE_H__ */

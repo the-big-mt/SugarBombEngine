@@ -30,6 +30,21 @@ If you have questions concerning this license or the applicable additional terms
 #define __GAME_IK_H__
 
 /*
+#include "../idlib/math/Matrix.h"
+#include "../idlib/math/Vector.h"
+#include "../renderer/Model.h"
+
+namespace BFG
+{
+
+class idAnimator;
+class idClipModel;
+class idEntity;
+class idRestoreGame;
+class idSaveGame;
+*/
+
+/*
 ===============================================================================
 
   IK base class with a simple fast two bone solver.
@@ -181,5 +196,7 @@ private:
 	idMat3					upperArmToShoulderJoint[MAX_ARMS];
 	idMat3					lowerArmToElbowJoint[MAX_ARMS];
 };
+
+//} // namespace BFG
 
 #endif /* !__GAME_IK_H__ */

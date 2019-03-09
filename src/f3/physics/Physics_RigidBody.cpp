@@ -27,9 +27,40 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstddef>
 #include "precompiled.h"
 
 #include "../Game_local.h"
+//#include "../cm/CollisionModel.h"
+//#include "../d3xp/Entity.h"
+//#include "../d3xp/Player.h"
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/gamesys/SaveGame.h"
+//#include "../d3xp/gamesys/SysCvar.h"
+//#include "../d3xp/physics/Clip.h"
+//#include "../d3xp/physics/Physics.h"
+//#include "../d3xp/physics/Physics_RigidBody.h"
+//#include "../framework/CVarSystem.h"
+//#include "../idlib/BitMsg.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/geometry/Winding.h"
+//#include "../idlib/math/Angles.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Ode.h"
+//#include "../idlib/math/Quat.h"
+//#include "../idlib/math/Rotation.h"
+//#include "../idlib/math/Vector.h"
+//#include "../renderer/RenderWorld.h"
+
+//namespace BFG
+//{
+
+//class idBounds;
 
 CLASS_DECLARATION( idPhysics_Base, idPhysics_RigidBody )
 END_CLASS
@@ -1688,3 +1719,5 @@ void idPhysics_RigidBody::ReadFromSnapshot( const idBitMsg& msg )
 		clipModel->Link( gameLocal.clip, self, clipModel->GetId(), next.i.position, next.i.orientation );
 	}
 }
+
+//} // namespace BFG

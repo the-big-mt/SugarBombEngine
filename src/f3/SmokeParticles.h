@@ -30,6 +30,21 @@ If you have questions concerning this license or the applicable additional terms
 #define __SMOKEPARTICLES_H__
 
 /*
+#include "../idlib/Heap.h"
+#include "../idlib/containers/List.h"
+#include "../idlib/math/Matrix.h"
+#include "../idlib/math/Random.h"
+#include "../idlib/math/Vector.h"
+#include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
+
+class idDeclParticle;
+class idParticleStage;
+*/
+
+/*
 ===============================================================================
 
 	Smoke systems are for particles that are emitted off of things that are
@@ -102,5 +117,7 @@ private:
 	bool						UpdateRenderEntity( renderEntity_s* renderEntity, const renderView_t* renderView );
 	static bool					ModelCallback( renderEntity_s* renderEntity, const renderView_t* renderView );
 };
+
+//} // namespace BFG
 
 #endif /* !__SMOKEPARTICLES_H__ */

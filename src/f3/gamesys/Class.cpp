@@ -34,11 +34,33 @@ instancing of objects.
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstdarg>
+//#include <cstddef>
+//#include <stdint.h>
+//#include <cstring>
 #include "precompiled.h"
 
-
 #include "../Game_local.h"
+//#include "../d3xp/Entity.h"
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/gamesys/Event.h"
+//#include "../d3xp/gamesys/SysCvar.h"
+//#include "../d3xp/script/Script_Thread.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/containers/Hierarchy.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/math/Math.h"
 
+//namespace BFG
+//{
+
+//class idCmdArgs;
+//class idRestoreGame;
+//class idSaveGame;
 
 /***********************************************************************
 
@@ -1143,3 +1165,5 @@ void idClass::Event_SafeRemove()
 	// Forces the remove to be done at a safe time
 	PostEventMS( &EV_Remove, 0 );
 }
+
+//} // namespace BFG

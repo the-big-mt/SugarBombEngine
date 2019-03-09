@@ -30,6 +30,25 @@ If you have questions concerning this license or the applicable additional terms
 #define __GAME_LIGHT_H__
 
 /*
+#include "../d3xp/Entity.h"
+#include "../d3xp/gamesys/Class.h"
+#include "../d3xp/gamesys/Event.h"
+#include "../idlib/Lib.h"
+#include "../idlib/Str.h"
+#include "../idlib/math/Matrix.h"
+#include "../idlib/math/Vector.h"
+#include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
+
+class idBitMsg;
+class idDict;
+class idRestoreGame;
+class idSaveGame;
+*/
+
+/*
 ===============================================================================
 
   Generic light.
@@ -149,5 +168,7 @@ private:
 	void			Event_FadeOut( float time );
 	void			Event_FadeIn( float time );
 };
+
+//} // namespace BFG
 
 #endif /* !__GAME_LIGHT_H__ */

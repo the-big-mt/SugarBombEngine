@@ -30,6 +30,20 @@ If you have questions concerning this license or the applicable additional terms
 #define __GAME_SOUND_H__
 
 /*
+#include "../d3xp/Entity.h"
+#include "../d3xp/gamesys/Class.h"
+#include "../idlib/math/Angles.h"
+#include "../idlib/math/Vector.h"
+
+namespace BFG
+{
+
+class idDict;
+class idRestoreGame;
+class idSaveGame;
+*/
+
+/*
 ===============================================================================
 
   Generic sound emitter.
@@ -73,5 +87,7 @@ private:
 	void			Event_Off();
 	void			DoSound( bool play );
 };
+
+//} // namespace BFG
 
 #endif /* !__GAME_SOUND_H__ */

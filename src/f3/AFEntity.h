@@ -29,6 +29,36 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_AFENTITY_H__
 #define __GAME_AFENTITY_H__
 
+/*
+#include "../cm/CollisionModel.h"
+#include "../d3xp/AF.h"
+#include "../d3xp/Entity.h"
+#include "../d3xp/gamesys/Class.h"
+#include "../d3xp/gamesys/Event.h"
+#include "../d3xp/physics/Force_Constant.h"
+//#include "../d3xp/physics/Physics.h"
+#include "../d3xp/physics/Physics_AF.h"
+#include "../idlib/Heap.h"
+#include "../idlib/Lib.h"
+#include "../idlib/Str.h"
+#include "../idlib/containers/List.h"
+#include "../idlib/math/Matrix.h"
+#include "../idlib/math/Vector.h"
+#include "../renderer/Model.h"
+#include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
+
+class idBounds;
+class idClipModel;
+class idDeclParticle;
+class idDict;
+class idEntityFx;
+class idPlayer;
+class idRestoreGame;
+class idSaveGame;
+*/
 
 /*
 ===============================================================================
@@ -624,5 +654,7 @@ protected:
 	void					Event_SpawnHarvestEntity();
 	
 };
+
+//} // namespace BFG
 
 #endif /* !__GAME_AFENTITY_H__ */

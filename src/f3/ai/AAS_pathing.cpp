@@ -27,10 +27,23 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cstdlib>
+//#include <cstring>
 #include "precompiled.h"
 
-
+//#include "../aas/AASFile.h"
+//#include "../d3xp/ai/AAS.h"
+//#include "../framework/Common.h"
+//#include "../idlib/bv/Bounds.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Plane.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "../idlib/sys/sys_types.h"
 #include "AAS_local.h"
+
+//namespace BFG
+//{
 
 #define SUBSAMPLE_WALK_PATH		1
 #define SUBSAMPLE_FLY_PATH		0
@@ -822,3 +835,5 @@ int idAASLocal::GetWallEdges( int areaNum, const idBounds& bounds, int travelFla
 	}
 	return numEdges;
 }
+
+//} // namespace BFG
