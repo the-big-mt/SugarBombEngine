@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -25,5 +26,54 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#pragma hdrstop
-#include "precompiled.h"
+
+/// @file
+
+#pragma once
+
+#include "SbInputSystem.hpp"
+#include "JoystickWin.hpp"
+
+class SbInputImplWin final : public IInputSystem
+{
+public:
+	SbInputImplWin(ICommon *apCommon);
+	
+	void Init() override;
+	void Shutdown() override;
+	
+	int PollKeyboardInputEvents() override;
+	int ReturnKeyboardInputEvent(const int n, int &key, bool &state) override;
+	void EndKeyboardInputEvents() override;
+	
+	void GrabMouseCursor(bool grabIt) override;
+	
+	int PollMouseInputEvents(int mouseEvents[MAX_MOUSE_EVENTS][2]) override;
+	
+	void SetRumble(int device, int low, int hi) override;
+	
+	int PollJoystickInputEvents(int deviceNum) override;
+	int ReturnJoystickInputEvent(const int n, int &action, int &value) override;
+	void EndJoystickInputEvents() override;
+private:
+	void Frame();
+	
+	void InitDirectInput();
+	bool InitDIMouse();
+	
+	void ActivateMouse();
+	void DeactivateMouse();
+	
+	bool StartupKeyboard();
+	void DeactivateKeyboard();
+	
+	ICommon *mpCommon{nullptr};
+	
+	LPDIRECTINPUT8 g_pdi;
+	LPDIRECTINPUTDEVICE8 g_pMouse;
+	LPDIRECTINPUTDEVICE8 g_pKeyboard;
+	idJoystickWin32 g_Joystick;
+	
+	bool mouseReleased{false}; // when the game has the console down or is doing a long operation
+	bool mouseGrabbed{false}; // current state of grab and hide
+};
