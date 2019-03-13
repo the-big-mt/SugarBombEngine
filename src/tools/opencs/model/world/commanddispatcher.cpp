@@ -4,6 +4,7 @@
 #include <memory>
 
 #include <components/misc/stringops.hpp>
+#include <components/misc/constants.hpp>
 
 #include "../doc/document.hpp"
 
@@ -140,10 +141,18 @@ void CSMWorld::CommandDispatcher::executeModify (QAbstractItemModel *model, cons
 
     std::unique_ptr<CSMWorld::UpdateCellCommand> modifyCell;
 
+    std::unique_ptr<CSMWorld::ModifyCommand> modifyDataRefNum;
+
     int columnId = model->data (index, ColumnBase::Role_ColumnId).toInt();
 
     if (columnId==Columns::ColumnId_PositionXPos || columnId==Columns::ColumnId_PositionYPos)
     {
+        const float oldPosition = model->data (index).toFloat();
+
+        // Modulate by cell size, update cell id if reference has been moved to a new cell
+        if (std::abs(std::fmod(oldPosition, Constants::CellSizeInUnits))
+            - std::abs(std::fmod(new_.toFloat(), Constants::CellSizeInUnits)) >= 0.5f)
+        {
         IdTableProxyModel *proxy = dynamic_cast<IdTableProxyModel *> (model);
 
         int row = proxy ? proxy->mapToSource (index).row() : index.row();
@@ -161,8 +170,15 @@ void CSMWorld::CommandDispatcher::executeModify (QAbstractItemModel *model, cons
 
             if (cellId.find ('#')!=std::string::npos)
             {
-                // Need to recalculate the cell
+                    // Need to recalculate the cell and (if necessary) clear the instance's refNum
                 modifyCell.reset (new UpdateCellCommand (model2, row));
+
+                    // Not sure which model this should be applied to
+                    int refNumColumn = model2.searchColumnIndex (Columns::ColumnId_RefNum);
+
+                    if (refNumColumn!=-1)
+                        modifyDataRefNum.reset (new ModifyCommand(*model, model->index(row, refNumColumn), 0));
+                }
             }
         }
     }
@@ -175,6 +191,8 @@ void CSMWorld::CommandDispatcher::executeModify (QAbstractItemModel *model, cons
         CommandMacro macro (mDocument.getUndoStack());
         macro.push (modifyData.release());
         macro.push (modifyCell.release());
+        if (modifyDataRefNum.get())
+            macro.push (modifyDataRefNum.release());
     }
     else
         mDocument.getUndoStack().push (modifyData.release());
