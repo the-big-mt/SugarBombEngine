@@ -79,6 +79,26 @@ private:
 	idStr					from;
 };
 
+class idDeclNote : public idDecl
+{
+public:
+	idDeclNote() {}
+	
+	virtual size_t			Size() const;
+	virtual const char* 	DefaultDefinition() const;
+	virtual bool			Parse( const char* text, const int textLength, bool allowBinaryVersion );
+	virtual void			FreeData();
+	virtual void			Print() const;
+	virtual void			List() const;
+	
+	const char* 			GetBody() const
+	{
+		return text;
+	}
+	
+private:
+	idStr					text;
+};
 
 class idDeclVideo : public idDecl
 {
@@ -159,6 +179,7 @@ public:
 	idDeclPDA()
 	{
 		//originalEmails = originalVideos = 0;
+		originalNotes = 0;
 	};
 	
 	virtual size_t			Size() const;
@@ -205,6 +226,19 @@ public:
 		}
 	}
 */
+
+	virtual void			AddNote( const idDeclNote* note, bool unique = true ) const
+	{
+		if( unique )
+		{
+			notes.AddUnique( note );
+		}
+		else
+		{
+			notes.Append( note );
+		}
+	}
+
 	//virtual void			RemoveAddedEmailsAndVideos() const;
 
 /*	
@@ -223,6 +257,10 @@ public:
 		return emails.Num();
 	}
 */
+	virtual const int		GetNumNotes() const
+	{
+		return notes.Num();
+	}
 /*
 	virtual const idDeclVideo* GetVideoByIndex( int index ) const
 	{
@@ -239,6 +277,10 @@ public:
 		return ( index < 0 || index > emails.Num() ? NULL : emails[index] );
 	}
 */
+	virtual const idDeclNote* GetNoteByIndex( int index ) const
+	{
+		return ( index < 0 || index > notes.Num() ? NULL : notes[index] );
+	}
 	
 	virtual void			SetSecurity( const char* sec ) const;
 	
@@ -275,6 +317,7 @@ private:
 	//mutable idList<const idDeclVideo*>	videos;
 	mutable idList<const idDeclAudio*>	audios;
 	//mutable idList<const idDeclEmail*>	emails;
+	mutable idList<const idDeclNote*>	notes;
 	idStr					pdaName;
 	idStr					fullName;
 	idStr					icon;
@@ -282,6 +325,7 @@ private:
 	idStr					post;
 	idStr					title;
 	mutable idStr			security;
+	mutable	int				originalNotes;
 	//mutable	int				originalEmails;
 	//mutable int				originalVideos;
 };
