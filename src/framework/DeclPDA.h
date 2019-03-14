@@ -158,7 +158,7 @@ class idDeclPDA : public idDecl
 public:
 	idDeclPDA()
 	{
-		originalEmails = originalVideos = 0;
+		//originalEmails = originalVideos = 0;
 	};
 	
 	virtual size_t			Size() const;
@@ -168,6 +168,7 @@ public:
 	virtual void			Print() const;
 	virtual void			List() const;
 	
+/*
 	virtual void			AddVideo( const idDeclVideo* video, bool unique = true ) const
 	{
 		if( unique )
@@ -179,6 +180,7 @@ public:
 			videos.Append( video );
 		}
 	}
+*/
 	virtual void			AddAudio( const idDeclAudio* audio, bool unique = true ) const
 	{
 		if( unique )
@@ -190,6 +192,7 @@ public:
 			audios.Append( audio );
 		}
 	}
+/*
 	virtual void			AddEmail( const idDeclEmail* email, bool unique = true ) const
 	{
 		if( unique )
@@ -201,32 +204,41 @@ public:
 			emails.Append( email );
 		}
 	}
-	virtual void			RemoveAddedEmailsAndVideos() const;
-	
+*/
+	//virtual void			RemoveAddedEmailsAndVideos() const;
+
+/*	
 	virtual const int		GetNumVideos() const
 	{
 		return videos.Num();
 	}
+*/
 	virtual const int		GetNumAudios() const
 	{
 		return audios.Num();
 	}
+/*
 	virtual const int		GetNumEmails() const
 	{
 		return emails.Num();
 	}
+*/
+/*
 	virtual const idDeclVideo* GetVideoByIndex( int index ) const
 	{
 		return ( index < 0 || index > videos.Num() ? NULL : videos[index] );
 	}
+*/
 	virtual const idDeclAudio* GetAudioByIndex( int index ) const
 	{
 		return ( index < 0 || index > audios.Num() ? NULL : audios[index] );
 	}
+/*
 	virtual const idDeclEmail* GetEmailByIndex( int index ) const
 	{
 		return ( index < 0 || index > emails.Num() ? NULL : emails[index] );
 	}
+*/
 	
 	virtual void			SetSecurity( const char* sec ) const;
 	
@@ -260,9 +272,9 @@ public:
 	}
 	
 private:
-	mutable idList<const idDeclVideo*>	videos;
+	//mutable idList<const idDeclVideo*>	videos;
 	mutable idList<const idDeclAudio*>	audios;
-	mutable idList<const idDeclEmail*>	emails;
+	//mutable idList<const idDeclEmail*>	emails;
 	idStr					pdaName;
 	idStr					fullName;
 	idStr					icon;
@@ -270,8 +282,8 @@ private:
 	idStr					post;
 	idStr					title;
 	mutable idStr			security;
-	mutable	int				originalEmails;
-	mutable int				originalVideos;
+	//mutable	int				originalEmails;
+	//mutable int				originalVideos;
 };
 
 #endif /* !__DECLPDA_H__ */
