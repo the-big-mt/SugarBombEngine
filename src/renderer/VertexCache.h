@@ -28,11 +28,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __VERTEXCACHE2_H__
 #define __VERTEXCACHE2_H__
 
-//#include "../idlib/Lib.h"
-//#include "../idlib/Thread.h"
-//#include "../idlib/sys/sys_assert.h"
-//#include "../idlib/sys/sys_types.h"
-//#include "../renderer/BufferObject.h"
+#include "idlib/Lib.h"
+#include "idlib/Thread.h"
+#include "idlib/sys/sys_assert.h"
+#include "idlib/sys/sys_types.h"
+
+#include "BufferObject.h"
 
 //namespace BFG
 //{

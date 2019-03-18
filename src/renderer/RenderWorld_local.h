@@ -31,7 +31,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERWORLDLOCAL_H__
 #define __RENDERWORLDLOCAL_H__
 
+#include "renderer/IRenderWorld.hpp"
+
 //#include "tr_local.h"
+
+#include "idlib/Plane.h"
 
 #include "BoundsTrack.h"
 

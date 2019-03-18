@@ -28,11 +28,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERLOG_H__
 #define __RENDERLOG_H__
 
-//#include <cassert>
+#include <cassert>
 
-//#include "../framework/CVarSystem.h"
-//#include "../idlib/sys/sys_defines.h"
-//#include "../idlib/sys/sys_types.h"
+#include "framework/CVar.hpp" //#include "framework/CVarSystem.h"
+
+#include "idlib/sys/sys_defines.h"
+#include "idlib/sys/sys_types.h"
 
 //#include "../renderer/tr_local.h"                   // for r_logFile
 

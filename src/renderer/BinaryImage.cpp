@@ -32,7 +32,31 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 
 #include "BinaryImage.h"
-#include "framework/Common_local.h"
+//#include "framework/Common_local.h"
+//#include "RenderCommon.h"
+/*
+#include <cstring>
+*/
+#include "framework/CVar.hpp" //#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+#include "sys/IFile.hpp"
+/*
+#include "../framework/FileSystem.h"
+#include "../idlib/Heap.h"
+#include "../idlib/Lib.h"
+#include "../idlib/Str.h"
+#include "../idlib/Swap.h"
+#include "../idlib/containers/List.h"
+#include "../idlib/sys/sys_assert.h"
+#include "../idlib/sys/sys_defines.h"
+#include "../idlib/sys/sys_types.h"
+#include "../renderer/BinaryImage.h"
+#include "../renderer/BinaryImageData.h"
+*/
+#include "Image.h"
+//#include "../renderer/ImageOpts.h"
+#include "dxt/DXTCodec.h"
+//#include "color/ColorSpace.h"
 
 /*
 ================================================================================================
@@ -41,10 +65,6 @@ If you have questions concerning this license or the applicable additional terms
 
 ================================================================================================
 */
-
-#include "RenderCommon.h"
-#include "DXT/DXTCodec.h"
-#include "Color/ColorSpace.h"
 
 //namespace BFG
 //{

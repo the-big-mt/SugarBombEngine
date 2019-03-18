@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MODEL_MD3_H__
 #define __MODEL_MD3_H__
 
-//#include "../idlib/math/Vector.h"
+#include "idlib/math/Vector.h"
 
 //namespace BFG
 //{

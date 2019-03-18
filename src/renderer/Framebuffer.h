@@ -29,10 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __FRAMEBUFFER_H__
 #define __FRAMEBUFFER_H__
 
-//#include <stdint.h>
+#include <cstdint>
 
-//#include "../idlib/Str.h"
-//#include "../idlib/containers/List.h"
+#include "idlib/Str.h"
+#include "idlib/containers/List.h"
 
 //namespace BFG
 //{

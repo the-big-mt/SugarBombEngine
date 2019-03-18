@@ -28,12 +28,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GUIMODEL_H__
 #define __GUIMODEL_H__
 
-//#include "../idlib/Heap.h"
-//#include "../idlib/containers/List.h"
-//#include "../idlib/sys/sys_types.h"
-//#include "../renderer/Material.h"
-//#include "../renderer/RenderSystem.h"
-//#include "../renderer/VertexCache.h"
+//#include "idlib/Heap.h"
+#include "idlib/containers/List.h"
+//#include "idlib/sys/sys_types.h"
+#include "Material.h"
+//#include "renderer/RenderSystem.h"
+#include "VertexCache.h"
 
 //namespace BFG
 //{

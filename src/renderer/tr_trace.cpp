@@ -34,6 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "RenderCommon.h"
 #include "Model_local.h"
+//#include "SoftwareCache.h"
+//#include "sys/sys_intrinsics.h"
+//#include "tr_local.h"
 
 //namespace BFG
 //{

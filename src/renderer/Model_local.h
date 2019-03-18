@@ -29,6 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MODEL_LOCAL_H__
 #define __MODEL_LOCAL_H__
 
+#include "renderer/IRenderModel.hpp"
+
 //#include "../framework/DeclParticle.h"  // for idDeclParticle
 //#include "../framework/CVarSystem.h"  // for idCVar, etc
 

@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GLSTATE_H__
 #define __GLSTATE_H__
 
-//#include "../idlib/sys/sys_types.h"              // for uint64
+#include "idlib/sys/sys_types.h"              // for uint64
 
 //namespace BFG
 //{

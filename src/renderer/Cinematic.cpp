@@ -34,7 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include <stdint.h>
 //#include <cstring>
 #include "precompiled.h"
-
+#include "Cinematic.h"
 
 extern idCVar s_noSound;
 

@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERER_BACKEND_H__
 #define __RENDERER_BACKEND_H__
 
+#include "idlib/Str.h"
+#include "idlib/math/Vector.h"
+
 // RB begin
 #define USE_CORE_PROFILE
 

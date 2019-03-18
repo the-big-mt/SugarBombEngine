@@ -28,8 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __FONT_H__
 #define __FONT_H__
 
-//#include "../idlib/Str.h"
-//#include "../idlib/sys/sys_types.h"
+#include <cstdint>
+
+#include "idlib/Str.h"
+#include "idlib/sys/sys_types.h"
 
 //namespace BFG
 //{

@@ -31,10 +31,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MODELOVERLAY_H__
 #define __MODELOVERLAY_H__
 
-//#include "../idlib/geometry/DrawVert.h"
-//#include "../idlib/math/Plane.h"
-//#include "../idlib/sys/sys_assert.h"
-//#include "../idlib/sys/sys_types.h"
+#include "idlib/geometry/DrawVert.h"
+#include "idlib/math/Plane.h"
+#include "idlib/sys/sys_assert.h"
+#include "idlib/sys/sys_types.h"
 
 //namespace BFG
 //{

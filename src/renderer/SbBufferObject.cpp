@@ -28,7 +28,11 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 #include "precompiled.h"
-#include "RenderCommon.h"
+
+#include "framework/CVar.hpp"
+
+//#include "RenderCommon.h"
+#include "BufferObject.h"
 
 //namespace BFG
 //{
