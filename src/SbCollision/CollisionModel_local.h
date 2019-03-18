@@ -330,6 +330,8 @@ typedef struct cm_procNode_s
 class idCollisionModelManagerLocal : public idCollisionModelManager
 {
 public:
+	idCollisionModelManagerLocal(idCommon *apCommon, idFileSystem *apFileSystem) : common(apCommon), fileSystem(apFileSystem){}
+	
 	// load collision models from a map file
 	void			LoadMap( const idMapFile* mapFile );
 	// frees all the collision models
@@ -567,6 +569,9 @@ private:			// collision map data
 	contactInfo_t* 	contacts;
 	int				maxContacts;
 	int				numContacts;
+private:
+	idCommon *common{nullptr};
+	idFileSystem *fileSystem{nullptr};
 };
 
 // for debugging
