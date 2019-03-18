@@ -39,7 +39,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys/IFileSystem.hpp"
 #include "sys/IFile.hpp"
 
-#include "idlib/containers/StaticList.h"
 #include "idlib/Heap.h"
 #include "idlib/Lib.h"
 #include "idlib/Swap.h"

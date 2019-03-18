@@ -41,7 +41,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include "../sound/OpenAL/AL_SoundVoice.h"  // for idSoundVoice_OpenAL
 
-//#include "../sound/snd_defines.h"
+//#include "SbSoundDefines.hpp"
 
 //namespace BFG
 //{

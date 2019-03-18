@@ -34,9 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 #pragma once
 
 //#include "sound.h"
-#include "SbWaveFile.hpp"
-#include "SbSoundDefines.hpp"
-#include "SbSoundVoice.hpp"
+//#include "SbWaveFile.hpp"
+//#include "SbSoundDefines.hpp"
+//#include "SbSoundVoice.hpp"
 
 #if defined(USE_OPENAL)
 #	include "openal/SbAL_Defines.hpp"
@@ -46,8 +46,8 @@ If you have questions concerning this license or the applicable additional terms
 #	include "stub/SoundStub.h" // just a stub for now
 #endif // _MSC_VER ; DG end
 
-#include "SbSoundFade.hpp"
-#include "SbSoundChannel.hpp"
-#include "SbSoundWorld.hpp"
-#include "SbSoundEmitter.hpp"
-#include "SbSoundSystem.hpp"
+//#include "SbSoundFade.hpp"
+//#include "SbSoundChannel.hpp"
+//#include "SbSoundWorld.hpp"
+//#include "SbSoundEmitter.hpp"
+//#include "SbSoundSystem.hpp"

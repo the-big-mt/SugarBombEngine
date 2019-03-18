@@ -36,8 +36,20 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstring>
 #include "precompiled.h"
 
+#include "framework/CVar.hpp"
+
 #include "SbSoundEmitter.hpp"
-#include "SbSound/ISoundShader.hpp"
+#include "SbSoundShader.hpp" // TODO: #include "SbSound/ISoundShader.hpp"
+#include "SbSoundWorld.hpp"
+#include "SbSoundChannel.hpp"
+#include "SbSoundSystem.hpp"
+#include "SbSoundDefines.hpp"
+#include "SbSound/SoundTypes.hpp"
+#include "snd_local.h" // TODO
+
+#include "framework/DemoFile.h"
+
+#include "renderer/IRenderWorld.hpp"
 
 //namespace BFG
 //{

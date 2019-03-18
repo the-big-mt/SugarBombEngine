@@ -33,9 +33,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "SbSoundVoice.hpp"
 #include "SbWaveFile.hpp"
-#include "SbSoundDefines.hpp" // MAX_CHANNELS_PER_VOICE
 
-#include "framework/ICVarSystem.hpp"
+#include "framework/CVar.hpp" // TODO: #include "framework/ICVarSystem.hpp"?
 
 #include "idlib/Lib.h"
 #include "idlib/math/Math.h"

@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 #pragma once
 
 #include "SbWaveFile.hpp"
-//#include "snd_defines.h"
+#include "SbSoundDefines.hpp"
 
 #include "idlib/Heap.h"
 #include "idlib/containers/List.h"

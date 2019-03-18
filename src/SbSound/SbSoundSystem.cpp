@@ -31,11 +31,14 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 
 #include "SbSoundSystem.hpp"
-#include "SbSound/ISoundWorld.hpp"
+#include "SbSoundWorld.hpp" //#include "SbSound/ISoundWorld.hpp"
+#include "SbSoundEmitter.hpp"
+#include "SbSoundChannel.hpp"
 
 #include "framework/Common.h" // for MemInfo_t
 #include "framework/DeclManager.h" // for declManager, idDeclManager, etc
 #include "framework/File_Manifest.h" // for idPreloadManifest, etc
+#include "framework/ResourceCacheEntry.hpp"
 
 #include "renderer/IRenderWorld.hpp"
 

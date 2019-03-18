@@ -42,6 +42,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/containers/HashIndex.h"
 #include "idlib/math/Random.h"
 
+#include "framework/CVar.hpp"
+
 // We may need up to 3 buffers for each hardware voice if they are all long sounds
 #define MAX_SOUND_BUFFERS ( MAX_HARDWARE_VOICES * 3 )
 

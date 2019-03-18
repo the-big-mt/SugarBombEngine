@@ -30,6 +30,13 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "idlib/precompiled.h"
 
+#include "sys/IFile.hpp"
+#include "sys/IFileSystem.hpp"
+
+#include "framework/CVar.hpp"
+
+#include "SoundStub.h"
+#include "SbSoundSystem.hpp"
 #include "snd_local.h"
 
 //namespace BFG

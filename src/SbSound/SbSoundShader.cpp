@@ -36,7 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstddef>
 #include "precompiled.h"
 
-#include "framework/ICVarSystem.hpp"
+#include "framework/CVar.hpp" // TODO: #include "framework/ICVarSystem.hpp"?
 #include "framework/ICommon.hpp"
 //#include "framework/DeclManager.h"
 
@@ -48,6 +48,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "SbSoundShader.hpp"
 #include "SbSoundDefines.hpp"
+#include "SbSoundSystem.hpp" // TODO: soundSystemLocal
+#include "SbSoundWorld.hpp"
 
 #if defined(USE_OPENAL)
 #	include "openal/AL_SoundSample.h"

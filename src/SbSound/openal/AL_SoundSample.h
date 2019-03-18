@@ -39,7 +39,7 @@ If you have questions concerning this license or the applicable additional terms
 //#endif
 
 //#include "../framework/FileSystem.h"
-//#include "../sound/WaveFile.h"
+#include "WaveFile.h"
 
 //namespace BFG
 //{

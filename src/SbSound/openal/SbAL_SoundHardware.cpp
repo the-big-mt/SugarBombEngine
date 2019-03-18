@@ -34,7 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "precompiled.h"
 
-#include "framework/ICVarSystem.hpp"
+#include "framework/CVar.hpp" // TODO: #include "framework/ICVarSystem.hpp"?
 #include "framework/ICmdSystem.hpp"
 #include "framework/ICommon.hpp"
 
@@ -44,10 +44,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "AL_SoundHardware.h"
 #include "AL_SoundSample.h"
 #include "AL_SoundVoice.h"
+#include "SbWaveFile.hpp"
 #include "snd_local.h"
-#include "WaveFile.h"
 #include "sound.h"
-//#include "snd_defines.h"
+//#include "SbSoundDefines.hpp"
 
 //#include "../sys/sys_public.h"
 

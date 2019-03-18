@@ -39,11 +39,16 @@ If you have questions concerning this license or the applicable additional terms
 #include "SbSoundWorld.hpp"
 #include "SbSoundChannel.hpp"
 #include "SbSoundEmitter.hpp"
+#include "SbSoundSystem.hpp"
+#include "SbSoundShader.hpp"
+#include "SbSound/SoundTypes.hpp"
 
 #include "renderer/IRenderWorld.hpp"
 
 #include "framework/DeclManager.h"
 #include "framework/DemoFile.h"
+#include "framework/ICommon.hpp"
+#include "framework/IConsole.hpp"
 
 #include "sys/IFile.hpp"
 
