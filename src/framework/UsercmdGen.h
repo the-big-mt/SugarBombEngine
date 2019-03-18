@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -130,12 +131,6 @@ public:
 
 typedef enum
 {
-	INHIBIT_SESSION = 0,
-	INHIBIT_ASYNC
-} inhibit_t;
-
-typedef enum
-{
 	UB_NONE,
 	
 	UB_MOVEUP,
@@ -197,48 +192,7 @@ typedef struct
 	usercmdButton_t	button;
 } userCmdString_t;
 
-class idUsercmdGen
-{
-public:
-	virtual				~idUsercmdGen() {}
-	
-	// Sets up all the cvars and console commands.
-	virtual	void		Init() = 0;
-	
-	// Prepares for a new map.
-	virtual void		InitForNewMap() = 0;
-	
-	// Shut down.
-	virtual void		Shutdown() = 0;
-	
-	// Clears all key states and face straight.
-	virtual	void		Clear() = 0;
-	
-	// Clears view angles.
-	virtual void		ClearAngles() = 0;
-	
-	// When the console is down or the menu is up, only emit default usercmd, so the player isn't moving around.
-	// Each subsystem (session and game) may want an inhibit will OR the requests.
-	virtual void		InhibitUsercmd( inhibit_t subsystem, bool inhibit ) = 0;
-	
-	// Set a value that can safely be referenced by UsercmdInterrupt() for each key binding.
-	virtual	int			CommandStringUsercmdData( const char* cmdString ) = 0;
-	
-	// Continuously modified, never reset. For full screen guis.
-	virtual void		MouseState( int* x, int* y, int* button, bool* down ) = 0;
-	
-	// Directly sample a button.
-	virtual int			ButtonState( int key ) = 0;
-	
-	// Directly sample a keystate.
-	virtual int			KeyState( int key ) = 0;
-	
-	// called at vsync time
-	virtual void		BuildCurrentUsercmd( int deviceNum ) = 0;
-	
-	// return the current usercmd
-	virtual usercmd_t	GetCurrentUsercmd() = 0;
-};
+#include "framework/IUserCmdGen.hpp"
 
 extern idUsercmdGen*	usercmdGen;
 extern userCmdString_t	userCmdStrings[];
