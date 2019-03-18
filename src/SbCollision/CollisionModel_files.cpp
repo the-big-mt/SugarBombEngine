@@ -42,6 +42,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include "../framework/DeclManager.h"
 //#include "../framework/File.h"
 //#include "../framework/FileSystem.h"
+
 //#include "../idlib/Heap.h"
 //#include "../idlib/Lexer.h"
 //#include "../idlib/Str.h"
@@ -53,8 +54,10 @@ If you have questions concerning this license or the applicable additional terms
 //#include "../idlib/math/Vector.h"
 //#include "../idlib/sys/sys_defines.h"
 //#include "../idlib/sys/sys_types.h"
-//#include "../renderer/Material.h"
+
 #include "CollisionModel_local.h"
+
+#include "renderer/Material.h" // for idMaterial, etc
 
 //namespace BFG
 //{

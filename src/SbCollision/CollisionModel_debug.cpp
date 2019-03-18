@@ -37,9 +37,12 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "precompiled.h"
 
-
 #include "CollisionModel_local.h"
 
+#include "framework/CVar.hpp"
+
+#include "renderer/Material.h" // for idMaterial, etc
+#include "renderer/IRenderWorld.hpp"
 
 /*
 ===============================================================================
@@ -420,7 +423,7 @@ static int num_rotation = 0;
 static idVec3 start;
 static idVec3* testend;
 
-#include "../sys/sys_public.h"
+//#include "../sys/sys_public.h"
 
 void idCollisionModelManagerLocal::DebugOutput( const idVec3& origin )
 {

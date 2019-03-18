@@ -54,8 +54,10 @@ If you have questions concerning this license or the applicable additional terms
 //#include "../idlib/sys/sys_assert.h"
 //#include "../idlib/sys/sys_defines.h"
 //#include "../idlib/sys/sys_types.h"
-//#include "../renderer/RenderWorld.h"
+
 #include "CollisionModel_local.h"
+
+#include "renderer/IRenderWorld.hpp"
 
 //namespace BFG
 //{
