@@ -392,9 +392,8 @@ private:
 	std::unique_ptr<CharacterController> mCharacterController;
 	// vaultmp
 public:
-	// F3-specific actor values
-	// TODO: FNV merged big and small guns together
-	enum class Values
+	// Actor values
+	enum class Values : unsigned char
 	{
 		Aggression = 0x00,
 		Confidence = 0x01,
@@ -424,16 +423,16 @@ public:
 		Karma = 0x17,
 		XP = 0x18,
 		
-		Head = 0x19,
-		Torso = 0x1A,
-		LeftArm = 0x1B,
-		RightArm = 0x1C,
-		LeftLeg = 0x1D,
-		RightLeg = 0x1E,
-		Brain = 0x1F,
+		Head = 0x19, // PerceptionCondition
+		Torso = 0x1A, // EnduranceCondition
+		LeftArm = 0x1B, // LeftAttackCondition
+		RightArm = 0x1C, // RightAttackCondition
+		LeftLeg = 0x1D, // LeftMobilityCondition
+		RightLeg = 0x1E, // RightMobilityCondition
+		Brain = 0x1F, // BrainCondition
 		
 		Barter = 0x20,
-		BigGuns = 0x21,
+		BigGuns = 0x21, // F3 only
 		EnergyWeapons = 0x22,
 		Explosives = 0x23,
 		Lockpick = 0x24,
@@ -442,9 +441,10 @@ public:
 		Repair = 0x27,
 		Science = 0x28,
 		SmallGuns = 0x29,
+		//Guns = 0x29, // Alias for SmallGuns (FNV)
 		Sneak = 0x2A,
 		Speech = 0x2B,
-		Throwing = 0x2C,
+		Survival = 0x2C, // Throwing in F3 (unused)
 		Unarmed = 0x2D,
 		
 		InventoryWeight = 0x2E,
@@ -452,14 +452,16 @@ public:
 		Invisibility = 0x30,
 		Chameleon = 0x31,
 		NightEye = 0x32,
-		DetectLifeRange = 0x33,
+		DetectLifeRange = 0x33, // Turbo
 		FireResistance = 0x34,
 		WaterBreathing = 0x35,
-		RadLevel = 0x36,
+		RadLevel = 0x36, // RadiationRads
 		BloodyMess = 0x37,
 		UnarmedDamage = 0x38,
 		Assistance = 0x39,
 
+		ElectricResistance = 0x3A,
+		FrostResistance = 0x3B,
 		EnergyResistance = 0x3C,
 		EMPResistance = 0x3D,
 		
@@ -474,7 +476,17 @@ public:
 		Variable09 = 0x46,
 		Variable10 = 0x47,
 		
-		IgnoreCrippledLimbs = 0x48,
+		IgnoreCrippledLimbs = 0x48, // Ignore Negative Effects
+		
+		// FNV additional values
+		
+		// hardcore mode values
+		Dehydration = 0x49,
+		Hunger = 0x4A,
+		SleepDeprivation = 0x4B,
+		
+		DamageThreshold = 0x4C
+	};
 	};
 	
 	/**
