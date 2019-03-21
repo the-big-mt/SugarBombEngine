@@ -1065,6 +1065,13 @@ private:
 	void					Event_StopHelltime( int mode );
 	void					Event_ToggleBloom( int on );
 	void					Event_SetBloomParms( float speed, float intensity );
+	
+	// openmw
+private:
+	bool                    mAutoMove;
+public:
+	bool getAutoMove() const;
+    void setAutoMove (bool enable);
 };
 
 ID_INLINE bool idPlayer::IsRespawning()

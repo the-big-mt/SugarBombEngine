@@ -41,7 +41,7 @@ namespace MWWorld
         // If no position was marked, this is nullptr
         CellStore*              mMarkedCell;
 
-        bool                    mAutoMove;
+        
         int                     mForwardBackward;
         bool                    mTeleported;
 
@@ -90,9 +90,6 @@ namespace MWWorld
 
         /// Activate the object under the crosshair, if any
         void activate();
-
-        bool getAutoMove() const;
-        void setAutoMove (bool enable);
 
         void setLeftRight (int value);
 
