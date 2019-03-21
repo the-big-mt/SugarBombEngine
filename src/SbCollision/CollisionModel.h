@@ -27,8 +27,9 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __COLLISIONMODELMANAGER_H__
-#define __COLLISIONMODELMANAGER_H__
+/// @file
+
+#pragma once
 
 //#include "../idlib/math/Vector.h"
 //#include "../idlib/MapFile.h"
@@ -37,6 +38,7 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
+class idMaterial;
 
 // contact type
 typedef enum
@@ -80,5 +82,3 @@ typedef struct trace_s
 extern idCollisionModelManager* 		collisionModelManager;
 
 //} // namespace BFG
-
-#endif /* !__COLLISIONMODELMANAGER_H__ */
