@@ -61,7 +61,7 @@ extern idCVar g_demoMode;
 /*
 ===============================================================================
 
-	Player control of the Doom Marine.
+	Player control of the Lone Wanderer/Courier Six.
 	This object handles all player movement and world interaction.
 
 ===============================================================================
