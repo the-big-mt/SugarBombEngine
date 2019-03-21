@@ -692,7 +692,7 @@ public:
 	bool					HandleGuiEvents( const sysEvent_t* ev );
 	void					PerformImpulse( int impulse );
 	void					Spectate( bool spectate, bool force = false );
-	void					TogglePDA();
+	void					TogglePipBoy();
 	void					RouteGuiMouse( idUserInterface* gui );
 	void					UpdateHud();
 	const idDeclPDA* 		GetPDA() const;

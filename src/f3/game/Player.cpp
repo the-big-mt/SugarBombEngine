@@ -2347,7 +2347,7 @@ void idPlayer::Save( idSaveGame* savefile ) const
 	}
 	
 	savefile->WriteInt( weapon_soulcube );
-	savefile->WriteInt( weapon_pda );
+	savefile->WriteInt( weapon_pipboy );
 	savefile->WriteInt( weapon_fists );
 	savefile->WriteInt( weapon_flashlight );
 	savefile->WriteInt( weapon_chainsaw );
@@ -2641,7 +2641,7 @@ void idPlayer::Restore( idRestoreGame* savefile )
 	}
 	
 	savefile->ReadInt( weapon_soulcube );
-	savefile->ReadInt( weapon_pda );
+	savefile->ReadInt( weapon_pipboy );
 	savefile->ReadInt( weapon_fists );
 	savefile->ReadInt( weapon_flashlight );
 	savefile->ReadInt( weapon_chainsaw );
@@ -4919,7 +4919,7 @@ void idPlayer::GivePDA( const idDeclPDA* pda, const char* securityItem )
 			GetPDA()->RemoveAddedEmailsAndVideos();
 			if( !objectiveSystemOpen )
 			{
-				TogglePDA();
+				TogglePipBoy();
 			}
 			//ShowTip( spawnArgs.GetString( "text_infoTitle" ), spawnArgs.GetString( "text_firstPDA" ), true );
 		}
@@ -7417,7 +7417,7 @@ const idDeclVideo* idPlayer::GetVideo( int index )
 idPlayer::TogglePDA
 ==============
 */
-void idPlayer::TogglePDA()
+void idPlayer::TogglePipBoy()
 {
 
 	if( inventory.pdas.Num() == 0 )
@@ -7626,7 +7626,7 @@ void idPlayer::PerformImpulse( int impulse )
 #endif
 					if( objectiveSystemOpen )
 					{
-						TogglePDA();
+						TogglePipBoy();
 					}
 					else if( weapon_pda >= 0 )
 					{
@@ -8857,7 +8857,7 @@ void idPlayer::Think()
 	{
 		if( objectiveSystemOpen && AI_PAIN )
 		{
-			TogglePDA();
+			TogglePipBoy();
 		}
 		usercmd.forwardmove = 0;
 		usercmd.rightmove = 0;
@@ -11210,7 +11210,7 @@ void idPlayer::Event_OpenPDA()
 {
 	if( !common->IsMultiplayer() )
 	{
-		TogglePDA();
+		TogglePipBoy();
 	}
 }
 
