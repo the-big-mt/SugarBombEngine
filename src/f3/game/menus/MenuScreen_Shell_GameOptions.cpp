@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -154,6 +155,40 @@ void idMenuScreen_Shell_GameOptions::Initialize( idMenuHandler* data )
 	control->SetOptionType( OPTION_SLIDER_TOGGLE );
 	control->SetLabel( "muzzle flashes" );
 	control->SetDataSource( &systemData, idMenuDataSource_GameSettings::GAME_FIELD_MUZZLE_FLASHES );
+	control->SetupEvents( DEFAULT_REPEAT_TIME, options->GetChildren().Num() );
+	control->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_PRESS_FOCUSED, options->GetChildren().Num() );
+	options->AddChild( control );
+	
+	
+	control = new( TAG_SWF ) idMenuWidget_ControlButton();
+	control->SetOptionType( OPTION_SLIDER_TEXT );
+	control->SetLabel( "#str_swf_difficulty" ); // Difficulty
+	control->SetDataSource( &systemData, idMenuDataSource_GameSettings::GAME_FIELD_DIFFICULTY );
+	control->SetupEvents( DEFAULT_REPEAT_TIME, options->GetChildren().Num() );
+	control->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_PRESS_FOCUSED, options->GetChildren().Num() );
+	options->AddChild( control );
+	//
+	
+	control = new( TAG_SWF ) idMenuWidget_ControlButton();
+	control->SetOptionType( OPTION_SLIDER_TOGGLE );
+	control->SetLabel( "#str_swf_save_on_rest" );	// Save On Rest
+	control->SetDataSource( &systemData, idMenuDataSource_GameSettings::GAME_FIELD_SAVE_ON_REST );
+	control->SetupEvents( DEFAULT_REPEAT_TIME, options->GetChildren().Num() );
+	control->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_PRESS_FOCUSED, options->GetChildren().Num() );
+	options->AddChild( control );
+	
+	control = new( TAG_SWF ) idMenuWidget_ControlButton();
+	control->SetOptionType( OPTION_SLIDER_TOGGLE );
+	control->SetLabel( "#str_swf_save_on_rest" );	// Save On Wait
+	control->SetDataSource( &systemData, idMenuDataSource_GameSettings::GAME_FIELD_SAVE_ON_WAIT );
+	control->SetupEvents( DEFAULT_REPEAT_TIME, options->GetChildren().Num() );
+	control->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_PRESS_FOCUSED, options->GetChildren().Num() );
+	options->AddChild( control );
+	
+	control = new( TAG_SWF ) idMenuWidget_ControlButton();
+	control->SetOptionType( OPTION_SLIDER_TOGGLE );
+	control->SetLabel( "#str_swf_save_on_rest" );	// Save On Travel
+	control->SetDataSource( &systemData, idMenuDataSource_GameSettings::GAME_FIELD_SAVE_ON_TRAVEL );
 	control->SetupEvents( DEFAULT_REPEAT_TIME, options->GetChildren().Num() );
 	control->AddEventAction( WIDGET_EVENT_PRESS ).Set( WIDGET_ACTION_PRESS_FOCUSED, options->GetChildren().Num() );
 	options->AddChild( control );
@@ -327,6 +362,7 @@ extern idCVar in_alwaysRun;
 extern idCVar g_checkpoints;
 extern idCVar g_weaponShadows;
 extern idCVar g_muzzleFlash;
+extern idCVar g_skill;
 
 /*
 ========================
@@ -354,6 +390,12 @@ void idMenuScreen_Shell_GameOptions::idMenuDataSource_GameSettings::LoadData()
 	fields[ GAME_FIELD_ALWAYS_SPRINT ].SetBool( in_alwaysRun.GetBool() );
 	fields[ GAME_FIELD_FLASHLIGHT_SHADOWS ].SetBool( g_weaponShadows.GetBool() );
 	fields[ GAME_FIELD_MUZZLE_FLASHES ].SetBool( g_muzzleFlash.GetBool() );
+	
+	fields[ GAME_FIELD_DIFFICULTY ].SetInteger( g_skill.GetInteger() );
+	fields[ GAME_FIELD_SAVE_ON_REST ].SetBool( g_saveOnRest.GetBool() );
+	fields[ GAME_FIELD_SAVE_ON_WAIT ].SetBool( g_saveOnWait.GetBool() );
+	fields[ GAME_FIELD_SAVE_ON_TRAVEL ].SetBool( g_saveOnTravel.GetBool() );
+	
 	originalFields = fields;
 }
 
@@ -375,6 +417,11 @@ void idMenuScreen_Shell_GameOptions::idMenuDataSource_GameSettings::CommitData()
 	in_alwaysRun.SetBool( fields[ GAME_FIELD_ALWAYS_SPRINT ].ToBool() );
 	g_weaponShadows.SetBool( fields[ GAME_FIELD_FLASHLIGHT_SHADOWS ].ToBool() );
 	g_muzzleFlash.SetBool( fields[ GAME_FIELD_MUZZLE_FLASHES ].ToBool() );
+	
+	g_skill.SetInteger(fields[GAME_FIELD_DIFFICULTY].ToInteger());
+	g_saveOnRest.SetBool(fields[GAME_FIELD_SAVE_ON_REST].ToBool());
+	g_saveOnWait.SetBool(fields[GAME_FIELD_SAVE_ON_WAIT].ToBool());
+	g_saveOnTravel.SetBool(fields[GAME_FIELD_SAVE_ON_TRAVEL].ToBool());
 	
 	cvarSystem->SetModifiedFlags( CVAR_ARCHIVE );
 	
@@ -443,6 +490,26 @@ bool idMenuScreen_Shell_GameOptions::idMenuDataSource_GameSettings::IsDataChange
 	}
 	
 	if( fields[ GAME_FIELD_MUZZLE_FLASHES ].ToBool() != originalFields[ GAME_FIELD_MUZZLE_FLASHES ].ToBool() )
+	{
+		return true;
+	}
+	
+	if( fields[ GAME_FIELD_DIFFICULTY ].ToInteger() != originalFields[ GAME_FIELD_DIFFICULTY ].ToInteger() )
+	{
+		return true;
+	}
+	
+	if( fields[ GAME_FIELD_SAVE_ON_REST ].ToBool() != originalFields[ GAME_FIELD_SAVE_ON_REST ].ToBool() )
+	{
+		return true;
+	}
+	
+	if( fields[ GAME_FIELD_SAVE_ON_WAIT ].ToBool() != originalFields[ GAME_FIELD_SAVE_ON_WAIT ].ToBool() )
+	{
+		return true;
+	}
+	
+	if( fields[ GAME_FIELD_SAVE_ON_TRAVEL ].ToBool() != originalFields[ GAME_FIELD_SAVE_ON_TRAVEL ].ToBool() )
 	{
 		return true;
 	}
