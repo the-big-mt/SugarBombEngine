@@ -1,3 +1,8 @@
+project(SBE-idlib)
+
+include_directories(
+	${SBE_ROOT}/common/idlib
+)
 
 add_definitions(-D__IDLIB__ -D__DOOM_DLL__)
 
@@ -16,7 +21,7 @@ file(GLOB ID_MATH_SOURCES math/*.cpp)
 file(GLOB ID_SYS_INCLUDES sys/*.h)
 file(GLOB ID_SYS_SOURCES sys/*.cpp)
 
-if(MSVC)
+if(WIN32)
 	file(GLOB ID_SYS_WIN32_INCLUDES sys/win32/*.h)
 	file(GLOB ID_SYS_WIN32_SOURCES sys/win32/*.cpp)
 else()
@@ -44,7 +49,7 @@ set(ID_SOURCES_ALL
 			${ID_SYS_SOURCES}
 			)
 			
-if(MSVC)
+if(WIN32)
 	list(APPEND ID_INCLUDES_ALL ${ID_SYS_WIN32_INCLUDES})
 	list(APPEND ID_SOURCES_ALL ${ID_SYS_WIN32_SOURCES})
 else()
@@ -67,7 +72,7 @@ source_group("math" FILES ${ID_MATH_SOURCES})
 source_group("sys" FILES ${ID_SYS_INCLUDES})
 source_group("sys" FILES ${ID_SYS_SOURCES})
 
-if(MSVC)
+if(WIN32)
 	source_group("sys\\win32" FILES ${ID_SYS_WIN32_INCLUDES})
 	source_group("sys\\win32" FILES ${ID_SYS_WIN32_SOURCES})
 else()
@@ -86,7 +91,7 @@ list(REMOVE_ITEM ID_PRECOMPILED_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/SoftwareCach
 if(MSVC)
     list(REMOVE_ITEM ID_PRECOMPILED_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/precompiled.cpp)
 
-    #set_target_properties(idlib PROPERTIES COMPILE_FLAGS "/Yuprecompiled.h")
+    #set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "/Yuprecompiled.h")
     set_source_files_properties(precompiled.cpp
         PROPERTIES
         COMPILE_FLAGS "/Ycprecompiled.h"
@@ -99,7 +104,7 @@ if(MSVC)
             OBJECT_DEPENDS "precompiled.pch"
             )
 
-    add_library(idlib ${ID_SOURCES_ALL} ${ID_INCLUDES_ALL})
+    add_library(${PROJECT_NAME} ${ID_SOURCES_ALL} ${ID_INCLUDES_ALL})
 else()
 	if (USE_PRECOMPILED_HEADERS)
 	foreach( src_file ${ID_PRECOMPILED_SOURCES} )
@@ -137,9 +142,9 @@ else()
 	                  )
 	endif()
 	
-	add_library(idlib ${ID_SOURCES_ALL} ${ID_INCLUDES_ALL})
+	add_library(${PROJECT_NAME} ${ID_SOURCES_ALL} ${ID_INCLUDES_ALL})
 	if (USE_PRECOMPILED_HEADERS)
-	add_dependencies(idlib precomp_header_idlib)
+	add_dependencies(${PROJECT_NAME} precomp_header_idlib)
 	endif()
 	
 endif()
@@ -151,5 +156,5 @@ endif()
         # # COMPILE_FLAGS "/Ycprecompiled.h"
         # # )
 		
-	# #set_target_properties(idlib PROPERTIES COMPILE_FLAGS "/Yuprecompiled.h")
+	# #set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "/Yuprecompiled.h")
 # endif()
