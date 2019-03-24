@@ -1074,7 +1074,7 @@ bool idInventory::Give( idPlayer* owner, const idDict& spawnArgs, const char* st
 				continue;
 			}
 			
-			if( !gameLocal.world->spawnArgs.GetBool( "no_Weapons" ) || ( weaponName == "weapon_fists" ) || ( weaponName == "weapon_soulcube" ) )
+			if( !gameLocal.world->spawnArgs.GetBool( "no_Weapons" ) || ( weaponName == "weapon_fists" ))
 			{
 				if( ( weapons & ( 1 << i ) ) == 0 || common->IsMultiplayer() )
 				{
@@ -1809,7 +1809,6 @@ void idPlayer::Init()
 	previousWeapon			= -1;
 	weaponSwitchTime		= 0;
 	weaponEnabled			= true;
-	weapon_soulcube			= SlotForWeapon( "weapon_soulcube" );
 	weapon_pda				= SlotForWeapon( "weapon_pda" );
 	weapon_fists			= SlotForWeapon( "weapon_fists" );
 	weapon_flashlight		= SlotForWeapon( "weapon_flashlight" );
@@ -2398,7 +2397,6 @@ void idPlayer::Save( idSaveGame* savefile ) const
 		savefile->WriteInt( quickSlot[ i ] );
 	}
 	
-	savefile->WriteInt( weapon_soulcube );
 	savefile->WriteInt( weapon_pipboy );
 	savefile->WriteInt( weapon_fists );
 	savefile->WriteInt( weapon_flashlight );
@@ -2435,7 +2433,6 @@ void idPlayer::Save( idSaveGame* savefile ) const
 	savefile->WriteBool( healthTake );
 	
 	savefile->WriteBool( hiddenWeapon );
-	soulCubeProjectile.Save( savefile );
 	
 	savefile->WriteInt( spectator );
 	savefile->WriteBool( forceScoreBoard );
@@ -2703,7 +2700,6 @@ void idPlayer::Restore( idRestoreGame* savefile )
 		savefile->ReadInt( quickSlot[ i ] );
 	}
 	
-	savefile->ReadInt( weapon_soulcube );
 	savefile->ReadInt( weapon_pipboy );
 	savefile->ReadInt( weapon_fists );
 	savefile->ReadInt( weapon_flashlight );
@@ -2745,7 +2741,6 @@ void idPlayer::Restore( idRestoreGame* savefile )
 	savefile->ReadBool( healthTake );
 	
 	savefile->ReadBool( hiddenWeapon );
-	soulCubeProjectile.Restore( savefile );
 	
 	savefile->ReadInt( spectator );
 	savefile->ReadBool( forceScoreBoard );
@@ -5644,11 +5639,6 @@ void idPlayer::Weapon_Combat()
 	else
 	{
 		AI_RELOAD = false;
-	}
-	
-	if( idealWeapon == weapon_soulcube && soulCubeProjectile.GetEntity() != nullptr )
-	{
-		idealWeapon = currentWeapon;
 	}
 	
 	if( idealWeapon != currentWeapon &&  idealWeapon.Get() < MAX_WEAPONS )
