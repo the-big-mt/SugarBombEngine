@@ -2928,7 +2928,7 @@ idTypeDef* idCompiler::GetTypeForEventArg( char argType )
 			break;
 			
 		case D_EVENT_ENTITY :
-		case D_EVENT_ENTITY_nullptr :
+		case D_EVENT_ENTITY_NULL :
 			type = &type_entity;
 			break;
 			

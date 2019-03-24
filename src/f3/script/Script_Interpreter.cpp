@@ -855,7 +855,7 @@ void idInterpreter::CallEvent( const function_t* func, int argsize )
 				break;
 				
 			case D_EVENT_ENTITY :
-			case D_EVENT_ENTITY_nullptr :
+			case D_EVENT_ENTITY_NULL :
 				gameLocal.program.ReturnEntity( ( idEntity* )nullptr );
 				break;
 				
@@ -909,7 +909,7 @@ void idInterpreter::CallEvent( const function_t* func, int argsize )
 				}
 				break;
 				
-			case D_EVENT_ENTITY_nullptr :
+			case D_EVENT_ENTITY_NULL :
 				var.intPtr = ( int* )&localstack[ start + pos ];
 				( *( idEntity** )&data[ i ] ) = GetEntity( *var.entityNumberPtr );
 				break;
@@ -1058,7 +1058,7 @@ void idInterpreter::CallSysEvent( const function_t* func, int argsize )
 				}
 				break;
 				
-			case D_EVENT_ENTITY_nullptr :
+			case D_EVENT_ENTITY_NULL :
 				source.intPtr = ( int* )&localstack[ start + pos ];
 				*( idEntity** )&data[ i ] = GetEntity( *source.entityNumberPtr );
 				break;

@@ -149,7 +149,7 @@ idEventDef::idEventDef( const char* command, const char* formatspec, char return
 				// RB end
 				break;
 				
-			case D_EVENT_ENTITY_nullptr :
+			case D_EVENT_ENTITY_NULL :
 				// RB: 64 bit fix, sizeof( idEntityPtr<idEntity> ) to sizeof( intptr_t )
 				argsize += sizeof( intptr_t );
 				// RB end
@@ -361,7 +361,7 @@ idEvent* idEvent::Alloc( const idEventDef* evdef, int numargs, va_list args )
 				break;
 				
 			case D_EVENT_ENTITY :
-			case D_EVENT_ENTITY_nullptr :
+			case D_EVENT_ENTITY_NULL :
 				*reinterpret_cast< idEntityPtr<idEntity> * >( dataPtr ) = reinterpret_cast<idEntity*>( arg->value );
 				break;
 				
@@ -637,7 +637,7 @@ void idEvent::ServiceEvents()
 					break;
 					
 				case D_EVENT_ENTITY :
-				case D_EVENT_ENTITY_nullptr :
+				case D_EVENT_ENTITY_NULL :
 					*reinterpret_cast<idEntity**>( &args[ i ] ) = reinterpret_cast< idEntityPtr<idEntity> * >( &data[ offset ] )->GetEntity();
 					break;
 					
@@ -749,7 +749,7 @@ void idEvent::ServiceFastEvents()
 					break;
 					
 				case D_EVENT_ENTITY :
-				case D_EVENT_ENTITY_nullptr :
+				case D_EVENT_ENTITY_NULL :
 					*reinterpret_cast<idEntity**>( &args[ i ] ) = reinterpret_cast< idEntityPtr<idEntity> * >( &data[ offset ] )->GetEntity();
 					break;
 					
@@ -911,7 +911,7 @@ void idEvent::Save( idSaveGame* savefile )
 					break;
 				// RB end
 				case D_EVENT_ENTITY :
-				case D_EVENT_ENTITY_nullptr :
+				case D_EVENT_ENTITY_NULL :
 					// RB: 64 bit fix, changed alignment to sizeof( intptr_t )
 					reinterpret_cast< idEntityPtr<idEntity> * >( dataPtr )->Save( savefile );
 					size += sizeof( intptr_t );
@@ -1059,7 +1059,7 @@ void idEvent::Restore( idRestoreGame* savefile )
 						break;
 					// RB end
 					case D_EVENT_ENTITY :
-					case D_EVENT_ENTITY_nullptr :
+					case D_EVENT_ENTITY_NULL :
 						// RB: 64 bit fix, changed alignment to sizeof( intptr_t )
 						reinterpret_cast<idEntityPtr<idEntity> *>( dataPtr )->Restore( savefile );
 						size += sizeof( intptr_t );
