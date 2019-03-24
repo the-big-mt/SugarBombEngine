@@ -240,6 +240,7 @@ public:
 	
 	int						selPDA;
 	//int						selEMail;
+	int selNote;
 	//int						selVideo;
 	int						selAudio;
 	bool					pdaOpened;
@@ -248,6 +249,7 @@ public:
 	idList<const idDeclPDA*>	pdas;
 	//idList<const idDeclVideo*>	videos;
 	//idList<const idDeclEmail*>	emails;
+	idList<const idDeclNote*>	notes;
 	
 	bool					ammoPulse;
 	bool					weaponPulse;
@@ -350,6 +352,7 @@ public:
 	//static const int MAX_PLAYER_VIDEO = 100;
 	static const int MAX_PLAYER_AUDIO = 100;
 	static const int MAX_PLAYER_AUDIO_ENTRIES = 2;
+	static const int MAX_PLAYER_NOTE = 100;
 	
 	usercmd_t				oldCmd;
 	usercmd_t				usercmd;
@@ -641,6 +644,7 @@ public:
 	void					GivePDA( const idDeclPDA* pda, const char* securityItem );
 	//void					GiveVideo( const idDeclVideo* video, const char* itemName );
 	//void					GiveEmail( const idDeclEmail* email );
+	void					GiveNote( const idDeclNote* note );
 	void					GiveSecurity( const char* security );
 	void					GiveObjective( const char* title, const char* text, const idMaterial* screenshot );
 	void					CompleteObjective( const char* title );

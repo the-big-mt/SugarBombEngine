@@ -192,6 +192,7 @@ void idInventory::Clear()
 	emails.Clear();
 	//selVideo = 0;
 	//selEMail = 0;
+	selNote = 0;
 	selPDA = 0;
 	selAudio = 0;
 	pdaOpened = false;
@@ -304,6 +305,7 @@ void idInventory::GetPersistantData( idDict& dict )
 	dict.SetInt( "selPDA", selPDA );
 	//dict.SetInt( "selVideo", selVideo );
 	//dict.SetInt( "selEmail", selEMail );
+	dict.SetInt( "selNote", selNote );
 	dict.SetInt( "selAudio", selAudio );
 	dict.SetInt( "pdaOpened", pdaOpened );
 	
@@ -334,6 +336,14 @@ void idInventory::GetPersistantData( idDict& dict )
 	}
 	dict.SetInt( "emails", emails.Num() );
 */
+
+	// notes
+	for( i = 0; i < notes.Num(); i++ )
+	{
+		sprintf( key, "note_%i", i );
+		dict.Set( key, notes[ i ]->GetName() );
+	}
+	dict.SetInt( "notes", notes.Num() );
 	
 	// weapons
 	dict.SetInt( "weapon_bits", weapons );
@@ -417,6 +427,7 @@ void idInventory::RestoreInventory( idPlayer* owner, const idDict& dict )
 	
 	selPDA = dict.GetInt( "selPDA" );
 	//selEMail = dict.GetInt( "selEmail" );
+	setNote = dict.GetInt("setNote");
 	//selVideo = dict.GetInt( "selVideo" );
 	selAudio = dict.GetInt( "selAudio" );
 	pdaOpened = dict.GetBool( "pdaOpened" );
@@ -452,6 +463,14 @@ void idInventory::RestoreInventory( idPlayer* owner, const idDict& dict )
 	}
 */
 	
+	// notes
+	num = dict.GetInt( "notes" );
+	notes.SetNum( num );
+	for( i = 0; i < num; i++ )
+	{
+		sprintf( itemname, "note_%i", i );
+		notes[i] = static_cast<const idDeclNote*>( declManager->FindType( DECL_NOTE, dict.GetString( itemname, "default" ) ) );
+	}
 	
 	// weapons are stored as a number for persistant data, but as strings in the entityDef
 	weapons	= dict.GetInt( "weapon_bits", "0" );
@@ -525,6 +544,7 @@ void idInventory::Save( idSaveGame* savefile ) const
 	savefile->WriteInt( selPDA );
 	//savefile->WriteInt( selVideo );
 	//savefile->WriteInt( selEMail );
+	savefile->WriteInt( selNote );
 	savefile->WriteInt( selAudio );
 	savefile->WriteBool( pdaOpened );
 	
@@ -556,6 +576,11 @@ void idInventory::Save( idSaveGame* savefile ) const
 	}
 */
 	
+	savefile->WriteInt( notes.Num() );
+	for( i = 0; i < notes.Num(); i++ )
+	{
+		savefile->WriteString( notes[ i ]->GetName() );
+	}
 	
 	savefile->WriteInt( nextItemPickup );
 	savefile->WriteInt( nextItemNum );
@@ -693,6 +718,14 @@ void idInventory::Restore( idRestoreGame* savefile )
 	}
 */
 	
+	// note
+	savefile->ReadInt( num );
+	for( i = 0; i < num; i++ )
+	{
+		idStr strEmail;
+		savefile->ReadString( strEmail );
+		notes.Append( static_cast<const idDeclNote*>( declManager->FindType( DECL_NOTE, strEmail ) ) );
+	}
 	
 	savefile->ReadInt( nextItemPickup );
 	savefile->ReadInt( nextItemNum );
@@ -2592,6 +2625,14 @@ void idPlayer::Save( idSaveGame* savefile ) const
 		for( int j = 0; j < MAX_PLAYER_AUDIO_ENTRIES; j++ )
 		{
 			savefile->WriteBool( audioHasBeenHeard[i][j] );
+		}
+	}
+	
+	for( int i = 0; i < MAX_PLAYER_NOTE; i++ )
+	{
+		for( int j = 0; j < MAX_PLAYER_NOTE_ENTRIES; j++ )
+		{
+			savefile->WriteBool( noteHasBeenRead[i][j] );
 		}
 	}
 }
@@ -4863,6 +4904,25 @@ void idPlayer::GiveEmail( const idDeclEmail* email )
 	// TODO_SPARTY: hook up new email notification in new hud
 	//if ( hud ) {
 	//	hud->HandleNamedEvent( "emailPickup" );
+	//}
+}
+
+/*
+===============
+idPlayer::GiveNote
+===============
+*/
+void idPlayer::GiveNote( const idDeclNote* note )
+{
+	if( note == nullptr )
+		return;
+	
+	inventory.notes.AddUnique( note );
+	GetPDA()->AddNote( note );
+	
+	// TODO_SPARTY: hook up new note notification in new hud
+	//if ( hud ) {
+	//	hud->HandleNamedEvent( "notePickup" );
 	//}
 }
 
