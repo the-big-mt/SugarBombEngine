@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2018-2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -69,7 +70,11 @@ If you have questions concerning this license or the applicable additional terms
 #include "../d3xp/Achievements.h"       // for idAchievementManager
 
 #include "../idlib/containers/HashTable.h"       // for idHashTable
+*/
 
+#include Inventory.hpp"
+
+/*
 namespace BFG
 {
 
@@ -131,8 +136,6 @@ const int	FOCUS_TIME = 300;
 const int	FOCUS_GUI_TIME = 500;
 const int	NUM_QUICK_SLOTS = 4;
 
-const int MAX_WEAPONS = 32;
-
 const int DEAD_HEARTRATE = 0;			// fall to as you die
 const int LOWHEALTH_HEARTRATE_ADJ = 20; //
 const int DYING_HEARTRATE = 30;			// used for volumen calc when dying/dead
@@ -169,21 +172,6 @@ struct idLevelTriggerInfo
 	idStr triggerName;
 };
 
-// powerups - the "type" in item .def must match
-enum
-{
-	BERSERK = 0,
-	INVISIBILITY,
-	MEGAHEALTH,
-	ADRENALINE,
-	INVULNERABILITY,
-	HELLTIME,
-	ENVIROSUIT,
-	//HASTE,
-	ENVIROTIME,
-	MAX_POWERUPS
-};
-
 // powerup modifiers
 enum
 {
@@ -204,121 +192,10 @@ enum
 
 typedef struct
 {
-	int ammo;
-	int rechargeTime;
-	char ammoName[128];
-} RechargeAmmo_t;
-
-typedef struct
-{
 	char		name[64];
 	idList<int, TAG_IDLIB_LIST_PLAYER>	toggleList;
 	int			lastUsed;
 } WeaponToggle_t;
-
-class idInventory
-{
-public:
-	int						maxHealth;
-	int						weapons;
-	int						powerups;
-	int						armor;
-	int						maxarmor;
-	int						powerupEndTime[ MAX_POWERUPS ];
-	
-	RechargeAmmo_t			rechargeAmmo[ AMMO_NUMTYPES ];
-	
-	// mp
-	int						ammoPredictTime; // Unused now but kept for save file compatibility.
-	
-	int						deplete_armor;
-	float					deplete_rate;
-	int						deplete_ammount;
-	int						nextArmorDepleteTime;
-	
-	int						pdasViewed[4]; // 128 bit flags for indicating if a pda has been viewed
-	
-	int						selPDA;
-	//int						selEMail;
-	int selNote;
-	//int						selVideo;
-	int						selAudio;
-	bool					pdaOpened;
-	idList<idDict*>		items;
-	idList<idStr>			pdaSecurity;
-	idList<const idDeclPDA*>	pdas;
-	//idList<const idDeclVideo*>	videos;
-	//idList<const idDeclEmail*>	emails;
-	idList<const idDeclNote*>	notes;
-	
-	bool					ammoPulse;
-	bool					weaponPulse;
-	bool					armorPulse;
-	int						lastGiveTime;
-	
-	idList<idLevelTriggerInfo, TAG_IDLIB_LIST_PLAYER> levelTriggers;
-	
-	idInventory()
-	{
-		Clear();
-	}
-	~idInventory()
-	{
-		Clear();
-	}
-	
-	// save games
-	void					Save( idSaveGame* savefile ) const;					// archives object for save game file
-	void					Restore( idRestoreGame* savefile );					// unarchives object from save game file
-	
-	void					Clear();
-	void					GivePowerUp( idPlayer* player, int powerup, int msec );
-	void					ClearPowerUps();
-	void					GetPersistantData( idDict& dict );
-	void					RestoreInventory( idPlayer* owner, const idDict& dict );
-	bool					Give( idPlayer* owner, const idDict& spawnArgs, const char* statname, const char* value,
-								  idPredictedValue< int >* idealWeapon, bool updateHud, unsigned int giveFlags );
-	void					Drop( const idDict& spawnArgs, const char* weapon_classname, int weapon_index );
-	ammo_t					AmmoIndexForAmmoClass( const char* ammo_classname ) const;
-	int						MaxAmmoForAmmoClass( const idPlayer* owner, const char* ammo_classname ) const;
-	int						WeaponIndexForAmmoClass( const idDict& spawnArgs, const char* ammo_classname ) const;
-	ammo_t					AmmoIndexForWeaponClass( const char* weapon_classname, int* ammoRequired );
-	const char* 			AmmoPickupNameForIndex( ammo_t ammonum ) const;
-	void					AddPickupName( const char* name, idPlayer* owner );   //_D3XP
-	
-	int						HasAmmo( ammo_t type, int amount );
-	bool					UseAmmo( ammo_t type, int amount );
-	int						HasAmmo( const char* weapon_classname, bool includeClip = false, idPlayer* owner = NULL );			// _D3XP
-	
-	bool					HasEmptyClipCannotRefill( const char* weapon_classname, idPlayer* owner );
-	
-	void					UpdateArmor();
-	
-	void					SetInventoryAmmoForType( const int ammoType, const int amount );
-	void					SetClipAmmoForWeapon( const int weapon, const int amount );
-	
-	int						GetInventoryAmmoForType( const int ammoType ) const;
-	int						GetClipAmmoForWeapon( const int weapon ) const;
-	
-	void					WriteAmmoToSnapshot( idBitMsg& msg ) const;
-	void					ReadAmmoFromSnapshot( const idBitMsg& msg, int ownerEntityNumber );
-	
-	void					SetRemoteClientAmmo( const int ownerEntityNumber );
-	
-	int						nextItemPickup;
-	int						nextItemNum;
-	int						onePickupTime;
-	idList<idStr>			pickupItemNames;
-	idList<idObjectiveInfo>	objectiveNames;
-	
-	void					InitRechargeAmmo( idPlayer* owner );
-	void					RechargeAmmo( idPlayer* owner );
-	bool					CanGive( idPlayer* owner, const idDict& spawnArgs, const char* statname, const char* value );
-	
-private:
-	idArray< idPredictedValue< int >, AMMO_NUMTYPES >		ammo;
-	idArray< idPredictedValue< int >, MAX_WEAPONS >			clip;
-};
 
 typedef struct
 {
