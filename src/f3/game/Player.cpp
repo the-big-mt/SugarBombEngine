@@ -190,8 +190,8 @@ void idInventory::Clear()
 	pdas.Clear();
 	videos.Clear();
 	emails.Clear();
-	selVideo = 0;
-	selEMail = 0;
+	//selVideo = 0;
+	//selEMail = 0;
 	selPDA = 0;
 	selAudio = 0;
 	pdaOpened = false;
@@ -302,8 +302,8 @@ void idInventory::GetPersistantData( idDict& dict )
 	}
 	
 	dict.SetInt( "selPDA", selPDA );
-	dict.SetInt( "selVideo", selVideo );
-	dict.SetInt( "selEmail", selEMail );
+	//dict.SetInt( "selVideo", selVideo );
+	//dict.SetInt( "selEmail", selEMail );
 	dict.SetInt( "selAudio", selAudio );
 	dict.SetInt( "pdaOpened", pdaOpened );
 	
@@ -315,6 +315,7 @@ void idInventory::GetPersistantData( idDict& dict )
 	}
 	dict.SetInt( "pdas", pdas.Num() );
 	
+/*
 	// video cds
 	for( i = 0; i < videos.Num(); i++ )
 	{
@@ -322,7 +323,9 @@ void idInventory::GetPersistantData( idDict& dict )
 		dict.Set( key, videos[ i ]->GetName() );
 	}
 	dict.SetInt( "videos", videos.Num() );
+*/
 	
+/*
 	// emails
 	for( i = 0; i < emails.Num(); i++ )
 	{
@@ -330,6 +333,7 @@ void idInventory::GetPersistantData( idDict& dict )
 		dict.Set( key, emails[ i ]->GetName() );
 	}
 	dict.SetInt( "emails", emails.Num() );
+*/
 	
 	// weapons
 	dict.SetInt( "weapon_bits", weapons );
@@ -412,8 +416,8 @@ void idInventory::RestoreInventory( idPlayer* owner, const idDict& dict )
 	}
 	
 	selPDA = dict.GetInt( "selPDA" );
-	selEMail = dict.GetInt( "selEmail" );
-	selVideo = dict.GetInt( "selVideo" );
+	//selEMail = dict.GetInt( "selEmail" );
+	//selVideo = dict.GetInt( "selVideo" );
 	selAudio = dict.GetInt( "selAudio" );
 	pdaOpened = dict.GetBool( "pdaOpened" );
 	
@@ -425,7 +429,8 @@ void idInventory::RestoreInventory( idPlayer* owner, const idDict& dict )
 		sprintf( itemname, "pda_%i", i );
 		pdas[i] = static_cast<const idDeclPDA*>( declManager->FindType( DECL_PDA, dict.GetString( itemname, "default" ) ) );
 	}
-	
+
+/*	
 	// videos
 	num = dict.GetInt( "videos" );
 	videos.SetNum( num );
@@ -434,7 +439,9 @@ void idInventory::RestoreInventory( idPlayer* owner, const idDict& dict )
 		sprintf( itemname, "video_%i", i );
 		videos[i] = static_cast<const idDeclVideo*>( declManager->FindType( DECL_VIDEO, dict.GetString( itemname, "default" ) ) );
 	}
+*/
 	
+/*
 	// emails
 	num = dict.GetInt( "emails" );
 	emails.SetNum( num );
@@ -443,6 +450,8 @@ void idInventory::RestoreInventory( idPlayer* owner, const idDict& dict )
 		sprintf( itemname, "email_%i", i );
 		emails[i] = static_cast<const idDeclEmail*>( declManager->FindType( DECL_EMAIL, dict.GetString( itemname, "default" ) ) );
 	}
+*/
+	
 	
 	// weapons are stored as a number for persistant data, but as strings in the entityDef
 	weapons	= dict.GetInt( "weapon_bits", "0" );
@@ -514,8 +523,8 @@ void idInventory::Save( idSaveGame* savefile ) const
 	savefile->WriteInt( pdasViewed[3] );
 	
 	savefile->WriteInt( selPDA );
-	savefile->WriteInt( selVideo );
-	savefile->WriteInt( selEMail );
+	//savefile->WriteInt( selVideo );
+	//savefile->WriteInt( selEMail );
 	savefile->WriteInt( selAudio );
 	savefile->WriteBool( pdaOpened );
 	
@@ -531,17 +540,22 @@ void idInventory::Save( idSaveGame* savefile ) const
 		savefile->WriteString( pdaSecurity[ i ] );
 	}
 	
+/*
 	savefile->WriteInt( videos.Num() );
 	for( i = 0; i < videos.Num(); i++ )
 	{
 		savefile->WriteString( videos[ i ]->GetName() );
 	}
+*/
 	
+/*
 	savefile->WriteInt( emails.Num() );
 	for( i = 0; i < emails.Num(); i++ )
 	{
 		savefile->WriteString( emails[ i ]->GetName() );
 	}
+*/
+	
 	
 	savefile->WriteInt( nextItemPickup );
 	savefile->WriteInt( nextItemNum );
@@ -657,6 +671,7 @@ void idInventory::Restore( idRestoreGame* savefile )
 		pdaSecurity.Append( invName );
 	}
 	
+/*
 	// videos
 	savefile->ReadInt( num );
 	for( i = 0; i < num; i++ )
@@ -665,7 +680,9 @@ void idInventory::Restore( idRestoreGame* savefile )
 		savefile->ReadString( strVideo );
 		videos.Append( static_cast<const idDeclVideo*>( declManager->FindType( DECL_VIDEO, strVideo ) ) );
 	}
-	
+*/
+
+/*	
 	// email
 	savefile->ReadInt( num );
 	for( i = 0; i < num; i++ )
@@ -674,6 +691,8 @@ void idInventory::Restore( idRestoreGame* savefile )
 		savefile->ReadString( strEmail );
 		emails.Append( static_cast<const idDeclEmail*>( declManager->FindType( DECL_EMAIL, strEmail ) ) );
 	}
+*/
+	
 	
 	savefile->ReadInt( nextItemPickup );
 	savefile->ReadInt( nextItemNum );
@@ -2560,10 +2579,13 @@ void idPlayer::Save( idSaveGame* savefile ) const
 		savefile->WriteBool( pdaHasBeenRead[i] );
 	}
 	
+
+/*
 	for( int i = 0; i < MAX_PLAYER_VIDEO; i++ )
 	{
 		savefile->WriteBool( videoHasBeenViewed[i] );
 	}
+*/
 	
 	for( int i = 0; i < MAX_PLAYER_AUDIO; i++ )
 	{

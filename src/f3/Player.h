@@ -239,15 +239,15 @@ public:
 	int						pdasViewed[4]; // 128 bit flags for indicating if a pda has been viewed
 	
 	int						selPDA;
-	int						selEMail;
-	int						selVideo;
+	//int						selEMail;
+	//int						selVideo;
 	int						selAudio;
 	bool					pdaOpened;
 	idList<idDict*>		items;
 	idList<idStr>			pdaSecurity;
 	idList<const idDeclPDA*>	pdas;
-	idList<const idDeclVideo*>	videos;
-	idList<const idDeclEmail*>	emails;
+	//idList<const idDeclVideo*>	videos;
+	//idList<const idDeclEmail*>	emails;
 	
 	bool					ammoPulse;
 	bool					weaponPulse;
@@ -347,7 +347,7 @@ public:
 	};
 	
 	static const int MAX_PLAYER_PDA = 100;
-	static const int MAX_PLAYER_VIDEO = 100;
+	//static const int MAX_PLAYER_VIDEO = 100;
 	static const int MAX_PLAYER_AUDIO = 100;
 	static const int MAX_PLAYER_AUDIO_ENTRIES = 2;
 	
@@ -381,7 +381,7 @@ public:
 	int						lastSavingThrowTime;	// for the "free miss" effect
 	
 	bool					pdaHasBeenRead[ MAX_PLAYER_PDA ];
-	bool					videoHasBeenViewed[ MAX_PLAYER_VIDEO ];
+	//bool					videoHasBeenViewed[ MAX_PLAYER_VIDEO ];
 	bool					audioHasBeenHeard[ MAX_PLAYER_AUDIO ][ MAX_PLAYER_AUDIO_ENTRIES ];
 	
 	idScriptBool			AI_FORWARD;
@@ -639,8 +639,8 @@ public:
 	int						GetQuickSlot( int index );
 	
 	void					GivePDA( const idDeclPDA* pda, const char* securityItem );
-	void					GiveVideo( const idDeclVideo* video, const char* itemName );
-	void					GiveEmail( const idDeclEmail* email );
+	//void					GiveVideo( const idDeclVideo* video, const char* itemName );
+	//void					GiveEmail( const idDeclEmail* email );
 	void					GiveSecurity( const char* security );
 	void					GiveObjective( const char* title, const char* text, const idMaterial* screenshot );
 	void					CompleteObjective( const char* title );
@@ -700,7 +700,7 @@ public:
 	{
 		return objectiveSystemOpen;
 	}
-	const idDeclVideo* 		GetVideo( int index );
+	//const idDeclVideo* 		GetVideo( int index );
 	void					SetInfluenceFov( float fov );
 	void					SetInfluenceView( const char* mtr, const char* skinname, float radius, idEntity* ent );
 	void					SetInfluenceLevel( int level );
