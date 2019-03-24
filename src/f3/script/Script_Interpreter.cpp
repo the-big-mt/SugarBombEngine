@@ -28,10 +28,35 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cassert>
+//#include <cstdarg>
+//#include <stdint.h>
+//#include <cstdio>
+//#include <cstring>
 #include "precompiled.h"
 
-
 #include "../Game_local.h"
+//#include "../d3xp/Entity.h"
+//#include "../d3xp/Game_defines.h"
+//#include "../d3xp/gamesys/Event.h"
+//#include "../d3xp/gamesys/SaveGame.h"
+//#include "../d3xp/gamesys/SysCvar.h"
+//#include "../d3xp/script/Script_Compiler.h"
+//#include "../d3xp/script/Script_Interpreter.h"
+//#include "../d3xp/script/Script_Program.h"
+//#include "../d3xp/script/Script_Thread.h"
+//#include "../framework/CVarSystem.h"
+//#include "../framework/Common.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/math/Math.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_types.h"
+
+//namespace BFG
+//{
+
+//class idClass;
 
 /*
 ================
@@ -504,7 +529,7 @@ void idInterpreter::Error( const char* fmt, ... ) const
 	char	text[ 1024 ];
 	
 	va_start( argptr, fmt );
-	vsprintf( text, fmt, argptr );
+	std::vsprintf( text, fmt, argptr );
 	va_end( argptr );
 	
 	StackTrace();
@@ -533,7 +558,7 @@ void idInterpreter::Warning( const char* fmt, ... ) const
 	char	text[ 1024 ];
 	
 	va_start( argptr, fmt );
-	vsprintf( text, fmt, argptr );
+	std::vsprintf( text, fmt, argptr );
 	va_end( argptr );
 	
 	if( ( instructionPointer >= 0 ) && ( instructionPointer < gameLocal.program.NumStatements() ) )
@@ -2119,3 +2144,5 @@ idScriptObject* idInterpreter::GetScriptObject( int entnum ) const
 	return nullptr;
 }
 // RB end
+
+//} // namespace BFG

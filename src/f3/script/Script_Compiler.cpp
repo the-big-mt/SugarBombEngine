@@ -28,10 +28,30 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+//#include <cstdarg>
+//#include <cstdio>
+//#include <cstring>
 #include "precompiled.h"
 
-
 #include "../Game_local.h"
+//#include "../d3xp/Game.h"
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/gamesys/Event.h"
+//#include "../d3xp/script/Script_Compiler.h"
+//#include "../d3xp/script/Script_Program.h"
+//#include "../d3xp/script/Script_Thread.h"
+//#include "../idlib/Lexer.h"
+//#include "../idlib/Parser.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/Token.h"
+//#include "../idlib/containers/List.h"
+//#include "../idlib/math/Vector.h"
+//#include "../idlib/sys/sys_assert.h"
+//#include "../idlib/sys/sys_defines.h"
+//#include "Timer.h"
+
+//namespace BFG
+//{
 
 #define FUNCTION_PRIORITY	2
 #define INT_PRIORITY		2
@@ -264,7 +284,7 @@ void idCompiler::Error( const char* message, ... ) const
 	char	string[ 1024 ];
 	
 	va_start( argptr, message );
-	vsprintf( string, message, argptr );
+	std::vsprintf( string, message, argptr );
 	va_end( argptr );
 	
 #if defined(USE_EXCEPTIONS)
@@ -287,7 +307,7 @@ void idCompiler::Warning( const char* message, ... ) const
 	char	string[ 1024 ];
 	
 	va_start( argptr, message );
-	vsprintf( string, message, argptr );
+	std::vsprintf( string, message, argptr );
 	va_end( argptr );
 	
 	parserPtr->Warning( "%s", string );
@@ -3261,3 +3281,5 @@ void idCompiler::CompileFile( const char* text, const char* filename, bool toCon
 		gameLocal.Printf( "Compiled '%s': %.1f ms\n", filename, compile_time.Milliseconds() );
 	}
 }
+
+//} // namespace BFG

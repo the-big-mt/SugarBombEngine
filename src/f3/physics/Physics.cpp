@@ -26,6 +26,20 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+//#include "../d3xp/gamesys/Class.h"
+//#include "../d3xp/physics/Clip.h"
+//#include "../d3xp/physics/Physics.h"
+//#include "../framework/Common.h"
+//#include "../idlib/Heap.h"
+//#include "../idlib/geometry/TraceModel.h"
+
+//namespace BFG
+//{
+
+//class idBounds;
+//class idRestoreGame;
+//class idSaveGame;
+
 #pragma hdrstop
 #include "precompiled.h"
 
@@ -81,3 +95,5 @@ int idPhysics::SnapTimeToPhysicsFrame( int t )
 {
 	return MSEC_ALIGN_TO_FRAME( t );
 }
+
+//} // namespace BFG
