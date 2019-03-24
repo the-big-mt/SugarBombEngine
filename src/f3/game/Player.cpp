@@ -4844,6 +4844,7 @@ void idPlayer::CompleteObjective( const char* title )
 idPlayer::GiveVideo
 ===============
 */
+/*
 void idPlayer::GiveVideo( const idDeclVideo* video, const char* itemName )
 {
 
@@ -4870,6 +4871,7 @@ void idPlayer::GiveVideo( const idDeclVideo* video, const char* itemName )
 		hud->DownloadVideo();
 	}
 }
+*/
 
 /*
 ===============
@@ -4891,6 +4893,7 @@ void idPlayer::GiveSecurity( const char* security )
 idPlayer::GiveEmail
 ===============
 */
+/*
 void idPlayer::GiveEmail( const idDeclEmail* email )
 {
 	if( email == nullptr )
@@ -4906,6 +4909,7 @@ void idPlayer::GiveEmail( const idDeclEmail* email )
 	//	hud->HandleNamedEvent( "emailPickup" );
 	//}
 }
+*/
 
 /*
 ===============
@@ -7485,6 +7489,7 @@ const idDeclPDA* idPlayer::GetPDA() const
 idPlayer::GetVideo
 ==============
 */
+/*
 const idDeclVideo* idPlayer::GetVideo( int index )
 {
 	if( index >= 0 && index < inventory.videos.Num() )
@@ -7493,6 +7498,7 @@ const idDeclVideo* idPlayer::GetVideo( int index )
 	}
 	return nullptr;
 }
+*/
 
 /*
 ==============
