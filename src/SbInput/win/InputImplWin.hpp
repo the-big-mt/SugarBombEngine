@@ -34,10 +34,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "SbInputSystem.hpp"
 #include "JoystickWin.hpp"
 
+#include <dinput.h>
+
 class SbInputImplWin final : public IInputSystem
 {
 public:
-	SbInputImplWin(ICommon *apCommon);
+	SbInputImplWin(idCommon *apCommon);
 	
 	void Init() override;
 	void Shutdown() override;
@@ -56,7 +58,7 @@ public:
 	int ReturnJoystickInputEvent(const int n, int &action, int &value) override;
 	void EndJoystickInputEvents() override;
 private:
-	void Frame();
+	void Frame(idUserCmdGen *usercmdGen);
 	
 	void InitDirectInput();
 	bool InitDIMouse();
@@ -67,7 +69,7 @@ private:
 	bool StartupKeyboard();
 	void DeactivateKeyboard();
 	
-	ICommon *mpCommon{nullptr};
+	idCommon *mpCommon{nullptr};
 	
 	LPDIRECTINPUT8 g_pdi;
 	LPDIRECTINPUTDEVICE8 g_pMouse;

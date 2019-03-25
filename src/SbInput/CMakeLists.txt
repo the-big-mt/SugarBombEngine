@@ -4,6 +4,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 file(GLOB PROJECT_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+	if(WIN32)
+		${CMAKE_CURRENT_SOURCE_DIR}/win/*.cpp
+	else()
+		${CMAKE_CURRENT_SOURCE_DIR}/sdl2/*.cpp
+	endif()
 )
 
 if(SBE_SINGLE_BINARY)

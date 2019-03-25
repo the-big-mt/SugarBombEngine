@@ -30,20 +30,19 @@ If you have questions concerning this license or the applicable additional terms
 
 /// @file
 
-#include "SbInputImplWin.hpp"
+#include "InputImplWin.hpp"
 #include "framework/ICommon.hpp"
-
-#include "framework/UsercmdGen.h"
+#include "framework/IUsercmdGen.hpp"
 
 constexpr auto DINPUT_BUFFERSIZE{256};
 
-IInputSystem *CreateInputSystem(ICommon *apCommon)
+IInputSystem *CreateInputSystem(idCommon *apCommon)
 {
 	static SbInputImplWin InputSystem(apCommon);
 	return &InputSystem;
 };
 
-SbInputImplWin::SbInputImplWin(ICommon *apCommon) : mpCommon(apCommon){}
+SbInputImplWin::SbInputImplWin(idCommon *apCommon) : mpCommon(apCommon){}
 
 /*
 ===========
@@ -113,13 +112,13 @@ int SbInputImplWin::PollKeyboardInputEvents()
 	DWORD              dwElements;
 	HRESULT            hr;
 	
-	if( win32.g_pKeyboard == nullptr )
+	if( g_pKeyboard == nullptr )
 	{
 		return 0;
 	}
 	
 	dwElements = DINPUT_BUFFERSIZE;
-	hr = win32.g_pKeyboard->GetDeviceData( sizeof( DIDEVICEOBJECTDATA ),
+	hr = g_pKeyboard->GetDeviceData( sizeof( DIDEVICEOBJECTDATA ),
 										   polled_didod, &dwElements, 0 );
 	if( hr != DI_OK )
 	{
@@ -129,7 +128,7 @@ int SbInputImplWin::PollKeyboardInputEvents()
 		// device has been lost, either due to an external
 		// interruption, or because the buffer overflowed
 		// and some events were lost.
-		hr = win32.g_pKeyboard->Acquire();
+		hr = g_pKeyboard->Acquire();
 		
 		
 		
@@ -139,7 +138,7 @@ int SbInputImplWin::PollKeyboardInputEvents()
 			//Bug 951: The following command really clears the garbage input.
 			//The original will still process keys in the buffer and was causing
 			//some problems.
-			win32.g_pKeyboard->GetDeviceData( sizeof( DIDEVICEOBJECTDATA ), nullptr, &dwElements, 0 );
+			g_pKeyboard->GetDeviceData( sizeof( DIDEVICEOBJECTDATA ), nullptr, &dwElements, 0 );
 			dwElements = 0;
 		}
 		// hr may be DIERR_OTHERAPPHASPRIO or other errors.  This
@@ -172,12 +171,12 @@ int SbInputImplWin::PollKeyboardInputEvents()
 	
 	HRESULT            hr;
 	
-	if( win32.g_pKeyboard == nullptr )
+	if( g_pKeyboard == nullptr )
 	{
 		return 0;
 	}
 	
-	hr = win32.g_pKeyboard->GetDeviceState( sizeof( toggleFetch[ diFetch ] ), toggleFetch[ diFetch ] );
+	hr = g_pKeyboard->GetDeviceState( sizeof( toggleFetch[ diFetch ] ), toggleFetch[ diFetch ] );
 	if( hr != DI_OK )
 	{
 		// We got an error or we got DI_BUFFEROVERFLOW.
@@ -186,12 +185,12 @@ int SbInputImplWin::PollKeyboardInputEvents()
 		// device has been lost, either due to an external
 		// interruption, or because the buffer overflowed
 		// and some events were lost.
-		hr = win32.g_pKeyboard->Acquire();
+		hr = g_pKeyboard->Acquire();
 		
 		// nuke the garbage
 		if( !FAILED( hr ) )
 		{
-			hr = win32.g_pKeyboard->GetDeviceState( sizeof( toggleFetch[ diFetch ] ), toggleFetch[ diFetch ] );
+			hr = g_pKeyboard->GetDeviceState( sizeof( toggleFetch[ diFetch ] ), toggleFetch[ diFetch ] );
 		}
 		// hr may be DIERR_OTHERAPPHASPRIO or other errors.  This
 		// may occur when the app is minimized or in the process of
@@ -254,21 +253,21 @@ int SbInputImplWin::PollMouseInputEvents( int mouseEvents[MAX_MOUSE_EVENTS][2] )
 	DWORD				dwElements;
 	HRESULT				hr;
 	
-	if( !win32.g_pMouse || !win32.mouseGrabbed )
+	if( !g_pMouse || !mouseGrabbed )
 	{
 		return 0;
 	}
 	
 	dwElements = DINPUT_BUFFERSIZE;
-	hr = win32.g_pMouse->GetDeviceData( sizeof( DIDEVICEOBJECTDATA ), polled_didod, &dwElements, 0 );
+	hr = g_pMouse->GetDeviceData( sizeof( DIDEVICEOBJECTDATA ), polled_didod, &dwElements, 0 );
 	
 	if( hr != DI_OK )
 	{
-		hr = win32.g_pMouse->Acquire();
+		hr = g_pMouse->Acquire();
 		// clear the garbage
 		if( !FAILED( hr ) )
 		{
-			win32.g_pMouse->GetDeviceData( sizeof( DIDEVICEOBJECTDATA ), polled_didod, &dwElements, 0 );
+			g_pMouse->GetDeviceData( sizeof( DIDEVICEOBJECTDATA ), polled_didod, &dwElements, 0 );
 		}
 	}
 	
@@ -340,17 +339,17 @@ int SbInputImplWin::PollMouseInputEvents( int mouseEvents[MAX_MOUSE_EVENTS][2] )
 
 void SbInputImplWin::SetRumble( int device, int low, int hi )
 {
-	return win32.g_Joystick.SetRumble( device, low, hi );
+	return g_Joystick.SetRumble( device, low, hi );
 };
 
 int SbInputImplWin::PollJoystickInputEvents( int deviceNum )
 {
-	return win32.g_Joystick.PollInputEvents( deviceNum );
+	return g_Joystick.PollInputEvents( deviceNum );
 };
 
 int SbInputImplWin::ReturnJoystickInputEvent( const int n, int& action, int& value )
 {
-	return win32.g_Joystick.ReturnInputEvent( n, action, value );
+	return g_Joystick.ReturnInputEvent( n, action, value );
 };
 
 void SbInputImplWin::EndJoystickInputEvents()
@@ -364,7 +363,7 @@ IN_Frame
 Called every frame, even if not generating commands
 ==================
 */
-void SbInputImplWin::Frame(IUserCmdGen *usercmdGen)
+void SbInputImplWin::Frame(idUserCmdGen *usercmdGen)
 {
 	bool shouldGrab = true;
 	
