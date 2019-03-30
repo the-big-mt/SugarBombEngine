@@ -23,22 +23,35 @@
 
  */
 
-#ifndef BSA_TES4BSA_FILE_H
-#define BSA_TES4BSA_FILE_H
+#ifndef BSA_COMPRESSED_BSA_FILE_H
+#define BSA_COMPRESSED_BSA_FILE_H
 
 #include <stdint.h>
 #include <string>
 #include <vector>
 #include <map>
 
-#include <OgreDataStream.h>
-
+#include <components/bsa/bsa_file.hpp>
 
 namespace Bsa
 {
-    class TES4BSAFile
+	enum BsaVersion
     {
-    public:
+        BSAVER_UNKNOWN = 0x0,
+        BSAVER_UNCOMPRESSED = 0x100,
+        BSAVER_COMPRESSED = 0x415342 //B, S, A
+    };
+
+    class CompressedBSAFile : public BSAFile
+    {
+    private:
+		//special marker for invalid records,
+        //equal to max uint32_t value
+        static const uint32_t sInvalidOffset;
+
+        //bit marking compression on file size
+        static const uint32_t sCompressedFlag;
+
         struct FileRecord
         {
             std::uint32_t size;
@@ -49,14 +62,10 @@ namespace Bsa
             FileRecord() : size(0), offset(-1) {}
         };
 
-    private:
-        /// Filenames string buffer
-        std::vector<char> mStringBuf;
-
-        /// True when an archive has been loaded
-        bool isLoaded;
-
+		// if files in BSA  without 30th bit enabled are compressed
         bool mCompressedByDefault;
+
+        // if each file record begins with BZ string with file name
         bool mEmbeddedFileNames;
 
         std::map<std::uint64_t, FileRecord> mFiles;
@@ -72,31 +81,23 @@ namespace Bsa
 
         FileRecord getFileRecord(const std::string& str) const;
 
-        /// Used for error messages and getting files
-        std::string mFilename;
-
-        /// Error handling
-        void fail(const std::string &msg);
-
-        /// Read header information from the input source
-        void readHeader();
-
+        void getBZString(std::string& str, std::istream& filestream);
+        //mFiles used by OpenMW will contain uncompressed file sizes
+        void convertCompressedSizesToUncompressed();
+        Files::IStreamPtr getFile(const FileRecord& fileRecord);
     public:
-        TES4BSAFile()
+        CompressedBSAFile()
           : isLoaded(false), mCompressedByDefault(false), mEmbeddedFileNames(false)
         { }
 
-        /// Open an archive file.
-        void open(const std::string &file);
+        // checks version of BSA from file header
+        static BsaVersion detectVersion(std::string filePath);
 
-        /// Check if a file exists
-        bool exists(const std::string& file) const;
+		/// Read header information from the input source
+        virtual void readHeader();
 
-        Ogre::DataStreamPtr getFile(const std::string& file);
-
-        /// Get a list of all files
-        const FileList &getList() const // FIXME
-        { return mFiles; }
+        Files::IStreamPtr getFile(const char* filePath);
+        Files::IStreamPtr getFile(const FileStruct* fileStruct);
     };
 }
 
