@@ -30,18 +30,21 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include <cstring>
 
-//#include "../idlib/Heap.h"
-//#include "../idlib/Str.h"
-//#include "../idlib/containers/List.h"
-//#include "../idlib/sys/sys_defines.h"
-//#include "../idlib/sys/sys_types.h"
-//#include "../renderer/ImageOpts.h"
+#include "idlib/Heap.h"
+#include "idlib/Str.h"
+#include "idlib/containers/List.h"
+#include "idlib/sys/sys_defines.h"
+#include "idlib/sys/sys_types.h"
+
+//#include "ImageOpts.h"
 #include "BinaryImageData.h"
 
 //namespace BFG
 //{
 
-//class idFile;
+enum textureFormat_t : int;
+enum textureColor_t : int;
+class idFile;
 
 /*
 ================================================

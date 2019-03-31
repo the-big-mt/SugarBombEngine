@@ -29,10 +29,23 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERWORLD_H__
 #define __RENDERWORLD_H__
 
+#include "renderer/IRenderWorld.hpp"
 //#include "../renderer/Model.h"          // for idRenderModel
+#include "Material.h"
+
+#include "idlib/sys/sys_defines.h"
+#include "idlib/bv/Bounds.h"
+#include "idlib/math/Vector.h"
+#include "idlib/math/Matrix.h"
 
 //namespace BFG
 //{
+
+struct idRenderModel;
+struct idSoundEmitter;
+struct idUserInterface;
+class idJointMat;
+class idDeclSkin;
 
 /*
 ===============================================================================

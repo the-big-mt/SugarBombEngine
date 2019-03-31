@@ -31,11 +31,11 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include <GL/glew.h>
 
-//#include "../idlib/Str.h"
-//#include "../idlib/containers/List.h"
-//#include "../idlib/containers/StaticList.h"
-//#include "../idlib/math/Vector.h"
-//#include "../idlib/sys/sys_types.h"
+#include "idlib/Str.h"
+#include "idlib/containers/List.h"
+#include "idlib/containers/StaticList.h"
+#include "idlib/math/Vector.h"
+#include "idlib/sys/sys_types.h"
 
 //namespace BFG
 //{

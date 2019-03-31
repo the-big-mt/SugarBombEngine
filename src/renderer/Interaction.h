@@ -55,6 +55,10 @@ If you have questions concerning this license or the applicable additional terms
 // to be performed on interaction (static) shadow volumes
 #define KEEP_INTERACTION_CPU_DATA
 
+class idCmdArgs;
+class idRenderEntityLocal;
+class idRenderLightLocal;
+
 struct srfCullInfo_t
 {
 	// For each triangle a byte set to 1 if facing the light origin.
@@ -87,11 +91,6 @@ struct surfaceInteraction_t
 	triIndex_t* 			shadowIndexes;			// only != NULL if KEEP_INTERACTION_CPU_DATA is defined
 	vertCacheHandle_t		shadowIndexCache;
 };
-
-
-//class idCmdArgs;
-class idRenderEntityLocal;
-class idRenderLightLocal;
 
 class idInteraction
 {

@@ -30,13 +30,18 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include "idlib/Heap.h"
 #include "idlib/containers/List.h"
-//#include "idlib/sys/sys_types.h"
+#include "idlib/sys/sys_types.h"
+
+#include "renderer/RenderSystem.hpp"
 #include "Material.h"
-//#include "renderer/RenderSystem.h"
 #include "VertexCache.h"
 
 //namespace BFG
 //{
+
+class idDemoFile;
+class idDrawVert;
+//class idMaterial;
 
 struct guiModelSurface_t
 {

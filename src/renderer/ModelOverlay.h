@@ -39,8 +39,11 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
-//class idMaterial;
-//class idRenderModel;
+struct drawSurf_t;
+struct viewEntity_t;
+class idMaterial;
+class idRenderModel;
+class idDemoFile;
 
 /*
 ===============================================================================

@@ -28,6 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __BINARYIMAGEDATA_H__
 #define __BINARYIMAGEDATA_H__
 
+//#include "idlib/sys/sys_defines.h" // TODO: ID_TIME_T should actually be defined here instead of precompiled header
+
 //namespace BFG
 //{
 

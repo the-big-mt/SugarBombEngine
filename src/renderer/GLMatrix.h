@@ -33,10 +33,10 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
-//class idMat3;
-//class idPlane;
-//class idVec3;
-//struct viewDef_t;
+struct viewDef_t;
+class idMat3;
+class idPlane;
+class idVec3;
 
 /*
 ==========================================================================================

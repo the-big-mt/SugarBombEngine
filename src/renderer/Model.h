@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2018-2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -29,14 +30,19 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MODEL_H__
 #define __MODEL_H__
 
-//#include "../renderer/Material.h"       // for idMaterial, etc
+#include "renderer/IRenderModel.hpp"
+//#include "Material.h"       // for idMaterial, etc
+#include "VertexCache.h"
 
-//#include "VertexCache.h"
+//#include "jobs/ShadowShared.h"
+//#include "jobs/prelightshadowvolume/PreLightShadowVolume.h"
+//#include "jobs/staticshadowvolume/StaticShadowVolume.h"
+//#include "jobs/dynamicshadowvolume/DynamicShadowVolume.h"
 
-#include "jobs/ShadowShared.h"
-#include "jobs/prelightshadowvolume/PreLightShadowVolume.h"
-#include "jobs/staticshadowvolume/StaticShadowVolume.h"
-#include "jobs/dynamicshadowvolume/DynamicShadowVolume.h"
+#include "idlib/sys/sys_types.h"
+#include "idlib/sys/sys_defines.h"
+#include "idlib/Str.h"
+#include "idlib/containers/List.h"
 
 //namespace BFG
 //{
@@ -48,11 +54,6 @@ If you have questions concerning this license or the applicable additional terms
 #define MD5_CAMERA_EXT			"md5camera"
 #define MD5_VERSION				10
 
-#include "jobs/ShadowShared.h"
-#include "jobs/prelightshadowvolume/PreLightShadowVolume.h"
-#include "jobs/staticshadowvolume/StaticShadowVolume.h"
-#include "jobs/dynamicshadowvolume/DynamicShadowVolume.h"
-
 // this is used for calculating unsmoothed normals and tangents for deformed models
 struct dominantTri_t
 {
@@ -62,7 +63,10 @@ struct dominantTri_t
 
 const int SHADOW_CAP_INFINITE	= 64;
 
+struct silEdge_t;
 class idRenderModelStatic;
+class idDrawVert;
+class idShadowVert;
 
 // our only drawing geometry type
 struct srfTriangles_t
@@ -138,8 +142,6 @@ public:
 	idStr						name;
 	const idMD5Joint* 			parent;
 };
-
-#include "renderer/IRenderModel.hpp"
 
 //} // namespace BFG
 

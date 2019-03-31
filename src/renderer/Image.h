@@ -28,6 +28,12 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+
+#include "Material.h"
+
+struct MemInfo_t;
+class idPreloadManifest;
+
 enum textureType_t
 {
 	TT_DISABLED,

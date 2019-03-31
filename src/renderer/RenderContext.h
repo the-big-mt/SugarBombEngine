@@ -34,6 +34,12 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
+struct emptyCommand_t;
+struct drawSurf_t;
+struct wrapperContext_t;
+struct wrapperConfig_t;
+class idImage;
+
 // This is for "official" HDMI 3D support with with the left eye above the right and a guard band in the middle
 // Some displays which don't support this can still do stereo 3D by packing 2 eyes into a single (mono-sized) buffer
 enum hdmi3DState_t

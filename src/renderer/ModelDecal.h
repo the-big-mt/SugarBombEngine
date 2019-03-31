@@ -42,11 +42,14 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
-//class idFixedWinding;
-//class idMat3;
-//class idMaterial;
-//class idRenderModel;
-//class idWinding;
+struct viewEntity_t;
+class idFixedWinding;
+class idMat3;
+class idMaterial;
+class idRenderModel;
+class idWinding;
+class idDemoFile;
+class idRenderModel;
 
 /*
 ===============================================================================

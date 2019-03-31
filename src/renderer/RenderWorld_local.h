@@ -31,13 +31,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERWORLDLOCAL_H__
 #define __RENDERWORLDLOCAL_H__
 
-#include "renderer/IRenderWorld.hpp"
-
-//#include "tr_local.h"
-
-#include "idlib/Plane.h"
-
+#include "RenderWorld.h"
+#include "RenderCommon.h" // areaReference_t
 #include "BoundsTrack.h"
+
+#include "idlib/math/Plane.h"
+#include "idlib/Str.h"
+#include "idlib/Heap.h"
+#include "idlib/containers/List.h"
+#include "idlib/containers/Array.h"
 
 //namespace BFG
 //{
@@ -45,6 +47,20 @@ If you have questions concerning this license or the applicable additional terms
 // assume any lightDef or entityDef index above this is an internal error
 const int LUDICROUS_INDEX	= 10000;
 
+struct portalStack_t;
+struct viewEntity_t;
+struct viewDef_t;
+struct frustumCorners_t;
+class idRenderEntityLocal;
+class idRenderLightLocal;
+class idRenderModelDecal;
+class idRenderModelOverlay;
+class idScreenRect;
+class idInteraction;
+class idLexer;
+class idFile;
+class idRenderMatrix;
+class idCmdArgs;
 
 typedef struct portal_s
 {
@@ -104,8 +120,6 @@ struct reusableOverlay_t
 	int						lastStartTime;
 	idRenderModelOverlay* 	overlays;
 };
-
-struct portalStack_t;
 
 class idRenderWorldLocal : public idRenderWorld
 {

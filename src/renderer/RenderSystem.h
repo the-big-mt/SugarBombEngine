@@ -35,6 +35,11 @@ If you have questions concerning this license or the applicable additional terms
 
 //namespace BFG
 //{
+
+struct idPlane;
+struct idStr;
+class idCVar;
+
 enum graphicsVendor_t
 {
 	VENDOR_NVIDIA,
@@ -152,10 +157,6 @@ struct glconfig_t
 	// RB end
 };
 
-
-
-struct emptyCommand_t;
-
 bool R_IsInitialized();
 
 const int SMALLCHAR_WIDTH		= 8;
@@ -169,8 +170,6 @@ const int SCREEN_WIDTH			= 640;
 const int SCREEN_HEIGHT			= 480;
 
 extern idCVar r_useVirtualScreenResolution;
-
-#include "renderer/IRenderSystem.hpp"
 
 extern idRenderSystem* 			renderSystem;
 

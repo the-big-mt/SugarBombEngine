@@ -29,10 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MODEL_LOCAL_H__
 #define __MODEL_LOCAL_H__
 
-#include "renderer/IRenderModel.hpp"
+#include "Model.h"
 
-//#include "../framework/DeclParticle.h"  // for idDeclParticle
-//#include "../framework/CVarSystem.h"  // for idCVar, etc
+//#include "framework/DeclParticle.h"  // for idDeclParticle
+#include "framework/CVar.hpp" //#include "framework/ICVarSystem.hpp"  // for idCVar, etc
 
 //namespace BFG
 //{
@@ -48,6 +48,7 @@ If you have questions concerning this license or the applicable additional terms
 class idJointMat;
 struct deformInfo_t;
 class ColladaParser; // RB: Collada support
+class idLexer;
 
 class idRenderModelStatic : public idRenderModel
 {
