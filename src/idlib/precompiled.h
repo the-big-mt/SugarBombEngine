@@ -45,16 +45,16 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 
 // id lib
-#include "../idlib/Lib.h"
+#include "Lib.h"
 
 #include "sys/sys_filesystem.h"
 
 // framework
+#include "framework/ICmdSystem.hpp"
+#include "framework/ICVarSystem.hpp"
+#include "framework/ICommon.hpp"
 #include "../framework/BuildVersion.h"
 #include "../framework/Licensee.h"
-#include "../framework/CmdSystem.h"
-#include "../framework/CVarSystem.h"
-#include "../framework/Common.h"
 // DG: needed for idFile_InZip in File.h
 #include "../framework/Unzip.h"
 // DG end
@@ -92,38 +92,19 @@ const int MAX_EXPRESSION_REGISTERS = 4096;
 #include "../renderer/Material.h"
 #include "../renderer/BufferObject.h"
 #include "../renderer/VertexCache.h"
-#include "../renderer/Model.h"
-#include "../renderer/ModelManager.h"
-#include "../renderer/RenderSystem.h"
-#include "../renderer/RenderWorld.h"
 
 // sound engine
 #include "../sound/sound.h"
 
 // user interfaces
 #include "../ui/ListGUI.h"
-#include "../ui/UserInterface.h"
 
 // RB: required for SWF extensions
 #include "rapidjson/document.h"
 
-#include "../swf/SWF.h"
-
-// collision detection system
-#include "../cm/CollisionModel.h"
-
 // AAS files and manager
 #include "../aas/AASFile.h"
 #include "../aas/AASFileManager.h"
-
-// game
-#include "../d3xp/Game.h"
-
-// Session / Network
-#include "../sys/LightweightCompression.h"
-#include "../sys/Snapshot.h"
-#include "../sys/PacketProcessor.h"
-#include "../sys/SnapshotProcessor.h"
 
 #include "../sys/sys_savegame.h"
 #include "../sys/sys_session_savegames.h"
