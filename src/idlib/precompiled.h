@@ -29,9 +29,13 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __PRECOMPILED_H__
 #define __PRECOMPILED_H__
 
+// RB: required for SWF extensions
+#include "rapidjson/document.h"
+
 #include "sys/sys_defines.h"
 #include "sys/sys_builddefines.h"
-#include "sys/sys_includes.h"
+#include <algorithm>	// for min / max / swap
+#include "sys/sys_includes.h" // NOTE: this header will include the windows header on Windows platform which will define __in and __out as blank but they're required by cstdlib++
 #include "sys/sys_assert.h"
 #include "sys/sys_types.h"
 #include "sys/sys_intrinsics.h"
@@ -42,7 +46,9 @@ If you have questions concerning this license or the applicable additional terms
 #define ID_TIME_T int64 // Signed because -1 means "File not found" and we don't want that to compare > than any other time
 
 // non-portable system services
-#include "../sys/sys_public.h"
+#include "sys/ISys.hpp"
+
+#include "network/NetworkTypes.hpp"
 
 // id lib
 #include "Lib.h"
@@ -53,30 +59,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "framework/ICmdSystem.hpp"
 #include "framework/ICVarSystem.hpp"
 #include "framework/ICommon.hpp"
-#include "../framework/BuildVersion.h"
-#include "../framework/Licensee.h"
-// DG: needed for idFile_InZip in File.h
-#include "../framework/Unzip.h"
-// DG end
-#include "../framework/File.h"
-#include "../framework/File_Manifest.h"
-#include "../framework/File_SaveGame.h"
-#include "../framework/File_Resource.h"
-#include "../framework/FileSystem.h"
-#include "../framework/UsercmdGen.h"
 #include "../framework/Serializer.h"
-#include "../framework/PlayerProfile.h"
 
-// decls
-#include "../framework/TokenParser.h"
-#include "../framework/DeclManager.h"
-#include "../framework/DeclTable.h"
-#include "../framework/DeclSkin.h"
-#include "../framework/DeclEntityDef.h"
-#include "../framework/DeclFX.h"
-#include "../framework/DeclParticle.h"
-#include "../framework/DeclAF.h"
-#include "../framework/DeclPDA.h"
+#include "sys/IFile.hpp"
+#include "sys/IFileSystem.hpp"
 
 // We have expression parsing and evaluation code in multiple places:
 // materials, sound shaders, and guis. We should unify them.
@@ -88,67 +74,13 @@ const int MAX_EXPRESSION_REGISTERS = 4096;
 // RB: replaced QGL with GLEW
 #include <GL/glew.h>
 // RB end
-#include "../renderer/Cinematic.h"
-#include "../renderer/Material.h"
-#include "../renderer/BufferObject.h"
-#include "../renderer/VertexCache.h"
-
-// sound engine
-#include "../sound/sound.h"
-
-// user interfaces
-#include "../ui/ListGUI.h"
-
-// RB: required for SWF extensions
-#include "rapidjson/document.h"
-
-// AAS files and manager
-#include "../aas/AASFile.h"
-#include "../aas/AASFileManager.h"
-
-#include "../sys/sys_savegame.h"
-#include "../sys/sys_session_savegames.h"
-#include "../sys/sys_profile.h"
-#include "../sys/sys_localuser.h"
-#include "../sys/sys_signin.h"
-#include "../sys/sys_stats_misc.h"
-#include "../sys/sys_stats.h"
-#include "../sys/sys_session.h"
-#include "../sys/sys_achievements.h"
 
 // tools
-#include "../tools/compilers/compiler_public.h"
-
-//-----------------------------------------------------
-
-#ifndef _D3SDK
-
-#ifdef GAME_DLL
-
-#include "../d3xp/Game_local.h"
-
-#else
-
-#include "../framework/DemoChecksum.h"
-
-// framework
-#include "../framework/Compressor.h"
-#include "../framework/EventLoop.h"
-#include "../framework/KeyInput.h"
-#include "../framework/EditField.h"
-#include "../framework/DebugGraph.h"
-#include "../framework/Console.h"
-#include "../framework/DemoFile.h"
-#include "../framework/Common_dialog.h"
-
-#endif /* !GAME_DLL */
-
-#endif /* !_D3SDK */
+//#include "../tools/compilers/compiler_public.h"
 
 //-----------------------------------------------------
 
 #undef min
 #undef max
-#include <algorithm>	// for min / max / swap
 
 #endif /* !__PRECOMPILED_H__ */
