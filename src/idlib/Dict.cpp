@@ -124,7 +124,7 @@ void idDict::Copy( const idDict& other )
 	}
 	else
 	{
-		found = NULL;
+		found = nullptr;
 	}
 	
 	for( i = 0; i < n; i++ )
@@ -345,7 +345,7 @@ void idDict::Set( const char* key, const char* value )
 	int i;
 	idKeyValue kv;
 	
-	if( key == NULL || key[0] == '\0' )
+	if( key == nullptr || key[0] == '\0' )
 	{
 		return;
 	}
@@ -600,10 +600,10 @@ const idKeyValue* idDict::FindKey( const char* key ) const
 {
 	int i, hash;
 	
-	if( key == NULL || key[0] == '\0' )
+	if( key == nullptr || key[0] == '\0' )
 	{
 		idLib::common->DWarning( "idDict::FindKey: empty key" );
-		return NULL;
+		return nullptr;
 	}
 	
 	hash = argHash.GenerateKey( key, false );
@@ -615,7 +615,7 @@ const idKeyValue* idDict::FindKey( const char* key ) const
 		}
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -626,7 +626,7 @@ idDict::FindKeyIndex
 int idDict::FindKeyIndex( const char* key ) const
 {
 
-	if( key == NULL || key[0] == '\0' )
+	if( key == nullptr || key[0] == '\0' )
 	{
 		idLib::common->DWarning( "idDict::FindKeyIndex: empty key" );
 		return 0;
@@ -670,7 +670,7 @@ void idDict::Delete( const char* key )
 	// make sure all keys can still be found in the hash index
 	for( i = 0; i < args.Num(); i++ )
 	{
-		assert( FindKey( args[i].GetKey() ) != NULL );
+		assert( FindKey( args[i].GetKey() ) != nullptr );
 	}
 #endif
 }
@@ -707,7 +707,7 @@ const idKeyValue* idDict::MatchPrefix( const char* prefix, const idKeyValue* las
 			return &args[i];
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 /*
@@ -723,7 +723,7 @@ const char* idDict::RandomPrefix( const char* prefix, idRandom& random ) const
 	const idKeyValue* kv;
 	
 	list[0] = "";
-	for( count = 0, kv = MatchPrefix( prefix ); kv != NULL && count < MAX_RANDOM_KEYS; kv = MatchPrefix( prefix, kv ) )
+	for( count = 0, kv = MatchPrefix( prefix ); kv != nullptr && count < MAX_RANDOM_KEYS; kv = MatchPrefix( prefix, kv ) )
 	{
 		list[count++] = kv->GetValue().c_str();
 	}
@@ -964,7 +964,7 @@ bool idDict::ReadFromIniFile( idFile* f )
 		{ "[", P_SQBRACKETOPEN },
 		{ "]", P_SQBRACKETCLOSE },
 		{ "=", P_ASSIGN },
-		{ NULL, 0 }
+		{ nullptr, 0 }
 	};
 	parser.SetPunctuations( ini_punctuations );
 	
@@ -987,7 +987,7 @@ bool idDict::ReadFromIniFile( idFile* f )
 		
 		success = success && parser.ExpectTokenType( TT_NAME, 0, &token );
 		success = success && parser.ExpectTokenType( TT_PUNCTUATION, P_ASSIGN, &token2 );
-		success = success && ( parser.ParseRestOfLine( valueStr ) != NULL );
+		success = success && ( parser.ParseRestOfLine( valueStr ) != nullptr );
 		
 		valueStr = idStr::CStyleUnQuote( valueStr );
 		
@@ -1007,7 +1007,7 @@ CONSOLE_COMMAND( TestDictIniFile, "Tests the writing/reading of various items in
 {
 	// Write to the file
 	idFile* file = idLib::fileSystem->OpenFileWrite( "idDict_ini_test.ini" );
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		idLib::Printf( "[^1FAILED^0] Couldn't open file for writing.\n" );
 		return;
@@ -1029,7 +1029,7 @@ CONSOLE_COMMAND( TestDictIniFile, "Tests the writing/reading of various items in
 	
 	// Read from the file
 	file = idLib::fileSystem->OpenFileRead( "idDict_ini_test.ini" );
-	if( file == NULL )
+	if( file == nullptr )
 	{
 		idLib::Printf( "[^1FAILED^0] Couldn't open file for reading.\n" );
 	}
