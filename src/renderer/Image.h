@@ -29,10 +29,21 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#include "Material.h"
+//#include <GL/glew.h> // TODO
+
+#include <cstring> // memcmp
+
+#include "idlib/sys/sys_types.h"
+#include "idlib/sys/sys_defines.h"
+#include "idlib/containers/List.h"
+#include "idlib/containers/HashIndex.h"
+#include "idlib/Str.h"
+
+#include "Material.h" // textureFilter_t, textureRepeat_t
 
 struct MemInfo_t;
 class idPreloadManifest;
+class idLexer;
 
 enum textureType_t
 {

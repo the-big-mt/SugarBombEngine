@@ -52,10 +52,6 @@ struct guiModelSurface_t
 	stereoDepthType_t		stereoType;
 };
 
-//class idDemoFile;
-//class idDrawVert;
-class idRenderMatrix;
-
 class idGuiModel
 {
 public:

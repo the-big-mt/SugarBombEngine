@@ -31,8 +31,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MATERIAL_H__
 #define __MATERIAL_H__
 
-#include "framework/IDeclManager.hpp"
-//#include "../idlib/geometry/TraceModel.h"
+#include "framework/Decl.hpp"
+
+#include "idlib/sys/sys_types.h"
+#include "idlib/sys/sys_assert.h"
+#include "idlib/Str.h"
+#include "idlib/containers/List.h"
+//#include "idlib/geometry/TraceModel.h"
+
+// TODO: BIT definition???
 
 //namespace BFG
 //{
@@ -40,6 +47,9 @@ If you have questions concerning this license or the applicable additional terms
 class idImage;
 class idCinematic;
 class idUserInterface;
+class idLexer;
+class idToken;
+struct idSoundEmitter;
 
 /*
 ===============================================================================
@@ -370,8 +380,6 @@ typedef enum
 	SURF_NULLNORMAL				= BIT( 12 )	// renderbump will draw this surface as 0x80 0x80 0x80, which
 								  // won't collect light from any angle
 } surfaceFlags_t;
-
-class idSoundEmitter;
 
 class idMaterial : public idDecl
 {

@@ -6,6 +6,7 @@ Open Asset Import Library (assimp)
 
 Copyright (c) 2006-2012, assimp team
 Copyright (C) 2012 Robert Beckebans (id Tech 4 integration)
+Copyright (C) 2019 BlackPhrase (PRECOMPILED HEADER SUCKS)
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -43,6 +44,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef __MODEL_COLLADAHELPER_H__
 #define __MODEL_COLLADAHELPER_H__
+
+#include <cstddef> // size_t
+#include <cstdint>
+
+#include "idlib/Str.h"
+#include "idlib/math/Vector.h"
+#include "idlib/containers/HashTable.h"
+#include "idlib/containers/StrList.h"
+#include "idlib/containers/List.h"
+#include "idlib/sys/sys_types.h"
 
 namespace Collada
 {

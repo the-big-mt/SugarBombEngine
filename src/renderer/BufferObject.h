@@ -28,7 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __BUFFEROBJECT_H__
 #define __BUFFEROBJECT_H__
 
-//#include "../idlib/geometry/DrawVert.h"  // for idDrawVert
+//#include "idlib/geometry/DrawVert.h"  // for idDrawVert
+#include "idlib/sys/sys_defines.h"
+
+// TODO: triIndex_t
 
 //namespace BFG
 //{
@@ -42,6 +45,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 class idIndexBuffer;
+class idDrawVert;
 
 enum bufferMapType_t
 {

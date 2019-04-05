@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERPROGS_H__
 #define __RENDERPROGS_H__
 
-//#include <GL/glew.h>
+//#include <GL/glew.h>  // TODO
 
 #include "idlib/Str.h"
 #include "idlib/containers/List.h"
