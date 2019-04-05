@@ -59,6 +59,10 @@ If you have questions concerning this license or the applicable additional terms
 //#include "sys/sys_assert.h"
 //#include "sys/sys_defines.h"
 
+//namespace BFG
+//{
+
+//class idCmdArgs;
 
 idStrPool		idDict::globalKeys;
 idStrPool		idDict::globalValues;
@@ -746,8 +750,6 @@ void idDict::WriteToFileHandle( idFile* f ) const
 	}
 }
 
-
-
 // RB begin
 void idDict::WriteJSON( idFile* f, const char* prefix ) const
 {
@@ -1129,3 +1131,5 @@ void idDict::ListValues_f( const idCmdArgs& args )
 	//}
 	//idLib::common->Printf( "%5d values\n", valueStrings.Num() );
 }
+
+//} // namespace BFG
