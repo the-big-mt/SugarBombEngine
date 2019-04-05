@@ -28,6 +28,37 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "precompiled.h"
 #pragma hdrstop
+//#include <cstddef>
+//#include <cstdio>
+//#include <cstdlib>
+//#include <cstring>
+
+//#include "../framework/../framework/CmdSystem.h"
+//#include "../framework/Common.h"
+//#include "../framework/File.h"
+//#include "../framework/FileSystem.h"
+//#include "../framework/FileSystem.h"    // for fileSystem, idFileSystem
+//#include "../framework/Serializer.h"  // for idSerializer
+//#include "../idlib/Dict.h"
+//#include "../idlib/Lexer.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Lib.h"
+//#include "../idlib/Parser.h"
+//#include "../idlib/Str.h"
+//#include "../idlib/Token.h"
+//#include "../idlib/containers/HashIndex.h"
+//#include "../idlib/containers/StrPool.h"
+//#include "../idlib/hashing/CRC32.h"
+//#include "../idlib/math/Angles.h"
+//#include "../idlib/math/Matrix.h"
+//#include "../idlib/math/Random.h"
+//#include "../idlib/math/Vector.h"
+//#include "../sys/../framework/Serializer.h"
+//#include "Heap.h"
+//#include "containers/List.h"
+//#include "sys/sys_assert.h"
+//#include "sys/sys_defines.h"
+
 
 idStrPool		idDict::globalKeys;
 idStrPool		idDict::globalValues;
