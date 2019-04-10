@@ -135,7 +135,7 @@ public:
 	//------------------------
 	// Random stuff that's not exposed outside the sound system
 	//------------------------
-	void			Update();
+	void			Update(float afTimeStep);
 	void			OnReloadSound( const idDecl* decl );
 	
 	idSoundChannel* 	AllocSoundChannel();

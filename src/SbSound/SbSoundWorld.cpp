@@ -361,7 +361,7 @@ static float AdjustForCushionChannels( const idStaticList< idActiveChannel, MAX_
 idSoundWorldLocal::Update
 ========================
 */
-void idSoundWorldLocal::Update()
+void idSoundWorldLocal::Update(float afTimeStep)
 {
 
 	if( s_noSound.GetBool() )
@@ -478,8 +478,6 @@ void idSoundWorldLocal::Update()
 		}
 	}
 	
-	const float secondsPerFrame = 1.0f / com_engineHz_latched;
-	
 	// ------------------
 	// In the very common case of having more sounds that would contribute to the
 	// mix than there are available hardware voices, it can be an audible discontinuity
@@ -491,7 +489,7 @@ void idSoundWorldLocal::Update()
 	// ------------------
 	const int uncushionedChannels = maxEmitterChannels - s_cushionFadeChannels.GetInteger();
 	currentCushionDB = AdjustForCushionChannels( activeEmitterChannels, uncushionedChannels,
-					   currentCushionDB, s_cushionFadeRate.GetFloat() * secondsPerFrame );
+					   currentCushionDB, s_cushionFadeRate.GetFloat() * afTimeStep );
 					   
 	// ------------------
 	// Update Hardware

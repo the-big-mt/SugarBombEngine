@@ -375,7 +375,7 @@ void idSoundSystemLocal::SetPlayingSoundWorld( idSoundWorld* soundWorld )
 	
 	if( oldSoundWorld != nullptr )
 	{
-		oldSoundWorld->Update();
+		oldSoundWorld->Update(1.0f / 60.0f); // TODO: de-hardcode
 	}
 }
 
@@ -394,7 +394,7 @@ idSoundWorld* idSoundSystemLocal::GetPlayingSoundWorld()
 idSoundSystemLocal::Render
 ========================
 */
-void idSoundSystemLocal::Render()
+void idSoundSystemLocal::Render(float afTimeStep)
 {
 
 	if( s_noSound.GetBool() )
@@ -412,7 +412,7 @@ void idSoundSystemLocal::Render()
 	
 	if( currentSoundWorld != nullptr )
 	{
-		currentSoundWorld->Update();
+		currentSoundWorld->Update(afTimeStep);
 	}
 	
 	hardware.Update();

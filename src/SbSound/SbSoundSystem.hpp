@@ -82,7 +82,7 @@ public:
 	virtual idSoundWorld* 	GetPlayingSoundWorld();
 	
 	// sends the current playing sound world information to the sound hardware
-	virtual void			Render();
+	virtual void			Render(float afTimeStep);
 	
 	// Mutes the SSG_MUSIC group
 	virtual void			MuteBackgroundMusic( bool mute )
