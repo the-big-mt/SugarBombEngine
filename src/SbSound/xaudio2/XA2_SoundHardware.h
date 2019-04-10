@@ -29,11 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __XA_SOUNDHARDWARE_H__
 #define __XA_SOUNDHARDWARE_H__
 
-//#include "../sound/XAudio2/XA2_SoundVoice.h"  // for idSoundVoice_XAudio2
+//#include "XA2_SoundVoice.h" // for idSoundVoice_XAudio2
+//#include "SbSoundDefines.hpp"
 
-//#include "../sound/snd_defines.h"
+//#include "framework/DebugGraph.h"
 
-//#include "../framework/DebugGraph.h"
 
 //namespace BFG
 //{

@@ -41,6 +41,10 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
+struct idFile;
+struct idFileSystem;
+//class idList;
+
 /*
 ================================================================================================
 Contains the WaveFile declaration.

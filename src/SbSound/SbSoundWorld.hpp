@@ -46,9 +46,12 @@ If you have questions concerning this license or the applicable additional terms
 //{
 
 struct idRenderWorld;
+struct idCommon;
+struct idConsole;
 class idDecl;
 class idSoundChannel;
 class idSoundEmitterLocal;
+class idSoundShader;
 
 //------------------------
 // Listener data
