@@ -77,7 +77,7 @@ public:
 	}
 	const char* Name()
 	{
-		return ( file == NULL ? "" : file->GetName() );
+		return ( file == nullptr ? "" : file->GetName() );
 	}
 	
 	// This maps to the channel mask in waveFmtExtensible_t
@@ -264,7 +264,7 @@ private:
 idWaveFile::idWaveFile
 ========================
 */
-ID_INLINE idWaveFile::idWaveFile() : file( NULL )
+ID_INLINE idWaveFile::idWaveFile() : file( nullptr )
 {
 }
 
