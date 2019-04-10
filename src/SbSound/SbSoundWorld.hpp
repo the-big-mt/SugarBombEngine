@@ -67,7 +67,7 @@ struct listener_t
 class idSoundWorldLocal : public idSoundWorld
 {
 public:
-	idSoundWorldLocal();
+	idSoundWorldLocal(idCommon *apCommon, idConsole *apConsole);
 	virtual					~idSoundWorldLocal();
 	
 	//------------------------
@@ -178,6 +178,9 @@ public:
 	};
 	
 	void			ResolveOrigin( const int stackDepth, const soundPortalTrace_t* prevStack, const int soundArea, const float dist, const idVec3& soundOrigin, idSoundEmitterLocal* def );
+private:
+	idCommon *common{nullptr};
+	idConsole *console{nullptr};
 };
 
 //}; // namespace sbe

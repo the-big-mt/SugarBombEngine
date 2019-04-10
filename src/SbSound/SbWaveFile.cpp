@@ -60,7 +60,7 @@ Returns true if the Open was successful and the file matches the expected format
 returns false, there is no need to call Close.
 ========================
 */
-bool idWaveFile::Open( const char* filename )
+bool idWaveFile::Open( idFileSystem *fileSystem, const char* filename )
 {
 	Close();
 	

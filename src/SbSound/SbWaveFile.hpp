@@ -62,7 +62,7 @@ public:
 	ID_INLINE 	idWaveFile();
 	ID_INLINE 	~idWaveFile();
 	
-	bool		Open( const char* filename );
+	bool		Open( idFileSystem *fileSystem, const char* filename );
 	void		Close();
 	uint32		SeekToChunk( uint32 id );
 	size_t		Read( void* buffer, size_t len )

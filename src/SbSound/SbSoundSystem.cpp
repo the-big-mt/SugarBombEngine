@@ -338,7 +338,7 @@ idSoundSystemLocal::AllocSoundWorld
 */
 idSoundWorld* idSoundSystemLocal::AllocSoundWorld( idRenderWorld* rw )
 {
-	idSoundWorldLocal* local = new( TAG_AUDIO ) idSoundWorldLocal;
+	idSoundWorldLocal* local = new( TAG_AUDIO ) idSoundWorldLocal(common, nullptr); // TODO: pass in the idConsole
 	local->renderWorld = rw;
 	soundWorlds.Append( local );
 	return local;
@@ -534,7 +534,7 @@ idSoundSample* idSoundSystemLocal::LoadSample( const char* name )
 			return samples[i];
 		}
 	}
-	idSoundSample* sample = new( TAG_AUDIO ) idSoundSample;
+	idSoundSample* sample = new( TAG_AUDIO ) idSoundSample(fileSystem);
 	sample->SetName( canonical );
 	sampleHash.Add( hashKey, samples.Append( sample ) );
 	if( !insideLevelLoad )

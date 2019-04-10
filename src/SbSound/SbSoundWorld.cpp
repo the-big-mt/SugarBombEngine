@@ -81,8 +81,11 @@ extern void WriteDeclCache( idDemoFile* f, int demoCategory, int demoCode, declT
 idSoundWorldLocal::idSoundWorldLocal
 ========================
 */
-idSoundWorldLocal::idSoundWorldLocal()
+idSoundWorldLocal::idSoundWorldLocal(idCommon *apCommon, idConsole *apConsole)
 {
+	common = apCommon;
+	console = apConsole; // TODO: common->GetConsole()?
+
 	volumeFade.Clear();
 	for( int i = 0; i < SOUND_MAX_CLASSES; i++ )
 	{

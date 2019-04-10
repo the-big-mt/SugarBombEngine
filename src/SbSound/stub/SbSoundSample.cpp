@@ -78,8 +78,10 @@ static void FreeBuffer( void* p )
 idSoundSample_XAudio2::idSoundSample_XAudio2
 ========================
 */
-idSoundSample::idSoundSample()
+idSoundSample::idSoundSample(idFileSystem *apFileSystem)
 {
+	fileSystem = apFileSystem;
+	
 	timestamp = FILE_NOT_FOUND_TIMESTAMP;
 	loaded = false;
 	neverPurge = false;
@@ -136,7 +138,7 @@ idSoundSample::WriteAllSamples
 */
 void idSoundSample::WriteAllSamples( const idStr& sampleName )
 {
-	idSoundSample* samplePC = new idSoundSample();
+	idSoundSample* samplePC = new idSoundSample(fileSystem);
 	{
 		idStrStatic< MAX_OSPATH > inName = sampleName;
 		inName.Append( ".msadpcm" );
@@ -290,7 +292,7 @@ bool idSoundSample::LoadWav( const idStr& filename )
 
 	// load the wave
 	idWaveFile wave;
-	if( !wave.Open( filename ) )
+	if( !wave.Open( fileSystem, filename ) )
 	{
 		return false;
 	}
