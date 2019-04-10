@@ -31,7 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstddef>
 #include "precompiled.h"
 
-//#include "../framework/DeclParticle.h"
+//#include "framework/DeclParticle.h"
 
 #include "idlib/Heap.h"
 #include "idlib/Str.h"

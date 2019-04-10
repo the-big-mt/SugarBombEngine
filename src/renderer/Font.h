@@ -34,6 +34,8 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
+struct idFileSystem;
+struct idDeclManager;
 class idMaterial;
 
 struct scaledGlyphInfo_t

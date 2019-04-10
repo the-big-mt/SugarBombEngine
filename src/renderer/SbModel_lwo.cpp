@@ -32,8 +32,8 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstring>
 #include "precompiled.h"
 
-#include "framework/IFile.hpp"
-#include "framework/IFileSystem.hpp"
+#include "sys/IFile.hpp"
+#include "sys/IFileSystem.hpp"
 
 #include "idlib/Heap.h"
 #include "idlib/Lib.h"

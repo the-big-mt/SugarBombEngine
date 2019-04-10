@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -34,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 //#include "framework/DeclParticle.h"  // for idDeclParticle
 #include "framework/CVar.hpp" //#include "framework/ICVarSystem.hpp"  // for idCVar, etc
 
+#include "idlib/math/Vector.h"
+// TODO: idRandom
+
 //namespace BFG
 //{
 
@@ -45,10 +49,14 @@ If you have questions concerning this license or the applicable additional terms
 ===============================================================================
 */
 
-class idJointMat;
 struct deformInfo_t;
+class idJointMat;
+class idJointQuat;
 class ColladaParser; // RB: Collada support
 class idLexer;
+class idDeclParticle;
+
+using renderEntity_t = struct renderEntity_s;
 
 class idRenderModelStatic : public idRenderModel
 {

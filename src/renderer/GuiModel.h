@@ -32,7 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/containers/List.h"
 #include "idlib/sys/sys_types.h"
 
-#include "renderer/RenderSystem.hpp"
+#include "RenderSystem.h"
 #include "Material.h"
 #include "VertexCache.h"
 

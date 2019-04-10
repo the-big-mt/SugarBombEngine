@@ -31,11 +31,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERER_BACKEND_H__
 #define __RENDERER_BACKEND_H__
 
+#include "RenderCommon.h"
+#include "ScreenRect.h"
+
 #include "idlib/Str.h"
 #include "idlib/math/Vector.h"
 #include "idlib/math/Matrix.h"
 #include "idlib/geometry/Winding.h"
+#include "idlib/geometry/RenderMatrix.h"
 #include "idlib/sys/sys_types.h"
+#include "idlib/sys/sys_defines.h"
 
 // RB begin
 #define USE_CORE_PROFILE
@@ -47,6 +52,20 @@ bool			GL_CheckErrors_( const char* filename, int line );
 #define         GL_CheckErrors()	false
 #endif
 // RB end
+
+struct textureStage_t;
+struct shaderStage_t;
+struct emptyCommand_t;
+struct viewLight_t;
+struct drawInteraction_t;
+class idPlane;
+enum stageVertexColor_t : int;
+
+// TODO: cullType_t;
+// TODO: viewEntity_t
+// TODO: Framebuffer
+// TODO: vertexLayoutType_t
+// TODO: graphicsVendor_t
 
 struct tmu_t
 {

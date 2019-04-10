@@ -56,6 +56,8 @@ typedef enum
 	FMV_ID_WAIT
 } cinStatus_t;
 
+struct idDeclManager;
+struct idSoundSystem;
 class idImage;
 
 // a cinematic stream generates an image buffer, which the caller will upload to a texture

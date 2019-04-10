@@ -32,7 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 
 #include "framework/ICVarSystem.hpp"
-//#include "framework/DeclManager.h"
+#include "framework/IDeclManager.hpp"
 //#include "framework/DeclParticle.h"
 
 #include "idlib/Heap.h"

@@ -50,8 +50,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef ASSIMP_BUILD_NO_DAE_IMPORTER
 
 #include "Model_ColladaParser.h"
-//#include "../libs/irrxml/src/fast_atof.h"
-//#include "../libs/irrxml/src/ParsingUtils.h"
+
+//#include "irrxml/src/fast_atof.h"
+//#include "irrxml/src/ParsingUtils.h"
 
 using namespace Collada;
 

@@ -33,11 +33,25 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "precompiled.h"
 
+#include "idlib/sys/sys_types.h"
+#include "idlib/math/Plane.h"
+#include "idlib/math/Vector.h"
+#include "idlib/bv/Bounds.h"
+#include "idlib/geometry/RenderMatrix.h"
+
+#include "renderer/IRenderSystem.hpp"
+
 #include "GLState.h"
 #include "ScreenRect.h"
 #include "Image.h"
 #include "Font.h"
 #include "Framebuffer.h"
+#include "ModelDecal.h"
+#include "ModelOverlay.h"
+#include "Interaction.h"
+#include "VertexCache.h"
+#include "Material.h"
+#include "RenderWorld.h"
 
 // everything that is needed by the backend needs
 // to be double buffered to allow it to run in
@@ -89,13 +103,20 @@ SURFACES
 ==============================================================================
 */
 
-#include "ModelDecal.h"
-#include "ModelOverlay.h"
-#include "Interaction.h"
-
-class idRenderWorldLocal;
+struct silEdge_t;
+struct glconfig_t;
 struct viewEntity_t;
 struct viewLight_t;
+struct srfTriangles_t;
+struct preLightShadowVolumeParms_t;
+struct staticShadowVolumeParms_t;
+struct dynamicShadowVolumeParms_t;
+class idRenderWorldLocal;
+class idRenderEntityLocal;
+class idRenderLightLocal;
+class idImage;
+class idInteraction;
+enum shadowVolumeState_t : int;
 
 // drawSurf_t structures command the back end to render surfaces
 // a given srfTriangles_t may be used with multiple viewEntity_t,

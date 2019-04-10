@@ -31,7 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 #define __MODEL_H__
 
 #include "renderer/IRenderModel.hpp"
-//#include "Material.h"       // for idMaterial, etc
+
+//#include "Material.h" // for idMaterial, etc
 #include "VertexCache.h"
 
 //#include "jobs/ShadowShared.h"

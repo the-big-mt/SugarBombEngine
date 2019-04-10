@@ -46,6 +46,7 @@ If you have questions concerning this license or the applicable additional terms
 enum textureFormat_t : int;
 enum textureColor_t : int;
 class idFile;
+struct idFileSystem;
 
 /*
 ================================================

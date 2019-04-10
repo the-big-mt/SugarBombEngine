@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -58,16 +59,16 @@ Manager
 //#include <cstring>
 
 #include "RenderCommon.h"
-//#include "../idlib/Heap.h"
-//#include "../idlib/Lexer.h"
-//#include "../idlib/Str.h"
-//#include "../idlib/Token.h"
-//#include "../idlib/math/Math.h"
-//#include "../idlib/math/Vector.h"
-//#include "../idlib/sys/sys_defines.h"
-//#include "../idlib/sys/sys_types.h"
-//#include "../renderer/Image.h"
-//#include "tr_local.h"
+//#include "Image.h"
+
+//#include "idlib/Heap.h"
+//#include "idlib/Lexer.h"
+//#include "idlib/Str.h"
+//#include "idlib/Token.h"
+//#include "idlib/math/Math.h"
+//#include "idlib/math/Vector.h"
+//#include "idlib/sys/sys_defines.h"
+//#include "idlib/sys/sys_types.h"
 
 //namespace BFG
 //{

@@ -50,6 +50,9 @@ static	int shadowMapResolutions[MAX_SHADOWMAP_RESOLUTIONS] = { 2048, 1024, 512, 
 static	int shadowMapResolutions[MAX_SHADOWMAP_RESOLUTIONS] = { 1024, 1024, 1024, 1024, 1024 };
 #endif
 
+struct idCommon;
+struct idCmdSystem;
+
 class Framebuffer
 {
 public:

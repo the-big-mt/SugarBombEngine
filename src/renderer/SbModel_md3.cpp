@@ -32,8 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 
 #include "framework/ICommon.hpp"
-//#include "../framework/DeclManager.h"
-#include "framework/IFileSystem.hpp"
+#include "framework/IDeclManager.hpp"
+
+#include "sys/IFileSystem.hpp"
 
 #include "idlib/Heap.h"
 #include "idlib/Lib.h"

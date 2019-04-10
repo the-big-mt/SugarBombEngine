@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2013-2014 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -34,11 +35,12 @@ If you have questions concerning this license or the applicable additional terms
 //#include <xmmintrin.h>
 #include "precompiled.h"
 
-#include "framework/CVarSystem.hpp"
+#include "framework/CVar.hpp" // "framework/ICVarSystem.hpp"
 #include "framework/ICommon.hpp"
-//#include "../framework/DeclManager.h"
-#include "framework/IFile.hpp"
-#include "framework/IFileSystem.hpp"
+#include "framework/IDeclManager.hpp"
+
+#include "sys/IFile.hpp"
+#include "sys/IFileSystem.hpp"
 
 #include "idlib/Heap.h"
 #include "idlib/Lexer.h"
@@ -67,7 +69,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "Model_local.h"
 #include "jobs/dynamicshadowvolume/DynamicShadowVolume.h"
 
-//#include "../framework/DeclParticle.h"
+//#include "framework/DeclParticle.h"
 
 //#include "sys/sys_intrinsics.h"
 

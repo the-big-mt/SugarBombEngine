@@ -31,9 +31,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 
 #include "RenderCommon.h"
+
+#include "framework/IDeclManager.hpp"
+
 /*
-#include "../framework/DeclManager.h"
 #include "../framework/FileSystem.h"
+
 #include "../idlib/Heap.h"
 #include "../idlib/Lexer.h"
 #include "../idlib/Parser.h"
@@ -47,11 +50,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Random.h"
 #include "../idlib/math/Simd.h"
 #include "../idlib/math/Vector.h"
+
 #include "../renderer/Model.h"
+
 #include "../framework/DeclParticle.h"
 */
 #include "Model_local.h"
-//#include "tr_local.h"
 
 //namespace BFG
 //{

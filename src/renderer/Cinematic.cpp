@@ -44,6 +44,8 @@ extern idCVar s_noSound;
 //}
 
 #include "RenderCommon.h"
+#include "framework/IDeclManager.hpp"
+#include "SbSound/ISoundSystem.hpp"
 
 #define CIN_system	1
 #define CIN_loop	2

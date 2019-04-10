@@ -34,6 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 //{
 
 struct viewDef_t;
+struct idCommon;
 class idMat3;
 class idPlane;
 class idVec3;
