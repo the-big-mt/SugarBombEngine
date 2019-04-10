@@ -46,6 +46,11 @@ If you have questions concerning this license or the applicable additional terms
 // flagged with a non-zero class full volume
 const int SOUND_MAX_CLASSES = 4;
 
+// unfortunately, our minDistance / maxDistance is specified in meters, and
+// we have far too many of them to change at this time.
+const float DOOM_TO_METERS = 0.0254f;					// doom to meters
+const float METERS_TO_DOOM = ( 1.0f / DOOM_TO_METERS );	// meters to doom
+
 /*
 ========================
 SamplesToMsec

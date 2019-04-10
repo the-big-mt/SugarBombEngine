@@ -64,11 +64,6 @@ idCVar s_centerFractionVO( "s_centerFractionVO", "0.75", CVAR_FLOAT, "Portion of
 extern idCVar s_playDefaultSound;
 extern idCVar s_noSound;
 
-// unfortunately, our minDistance / maxDistance is specified in meters, and
-// we have far too many of them to change at this time.
-const float DOOM_TO_METERS = 0.0254f;					// doom to meters
-const float METERS_TO_DOOM = ( 1.0f / DOOM_TO_METERS );	// meters to doom
-
 /*
 ========================
 LinearToDB
