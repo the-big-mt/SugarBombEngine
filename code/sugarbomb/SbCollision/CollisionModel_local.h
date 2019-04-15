@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2013-2015 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -64,6 +65,10 @@ If you have questions concerning this license or the applicable additional terms
 #define VERTEX_EPSILON						0.1f
 #define CHOP_EPSILON						0.1f
 
+struct idCommon;
+struct idFileSystem;
+struct idDeclManager;
+struct idRenderModelManager;
 
 typedef struct cm_windingList_s
 {
@@ -330,7 +335,8 @@ typedef struct cm_procNode_s
 class idCollisionModelManagerLocal : public idCollisionModelManager
 {
 public:
-	idCollisionModelManagerLocal(idCommon *apCommon, idFileSystem *apFileSystem) : common(apCommon), fileSystem(apFileSystem){}
+	idCollisionModelManagerLocal(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager, idRenderModelManager *apRenderModelManager)
+		: common(apCommon), fileSystem(apFileSystem), declManager(apDeclManager), renderModelManager(apRenderModelManager){}
 	
 	// load collision models from a map file
 	void			LoadMap( const idMapFile* mapFile );
@@ -572,6 +578,8 @@ private:			// collision map data
 private:
 	idCommon *common{nullptr};
 	idFileSystem *fileSystem{nullptr};
+	idDeclManager *declManager{nullptr};
+	idRenderModelManager *renderModelManager{nullptr};
 };
 
 // for debugging

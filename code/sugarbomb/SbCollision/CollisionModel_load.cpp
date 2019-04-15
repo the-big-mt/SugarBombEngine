@@ -51,9 +51,18 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "CollisionModel_local.h"
 
+#include "framework/IDeclManager.hpp"
+#include "framework/CVar.hpp"
+#include "framework/PreloadManifest.hpp"
+
+#include "renderer/IModelManager.hpp"
+#include "renderer/IRenderModel.hpp"
+#include "renderer/IRenderWorld.hpp"
+#include "renderer/Material.h"
+
 #define CMODEL_BINARYFILE_EXT	"bcmodel"
 
-idCollisionModelManagerLocal	collisionModelManagerLocal;
+idCollisionModelManagerLocal	collisionModelManagerLocal(nullptr, nullptr, nullptr, nullptr); // TODO
 idCollisionModelManager* 		collisionModelManager = &collisionModelManagerLocal;
 
 cm_windingList_t* 				cm_windingList;
