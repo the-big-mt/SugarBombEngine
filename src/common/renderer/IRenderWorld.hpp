@@ -50,6 +50,22 @@ using renderView_t = struct renderView_s;
 using renderEntity_t = struct renderEntity_s;
 using renderLight_t= struct renderLight_s;
 
+// exitPortal_t is returned by idRenderWorld::GetPortal()
+typedef struct
+{
+	int					areas[2];		// areas connected by this portal
+	const idWinding*		w;				// winding points have counter clockwise ordering seen from areas[0]
+	int					blockingBits;	// PS_BLOCK_VIEW, PS_BLOCK_AIR, etc
+	qhandle_t			portalHandle;
+} exitPortal_t;
+
+// guiPoint_t is returned by idRenderWorld::GuiTrace()
+typedef struct
+{
+	float				x, y;			// 0.0 to 1.0 range if trace hit a gui, otherwise -1
+	int					guiId;			// id of gui ( 0, 1, or 2 ) that the trace happened against
+} guiPoint_t;
+
 struct idRenderWorld
 {
 	virtual					~idRenderWorld() {};
