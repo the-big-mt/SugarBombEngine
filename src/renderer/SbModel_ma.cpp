@@ -60,6 +60,8 @@ If you have questions concerning this license or the applicable additional terms
 ======================================================================
 */
 
+static idCommon *common{nullptr};
+static idFileSystem *fileSystem{nullptr};
 
 #define MA_VERBOSE( x ) { if ( maGlobal.verbose ) { common->Printf x ; } }
 
@@ -1213,8 +1215,14 @@ maModel_t* MA_Parse( const char* buffer, const char* filename, bool verbose )
 MA_Load
 =================
 */
-maModel_t* MA_Load( const char* fileName )
+maModel_t* MA_Load( const char* fileName, idCommon *apCommon, idFileSystem *apFileSystem )
 {
+	if(!common)
+		common = apCommon;
+	
+	if(!fileSystem)
+		fileSystem = apFileSystem;
+	
 	char* buf;
 	ID_TIME_T timeStamp;
 	maModel_t* ma;

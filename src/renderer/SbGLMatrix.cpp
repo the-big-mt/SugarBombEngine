@@ -568,19 +568,19 @@ R_SetupUnprojection
 create a matrix with similar functionality like gluUnproject, project from window space to world space
 =================
 */
-void R_SetupUnprojection( viewDef_t* viewDef )
+void R_SetupUnprojection( idCommon *apCommon, viewDef_t* viewDef )
 {
-	R_MatrixFullInverse( viewDef->projectionMatrix, viewDef->unprojectionToCameraMatrix );
+	R_MatrixFullInverse( apCommon, viewDef->projectionMatrix, viewDef->unprojectionToCameraMatrix );
 	idRenderMatrix::Transpose( *( idRenderMatrix* )viewDef->unprojectionToCameraMatrix, viewDef->unprojectionToCameraRenderMatrix );
 	
 	
 	R_MatrixMultiply( viewDef->worldSpace.modelViewMatrix, viewDef->projectionMatrix, viewDef->unprojectionToWorldMatrix );
-	R_MatrixFullInverse( viewDef->unprojectionToWorldMatrix, viewDef->unprojectionToWorldMatrix );
+	R_MatrixFullInverse( apCommon, viewDef->unprojectionToWorldMatrix, viewDef->unprojectionToWorldMatrix );
 	
 	idRenderMatrix::Transpose( *( idRenderMatrix* )viewDef->unprojectionToWorldMatrix, viewDef->unprojectionToWorldRenderMatrix );
 }
 
-void R_MatrixFullInverse( const float a[16], float r[16] )
+void R_MatrixFullInverse( idCommon *common, const float a[16], float r[16] )
 {
 	idMat4	am;
 	

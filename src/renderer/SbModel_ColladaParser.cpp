@@ -58,8 +58,8 @@ using namespace Collada;
 
 // ------------------------------------------------------------------------------------------------
 // Constructor to be privately used by Importer
-ColladaParser::ColladaParser( const char* pFile )
-	: mFileName( pFile )
+ColladaParser::ColladaParser( const char* pFile, idCommon *apCommon )
+	: mFileName( pFile ), common(apCommon)
 {
 	mRootNode = nullptr;
 	mUnitSize = 1.0f;

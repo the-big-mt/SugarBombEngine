@@ -60,7 +60,8 @@ static const unsigned int BRM_MAGIC = ( 'B' << 24 ) | ( 'R' << 16 ) | ( 'M' << 8
 idRenderModelStatic::idRenderModelStatic
 ================
 */
-idRenderModelStatic::idRenderModelStatic()
+idRenderModelStatic::idRenderModelStatic(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager)
+	: common(apCommon), fileSystem(apFileSystem), declManager(apDeclManager)
 {
 	name = "<undefined>";
 	bounds.Clear();
@@ -341,6 +342,13 @@ void idRenderModelStatic::InitFromFile( const char* fileName )
 	else if( extension.Icmp( "ma" ) == 0 )
 	{
 		loaded		= LoadMA( name );
+		reloadable	= true;
+	}
+	else if( extension.Icmp( "nif" ) == 0 )
+	{
+		common->Warning( "idRenderModelStatic::InitFromFile: NIF models are not yet supported!: \'%s\'", name.c_str() );
+		//loaded = LoadNIF( name );
+		loaded = false;
 		reloadable	= true;
 	}
 	else
@@ -3182,7 +3190,7 @@ bool idRenderModelStatic::LoadASE( const char* fileName )
 {
 	aseModel_t* ase;
 	
-	ase = ASE_Load( fileName );
+	ase = ASE_Load( fileName, common, fileSystem );
 	if( ase == nullptr )
 	{
 		return false;
@@ -3206,7 +3214,7 @@ bool idRenderModelStatic::LoadLWO( const char* fileName )
 	int failPos;
 	lwObject* lwo;
 	
-	lwo = lwGetObject( fileName, &failID, &failPos );
+	lwo = lwGetObject( fileName, &failID, &failPos, fileSystem );
 	if( lwo == nullptr )
 	{
 		return false;
@@ -3228,7 +3236,7 @@ bool idRenderModelStatic::LoadMA( const char* fileName )
 {
 	maModel_t* ma;
 	
-	ma = MA_Load( fileName );
+	ma = MA_Load( fileName, common, fileSystem );
 	if( ma == nullptr )
 	{
 		return false;
@@ -3253,7 +3261,7 @@ bool idRenderModelStatic::LoadDAE( const char* fileName )
 		idTimer timer;
 		timer.Start();
 		
-		ColladaParser parser( fileName );
+		ColladaParser parser( fileName, common );
 		
 		loaded = ConvertDAEToModelSurfaces( &parser );
 		

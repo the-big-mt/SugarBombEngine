@@ -68,7 +68,8 @@ If you have questions concerning this license or the applicable additional terms
 idRenderModelLiquid::idRenderModelLiquid
 ====================
 */
-idRenderModelLiquid::idRenderModelLiquid()
+idRenderModelLiquid::idRenderModelLiquid(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager)
+	: idRenderModelStatic(apCommon, apFileSystem, apDeclManager)
 {
 	verts_x		= 32;
 	verts_y		= 32;
@@ -605,7 +606,7 @@ idRenderModel* idRenderModelLiquid::InstantiateDynamicModel( const struct render
 	lerp = ( float )( t - time ) / ( float )update_tics;
 	modelSurface_t surf = GenerateSurface( lerp );
 	
-	staticModel = new( TAG_MODEL ) idRenderModelStatic;
+	staticModel = new( TAG_MODEL ) idRenderModelStatic(common, fileSystem, declManager);
 	staticModel->AddSurface( surf );
 	staticModel->bounds = surf.geometry->bounds;
 	

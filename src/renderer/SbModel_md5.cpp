@@ -146,7 +146,7 @@ idMD5Mesh::~idMD5Mesh()
 idMD5Mesh::ParseMesh
 ====================
 */
-void idMD5Mesh::ParseMesh( idLexer& parser, int numJoints, const idJointMat* joints )
+void idMD5Mesh::ParseMesh( idLexer& parser, int numJoints, const idJointMat* joints, idDeclManager *declManager )
 {
 	idToken		token;
 	idToken		name;
@@ -1120,7 +1120,7 @@ void idRenderModelMD5::LoadModel()
 	for( int i = 0; i < meshes.Num(); i++ )
 	{
 		parser.ExpectTokenString( "mesh" );
-		meshes[i].ParseMesh( parser, defaultPose.Num(), poseMat );
+		meshes[i].ParseMesh( parser, defaultPose.Num(), poseMat, declManager );
 	}
 	
 	// calculate the bounds of the model
@@ -1408,7 +1408,7 @@ idRenderModel* idRenderModelMD5::InstantiateDynamicModel( const struct renderEnt
 	}
 	else
 	{
-		staticModel = new( TAG_MODEL ) idRenderModelStatic;
+		staticModel = new( TAG_MODEL ) idRenderModelStatic(common, fileSystem, declManager);
 		staticModel->InitEmpty( MD5_SnapshotName );
 	}
 	

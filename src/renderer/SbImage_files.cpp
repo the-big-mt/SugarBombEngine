@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012-2014 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -31,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 
 #include "RenderCommon.h"
+
+// TODO: dirty hack to make it work
+static idCommon *gpCommon{nullptr};
 
 /*
 
@@ -62,7 +66,7 @@ void jpg_Error( const char* fmt, ... )
 	vsprintf( msg, fmt, argptr );
 	va_end( argptr );
 	
-	common->FatalError( "%s", msg );
+	gpCommon->FatalError( "%s", msg );
 }
 
 void jpg_Printf( const char* fmt, ... )
@@ -74,7 +78,7 @@ void jpg_Printf( const char* fmt, ... )
 	vsprintf( msg, fmt, argptr );
 	va_end( argptr );
 	
-	common->Printf( "%s", msg );
+	gpCommon->Printf( "%s", msg );
 }
 
 
@@ -84,7 +88,7 @@ void jpg_Printf( const char* fmt, ... )
 R_WriteTGA
 ================
 */
-void R_WriteTGA( const char* filename, const byte* data, int width, int height, bool flipVertical, const char* basePath )
+void R_WriteTGA( const char* filename, const byte* data, int width, int height, bool flipVertical, const char* basePath, idFileSystem *fileSystem )
 {
 	byte*	buffer;
 	int		i;
@@ -117,8 +121,8 @@ void R_WriteTGA( const char* filename, const byte* data, int width, int height, 
 	fileSystem->WriteFile( filename, buffer, bufferSize, basePath );
 }
 
-static void LoadTGA( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamp );
-static void LoadJPG( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamp );
+static void LoadTGA( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamp, idCommon *common, idFileSystem *fileSystem );
+static void LoadJPG( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamp, idCommon *common, idFileSystem *fileSystem );
 
 /*
 ========================================================================
@@ -151,7 +155,7 @@ TARGA LOADING
 LoadTGA
 =============
 */
-static void LoadTGA( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamp )
+static void LoadTGA( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamp, idCommon *common, idFileSystem *fileSystem )
 {
 	int		columns, rows, numPixels, fileSize, numBytes;
 	byte*	pixbuf;
@@ -428,7 +432,7 @@ Interfaces with the huge libjpeg
 LoadJPG
 =============
 */
-static void LoadJPG( const char* filename, unsigned char** pic, int* width, int* height, ID_TIME_T* timestamp )
+static void LoadJPG( const char* filename, unsigned char** pic, int* width, int* height, ID_TIME_T* timestamp, idCommon *common, idFileSystem *fileSystem )
 {
 	/* This struct contains the JPEG decompression parameters and pointers to
 	 * working space (which is allocated as needed by the JPEG library).
@@ -625,12 +629,12 @@ extern "C"
 
 	static void png_Error( png_structp pngPtr, png_const_charp msg )
 	{
-		common->FatalError( "%s", msg );
+		gpCommon->FatalError( "%s", msg );
 	}
 	
 	static void png_Warning( png_structp pngPtr, png_const_charp msg )
 	{
-		common->Warning( "%s", msg );
+		gpCommon->Warning( "%s", msg );
 	}
 	
 	static void	png_ReadData( png_structp pngPtr, png_bytep data, png_size_t length )
@@ -647,7 +651,7 @@ extern "C"
 LoadPNG
 =============
 */
-static void LoadPNG( const char* filename, unsigned char** pic, int* width, int* height, ID_TIME_T* timestamp )
+static void LoadPNG( const char* filename, unsigned char** pic, int* width, int* height, ID_TIME_T* timestamp, idCommon *common, idFileSystem *fileSystem )
 {
 	byte*	fbuffer;
 	
@@ -785,7 +789,7 @@ extern "C"
 R_WritePNG
 ================
 */
-void R_WritePNG( const char* filename, const byte* data, int bytesPerPixel, int width, int height, bool flipVertical, const char* basePath )
+void R_WritePNG( const char* filename, const byte* data, int bytesPerPixel, int width, int height, bool flipVertical, const char* basePath, idCommon *common, idFileSystem *fileSystem )
 {
 	png_structp pngPtr = png_create_write_struct( PNG_LIBPNG_VER_STRING, nullptr, png_Error, png_Warning );
 	if( !pngPtr )
@@ -855,7 +859,7 @@ void R_WritePNG( const char* filename, const byte* data, int bytesPerPixel, int 
 typedef struct
 {
 	const char*	ext;
-	void	( *ImageLoader )( const char* filename, unsigned char** pic, int* width, int* height, ID_TIME_T* timestamp );
+	void	( *ImageLoader )( const char* filename, unsigned char** pic, int* width, int* height, ID_TIME_T* timestamp, idCommon *common, idFileSystem *fileSystem );
 } imageExtToLoader_t;
 
 static imageExtToLoader_t imageLoaders[] =
@@ -891,8 +895,11 @@ If pic is nullptr, the image won't actually be loaded, it will just find the
 timestamp.
 =================
 */
-void R_LoadImage( const char* cname, byte** pic, int* width, int* height, ID_TIME_T* timestamp, bool makePowerOf2 )
+void R_LoadImage( const char* cname, byte** pic, int* width, int* height, ID_TIME_T* timestamp, bool makePowerOf2, idCommon *apCommon, idFileSystem *apFileSystem )
 {
+	if(!gpCommon)
+		gpCommon = apCommon;
+	
 	idStr name = cname;
 	
 	if( pic )
@@ -932,7 +939,7 @@ void R_LoadImage( const char* cname, byte** pic, int* width, int* height, ID_TIM
 		{
 			if( !ext.Icmp( imageLoaders[i].ext ) )
 			{
-				imageLoaders[i].ImageLoader( name.c_str(), pic, width, height, timestamp );
+				imageLoaders[i].ImageLoader( name.c_str(), pic, width, height, timestamp, apCommon, apFileSystem );
 				break;
 			}
 		}
@@ -945,7 +952,7 @@ void R_LoadImage( const char* cname, byte** pic, int* width, int* height, ID_TIM
 				for( i = 0; i < numImageLoaders; i++ )
 				{
 					name.SetFileExtension( imageLoaders[i].ext );
-					imageLoaders[i].ImageLoader( name.c_str(), pic, width, height, timestamp );
+					imageLoaders[i].ImageLoader( name.c_str(), pic, width, height, timestamp, apCommon, apFileSystem );
 					
 					if( pic && *pic != nullptr )
 					{
@@ -1003,7 +1010,7 @@ R_LoadCubeImages
 Loads six files with proper extensions
 =======================
 */
-bool R_LoadCubeImages( const char* imgName, cubeFiles_t extensions, byte* pics[6], int* outSize, ID_TIME_T* timestamp )
+bool R_LoadCubeImages( const char* imgName, cubeFiles_t extensions, byte* pics[6], int* outSize, ID_TIME_T* timestamp, idCommon *common, idFileSystem *fileSystem )
 {
 	int		i, j;
 	const char*	cameraSides[6] =  { "_forward.tga", "_back.tga", "_left.tga", "_right.tga",
@@ -1043,11 +1050,11 @@ bool R_LoadCubeImages( const char* imgName, cubeFiles_t extensions, byte* pics[6
 		if( !pics )
 		{
 			// just checking timestamps
-			R_LoadImageProgram( fullName, nullptr, &width, &height, &thisTime );
+			R_LoadImageProgram( fullName, nullptr, &width, &height, &thisTime, common, fileSystem );
 		}
 		else
 		{
-			R_LoadImageProgram( fullName, &pics[i], &width, &height, &thisTime );
+			R_LoadImageProgram( fullName, &pics[i], &width, &height, &thisTime, common, fileSystem );
 		}
 		if( thisTime == FILE_NOT_FOUND_TIMESTAMP )
 		{

@@ -51,7 +51,8 @@ If you have questions concerning this license or the applicable additional terms
 idRenderModelOverlay::idRenderModelOverlay
 ====================
 */
-idRenderModelOverlay::idRenderModelOverlay() :
+idRenderModelOverlay::idRenderModelOverlay(idCommon *apCommon, idDeclManager *apDeclManager) :
+	common(apCommon), declManager(apDeclManager),
 	firstOverlay( 0 ),
 	nextOverlay( 0 ),
 	firstDeferredOverlay( 0 ),

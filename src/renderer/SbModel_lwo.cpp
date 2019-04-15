@@ -1551,7 +1551,7 @@ can be used to diagnose the cause.
 If you don't need this information, failID and failpos can be nullptr.
 ====================================================================== */
 
-lwObject* lwGetObject( const char* filename, unsigned int* failID, int* failpos )
+lwObject* lwGetObject( const char* filename, unsigned int* failID, int* failpos, idFileSystem *fileSystem )
 {
 	idFile* fp = nullptr;
 	lwObject* object;
@@ -1591,7 +1591,7 @@ lwObject* lwGetObject( const char* filename, unsigned int* failID, int* failpos 
 	{
 		fileSystem->CloseFile( fp );
 		if( type == ID_LWOB )
-			return lwGetObject5( filename, failID, failpos );
+			return lwGetObject5( filename, failID, failpos, fileSystem );
 		else
 		{
 			if( failpos ) *failpos = 12;
@@ -2362,7 +2362,7 @@ to diagnose the cause.
 If you don't need this information, failID and failpos can be nullptr.
 ====================================================================== */
 
-lwObject* lwGetObject5( const char* filename, unsigned int* failID, int* failpos )
+lwObject* lwGetObject5( const char* filename, unsigned int* failID, int* failpos, idFileSystem *fileSystem )
 {
 	idFile* fp = nullptr;
 	lwObject* object;

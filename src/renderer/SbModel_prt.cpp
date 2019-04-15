@@ -61,7 +61,8 @@ static const char* parametricParticle_SnapshotName = "_ParametricParticle_Snapsh
 idRenderModelPrt::idRenderModelPrt
 ====================
 */
-idRenderModelPrt::idRenderModelPrt()
+idRenderModelPrt::idRenderModelPrt(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager)
+	: idRenderModelStatic(apCommon, apFileSystem, apDeclManager)
 {
 	particleSystem = nullptr;
 }

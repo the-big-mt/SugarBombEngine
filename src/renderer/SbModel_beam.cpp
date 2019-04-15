@@ -116,7 +116,7 @@ idRenderModel* idRenderModelBeam::InstantiateDynamicModel( const struct renderEn
 	else
 	{
 	
-		staticModel = new( TAG_MODEL ) idRenderModelStatic;
+		staticModel = new( TAG_MODEL ) idRenderModelStatic(common, fileSystem, declManager);
 		staticModel->InitEmpty( beam_SnapshotName );
 		
 		tri = R_AllocStaticTriSurf();

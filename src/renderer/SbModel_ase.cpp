@@ -56,6 +56,8 @@ If you have questions concerning this license or the applicable additional terms
 ======================================================================
 */
 
+static idCommon *common{nullptr};
+static idFileSystem *fileSystem{nullptr};
 
 #define VERBOSE( x ) { if ( ase.verbose ) { common->Printf x ; } }
 
@@ -903,13 +905,16 @@ aseModel_t* ASE_Parse( const char* buffer, bool verbose )
 ASE_Load
 =================
 */
-aseModel_t* ASE_Load( const char* fileName )
+aseModel_t* ASE_Load( const char* fileName, idCommon *apCommon, idFileSystem *apFileSystem )
 {
+	common = apCommon;
+	fileSystem = apFileSystem;
+	
 	char* buf;
 	ID_TIME_T timeStamp;
 	aseModel_t* ase;
 	
-	fileSystem->ReadFile( fileName, ( void** )&buf, &timeStamp );
+	apFileSystem->ReadFile( fileName, ( void** )&buf, &timeStamp );
 	if( !buf )
 	{
 		return nullptr;
@@ -918,7 +923,7 @@ aseModel_t* ASE_Load( const char* fileName )
 	ase = ASE_Parse( buf, false );
 	ase->timeStamp = timeStamp;
 	
-	fileSystem->FreeFile( buf );
+	apFileSystem->FreeFile( buf );
 	
 	return ase;
 }

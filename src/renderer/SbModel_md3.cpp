@@ -334,7 +334,7 @@ idRenderModel* idRenderModelMD3::InstantiateDynamicModel( const struct renderEnt
 		cachedModel = nullptr;
 	}
 	
-	staticModel = new( TAG_MODEL ) idRenderModelStatic;
+	staticModel = new( TAG_MODEL ) idRenderModelStatic(common, fileSystem, declManager);
 	staticModel->bounds.Clear();
 	
 	surface = ( md3Surface_t* )( ( byte* )md3 + md3->ofsSurfaces );

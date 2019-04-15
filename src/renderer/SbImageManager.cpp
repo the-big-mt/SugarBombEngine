@@ -37,10 +37,13 @@ If you have questions concerning this license or the applicable additional terms
 
 // do this with a pointer, in case we want to make the actual manager
 // a private virtual subclass
-idImageManager	imageManager;
+idImageManager	imageManager(nullptr, nullptr, nullptr, nullptr); // TODO: fix
 idImageManager* globalImages = &imageManager;
 
 idCVar preLoad_Images( "preLoad_Images", "1", CVAR_SYSTEM | CVAR_BOOL, "preload images during beginlevelload" );
+
+static idCommon *gpCommon{nullptr};
+static idFileSystem *gpFileSystem{nullptr};
 
 /*
 ===============
@@ -270,6 +273,16 @@ void R_ListImages_f( const idCmdArgs& args )
 	idLib::Printf( "%s", header );
 	idLib::Printf( " %i images (%i total)\n", count, numImages );
 	idLib::Printf( " %5.1f total megabytes of images\n\n\n", totalSize / ( 1024 * 1024.0 ) );
+}
+
+idImageManager::idImageManager(idCommon *apCommon, idCmdSystem *apCmdSystem, idFileSystem *apFileSystem, idDeclManager *apDeclManager)
+	: common(apCommon), cmdSystem(apCmdSystem), fileSystem(apFileSystem), declManager(apDeclManager)
+{
+	gpCommon = apCommon;
+	gpFileSystem = apFileSystem;
+	
+	insideLevelLoad = false;
+	preloadingMapImages = false;
 }
 
 /*
@@ -614,7 +627,7 @@ void R_CombineCubeImages_f( const idCmdArgs& args )
 	}
 	
 	idStr	baseName = args.Argv( 1 );
-	common->SetRefreshOnPrint( true );
+	gpCommon->SetRefreshOnPrint( true );
 	
 	for( int frameNum = 1 ; frameNum < 10000 ; frameNum++ )
 	{
@@ -628,7 +641,7 @@ void R_CombineCubeImages_f( const idCmdArgs& args )
 			sprintf( filename, "%s%i%04i.tga", baseName.c_str(), orderRemap[side], frameNum );
 			
 			idLib::Printf( "reading %s\n", filename );
-			R_LoadImage( filename, &pics[side], &width, &height, nullptr, true );
+			R_LoadImage( filename, &pics[side], &width, &height, nullptr, true, gpCommon, gpFileSystem );
 			
 			if( !pics[side] )
 			{
@@ -683,7 +696,7 @@ void R_CombineCubeImages_f( const idCmdArgs& args )
 		idLib::Printf( "writing %s\n", filename );
 		R_WriteTGA( filename, combined, width, height * 6 );
 	}
-	common->SetRefreshOnPrint( false );
+	gpCommon->SetRefreshOnPrint( false );
 }
 
 /*

@@ -45,16 +45,18 @@ idList<Framebuffer*>	Framebuffer::framebuffers;
 
 globalFramebuffers_t globalFramebuffers;
 
+static idCommon *gpCommon{nullptr};
+
 static void R_ListFramebuffers_f( const idCmdArgs& args )
 {
 	if( !glConfig.framebufferObjectAvailable )
 	{
-		common->Printf( "GL_EXT_framebuffer_object is not available.\n" );
+		gpCommon->Printf( "GL_EXT_framebuffer_object is not available.\n" );
 		return;
 	}
 }
 
-Framebuffer::Framebuffer( const char* name, int w, int h )
+Framebuffer::Framebuffer( const char* name, int w, int h, idCommon *apCommon) : common(apCommon)
 {
 	fboName = name;
 	
@@ -84,8 +86,11 @@ Framebuffer::~Framebuffer()
 	glDeleteFramebuffers( 1, &frameBuffer );
 }
 
-void Framebuffer::Init()
+void Framebuffer::Init(idCommon *apCommon, idCmdSystem *cmdSystem)
 {
+	// TODO: any way to improve that?
+	gpCommon = apCommon;
+	
 	cmdSystem->AddCommand( "listFramebuffers", R_ListFramebuffers_f, CMD_FL_RENDERER, "lists framebuffers" );
 	
 	tr.backend.currentFramebuffer = nullptr;
@@ -99,7 +104,7 @@ void Framebuffer::Init()
 	{
 		width = height = shadowMapResolutions[i];
 		
-		globalFramebuffers.shadowFBO[i] = new Framebuffer( va( "_shadowMap%i", i ) , width, height );
+		globalFramebuffers.shadowFBO[i] = new Framebuffer( va( "_shadowMap%i", i ) , width, height, apCommon );
 		globalFramebuffers.shadowFBO[i]->Bind();
 		glDrawBuffers( 0, nullptr );
 	}
@@ -109,7 +114,7 @@ void Framebuffer::Init()
 	int screenWidth = renderSystem->GetWidth();
 	int screenHeight = renderSystem->GetHeight();
 	
-	globalFramebuffers.hdrFBO = new Framebuffer( "_hdr", screenWidth, screenHeight );
+	globalFramebuffers.hdrFBO = new Framebuffer( "_hdr", screenWidth, screenHeight, apCommon );
 	globalFramebuffers.hdrFBO->Bind();
 	
 #if defined(USE_HDR_MSAA)
@@ -135,7 +140,7 @@ void Framebuffer::Init()
 	
 	// HDR no MSAA
 #if defined(USE_HDR_MSAA)
-	globalFramebuffers.hdrNonMSAAFBO = new Framebuffer( "_hdrNoMSAA", screenWidth, screenHeight );
+	globalFramebuffers.hdrNonMSAAFBO = new Framebuffer( "_hdrNoMSAA", screenWidth, screenHeight, apCommon );
 	globalFramebuffers.hdrNonMSAAFBO->Bind();
 	
 	globalFramebuffers.hdrNonMSAAFBO->AddColorBuffer( GL_RGBA16F, 0 );
@@ -146,7 +151,7 @@ void Framebuffer::Init()
 	
 	// HDR DOWNSCALE
 	
-	globalFramebuffers.hdr64FBO = new Framebuffer( "_hdr64", 64, 64 );
+	globalFramebuffers.hdr64FBO = new Framebuffer( "_hdr64", 64, 64, apCommon );
 	globalFramebuffers.hdr64FBO->Bind();
 	globalFramebuffers.hdr64FBO->AddColorBuffer( GL_RGBA16F, 0 );
 	globalFramebuffers.hdr64FBO->AttachImage2D( GL_TEXTURE_2D, globalImages->currentRenderHDRImage64, 0 );
@@ -158,7 +163,7 @@ void Framebuffer::Init()
 	
 	for( int i = 0; i < MAX_BLOOM_BUFFERS; i++ )
 	{
-		globalFramebuffers.bloomRenderFBO[i] = new Framebuffer( va( "_bloomRender%i", i ), screenWidth, screenHeight );
+		globalFramebuffers.bloomRenderFBO[i] = new Framebuffer( va( "_bloomRender%i", i ), screenWidth, screenHeight, apCommon );
 		globalFramebuffers.bloomRenderFBO[i]->Bind();
 		globalFramebuffers.bloomRenderFBO[i]->AddColorBuffer( GL_RGBA8, 0 );
 		globalFramebuffers.bloomRenderFBO[i]->AttachImage2D( GL_TEXTURE_2D, globalImages->bloomRenderImage[i], 0 );
@@ -169,7 +174,7 @@ void Framebuffer::Init()
 	
 	for( int i = 0; i < MAX_SSAO_BUFFERS; i++ )
 	{
-		globalFramebuffers.ambientOcclusionFBO[i] = new Framebuffer( va( "_aoRender%i", i ), screenWidth, screenHeight );
+		globalFramebuffers.ambientOcclusionFBO[i] = new Framebuffer( va( "_aoRender%i", i ), screenWidth, screenHeight, apCommon );
 		globalFramebuffers.ambientOcclusionFBO[i]->Bind();
 		globalFramebuffers.ambientOcclusionFBO[i]->AddColorBuffer( GL_RGBA8, 0 );
 		globalFramebuffers.ambientOcclusionFBO[i]->AttachImage2D( GL_TEXTURE_2D, globalImages->ambientOcclusionImage[i], 0 );
@@ -180,7 +185,7 @@ void Framebuffer::Init()
 	
 	for( int i = 0; i < MAX_HIERARCHICAL_ZBUFFERS; i++ )
 	{
-		globalFramebuffers.csDepthFBO[i] = new Framebuffer( va( "_csz%i", i ), screenWidth / ( 1 << i ), screenHeight / ( 1 << i ) );
+		globalFramebuffers.csDepthFBO[i] = new Framebuffer( va( "_csz%i", i ), screenWidth / ( 1 << i ), screenHeight / ( 1 << i ), apCommon );
 		globalFramebuffers.csDepthFBO[i]->Bind();
 		globalFramebuffers.csDepthFBO[i]->AddColorBuffer( GL_R32F, 0 );
 		globalFramebuffers.csDepthFBO[i]->AttachImage2D( GL_TEXTURE_2D, globalImages->hierarchicalZbufferImage, 0, i );
@@ -189,7 +194,7 @@ void Framebuffer::Init()
 	
 	// GEOMETRY BUFFER
 	
-	//globalFramebuffers.geometryBufferFBO = new Framebuffer( "_gbuffer", screenWidth, screenHeight );
+	//globalFramebuffers.geometryBufferFBO = new Framebuffer( "_gbuffer", screenWidth, screenHeight, apCommon );
 	//globalFramebuffers.geometryBufferFBO->Bind();
 	//globalFramebuffers.geometryBufferFBO->AddColorBuffer( GL_RGBA8, 0 );
 	//globalFramebuffers.geometryBufferFBO->AttachImage2D( GL_TEXTURE_2D, globalImages->currentNormalsImage, 0 );
@@ -197,13 +202,13 @@ void Framebuffer::Init()
 	
 	// SMAA
 	
-	globalFramebuffers.smaaEdgesFBO = new Framebuffer( "_smaaEdges", screenWidth, screenHeight );
+	globalFramebuffers.smaaEdgesFBO = new Framebuffer( "_smaaEdges", screenWidth, screenHeight, apCommon );
 	globalFramebuffers.smaaEdgesFBO->Bind();
 	globalFramebuffers.smaaEdgesFBO->AddColorBuffer( GL_RGBA8, 0 );
 	globalFramebuffers.smaaEdgesFBO->AttachImage2D( GL_TEXTURE_2D, globalImages->smaaEdgesImage, 0 );
 	globalFramebuffers.smaaEdgesFBO->Check();
 	
-	globalFramebuffers.smaaBlendFBO = new Framebuffer( "_smaaBlend", screenWidth, screenHeight );
+	globalFramebuffers.smaaBlendFBO = new Framebuffer( "_smaaBlend", screenWidth, screenHeight, apCommon );
 	globalFramebuffers.smaaBlendFBO->Bind();
 	globalFramebuffers.smaaBlendFBO->AddColorBuffer( GL_RGBA8, 0 );
 	globalFramebuffers.smaaBlendFBO->AttachImage2D( GL_TEXTURE_2D, globalImages->smaaBlendImage, 0 );

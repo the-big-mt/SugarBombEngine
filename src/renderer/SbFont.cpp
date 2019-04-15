@@ -113,7 +113,8 @@ idFont::~idFont()
 idFont::idFont
 ==============================
 */
-idFont::idFont( const char* n ) : name( n )
+idFont::idFont( const char* n, idFileSystem *apFileSystem, idDeclManager *apDeclManager )
+	: name( n ), fileSystem(apFileSystem), declManager(apDeclManager)
 {
 	fontInfo = nullptr;
 	alias = RemapFont( n );
@@ -168,7 +169,7 @@ static const int GLYPHS_PER_FONT = 256;
 LoadOldGlyphData
 ==============================
 */
-bool LoadOldGlyphData( const char* filename, oldGlyphInfo_t glyphInfo[GLYPHS_PER_FONT] )
+bool LoadOldGlyphData( idFileSystem *fileSystem, const char* filename, oldGlyphInfo_t glyphInfo[GLYPHS_PER_FONT] )
 {
 	idFile* fd = fileSystem->OpenFileRead( filename );
 	if( fd == nullptr )
@@ -283,7 +284,7 @@ bool idFont::LoadFont()
 	{
 		oldGlyphInfo_t oldGlyphInfo[GLYPHS_PER_FONT];
 		const char* oldFileName = va( "newfonts/%s/old_%d.dat", GetName(), pointSizes[i] );
-		if( LoadOldGlyphData( oldFileName, oldGlyphInfo ) )
+		if( LoadOldGlyphData( fileSystem, oldFileName, oldGlyphInfo ) )
 		{
 			int mh = 0;
 			int mw = 0;

@@ -83,6 +83,9 @@ composition, to be automatically handled in a way that supports timestamped relo
 
 */
 
+static idCommon *gpCommon{nullptr};
+static idFileSystem *gpFileSystem{nullptr};
+
 /*
 =================
 R_HeightmapToNormalMap
@@ -698,7 +701,7 @@ static bool R_ParseImageProgram_r( idLexer& src, byte** pic, int* width, int* he
 	}
 	
 	// load it as an image
-	R_LoadImage( token.c_str(), pic, width, height, &timestamp, true );
+	R_LoadImage( token.c_str(), pic, width, height, &timestamp, true, gpCommon, gpFileSystem );
 	
 	if( timestamp == -1 )
 	{
@@ -723,8 +726,14 @@ static bool R_ParseImageProgram_r( idLexer& src, byte** pic, int* width, int* he
 R_LoadImageProgram
 ===================
 */
-void R_LoadImageProgram( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamps, textureUsage_t* usage )
+void R_LoadImageProgram( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamps, idCommon *apCommon, idFileSystem *apFileSystem, textureUsage_t* usage )
 {
+	if(!gpCommon)
+		gpCommon = apCommon;
+	
+	if(!gpFileSystem)
+		gpFileSystem = apFileSystem;
+	
 	idLexer src;
 	
 	src.LoadMemory( name, strlen( name ), name );
@@ -746,8 +755,14 @@ void R_LoadImageProgram( const char* name, byte** pic, int* width, int* height, 
 R_ParsePastImageProgram
 ===================
 */
-const char* R_ParsePastImageProgram( idLexer& src )
+const char* R_ParsePastImageProgram( idLexer& src, idCommon *apCommon, idFileSystem *apFileSystem )
 {
+	if(!gpCommon)
+		gpCommon = apCommon;
+	
+	if(!gpFileSystem)
+		gpFileSystem = apFileSystem;
+	
 	parseBuffer[0] = 0;
 	R_ParseImageProgram_r( src, nullptr, nullptr, nullptr, nullptr, nullptr );
 	return parseBuffer;

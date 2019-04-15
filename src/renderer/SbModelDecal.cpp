@@ -62,7 +62,8 @@ If you have questions concerning this license or the applicable additional terms
 idRenderModelDecal::idRenderModelDecal
 ==================
 */
-idRenderModelDecal::idRenderModelDecal() :
+idRenderModelDecal::idRenderModelDecal(idDeclManager *apDeclManager) :
+	declManager(apDeclManager),
 	firstDecal( 0 ),
 	nextDecal( 0 ),
 	firstDeferredDecal( 0 ),
@@ -88,7 +89,7 @@ idRenderModelDecal::~idRenderModelDecal()
 idRenderModelDecal::CreateProjectionParms
 =================
 */
-bool idRenderModelDecal::CreateProjectionParms( decalProjectionParms_t& parms, const idFixedWinding& winding, const idVec3& projectionOrigin, const bool parallel, const float fadeDepth, const idMaterial* material, const int startTime )
+bool idRenderModelDecal::CreateProjectionParms( idCommon *common, decalProjectionParms_t& parms, const idFixedWinding& winding, const idVec3& projectionOrigin, const bool parallel, const float fadeDepth, const idMaterial* material, const int startTime )
 {
 
 	if( winding.GetNumPoints() != NUM_DECAL_BOUNDING_PLANES - 2 )
