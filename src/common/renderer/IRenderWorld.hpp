@@ -31,6 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
+#define PROC_FILE_EXT				"proc"
+#define	PROC_FILE_ID				"mapProcFile003"
 
 // TODO: qhandle_t
 // TODO: idPlane
@@ -65,6 +67,19 @@ typedef struct
 	float				x, y;			// 0.0 to 1.0 range if trace hit a gui, otherwise -1
 	int					guiId;			// id of gui ( 0, 1, or 2 ) that the trace happened against
 } guiPoint_t;
+
+static const int NUM_PORTAL_ATTRIBUTES = 3;
+
+typedef enum
+{
+	PS_BLOCK_NONE = 0,
+	
+	PS_BLOCK_VIEW = 1,
+	PS_BLOCK_LOCATION = 2,		// game map location strings often stop in hallways
+	PS_BLOCK_AIR = 4,			// windows between pressurized and unpresurized areas
+	
+	PS_BLOCK_ALL = ( 1 << NUM_PORTAL_ATTRIBUTES ) - 1
+} portalConnection_t;
 
 struct idRenderWorld
 {
