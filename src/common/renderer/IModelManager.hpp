@@ -41,6 +41,7 @@ If you have questions concerning this license or the applicable additional terms
 struct idRenderModel;
 struct idFile;
 struct idPreloadManifest;
+struct MemInfo_t;
 
 struct idRenderModelManager
 {

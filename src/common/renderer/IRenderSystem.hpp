@@ -5,6 +5,7 @@ Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2013-2016 Robert Beckebans
 Copyright (C) 2014-2016 Kot in Action Creative Artel
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -32,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
+#include "idlib/math/Vector.h"
+#include "idlib/sys/sys_types.h"
+
 /*
 ===============================================================================
 
@@ -40,6 +44,16 @@ If you have questions concerning this license or the applicable additional terms
 
 ===============================================================================
 */
+
+struct emptyCommand_t;
+struct idRenderWorld;
+struct idRenderModelManager;
+struct idMaterial;
+struct idFont;
+struct MemInfo_t;
+struct idDrawVert;
+struct idPreloadManifest;
+
 enum stereo3DMode_t
 {
 	STEREO3D_OFF,
@@ -78,9 +92,6 @@ enum stereoDepthType_t
 	STEREO_DEPTH_TYPE_MID,
 	STEREO_DEPTH_TYPE_FAR
 };
-
-struct idRenderWorld;
-struct idRenderModelManager;
 
 struct idRenderSystem
 {
@@ -245,6 +256,14 @@ struct idRenderSystem
 */
 
 const int RENDERER_API_VERSION		= 1;
+
+struct idSys;
+struct idCommon;
+struct idCmdSystem;
+struct idCVarSystem;
+struct idFileSystem;
+struct idSoundSystem;
+struct idDeclManager;
 
 struct rendererImport_t
 {

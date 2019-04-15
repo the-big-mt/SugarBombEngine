@@ -29,7 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
-#include "idlib/Bounds.h"
+#include "idlib/sys/sys_types.h"
+#include "idlib/bv/Bounds.h"
+#include "idlib/containers/List.h"
+
+#include "renderer/VertexCache.h"
 
 /*
 ===============================================================================
@@ -43,12 +47,15 @@ If you have questions concerning this license or the applicable additional terms
 // a reloadModels is issued
 
 struct idFile;
-struct srfTriangles_t;
 struct viewDef_t;
+struct silEdge_t;
 class idMaterial;
 class idMD5Joint;
 class idJointQuat;
 class idDemoFile;
+class idDrawVert;
+class idShadowVert;
+class idRenderModelStatic;
 
 enum dynamicModel_t
 {

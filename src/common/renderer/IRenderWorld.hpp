@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2018-2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -29,6 +30,25 @@ If you have questions concerning this license or the applicable additional terms
 /// @file
 
 #pragma once
+
+
+// TODO: qhandle_t
+// TODO: idPlane
+class idFixedWinding;
+class idMaterial;
+class idBounds;
+class idBox;
+class idSphere;
+class idVec3;
+class idVec4;
+class idMat3;
+class idWinding;
+class idDemoFile;
+
+using modelTrace_t = struct modelTrace_s;
+using renderView_t = struct renderView_s;
+using renderEntity_t = struct renderEntity_s;
+using renderLight_t= struct renderLight_s;
 
 struct idRenderWorld
 {
