@@ -31,13 +31,11 @@ If you have questions concerning this license or the applicable additional terms
 //#include <csignal>                     // for raise, SIGTRAP
 //#include <cstddef>
 
-//#include "../framework/../framework/CVarSystem.h"
-//#include "../framework/../framework/CVarSystem.h"  // for ::CVAR_BOOL, etc
-//#include "../idlib/Lib.h"
-//#include "../idlib/Lib.h"               // for idLib
-//#include "../idlib/containers/StaticList.h"      // for idStaticList
-//#include "../idlib/sys/sys_types.h"     // for nullptr
-//#include "containers/StaticList.h"
+#include "framework/CVar.hpp" //#include "framework/ICVarSystem.hpp" // for ::CVAR_BOOL, etc
+
+//#include "idlib/Lib.h"               // for idLib
+//#include "idlib/containers/StaticList.h"      // for idStaticList
+//#include "idlib/sys/sys_types.h"     // for nullptr
 
 #ifndef _WIN32
 #include <csignal> // for raise()

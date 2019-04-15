@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2015 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -30,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 #pragma hdrstop
 
+#include "framework/IDeclManager.hpp"
+
+#include "renderer/Material.h"
 
 /*
 ===============
@@ -622,7 +626,7 @@ unsigned int idMapBrush::GetGeometryCRC() const
 idMapEntity::Parse
 ================
 */
-idMapEntity* idMapEntity::Parse( idLexer& src, bool worldSpawn, float version )
+idMapEntity* idMapEntity::Parse( idDeclManager *apDeclManager, idLexer& src, bool worldSpawn, float version )
 {
 	idToken	token;
 	idMapEntity* mapEnt;
@@ -704,7 +708,7 @@ idMapEntity* idMapEntity::Parse( idLexer& src, bool worldSpawn, float version )
 			// RB: new mesh primitive with ngons
 			else if( token.Icmpn( "mesh", 4 ) == 0 )
 			{
-				mapMesh = MapPolygonMesh::Parse( src, origin, version );
+				mapMesh = MapPolygonMesh::Parse( apDeclManager, src, origin, version );
 				if( !mapMesh )
 				{
 					return nullptr;
@@ -892,7 +896,7 @@ bool idMapEntity::WriteJSON( idFile* fp, int entityNum, int numEntities ) const
 	return true;
 }
 
-idMapEntity* idMapEntity::ParseJSON( idLexer& src )
+idMapEntity* idMapEntity::ParseJSON( idDeclManager *apDeclManager, idLexer& src )
 {
 	idToken	token;
 	idMapEntity* mapEnt;
@@ -995,7 +999,7 @@ idMapEntity* idMapEntity::ParseJSON( idLexer& src )
 				
 				if( token == "{" )
 				{
-					mapMesh = MapPolygonMesh::ParseJSON( src );
+					mapMesh = MapPolygonMesh::ParseJSON( apDeclManager, src );
 					if( !mapMesh )
 					{
 						break;
@@ -1126,7 +1130,7 @@ public:
 idMapFile::Parse
 ===============
 */
-bool idMapFile::Parse( const char* filename, bool ignoreRegion, bool osPath )
+bool idMapFile::Parse( idDeclManager *apDeclManager, const char* filename, bool ignoreRegion, bool osPath )
 {
 	// no string concatenation for epairs and allow path names for materials
 	idLexer src( LEXFL_NOSTRINGCONCAT | LEXFL_NOSTRINGESCAPECHARS | LEXFL_ALLOWPATHNAMES );
@@ -1214,7 +1218,7 @@ bool idMapFile::Parse( const char* filename, bool ignoreRegion, bool osPath )
 				
 				while( true )
 				{
-					mapEnt = idMapEntity::ParseJSON( src );
+					mapEnt = idMapEntity::ParseJSON( apDeclManager, src );
 					if( !mapEnt )
 					{
 						break;
@@ -1251,7 +1255,7 @@ bool idMapFile::Parse( const char* filename, bool ignoreRegion, bool osPath )
 		
 		while( 1 )
 		{
-			mapEnt = idMapEntity::Parse( src, ( entities.Num() == 0 ), version );
+			mapEnt = idMapEntity::Parse( apDeclManager, src, ( entities.Num() == 0 ), version );
 			if( !mapEnt )
 			{
 				break;
@@ -1546,7 +1550,7 @@ bool idMapFile::NeedsReload()
 
 
 // RB begin
-MapPolygonMesh::MapPolygonMesh()
+MapPolygonMesh::MapPolygonMesh(idDeclManager *apDeclManager) : declManager(apDeclManager)
 {
 	type = TYPE_MESH;
 	originalType = TYPE_MESH;
@@ -1591,7 +1595,7 @@ void MapPolygonMesh::ConvertFromBrush( const idMapBrush* mapBrush, int entityNum
 		
 		if( !w.GetNumPoints() )
 		{
-			common->Printf( "Entity %i, Brush %i: base winding has no points\n", entityNum, primitiveNum );
+			idLib::common->Printf( "Entity %i, Brush %i: base winding has no points\n", entityNum, primitiveNum );
 			badBrush = true;
 			break;
 		}
@@ -1607,7 +1611,7 @@ void MapPolygonMesh::ConvertFromBrush( const idMapBrush* mapBrush, int entityNum
 			{
 				// no intersection
 				//badBrush = true;
-				common->Printf( "Entity %i, Brush %i: no intersection with other brush plane\n", entityNum, primitiveNum );
+				idLib::common->Printf( "Entity %i, Brush %i: no intersection with other brush plane\n", entityNum, primitiveNum );
 				//break;
 			}
 		}
@@ -1627,7 +1631,7 @@ void MapPolygonMesh::ConvertFromBrush( const idMapBrush* mapBrush, int entityNum
 	
 	if( badBrush )
 	{
-		//common->Error( "" )
+		//idLib::common->Error( "" )
 		return;
 	}
 	
@@ -1680,7 +1684,7 @@ void MapPolygonMesh::ConvertFromBrush( const idMapBrush* mapBrush, int entityNum
 			
 			//if( dv->GetNormal().Length() < 0.9 || dv->GetNormal().Length() > 1.1 )
 			//{
-			//	common->Error( "Bad normal in TriListForSide" );
+			//	idLib::common->Error( "Bad normal in TriListForSide" );
 			//}
 		}
 	}
@@ -1825,7 +1829,7 @@ bool MapPolygonMesh::WriteJSON( idFile* fp, int primitiveNum, const idVec3& orig
 	return true;
 }
 
-MapPolygonMesh* MapPolygonMesh::Parse( idLexer& src, const idVec3& origin, float version )
+MapPolygonMesh* MapPolygonMesh::Parse( idDeclManager *apDeclManager, idLexer& src, const idVec3& origin, float version )
 {
 	float		info[7];
 	idToken		token;
@@ -1846,7 +1850,7 @@ MapPolygonMesh* MapPolygonMesh::Parse( idLexer& src, const idVec3& origin, float
 	const int numVertices = ( int ) info[0];
 	const int numPolygons = ( int ) info[1];
 	
-	MapPolygonMesh* mesh = new MapPolygonMesh();
+	MapPolygonMesh* mesh = new MapPolygonMesh(apDeclManager);
 	
 	// parse vertices
 	if( !src.ExpectTokenString( "(" ) )
@@ -1962,11 +1966,11 @@ MapPolygonMesh* MapPolygonMesh::Parse( idLexer& src, const idVec3& origin, float
 	return mesh;
 }
 
-MapPolygonMesh* MapPolygonMesh::ParseJSON( idLexer& src )
+MapPolygonMesh* MapPolygonMesh::ParseJSON( idDeclManager *apDeclManager, idLexer& src )
 {
 	idToken		token;
 	
-	MapPolygonMesh* mesh = new MapPolygonMesh();
+	MapPolygonMesh* mesh = new MapPolygonMesh(apDeclManager);
 	
 	while( true )
 	{
@@ -2272,7 +2276,7 @@ void MapPolygonMesh::GetBounds( idBounds& bounds ) const
 	}
 }
 
-bool idMapFile::ConvertToPolygonMeshFormat()
+bool idMapFile::ConvertToPolygonMeshFormat(idDeclManager *apDeclManager)
 {
 	int count = GetNumEntities();
 	for( int j = 0; j < count; j++ )
@@ -2291,7 +2295,7 @@ bool idMapFile::ConvertToPolygonMeshFormat()
 					mapPrim = ent->GetPrimitive( i );
 					if( mapPrim->GetType() == idMapPrimitive::TYPE_BRUSH )
 					{
-						MapPolygonMesh* meshPrim = new MapPolygonMesh();
+						MapPolygonMesh* meshPrim = new MapPolygonMesh(apDeclManager);
 						meshPrim->epairs.Copy( mapPrim->epairs );
 						
 						meshPrim->ConvertFromBrush( static_cast<idMapBrush*>( mapPrim ), j, i );
@@ -2303,7 +2307,7 @@ bool idMapFile::ConvertToPolygonMeshFormat()
 					}
 					else if( mapPrim->GetType() == idMapPrimitive::TYPE_PATCH )
 					{
-						MapPolygonMesh* meshPrim = new MapPolygonMesh();
+						MapPolygonMesh* meshPrim = new MapPolygonMesh(apDeclManager);
 						meshPrim->epairs.Copy( mapPrim->epairs );
 						
 						meshPrim->ConvertFromPatch( static_cast<idMapPatch*>( mapPrim ), j, i );
