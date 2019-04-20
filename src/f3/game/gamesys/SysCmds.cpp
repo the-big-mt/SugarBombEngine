@@ -2728,6 +2728,24 @@ so it can perform tab completion
 */
 void idGameLocal::InitConsoleCommands()
 {
+	// Fallout 3
+	
+	// aliases
+	cmdSystem->AddCommand( "tgm", Cmd_God_f, CMD_FL_GAME | CMD_FL_CHEAT, "enables god mode" );
+	cmdSystem->AddCommand( "tcai", Cmd_Notarget_f, CMD_FL_GAME | CMD_FL_CHEAT, "disables the player as a target" );
+	cmdSystem->AddCommand( "tcl", Cmd_Noclip_f, CMD_FL_GAME | CMD_FL_CHEAT, "disables collision detection for the player" );
+	
+	// TODO
+	//tai
+	//tmm 1 Show all markers on map.
+	//CompleteAllObjectives Complete all objectives of a given quest.
+	//unlock Unlock selected door / terminal
+	//tfc Enable free-roaming camera
+	//Kill Kill selected target
+	//KillAll Kill all NPCs in immediate area.
+
+	//
+	
 	cmdSystem->AddCommand( "game_memory",			idClass::DisplayInfo_f,		CMD_FL_GAME,				"displays game class info" );
 	cmdSystem->AddCommand( "listClasses",			idClass::ListClasses_f,		CMD_FL_GAME,				"lists game classes" );
 	cmdSystem->AddCommand( "listThreads",			idThread::ListThreads_f,	CMD_FL_GAME | CMD_FL_CHEAT,	"lists script threads" );
