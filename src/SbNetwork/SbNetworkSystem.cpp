@@ -58,20 +58,20 @@ SbNetworkSystem
 ================================================================================================
 */
 
-void CNetworkSystem::Init()
+void SbNetworkSystem::Init()
 {
 };
 
-void CNetworkSystem::Shutdown()
+void SbNetworkSystem::Shutdown()
 {
 };
 
-int CNetworkSystem::GetLocalIPCount() const
+int SbNetworkSystem::GetLocalIPCount() const
 {
 	return 0;
 };
 
-const char *CNetworkSystem::GetLocalIP(int anIndex) const
+const char *SbNetworkSystem::GetLocalIP(int anIndex) const
 {
 	return "";
 };

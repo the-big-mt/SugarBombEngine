@@ -4,7 +4,7 @@
 
 #include "SbNetwork/INetworkSystem.hpp"
 
-class CNetworkSystem : public INetworkSystem
+class SbNetworkSystem : public INetworkSystem
 {
 public:
 	void Init() override;
