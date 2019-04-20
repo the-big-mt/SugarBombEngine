@@ -37,6 +37,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 
 #include "framework/CVar.hpp"
+#include "framework/DemoFile.hpp"
 
 #include "SbSoundEmitter.hpp"
 #include "SbSoundShader.hpp" // TODO: #include "SbSound/ISoundShader.hpp"
@@ -46,8 +47,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "SbSoundDefines.hpp"
 #include "SbSound/SoundTypes.hpp"
 #include "snd_local.h" // TODO
-
-#include "framework/DemoFile.h"
 
 #include "renderer/IRenderWorld.hpp"
 

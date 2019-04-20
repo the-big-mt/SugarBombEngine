@@ -46,7 +46,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "renderer/IRenderWorld.hpp"
 
 #include "framework/DeclManager.h"
-#include "framework/DemoFile.h"
+#include "framework/DemoFile.hpp"
 #include "framework/ICommon.hpp"
 #include "framework/IConsole.hpp"
 

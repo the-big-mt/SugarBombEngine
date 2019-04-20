@@ -38,7 +38,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "framework/CVar.hpp" // TODO: #include "framework/ICVarSystem.hpp"?
 #include "framework/ICommon.hpp"
-//#include "framework/DeclManager.h"
+#include "framework/IDeclManager.hpp"
 
 #include "idlib/Lexer.h"
 #include "idlib/Str.h"

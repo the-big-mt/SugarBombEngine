@@ -38,7 +38,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "idlib/containers/List.h"
 
-#include "framework/DeclManager.h"
+#include "framework/Decl.hpp"
 
 /*
 ===============================================================================
@@ -65,6 +65,7 @@ static const int	SSF_NO_DUPS =			BIT( 9 );	// try not to play the same sound twi
 static const int	SSF_VO =				BIT( 10 ); // VO - direct a portion of the sound through the center channel (set automatically on shaders that contain files that start with "sound/vo/")
 static const int	SSF_MUSIC =				BIT( 11 ); // Music - Muted when the player is playing his own music
 
+struct idDeclManager;
 class idSoundSample;
 class idLexer;
 

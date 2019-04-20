@@ -38,7 +38,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "framework/Common.h" // for MemInfo_t
 #include "framework/DeclManager.h" // for declManager, idDeclManager, etc
 #include "framework/File_Manifest.h" // for idPreloadManifest, etc
-#include "framework/ResourceCacheEntry.hpp"
+
+#include "sys/ResourceCacheEntry.hpp"
 
 #include "renderer/IRenderWorld.hpp"
 
