@@ -34,15 +34,21 @@ If you have questions concerning this license or the applicable additional terms
 #include "SbInputSystem.hpp"
 #include "JoystickWin.hpp"
 
+#include "framework/CVar.hpp"
+
 #include <dinput.h>
+
+struct idUsercmdGen;
 
 class SbInputImplWin final : public IInputSystem
 {
 public:
-	SbInputImplWin(idCommon *apCommon);
+	SbInputImplWin(idCommon *apCommon, idUsercmdGen *apUserCmdGen, HWND ahWnd);
 	
 	void Init() override;
 	void Shutdown() override;
+	
+	const char *GetKeyName(keyNum_t keynum) const override;
 	
 	int PollKeyboardInputEvents() override;
 	int ReturnKeyboardInputEvent(const int n, int &key, bool &state) override;
@@ -58,7 +64,7 @@ public:
 	int ReturnJoystickInputEvent(const int n, int &action, int &value) override;
 	void EndJoystickInputEvents() override;
 private:
-	void Frame(idUserCmdGen *usercmdGen);
+	void Frame();
 	
 	void InitDirectInput();
 	bool InitDIMouse();
@@ -69,7 +75,12 @@ private:
 	bool StartupKeyboard();
 	void DeactivateKeyboard();
 	
+	static idCVar in_mouse;
+	
 	idCommon *mpCommon{nullptr};
+	idUsercmdGen *usercmdGen{nullptr};
+	
+	HWND mhWnd{nullptr};
 	
 	LPDIRECTINPUT8 g_pdi;
 	LPDIRECTINPUTDEVICE8 g_pMouse;

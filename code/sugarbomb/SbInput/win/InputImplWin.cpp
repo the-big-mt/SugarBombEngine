@@ -30,19 +30,38 @@ If you have questions concerning this license or the applicable additional terms
 
 /// @file
 
+//#pragma hdrstop
+//#include "precompiled.h"
+
 #include "InputImplWin.hpp"
+
+//#include "framework/sys_session_local.h"
+
+//#include "win_local.h"
+
+#include "idlib/sys/sys_assert.h"
+#include "idlib/sys/sys_defines.h"
+
 #include "framework/ICommon.hpp"
 #include "framework/IUsercmdGen.hpp"
 
+//namespace sbe
+//{
+
+idCVar SbInputImplWin::in_mouse( "in_mouse", "1", CVAR_SYSTEM | CVAR_BOOL, "enable mouse input" );
+
 constexpr auto DINPUT_BUFFERSIZE{256};
 
-IInputSystem *CreateInputSystem(idCommon *apCommon)
+static DIDEVICEOBJECTDATA polled_didod[DINPUT_BUFFERSIZE]; // Receives buffered data
+
+IInputSystem *CreateInputSystem(idCommon *apCommon, void *apWnd)
 {
-	static SbInputImplWin InputSystem(apCommon);
+	static SbInputImplWin InputSystem(apCommon, nullptr, reinterpret_cast<HWND>(apWnd)); // TODO: usercmdGen
 	return &InputSystem;
 };
 
-SbInputImplWin::SbInputImplWin(idCommon *apCommon) : mpCommon(apCommon){}
+SbInputImplWin::SbInputImplWin(idCommon *apCommon, idUsercmdGen *apUserCmdGen, HWND ahWnd)
+	: mpCommon(apCommon), usercmdGen(apUserCmdGen), mhWnd(ahWnd){}
 
 /*
 ===========
@@ -54,7 +73,7 @@ void SbInputImplWin::Init()
 	mpCommon->Printf( "\n------- Input Initialization -------\n" );
 	InitDirectInput();
 
-	if( win32.in_mouse.GetBool() )
+	if( SbInputImplWin::in_mouse.GetBool() )
 	{
 		InitDIMouse();
 		// don't grab the mouse on initialization
@@ -66,7 +85,9 @@ void SbInputImplWin::Init()
 	StartupKeyboard();
 	
 	mpCommon->Printf( "------------------------------------\n" );
-	win32.in_mouse.ClearModified();
+	SbInputImplWin::in_mouse.ClearModified();
+	
+	g_Joystick.Init();
 };
 
 /*
@@ -96,6 +117,11 @@ void SbInputImplWin::Shutdown()
 		g_pdi->Release();
 		g_pdi = nullptr;
 	};
+};
+
+const char *SbInputImplWin::GetKeyName(keyNum_t keynum) const
+{
+	return "TODO";
 };
 
 #if 1
@@ -363,11 +389,11 @@ IN_Frame
 Called every frame, even if not generating commands
 ==================
 */
-void SbInputImplWin::Frame(idUserCmdGen *usercmdGen)
+void SbInputImplWin::Frame()
 {
 	bool shouldGrab = true;
 	
-	if( !win32.in_mouse.GetBool() )
+	if( !SbInputImplWin::in_mouse.GetBool() )
 		shouldGrab = false;
 
 	// if fullscreen, we always want the mouse
@@ -397,7 +423,7 @@ void SbInputImplWin::Frame(idUserCmdGen *usercmdGen)
 #if 0	// if we can't reacquire, try reinitializing
 			if( !InitDIMouse() )
 			{
-				win32.in_mouse.SetBool( false );
+				SbInputImplWin::in_mouse.SetBool( false );
 				return;
 			};
 #endif
@@ -461,7 +487,7 @@ void SbInputImplWin::InitDirectInput()
 IN_InitDIMouse
 ========================
 */
-bool IN_InitDIMouse()
+bool SbInputImplWin::InitDIMouse()
 {
 	HRESULT		hr;
 	
@@ -491,7 +517,7 @@ bool IN_InitDIMouse()
 	};
 	
 	// set the cooperativity level.
-	hr = g_pMouse->SetCooperativeLevel( win32.hWnd, DISCL_EXCLUSIVE | DISCL_FOREGROUND );
+	hr = g_pMouse->SetCooperativeLevel( mhWnd, DISCL_EXCLUSIVE | DISCL_FOREGROUND );
 	
 	if( FAILED( hr ) )
 	{
@@ -541,7 +567,7 @@ void SbInputImplWin::ActivateMouse()
 	int i;
 	HRESULT hr;
 	
-	if( !win32.in_mouse.GetBool() || mouseGrabbed || !g_pMouse )
+	if( !SbInputImplWin::in_mouse.GetBool() || mouseGrabbed || !g_pMouse )
 		return;
 	
 	mouseGrabbed = true;
@@ -557,7 +583,7 @@ void SbInputImplWin::ActivateMouse()
 		return;
 	
 	// set the cooperativity level.
-	hr = g_pMouse->SetCooperativeLevel( win32.hWnd, DISCL_EXCLUSIVE | DISCL_FOREGROUND );
+	hr = g_pMouse->SetCooperativeLevel( mhWnd, DISCL_EXCLUSIVE | DISCL_FOREGROUND );
 };
 
 /*
@@ -652,7 +678,7 @@ bool SbInputImplWin::StartupKeyboard()
 	// Set the cooperativity level to let DirectInput know how
 	// this device should interact with the system and with other
 	// DirectInput applications.
-	hr = g_pKeyboard->SetCooperativeLevel( win32.hWnd, dwCoopFlags );
+	hr = g_pKeyboard->SetCooperativeLevel( mhWnd, dwCoopFlags );
 	if( hr == DIERR_UNSUPPORTED && !bForeground && bExclusive )
 	{
 		mpCommon->Printf( "keyboard: SetCooperativeLevel() returned DIERR_UNSUPPORTED.\nFor security reasons, background exclusive keyboard access is not allowed.\n" );
@@ -704,3 +730,5 @@ void SbInputImplWin::DeactivateKeyboard()
 
 	g_pKeyboard->Unacquire( );
 };
+
+//}; // namespace sbe

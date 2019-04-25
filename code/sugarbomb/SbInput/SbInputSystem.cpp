@@ -34,26 +34,23 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "framework/CVar.hpp"
 
-static inputExport_t inputExport;
-
-#ifndef SBE_SINGLE_BINARY
-//idSys *sys{nullptr};
-idCommon *common{nullptr};
-idCmdSystem *cmdSystem{nullptr};
-idCVarSystem *cvarSystem{nullptr};
-//idFileSystem *fileSystem{nullptr};
-idCVar *idCVar::staticVars{nullptr};
-#endif
-
 /*
 ===========
 GetInputAPI
 ============
 */
 #ifndef SBE_SINGLE_BINARY
-C_EXPORT
-#endif
-inputExport_t *GetInputAPI(inputImport_t *import)
+static inputExport_t inputExport;
+
+//idSys *sys{nullptr};
+idCommon *common{nullptr};
+idCmdSystem *cmdSystem{nullptr};
+idCVarSystem *cvarSystem{nullptr};
+//idFileSystem *fileSystem{nullptr};
+
+idCVar *idCVar::staticVars{nullptr};
+
+C_EXPORT inputExport_t *GetInputAPI(inputImport_t *import)
 {
 	if(import->version == INPUT_API_VERSION)
 	{
@@ -77,3 +74,4 @@ inputExport_t *GetInputAPI(inputImport_t *import)
 	
 	return &inputExport;
 };
+#endif // SBE_SINGLE_BINARY
