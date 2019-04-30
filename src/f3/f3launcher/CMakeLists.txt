@@ -1,11 +1,24 @@
-project(F3-launcher)
+project(F3-app)
 
 file(GLOB PROJECT_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
 )
 
+if(ANDROID)
+	file(GLOB PROJECT_SOURCES_ANDROID
+		${CMAKE_CURRENT_SOURCE_DIR}/*.c
+		${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+	)
+	
+	list(APPEND PROJECT_SOURCES ${PROJECT_SOURCES_ANDROID})
+endif()
+
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-	OUTPUT_NAME "F3BFG" # Trademarks never changes
+	OUTPUT_NAME "F3BFG"
 )
+
+#if(SBE_SINGLE_BINARY)
+	#target_link_libraries(${PROJECT_NAME} SBE-framework)
+#endif()
