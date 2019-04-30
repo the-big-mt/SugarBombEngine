@@ -1,0 +1,14 @@
+RakNet
+
+vaultmaster
+
+*.depend
+*.layout
+*.a
+*.o
+*.def
+*.exe
+*.dll
+*.workspace
+obj
+.objs
