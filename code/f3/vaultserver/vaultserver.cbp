@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="vaultserver" />
+		<Option platforms="Windows;Unix;" />
+		<Option makefile="makefile.windows" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<MakeCommands>
+			<Build command="$make -f $makefile $target" />
+			<CompileFile command="$make -f $makefile $file" />
+			<Clean command="$make -f $makefile clean_$target" />
+			<DistClean command="$make -f $makefile distclean$target" />
+			<AskRebuildNeeded command="$make -q -f $makefile $target" />
+			<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+		</MakeCommands>
+		<Build>
+			<Target title="debug">
+				<Option platforms="Windows;" />
+				<Option output="vaultserverd.exe" prefix_auto="0" extension_auto="0" />
+				<Option object_output=".objs/Debug" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-gstabs" />
+					<Add option="-DVAULTMP_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-lws2_32" />
+					<Add option="-lwinmm" />
+					<Add option="-lm" />
+					<Add option="-limagehlp" />
+					<Add option="-lbfd" />
+					<Add option="-liberty" />
+					<Add option="-static" />
+				</Linker>
+				<MakeCommands>
+					<Build command="$make -f $makefile $target" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile clean_$target" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="release">
+				<Option platforms="Windows;" />
+				<Option output="vaultserver.exe" prefix_auto="0" extension_auto="0" />
+				<Option object_output=".objs/Release" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lws2_32" />
+					<Add option="-lwinmm" />
+					<Add option="-lm" />
+					<Add option="-limagehlp" />
+					<Add option="-static" />
+				</Linker>
+				<MakeCommands>
+					<Build command="$make -f $makefile $target" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile clean_$target" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-pedantic-errors" />
+			<Add option="-pedantic" />
+			<Add option="-Wfatal-errors" />
+			<Add option="-Wextra" />
+			<Add option="-Wall" />
+			<Add option="-Werror -std=gnu++0x" />
+			<Add option="-DVAULTSERVER" />
+			<Add directory=".." />
+			<Add directory="../stack_trace/include" />
+		</Compiler>
+		<Unit filename="../Actor.cpp" />
+		<Unit filename="../Actor.hpp" />
+		<Unit filename="../Base.cpp" />
+		<Unit filename="../Base.hpp" />
+		<Unit filename="../GameFactory.cpp" />
+		<Unit filename="../GameFactory.hpp" />
+		<Unit filename="../Object.cpp" />
+		<Unit filename="../Object.hpp" />
+		<Unit filename="../Player.cpp" />
+		<Unit filename="../Player.hpp" />
+		<Unit filename="../Reference.cpp" />
+		<Unit filename="../Reference.hpp" />
+		<Unit filename="../ServerEntry.cpp" />
+		<Unit filename="../ServerEntry.hpp" />
+		<Unit filename="../components/Button.cpp" />
+		<Unit filename="../components/Button.hpp" />
+		<Unit filename="../components/Checkbox.cpp" />
+		<Unit filename="../components/Checkbox.hpp" />
+		<Unit filename="../components/Edit.cpp" />
+		<Unit filename="../components/Edit.hpp" />
+		<Unit filename="../components/List.cpp" />
+		<Unit filename="../components/List.hpp" />
+		<Unit filename="../components/ListItem.cpp" />
+		<Unit filename="../components/ListItem.hpp" />
+		<Unit filename="../components/RadioButton.cpp" />
+		<Unit filename="../components/RadioButton.hpp" />
+		<Unit filename="../components/Text.cpp" />
+		<Unit filename="../components/Text.hpp" />
+		<Unit filename="../components/Window.cpp" />
+		<Unit filename="../components/Window.hpp" />
+		<Unit filename="AcReference.cpp" />
+		<Unit filename="AcReference.hpp" />
+		<Unit filename="BaseContainer.cpp" />
+		<Unit filename="BaseContainer.hpp" />
+		<Unit filename="Client.cpp" />
+		<Unit filename="Client.hpp" />
+		<Unit filename="Database.cpp" />
+		<Unit filename="Database.hpp" />
+		<Unit filename="Dedicated.cpp" />
+		<Unit filename="Dedicated.hpp" />
+		<Unit filename="Exterior.cpp" />
+		<Unit filename="Exterior.hpp" />
+		<Unit filename="Interior.cpp" />
+		<Unit filename="Interior.hpp" />
+		<Unit filename="Item.cpp" />
+		<Unit filename="Item.hpp" />
+		<Unit filename="NPC.cpp" />
+		<Unit filename="NPC.hpp" />
+		<Unit filename="NetworkServer.cpp" />
+		<Unit filename="NetworkServer.hpp" />
+		<Unit filename="PAWN.cpp" />
+		<Unit filename="PAWN.hpp" />
+		<Unit filename="Public.cpp" />
+		<Unit filename="Public.hpp" />
+		<Unit filename="Race.cpp" />
+		<Unit filename="Race.hpp" />
+		<Unit filename="Record.cpp" />
+		<Unit filename="Record.hpp" />
+		<Unit filename="Reference.cpp" />
+		<Unit filename="Reference.hpp" />
+		<Unit filename="Script.cpp" />
+		<Unit filename="Script.hpp" />
+		<Unit filename="ScriptFunction.cpp">
+			<Option compiler="gcc" use="1" buildCommand="$compiler $options $includes -c $file -o $object -masm=intel" />
+		</Unit>
+		<Unit filename="ScriptFunction.hpp" />
+		<Unit filename="Server.cpp" />
+		<Unit filename="Server.hpp" />
+		<Unit filename="Terminal.cpp" />
+		<Unit filename="Terminal.hpp" />
+		<Unit filename="Timer.cpp" />
+		<Unit filename="Timer.hpp" />
+		<Unit filename="Weapon.cpp" />
+		<Unit filename="Weapon.hpp" />
+		<Unit filename="vaultserver.cpp" />
+		<Unit filename="vaultserver.hpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
