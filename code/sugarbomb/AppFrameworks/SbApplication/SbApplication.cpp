@@ -15,6 +15,8 @@ bool SbApplication::Run()
 	if(!Init())
 		return false;
 	
+	PostInit();
+	
 	mbRunning = true;
 	
 	// app's main loop
@@ -33,25 +35,4 @@ bool SbApplication::Run()
 void SbApplication::Stop()
 {
 	mbRunning = false;
-};
-
-void SbApplication::Frame()
-{
-	if(PreInputUpdate())
-	{
-		InputUpdate();
-		PostInputUpdate();
-	};
-	
-	if(PreLogicUpdate())
-	{
-		LogicUpdate();
-		PostLogicUpdate();
-	};
-	
-	if(PreRender())
-	{
-		Render();
-		PostRender();
-	};
 };
