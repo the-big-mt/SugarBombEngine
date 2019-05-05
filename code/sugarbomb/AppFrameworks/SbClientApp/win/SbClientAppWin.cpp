@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 
 /// @file
 
-#include "SbApplication.hpp"
+#include "SbClientApp.hpp"
 #include "win_local.hpp"
 
 #ifdef USE_BREAKPAD
@@ -231,22 +231,22 @@ static bool GLW_GetWindowDimensions( const glimpParms_t parms, int& x, int& y, i
 	return true;
 }
 
-SbApplicationWin::~SbApplicationWin()
+SbClientApp::~SbClientApp()
 {
 	// destroy window
-	if( win32.hWnd )
+	if( mhWnd )
 	{
 		common->Printf( "...destroying window\n" );
-		ShowWindow( win32.hWnd, SW_HIDE );
-		DestroyWindow( win32.hWnd );
-		win32.hWnd = nullptr;
+		ShowWindow( mhWnd, SW_HIDE );
+		DestroyWindow( mhWnd );
+		mhWnd = nullptr;
 	};
 };
 
-void SbApplicationWin::Init()
+void SbClientApp::Init()
 {
 #ifdef USE_BREAKPAD
-    google_breakpad::ExceptionHandler *pHandler =
+    mpHandler =
         new google_breakpad::ExceptionHandler(
                                               L"%TMP%\\", // FIXME: provide base path here, dir must exist
                                               nullptr,
@@ -317,12 +317,12 @@ void SbApplicationWin::Init()
 
 	::SetCursor( hcurSave );
 
-	::SetFocus( win32.hWnd );
+	::SetFocus( mhWnd );
 	
 	cmdSystem->AddCommand( "in_restart", Sys_In_Restart_f, CMD_FL_SYSTEM, "restarts the input system" );
 };
 
-void SbApplicationWin::Frame()
+void SbClientApp::Frame()
 {
 	Win_Frame();
 
@@ -342,7 +342,7 @@ Responsible for creating the Win32 window.
 If fullscreen, it won't have a border
 =======================
 */
-void SbApplicationWin::CreateMainWindow(int anWidth, int anHeight, const char *asTitle, bool abFullScreen)
+void SbClientApp::CreateMainWindow(int anWidth, int anHeight, const char *asTitle, bool abFullScreen)
 {
 	int				x, y, w, h;
 	if( !GLW_GetWindowDimensions( parms, x, y, w, h ) )
@@ -363,7 +363,7 @@ void SbApplicationWin::CreateMainWindow(int anWidth, int anHeight, const char *a
 		stylebits = WINDOW_STYLE | WS_SYSMENU;
 	}
 	
-	win32.hWnd = CreateWindowEx(
+	mhWnd = CreateWindowEx(
 					 exstyle,
 					 WIN32_WINDOW_CLASS_NAME,
 					 GAME_NAME,
@@ -374,18 +374,18 @@ void SbApplicationWin::CreateMainWindow(int anWidth, int anHeight, const char *a
 					 win32.hInstance,
 					 nullptr );
 					 
-	if( !win32.hWnd )
+	if( !mhWnd )
 	{
 		common->Printf( "^3GLW_CreateWindow() - Couldn't create window^0\n" );
 		return false;
 	};
 	
-	::SetTimer( win32.hWnd, 0, 100, nullptr );
+	::SetTimer( mhWnd, 0, 100, nullptr );
 	
-	ShowWindow( win32.hWnd, SW_SHOW );
-	UpdateWindow( win32.hWnd );
+	ShowWindow( mhWnd, SW_SHOW );
+	UpdateWindow( mhWnd );
 	common->Printf( "...created window @ %d,%d (%dx%d)\n", x, y, w, h );
 	
-	SetForegroundWindow( win32.hWnd );
-	SetFocus( win32.hWnd );
+	SetForegroundWindow( mhWnd );
+	SetFocus( mhWnd );
 };
