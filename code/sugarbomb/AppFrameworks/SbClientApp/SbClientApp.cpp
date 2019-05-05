@@ -31,27 +31,70 @@ If you have questions concerning this license or the applicable additional terms
 /// @file
 
 #include "SbClientApp.hpp"
+#include "framework/CmdSystem.h"
+#include "framework/CVarSystem.h"
+#include "sys/ISys.hpp"
+#include "sys/IFileSystem.hpp"
+#include "renderer/IRenderSystem.hpp"
+#include "SbInput/IInputSystem.hpp"
 
 SbClientApp::~SbClientApp()
 {
 	ShutdownInputSystem();
 	ShutdownRenderSystem();
-	//ShutdownSoundSystem();
+	
+	// only shut down the log file after all output is done
+	printf( "CloseLogFile();\n" );
+	CloseLogFile();
+	
+	// shut down the file system
+	printf( "fileSystem->Shutdown( false );\n" );
+	mpFileSystem->Shutdown( false );
+	
+	ShutdownSystemModule();
+	
+	// shut down the cvar system
+	printf( "cvarSystem->Shutdown();\n" );
+	mpCVarSystem->Shutdown();
+	
+	// shut down the console command system
+	printf( "cmdSystem->Shutdown();\n" );
+	mpCmdSystem->Shutdown();
 };
 
 bool SbClientApp::Init()
 {
+	mpCmdSystem = std::make_unique<idCmdSystemLocal>();
+	mpCVarSystem = std::make_unique<idCVarSystemLocal>();
+	
+	// init console command system
+	mpCmdSystem->Init();
+	
+	// init CVar system
+	mpCVarSystem->Init();
+	
+	InitSystemModule();
+	
+	if( Sys_AlreadyRunning() )
+		mpSys->Quit();
+	
+	// initialize processor specific SIMD implementation
+	InitSIMD();
+	
+	// initialize the file system
+	mpFileSystem->Init();
+	
 	CreateMainWindow();
 	
-	if(!InitRenderSystem())
-		return false;
-	
-	if(!InitInputSystem())
-		return false;
-	
-	//if(!InitSoundSystem())
-		//return false;
+	InitRenderSystem();
+	InitInputSystem();
 
+	// init OpenGL, which will open a window and connect sound and input hardware
+	renderSystem->InitOpenGL();
+	
+	// initialize the renderSystem data structures
+	renderSystem->Init();
+	
 	return true;
 };
 
@@ -78,65 +121,155 @@ void SbClientApp::Frame()
 
 /*
 =================
+idCommonLocal::LoadSystemDLL
+=================
+*/
+void SbClientApp::InitSystemModule()
+{
+#ifndef SBE_SINGLE_BINARY
+	char			dllPath[ sbe::MAX_OSPATH ];
+	
+	sbe::sysImport_t	sysImport;
+	sbe::sysExport_t	sysExport;
+	sbe::GetSysAPI_t	GetSysAPI;
+	
+	strncpy(dllPath, "./SbSystem", sbe::MAX_OSPATH);
+	
+	if( !dllPath[ 0 ] )
+	{
+		mpSys->FatalError( "couldn't find system dynamic library" );
+		return;
+	}
+	mpSys->DPrintf( "Loading system DLL: '%s'\n", dllPath );
+	sysDLL = Sys_DLL_Load( dllPath );
+	if( !sysDLL )
+	{
+		mpSys->FatalError( "couldn't load system dynamic library" );
+		return;
+	}
+	
+	const char* functionName = "GetSysAPI";
+	GetSysAPI = ( sbe::GetSysAPI_t ) Sys_DLL_GetProcAddress( sysDLL, functionName );
+	if( !GetSysAPI )
+	{
+		Sys_DLL_Unload( sysDLL );
+		sysDLL = 0;
+		mpSys->FatalError( "couldn't find system DLL API" );
+		return;
+	}
+	
+	sysImport.version					= sbe::SYS_API_VERSION;
+	//sysImport.common					= ::common;
+	sysImport.cmdSystem				= mpCmdSystem.get();
+	sysImport.cvarSystem				= mpCVarSystem.get();
+	
+	sysExport = *GetSysAPI( &sysImport );
+	
+	if( sysExport.version != sbe::SYS_API_VERSION )
+	{
+		Sys_DLL_Unload( sysDLL );
+		sysDLL = 0;
+		mpSys->FatalError( "wrong system DLL API version" );
+		return;
+	};
+	
+	mpSys = sysExport.sys;
+	mpFileSystem = sysExport.fileSystem;
+	
+#endif
+	
+	// initialize the system object
+	// get architecture info
+	if( mpSys != nullptr )
+		mpSys->Init();
+};
+
+/*
+=================
+idCommonLocal::UnloadSystemDLL
+=================
+*/
+void SbClientApp::ShutdownSystemModule()
+{
+	// shut down the system object
+	if( mpSys != nullptr )
+	{
+		// shut down non-portable system services
+		printf( "Sys_Shutdown();\n" );
+		mpSys->Shutdown();
+		mpSys = nullptr;
+	};
+	
+#ifndef SBE_SINGLE_BINARY
+	if( sysDLL )
+	{
+		Sys_DLL_Unload( sysDLL );
+		sysDLL = 0;
+	};
+#endif
+};
+
+/*
+=================
 idCommonLocal::LoadRenderDLL
 =================
 */
 void SbClientApp::InitRenderSystem()
 {
 #ifndef SBE_SINGLE_BINARY
-	char			dllPath[ MAX_OSPATH ];
+	char			dllPath[ sbe::MAX_OSPATH ];
 	
-	renderImport_t	renderImport;
-	renderExport_t	renderExport;
-	GetRenderAPI_t	GetRenderAPI;
+	sbe::renderImport_t	renderImport;
+	sbe::renderExport_t	renderExport;
+	sbe::GetRenderAPI_t	GetRenderAPI;
 	
-	fileSystem->FindDLL( "SbGLRenderer", dllPath, true );
+	mpFileSystem->FindDLL( "SbGLRenderer", dllPath, true );
 	
 	if( !dllPath[ 0 ] )
 	{
-		common->FatalError( "couldn't find render dynamic library" );
+		mpSys->FatalError( "couldn't find render dynamic library" );
 		return;
 	};
-	common->DPrintf( "Loading render DLL: '%s'\n", dllPath );
-	renderDLL = sys->DLL_Load( dllPath );
+	mpSys->DPrintf( "Loading render DLL: '%s'\n", dllPath );
+	renderDLL = mpSys->DLL_Load( dllPath );
 	if( !renderDLL )
 	{
-		common->FatalError( "couldn't load render dynamic library" );
+		mpSys->FatalError( "couldn't load render dynamic library" );
 		return;
 	};
 	
 	const char* functionName = "GetRenderAPI";
-	GetRenderAPI = ( GetRenderAPI_t ) Sys_DLL_GetProcAddress( renderDLL, functionName );
+	GetRenderAPI = ( sbe::GetRenderAPI_t ) mpSys->DLL_GetProcAddress( renderDLL, functionName );
 	if( !GetRenderAPI )
 	{
-		Sys_DLL_Unload( renderDLL );
-		renderDLL = nullptr;
-		common->FatalError( "couldn't find render DLL API" );
+		mpSys->DLL_Unload( renderDLL );
+		renderDLL = 0;
+		mpSys->FatalError( "couldn't find render DLL API" );
 		return;
 	};
 	
-	gameImport.version					= RENDER_API_VERSION;
-	gameImport.sys						= ::sys;
-	gameImport.common					= ::common;
-	gameImport.cmdSystem				= ::cmdSystem;
-	gameImport.cvarSystem				= ::cvarSystem;
-	gameImport.fileSystem				= ::fileSystem;
+	renderImport.version					= sbe::RENDER_API_VERSION;
+	renderImport.sys						= mpSys;
+	renderImport.common					= ::common;
+	renderImport.cmdSystem				= mpCmdSystem.get();
+	renderImport.cvarSystem				= mpCVarSystem.get();
+	renderImport.fileSystem				= mpFileSystem;
 	renderImport.soundSystem				= ::soundSystem;
-	renderImport.renderModelManager		= ::renderModelManager;
 	renderImport.uiManager				= ::uiManager;
 	renderImport.declManager				= ::declManager;
 	
 	renderExport							= *GetRenderAPI( &renderImport );
 	
-	if( renderExport.version != RENDER_API_VERSION )
+	if( renderExport.version != sbe::RENDER_API_VERSION )
 	{
-		Sys_DLL_Unload( renderDLL );
-		renderDLL = nullptr;
-		common->FatalError( "wrong render DLL API version" );
+		mpSys->DLL_Unload( renderDLL );
+		renderDLL = 0;
+		mpSys->FatalError( "wrong render DLL API version" );
 		return;
 	};
 	
 	renderSystem								= renderExport.renderSystem;
+	renderModelManager		= renderExport.renderModelManager;
 #else
 	renderSystem = CreateRenderSystem();
 #endif
@@ -156,6 +289,8 @@ void SbClientApp::ShutdownRenderSystem()
 	// shut down the render object
 	if( renderSystem != nullptr )
 	{
+		// shut down the renderSystem
+		printf( "renderSystem->Shutdown();\n" );
 		renderSystem->Shutdown();
 		renderSystem = nullptr;
 	};
@@ -163,8 +298,8 @@ void SbClientApp::ShutdownRenderSystem()
 #ifndef SBE_SINGLE_BINARY
 	if( renderDLL )
 	{
-		Sys_DLL_Unload( renderDLL );
-		renderDLL = nullptr;
+		mpSys->DLL_Unload( renderDLL );
+		renderDLL = 0;
 	};
 #endif
 };
@@ -177,52 +312,52 @@ SbClientApp::LoadInputDLL
 void SbClientApp::InitInputSystem()
 {
 #ifndef SBE_SINGLE_BINARY
-	char			dllPath[ MAX_OSPATH ];
+	char			dllPath[ sbe::MAX_OSPATH ];
 	
-	inputImport_t	inputImport;
-	inputExport_t	inputExport;
-	GetInputAPI_t	GetInputAPI;
+	sbe::inputImport_t	inputImport;
+	sbe::inputExport_t	inputExport;
+	sbe::GetInputAPI_t	GetInputAPI;
 	
-	fileSystem->FindDLL( "SbInput", dllPath, true );
+	mpFileSystem->FindDLL( "SbInput", dllPath, true );
 	
 	if( !dllPath[ 0 ] )
 	{
-		common->FatalError( "couldn't find input dynamic library" );
+		mpSys->FatalError( "couldn't find input dynamic library" );
 		return;
 	};
-	common->DPrintf( "Loading input DLL: '%s'\n", dllPath );
-	inputDLL = sys->DLL_Load( dllPath );
+	mpSys->DPrintf( "Loading input DLL: '%s'\n", dllPath );
+	inputDLL = mpSys->DLL_Load( dllPath );
 	if( !inputDLL )
 	{
-		common->FatalError( "couldn't load input dynamic library" );
+		mpSys->FatalError( "couldn't load input dynamic library" );
 		return;
 	};
 	
 	const char* functionName = "GetInputAPI";
-	GetInputAPI = ( GetInputAPI_t ) Sys_DLL_GetProcAddress( inputDLL, functionName );
-	if( !GetRenderAPI )
+	GetInputAPI = ( sbe::GetInputAPI_t ) mpSys->DLL_GetProcAddress( inputDLL, functionName );
+	if( !GetInputAPI )
 	{
-		Sys_DLL_Unload( inputDLL );
-		inputDLL = nullptr;
-		common->FatalError( "couldn't find input DLL API" );
+		mpSys->DLL_Unload( inputDLL );
+		inputDLL = 0;
+		mpSys->FatalError( "couldn't find input DLL API" );
 		return;
 	};
 	
-	inputImport.version					= INPUT_API_VERSION;
-	inputImport.sys						= ::sys;
-	inputImport.common					= ::common;
-	inputImport.cmdSystem				= ::cmdSystem;
-	inputImport.cvarSystem				= ::cvarSystem;
-	inputImport.fileSystem				= ::fileSystem;
-	inputImport.declManager				= ::declManager;
+	inputImport.version					= sbe::INPUT_API_VERSION;
+	inputImport.sys						= mpSys;
+	//inputImport.common					= ::common;
+	inputImport.cmdSystem				= mpCmdSystem.get();
+	inputImport.cvarSystem				= mpCVarSystem.get();
+	//inputImport.fileSystem				= mpFileSystem;
+	//inputImport.declManager				= ::declManager;
 	
-	inputExport							= *GetRenderAPI( &inputImport );
+	inputExport							= *GetInputAPI( &inputImport );
 	
-	if( inputExport.version != INPUT_API_VERSION )
+	if( inputExport.version != sbe::INPUT_API_VERSION )
 	{
-		Sys_DLL_Unload( inputDLL );
-		inputDLL = nullptr;
-		common->FatalError( "wrong input DLL API version" );
+		mpSys->DLL_Unload( inputDLL );
+		inputDLL = 0;
+		mpSys->FatalError( "wrong input DLL API version" );
 		return;
 	};
 	
@@ -245,15 +380,17 @@ void SbClientApp::ShutdownInputSystem()
 {
 	// shut down the input object
 	if( inputSystem != nullptr )
+	{
 		inputSystem->Shutdown();
+		inputSystem = nullptr;
+	};
 	
 #ifndef SBE_SINGLE_BINARY
 	if( inputDLL )
 	{
-		Sys_DLL_Unload( inputDLL );
-		inputDLL = nullptr;
+		mpSys->DLL_Unload( inputDLL );
+		inputDLL = 0;
 	};
-	inputSystem = nullptr;
 #endif
 };
 
