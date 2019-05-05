@@ -19,7 +19,12 @@ private:
 	
 	void PostFrame() override;
 	
+	void InitSoundSystem();
+	void ShutdownSoundSystem();
+	
 	sbe::ICommon *mpCommon{nullptr};
+	
+	int soundDLL{0};
 };
 
 }; // namespace f3bfg
