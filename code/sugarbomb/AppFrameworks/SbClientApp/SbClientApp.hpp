@@ -2,29 +2,17 @@
 
 #pragma once
 
-#include <memory>
-
 #include "SbApplication/SbApplication.hpp"
 
 #ifdef _WIN32
 using HWND = void*;
 #endif
 
-namespace google_breakpad
-{
-class ExceptionHandler;
-};
-
 namespace sbe
 {
-struct ISys;
-struct IFileSystem;
 struct IRenderSystem;
 struct IInputSystem;
 };
-
-class idCmdSystemLocal;
-class idCVarSystemLocal;
 
 class SbClientApp : public SbApplication
 {
@@ -42,30 +30,15 @@ private:
 	
 	void CreateMainWindow(int anWidth = nDefaultWindowSizeW, int anHeight = nDefaultWindowSizeH, const char *asTitle = sDefaultAppTitle, bool abFullScreen = false);
 	
-	void InitSystemModule();
-	void ShutdownSystemModule();
-	
 	void InitRenderSystem();
 	void ShutdownRenderSystem();
 	
 	void InitInputSystem();
 	void ShutdownInputSystem();
 	
-	std::unique_ptr<idCmdSystemLocal> mpCmdSystem;
-	std::unique_ptr<idCVarSystemLocal> mpCVarSystem;
-	
-	sbe::ISys *mpSys{nullptr};
-	sbe::IFileSystem *mpFileSystem{nullptr};
 	sbe::IRenderSystem *renderSystem{nullptr};
 	sbe::IInputSystem *inputSystem{nullptr};
 	
-#ifdef USE_BREAKPAD
-#	ifdef _WIN32
-	google_breakpad::ExceptionHandler *mpHandler{nullptr};
-#	endif
-#endif
-
-	int sysDLL{0};
 	int renderDLL{0};
 	int inputDLL{0};
 	
