@@ -31,6 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 /// @file
 
 #include "SbClientApp.hpp"
+#include "EventLoop.h"
 #include "framework/CmdSystem.h"
 #include "framework/CVarSystem.h"
 #include "sys/ISys.hpp"
@@ -42,10 +43,17 @@ SbClientApp::~SbClientApp()
 {
 	ShutdownInputSystem();
 	ShutdownRenderSystem();
+	
+	// shut down the event loop
+	printf( "eventLoop->Shutdown();\n" );
+	eventLoop->Shutdown();
 };
 
 bool SbClientApp::Init()
 {
+	// init journalling, etc
+	eventLoop->Init();
+	
 	CreateMainWindow();
 	
 	InitRenderSystem();
@@ -62,6 +70,11 @@ bool SbClientApp::Init()
 
 void SbClientApp::Frame()
 {
+	// pump all the events
+	Sys_GenerateEvents();
+	
+	eventLoop->RunEventLoop();
+	
 	if(PreInputUpdate())
 	{
 		InputUpdate();
