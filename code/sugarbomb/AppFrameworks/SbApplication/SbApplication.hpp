@@ -46,6 +46,8 @@ protected:
 	
 	bool mbRunning{false};
 private:
+	void ParseCommandLine(int argc, const char* const* argv);
+	
 	void InitSystemModule();
 	void ShutdownSystemModule();
 	

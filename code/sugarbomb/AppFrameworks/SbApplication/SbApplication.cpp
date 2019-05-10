@@ -1,13 +1,30 @@
 /// @file
 
 #include "SbApplication.hpp"
+#include "idlib/CmdArgs.h"
 
 SbApplication::SbApplication(const char *asCmdLine)
 {
+	int argc;
+	const char * const *argv;
+	
+	//idLib::Printf( "Command line: %s\n", asCmdLine );
+	//::MessageBox( nullptr, asCmdLine, "blah", MB_OK );
+	
+	// parse command line options
+	idCmdArgs args;
+	if(asCmdLine)
+	{
+		// tokenize if the OS doesn't do it for us
+		args.TokenizeString(asCmdLine, true);
+		argv = args.GetArgs(&argc);
+	};
+	ParseCommandLine(argc, argv);
 };
 
 SbApplication::SbApplication(int argc, char **argv)
 {
+	ParseCommandLine(argc, argv);
 };
 
 SbApplication::~SbApplication()
@@ -81,6 +98,55 @@ void SbApplication::Init()
 	mpFileSystem->Init();
 	return true;
 };
+
+/*
+============================================================================
+
+COMMAND LINE FUNCTIONS
+
++ characters separate the commandLine string into multiple console
+command lines.
+
+All of these are valid:
+
+doom +set test blah +map test
+doom set test blah+map test
+doom set test blah + map test
+
+============================================================================
+*/
+
+#define		MAX_CONSOLE_LINES	32
+int			com_numConsoleLines;
+idCmdArgs	com_consoleLines[MAX_CONSOLE_LINES];
+
+/*
+==================
+idCommonLocal::ParseCommandLine
+==================
+*/
+void SbApplication::ParseCommandLine( int argc, const char* const* argv )
+{
+	int i, current_count;
+	
+	com_numConsoleLines = 0;
+	current_count = 0;
+	// API says no program path
+	for( i = 0; i < argc; i++ )
+	{
+		if( argv[ i ][ 0 ] == '+' )
+		{
+			com_numConsoleLines++;
+			com_consoleLines[ com_numConsoleLines - 1 ].AppendArg( argv[ i ] + 1 );
+		}
+		else
+		{
+			if( !com_numConsoleLines )
+				com_numConsoleLines++;
+
+			com_consoleLines[ com_numConsoleLines - 1 ].AppendArg( argv[ i ] );
+		};
+	};
 };
 
 /*
