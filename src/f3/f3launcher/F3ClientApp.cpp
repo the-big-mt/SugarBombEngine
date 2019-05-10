@@ -9,6 +9,7 @@ CClientApp::~CClientApp()
 {
 	Shutdown();
 	
+	ShutdownFrameworkModule();
 	ShutdownSoundSystem();
 };
 
@@ -16,6 +17,8 @@ void CClientApp::PostInit()
 {
 	// start the sound system, but don't do any hardware operations yet
 	InitSoundSystem();
+	
+	InitFrameworkModule();
 	
 	mpCommon->Init(0, nullptr, lpCmdLine);
 	
@@ -129,6 +132,95 @@ void CClientApp::ShutdownSoundSystem()
 	{
 		Sys_DLL_Unload( soundDLL );
 		soundDLL = 0;
+	};
+#endif
+};
+
+/*
+=================
+idCommonLocal::LoadSoundModule
+=================
+*/
+void CClientApp::InitFrameworkModule()
+{
+#ifndef SBE_SINGLE_BINARY
+	char			dllPath[ sbe::MAX_OSPATH ];
+	
+	sbe::frameworkImport_t	frameworkImport;
+	sbe::frameworkExport_t	frameworkExport;
+	sbe::GetFrameworkAPI_t	GetFrameworkAPI;
+	
+	mpFileSystem->FindDLL( "SbFramework", dllPath/*, true*/ );
+	
+	if( !dllPath[ 0 ] )
+	{
+		mpSys->FatalError( "couldn't find framework dynamic library" );
+		return;
+	};
+	mpSys->DPrintf( "Loading framework DLL: '%s'\n", dllPath );
+	frameworkDLL = mpSys->DLL_Load( dllPath );
+	if( !frameworkDLL )
+	{
+		mpSys->FatalError( "couldn't load framework dynamic library" );
+		return;
+	};
+	
+	const char* functionName = "GetFrameworkAPI";
+	GetFrameworkAPI = ( GetFrameworkAPI_t ) mpSys->DLL_GetProcAddress( frameworkDLL, functionName );
+	if( !GetFrameworkAPI )
+	{
+		mpSys->DLL_Unload( frameworkDLL );
+		frameworkDLL = 0;
+		mpSys->FatalError( "couldn't find framework DLL API" );
+		return;
+	};
+	
+	frameworkImport.version					= sbe::FRAMEWORK_API_VERSION;
+	frameworkImport.sys						= mpSys;
+	frameworkImport.cmdSystem				= mpCmdSystem.get();
+	frameworkImport.cvarSystem				= mpCVarSystem.get();
+	frameworkImport.fileSystem				= mpFileSystem;
+	frameworkImport.renderSystem				= renderSystem;
+	frameworkImport.declManager				= ::declManager;
+	
+	frameworkExport							= *GetFrameworkAPI( &frameworkImport );
+	
+	if( frameworkExport.version != sbe::FRAMEWORK_API_VERSION )
+	{
+		mpSys->DLL_Unload( frameworkDLL );
+		frameworkDLL = 0;
+		mpSys->FatalError( "wrong framework DLL API version" );
+		return;
+	};
+	
+	mpCommon								= frameworkExport.common;
+	
+#endif
+	
+	// initialize the sound object
+	if( mpCommon != nullptr )
+		mpCommon->Init();
+};
+
+/*
+=================
+idCommonLocal::UnloadFrameworkModule
+=================
+*/
+void CClientApp::ShutdownFrameworkModule()
+{
+	// shut down the framework object
+	if( mpCommon != nullptr )
+	{
+		mpCommon->Shutdown();
+		mpCommon = nullptr;
+	};
+	
+#ifndef SBE_SINGLE_BINARY
+	if( frameworkDLL )
+	{
+		Sys_DLL_Unload( frameworkDLL );
+		frameworkDLL = 0;
 	};
 #endif
 };

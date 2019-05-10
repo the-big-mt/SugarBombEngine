@@ -5,7 +5,10 @@
 
 #include "SbClientApp/SbClientApp.hpp"
 
-struct sbe::ICommon;
+namespace sbe
+{
+struct ICommon;
+};
 
 namespace f3bfg
 {
@@ -22,9 +25,13 @@ private:
 	void InitSoundSystem();
 	void ShutdownSoundSystem();
 	
+	void InitFrameworkModule();
+	void ShutdownFrameworkModule();
+	
 	sbe::ICommon *mpCommon{nullptr};
 	
 	int soundDLL{0};
+	int frameworkDLL{0};
 };
 
 }; // namespace f3bfg
