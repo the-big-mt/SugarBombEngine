@@ -29,20 +29,20 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_SECURITYCAMERA_H__
 #define __GAME_SECURITYCAMERA_H__
 
-/*
-#include "../d3xp/Entity.h"
-#include "../d3xp/gamesys/Class.h"
-#include "../d3xp/physics/Physics_RigidBody.h"
-#include "../idlib/geometry/TraceModel.h"
-#include "../idlib/math/Vector.h"
-#include "../renderer/RenderWorld.h"
+#include "Entity.h"
+//#include "gamesys/Class.h"
+#include "physics/Physics_RigidBody.h"
 
-namespace BFG
-{
+#include "idlib/geometry/TraceModel.h"
+#include "idlib/math/Vector.h"
+
+//#include "renderer/RenderWorld.h"
+
+//namespace BFG
+//{
 
 class idRestoreGame;
 class idSaveGame;
-*/
 
 /*
 ===================================================================================

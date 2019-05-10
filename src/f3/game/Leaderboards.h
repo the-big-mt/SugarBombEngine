@@ -31,16 +31,16 @@ If you have questions concerning this license or the applicable additional terms
 
 /*
 #if 0 // no steam api
-#include "../sys/sys_leaderboards.h"
+#include "sys/sys_leaderboards.h"
 #else
-#include "../sys/sys_stats.h"
+#include "sys/sys_stats.h"
 #endif
+*/
 
-namespace BFG
-{
+//namespace BFG
+//{
 
 struct lobbyUserID_t;
-*/
 
 struct leaderboardStats_t
 {

@@ -29,25 +29,29 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_FX_H__
 #define __GAME_FX_H__
 
-/*
-#include "../d3xp/Entity.h"
-#include "../d3xp/gamesys/Class.h"
-#include "../framework/DeclFX.h"
-#include "../idlib/Heap.h"
-#include "../idlib/Lib.h"
-#include "../idlib/Str.h"
-#include "../idlib/containers/List.h"
-#include "../renderer/RenderWorld.h"
+#include "Entity.h"
+#include "gamesys/Class.h"
 
-namespace BFG
-{
+/*
+#include "framework/DeclFX.h"
+
+#include "idlib/Heap.h"
+#include "idlib/Lib.h"
+*/
+
+#include "idlib/Str.h"
+#include "idlib/containers/List.h"
+
+//#include "renderer/RenderWorld.h"
+
+//namespace BFG
+//{
 
 class idBitMsg;
 class idMat3;
 class idRestoreGame;
 class idSaveGame;
 class idVec3;
-*/
 
 /*
 ===============================================================================

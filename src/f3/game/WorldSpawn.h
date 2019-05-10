@@ -29,16 +29,14 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_WORLDSPAWN_H__
 #define __GAME_WORLDSPAWN_H__
 
-/*
-#include "../d3xp/Entity.h"
-#include "../d3xp/gamesys/Class.h"
+#include "Entity.h"
+#include "gamesys/Class.h"
 
-namespace BFG
-{
+//namespace BFG
+//{
 
 class idRestoreGame;
 class idSaveGame;
-*/
 
 /*
 ===============================================================================

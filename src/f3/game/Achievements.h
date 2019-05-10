@@ -30,18 +30,20 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include <cstddef>
 
-//#include "../d3xp/Entity.h"
-//#include "../framework/PlayerProfile.h"
-//#include "../idlib/containers/Array.h"
-//#include "../idlib/sys/sys_assert.h"
+#include "Entity.h"
+
+//#include "framework/PlayerProfile.h"
+
+#include "idlib/containers/Array.h"
+#include "idlib/sys/sys_assert.h"
 
 //namespace BFG
 //{
 
-//class idDict;
-//class idLocalUser;
-//class idRestoreGame;
-//class idSaveGame;
+class idDict;
+class idLocalUser;
+class idRestoreGame;
+class idSaveGame;
 
 enum achievement_t
 {

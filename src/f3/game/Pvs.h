@@ -29,17 +29,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_PVS_H__
 #define __GAME_PVS_H__
 
-/*
-#include "../idlib/sys/sys_types.h"
+#include "idlib/sys/sys_types.h"
 
-namespace BFG
-{
+//namespace BFG
+//{
 
 class idBounds;
 class idPlane;
 class idVec3;
 class idWinding;
-*/
 
 /*
 ===================================================================================

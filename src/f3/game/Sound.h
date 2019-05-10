@@ -29,19 +29,18 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_SOUND_H__
 #define __GAME_SOUND_H__
 
-/*
-#include "../d3xp/Entity.h"
-#include "../d3xp/gamesys/Class.h"
-#include "../idlib/math/Angles.h"
-#include "../idlib/math/Vector.h"
+#include "Entity.h"
+#include "gamesys/Class.h"
 
-namespace BFG
-{
+#include "idlib/math/Angles.h"
+#include "idlib/math/Vector.h"
+
+//namespace BFG
+//{
 
 class idDict;
 class idRestoreGame;
 class idSaveGame;
-*/
 
 /*
 ===============================================================================

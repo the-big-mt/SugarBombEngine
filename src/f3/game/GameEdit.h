@@ -29,22 +29,22 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_EDIT_H__
 #define __GAME_EDIT_H__
 
-/*
-#include <cstddef>
+//#include <cstddef>
 
-#include "../d3xp/Entity.h"
-#include "../d3xp/gamesys/Class.h"
-#include "../d3xp/physics/Force_Drag.h"
-#include "../idlib/Str.h"
-#include "../idlib/containers/List.h"
-#include "../idlib/math/Vector.h"
-#include "../renderer/Model.h"
+#include "Entity.h"
+#include "gamesys/Class.h"
+#include "physics/Force_Drag.h"
 
-namespace BFG
-{
+#include "idlib/Str.h"
+#include "idlib/containers/List.h"
+#include "idlib/math/Vector.h"
+
+//#include "renderer/Model.h"
+
+//namespace BFG
+//{
 
 class idPlayer;
-*/
 
 /*
 ===============================================================================

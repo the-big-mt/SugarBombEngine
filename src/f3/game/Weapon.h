@@ -31,29 +31,28 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_WEAPON_H__
 #define __GAME_WEAPON_H__
 
-/*
-#include <cstddef>
+//#include <cstddef>
 
-#include "../d3xp/Entity.h"
-#include "../d3xp/Grabber.h"
-#include "../d3xp/gamesys/Class.h"
-#include "../d3xp/gamesys/Event.h"
-#include "../d3xp/script/Script_Program.h"
-#include "../idlib/Dict.h"
-#include "../idlib/Str.h"
-#include "../idlib/containers/HashTable.h"
-#include "../idlib/math/Angles.h"
-#include "../idlib/math/Matrix.h"
-#include "../idlib/math/Vector.h"
-#include "../idlib/sys/sys_defines.h"
-#include "../renderer/Model.h"
-#include "../renderer/RenderWorld.h"
-*/
+#include "Entity.h"
+#include "Grabber.h"
+#include "gamesys/Class.h"
+//#include "gamesys/Event.h"
+#include "script/Script_Program.h"
 #include "PredictedValue.h"
 
-/*
-namespace BFG
-{
+#include "idlib/Dict.h"
+#include "idlib/Str.h"
+#include "idlib/containers/HashTable.h"
+#include "idlib/math/Angles.h"
+#include "idlib/math/Matrix.h"
+#include "idlib/math/Vector.h"
+#include "idlib/sys/sys_defines.h"
+
+//#include "renderer/Model.h"
+//#include "renderer/RenderWorld.h"
+
+//namespace BFG
+//{
 
 class idBitMsg;
 class idDeclEntityDef;
@@ -64,7 +63,6 @@ class idRestoreGame;
 class idSaveGame;
 class idSoundShader;
 class idThread;
-*/
 
 /*
 ===============================================================================

@@ -29,20 +29,19 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_IK_H__
 #define __GAME_IK_H__
 
-/*
-#include "../idlib/math/Matrix.h"
-#include "../idlib/math/Vector.h"
-#include "../renderer/Model.h"
+#include "idlib/math/Matrix.h"
+#include "idlib/math/Vector.h"
 
-namespace BFG
-{
+//#include "renderer/Model.h"
+
+//namespace BFG
+//{
 
 class idAnimator;
 class idClipModel;
 class idEntity;
 class idRestoreGame;
 class idSaveGame;
-*/
 
 /*
 ===============================================================================

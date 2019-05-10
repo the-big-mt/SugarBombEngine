@@ -26,6 +26,15 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+
+#include "Entity.h"
+#include "gamesys/Class.h"
+
+#include "idlib/Str.h"
+#include "idlib/math/Vector.h"
+
+struct idUserInterface;
+
 //namespace BFG
 //{
 

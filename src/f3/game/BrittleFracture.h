@@ -29,31 +29,32 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_BRITTLEFRACTURE_H__
 #define __GAME_BRITTLEFRACTURE_H__
 
-/*
-#include "../cm/CollisionModel.h"
-#include "../d3xp/Entity.h"
-#include "../d3xp/gamesys/Class.h"
-#include "../d3xp/physics/Physics_RigidBody.h"
-#include "../d3xp/physics/Physics_StaticMulti.h"
-#include "../idlib/Heap.h"
-#include "../idlib/Str.h"
-#include "../idlib/bv/Bounds.h"
-#include "../idlib/containers/List.h"
-#include "../idlib/geometry/Winding.h"
-#include "../idlib/math/Vector.h"
-#include "../renderer/RenderWorld.h"
+//#include "SbCollision/CollisionModel.h"
 
-namespace BFG
-{
+#include "Entity.h"
+#include "gamesys/Class.h"
+#include "physics/Physics_RigidBody.h"
+#include "physics/Physics_StaticMulti.h"
+
+//#include "idlib/Heap.h"
+#include "idlib/Str.h"
+#include "idlib/bv/Bounds.h"
+#include "idlib/containers/List.h"
+#include "idlib/geometry/Winding.h"
+#include "idlib/math/Vector.h"
+
+//#include "renderer/RenderWorld.h"
+
+//namespace BFG
+//{
 
 class idBitMsg;
 class idClipModel;
 class idMaterial;
-class idRandom2;
-class idRenderModel;
+//class idRandom2;
+//class idRenderModel;
 class idRestoreGame;
 class idSaveGame;
-*/
 
 /*
 ===============================================================================

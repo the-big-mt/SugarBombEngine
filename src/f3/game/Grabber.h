@@ -37,18 +37,19 @@ If you have questions concerning this license or the applicable additional terms
 ===============================================================================
 */
 
-//#include "../d3xp/Entity.h"
-//#include "../d3xp/gamesys/Class.h"
-//#include "../d3xp/physics/Force_Grab.h"
-//#include "../idlib/math/Vector.h"
+#include "Entity.h"
+#include "gamesys/Class.h"
+#include "physics/Force_Grab.h"
+
+#include "idlib/math/Vector.h"
 
 //namespace BFG
 //{
 
 class idBeam;
-//class idPlayer;
-//class idRestoreGame;
-//class idSaveGame;
+class idPlayer;
+class idRestoreGame;
+class idSaveGame;
 
 class idGrabber : public idEntity
 {

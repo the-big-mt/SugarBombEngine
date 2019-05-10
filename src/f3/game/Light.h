@@ -29,24 +29,24 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_LIGHT_H__
 #define __GAME_LIGHT_H__
 
-/*
-#include "../d3xp/Entity.h"
-#include "../d3xp/gamesys/Class.h"
-#include "../d3xp/gamesys/Event.h"
-#include "../idlib/Lib.h"
-#include "../idlib/Str.h"
-#include "../idlib/math/Matrix.h"
-#include "../idlib/math/Vector.h"
-#include "../renderer/RenderWorld.h"
+#include "Entity.h"
+#include "gamesys/Class.h"
+#include "gamesys/Event.h"
 
-namespace BFG
-{
+//#include "idlib/Lib.h"
+#include "idlib/Str.h"
+#include "idlib/math/Matrix.h"
+#include "idlib/math/Vector.h"
+
+//#include "renderer/RenderWorld.h"
+
+//namespace BFG
+//{
 
 class idBitMsg;
 class idDict;
 class idRestoreGame;
 class idSaveGame;
-*/
 
 /*
 ===============================================================================

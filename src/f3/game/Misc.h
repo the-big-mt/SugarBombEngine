@@ -29,24 +29,36 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_MISC_H__
 #define __GAME_MISC_H__
 
-/*
-#include "../cm/CollisionModel.h"
-#include "../d3xp/AFEntity.h"
-#include "../d3xp/Entity.h"
-#include "../d3xp/gamesys/Class.h"
-#include "../d3xp/physics/Force_Field.h"
-#include "../d3xp/physics/Force_Spring.h"
-#include "../d3xp/physics/Physics_Parametric.h"
-#include "../idlib/Lib.h"
-#include "../idlib/Str.h"
-#include "../idlib/containers/List.h"
-#include "../idlib/math/Matrix.h"
-#include "../idlib/math/Vector.h"
-#include "../renderer/Model.h"
+//#include "cm/CollisionModel.h"
 
-namespace BFG
-{
-*/
+#include "AFEntity.h"
+#include "Entity.h"
+#include "gamesys/Class.h"
+#include "physics/Force_Field.h"
+#include "physics/Force_Spring.h"
+#include "physics/Physics_Parametric.h"
+
+//#include "idlib/Lib.h"
+#include "idlib/Str.h"
+#include "idlib/containers/List.h"
+#include "idlib/math/Matrix.h"
+#include "idlib/math/Vector.h"
+
+//#include "renderer/Model.h"
+
+//namespace BFG
+//{
+
+class function_t;
+class idActor;
+class idBitMsg;
+class idDeclParticle;
+class idDict;
+class idPlayer;
+class idRenderModelLiquid;
+class idRestoreGame;
+class idSaveGame;
+class idSoundShader;
 
 /*
 ===============================================================================
@@ -618,21 +630,6 @@ private:
   idLiquid
 
 ===============================================================================
-*/
-
-/*
-class function_t;
-class idActor;
-class idBitMsg;
-class idDeclParticle;
-class idDict;
-class idPlayer;
-*/
-class idRenderModelLiquid;
-/*
-class idRestoreGame;
-class idSaveGame;
-class idSoundShader;
 */
 
 class idLiquid : public idEntity

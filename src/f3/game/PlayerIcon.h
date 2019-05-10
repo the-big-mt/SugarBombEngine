@@ -30,17 +30,18 @@ If you have questions concerning this license or the applicable additional terms
 #define	__PLAYERICON_H__
 
 /*
-#include "../idlib/Lib.h"
-#include "../renderer/Model.h"
-#include "../renderer/RenderWorld.h"
+#include "idlib/Lib.h"
 
-namespace BFG
-{
+#include "renderer/Model.h"
+#include "renderer/RenderWorld.h"
+*/
+
+//namespace BFG
+//{
 
 class idMat3;
 class idPlayer;
 class idVec3;
-*/
 
 typedef enum
 {

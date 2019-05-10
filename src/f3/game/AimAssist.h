@@ -31,8 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include <cstddef>
 
-//#include "../idlib/math/Angles.h"
-//#include "../idlib/math/Vector.h"
+#include "idlib/math/Angles.h"
+#include "idlib/math/Vector.h"
 
 //namespace BFG
 //{
@@ -44,7 +44,7 @@ Contains the AimAssist declaration.
 */
 
 class idEntity;
-//class idMat3;
+class idMat3;
 class idPlayer;
 
 /*

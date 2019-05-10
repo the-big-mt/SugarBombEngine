@@ -29,21 +29,23 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_ITEM_H__
 #define __GAME_ITEM_H__
 
-/*
-#include <cstddef>
+//#include <cstddef>
 
-#include "../cm/CollisionModel.h"
-#include "../d3xp/Entity.h"
-#include "../d3xp/gamesys/Class.h"
-#include "../d3xp/physics/Physics_RigidBody.h"
-#include "../idlib/containers/List.h"
-#include "../idlib/math/Matrix.h"
-#include "../idlib/math/Vector.h"
-#include "../idlib/sys/sys_types.h"
-#include "../renderer/RenderWorld.h"
+//#include "SbCollision/CollisionModel.h"
 
-namespace BFG
-{
+#include "Entity.h"
+#include "gamesys/Class.h"
+#include "physics/Physics_RigidBody.h"
+
+//#include "idlib/containers/List.h"
+#include "idlib/math/Matrix.h"
+#include "idlib/math/Vector.h"
+//#include "idlib/sys/sys_types.h"
+
+//#include "renderer/RenderWorld.h"
+
+//namespace BFG
+//{
 
 class function_t;
 class idBitMsg;
@@ -55,7 +57,6 @@ class idMaterial;
 class idPlayer;
 class idRestoreGame;
 class idSaveGame;
-*/
 
 /*
 ===============================================================================
