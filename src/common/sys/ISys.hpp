@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012 Robert Beckebans
+Copyright (C) 2018-2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -28,16 +29,12 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 /// @file
+/// @brief Non-portable system services
 
 #pragma once
 
-/*
-===============================================================================
 
-	Non-portable system services.
 
-===============================================================================
-*/
 
 enum cpuid_t
 {
@@ -380,6 +377,28 @@ struct idSys
 	
 	virtual void			OpenURL( const char* url, bool quit ) = 0;
 	virtual void			StartProcess( const char* exePath, bool quit ) = 0;
+	// BP: Moved here from idCommon
+	
+	/// Prints message to the console, which may cause a screen update if com_refreshOnPrint is set
+	virtual void				Printf( VERIFY_FORMAT_STRING const char* fmt, ... ) = 0;
+	
+	/// Prints message that only shows up if the "developer" cvar is set,
+	/// and NEVER forces a screen update, which could cause reentrancy problems
+	virtual void				DPrintf( VERIFY_FORMAT_STRING const char* fmt, ... ) = 0;
+	
+	/// Prints WARNING %s message and adds the warning message to a queue for printing later on
+	virtual void				Warning( VERIFY_FORMAT_STRING const char* fmt, ... ) = 0;
+	
+	/// Prints WARNING %s message in yellow that only shows up if the "developer" cvar is set
+	virtual void				DWarning( VERIFY_FORMAT_STRING const char* fmt, ... ) = 0;
+	
+	/// Issues a C++ throw. Normal errors just abort to the game loop,
+	/// which is appropriate for media or dynamic logic errors
+	virtual void				Error( VERIFY_FORMAT_STRING const char* fmt, ... ) ID_INSTANCE_ATTRIBUTE_PRINTF( 1, 2 ) = 0;
+	
+	/// Fatal errors quit all the way to a system dialog box, which is appropriate for
+	/// static internal errors or cases where the system may be corrupted
+	virtual void                FatalError( VERIFY_FORMAT_STRING const char* fmt, ... ) ID_INSTANCE_ATTRIBUTE_PRINTF( 1, 2 ) = 0;
 };
 
 /*
