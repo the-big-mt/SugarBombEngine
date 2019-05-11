@@ -131,10 +131,10 @@ idParser::PrintDefine
 */
 void idParser::PrintDefine( define_t* define )
 {
-	idLib::common->Printf( "define->name = %s\n", define->name );
-	idLib::common->Printf( "define->flags = %d\n", define->flags );
-	idLib::common->Printf( "define->builtin = %d\n", define->builtin );
-	idLib::common->Printf( "define->numparms = %d\n", define->numparms );
+	idLib::sys->Printf( "define->name = %s\n", define->name );
+	idLib::sys->Printf( "define->flags = %d\n", define->flags );
+	idLib::sys->Printf( "define->builtin = %d\n", define->builtin );
+	idLib::sys->Printf( "define->numparms = %d\n", define->numparms );
 }
 
 /*
@@ -463,7 +463,7 @@ int idParser::ReadSourceToken( idToken* token )
 	
 	if( !idParser::scriptstack )
 	{
-		idLib::common->FatalError( "idParser::ReadSourceToken: not loaded" );
+		idLib::sys->FatalError( "idParser::ReadSourceToken: not loaded" );
 		return false;
 	}
 	changedScript = 0;
@@ -3582,7 +3582,7 @@ int idParser::LoadFile( const char* filename, bool OSPath )
 	
 	if( idParser::loaded )
 	{
-		idLib::common->FatalError( "idParser::loadFile: another source already loaded" );
+		idLib::sys->FatalError( "idParser::loadFile: another source already loaded" );
 		return false;
 	}
 	script = new( TAG_IDLIB_PARSER ) idLexer( filename, 0, OSPath );
@@ -3622,7 +3622,7 @@ int idParser::LoadMemory( const char* ptr, int length, const char* name )
 	
 	if( idParser::loaded )
 	{
-		idLib::common->FatalError( "idParser::loadMemory: another source already loaded" );
+		idLib::sys->FatalError( "idParser::loadMemory: another source already loaded" );
 		return false;
 	}
 	script = new( TAG_IDLIB_PARSER ) idLexer( ptr, length, name );

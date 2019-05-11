@@ -194,9 +194,9 @@ void idBase64_TestBase64()
 	idBase64 dest;
 	src = "Encode me in base64";
 	dest.Encode( src );
-	idLib::common->Printf( "%s -> %s\n", src.c_str(), dest.c_str() );
+	idLib::sys->Printf( "%s -> %s\n", src.c_str(), dest.c_str() );
 	dest.Decode( src );
-	idLib::common->Printf( "%s -> %s\n", dest.c_str(), src.c_str() );
+	idLib::sys->Printf( "%s -> %s\n", dest.c_str(), src.c_str() );
 	
 	idDict src_dict;
 	src_dict.SetFloat( "float", 0.5f );
@@ -205,7 +205,7 @@ void idBase64_TestBase64()
 	idFile_Memory src_fmem( "serialize_dict" );
 	src_dict.WriteToFileHandle( &src_fmem );
 	dest.Encode( ( const byte* )src_fmem.GetDataPtr(), src_fmem.Length() );
-	idLib::common->Printf( "idDict encoded to %s\n", dest.c_str() );
+	idLib::sys->Printf( "idDict encoded to %s\n", dest.c_str() );
 	
 	// now decode to another stream and build back
 	idFile_Memory dest_fmem( "build_back" );
@@ -213,7 +213,7 @@ void idBase64_TestBase64()
 	dest_fmem.MakeReadOnly();
 	idDict dest_dict;
 	dest_dict.ReadFromFileHandle( &dest_fmem );
-	idLib::common->Printf( "idDict reconstructed after base64 decode\n" );
+	idLib::sys->Printf( "idDict reconstructed after base64 decode\n" );
 	dest_dict.Print();
 	
 	// test idDict read from file - from python generated files, see idDict.py
@@ -223,14 +223,14 @@ void idBase64_TestBase64()
 		idDict test_dict;
 		test_dict.ReadFromFileHandle( file );
 		//
-		idLib::common->Printf( "read idDict.test:\n" );
+		idLib::sys->Printf( "read idDict.test:\n" );
 		test_dict.Print();
 		idLib::fileSystem->CloseFile( file );
 		file = nullptr;
 	}
 	else
 	{
-		idLib::common->Printf( "idDict.test not found\n" );
+		idLib::sys->Printf( "idDict.test not found\n" );
 	}
 	
 	idBase64 base64_src;
@@ -238,19 +238,19 @@ void idBase64_TestBase64()
 	if( idLib::fileSystem->ReadFile( "idDict.base64.test", &buffer ) != -1 )
 	{
 		idFile_Memory mem_src( "dict" );
-		idLib::common->Printf( "read: %d %s\n", idStr::Length( ( char* )buffer ), buffer );
+		idLib::sys->Printf( "read: %d %s\n", idStr::Length( ( char* )buffer ), buffer );
 		base64_src = ( char* )buffer;
 		base64_src.Decode( &mem_src );
 		mem_src.MakeReadOnly();
 		idDict test_dict;
 		test_dict.ReadFromFileHandle( &mem_src );
-		idLib::common->Printf( "read idDict.base64.test:\n" );
+		idLib::sys->Printf( "read idDict.base64.test:\n" );
 		test_dict.Print();
 		idLib::fileSystem->FreeFile( buffer );
 	}
 	else
 	{
-		idLib::common->Printf( "idDict.base64.test not found\n" );
+		idLib::sys->Printf( "idDict.base64.test not found\n" );
 	}
 }
 

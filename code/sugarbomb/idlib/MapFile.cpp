@@ -1355,7 +1355,7 @@ bool idMapFile::Write( const char* fileName, const char* ext, bool fromBasePath 
 	qpath = fileName;
 	qpath.SetFileExtension( ext );
 	
-	idLib::common->Printf( "writing %s...\n", qpath.c_str() );
+	idLib::sys->Printf( "writing %s...\n", qpath.c_str() );
 	
 	if( fromBasePath )
 	{
@@ -1368,7 +1368,7 @@ bool idMapFile::Write( const char* fileName, const char* ext, bool fromBasePath 
 	
 	if( !fp )
 	{
-		idLib::common->Warning( "Couldn't open %s\n", qpath.c_str() );
+		idLib::sys->Warning( "Couldn't open %s\n", qpath.c_str() );
 		return false;
 	}
 	
@@ -1394,7 +1394,7 @@ bool idMapFile::WriteJSON( const char* fileName, const char* ext, bool fromBaseP
 	qpath = fileName;
 	qpath.SetFileExtension( ext );
 	
-	idLib::common->Printf( "writing %s...\n", qpath.c_str() );
+	idLib::sys->Printf( "writing %s...\n", qpath.c_str() );
 	
 	if( fromBasePath )
 	{
@@ -1407,7 +1407,7 @@ bool idMapFile::WriteJSON( const char* fileName, const char* ext, bool fromBaseP
 	
 	if( !fp )
 	{
-		idLib::common->Warning( "Couldn't open %s\n", qpath.c_str() );
+		idLib::sys->Warning( "Couldn't open %s\n", qpath.c_str() );
 		return false;
 	}
 	
@@ -1595,7 +1595,7 @@ void MapPolygonMesh::ConvertFromBrush( const idMapBrush* mapBrush, int entityNum
 		
 		if( !w.GetNumPoints() )
 		{
-			idLib::common->Printf( "Entity %i, Brush %i: base winding has no points\n", entityNum, primitiveNum );
+			idLib::sys->Printf( "Entity %i, Brush %i: base winding has no points\n", entityNum, primitiveNum );
 			badBrush = true;
 			break;
 		}
@@ -1611,7 +1611,7 @@ void MapPolygonMesh::ConvertFromBrush( const idMapBrush* mapBrush, int entityNum
 			{
 				// no intersection
 				//badBrush = true;
-				idLib::common->Printf( "Entity %i, Brush %i: no intersection with other brush plane\n", entityNum, primitiveNum );
+				idLib::sys->Printf( "Entity %i, Brush %i: no intersection with other brush plane\n", entityNum, primitiveNum );
 				//break;
 			}
 		}
@@ -1631,7 +1631,7 @@ void MapPolygonMesh::ConvertFromBrush( const idMapBrush* mapBrush, int entityNum
 	
 	if( badBrush )
 	{
-		//idLib::common->Error( "" )
+		//idLib::sys->Error( "" )
 		return;
 	}
 	
@@ -1684,7 +1684,7 @@ void MapPolygonMesh::ConvertFromBrush( const idMapBrush* mapBrush, int entityNum
 			
 			//if( dv->GetNormal().Length() < 0.9 || dv->GetNormal().Length() > 1.1 )
 			//{
-			//	idLib::common->Error( "Bad normal in TriListForSide" );
+			//	idLib::sys->Error( "Bad normal in TriListForSide" );
 			//}
 		}
 	}

@@ -276,7 +276,7 @@ int idWinding::Split( const idPlane& plane, const float epsilon, idWinding** fro
 	
 	if( f->numPoints > maxpts || b->numPoints > maxpts )
 	{
-		idLib::common->FatalError( "idWinding::Split: points exceeded estimate." );
+		idLib::sys->FatalError( "idWinding::Split: points exceeded estimate." );
 	}
 	
 	return SIDE_CROSS;
@@ -627,7 +627,7 @@ bool idWinding::Check( bool print ) const
 	{
 		if( print )
 		{
-			idLib::common->Printf( "idWinding::Check: only %i points.", numPoints );
+			idLib::sys->Printf( "idWinding::Check: only %i points.", numPoints );
 		}
 		return false;
 	}
@@ -637,7 +637,7 @@ bool idWinding::Check( bool print ) const
 	{
 		if( print )
 		{
-			idLib::common->Printf( "idWinding::Check: tiny area: %f", area );
+			idLib::sys->Printf( "idWinding::Check: tiny area: %f", area );
 		}
 		return false;
 	}
@@ -655,7 +655,7 @@ bool idWinding::Check( bool print ) const
 			{
 				if( print )
 				{
-					idLib::common->Printf( "idWinding::Check: point %d outside world %c-axis: %f", i, 'X' + j, p1[j] );
+					idLib::sys->Printf( "idWinding::Check: point %d outside world %c-axis: %f", i, 'X' + j, p1[j] );
 				}
 				return false;
 			}
@@ -669,7 +669,7 @@ bool idWinding::Check( bool print ) const
 		{
 			if( print )
 			{
-				idLib::common->Printf( "idWinding::Check: point %d off plane.", i );
+				idLib::sys->Printf( "idWinding::Check: point %d off plane.", i );
 			}
 			return false;
 		}
@@ -682,7 +682,7 @@ bool idWinding::Check( bool print ) const
 		{
 			if( print )
 			{
-				idLib::common->Printf( "idWinding::Check: edge %d is degenerate.", i );
+				idLib::sys->Printf( "idWinding::Check: edge %d is degenerate.", i );
 			}
 			return false;
 		}
@@ -705,7 +705,7 @@ bool idWinding::Check( bool print ) const
 			{
 				if( print )
 				{
-					idLib::common->Printf( "idWinding::Check: non-convex." );
+					idLib::sys->Printf( "idWinding::Check: non-convex." );
 				}
 				return false;
 			}
@@ -1317,7 +1317,7 @@ void idWinding::RemovePoint( int point )
 {
 	if( point < 0 || point >= numPoints )
 	{
-		idLib::common->FatalError( "idWinding::removePoint: point out of range" );
+		idLib::sys->FatalError( "idWinding::removePoint: point out of range" );
 	}
 	if( point < numPoints - 1 )
 	{
@@ -1337,12 +1337,12 @@ void idWinding::InsertPoint( const idVec5& point, int spot )
 	
 	if( spot > numPoints )
 	{
-		idLib::common->FatalError( "idWinding::insertPoint: spot > numPoints" );
+		idLib::sys->FatalError( "idWinding::insertPoint: spot > numPoints" );
 	}
 	
 	if( spot < 0 )
 	{
-		idLib::common->FatalError( "idWinding::insertPoint: spot < 0" );
+		idLib::sys->FatalError( "idWinding::insertPoint: spot < 0" );
 	}
 	
 	EnsureAlloced( numPoints + 1, true );
@@ -1543,7 +1543,7 @@ void idWinding::Print() const
 	
 	for( i = 0; i < numPoints; i++ )
 	{
-		idLib::common->Printf( "(%5.1f, %5.1f, %5.1f)\n", p[i][0], p[i][1], p[i][2] );
+		idLib::sys->Printf( "(%5.1f, %5.1f, %5.1f)\n", p[i][0], p[i][1], p[i][2] );
 	}
 }
 
@@ -1805,7 +1805,7 @@ bool idFixedWinding::ReAllocate( int n, bool keep )
 	
 	if( n > MAX_POINTS_ON_WINDING )
 	{
-		idLib::common->Printf( "WARNING: idFixedWinding -> MAX_POINTS_ON_WINDING overflowed\n" );
+		idLib::sys->Printf( "WARNING: idFixedWinding -> MAX_POINTS_ON_WINDING overflowed\n" );
 		return false;
 	}
 	return true;

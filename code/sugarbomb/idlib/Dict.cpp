@@ -167,7 +167,7 @@ void idDict::TransferKeyValues( idDict& other )
 	
 	if( other.args.Num() && other.args[0].key->GetPool() != &globalKeys )
 	{
-		idLib::common->FatalError( "idDict::TransferKeyValues: can't transfer values across a DLL boundary" );
+		idLib::sys->FatalError( "idDict::TransferKeyValues: can't transfer values across a DLL boundary" );
 		return;
 	}
 	
@@ -286,7 +286,7 @@ void idDict::Print() const
 	n = args.Num();
 	for( i = 0; i < n; i++ )
 	{
-		idLib::common->Printf( "%s = %s\n", args[i].GetKey().c_str(), args[i].GetValue().c_str() );
+		idLib::sys->Printf( "%s = %s\n", args[i].GetKey().c_str(), args[i].GetValue().c_str() );
 	}
 }
 
@@ -590,7 +590,7 @@ static void WriteString( const char* s, idFile* f )
 	int	len = strlen( s );
 	if( len >= MAX_STRING_CHARS - 1 )
 	{
-		idLib::common->Error( "idDict::WriteToFileHandle: bad string" );
+		idLib::sys->Error( "idDict::WriteToFileHandle: bad string" );
 	}
 	f->Write( s, strlen( s ) + 1 );
 }
@@ -606,7 +606,7 @@ const idKeyValue* idDict::FindKey( const char* key ) const
 	
 	if( key == nullptr || key[0] == '\0' )
 	{
-		idLib::common->DWarning( "idDict::FindKey: empty key" );
+		idLib::sys->DWarning( "idDict::FindKey: empty key" );
 		return nullptr;
 	}
 	
@@ -632,7 +632,7 @@ int idDict::FindKeyIndex( const char* key ) const
 
 	if( key == nullptr || key[0] == '\0' )
 	{
-		idLib::common->DWarning( "idDict::FindKeyIndex: empty key" );
+		idLib::sys->DWarning( "idDict::FindKeyIndex: empty key" );
 		return 0;
 	}
 	
@@ -795,7 +795,7 @@ static idStr ReadString( idFile* f )
 	}
 	if( len == MAX_STRING_CHARS )
 	{
-		idLib::common->Error( "idDict::ReadFromFileHandle: bad string" );
+		idLib::sys->Error( "idDict::ReadFromFileHandle: bad string" );
 	}
 	
 	return idStr( str );
@@ -1086,8 +1086,8 @@ idDict::ShowMemoryUsage_f
 */
 void idDict::ShowMemoryUsage_f( const idCmdArgs& args )
 {
-	idLib::common->Printf( "%5d KB in %d keys\n", globalKeys.Size() >> 10, globalKeys.Num() );
-	idLib::common->Printf( "%5d KB in %d values\n", globalValues.Size() >> 10, globalValues.Num() );
+	idLib::sys->Printf( "%5d KB in %d keys\n", globalKeys.Size() >> 10, globalKeys.Num() );
+	idLib::sys->Printf( "%5d KB in %d values\n", globalValues.Size() >> 10, globalValues.Num() );
 }
 
 /*
@@ -1106,9 +1106,9 @@ void idDict::ListKeys_f( const idCmdArgs& args )
 	//}
 	//keyStrings.SortWithTemplate( idSort_PoolStrPtr() );
 	//for ( i = 0; i < keyStrings.Num(); i++ ) {
-	//	idLib::common->Printf( "%s\n", keyStrings[i]->c_str() );
+	//	idLib::sys->Printf( "%s\n", keyStrings[i]->c_str() );
 	//}
-	//idLib::common->Printf( "%5d keys\n", keyStrings.Num() );
+	//idLib::sys->Printf( "%5d keys\n", keyStrings.Num() );
 }
 
 /*
@@ -1127,9 +1127,9 @@ void idDict::ListValues_f( const idCmdArgs& args )
 	//}
 	//valueStrings.SortWithTemplate( idSort_PoolStrPtr() );
 	//for ( i = 0; i < valueStrings.Num(); i++ ) {
-	//	idLib::common->Printf( "%s\n", valueStrings[i]->c_str() );
+	//	idLib::sys->Printf( "%s\n", valueStrings[i]->c_str() );
 	//}
-	//idLib::common->Printf( "%5d values\n", valueStrings.Num() );
+	//idLib::sys->Printf( "%5d values\n", valueStrings.Num() );
 }
 
 //} // namespace BFG

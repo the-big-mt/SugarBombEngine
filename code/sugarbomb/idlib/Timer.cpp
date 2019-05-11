@@ -178,15 +178,15 @@ idTimerReport::PrintReport
 void idTimerReport::PrintReport()
 {
 	assert( timers.Num() == names.Num() );
-	idLib::common->Printf( "Timing Report for %s\n", reportName.c_str() );
-	idLib::common->Printf( "-------------------------------\n" );
+	idLib::sys->Printf( "Timing Report for %s\n", reportName.c_str() );
+	idLib::sys->Printf( "-------------------------------\n" );
 	float total = 0.0f;
 	for( int i = 0; i < names.Num(); i++ )
 	{
-		idLib::common->Printf( "%s consumed %5.2f seconds\n", names[i].c_str(), timers[i]->Milliseconds() * 0.001f );
+		idLib::sys->Printf( "%s consumed %5.2f seconds\n", names[i].c_str(), timers[i]->Milliseconds() * 0.001f );
 		total += timers[i]->Milliseconds();
 	}
-	idLib::common->Printf( "Total time for report %s was %5.2f\n\n", reportName.c_str(), total * 0.001f );
+	idLib::sys->Printf( "Total time for report %s was %5.2f\n\n", reportName.c_str(), total * 0.001f );
 }
 
 //} // namespace BFG

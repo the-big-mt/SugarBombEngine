@@ -613,17 +613,17 @@ void idTraceModel::SetupCylinder( const idBounds& cylBounds, const int numSides 
 	}
 	if( n * 2 > MAX_TRACEMODEL_VERTS )
 	{
-		idLib::common->Printf( "WARNING: idTraceModel::SetupCylinder: too many vertices\n" );
+		idLib::sys->Printf( "WARNING: idTraceModel::SetupCylinder: too many vertices\n" );
 		n = MAX_TRACEMODEL_VERTS / 2;
 	}
 	if( n * 3 > MAX_TRACEMODEL_EDGES )
 	{
-		idLib::common->Printf( "WARNING: idTraceModel::SetupCylinder: too many sides\n" );
+		idLib::sys->Printf( "WARNING: idTraceModel::SetupCylinder: too many sides\n" );
 		n = MAX_TRACEMODEL_EDGES / 3;
 	}
 	if( n + 2 > MAX_TRACEMODEL_POLYS )
 	{
-		idLib::common->Printf( "WARNING: idTraceModel::SetupCylinder: too many polygons\n" );
+		idLib::sys->Printf( "WARNING: idTraceModel::SetupCylinder: too many polygons\n" );
 		n = MAX_TRACEMODEL_POLYS - 2;
 	}
 	
@@ -734,17 +734,17 @@ void idTraceModel::SetupCone( const idBounds& coneBounds, const int numSides )
 	}
 	if( n + 1 > MAX_TRACEMODEL_VERTS )
 	{
-		idLib::common->Printf( "WARNING: idTraceModel::SetupCone: too many vertices\n" );
+		idLib::sys->Printf( "WARNING: idTraceModel::SetupCone: too many vertices\n" );
 		n = MAX_TRACEMODEL_VERTS - 1;
 	}
 	if( n * 2 > MAX_TRACEMODEL_EDGES )
 	{
-		idLib::common->Printf( "WARNING: idTraceModel::SetupCone: too many edges\n" );
+		idLib::sys->Printf( "WARNING: idTraceModel::SetupCone: too many edges\n" );
 		n = MAX_TRACEMODEL_EDGES / 2;
 	}
 	if( n + 1 > MAX_TRACEMODEL_POLYS )
 	{
-		idLib::common->Printf( "WARNING: idTraceModel::SetupCone: too many polygons\n" );
+		idLib::sys->Printf( "WARNING: idTraceModel::SetupCone: too many polygons\n" );
 		n = MAX_TRACEMODEL_POLYS - 1;
 	}
 	
@@ -952,7 +952,7 @@ void idTraceModel::SetupPolygon( const idVec3* v, const int count )
 	// times three because we need to be able to turn the polygon into a volume
 	if( numVerts * 3 > MAX_TRACEMODEL_EDGES )
 	{
-		idLib::common->Printf( "WARNING: idTraceModel::SetupPolygon: too many vertices\n" );
+		idLib::sys->Printf( "WARNING: idTraceModel::SetupPolygon: too many vertices\n" );
 		numVerts = MAX_TRACEMODEL_EDGES / 3;
 	}
 	

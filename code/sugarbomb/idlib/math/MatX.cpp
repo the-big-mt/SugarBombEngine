@@ -5197,7 +5197,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::LowerTriangularInverse failed" );
+		idLib::sys->Warning( "idMatX::LowerTriangularInverse failed" );
 	}
 	
 	/*
@@ -5213,7 +5213,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::UpperTriangularInverse failed" );
+		idLib::sys->Warning( "idMatX::UpperTriangularInverse failed" );
 	}
 	
 	/*
@@ -5227,7 +5227,7 @@ void idMatX::Test()
 	
 	if( !m1.IsIdentity( 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::Inverse_GaussJordan failed" );
+		idLib::sys->Warning( "idMatX::Inverse_GaussJordan failed" );
 	}
 	
 	/*
@@ -5255,7 +5255,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::Inverse_UpdateRankOne failed" );
+		idLib::sys->Warning( "idMatX::Inverse_UpdateRankOne failed" );
 	}
 	
 	/*
@@ -5286,7 +5286,7 @@ void idMatX::Test()
 		
 		if( !m1.Compare( m2, 1e-3f ) )
 		{
-			idLib::common->Warning( "idMatX::Inverse_UpdateRowColumn failed" );
+			idLib::sys->Warning( "idMatX::Inverse_UpdateRowColumn failed" );
 		}
 	}
 	
@@ -5316,7 +5316,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::Inverse_UpdateIncrement failed" );
+		idLib::sys->Warning( "idMatX::Inverse_UpdateIncrement failed" );
 	}
 	
 	/*
@@ -5351,7 +5351,7 @@ void idMatX::Test()
 		
 		if( !m1.Compare( m2, 1e-3f ) )
 		{
-			idLib::common->Warning( "idMatX::Inverse_UpdateDecrement failed" );
+			idLib::sys->Warning( "idMatX::Inverse_UpdateDecrement failed" );
 		}
 	}
 	
@@ -5367,7 +5367,7 @@ void idMatX::Test()
 	
 	if( !original.Compare( m1, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::LU_Factor failed" );
+		idLib::sys->Warning( "idMatX::LU_Factor failed" );
 	}
 	
 	/*
@@ -5399,7 +5399,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::LU_UpdateRankOne failed" );
+		idLib::sys->Warning( "idMatX::LU_UpdateRankOne failed" );
 	}
 	
 	/*
@@ -5434,7 +5434,7 @@ void idMatX::Test()
 		
 		if( !m1.Compare( m2, 1e-3f ) )
 		{
-			idLib::common->Warning( "idMatX::LU_UpdateRowColumn failed" );
+			idLib::sys->Warning( "idMatX::LU_UpdateRowColumn failed" );
 		}
 	}
 	
@@ -5468,7 +5468,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::LU_UpdateIncrement failed" );
+		idLib::sys->Warning( "idMatX::LU_UpdateIncrement failed" );
 	}
 	
 	/*
@@ -5513,7 +5513,7 @@ void idMatX::Test()
 		
 		if( !m1.Compare( m2, 1e-3f ) )
 		{
-			idLib::common->Warning( "idMatX::LU_UpdateDecrement failed" );
+			idLib::sys->Warning( "idMatX::LU_UpdateDecrement failed" );
 		}
 	}
 	
@@ -5529,7 +5529,7 @@ void idMatX::Test()
 	
 	if( !m1.IsIdentity( 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::LU_Inverse failed" );
+		idLib::sys->Warning( "idMatX::LU_Inverse failed" );
 	}
 	
 	/*
@@ -5547,7 +5547,7 @@ void idMatX::Test()
 	
 	if( !original.Compare( m1, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::QR_Factor failed" );
+		idLib::sys->Warning( "idMatX::QR_Factor failed" );
 	}
 	
 	/*
@@ -5582,7 +5582,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::QR_UpdateRankOne failed" );
+		idLib::sys->Warning( "idMatX::QR_UpdateRankOne failed" );
 	}
 	
 	/*
@@ -5620,7 +5620,7 @@ void idMatX::Test()
 		
 		if( !m1.Compare( m2, 1e-3f ) )
 		{
-			idLib::common->Warning( "idMatX::QR_UpdateRowColumn failed" );
+			idLib::sys->Warning( "idMatX::QR_UpdateRowColumn failed" );
 		}
 	}
 	
@@ -5657,7 +5657,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::QR_UpdateIncrement failed" );
+		idLib::sys->Warning( "idMatX::QR_UpdateIncrement failed" );
 	}
 	
 	/*
@@ -5699,7 +5699,7 @@ void idMatX::Test()
 		
 		if( !m1.Compare( m2, 1e-3f ) )
 		{
-			idLib::common->Warning( "idMatX::QR_UpdateDecrement failed" );
+			idLib::sys->Warning( "idMatX::QR_UpdateDecrement failed" );
 		}
 	}
 	
@@ -5715,7 +5715,7 @@ void idMatX::Test()
 	
 	if( !m1.IsIdentity( 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::QR_Inverse failed" );
+		idLib::sys->Warning( "idMatX::QR_Inverse failed" );
 	}
 	
 	/*
@@ -5733,7 +5733,7 @@ void idMatX::Test()
 	
 	if( !original.Compare( m1, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::SVD_Factor failed" );
+		idLib::sys->Warning( "idMatX::SVD_Factor failed" );
 	}
 	
 	/*
@@ -5748,7 +5748,7 @@ void idMatX::Test()
 	
 	if( !m1.IsIdentity( 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::SVD_Inverse failed" );
+		idLib::sys->Warning( "idMatX::SVD_Inverse failed" );
 	}
 	
 	/*
@@ -5762,7 +5762,7 @@ void idMatX::Test()
 	
 	if( !original.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::Cholesky_Factor failed" );
+		idLib::sys->Warning( "idMatX::Cholesky_Factor failed" );
 	}
 	
 	/*
@@ -5791,7 +5791,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::Cholesky_UpdateRankOne failed" );
+		idLib::sys->Warning( "idMatX::Cholesky_UpdateRankOne failed" );
 	}
 	
 	/*
@@ -5824,7 +5824,7 @@ void idMatX::Test()
 		
 		if( !m1.Compare( m2, 1e-3f ) )
 		{
-			idLib::common->Warning( "idMatX::Cholesky_UpdateRowColumn failed" );
+			idLib::sys->Warning( "idMatX::Cholesky_UpdateRowColumn failed" );
 		}
 	}
 	
@@ -5862,7 +5862,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::Cholesky_UpdateIncrement failed" );
+		idLib::sys->Warning( "idMatX::Cholesky_UpdateIncrement failed" );
 	}
 	
 	/*
@@ -5895,7 +5895,7 @@ void idMatX::Test()
 		
 		if( !m1.Compare( m2, 1e-3f ) )
 		{
-			idLib::common->Warning( "idMatX::Cholesky_UpdateDecrement failed" );
+			idLib::sys->Warning( "idMatX::Cholesky_UpdateDecrement failed" );
 		}
 	}
 	
@@ -5911,7 +5911,7 @@ void idMatX::Test()
 	
 	if( !m1.IsIdentity( 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::Cholesky_Inverse failed" );
+		idLib::sys->Warning( "idMatX::Cholesky_Inverse failed" );
 	}
 	
 	/*
@@ -5925,7 +5925,7 @@ void idMatX::Test()
 	
 	if( !original.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::LDLT_Factor failed" );
+		idLib::sys->Warning( "idMatX::LDLT_Factor failed" );
 	}
 	
 	m1.LDLT_UnpackFactors( m2, m3 );
@@ -5933,7 +5933,7 @@ void idMatX::Test()
 	
 	if( !original.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::LDLT_Factor failed" );
+		idLib::sys->Warning( "idMatX::LDLT_Factor failed" );
 	}
 	
 	/*
@@ -5962,7 +5962,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::LDLT_UpdateRankOne failed" );
+		idLib::sys->Warning( "idMatX::LDLT_UpdateRankOne failed" );
 	}
 	
 	/*
@@ -5993,7 +5993,7 @@ void idMatX::Test()
 		
 		if( !m1.Compare( m2, 1e-3f ) )
 		{
-			idLib::common->Warning( "idMatX::LDLT_UpdateRowColumn failed" );
+			idLib::sys->Warning( "idMatX::LDLT_UpdateRowColumn failed" );
 		}
 	}
 	
@@ -6031,7 +6031,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::LDLT_UpdateIncrement failed" );
+		idLib::sys->Warning( "idMatX::LDLT_UpdateIncrement failed" );
 	}
 	
 	/*
@@ -6064,7 +6064,7 @@ void idMatX::Test()
 		
 		if( !m1.Compare( m2, 1e-3f ) )
 		{
-			idLib::common->Warning( "idMatX::LDLT_UpdateDecrement failed" );
+			idLib::sys->Warning( "idMatX::LDLT_UpdateDecrement failed" );
 		}
 	}
 	
@@ -6080,7 +6080,7 @@ void idMatX::Test()
 	
 	if( !m1.IsIdentity( 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::LDLT_Inverse failed" );
+		idLib::sys->Warning( "idMatX::LDLT_Inverse failed" );
 	}
 	
 	/*
@@ -6107,7 +6107,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::Eigen_SolveSymmetricTriDiagonal failed" );
+		idLib::sys->Warning( "idMatX::Eigen_SolveSymmetricTriDiagonal failed" );
 	}
 	
 	/*
@@ -6133,7 +6133,7 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::Eigen_SolveSymmetric failed" );
+		idLib::sys->Warning( "idMatX::Eigen_SolveSymmetric failed" );
 	}
 	
 	/*
@@ -6160,6 +6160,6 @@ void idMatX::Test()
 	
 	if( !m1.Compare( m2, 1e-4f ) )
 	{
-		idLib::common->Warning( "idMatX::Eigen_Solve failed" );
+		idLib::sys->Warning( "idMatX::Eigen_Solve failed" );
 	}
 }

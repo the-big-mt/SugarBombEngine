@@ -53,11 +53,11 @@ void idSurface_Patch::SetSize( int patchWidth, int patchHeight )
 {
 	if( patchWidth < 1 || patchWidth > maxWidth )
 	{
-		idLib::common->FatalError( "idSurface_Patch::SetSize: invalid patchWidth" );
+		idLib::sys->FatalError( "idSurface_Patch::SetSize: invalid patchWidth" );
 	}
 	if( patchHeight < 1 || patchHeight > maxHeight )
 	{
-		idLib::common->FatalError( "idSurface_Patch::SetSize: invalid patchHeight" );
+		idLib::sys->FatalError( "idSurface_Patch::SetSize: invalid patchHeight" );
 	}
 	width = patchWidth;
 	height = patchHeight;
@@ -226,7 +226,7 @@ void idSurface_Patch::Collapse()
 	
 	if( !expanded )
 	{
-		idLib::common->FatalError( "idSurface_Patch::Collapse: patch not expanded" );
+		idLib::sys->FatalError( "idSurface_Patch::Collapse: patch not expanded" );
 	}
 	expanded = false;
 	if( width != maxWidth )
@@ -253,7 +253,7 @@ void idSurface_Patch::Expand()
 	
 	if( expanded )
 	{
-		idLib::common->FatalError( "idSurface_Patch::Expand: patch alread expanded" );
+		idLib::sys->FatalError( "idSurface_Patch::Expand: patch alread expanded" );
 	}
 	expanded = true;
 	verts.SetNum( maxWidth * maxHeight );
@@ -459,7 +459,7 @@ void idSurface_Patch::GenerateNormals()
 			}
 			if( count == 0 )
 			{
-				//idLib::common->Printf("bad normal\n");
+				//idLib::sys->Printf("bad normal\n");
 				count = 1;
 			}
 			sum.Normalize();

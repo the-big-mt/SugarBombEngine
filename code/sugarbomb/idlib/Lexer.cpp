@@ -269,11 +269,11 @@ void idLexer::Error( const char* str, ... )
 	
 	if( idLexer::flags & LEXFL_NOFATALERRORS )
 	{
-		idLib::common->Warning( "file %s, line %d: %s", idLexer::filename.c_str(), idLexer::line, text );
+		idLib::sys->Warning( "file %s, line %d: %s", idLexer::filename.c_str(), idLexer::line, text );
 	}
 	else
 	{
-		idLib::common->Error( "file %s, line %d: %s", idLexer::filename.c_str(), idLexer::line, text );
+		idLib::sys->Error( "file %s, line %d: %s", idLexer::filename.c_str(), idLexer::line, text );
 	}
 }
 
@@ -295,7 +295,7 @@ void idLexer::Warning( const char* str, ... )
 	va_start( ap, str );
 	std::vsprintf( text, str, ap );
 	va_end( ap );
-	idLib::common->Warning( "file %s, line %d: %s", idLexer::filename.c_str(), idLexer::line, text );
+	idLib::sys->Warning( "file %s, line %d: %s", idLexer::filename.c_str(), idLexer::line, text );
 }
 
 /*
@@ -1109,7 +1109,7 @@ int idLexer::ReadToken( idToken* token )
 	
 	if( !loaded )
 	{
-		idLib::common->Error( "idLexer::ReadToken: no file loaded" );
+		idLib::sys->Error( "idLexer::ReadToken: no file loaded" );
 		return 0;
 	}
 	
@@ -1525,7 +1525,7 @@ void idLexer::UnreadToken( const idToken* token )
 {
 	if( idLexer::tokenavailable )
 	{
-		idLib::common->FatalError( "idLexer::unreadToken, unread token twice\n" );
+		idLib::sys->FatalError( "idLexer::unreadToken, unread token twice\n" );
 	}
 	idLexer::token = *token;
 	idLexer::tokenavailable = 1;
@@ -2104,7 +2104,7 @@ int idLexer::LoadFile( const char* filename, bool OSPath )
 	
 	if( idLexer::loaded )
 	{
-		idLib::common->Error( "idLexer::LoadFile: another script already loaded" );
+		idLib::sys->Error( "idLexer::LoadFile: another script already loaded" );
 		return false;
 	}
 	
@@ -2163,7 +2163,7 @@ int idLexer::LoadMemory( const char* ptr, int length, const char* name, int star
 {
 	if( idLexer::loaded )
 	{
-		idLib::common->Error( "idLexer::LoadMemory: another script already loaded" );
+		idLib::sys->Error( "idLexer::LoadMemory: another script already loaded" );
 		return false;
 	}
 	idLexer::filename = name;

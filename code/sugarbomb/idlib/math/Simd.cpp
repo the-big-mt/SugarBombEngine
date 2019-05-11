@@ -96,19 +96,19 @@ void idSIMD::InitProcessor( const char* module, bool forceGeneric )
 	if( newProcessor != SIMDProcessor )
 	{
 		SIMDProcessor = newProcessor;
-		idLib::common->Printf( "%s using %s for SIMD processing\n", module, SIMDProcessor->GetName() );
+		idLib::sys->Printf( "%s using %s for SIMD processing\n", module, SIMDProcessor->GetName() );
 	}
 	
 	if( cpuid & CPUID_FTZ )
 	{
 		idLib::sys->FPU_SetFTZ( true );
-		idLib::common->Printf( "enabled Flush-To-Zero mode\n" );
+		idLib::sys->Printf( "enabled Flush-To-Zero mode\n" );
 	}
 	
 	if( cpuid & CPUID_DAZ )
 	{
 		idLib::sys->FPU_SetDAZ( true );
-		idLib::common->Printf( "enabled Denormals-Are-Zero mode\n" );
+		idLib::sys->Printf( "enabled Denormals-Are-Zero mode\n" );
 	}
 }
 
@@ -210,21 +210,21 @@ void PrintClocks( const char* string, int dataCount, int clocks, int otherClocks
 {
 	int i;
 	
-	idLib::common->Printf( string );
+	idLib::sys->Printf( string );
 	for( i = idStr::LengthWithoutColors( string ); i < 48; i++ )
 	{
-		idLib::common->Printf( " " );
+		idLib::sys->Printf( " " );
 	}
 	clocks -= baseClocks;
 	if( otherClocks && clocks )
 	{
 		otherClocks -= baseClocks;
 		float p = ( float )otherClocks / ( float )clocks;
-		idLib::common->Printf( "c = %4d, clcks = %5d, %.1fX\n", dataCount, clocks, p );
+		idLib::sys->Printf( "c = %4d, clcks = %5d, %.1fX\n", dataCount, clocks, p );
 	}
 	else
 	{
-		idLib::common->Printf( "c = %4d, clcks = %5d\n", dataCount, clocks );
+		idLib::sys->Printf( "c = %4d, clcks = %5d\n", dataCount, clocks );
 	}
 }
 
@@ -280,7 +280,7 @@ void TestMinMax()
 		indexes[i] = i;
 	}
 	
-	idLib::common->Printf( "====================================\n" );
+	idLib::sys->Printf( "====================================\n" );
 	
 	bestClocksGeneric = 0;
 	for( i = 0; i < NUMTESTS; i++ )
@@ -414,7 +414,7 @@ void TestMemcpy()
 		test0[i] = random.RandomInt( 255 );
 	}
 	
-	idLib::common->Printf( "====================================\n" );
+	idLib::sys->Printf( "====================================\n" );
 	
 	bestClocksGeneric = 0;
 	for( i = 0; i < NUMTESTS; i++ )
@@ -465,7 +465,7 @@ void TestMemset()
 	idRandom random( RANDOM_SEED );
 	j = 1 + random.RandomInt( 254 );
 	
-	idLib::common->Printf( "====================================\n" );
+	idLib::sys->Printf( "====================================\n" );
 	
 	bestClocksGeneric = 0;
 	for( i = 0; i < NUMTESTS; i++ )
@@ -966,7 +966,7 @@ void TestMath()
 	int i;
 	TIME_TYPE start, end, bestClocks;
 	
-	idLib::common->Printf( "====================================\n" );
+	idLib::sys->Printf( "====================================\n" );
 	
 	float tst = -1.0f;
 	float tst2 = 1.0f;
@@ -1302,7 +1302,7 @@ void TestMath()
 	}
 	PrintClocks( "  idMath::Log16( tst )", 1, bestClocks );
 	
-	idLib::common->Printf( "testvar = %f\n", testvar );
+	idLib::sys->Printf( "testvar = %f\n", testvar );
 	
 	idMat3 resultMat3;
 	idQuat fromQuat, toQuat, resultQuat;
@@ -1394,7 +1394,7 @@ void idSIMD::Test_f( const idCmdArgs& args )
 		{
 			if( !( cpuid & CPUID_MMX ) || !( cpuid & CPUID_SSE ) )
 			{
-				idLib::common->Printf( "CPU does not support MMX & SSE\n" );
+				idLib::sys->Printf( "CPU does not support MMX & SSE\n" );
 				return;
 			}
 			p_simd = new( TAG_MATH ) idSIMD_SSE;
@@ -1402,14 +1402,14 @@ void idSIMD::Test_f( const idCmdArgs& args )
 		else
 #endif
 		{
-			idLib::common->Printf( "invalid argument, use: MMX, 3DNow, SSE, SSE2, SSE3, AltiVec\n" );
+			idLib::sys->Printf( "invalid argument, use: MMX, 3DNow, SSE, SSE2, SSE3, AltiVec\n" );
 			return;
 		}
 	}
 	
 	idLib::common->SetRefreshOnPrint( true );
 	
-	idLib::common->Printf( "using %s for SIMD processing\n", p_simd->GetName() );
+	idLib::sys->Printf( "using %s for SIMD processing\n", p_simd->GetName() );
 	
 	GetBaseClocks();
 	
@@ -1418,7 +1418,7 @@ void idSIMD::Test_f( const idCmdArgs& args )
 	TestMemcpy();
 	TestMemset();
 	
-	idLib::common->Printf( "====================================\n" );
+	idLib::sys->Printf( "====================================\n" );
 	
 	TestBlendJoints();
 	TestBlendJointsFast();
@@ -1427,7 +1427,7 @@ void idSIMD::Test_f( const idCmdArgs& args )
 	TestTransformJoints();
 	TestUntransformJoints();
 	
-	idLib::common->Printf( "====================================\n" );
+	idLib::sys->Printf( "====================================\n" );
 	
 	idLib::common->SetRefreshOnPrint( false );
 	

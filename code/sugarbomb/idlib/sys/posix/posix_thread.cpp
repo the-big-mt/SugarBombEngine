@@ -73,7 +73,7 @@ static int Sys_SetThreadName( pthread_t handle, const char* name )
 	
 	ret = pthread_setname_np( handle, name );
 	if( ret != 0 )
-		idLib::common->Printf( "Setting threadname \"%s\" failed, reason: %s (%i)\n", name, strerror( errno ), errno );
+		idLib::sys->Printf( "Setting threadname \"%s\" failed, reason: %s (%i)\n", name, strerror( errno ), errno );
 #elif defined(__FreeBSD__)
 	// according to http://www.freebsd.org/cgi/man.cgi?query=pthread_set_name_np&sektion=3
 	// the interface is void pthread_set_name_np(pthread_t tid, const char *name);
@@ -96,7 +96,7 @@ static int Sys_GetThreadName( pthread_t handle, char* namebuf, size_t buflen )
 #ifdef __linux__
 	ret = pthread_getname_np( handle, namebuf, buflen );
 	if( ret != 0 )
-		idLib::common->Printf( "Getting threadname failed, reason: %s (%i)\n", strerror( errno ), errno );
+		idLib::sys->Printf( "Getting threadname failed, reason: %s (%i)\n", strerror( errno ), errno );
 #elif defined(__FreeBSD__)
 	// seems like there is no pthread_getname_np equivalent on FreeBSD
 	idStr::snPrintf( namebuf, buflen, "Can't read threadname on this platform!" );
@@ -124,21 +124,21 @@ uintptr_t Sys_CreateThread( xthread_t function, void* parms, xthreadPriority pri
 	
 	if( pthread_attr_setdetachstate( &attr, PTHREAD_CREATE_JOINABLE ) != 0 )
 	{
-		idLib::common->FatalError( "ERROR: pthread_attr_setdetachstate %s failed\n", name );
+		idLib::sys->FatalError( "ERROR: pthread_attr_setdetachstate %s failed\n", name );
 		return ( uintptr_t )0;
 	}
 	
 	pthread_t handle;
 	if( pthread_create( ( pthread_t* )&handle, &attr, ( pthread_function_t )function, parms ) != 0 )
 	{
-		idLib::common->FatalError( "ERROR: pthread_create %s failed\n", name );
+		idLib::sys->FatalError( "ERROR: pthread_create %s failed\n", name );
 		return ( uintptr_t )0;
 	}
 	
 #if defined(DEBUG_THREADS)
 	if( Sys_SetThreadName( handle, name ) != 0 )
 	{
-		idLib::common->Warning( "Warning: pthread_setname_np %s failed\n", name );
+		idLib::sys->Warning( "Warning: pthread_setname_np %s failed\n", name );
 		return ( uintptr_t )0;
 	}
 #endif
@@ -167,7 +167,7 @@ uintptr_t Sys_CreateThread( xthread_t function, void* parms, xthreadPriority pri
 	int error = pthread_getschedparam( handle, &schedulePolicy, &scheduleParam );
 	if( error != 0 )
 	{
-		idLib::common->FatalError( "ERROR: pthread_getschedparam %s failed: %s\n", name, strerror( error ) );
+		idLib::sys->FatalError( "ERROR: pthread_getschedparam %s failed: %s\n", name, strerror( error ) );
 		return ( uintptr_t )0;
 	}
 	
@@ -202,14 +202,14 @@ uintptr_t Sys_CreateThread( xthread_t function, void* parms, xthreadPriority pri
 	error = pthread_setschedparam( handle, schedulePolicy, &scheduleParam );
 	if( error != 0 )
 	{
-		idLib::common->FatalError( "ERROR: pthread_setschedparam( name = %s, policy = %i, priority = %i ) failed: %s\n", name, schedulePolicy, scheduleParam.__sched_priority, strerror( error ) );
+		idLib::sys->FatalError( "ERROR: pthread_setschedparam( name = %s, policy = %i, priority = %i ) failed: %s\n", name, schedulePolicy, scheduleParam.__sched_priority, strerror( error ) );
 		return ( uintptr_t )0;
 	}
 	
 	pthread_getschedparam( handle, &schedulePolicy, &scheduleParam );
 	if( error != 0 )
 	{
-		idLib::common->FatalError( "ERROR: pthread_getschedparam %s failed: %s\n", name, strerror( error ) );
+		idLib::sys->FatalError( "ERROR: pthread_getschedparam %s failed: %s\n", name, strerror( error ) );
 		return ( uintptr_t )0;
 	}
 #endif
@@ -259,13 +259,13 @@ void Sys_DestroyThread( uintptr_t threadHandle )
 #if 0 //!defined(__ANDROID__)
 	if( pthread_cancel( ( pthread_t )threadHandle ) != 0 )
 	{
-		idLib::common->FatalError( "ERROR: pthread_cancel %s failed\n", name );
+		idLib::sys->FatalError( "ERROR: pthread_cancel %s failed\n", name );
 	}
 #endif
 	
 	if( pthread_join( ( pthread_t )threadHandle, nullptr ) != 0 )
 	{
-		idLib::common->FatalError( "ERROR: pthread_join %s failed\n", name );
+		idLib::sys->FatalError( "ERROR: pthread_join %s failed\n", name );
 	}
 }
 

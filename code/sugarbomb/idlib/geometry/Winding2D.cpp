@@ -634,7 +634,7 @@ void idWinding2D::Print() const
 	
 	for( i = 0; i < numPoints; i++ )
 	{
-		idLib::common->Printf( "(%5.1f, %5.1f)\n", p[i][0], p[i][1] );
+		idLib::sys->Printf( "(%5.1f, %5.1f)\n", p[i][0], p[i][1] );
 	}
 }
 

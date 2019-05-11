@@ -224,7 +224,7 @@ void idLib::FatalError( const char* fmt, ... )
 	idStr::vsnPrintf( text, sizeof( text ), fmt, argptr );
 	va_end( argptr );
 	
-	common->FatalError( "%s", text );
+	sys->FatalError( "%s", text );
 }
 
 /*
@@ -241,7 +241,7 @@ void idLib::Error( const char* fmt, ... )
 	idStr::vsnPrintf( text, sizeof( text ), fmt, argptr );
 	va_end( argptr );
 	
-	common->Error( "%s", text );
+	sys->Error( "%s", text );
 }
 
 /*
@@ -258,7 +258,7 @@ void idLib::Warning( const char* fmt, ... )
 	idStr::vsnPrintf( text, sizeof( text ), fmt, argptr );
 	va_end( argptr );
 	
-	common->Warning( "%s", text );
+	sys->Warning( "%s", text );
 }
 
 /*
@@ -280,7 +280,7 @@ void idLib::WarningIf( const bool test, const char* fmt, ... )
 	idStr::vsnPrintf( text, sizeof( text ), fmt, argptr );
 	va_end( argptr );
 	
-	common->Warning( "%s", text );
+	sys->Warning( "%s", text );
 }
 
 /*
@@ -292,9 +292,9 @@ void idLib::Printf( const char* fmt, ... )
 {
 	va_list		argptr;
 	va_start( argptr, fmt );
-	if( common )
+	if( sys )
 	{
-		common->VPrintf( fmt, argptr );
+		sys->VPrintf( fmt, argptr );
 	}
 	va_end( argptr );
 }
@@ -313,7 +313,7 @@ void idLib::PrintfIf( const bool test, const char* fmt, ... )
 	
 	va_list		argptr;
 	va_start( argptr, fmt );
-	common->VPrintf( fmt, argptr );
+	sys->VPrintf( fmt, argptr );
 	va_end( argptr );
 }
 
