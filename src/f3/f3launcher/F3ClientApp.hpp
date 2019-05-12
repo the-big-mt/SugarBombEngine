@@ -10,6 +10,8 @@ namespace sbe
 struct ICommon;
 };
 
+struct idSoundSystem;
+
 namespace f3bfg
 {
 
@@ -22,6 +24,8 @@ private:
 	
 	void PostFrame() override;
 	
+	void LogicUpdate() override;
+	
 	void InitSoundSystem();
 	void ShutdownSoundSystem();
 	
@@ -29,6 +33,7 @@ private:
 	void ShutdownFrameworkModule();
 	
 	sbe::ICommon *mpCommon{nullptr};
+	idSoundSystem *soundSystem{nullptr};
 	
 	int soundDLL{0};
 	int frameworkDLL{0};
