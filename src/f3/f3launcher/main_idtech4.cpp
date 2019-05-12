@@ -1,10 +1,10 @@
 /// @file
 
-#include "SbClientApp.hpp"
+#include "F3ClientApp.hpp"
 
 int main(int argc, const char **argv)
 {
-	SbClientApp App(argc, argv);
+	f3bfg::CClientApp App(argc, argv);
 	
 	App.Run();
 
