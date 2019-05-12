@@ -323,13 +323,13 @@ std::string OMW::Engine::loadSettings (Settings::Manager & settings)
 
 void OMW::Engine::createWindow(Settings::Manager& settings)
 {
-    int screen = settings.getInt("screen", "Video");
-    int width = settings.getInt("resolution x", "Video");
-    int height = settings.getInt("resolution y", "Video");
-    bool fullscreen = settings.getBool("fullscreen", "Video");
-    bool windowBorder = settings.getBool("window border", "Video");
-    bool vsync = settings.getBool("vsync", "Video");
-    int antialiasing = settings.getInt("antialiasing", "Video");
+    int screen = settings.getInt("iAdapter", "Display");
+    int width = settings.getInt("iSize W", "Display");
+    int height = settings.getInt("iSize H", "Display");
+    bool fullscreen = settings.getBool("bFull Screen", "Display");
+    bool windowBorder = settings.getBool("window border", "Display");
+    bool vsync = settings.getBool("vsync", "Display"); // TODO: iPresentInterval
+    int antialiasing = settings.getInt("antialiasing", "Display"); // TODO: iMultiSample
 
     int pos_x = SDL_WINDOWPOS_CENTERED_DISPLAY(screen),
         pos_y = SDL_WINDOWPOS_CENTERED_DISPLAY(screen);
@@ -348,7 +348,7 @@ void OMW::Engine::createWindow(Settings::Manager& settings)
         flags |= SDL_WINDOW_BORDERLESS;
 
     SDL_SetHint(SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS,
-                settings.getBool("minimize on focus loss", "Video") ? "1" : "0");
+                settings.getBool("minimize on focus loss", "Display") ? "1" : "0");
 
     checkSDLError(SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8));
     checkSDLError(SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8));
@@ -372,7 +372,7 @@ void OMW::Engine::createWindow(Settings::Manager& settings)
             {
                 Log(Debug::Warning) << "Warning: " << antialiasing << "x antialiasing not supported, trying " << antialiasing/2;
                 antialiasing /= 2;
-                Settings::Manager::setInt("antialiasing", "Video", antialiasing);
+                Settings::Manager::setInt("antialiasing", "Display", antialiasing);
                 checkSDLError(SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, antialiasing));
                 continue;
             }
@@ -466,7 +466,7 @@ void OMW::Engine::prepareEngine (Settings::Manager & settings)
         Settings::Manager::getString("texture mag filter", "General"),
         Settings::Manager::getString("texture min filter", "General"),
         Settings::Manager::getString("texture mipmap", "General"),
-        Settings::Manager::getInt("anisotropy", "General")
+        Settings::Manager::getInt("iMaxAnisotropy", "Display")
     );
 
     int numThreads = Settings::Manager::getInt("preload num threads", "Cells");
