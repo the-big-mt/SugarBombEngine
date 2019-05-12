@@ -58,6 +58,9 @@
 
 #include "mwstate/statemanagerimp.hpp"
 
+namespace OMW
+{
+
 namespace
 {
     void checkSDLError(int ret)
@@ -67,7 +70,7 @@ namespace
     }
 }
 
-void OMW::Engine::executeLocalScripts()
+void Engine::executeLocalScripts()
 {
     MWWorld::LocalScripts& localScripts = mEnvironment.getWorld()->getLocalScripts();
 
@@ -81,7 +84,7 @@ void OMW::Engine::executeLocalScripts()
     }
 }
 
-bool OMW::Engine::frame(float frametime)
+bool Engine::frame(float frametime)
 {
     try
     {
@@ -196,7 +199,7 @@ bool OMW::Engine::frame(float frametime)
     return true;
 }
 
-OMW::Engine::Engine(Files::ConfigurationManager& configurationManager)
+Engine::Engine(Files::ConfigurationManager& configurationManager)
   : mWindow(nullptr)
   , mEncoding(ToUTF8::WINDOWS_1252)
   , mEncoder(nullptr)
@@ -232,7 +235,7 @@ OMW::Engine::Engine(Files::ConfigurationManager& configurationManager)
     mStartTick = osg::Timer::instance()->tick();
 }
 
-OMW::Engine::~Engine()
+Engine::~Engine()
 {
     mEnvironment.cleanup();
 
@@ -254,52 +257,52 @@ OMW::Engine::~Engine()
     SDL_Quit();
 }
 
-void OMW::Engine::enableFSStrict(bool fsStrict)
+void Engine::enableFSStrict(bool fsStrict)
 {
     mFSStrict = fsStrict;
 }
 
 // Set data dir
 
-void OMW::Engine::setDataDirs (const Files::PathContainer& dataDirs)
+void Engine::setDataDirs (const Files::PathContainer& dataDirs)
 {
     mDataDirs = dataDirs;
     mFileCollections = Files::Collections (dataDirs, !mFSStrict);
 }
 
 // Add BSA archive
-void OMW::Engine::addArchive (const std::string& archive) {
+void Engine::addArchive (const std::string& archive) {
     mArchives.push_back(archive);
 }
 
-void OMW::Engine::addTES4Archive (const std::string& archive) {
+void Engine::addTES4Archive (const std::string& archive) {
     mTES4Archives.push_back(archive);
 }
 
 // Set resource dir
-void OMW::Engine::setResourceDir (const boost::filesystem::path& parResDir)
+void Engine::setResourceDir (const boost::filesystem::path& parResDir)
 {
     mResDir = parResDir;
 }
 
 // Set start cell name
-void OMW::Engine::setCell (const std::string& cellName)
+void Engine::setCell (const std::string& cellName)
 {
     mCellName = cellName;
 }
 
-void OMW::Engine::addContentFile(const std::string& file)
+void Engine::addContentFile(const std::string& file)
 {
     mContentFiles.push_back(file);
 }
 
-void OMW::Engine::setSkipMenu (bool skipMenu, bool newGame)
+void Engine::setSkipMenu (bool skipMenu, bool newGame)
 {
     mSkipMenu = skipMenu;
     mNewGame = newGame;
 }
 
-std::string OMW::Engine::loadSettings (Settings::Manager & settings)
+std::string Engine::loadSettings (Settings::Manager & settings)
 {
     // Create the settings manager and load default settings file
     const std::string localdefault = (mCfgMgr.getLocalPath() / "settings-default.cfg").string();
@@ -321,7 +324,7 @@ std::string OMW::Engine::loadSettings (Settings::Manager & settings)
     return settingspath;
 }
 
-void OMW::Engine::createWindow(Settings::Manager& settings)
+void Engine::createWindow(Settings::Manager& settings)
 {
     int screen = settings.getInt("iAdapter", "Display");
     int width = settings.getInt("iSize W", "Display");
@@ -420,7 +423,7 @@ void OMW::Engine::createWindow(Settings::Manager& settings)
     mViewer->getEventQueue()->getCurrentEventState()->setWindowRectangle(0, 0, width, height);
 }
 
-void OMW::Engine::setWindowIcon()
+void Engine::setWindowIcon()
 {
     boost::filesystem::ifstream windowIconStream;
     std::string windowIcon = (mResDir / "mygui" / "openmw.png").string();
@@ -444,7 +447,7 @@ void OMW::Engine::setWindowIcon()
     }
 }
 
-void OMW::Engine::prepareEngine (Settings::Manager & settings)
+void Engine::prepareEngine (Settings::Manager & settings)
 {
     mEnvironment.setStateManager (
         new MWState::StateManager (mCfgMgr.getUserDataPath() / "saves", mContentFiles.at (0)));
@@ -638,7 +641,7 @@ private:
 
 // Initialise and enter main loop.
 
-void OMW::Engine::go()
+void Engine::go()
 {
     assert (!mContentFiles.empty());
 
@@ -747,67 +750,69 @@ void OMW::Engine::go()
     Log(Debug::Info) << "Quitting peacefully.";
 }
 
-void OMW::Engine::setCompileAll (bool all)
+void Engine::setCompileAll (bool all)
 {
     mCompileAll = all;
 }
 
-void OMW::Engine::setCompileAllDialogue (bool all)
+void Engine::setCompileAllDialogue (bool all)
 {
     mCompileAllDialogue = all;
 }
 
-void OMW::Engine::setSoundUsage(bool soundUsage)
+void Engine::setSoundUsage(bool soundUsage)
 {
     mUseSound = soundUsage;
 }
 
-void OMW::Engine::setEncoding(const ToUTF8::FromType& encoding)
+void Engine::setEncoding(const ToUTF8::FromType& encoding)
 {
     mEncoding = encoding;
 }
 
-void OMW::Engine::setFallbackValues(std::map<std::string,std::string> fallbackMap)
+void Engine::setFallbackValues(std::map<std::string,std::string> fallbackMap)
 {
     mFallbackMap = fallbackMap;
 }
 
-void OMW::Engine::setScriptConsoleMode (bool enabled)
+void Engine::setScriptConsoleMode (bool enabled)
 {
     mScriptConsoleMode = enabled;
 }
 
-void OMW::Engine::setStartupScript (const std::string& path)
+void Engine::setStartupScript (const std::string& path)
 {
     mStartupScript = path;
 }
 
-void OMW::Engine::setActivationDistanceOverride (int distance)
+void Engine::setActivationDistanceOverride (int distance)
 {
     mActivationDistanceOverride = distance;
 }
 
-void OMW::Engine::setWarningsMode (int mode)
+void Engine::setWarningsMode (int mode)
 {
     mWarningsMode = mode;
 }
 
-void OMW::Engine::setScriptBlacklist (const std::vector<std::string>& list)
+void Engine::setScriptBlacklist (const std::vector<std::string>& list)
 {
     mScriptBlacklist = list;
 }
 
-void OMW::Engine::setScriptBlacklistUse (bool use)
+void Engine::setScriptBlacklistUse (bool use)
 {
     mScriptBlacklistUse = use;
 }
 
-void OMW::Engine::enableFontExport(bool exportFonts)
+void Engine::enableFontExport(bool exportFonts)
 {
     mExportFonts = exportFonts;
 }
 
-void OMW::Engine::setSaveGameFile(const std::string &savegame)
+void Engine::setSaveGameFile(const std::string &savegame)
 {
     mSaveGameFile = savegame;
 }
+
+}; // namespace OMW
