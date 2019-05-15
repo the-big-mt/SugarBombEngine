@@ -3,6 +3,7 @@
 #pragma once
 
 #include <memory>
+#include <cstdint>
 
 namespace google_breakpad
 {
@@ -50,6 +51,10 @@ private:
 	
 	void InitSystemModule();
 	void ShutdownSystemModule();
+	
+	intptr_t DLL_Load(const char *asName);
+	void *DLL_GetProcAddress(intptr_t ahDLLHandle, const char *asProcName);
+	void DLL_Unload(intptr_t ahDLLHandle);
 	
 #ifdef USE_BREAKPAD
 #	ifdef _WIN32

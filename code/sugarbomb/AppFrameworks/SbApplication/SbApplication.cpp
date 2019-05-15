@@ -238,3 +238,82 @@ void SbApplication::ShutdownSystemModule()
 	};
 #endif
 };
+
+/*
+========================================================================
+
+DLL Loading
+
+========================================================================
+*/
+
+/*
+=====================
+Sys_DLL_Load
+=====================
+*/
+// RB: 64 bit fixes, changed int to intptr_t
+intptr_t SbApplication::DLL_Load( const char *dllName )
+{
+#ifdef _WIN32
+	HINSTANCE libHandle = LoadLibrary( dllName );
+	return (int)libHandle;
+#else
+	auto handle = dlopen( path, RTLD_NOW );
+	if( !handle )
+		printf( "dlopen '%s' failed: %s\n", path, dlerror() );
+	
+	return ( intptr_t )handle;
+#endif
+};
+
+/*
+=====================
+Sys_DLL_GetProcAddress
+=====================
+*/
+void *SbApplication::DLL_GetProcAddress( intptr_t dllHandle, const char *procName )
+{
+#ifdef _WIN32
+	// RB: added missing cast
+	return ( void* ) GetProcAddress( (HINSTANCE)dllHandle, procName );
+#else
+	const char* error;
+	void* ret = dlsym( ( void* )dllHandle, procName );
+	if( ( error = dlerror() ) != nullptr )
+		printf( "dlsym '%s' failed: %s\n", sym, error );
+	return ret;
+#endif
+};
+
+/*
+=====================
+Sys_DLL_Unload
+=====================
+*/
+void SbApplication::DLL_Unload( intptr_t dllHandle )
+{
+#ifdef _WIN32
+	if( !dllHandle )
+		return;
+	
+	if( FreeLibrary( (HINSTANCE)dllHandle ) == 0 )
+	{
+		int lastError = GetLastError();
+		LPVOID lpMsgBuf;
+		FormatMessage(
+			FORMAT_MESSAGE_ALLOCATE_BUFFER,
+		    nullptr,
+			lastError,
+			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+			(LPTSTR) &lpMsgBuf,
+			0,
+			nullptr 
+		);
+
+		//Sys_Error( "Sys_DLL_Unload: FreeLibrary failed - %s (%d)", lpMsgBuf, lastError );
+	};
+#else // if not _WIN32
+	dlclose( ( void* )handle );
+#endif // _WIN32
+};
