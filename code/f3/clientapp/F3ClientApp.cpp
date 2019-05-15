@@ -31,6 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 /// @file
 
 #include "F3ClientApp.hpp"
+#include "framework/IGameFramework.hpp"
 
 namespace f3bfg
 {
@@ -50,7 +51,7 @@ void CClientApp::PostInit()
 	
 	InitFrameworkModule();
 	
-	mpCommon->Init(0, nullptr, lpCmdLine);
+	mpFramework->Init(0, nullptr, lpCmdLine);
 	
 #if TEST_FPU_EXCEPTIONS != 0
 	mpCommon->Printf(Sys_FPU_GetState());
@@ -60,7 +61,7 @@ void CClientApp::PostInit()
 void CClientApp::PostFrame()
 {
 	// run the game
-	mpCommon->Frame();
+	mpFramework->Frame();
 };
 
 bool CClientApp::PreLogicUpdate()
@@ -79,7 +80,7 @@ void CClientApp::Shutdown()
 	printf( "soundSystem->StopAllSounds();\n" );
 	soundSystem->StopAllSounds();
 	
-	mpCommon->Shutdown();
+	mpFramework->Shutdown();
 	
 	// shut down the sound system
 	printf( "soundSystem->Shutdown();\n" );
@@ -233,13 +234,13 @@ void CClientApp::InitFrameworkModule()
 		return;
 	};
 	
-	mpCommon								= frameworkExport.common;
+	mpFramework								= frameworkExport.framework;
 	
 #endif
 	
 	// initialize the sound object
-	if( mpCommon != nullptr )
-		mpCommon->Init();
+	if( mpFramework != nullptr )
+		mpFramework->Init();
 };
 
 /*
@@ -250,10 +251,10 @@ idCommonLocal::UnloadFrameworkModule
 void CClientApp::ShutdownFrameworkModule()
 {
 	// shut down the framework object
-	if( mpCommon != nullptr )
+	if( mpFramework != nullptr )
 	{
-		mpCommon->Shutdown();
-		mpCommon = nullptr;
+		mpFramework->Shutdown();
+		mpFramework = nullptr;
 	};
 	
 #ifndef SBE_SINGLE_BINARY

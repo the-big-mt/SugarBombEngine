@@ -7,7 +7,7 @@
 
 namespace sbe
 {
-struct ICommon;
+struct IGameFramework;
 };
 
 struct idSoundSystem;
@@ -32,7 +32,7 @@ private:
 	void InitFrameworkModule();
 	void ShutdownFrameworkModule();
 	
-	sbe::ICommon *mpCommon{nullptr};
+	sbe::IGameFramework *mpFramework{nullptr};
 	idSoundSystem *soundSystem{nullptr};
 	
 	int soundDLL{0};
