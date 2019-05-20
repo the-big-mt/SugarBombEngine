@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "SbInput/IInputSystem.hpp"
 
-struct idCommon;
+namespace sbe
+{
+struct ISys;
+};
 
-IInputSystem *CreateInputSystem(idCommon *apCommon);
+sbe::IInputSystem *CreateInputSystem(sbe::ISys *apSys);

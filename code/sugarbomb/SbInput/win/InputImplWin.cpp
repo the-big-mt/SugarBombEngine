@@ -42,7 +42,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/sys/sys_assert.h"
 #include "idlib/sys/sys_defines.h"
 
-#include "framework/ICommon.hpp"
+#include "sys/ISys.hpp"
+
 #include "framework/IUsercmdGen.hpp"
 
 //namespace sbe
@@ -54,14 +55,14 @@ constexpr auto DINPUT_BUFFERSIZE{256};
 
 static DIDEVICEOBJECTDATA polled_didod[DINPUT_BUFFERSIZE]; // Receives buffered data
 
-IInputSystem *CreateInputSystem(idCommon *apCommon, void *apWnd)
+sbe::IInputSystem *CreateInputSystem(sbe::ISys *apSys, void *apWnd)
 {
-	static SbInputImplWin InputSystem(apCommon, nullptr, reinterpret_cast<HWND>(apWnd)); // TODO: usercmdGen
+	static SbInputImplWin InputSystem(apSys, nullptr, reinterpret_cast<HWND>(apWnd)); // TODO: usercmdGen
 	return &InputSystem;
 };
 
-SbInputImplWin::SbInputImplWin(idCommon *apCommon, idUsercmdGen *apUserCmdGen, HWND ahWnd)
-	: mpCommon(apCommon), usercmdGen(apUserCmdGen), mhWnd(ahWnd){}
+SbInputImplWin::SbInputImplWin(sbe::ISys *apSys, idUsercmdGen *apUserCmdGen, HWND ahWnd)
+	: mpSys(apSys), usercmdGen(apUserCmdGen), mhWnd(ahWnd){}
 
 /*
 ===========
@@ -70,7 +71,7 @@ Sys_InitInput
 */
 void SbInputImplWin::Init()
 {
-	mpCommon->Printf( "\n------- Input Initialization -------\n" );
+	mpSys->Printf( "\n------- Input Initialization -------\n" );
 	InitDirectInput();
 
 	if( SbInputImplWin::in_mouse.GetBool() )
@@ -80,11 +81,11 @@ void SbInputImplWin::Init()
 		GrabMouseCursor( false );
 	}
 	else
-		mpCommon->Printf( "Mouse control not active.\n" );
+		mpSys->Printf( "Mouse control not active.\n" );
 
 	StartupKeyboard();
 	
-	mpCommon->Printf( "------------------------------------\n" );
+	mpSys->Printf( "------------------------------------\n" );
 	SbInputImplWin::in_mouse.ClearModified();
 	
 	g_Joystick.Init();
@@ -467,7 +468,7 @@ void SbInputImplWin::InitDirectInput()
 {
 	HRESULT		hr;
 	
-	mpCommon->Printf( "Initializing DirectInput...\n" );
+	mpSys->Printf( "Initializing DirectInput...\n" );
 	
 	if( g_pdi != nullptr )
 	{
@@ -479,7 +480,7 @@ void SbInputImplWin::InitDirectInput()
 	// to a IDirectInput interface we can use.
 	// Create the base DirectInput object
 	if( FAILED( hr = DirectInput8Create( GetModuleHandle( nullptr ), DIRECTINPUT_VERSION, IID_IDirectInput8, ( void** )&g_pdi, nullptr ) ) )
-		mpCommon->Printf( "DirectInputCreate failed\n" );
+		mpSys->Printf( "DirectInputCreate failed\n" );
 };
 
 /*
@@ -499,7 +500,7 @@ bool SbInputImplWin::InitDIMouse()
 	
 	if( FAILED( hr ) )
 	{
-		mpCommon->Printf( "mouse: Couldn't open DI mouse device\n" );
+		mpSys->Printf( "mouse: Couldn't open DI mouse device\n" );
 		return false;
 	};
 	
@@ -512,7 +513,7 @@ bool SbInputImplWin::InitDIMouse()
 	// DIMOUSESTATE2 structure to IDirectInputDevice::GetDeviceState.
 	if( FAILED( hr = g_pMouse->SetDataFormat( &c_dfDIMouse2 ) ) )
 	{
-		mpCommon->Printf( "mouse: Couldn't set DI mouse format\n" );
+		mpSys->Printf( "mouse: Couldn't set DI mouse format\n" );
 		return false;
 	};
 	
@@ -521,7 +522,7 @@ bool SbInputImplWin::InitDIMouse()
 	
 	if( FAILED( hr ) )
 	{
-		mpCommon->Printf( "mouse: Couldn't set DI coop level\n" );
+		mpSys->Printf( "mouse: Couldn't set DI coop level\n" );
 		return false;
 	};
 	
@@ -543,7 +544,7 @@ bool SbInputImplWin::InitDIMouse()
 	
 	if( FAILED( hr = g_pMouse->SetProperty( DIPROP_BUFFERSIZE, &dipdw.diph ) ) )
 	{
-		mpCommon->Printf( "mouse: Couldn't set DI buffersize\n" );
+		mpSys->Printf( "mouse: Couldn't set DI buffersize\n" );
 		return false;
 	};
 	
@@ -553,7 +554,7 @@ bool SbInputImplWin::InitDIMouse()
 	int	mouseEvents[MAX_MOUSE_EVENTS][2];
 	Sys_PollMouseInputEvents( mouseEvents );
 	
-	mpCommon->Printf( "mouse: DirectInput initialized.\n" );
+	mpSys->Printf( "mouse: DirectInput initialized.\n" );
 	return true;
 };
 
@@ -628,7 +629,7 @@ bool SbInputImplWin::StartupKeyboard()
 	
 	if( !g_pdi )
 	{
-		mpCommon->Printf( "keyboard: DirectInput has not been started\n" );
+		mpSys->Printf( "keyboard: DirectInput has not been started\n" );
 		return false;
 	};
 	
@@ -661,7 +662,7 @@ bool SbInputImplWin::StartupKeyboard()
 	// Obtain an interface to the system keyboard device.
 	if( FAILED( hr = g_pdi->CreateDevice( GUID_SysKeyboard, &g_pKeyboard, nullptr ) ) )
 	{
-		mpCommon->Printf( "keyboard: couldn't find a keyboard device\n" );
+		mpSys->Printf( "keyboard: couldn't find a keyboard device\n" );
 		return false;
 	};
 	
@@ -681,7 +682,7 @@ bool SbInputImplWin::StartupKeyboard()
 	hr = g_pKeyboard->SetCooperativeLevel( mhWnd, dwCoopFlags );
 	if( hr == DIERR_UNSUPPORTED && !bForeground && bExclusive )
 	{
-		mpCommon->Printf( "keyboard: SetCooperativeLevel() returned DIERR_UNSUPPORTED.\nFor security reasons, background exclusive keyboard access is not allowed.\n" );
+		mpSys->Printf( "keyboard: SetCooperativeLevel() returned DIERR_UNSUPPORTED.\nFor security reasons, background exclusive keyboard access is not allowed.\n" );
 		return false;
 	};
 	
@@ -714,7 +715,7 @@ bool SbInputImplWin::StartupKeyboard()
 	// Acquire the newly created device
 	g_pKeyboard->Acquire();
 	
-	mpCommon->Printf( "keyboard: DirectInput initialized.\n" );
+	mpSys->Printf( "keyboard: DirectInput initialized.\n" );
 	return true;
 };
 

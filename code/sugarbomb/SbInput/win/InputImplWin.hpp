@@ -43,7 +43,7 @@ struct idUsercmdGen;
 class SbInputImplWin final : public IInputSystem
 {
 public:
-	SbInputImplWin(idCommon *apCommon, idUsercmdGen *apUserCmdGen, HWND ahWnd);
+	SbInputImplWin(sbe::ISys *apSys, idUsercmdGen *apUserCmdGen, HWND ahWnd);
 	
 	void Init() override;
 	void Shutdown() override;
@@ -77,7 +77,7 @@ private:
 	
 	static idCVar in_mouse;
 	
-	idCommon *mpCommon{nullptr};
+	sbe::ISys *mpSys{nullptr};
 	idUsercmdGen *usercmdGen{nullptr};
 	
 	HWND mhWnd{nullptr};
