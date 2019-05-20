@@ -1,0 +1,4 @@
+add_subdirectory(clientapp)
+add_subdirectory(vaultmaster)
+add_subdirectory(vaultmpdll)
+add_subdirectory(vaultserver)
