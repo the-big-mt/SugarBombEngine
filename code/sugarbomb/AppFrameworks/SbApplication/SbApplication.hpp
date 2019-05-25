@@ -2,7 +2,8 @@
 
 #pragma once
 
-#include <memory>
+//#include <memory>
+
 #include <cstdint>
 
 namespace google_breakpad
