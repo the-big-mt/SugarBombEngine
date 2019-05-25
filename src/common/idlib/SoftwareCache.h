@@ -28,9 +28,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SOFTWARECACHE_H__
 #define __SOFTWARECACHE_H__
 
+//#include "../idlib/sys/sys_types.h"              // for uint32
+//#include "../idlib/sys/sys_intrinsics.h"         // for CACHE_LINE_SIZE, ::Prefetch, etc
+
 #ifdef _MSC_VER // DG: #pragma warning is MSVC specific
 #pragma warning( disable : 4324 )	// structure was padded due to __declspec(align())
 #endif
+
+//namespace BFG
+//{
+
 /*
 ================================================================================================
 
@@ -599,5 +606,6 @@ private:
 	}
 };
 
+//} // namespace BFG
 
 #endif // !__SOFTWARECACHE_H__

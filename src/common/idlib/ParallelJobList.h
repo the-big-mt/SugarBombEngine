@@ -28,6 +28,20 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __PARALLELJOBLIST_H__
 #define __PARALLELJOBLIST_H__
 
+/*
+#include <cstdio>                      // for NULL
+
+#include "../idlib/sys/sys_types.h"
+
+#ifdef _WIN32
+// KORTEMIK: namespace collision
+#undef AddJob
+#endif
+*/
+
+//namespace BFG
+//{
+
 struct CellSpursJob128;
 class idColor;
 
@@ -183,5 +197,7 @@ public:
 };
 
 #define REGISTER_PARALLEL_JOB( function, name )		static idParallelJobRegistration register_##function( (jobRun_t) function, name )
+
+//} // namespace BFG
 
 #endif // !__PARALLELJOBLIST_H__

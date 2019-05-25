@@ -29,6 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __LEXER_H__
 #define __LEXER_H__
 
+//#include "../idlib/Token.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -321,5 +326,6 @@ ID_INLINE int idLexer::GetFlags()
 	return idLexer::flags;
 }
 
-#endif /* !__LEXER_H__ */
+//} // namespace BFG
 
+#endif /* !__LEXER_H__ */

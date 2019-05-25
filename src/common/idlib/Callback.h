@@ -28,6 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __CALLBACK_H__
 #define __CALLBACK_H__
 
+//namespace BFG
+//{
+
 /*
 ================================================================================================
 This file defines a set of template functors for generating callbacks, specifically
@@ -184,6 +187,8 @@ ID_INLINE_EXTERN idCallbackBindMemArg1<T, A1> MakeCallback( T* t, void ( T::*f )
 {
 	return idCallbackBindMemArg1<T, A1>( t, f, a1 );
 }
+
+//} // namespace BFG
 
 #endif // __CALLBACK_H__
 

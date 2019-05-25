@@ -30,6 +30,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __PARSER_H__
 #define __PARSER_H__
 
+//#include "../idlib/Token.h"
+//#include "../idlib/Lexer.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -304,5 +310,7 @@ ID_INLINE const int idParser::GetLineNum() const
 		return 0;
 	}
 }
+
+//} // namespace BFG
 
 #endif /* !__PARSER_H__ */

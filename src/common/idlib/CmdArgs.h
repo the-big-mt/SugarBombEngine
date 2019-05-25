@@ -29,6 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __CMDARGS_H__
 #define __CMDARGS_H__
 
+//#include "../idlib/Lib.h"
+
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -85,5 +90,7 @@ private:
 	char* 					argv[MAX_COMMAND_ARGS];				// points into tokenized
 	char					tokenized[MAX_COMMAND_STRING];		// will have 0 bytes inserted
 };
+
+//} // namespace BFG
 
 #endif /* !__CMDARGS_H__ */

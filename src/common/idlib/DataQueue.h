@@ -1,6 +1,11 @@
 #ifndef DATAQUEUE_H
 #define DATAQUEUE_H
 
+//#include "../idlib/containers/StaticList.h"      // for idStaticList
+
+//namespace BFG
+//{
+
 template< int maxItems, int maxBuffer >
 class idDataQueue
 {
@@ -113,5 +118,7 @@ bool idDataQueue< maxItems, maxBuffer >::Append( int sequence, const byte* b1, i
 	dataLength += b2Len;
 	return true;
 }
+
+//} // namespace BFG
 
 #endif // DATAQUEUE_H
