@@ -18,7 +18,8 @@ namespace f3bfg
 class CClientApp final : public SbClientApp
 {
 public:
-	
+	CClientApp(int argc, const char * const *argv);
+	~CClientApp();
 private:
 	void PostInit() override;
 	

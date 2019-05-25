@@ -36,6 +36,10 @@ If you have questions concerning this license or the applicable additional terms
 namespace f3bfg
 {
 
+CClientApp::CClientApp(int argc, char **argv) : SbClientApp(argc, argv)
+{
+};
+
 CClientApp::~CClientApp()
 {
 	Shutdown();
