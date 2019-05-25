@@ -63,7 +63,7 @@ protected:
 	virtual void LogicUpdate(){}
 	virtual void PostLogicUpdate(){}
 	
-	virtual bool PreRender(){return true;}
+	virtual bool PreRender();
 	virtual void Render();
 	virtual void PostRender(){}
 };

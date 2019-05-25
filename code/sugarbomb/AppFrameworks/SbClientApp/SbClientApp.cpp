@@ -284,6 +284,11 @@ void SbClientApp::InputUpdate()
 	inputSystem->Frame();
 };
 
+bool SbClientApp::PreRender()
+{
+	return true;
+};
+
 void SbClientApp::Render()
 {
 	renderSystem->Frame();
