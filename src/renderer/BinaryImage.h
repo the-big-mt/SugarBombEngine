@@ -59,7 +59,7 @@ generation.
 class idBinaryImage
 {
 public:
-	idBinaryImage( const char* name ) : imgName( name ) { }
+	idBinaryImage( const char* name, idFileSystem *apFileSystem ) : imgName( name ), fileSystem(apFileSystem) { }
 	
 	const char* 		GetName() const
 	{
@@ -141,6 +141,8 @@ private:
 private:
 	void				MakeGeneratedFileName( idStr& gfn );
 	bool				LoadFromGeneratedFile( idFile* f, ID_TIME_T sourceFileTime );
+private:
+	idFileSystem *fileSystem{nullptr};
 };
 
 //} // namespace BFG

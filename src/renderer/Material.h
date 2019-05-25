@@ -388,7 +388,7 @@ typedef enum
 class idMaterial : public idDecl
 {
 public:
-	idMaterial();
+	idMaterial(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager, idSoundSystem *apSoundSystem, idUserInterfaceManager *apUserInterfaceManager);
 	virtual				~idMaterial();
 	
 	virtual size_t		Size() const;
@@ -939,6 +939,12 @@ private:
 	bool				suppressInSubview;
 	bool				portalSky;
 	int					refCount;
+private:
+	idCommon *common{nullptr};
+	idFileSystem *fileSystem{nullptr};
+	idDeclManager *declManager{nullptr};
+	idSoundSystem *soundSystem{nullptr};
+	idUserInterfaceManager *uiManager{nullptr};
 };
 
 typedef idList<const idMaterial*, TAG_MATERIAL> idMatList;

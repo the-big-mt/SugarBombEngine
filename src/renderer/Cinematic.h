@@ -75,6 +75,8 @@ typedef struct
 class idCinematic
 {
 public:
+	idCinematic(idDeclManager *apDeclManager) : declManager(apDeclManager){}
+	
 	// initialize cinematic play back data
 	static void			InitCinematic();
 	
@@ -113,6 +115,8 @@ public:
 	virtual void		ExportToTGA( bool skipExisting = true );
 	
 	virtual float		GetFrameRate() const;
+private:
+	idDeclManager *declManager{nullptr};
 };
 
 /*
@@ -127,7 +131,7 @@ class idSndWindow : public idCinematic
 {
 public:
 
-	idSndWindow()
+	idSndWindow(idDeclManager *apDeclManager, idSoundSystem *apSoundSystem) : idCinematic(apDeclManager), soundSystem(apSoundSystem)
 	{
 		showWaveform = false;
 	}
@@ -139,6 +143,8 @@ public:
 	
 private:
 	bool				showWaveform;
+private:
+	idSoundSystem *soundSystem{nullptr};
 };
 
 //} // namespace BFG

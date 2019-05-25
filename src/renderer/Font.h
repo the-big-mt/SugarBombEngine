@@ -50,7 +50,7 @@ struct scaledGlyphInfo_t
 class idFont
 {
 public:
-	idFont( const char* n );
+	idFont( const char* n, idFileSystem *apFileSystem, idDeclManager *apDeclManager );
 	~idFont();
 	
 	void Touch();
@@ -116,6 +116,9 @@ private:
 	
 	// If the font is NOT an alias, this is where the font data is located
 	fontInfo_t* fontInfo;
+private:
+	idFileSystem *fileSystem{nullptr};
+	idDeclManager *declManager{nullptr};
 };
 
 //} // namespace BFG

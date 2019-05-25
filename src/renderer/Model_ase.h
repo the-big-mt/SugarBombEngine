@@ -103,7 +103,7 @@ typedef struct aseModel_s
 } aseModel_t;
 
 
-aseModel_t* ASE_Load( const char* fileName );
+aseModel_t* ASE_Load( const char* fileName, idCommon *apCommon, idFileSystem *fileSystem );
 void		ASE_Free( aseModel_t* ase );
 
 //} // namespace BFG

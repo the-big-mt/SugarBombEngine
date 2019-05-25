@@ -159,7 +159,7 @@ typedef struct maModel_s
 	
 } maModel_t;
 
-maModel_t*	MA_Load( const char* fileName );
+maModel_t*	MA_Load( const char* fileName, idCommon *apCommon, idFileSystem *apFileSystem );
 void		MA_Free( maModel_t* ma );
 
 //} // namespace BFG

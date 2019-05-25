@@ -233,7 +233,7 @@ The alpha channel is taken to be the minimum of the dots of all surrounding norm
 */
 #define MIP_MIN(a,b) (a<b?a:b)
 
-byte* R_MipMapWithAlphaSpecularity( const byte* in, int width, int height )
+byte* R_MipMapWithAlphaSpecularity( idCommon *common, const byte* in, int width, int height )
 {
 	int		i, j, c, x, y, sx, sy;
 	const byte*	in_p;

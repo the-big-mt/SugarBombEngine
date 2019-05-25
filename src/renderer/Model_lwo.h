@@ -620,7 +620,7 @@ typedef struct st_lwObject
 
 /* lwo2.c */
 
-lwObject* lwGetObject( const char* filename, unsigned int* failID, int* failpos );
+lwObject* lwGetObject( const char* filename, unsigned int* failID, int* failpos, idFileSystem *fileSystem );
 void lwFreeObject( lwObject* object );
 void lwFreeLayer( lwLayer* layer );
 
@@ -682,7 +682,7 @@ lwSurface* lwDefaultSurface();
 
 lwSurface* lwGetSurface5( idFile* fp, int cksize, lwObject* obj );
 int lwGetPolygons5( idFile* fp, int cksize, lwPolygonList* plist, int ptoffset );
-lwObject* lwGetObject5( const char* filename, unsigned int* failID, int* failpos );
+lwObject* lwGetObject5( const char* filename, unsigned int* failID, int* failpos, idFileSystem *fileSystem );
 
 /* list.c */
 

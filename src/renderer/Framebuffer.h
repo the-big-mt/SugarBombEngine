@@ -57,10 +57,10 @@ class Framebuffer
 {
 public:
 
-	Framebuffer( const char* name, int width, int height );
+	Framebuffer( const char* name, int width, int height, idCommon *apCommon);
 	virtual ~Framebuffer();
 	
-	static void				Init();
+	static void				Init(idCommon *apCommon, idCmdSystem *cmdSystem);
 	static void				Shutdown();
 	
 	static void				CheckFramebuffers();
@@ -130,6 +130,8 @@ private:
 	bool					msaaSamples;
 	
 	static idList<Framebuffer*>	framebuffers;
+private:
+	idCommon *common{nullptr};
 };
 
 struct globalFramebuffers_t

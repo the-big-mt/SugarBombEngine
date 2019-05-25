@@ -98,7 +98,7 @@ struct overlay_t
 class idRenderModelOverlay
 {
 public:
-	idRenderModelOverlay();
+	idRenderModelOverlay(idCommon *apCommon, idDeclManager *apDeclManager);
 	~idRenderModelOverlay();
 	
 	void						ReUse();
@@ -129,6 +129,9 @@ private:
 	
 	void						CreateOverlay( const idRenderModel* model, const idPlane localTextureAxis[2], const idMaterial* material );
 	void						FreeOverlay( overlay_t& overlay );
+private:
+	idCommon *common{nullptr};
+	idDeclManager *declManager{nullptr};
 };
 
 //} // namespace BFG

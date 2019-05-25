@@ -64,7 +64,7 @@ public:
 	// the inherited public interface
 	static idRenderModel* 		Alloc();
 	
-	idRenderModelStatic();
+	idRenderModelStatic(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager);
 	virtual						~idRenderModelStatic();
 	
 	virtual void				InitFromFile( const char* fileName );
@@ -136,6 +136,7 @@ public:
 	bool						LoadDAE( const char* fileName ); // RB
 	bool						LoadLWO( const char* fileName );
 	bool						LoadMA( const char* filename );
+	bool						LoadNIF(const char *asFileName);
 	
 	bool						ConvertDAEToModelSurfaces( const ColladaParser* dae ); // RB
 	bool						ConvertASEToModelSurfaces( const struct aseModel_s* ase );
@@ -178,6 +179,10 @@ protected:
 	static idCVar				r_slopVertex;			// merge xyz coordinates this far apart
 	static idCVar				r_slopTexCoord;			// merge texture coordinates this far apart
 	static idCVar				r_slopNormal;			// merge normals that dot less than this
+protected:
+	idCommon *common{nullptr};
+	idFileSystem *fileSystem{nullptr};
+	idDeclManager *declManager{nullptr};
 };
 
 /*
@@ -196,7 +201,7 @@ public:
 	idMD5Mesh();
 	~idMD5Mesh();
 	
-	void						ParseMesh( idLexer& parser, int numJoints, const idJointMat* joints );
+	void						ParseMesh( idLexer& parser, int numJoints, const idJointMat* joints, idDeclManager *declManager );
 	
 	int							NumVerts() const
 	{
@@ -226,6 +231,9 @@ private:
 class idRenderModelMD5 : public idRenderModelStatic
 {
 public:
+	idRenderModelMD5(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager)
+		: idRenderModelStatic(apCommon, apFileSystem, apDeclManager){}
+
 	virtual void				InitFromFile( const char* fileName );
 	virtual bool				LoadBinaryModel( idFile* file, const ID_TIME_T sourceTimeStamp );
 	virtual void				WriteBinaryModel( idFile* file, ID_TIME_T* _timeStamp = NULL ) const;
@@ -274,6 +282,9 @@ struct md3Surface_s;
 class idRenderModelMD3 : public idRenderModelStatic
 {
 public:
+	idRenderModelMD3(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager)
+		: idRenderModelStatic(apCommon, apFileSystem, apDeclManager){}
+
 	virtual void				InitFromFile( const char* fileName );
 	virtual bool				SupportsBinaryModel()
 	{
@@ -303,7 +314,7 @@ private:
 class idRenderModelLiquid : public idRenderModelStatic
 {
 public:
-	idRenderModelLiquid();
+	idRenderModelLiquid(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager);
 	
 	virtual void				InitFromFile( const char* fileName );
 	virtual bool				SupportsBinaryModel()
@@ -363,7 +374,7 @@ private:
 class idRenderModelPrt : public idRenderModelStatic
 {
 public:
-	idRenderModelPrt();
+	idRenderModelPrt(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager);
 	
 	virtual void				InitFromFile( const char* fileName );
 	virtual bool				SupportsBinaryModel()
@@ -407,6 +418,9 @@ private:
 class idRenderModelBeam : public idRenderModelStatic
 {
 public:
+	idRenderModelBeam(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager)
+		: idRenderModelStatic(apCommon, apFileSystem, apDeclManager){}
+
 	virtual dynamicModel_t		IsDynamicModel() const;
 	virtual bool				SupportsBinaryModel()
 	{

@@ -587,6 +587,11 @@ public:
 	
 	bool				insideLevelLoad;			// don't actually load images now
 	bool				preloadingMapImages;		// unless this is set
+private:
+	idCommon *common{nullptr};
+	idCmdSystem *cmdSystem{nullptr};
+	idFileSystem *fileSystem{nullptr};
+	idDeclManager *declManager{nullptr};
 };
 
 extern idImageManager*	globalImages;		// pointer to global list for the rest of the system
@@ -602,7 +607,7 @@ FIXME: make an "imageBlock" type to hold byte*,width,height?
 
 byte* R_Dropsample( const byte* in, int inwidth, int inheight, int outwidth, int outheight );
 byte* R_ResampleTexture( const byte* in, int inwidth, int inheight, int outwidth, int outheight );
-byte* R_MipMapWithAlphaSpecularity( const byte* in, int width, int height );
+byte* R_MipMapWithAlphaSpecularity( idCommon *common, const byte* in, int width, int height );
 byte* R_MipMapWithGamma( const byte* in, int width, int height );
 byte* R_MipMap( const byte* in, int width, int height );
 
@@ -621,9 +626,9 @@ IMAGEFILES
 ====================================================================
 */
 
-void R_LoadImage( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamp, bool makePowerOf2 );
+void R_LoadImage( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamp, bool makePowerOf2, idCommon *apCommon, idFileSystem *apFileSystem );
 // pic is in top to bottom raster format
-bool R_LoadCubeImages( const char* cname, cubeFiles_t extensions, byte* pic[6], int* size, ID_TIME_T* timestamp );
+bool R_LoadCubeImages( const char* cname, cubeFiles_t extensions, byte* pic[6], int* size, ID_TIME_T* timestamp, idCommon *apCommon, idFileSystem *apFileSystem );
 
 /*
 ====================================================================
@@ -633,6 +638,6 @@ IMAGEPROGRAM
 ====================================================================
 */
 
-void R_LoadImageProgram( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamp, textureUsage_t* usage = NULL );
-const char* R_ParsePastImageProgram( idLexer& src );
+void R_LoadImageProgram( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamp, idCommon *apCommon, idFileSystem *apFileSystem, textureUsage_t* usage = NULL );
+const char* R_ParsePastImageProgram( idLexer& src, idCommon *apCommon, idFileSystem *apFileSystem );
 

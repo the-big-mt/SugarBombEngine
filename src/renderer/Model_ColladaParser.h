@@ -66,7 +66,7 @@ class ColladaParser
 	
 protected:
 	/** Constructor from XML file */
-	ColladaParser( const char* pFile );
+	ColladaParser( const char* pFile, idCommon *apCommon );
 	
 	/** Destructor */
 	~ColladaParser();
@@ -320,6 +320,8 @@ protected:
 	
 	/** Collada file format version */
 	Collada::FormatVersion mFormat;
+private:
+	idCommon *common{nullptr};
 };
 
 // ------------------------------------------------------------------------------------------------

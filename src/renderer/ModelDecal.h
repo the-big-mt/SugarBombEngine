@@ -122,11 +122,11 @@ ALIGNTYPE16
 class idRenderModelDecal
 {
 public:
-	idRenderModelDecal();
+	idRenderModelDecal(idDeclManager *apDeclManager);
 	~idRenderModelDecal();
 	
 	// Creates decal projection parameters.
-	static bool					CreateProjectionParms( decalProjectionParms_t& parms, const idFixedWinding& winding, const idVec3& projectionOrigin, const bool parallel, const float fadeDepth, const idMaterial* material, const int startTime );
+	static bool					CreateProjectionParms( idCommon *common, decalProjectionParms_t& parms, const idFixedWinding& winding, const idVec3& projectionOrigin, const bool parallel, const float fadeDepth, const idMaterial* material, const int startTime );
 	
 	// Transform the projection parameters from global space to local.
 	static void					GlobalProjectionParmsToLocal( decalProjectionParms_t& localParms, const decalProjectionParms_t& globalParms, const idVec3& origin, const idMat3& axis );
@@ -166,6 +166,8 @@ private:
 	
 	void						CreateDecalFromWinding( const idWinding& w, const idMaterial* decalMaterial, const idPlane fadePlanes[2], float fadeDepth, int startTime );
 	void						CreateDecal( const idRenderModel* model, const decalProjectionParms_t& localParms );
+private:
+	idDeclManager *declManager{nullptr};
 };
 
 //} // namespace BFG

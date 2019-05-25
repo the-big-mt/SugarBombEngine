@@ -170,7 +170,8 @@ void idMaterial::CommonInit()
 idMaterial::idMaterial
 =============
 */
-idMaterial::idMaterial()
+idMaterial::idMaterial(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager, idSoundSystem *apSoundSystem, idUserInterfaceManager *apUserInterfaceManager)
+	: common(apCommon), fileSystem(apFileSystem), declManager(apDeclManager), soundSystem(apSoundSystem), uiManager(apUserInterfaceManager)
 {
 	CommonInit();
 	
@@ -1302,7 +1303,7 @@ void idMaterial::ParseFragmentMap( idLexer& src, newShaderStage_t* newStage )
 		src.UnreadToken( &token );
 		break;
 	}
-	str = R_ParsePastImageProgram( src );
+	str = R_ParsePastImageProgram( src, common, fileSystem );
 	
 	newStage->fragmentProgramImages[unit] =
 		globalImages->ImageFromFile( str, tf, trp, td, cubeMap );
@@ -1443,7 +1444,7 @@ void idMaterial::ParseStage( idLexer& src, const textureRepeat_t trpDefault )
 		
 		if( !token.Icmp( "map" ) )
 		{
-			str = R_ParsePastImageProgram( src );
+			str = R_ParsePastImageProgram( src, common, fileSystem );
 			idStr::Copynz( imageName, str, sizeof( imageName ) );
 			continue;
 		}
@@ -1520,14 +1521,14 @@ void idMaterial::ParseStage( idLexer& src, const textureRepeat_t trpDefault )
 				common->Warning( "missing parameter for 'soundmap' keyword in material '%s'", GetName() );
 				continue;
 			}
-			ts->cinematic = new( TAG_MATERIAL ) idSndWindow();
+			ts->cinematic = new( TAG_MATERIAL ) idSndWindow(declManager, soundSystem);
 			ts->cinematic->InitFromFile( token.c_str(), true );
 			continue;
 		}
 		
 		if( !token.Icmp( "cubeMap" ) )
 		{
-			str = R_ParsePastImageProgram( src );
+			str = R_ParsePastImageProgram( src, common, fileSystem );
 			idStr::Copynz( imageName, str, sizeof( imageName ) );
 			cubeMap = CF_NATIVE;
 			continue;
@@ -1535,7 +1536,7 @@ void idMaterial::ParseStage( idLexer& src, const textureRepeat_t trpDefault )
 		
 		if( !token.Icmp( "cameraCubeMap" ) )
 		{
-			str = R_ParsePastImageProgram( src );
+			str = R_ParsePastImageProgram( src, common, fileSystem );
 			idStr::Copynz( imageName, str, sizeof( imageName ) );
 			cubeMap = CF_CAMERA;
 			continue;
@@ -2426,7 +2427,7 @@ void idMaterial::ParseMaterial( idLexer& src )
 		// light volumes
 		else if( !token.Icmp( "lightFalloffImage" ) )
 		{
-			str = R_ParsePastImageProgram( src );
+			str = R_ParsePastImageProgram( src, common, fileSystem );
 			idStr	copy;
 			
 			copy = str;	// so other things don't step on it
@@ -2496,7 +2497,7 @@ void idMaterial::ParseMaterial( idLexer& src )
 		// diffusemap for stage shortcut
 		else if( !token.Icmp( "diffusemap" ) )
 		{
-			str = R_ParsePastImageProgram( src );
+			str = R_ParsePastImageProgram( src, common, fileSystem );
 			idStr::snPrintf( buffer, sizeof( buffer ), "blend diffusemap\nmap %s\n}\n", str );
 			newSrc.LoadMemory( buffer, strlen( buffer ), "diffusemap" );
 			newSrc.SetFlags( LEXFL_NOFATALERRORS | LEXFL_NOSTRINGCONCAT | LEXFL_NOSTRINGESCAPECHARS | LEXFL_ALLOWPATHNAMES );
@@ -2507,7 +2508,7 @@ void idMaterial::ParseMaterial( idLexer& src )
 		// specularmap for stage shortcut
 		else if( !token.Icmp( "specularmap" ) )
 		{
-			str = R_ParsePastImageProgram( src );
+			str = R_ParsePastImageProgram( src, common, fileSystem );
 			idStr::snPrintf( buffer, sizeof( buffer ), "blend specularmap\nmap %s\n}\n", str );
 			newSrc.LoadMemory( buffer, strlen( buffer ), "specularmap" );
 			newSrc.SetFlags( LEXFL_NOFATALERRORS | LEXFL_NOSTRINGCONCAT | LEXFL_NOSTRINGESCAPECHARS | LEXFL_ALLOWPATHNAMES );
@@ -2518,7 +2519,7 @@ void idMaterial::ParseMaterial( idLexer& src )
 		// normalmap for stage shortcut
 		else if( !token.Icmp( "bumpmap" ) )
 		{
-			str = R_ParsePastImageProgram( src );
+			str = R_ParsePastImageProgram( src, common, fileSystem );
 			idStr::snPrintf( buffer, sizeof( buffer ), "blend bumpmap\nmap %s\n}\n", str );
 			newSrc.LoadMemory( buffer, strlen( buffer ), "bumpmap" );
 			newSrc.SetFlags( LEXFL_NOFATALERRORS | LEXFL_NOSTRINGCONCAT | LEXFL_NOSTRINGESCAPECHARS | LEXFL_ALLOWPATHNAMES );

@@ -72,9 +72,9 @@ void R_SetupViewMatrix( viewDef_t* viewDef );
 void R_SetupProjectionMatrix( viewDef_t* viewDef );
 
 // RB begin
-void R_SetupUnprojection( viewDef_t* viewDef );
+void R_SetupUnprojection( idCommon *apCommon, viewDef_t* viewDef );
 void R_SetupProjectionMatrix2( const viewDef_t* viewDef, const float zNear, const float zFar, float out[16] );
-void R_MatrixFullInverse( const float in[16], float r[16] );
+void R_MatrixFullInverse( idCommon *apCommon, const float in[16], float r[16] );
 // RB end
 
 //} // namespace BFG

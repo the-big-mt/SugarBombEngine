@@ -86,7 +86,7 @@ extern "C"
 class idCinematicLocal : public idCinematic
 {
 public:
-	idCinematicLocal();
+	idCinematicLocal(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager);
 	virtual					~idCinematicLocal();
 	
 	virtual bool			InitFromFile( const char* qpath, bool looping );
@@ -195,6 +195,9 @@ private:
 	void					RoQPrepMcomp( int xoff, int yoff );
 	void					RoQReset();
 	// RB end
+private:
+	idCommon *common{nullptr};
+	idFileSystem *fileSystem{nullptr};
 };
 
 // Carl: ROQ files from original Doom 3
@@ -298,7 +301,7 @@ idCinematic::Alloc
 */
 idCinematic* idCinematic::Alloc()
 {
-	return new idCinematicLocal; //Carl: Use the proper class like in Doom 3, not just the unimplemented abstract one.
+	return new idCinematicLocal(nullptr, nullptr, nullptr); //Carl: Use the proper class like in Doom 3, not just the unimplemented abstract one. // TODO: fix
 }
 
 /*
@@ -407,7 +410,8 @@ bool idCinematic::IsPlaying() const
 idCinematicLocal::idCinematicLocal
 ==============
 */
-idCinematicLocal::idCinematicLocal()
+idCinematicLocal::idCinematicLocal(idCommon *apCommon, idFileSystem *apFileSystem, idDeclManager *apDeclManager)
+	: idCinematic(apDeclManager), common(apCommon), fileSystem(apFileSystem)
 {
 	qStatus[0] = ( byte** )Mem_Alloc( 32768 * sizeof( byte* ), TAG_CINEMATIC );
 	qStatus[1] = ( byte** )Mem_Alloc( 32768 * sizeof( byte* ), TAG_CINEMATIC );
