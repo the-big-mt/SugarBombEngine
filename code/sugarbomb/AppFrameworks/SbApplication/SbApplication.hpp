@@ -62,6 +62,7 @@ private:
 	void InitSystemModule();
 	void ShutdownSystemModule();
 	
+	void InitSIMD();
 	
 	void CloseLogFile();
 	

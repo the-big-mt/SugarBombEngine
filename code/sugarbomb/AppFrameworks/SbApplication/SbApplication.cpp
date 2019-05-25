@@ -9,12 +9,15 @@
 #include "sys/IFileSystem.hpp"
 
 #include "idlib/CmdArgs.h"
+#include "idlib/math/SIMD.h"
+
 extern sbe::idCmdSystem *cmdSystem;
 extern sbe::idCVarSystem *cvarSystem;
 
 sbe::idCVar com_logFile( "logFile", "0", sbe::CVAR_SYSTEM | sbe::CVAR_NOCHEAT, "1 = buffer log, 2 = flush after each print", 0, 2, sbe::idCmdSystem::ArgCompletion_Integer<0, 2> );
 sbe::idCVar com_logFileName( "logFileName", "sbeconsole.log", sbe::CVAR_SYSTEM | sbe::CVAR_NOCHEAT, "name of log file, if empty, sbeconsole.log will be used" );
 
+sbe::idCVar com_forceGenericSIMD( "com_forceGenericSIMD", "0", sbe::CVAR_BOOL | sbe::CVAR_SYSTEM | sbe::CVAR_NOCHEAT, "force generic platform independent SIMD" );
 
 SbApplication::SbApplication(const char *asCmdLine)
 {
@@ -336,6 +339,16 @@ void SbApplication::ShutdownSystemModule()
 #endif
 };
 
+/*
+=================
+idCommonLocal::InitSIMD
+=================
+*/
+void SbApplication::InitSIMD()
+{
+	idSIMD::InitProcessor( "doom", com_forceGenericSIMD.GetBool() );
+	com_forceGenericSIMD.ClearModified();
+};
 
 /*
 ==================
