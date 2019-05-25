@@ -14,6 +14,13 @@ struct IRenderSystem;
 struct IInputSystem;
 };
 
+struct sysEvent_t;
+
+// event generation
+void Sys_GenerateEvents();
+sysEvent_t Sys_GetEvent();
+void Sys_ClearEvents();
+
 class SbClientApp : public SbApplication
 {
 public:
