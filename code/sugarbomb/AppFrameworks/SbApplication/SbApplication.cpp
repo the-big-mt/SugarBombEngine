@@ -1,7 +1,13 @@
 /// @file
 
 #include "SbApplication.hpp"
+
+#include "framework/ICmdSystem.hpp"
+#include "framework/ICVarSystem.hpp"
 #include "idlib/CmdArgs.h"
+extern sbe::idCmdSystem *cmdSystem;
+extern sbe::idCVarSystem *cvarSystem;
+
 
 SbApplication::SbApplication(const char *asCmdLine)
 {
@@ -77,8 +83,12 @@ void SbApplication::Stop()
 
 void SbApplication::Init()
 {
-	mpCmdSystem = std::make_unique<idCmdSystemLocal>();
-	mpCVarSystem = std::make_unique<idCVarSystemLocal>();
+	//mpCmdSystem = std::make_unique<idCmdSystemLocal>();
+	//mpCVarSystem = std::make_unique<idCVarSystemLocal>();
+	
+	mpCmdSystem = cmdSystem;
+	mpCVarSystem = cvarSystem;
+	
 	
 	// init console command system
 	mpCmdSystem->Init();

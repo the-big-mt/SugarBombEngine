@@ -14,10 +14,12 @@ namespace sbe
 {
 struct ISys;
 struct IFileSystem;
+struct idCmdSystem;
+struct idCVarSystem;
 };
 
-class idCmdSystemLocal;
-class idCVarSystemLocal;
+//class idCmdSystemLocal;
+//class idCVarSystemLocal;
 
 class SbApplication
 {
@@ -39,8 +41,11 @@ protected:
 	virtual void Frame(){}
 	virtual void PostFrame(){}
 	
-	std::unique_ptr<idCmdSystemLocal> mpCmdSystem;
-	std::unique_ptr<idCVarSystemLocal> mpCVarSystem;
+	//std::unique_ptr<idCmdSystemLocal> mpCmdSystem;
+	//std::unique_ptr<idCVarSystemLocal> mpCVarSystem;
+	
+	sbe::idCmdSystem *mpCmdSystem{nullptr};
+	sbe::idCVarSystem *mpCVarSystem{nullptr};
 	
 	sbe::ISys *mpSys{nullptr};
 	sbe::IFileSystem *mpFileSystem{nullptr};
