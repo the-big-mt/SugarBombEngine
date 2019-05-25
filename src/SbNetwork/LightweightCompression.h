@@ -30,8 +30,8 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include <cstddef>
 
-//#include "../idlib/sys/sys_defines.h"
-//#include "../idlib/sys/sys_types.h"
+#include "idlib/sys/sys_defines.h"
+#include "idlib/sys/sys_types.h"
 
 //namespace BFG
 //{
