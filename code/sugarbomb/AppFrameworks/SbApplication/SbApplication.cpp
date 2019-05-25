@@ -35,7 +35,7 @@ SbApplication::SbApplication(const char *asCmdLine)
 	ParseCommandLine(argc, argv);
 };
 
-SbApplication::SbApplication(int argc, char **argv)
+SbApplication::SbApplication(int argc, const char **argv)
 {
 	ParseCommandLine(argc, argv);
 };

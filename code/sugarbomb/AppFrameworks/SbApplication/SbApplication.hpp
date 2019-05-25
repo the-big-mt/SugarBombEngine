@@ -26,8 +26,8 @@ class SbApplication
 {
 public:
 	SbApplication(const char *asCmdLine);
-	SbApplication(int argc, char **argv);
-	virtual ~SbApplication() = default;
+	SbApplication(int argc, const char **argv);
+	virtual ~SbApplication();
 	
 	virtual bool Run();
 	
