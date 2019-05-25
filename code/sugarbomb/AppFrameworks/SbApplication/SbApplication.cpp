@@ -4,9 +4,16 @@
 
 #include "framework/ICmdSystem.hpp"
 #include "framework/ICVarSystem.hpp"
+#include "framework/CVar.hpp"
+
+#include "sys/IFileSystem.hpp"
+
 #include "idlib/CmdArgs.h"
 extern sbe::idCmdSystem *cmdSystem;
 extern sbe::idCVarSystem *cvarSystem;
+
+sbe::idCVar com_logFile( "logFile", "0", sbe::CVAR_SYSTEM | sbe::CVAR_NOCHEAT, "1 = buffer log, 2 = flush after each print", 0, 2, sbe::idCmdSystem::ArgCompletion_Integer<0, 2> );
+sbe::idCVar com_logFileName( "logFileName", "sbeconsole.log", sbe::CVAR_SYSTEM | sbe::CVAR_NOCHEAT, "name of log file, if empty, sbeconsole.log will be used" );
 
 
 SbApplication::SbApplication(const char *asCmdLine)
@@ -247,6 +254,22 @@ void SbApplication::ShutdownSystemModule()
 		sysDLL = 0;
 	};
 #endif
+};
+
+
+/*
+==================
+idCommonLocal::CloseLogFile
+==================
+*/
+void SbApplication::CloseLogFile()
+{
+	if( logFile )
+	{
+		com_logFile.SetBool( false ); // make sure no further VPrintf attempts to open the log file again
+		mpFileSystem->CloseFile( logFile );
+		logFile = nullptr;
+	};
 };
 
 /*

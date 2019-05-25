@@ -16,6 +16,7 @@ struct ISys;
 struct IFileSystem;
 struct idCmdSystem;
 struct idCVarSystem;
+struct idFile;
 };
 
 //class idCmdSystemLocal;
@@ -57,9 +58,14 @@ private:
 	void InitSystemModule();
 	void ShutdownSystemModule();
 	
+	
+	void CloseLogFile();
+	
 	intptr_t DLL_Load(const char *asName);
 	void *DLL_GetProcAddress(intptr_t ahDLLHandle, const char *asProcName);
 	void DLL_Unload(intptr_t ahDLLHandle);
+	
+	sbe::idFile *logFile{nullptr};
 	
 #ifdef USE_BREAKPAD
 #	ifdef _WIN32
