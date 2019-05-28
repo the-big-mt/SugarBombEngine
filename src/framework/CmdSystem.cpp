@@ -29,6 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 #pragma hdrstop
 
+#include "CmdSystem.h"
+
 #ifdef ID_RETAIL
 idCVar net_allowCheats( "net_allowCheats", "0", CVAR_BOOL | CVAR_ROM, "Allow cheats in multiplayer" );
 #else
@@ -47,8 +49,8 @@ typedef struct commandDef_s
 {
 	struct commandDef_s* 	next;
 	char* 					name;
-	cmdFunction_t			function;
-	argCompletion_t			argCompletion;
+	sbe::cmdFunction_t			function;
+	sbe::argCompletion_t			argCompletion;
 	int						flags;
 	char* 					description;
 } commandDef_t;
@@ -58,13 +60,13 @@ typedef struct commandDef_s
 idCmdSystemLocal
 ================================================
 */
-class idCmdSystemLocal : public idCmdSystem
+class idCmdSystemLocal : public sbe::idCmdSystem
 {
 public:
 	virtual void			Init();
 	virtual void			Shutdown();
 	
-	virtual void			AddCommand( const char* cmdName, cmdFunction_t function, int flags, const char* description, argCompletion_t argCompletion = nullptr );
+	virtual void			AddCommand( const char* cmdName, sbe::cmdFunction_t function, int flags, const char* description, sbe::argCompletion_t argCompletion = nullptr );
 	virtual void			RemoveCommand( const char* cmdName );
 	virtual void			RemoveFlaggedCommands( int flags );
 	
@@ -73,13 +75,13 @@ public:
 	virtual void			ExecuteCommandText( const char* text );
 	virtual void			AppendCommandText( const char* text );
 	
-	virtual void			BufferCommandText( cmdExecution_t exec, const char* text );
+	virtual void			BufferCommandText( sbe::cmdExecution_t exec, const char* text );
 	virtual void			ExecuteCommandBuffer();
 	
 	virtual void			ArgCompletion_FolderExtension( const idCmdArgs& args, void( *callback )( const char* s ), const char* folder, bool stripFolder, ... );
 	virtual void			ArgCompletion_DeclName( const idCmdArgs& args, void( *callback )( const char* s ), int type );
 	
-	virtual void			BufferCommandArgs( cmdExecution_t exec, const idCmdArgs& args );
+	virtual void			BufferCommandArgs( sbe::cmdExecution_t exec, const idCmdArgs& args );
 	
 	virtual void			SetupReloadEngine( const idCmdArgs& args );
 	virtual bool			PostReloadEngine();
@@ -115,7 +117,7 @@ private:
 	void					ExecuteTokenizedString( const idCmdArgs& args );
 	void					InsertCommandText( const char* text );
 	
-	static void				ListByFlags( const idCmdArgs& args, cmdFlags_t flags );
+	static void				ListByFlags( const idCmdArgs& args, sbe::cmdFlags_t flags );
 	static void				List_f( const idCmdArgs& args );
 	static void				SystemList_f( const idCmdArgs& args );
 	static void				RendererList_f( const idCmdArgs& args );
