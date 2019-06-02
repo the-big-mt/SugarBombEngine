@@ -30,8 +30,11 @@ If you have questions concerning this license or the applicable additional terms
 #define __LIST_H__
 
 #include <new>
-//#include "../idlib/containers/Sort.h"
-//#include "../idlib/Heap.h"              // for memTag_t
+
+#include "idlib/sys/sys_defines.h"
+#include "idlib/sys/sys_assert.h"
+#include "idlib/containers/Sort.h"
+#include "idlib/Heap.h" // for memTag_t
 
 //namespace BFG
 //{

@@ -30,6 +30,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __STR_H__
 #define __STR_H__
 
+#include <cstdio>
+#include <cstdarg>
+#include <cstring>
+
+#include "sys/sys_types.h"
+#include "sys/sys_defines.h"
+#include "sys/sys_assert.h"
+#include "containers/Sort.h"
+
 /*
 ===============================================================================
 

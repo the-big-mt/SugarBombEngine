@@ -31,8 +31,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <cstring> // for memcpy
 
-//#include "../idlib/containers/Array.h" // for idTupleSize
-//#include "../idlib/math/Math.h"
+//#include "idlib/containers/Array.h" // for idTupleSize
+#include "idlib/math/Math.h"
+#include "idlib/sys/sys_defines.h"
+#include "idlib/sys/sys_assert.h"
 
 //namespace BFG
 //{

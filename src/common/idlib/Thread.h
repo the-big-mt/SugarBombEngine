@@ -29,8 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __THREAD_H__
 #define __THREAD_H__
 
-//#include "../idlib/containers/List.h"            // for idList
-//#include "../idlib/Str.h"						 // for idStr
+#include "idlib/containers/List.h" // for idList
+#include "idlib/Str.h" // for idStr
+#include "idlib/sys/sys_defines.h"
+#include "idlib/sys/sys_threading.h"
 
 //namespace BFG
 //{

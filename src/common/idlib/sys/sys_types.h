@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef SYS_TYPES_H
 #define SYS_TYPES_H
 
-//#include "sys_assert.h"
-//#include "sys_defines.h"
+#include "sys_assert.h"
+#include "sys_defines.h"
 
 //#ifdef _WIN32
 //#undef uint64

@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef SYS_FILESYSTEM_H
 #define SYS_FILESYSTEM_H
 
-//#include "../idlib/containers/List.h"   // for idList
+#include "idlib/containers/List.h" // for idList
 
 //namespace BFG
 //{

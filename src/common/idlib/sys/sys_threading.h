@@ -29,6 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_THREADING_H__
 #define __SYS_THREADING_H__
 
+#include "sys_includes.h"
+
 #ifndef __TYPEINFOGEN__
 
 /*
