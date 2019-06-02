@@ -50,15 +50,9 @@ union profileStatValue_t
 	float	f;
 };
 
-/*
-================================================
-idPlayerProfile
+#include "framework/IPlayerProfile.hpp"
 
-The general rule for using cvars for settings is that if you want the player's profile settings to affect the startup
-of the game before there is a player associated with the game, use cvars.  Example: video & volume settings.
-================================================
-*/
-class idPlayerProfile
+class idPlayerProfile : public IPlayerProfile
 {
 	friend class idLocalUser;
 	friend class idProfileMgr;
@@ -110,7 +104,7 @@ public:
 		return dirty;
 	}
 	
-	bool			GetAchievement( const int id ) const;
+	bool			GetAchievement( const int id ) const override;
 	void			SetAchievement( const int id );
 	void			ClearAchievement( const int id );
 	
@@ -131,15 +125,15 @@ public:
 	//------------------------
 	// Config
 	//------------------------
-	int				GetConfig() const
+	int				GetConfig() const override
 	{
 		return configSet;
 	}
 	void			SetConfig( int config, bool save );
-	void			RestoreDefault();
+	void			RestoreDefault() override;
 	
-	void			SetLeftyFlip( bool lf );
-	bool			GetLeftyFlip() const
+	void			SetLeftyFlip( bool lf ) override;
+	bool			GetLeftyFlip() const override
 	{
 		return leftyFlip;
 	}
