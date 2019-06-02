@@ -93,20 +93,11 @@ private:
 	userHandleType_t	handle;
 };
 
-/*
-================================================
-idLocalUser
-An idLocalUser is a user holding a controller.
-It represents someone controlling the menu or game.
-They may not necessarily be in a game (which would be a session user of TYPE_GAME).
-A controller user references an input device (which is a gamepad, keyboard, etc).
-================================================
-*/
-class idLocalUser
+class idLocalUser : public ILocalUser
 {
 public:
 	idLocalUser();
-	virtual						~idLocalUser() {}
+	virtual						~idLocalUser() = default;
 	
 	void				Pump();
 	virtual void				PumpPlatform() = 0;
@@ -141,7 +132,7 @@ public:
 	virtual int					GetStatInt( int stat );
 	virtual float				GetStatFloat( int stat );
 	
-	virtual idPlayerProfile* 	GetProfile()
+	virtual idPlayerProfile* 	GetProfile() const override
 	{
 		return GetProfileMgr().GetProfile();
 	}
@@ -188,7 +179,6 @@ public:
 	{
 		syncAchievementsRequested = true;
 	}
-	
 private:
 	bool						joiningLobby[2];
 	localUserHandle_t			localUserHandle;
