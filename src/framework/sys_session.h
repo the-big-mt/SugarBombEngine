@@ -429,35 +429,16 @@ public:
 	virtual ~idLobbyBase() {}
 };
 
+#include "framework/ISession.hpp"
+
 /*
 ================================================
 idSession
 ================================================
 */
-class idSession
+class idSession : public ISession
 {
 public:
-
-	enum sessionState_t
-	{
-		PRESS_START,
-		IDLE,
-		SEARCHING,
-		CONNECTING,
-		PARTY_LOBBY,
-		GAME_LOBBY,
-		LOADING,
-		INGAME,
-		BUSY,
-		MAX_STATES
-	};
-	
-	enum sessionOption_t
-	{
-		OPTION_LEAVE_WITH_PARTY			= BIT( 0 ),		// As a party leader, whether or not to drag your party members with you when you leave a game lobby
-		OPTION_ALL						= 0xFFFFFFFF
-	};
-	
 	idSession() :
 		signInManager( NULL ),
 		saveGameManager( NULL ),
@@ -475,11 +456,11 @@ public:
 	// Lobby management
 	//=====================================================================================================
 	virtual void			CreatePartyLobby( const idMatchParameters& parms_ ) = 0;
-	virtual void			FindOrCreateMatch( const idMatchParameters& parms_ ) = 0;
-	virtual void			CreateMatch( const idMatchParameters& parms_ ) = 0;
+	
+
 	virtual void			CreateGameStateLobby( const idMatchParameters& parms_ ) = 0;
-	virtual void			UpdateMatchParms( const idMatchParameters& parms_ ) = 0;
-	virtual void			UpdatePartyParms( const idMatchParameters& parms_ ) = 0;
+	
+	
 	virtual void			StartMatch() = 0;
 	virtual void			EndMatch( bool premature = false ) = 0;	// Meant for host to end match gracefully, go back to lobby, tally scores, etc
 	virtual void			MatchFinished() = 0;					// this is for when the game is over before we go back to lobby. Need this incase the host leaves during this time
@@ -488,7 +469,7 @@ public:
 	virtual	void			SetSessionOption( sessionOption_t option ) = 0;
 	virtual	void			ClearSessionOption( sessionOption_t option ) = 0;
 	virtual sessionState_t	GetBackState() = 0;
-	virtual void			Cancel() = 0;
+	
 	virtual void			MoveToPressStart() = 0;
 	virtual void			FinishDisconnect() = 0;
 	virtual void			LoadingFinished() = 0;
@@ -508,27 +489,15 @@ public:
 	
 	virtual void			InviteFriends() = 0;
 	virtual void			InviteParty() = 0;
-	virtual void			ShowPartySessions() = 0;
 	
-	virtual bool			IsPlatformPartyInLobby() = 0;
 	
-	// Lobby user/peer access
-	// The party and game lobby are the two platform lobbies that notify the backends (Steam/PSN/LIVE of changes)
-	virtual idLobbyBase& 	GetPartyLobbyBase()	= 0;
-	virtual idLobbyBase& 	GetGameLobbyBase() = 0;
 	
 	// Game state lobby is the lobby used while in-game.  It is so the dedicated server can host this lobby
 	// and have all platform clients join. It does NOT notify the backends of changes, it's purely for the dedicated
 	// server to be able to host the in-game lobby.
 	virtual idLobbyBase& 	GetActingGameStateLobbyBase() = 0;
 	
-	// GetActivePlatformLobbyBase will return either the game or party lobby, it won't return the game state lobby
-	// This function is generally used for menus, in-game code should refer to GetActingGameStateLobby
-	virtual idLobbyBase& 	GetActivePlatformLobbyBase() = 0;
-	
 	virtual idLobbyBase& 	GetLobbyFromLobbyUserID( lobbyUserID_t lobbyUserID ) = 0;
-	
-	virtual idPlayerProfile* 	GetProfileFromMasterLocalUser() = 0;
 	
 	virtual bool			ProcessInputEvent( const sysEvent_t* ev ) = 0;
 	virtual float			GetUpstreamDropRate() = 0;
@@ -540,7 +509,7 @@ public:
 	
 	virtual const char* 	GetLocalUserName( int i ) const = 0;
 	
-	virtual sessionState_t	GetState() const = 0;
+	
 	virtual const char* 	GetStateString() const = 0;
 	
 	virtual int				NumServers() const = 0;
@@ -574,7 +543,7 @@ public:
 	// Title Storage Vars
 	//=====================================================================================================
 	virtual float			GetTitleStorageFloat( const char* name, float defaultFloat ) const = 0;
-	virtual int				GetTitleStorageInt( const char* name, int defaultInt ) const = 0;
+	
 	virtual bool			GetTitleStorageBool( const char* name, bool defaultBool ) const = 0;
 	virtual const char* 	GetTitleStorageString( const char* name, const char* defaultString ) const = 0;
 	
@@ -653,12 +622,6 @@ public:
 	virtual bool					LoadGameCheckDiscNumber( idSaveLoadParms& parms ) = 0;
 	
 	//=====================================================================================================
-	//	GamerCard UI
-	//=====================================================================================================
-	
-	virtual void				ShowLobbyUserGamerCardUI( lobbyUserID_t lobbyUserID ) = 0;
-	
-	//=====================================================================================================
 	virtual void				UpdateRichPresence() = 0;
 	
 	virtual void				SendUsercmds( idBitMsg& msg ) = 0;
@@ -668,7 +631,7 @@ public:
 	
 	virtual void				UpdateSignInManager() = 0;
 	
-	idSignInManagerBase& 		GetSignInManager()
+	idSignInManagerBase& 		GetSignInManager() const override
 	{
 		return *signInManager;
 	}
@@ -698,7 +661,7 @@ public:
 	//=====================================================================================================
 	virtual voiceState_t		GetLobbyUserVoiceState( lobbyUserID_t lobbyUserID ) = 0;
 	virtual voiceStateDisplay_t	GetDisplayStateFromVoiceState( voiceState_t voiceState ) const = 0;
-	virtual void				ToggleLobbyUserVoiceMute( lobbyUserID_t lobbyUserID ) = 0;
+	
 	virtual void				SetActiveChatGroup( int groupIndex ) = 0;
 	virtual void				CheckVoicePrivileges() = 0;
 	virtual void				SetVoiceGroupsToTeams() = 0;
