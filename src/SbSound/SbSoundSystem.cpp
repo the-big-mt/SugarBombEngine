@@ -535,7 +535,7 @@ idSoundSample* idSoundSystemLocal::LoadSample( const char* name )
 			return samples[i];
 		}
 	}
-	idSoundSample* sample = new( TAG_AUDIO ) idSoundSample(fileSystem);
+	idSoundSample* sample = new( TAG_AUDIO ) idSoundSample(sys, fileSystem);
 	sample->SetName( canonical );
 	sampleHash.Add( hashKey, samples.Append( sample ) );
 	if( !insideLevelLoad )

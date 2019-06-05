@@ -65,6 +65,11 @@ static const int	SSF_NO_DUPS =			BIT( 9 );	// try not to play the same sound twi
 static const int	SSF_VO =				BIT( 10 ); // VO - direct a portion of the sound through the center channel (set automatically on shaders that contain files that start with "sound/vo/")
 static const int	SSF_MUSIC =				BIT( 11 ); // Music - Muted when the player is playing his own music
 
+namespace sbe
+{
+struct ISys;
+}; // namespace sbe
+
 struct idDeclManager;
 class idSoundSample;
 class idLexer;
@@ -74,7 +79,7 @@ class idLexer;
 class idSoundShader : public idDecl
 {
 public:
-	idSoundShader();
+	idSoundShader(sbe::ISys *apSys);
 	virtual					~idSoundShader();
 	
 	virtual size_t			Size() const;
@@ -117,7 +122,9 @@ private:
 	
 private:
 	void					Init();
-	bool					ParseShader( idLexer& src );
+	bool					ParseShader( idDeclManager *apDeclManager, idLexer& src );
+private:
+	sbe::ISys *mpSys{nullptr};
 };
 
 //}; // namespace sbe

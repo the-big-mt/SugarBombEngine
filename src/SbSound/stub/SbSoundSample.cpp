@@ -78,10 +78,8 @@ static void FreeBuffer( void* p )
 idSoundSample_XAudio2::idSoundSample_XAudio2
 ========================
 */
-idSoundSample::idSoundSample(idFileSystem *apFileSystem)
+idSoundSample::idSoundSample(idSys *apSys, idFileSystem *apFileSystem) : mpSys(apSys), fileSystem(apFileSystem)
 {
-	fileSystem = apFileSystem;
-	
 	timestamp = FILE_NOT_FOUND_TIMESTAMP;
 	loaded = false;
 	neverPurge = false;
@@ -138,7 +136,7 @@ idSoundSample::WriteAllSamples
 */
 void idSoundSample::WriteAllSamples( const idStr& sampleName )
 {
-	idSoundSample* samplePC = new idSoundSample(fileSystem);
+	idSoundSample* samplePC = new idSoundSample(mpSys, fileSystem);
 	{
 		idStrStatic< MAX_OSPATH > inName = sampleName;
 		inName.Append( ".msadpcm" );

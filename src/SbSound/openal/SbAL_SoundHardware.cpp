@@ -80,7 +80,8 @@ ID_INLINE_EXTERN ALCenum CheckALCErrors_( ALCdevice* device, const char* filenam
 idSoundHardware_OpenAL::idSoundHardware_OpenAL
 ========================
 */
-idSoundHardware_OpenAL::idSoundHardware_OpenAL()
+idSoundHardware_OpenAL::idSoundHardware_OpenAL(sbe::ISoundSystem *apSoundSystem, sbe::ISys *apSys, sbe::idCmdSystem *apCmdSystem)
+	: mpSoundSystem(apSoundSystem), mpSys(apSys), mpCmdSystem(apCmdSystem)
 {
 	openalDevice = nullptr;
 	openalContext = nullptr;

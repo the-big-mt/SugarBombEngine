@@ -51,6 +51,8 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
+struct idSys;
+struct idFileSystem;
 class idSoundVoice : public idSoundVoice_Base
 {
 public:
@@ -134,7 +136,7 @@ public:
 class idSoundSample
 {
 public:
-	idSoundSample();
+	idSoundSample(idSys *apSys, idFileSystem *apFileSystem);
 	
 	~idSoundSample(); // destructor should be public so lists of  soundsamples can be destroyed etc
 	
@@ -268,6 +270,10 @@ protected:
 	idWaveFile::waveFmt_t	format;
 	
 	idList<byte, TAG_AMPLITUDE> amplitude;
+private:
+	idSys *mpSys{nullptr};
+	idFileSystem *fileSystem{nullptr};
+};
 };
 
 //} // namespace BFG
