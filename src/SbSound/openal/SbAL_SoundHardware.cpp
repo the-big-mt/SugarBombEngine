@@ -202,28 +202,28 @@ void idSoundHardware_OpenAL::Init()
 {
 	cmdSystem->AddCommand( "listDevices", listDevices_f, 0, "Lists the connected sound devices", nullptr );
 	
-	common->Printf( "Setup OpenAL device and context... " );
+	mpSys->Printf( "Setup OpenAL device and context... " );
 	
 	openalDevice = alcOpenDevice( nullptr );
 	if( openalDevice == nullptr )
 	{
-		common->FatalError( "idSoundHardware_OpenAL::Init: alcOpenDevice() failed\n" );
+		mpSys->FatalError( "idSoundHardware_OpenAL::Init: alcOpenDevice() failed\n" );
 		return;
 	}
 	
 	openalContext = alcCreateContext( openalDevice, nullptr );
 	if( alcMakeContextCurrent( openalContext ) == 0 )
 	{
-		common->FatalError( "idSoundHardware_OpenAL::Init: alcMakeContextCurrent( %p) failed\n", openalContext );
+		mpSys->FatalError( "idSoundHardware_OpenAL::Init: alcMakeContextCurrent( %p) failed\n", openalContext );
 		return;
 	}
 	
-	common->Printf( "Done.\n" );
+	mpSys->Printf( "Done.\n" );
 	
-	common->Printf( "OpenAL vendor: %s\n", alGetString( AL_VENDOR ) );
-	common->Printf( "OpenAL renderer: %s\n", alGetString( AL_RENDERER ) );
-	common->Printf( "OpenAL version: %s\n", alGetString( AL_VERSION ) );
-	common->Printf( "OpenAL extensions: %s\n", alGetString( AL_EXTENSIONS ) );
+	mpSys->Printf( "OpenAL vendor: %s\n", alGetString( AL_VENDOR ) );
+	mpSys->Printf( "OpenAL renderer: %s\n", alGetString( AL_RENDERER ) );
+	mpSys->Printf( "OpenAL version: %s\n", alGetString( AL_VERSION ) );
+	mpSys->Printf( "OpenAL extensions: %s\n", alGetString( AL_EXTENSIONS ) );
 	
 	//pMasterVoice->SetVolume( DBtoLinear( s_volume_dB.GetFloat() ) );
 	
@@ -346,7 +346,7 @@ idSoundVoice* idSoundHardware_OpenAL::AllocateVoice( const idSoundSample* leadin
 	{
 		if( ( leadinSample->format.basic.formatTag != loopingSample->format.basic.formatTag ) || ( leadinSample->format.basic.numChannels != loopingSample->format.basic.numChannels ) )
 		{
-			idLib::Warning( "Leadin/looping format mismatch: %s & %s", leadinSample->GetName(), loopingSample->GetName() );
+			mpSys->Warning( "Leadin/looping format mismatch: %s & %s", leadinSample->GetName(), loopingSample->GetName() );
 			loopingSample = nullptr;
 		}
 	}

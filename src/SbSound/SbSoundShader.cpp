@@ -36,8 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstddef>
 #include "precompiled.h"
 
+#include "sys/ISys.hpp"
+
 #include "framework/CVar.hpp" // TODO: #include "framework/ICVarSystem.hpp"?
-#include "framework/ICommon.hpp"
 #include "framework/IDeclManager.hpp"
 
 #include "idlib/Lexer.h"
@@ -51,11 +52,13 @@ If you have questions concerning this license or the applicable additional terms
 #include "SbSoundSystem.hpp" // TODO: soundSystemLocal
 #include "SbSoundWorld.hpp"
 
+/*
 #if defined(USE_OPENAL)
 #	include "openal/AL_SoundSample.h"
 #else
 #	include "xaudio2/XA2_SoundSample.h"
 #endif
+*/
 
 //namespace BFG
 //{
@@ -89,7 +92,7 @@ void idSoundShader::Init()
 idSoundShader::idSoundShader
 ===============
 */
-idSoundShader::idSoundShader()
+idSoundShader::idSoundShader(sbe::ISys *apSys) : mpSys(apSys)
 {
 	Init();
 }
@@ -183,7 +186,7 @@ bool idSoundShader::Parse( const char* text, const int textLength, bool allowBin
 	src.SetFlags( DECL_LEXER_FLAGS );
 	src.SkipUntilString( "{" );
 	
-	if( !ParseShader( src ) )
+	if( !ParseShader( nullptr, src ) ) // TODO
 	{
 		MakeDefault();
 		return false;
@@ -196,7 +199,7 @@ bool idSoundShader::Parse( const char* text, const int textLength, bool allowBin
 idSoundShader::ParseShader
 ===============
 */
-bool idSoundShader::ParseShader( idLexer& src )
+bool idSoundShader::ParseShader( idDeclManager *declManager, idLexer& src )
 {
 	idToken		token;
 	
@@ -433,13 +436,13 @@ void idSoundShader::List() const
 {
 	idStrList	shaders;
 	
-	idLib::common->Printf( "%4i: %s\n", Index(), GetName() );
+	mpSys->Printf( "%4i: %s\n", Index(), GetName() );
 	for( int k = 0; k < entries.Num(); k++ )
 	{
 		const idSoundSample* objectp = entries[k];
 		if( objectp )
 		{
-			idLib::common->Printf( "      %5dms %4dKb %s\n", objectp->LengthInMsec(), ( objectp->BufferSize() / 1024 ), objectp->GetName() );
+			mpSys->Printf( "      %5dms %4dKb %s\n", objectp->LengthInMsec(), ( objectp->BufferSize() / 1024 ), objectp->GetName() );
 		}
 	}
 }
