@@ -58,129 +58,130 @@ class idSoundShader;
 //------------------------
 struct listener_t
 {
-	idMat3	axis;		// orientation of the listener
-	idVec3	pos;		// position in meters
-	int		id;			// the entity number, used to detect when a sound is local
-	int		area;		// area number the listener is in
+	idMat3 axis; // orientation of the listener
+	idVec3 pos;  // position in meters
+	int id;      // the entity number, used to detect when a sound is local
+	int area;    // area number the listener is in
 };
 
 class idSoundWorldLocal : public idSoundWorld
 {
 public:
 	idSoundWorldLocal(idCommon *apCommon, idConsole *apConsole);
-	virtual					~idSoundWorldLocal();
-	
+	virtual ~idSoundWorldLocal();
+
 	//------------------------
 	// Functions from idSoundWorld, implemented in SoundWorld.cpp
 	//------------------------
-	
+
 	// Called at map start
-	virtual void			ClearAllSoundEmitters();
-	
+	virtual void ClearAllSoundEmitters();
+
 	// stop all playing sounds
-	virtual void			StopAllSounds();
-	
+	virtual void StopAllSounds();
+
 	// get a new emitter that can play sounds in this world
-	virtual idSoundEmitter* AllocSoundEmitter();
-	
+	virtual idSoundEmitter *AllocSoundEmitter();
+
 	// for load games
-	virtual idSoundEmitter* EmitterForIndex( int index );
-	
+	virtual idSoundEmitter *EmitterForIndex(int index);
+
 	// query data from all emitters in the world
-	virtual float			CurrentShakeAmplitude();
-	
+	virtual float CurrentShakeAmplitude();
+
 	// where is the camera
-	virtual void			PlaceListener( const idVec3& origin, const idMat3& axis, const int listenerId );
-	
-	virtual void			WriteSoundShaderLoad( const idSoundShader* snd );
-	
+	virtual void PlaceListener(const idVec3 &origin, const idMat3 &axis, const int listenerId);
+
+	virtual void WriteSoundShaderLoad(const idSoundShader *snd);
+
 	// fade all sounds in the world with a given shader soundClass
 	// to is in Db, over is in seconds
-	virtual void			FadeSoundClasses( const int soundClass, const float to, const float over );
-	
+	virtual void FadeSoundClasses(const int soundClass, const float to, const float over);
+
 	// dumps the current state and begins archiving commands
-	virtual void			StartWritingDemo( idDemoFile* demo );
-	virtual void			StopWritingDemo();
-	
+	virtual void StartWritingDemo(idDemoFile *demo);
+	virtual void StopWritingDemo();
+
 	// read a sound command from a demo file
-	virtual void			ProcessDemoCommand( idDemoFile* readDemo );
-	
+	virtual void ProcessDemoCommand(idDemoFile *readDemo);
+
 	// menu sounds
-	virtual int				PlayShaderDirectly( const char* name, int channel = -1 );
-	
-	virtual void			Skip( int time );
-	
-	virtual void			Pause();
-	virtual void			UnPause();
-	virtual bool			IsPaused()
+	virtual int PlayShaderDirectly(const char *name, int channel = -1);
+
+	virtual void Skip(int time);
+
+	virtual void Pause();
+	virtual void UnPause();
+	virtual bool IsPaused()
 	{
 		return isPaused;
 	}
-	
-	virtual int				GetSoundTime();
-	
+
+	virtual int GetSoundTime();
+
 	// avidump
-	virtual void			AVIOpen( const char* path, const char* name );
-	virtual void			AVIClose();
-	
+	virtual void AVIOpen(const char *path, const char *name);
+	virtual void AVIClose();
+
 	// SaveGame Support
-	virtual void			WriteToSaveGame( idFile* savefile );
-	virtual void			ReadFromSaveGame( idFile* savefile );
-	
-	virtual void			SetSlowmoSpeed( float speed );
-	virtual void			SetEnviroSuit( bool active );
-	
+	virtual void WriteToSaveGame(idFile *savefile);
+	virtual void ReadFromSaveGame(idFile *savefile);
+
+	virtual void SetSlowmoSpeed(float speed);
+	virtual void SetEnviroSuit(bool active);
+
 	//=======================================
-	
+
 	//------------------------
 	// Random stuff that's not exposed outside the sound system
 	//------------------------
-	void			Update(float afTimeStep);
-	void			OnReloadSound( const idDecl* decl );
-	
-	idSoundChannel* 	AllocSoundChannel();
-	void				FreeSoundChannel( idSoundChannel* );
-	
+	void Update(float afTimeStep);
+	void OnReloadSound(const idDecl *decl);
+
+	idSoundChannel *AllocSoundChannel();
+	void FreeSoundChannel(idSoundChannel *);
+
 public:
 	// even though all these variables are public, nobody outside the sound system includes SoundWorld_local.h
 	// so this is equivalent to making it private and friending all the other classes in the sound system
-	
-	idSoundFade			volumeFade;						// master volume knob for the entire world
-	idSoundFade			soundClassFade[SOUND_MAX_CLASSES];
-	
-	idRenderWorld* 		renderWorld;	// for debug visualization and light amplitude sampling
-	idDemoFile* 		writeDemo;		// if not NULL, archive commands here
-	
-	float				currentCushionDB;	// channels at or below this level will be faded to 0
-	float				shakeAmp;			// last calculated shake amplitude
-	
-	listener_t			listener;
-	idList<idSoundEmitterLocal*, TAG_AUDIO>	emitters;
-	
-	idSoundEmitter* 	localSound;			// for PlayShaderDirectly()
-	
-	idBlockAlloc<idSoundEmitterLocal, 16>	emitterAllocator;
-	idBlockAlloc<idSoundChannel, 16>		channelAllocator;
-	
-	idSoundFade				pauseFade;
-	int						pausedTime;
-	int						accumulatedPauseTime;
-	bool					isPaused;
-	
-	float					slowmoSpeed;
-	bool					enviroSuitActive;
-	
+
+	idSoundFade volumeFade; // master volume knob for the entire world
+	idSoundFade soundClassFade[SOUND_MAX_CLASSES];
+
+	idRenderWorld *renderWorld; // for debug visualization and light amplitude sampling
+	idDemoFile *writeDemo;      // if not NULL, archive commands here
+
+	float currentCushionDB; // channels at or below this level will be faded to 0
+	float shakeAmp;         // last calculated shake amplitude
+
+	listener_t listener;
+	idList<idSoundEmitterLocal *, TAG_AUDIO> emitters;
+
+	idSoundEmitter *localSound; // for PlayShaderDirectly()
+
+	idBlockAlloc<idSoundEmitterLocal, 16> emitterAllocator;
+	idBlockAlloc<idSoundChannel, 16> channelAllocator;
+
+	idSoundFade pauseFade;
+	int pausedTime;
+	int accumulatedPauseTime;
+	bool isPaused;
+
+	float slowmoSpeed;
+	bool enviroSuitActive;
+
 public:
 	struct soundPortalTrace_t
 	{
-		int		portalArea;
-		const soundPortalTrace_t* prevStack;
+		int portalArea;
+		const soundPortalTrace_t *prevStack;
 	};
-	
-	void			ResolveOrigin( const int stackDepth, const soundPortalTrace_t* prevStack, const int soundArea, const float dist, const idVec3& soundOrigin, idSoundEmitterLocal* def );
+
+	void ResolveOrigin(const int stackDepth, const soundPortalTrace_t *prevStack, const int soundArea, const float dist, const idVec3 &soundOrigin, idSoundEmitterLocal *def);
+
 private:
-	idCommon *common{nullptr};
-	idConsole *console{nullptr};
+	idCommon *common{ nullptr };
+	idConsole *console{ nullptr };
 };
 
 //}; // namespace sbe

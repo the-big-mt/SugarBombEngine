@@ -56,97 +56,97 @@ class idSoundSample_OpenAL
 {
 public:
 	idSoundSample_OpenAL();
-	
+
 	// Loads and initializes the resource based on the name.
-	virtual void	 LoadResource();
-	
-	void			SetName( const char* n )
+	virtual void LoadResource();
+
+	void SetName(const char *n)
 	{
 		name = n;
 	}
-	const char* 	GetName() const
+	const char *GetName() const
 	{
 		return name;
 	}
-	ID_TIME_T		GetTimestamp() const
+	ID_TIME_T GetTimestamp() const
 	{
 		return timestamp;
 	}
-	
+
 	// turns it into a beep
-	void			MakeDefault();
-	
+	void MakeDefault();
+
 	// frees all data
-	void			FreeData();
-	
-	int				LengthInMsec() const
+	void FreeData();
+
+	int LengthInMsec() const
 	{
-		return SamplesToMsec( NumSamples(), SampleRate() );
+		return SamplesToMsec(NumSamples(), SampleRate());
 	}
-	int				SampleRate() const
+	int SampleRate() const
 	{
 		return format.basic.samplesPerSec;
 	}
-	int				NumSamples() const
+	int NumSamples() const
 	{
 		return playLength;
 	}
-	int				NumChannels() const
+	int NumChannels() const
 	{
 		return format.basic.numChannels;
 	}
-	int				BufferSize() const
+	int BufferSize() const
 	{
 		return totalBufferSize;
 	}
-	
-	bool			IsCompressed() const
+
+	bool IsCompressed() const
 	{
-		return ( format.basic.formatTag != idWaveFile::FORMAT_PCM );
+		return (format.basic.formatTag != idWaveFile::FORMAT_PCM);
 	}
-	
-	bool			IsDefault() const
+
+	bool IsDefault() const
 	{
 		return timestamp == FILE_NOT_FOUND_TIMESTAMP;
 	}
-	bool			IsLoaded() const
+	bool IsLoaded() const
 	{
 		return loaded;
 	}
-	
-	void			SetNeverPurge()
+
+	void SetNeverPurge()
 	{
 		neverPurge = true;
 	}
-	bool			GetNeverPurge() const
+	bool GetNeverPurge() const
 	{
 		return neverPurge;
 	}
-	
-	void			SetLevelLoadReferenced()
+
+	void SetLevelLoadReferenced()
 	{
 		levelLoadReferenced = true;
 	}
-	void			ResetLevelLoadReferenced()
+	void ResetLevelLoadReferenced()
 	{
 		levelLoadReferenced = false;
 	}
-	bool			GetLevelLoadReferenced() const
+	bool GetLevelLoadReferenced() const
 	{
 		return levelLoadReferenced;
 	}
-	
-	int				GetLastPlayedTime() const
+
+	int GetLastPlayedTime() const
 	{
 		return lastPlayedTime;
 	}
-	void			SetLastPlayedTime( int t )
+	void SetLastPlayedTime(int t)
 	{
 		lastPlayedTime = t;
 	}
-	
-	float			GetAmplitude( int timeMS ) const;
-	
+
+	float GetAmplitude(int timeMS) const;
+
 #if 0 //defined(AL_SOFT_buffer_samples)
 	const char*		OpenALSoftChannelsName( ALenum chans ) const;
 	
@@ -162,66 +162,66 @@ public:
 	 * found. */
 	ALenum			GetOpenALSoftFormat( ALenum channels, ALenum type ) const;
 #endif
-	
-	ALenum			GetOpenALBufferFormat() const;
-	
-	void			CreateOpenALBuffer();
-	
+
+	ALenum GetOpenALBufferFormat() const;
+
+	void CreateOpenALBuffer();
+
 protected:
 	friend class idSoundHardware_OpenAL;
 	friend class idSoundVoice_OpenAL;
-	
+
 	~idSoundSample_OpenAL();
-	
-	bool			LoadWav( const idStr& name );
-	bool			LoadAmplitude( const idStr& name );
-	void			WriteAllSamples( const idStr& sampleName );
-	bool			LoadGeneratedSample( const idStr& name );
-	void			WriteGeneratedSample( idFile* fileOut );
-	
+
+	bool LoadWav(const idStr &name);
+	bool LoadAmplitude(const idStr &name);
+	void WriteAllSamples(const idStr &sampleName);
+	bool LoadGeneratedSample(const idStr &name);
+	void WriteGeneratedSample(idFile *fileOut);
+
 	struct MS_ADPCM_decodeState_t
 	{
 		uint8 hPredictor;
 		int16 coef1;
 		int16 coef2;
-		
+
 		uint16 iDelta;
 		int16 iSamp1;
 		int16 iSamp2;
 	};
-	
-	int32			MS_ADPCM_nibble( MS_ADPCM_decodeState_t* state, int8 nybble );
-	int				MS_ADPCM_decode( uint8** audio_buf, uint32* audio_len );
-	
+
+	int32 MS_ADPCM_nibble(MS_ADPCM_decodeState_t *state, int8 nybble);
+	int MS_ADPCM_decode(uint8 **audio_buf, uint32 *audio_len);
+
 	struct sampleBuffer_t
 	{
-		void* buffer;
+		void *buffer;
 		int bufferSize;
 		int numSamples;
 	};
-	
-	idStr			name;
-	
-	ID_TIME_T		timestamp;
-	bool			loaded;
-	
-	bool			neverPurge;
-	bool			levelLoadReferenced;
-	bool			usesMapHeap;
-	
-	uint32			lastPlayedTime;
-	
-	int				totalBufferSize;	// total size of all the buffers
+
+	idStr name;
+
+	ID_TIME_T timestamp;
+	bool loaded;
+
+	bool neverPurge;
+	bool levelLoadReferenced;
+	bool usesMapHeap;
+
+	uint32 lastPlayedTime;
+
+	int totalBufferSize; // total size of all the buffers
 	idList<sampleBuffer_t, TAG_AUDIO> buffers;
-	
+
 	// OpenAL buffer that contains all buffers
-	ALuint			openalBuffer;
-	
-	int				playBegin;
-	int				playLength;
-	
-	idWaveFile::waveFmt_t	format;
-	
+	ALuint openalBuffer;
+
+	int playBegin;
+	int playLength;
+
+	idWaveFile::waveFmt_t format;
+
 	idList<byte, TAG_AMPLITUDE> amplitude;
 };
 

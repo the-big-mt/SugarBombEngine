@@ -60,7 +60,7 @@ If you have questions concerning this license or the applicable additional terms
 extern idCVar s_useCompression;
 extern idCVar s_noSound;
 
-#define GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( x ) x
+#define GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS(x) x
 
 const uint32 SOUND_MAGIC_IDMSA = 0x6D7A7274;
 
@@ -71,9 +71,9 @@ extern idCVar sys_lang;
 AllocBuffer
 ========================
 */
-static void* AllocBuffer( int size, const char* name )
+static void *AllocBuffer(int size, const char *name)
 {
-	return Mem_Alloc( size, TAG_AUDIO );
+	return Mem_Alloc(size, TAG_AUDIO);
 }
 
 /*
@@ -81,9 +81,9 @@ static void* AllocBuffer( int size, const char* name )
 FreeBuffer
 ========================
 */
-static void FreeBuffer( void* p )
+static void FreeBuffer(void *p)
 {
-	return Mem_Free( p );
+	return Mem_Free(p);
 }
 
 /*
@@ -97,14 +97,14 @@ idSoundSample_XAudio2::idSoundSample_XAudio2()
 	loaded = false;
 	neverPurge = false;
 	levelLoadReferenced = false;
-	
-	memset( &format, 0, sizeof( format ) );
-	
+
+	memset(&format, 0, sizeof(format));
+
 	totalBufferSize = 0;
-	
+
 	playBegin = 0;
 	playLength = 0;
-	
+
 	lastPlayedTime = 0;
 }
 
@@ -123,23 +123,23 @@ idSoundSample_XAudio2::~idSoundSample_XAudio2()
 idSoundSample_XAudio2::WriteGeneratedSample
 ========================
 */
-void idSoundSample_XAudio2::WriteGeneratedSample( idFile* fileOut )
+void idSoundSample_XAudio2::WriteGeneratedSample(idFile *fileOut)
 {
-	fileOut->WriteBig( SOUND_MAGIC_IDMSA );
-	fileOut->WriteBig( timestamp );
-	fileOut->WriteBig( loaded );
-	fileOut->WriteBig( playBegin );
-	fileOut->WriteBig( playLength );
-	idWaveFile::WriteWaveFormatDirect( format, fileOut );
-	fileOut->WriteBig( ( int )amplitude.Num() );
-	fileOut->Write( amplitude.Ptr(), amplitude.Num() );
-	fileOut->WriteBig( totalBufferSize );
-	fileOut->WriteBig( ( int )buffers.Num() );
-	for( int i = 0; i < buffers.Num(); i++ )
+	fileOut->WriteBig(SOUND_MAGIC_IDMSA);
+	fileOut->WriteBig(timestamp);
+	fileOut->WriteBig(loaded);
+	fileOut->WriteBig(playBegin);
+	fileOut->WriteBig(playLength);
+	idWaveFile::WriteWaveFormatDirect(format, fileOut);
+	fileOut->WriteBig((int)amplitude.Num());
+	fileOut->Write(amplitude.Ptr(), amplitude.Num());
+	fileOut->WriteBig(totalBufferSize);
+	fileOut->WriteBig((int)buffers.Num());
+	for(int i = 0; i < buffers.Num(); i++)
 	{
-		fileOut->WriteBig( buffers[ i ].numSamples );
-		fileOut->WriteBig( buffers[ i ].bufferSize );
-		fileOut->Write( buffers[ i ].buffer, buffers[ i ].bufferSize );
+		fileOut->WriteBig(buffers[i].numSamples);
+		fileOut->WriteBig(buffers[i].bufferSize);
+		fileOut->Write(buffers[i].buffer, buffers[i].bufferSize);
 	};
 }
 /*
@@ -147,23 +147,23 @@ void idSoundSample_XAudio2::WriteGeneratedSample( idFile* fileOut )
 idSoundSample_XAudio2::WriteAllSamples
 ========================
 */
-void idSoundSample_XAudio2::WriteAllSamples( const idStr& sampleName )
+void idSoundSample_XAudio2::WriteAllSamples(const idStr &sampleName)
 {
-	idSoundSample_XAudio2* samplePC = new idSoundSample_XAudio2();
+	idSoundSample_XAudio2 *samplePC = new idSoundSample_XAudio2();
 	{
-		idStrStatic< MAX_OSPATH > inName = sampleName;
-		inName.Append( ".msadpcm" );
-		idStrStatic< MAX_OSPATH > inName2 = sampleName;
-		inName2.Append( ".wav" );
-		
-		idStrStatic< MAX_OSPATH > outName = "generated/";
-		outName.Append( sampleName );
-		outName.Append( ".idwav" );
-		
-		if( samplePC->LoadWav( inName ) || samplePC->LoadWav( inName2 ) )
+		idStrStatic<MAX_OSPATH> inName = sampleName;
+		inName.Append(".msadpcm");
+		idStrStatic<MAX_OSPATH> inName2 = sampleName;
+		inName2.Append(".wav");
+
+		idStrStatic<MAX_OSPATH> outName = "generated/";
+		outName.Append(sampleName);
+		outName.Append(".idwav");
+
+		if(samplePC->LoadWav(inName) || samplePC->LoadWav(inName2))
 		{
-			idFile* fileOut = fileSystem->OpenFileWrite( outName, "fs_basepath" );
-			samplePC->WriteGeneratedSample( fileOut );
+			idFile *fileOut = fileSystem->OpenFileWrite(outName, "fs_basepath");
+			samplePC->WriteGeneratedSample(fileOut);
 			delete fileOut;
 		}
 	}
@@ -175,33 +175,33 @@ void idSoundSample_XAudio2::WriteAllSamples( const idStr& sampleName )
 idSoundSample_XAudio2::LoadGeneratedSound
 ========================
 */
-bool idSoundSample_XAudio2::LoadGeneratedSample( const idStr& filename )
+bool idSoundSample_XAudio2::LoadGeneratedSample(const idStr &filename)
 {
-	idFileLocal fileIn( fileSystem->OpenFileReadMemory( filename ) );
-	if( fileIn != nullptr )
+	idFileLocal fileIn(fileSystem->OpenFileReadMemory(filename));
+	if(fileIn != nullptr)
 	{
 		uint32 magic;
-		fileIn->ReadBig( magic );
-		fileIn->ReadBig( timestamp );
-		fileIn->ReadBig( loaded );
-		fileIn->ReadBig( playBegin );
-		fileIn->ReadBig( playLength );
-		idWaveFile::ReadWaveFormatDirect( format, fileIn );
+		fileIn->ReadBig(magic);
+		fileIn->ReadBig(timestamp);
+		fileIn->ReadBig(loaded);
+		fileIn->ReadBig(playBegin);
+		fileIn->ReadBig(playLength);
+		idWaveFile::ReadWaveFormatDirect(format, fileIn);
 		int num;
-		fileIn->ReadBig( num );
+		fileIn->ReadBig(num);
 		amplitude.Clear();
-		amplitude.SetNum( num );
-		fileIn->Read( amplitude.Ptr(), amplitude.Num() );
-		fileIn->ReadBig( totalBufferSize );
-		fileIn->ReadBig( num );
-		buffers.SetNum( num );
-		for( int i = 0; i < num; i++ )
+		amplitude.SetNum(num);
+		fileIn->Read(amplitude.Ptr(), amplitude.Num());
+		fileIn->ReadBig(totalBufferSize);
+		fileIn->ReadBig(num);
+		buffers.SetNum(num);
+		for(int i = 0; i < num; i++)
 		{
-			fileIn->ReadBig( buffers[ i ].numSamples );
-			fileIn->ReadBig( buffers[ i ].bufferSize );
-			buffers[ i ].buffer = AllocBuffer( buffers[ i ].bufferSize, GetName() );
-			fileIn->Read( buffers[ i ].buffer, buffers[ i ].bufferSize );
-			buffers[ i ].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[ i ].buffer );
+			fileIn->ReadBig(buffers[i].numSamples);
+			fileIn->ReadBig(buffers[i].bufferSize);
+			buffers[i].buffer = AllocBuffer(buffers[i].bufferSize, GetName());
+			fileIn->Read(buffers[i].buffer, buffers[i].bufferSize);
+			buffers[i].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS(buffers[i].buffer);
 		}
 		return true;
 	}
@@ -215,77 +215,77 @@ idSoundSample_XAudio2::Load
 void idSoundSample_XAudio2::LoadResource()
 {
 	FreeData();
-	
-	if( idStr::Icmpn( GetName(), "_default", 8 ) == 0 )
+
+	if(idStr::Icmpn(GetName(), "_default", 8) == 0)
 	{
 		MakeDefault();
 		return;
 	}
-	
-	if( s_noSound.GetBool() )
+
+	if(s_noSound.GetBool())
 	{
 		MakeDefault();
 		return;
 	}
-	
+
 	loaded = false;
-	
-	for( int i = 0; i < 2; i++ )
+
+	for(int i = 0; i < 2; i++)
 	{
-		idStrStatic< MAX_OSPATH > sampleName = GetName();
-		if( ( i == 0 ) && !sampleName.Replace( "/vo/", va( "/vo/%s/", sys_lang.GetString() ) ) )
+		idStrStatic<MAX_OSPATH> sampleName = GetName();
+		if((i == 0) && !sampleName.Replace("/vo/", va("/vo/%s/", sys_lang.GetString())))
 		{
 			i++;
 		}
-		idStrStatic< MAX_OSPATH > generatedName = "generated/";
-		generatedName.Append( sampleName );
-		
+		idStrStatic<MAX_OSPATH> generatedName = "generated/";
+		generatedName.Append(sampleName);
+
 		{
-			if( s_useCompression.GetBool() )
+			if(s_useCompression.GetBool())
 			{
-				sampleName.Append( ".msadpcm" );
+				sampleName.Append(".msadpcm");
 			}
 			else
 			{
-				sampleName.Append( ".wav" );
+				sampleName.Append(".wav");
 			}
-			generatedName.Append( ".idwav" );
+			generatedName.Append(".idwav");
 		}
-		loaded = LoadGeneratedSample( generatedName ) || LoadWav( sampleName );
-		
-		if( !loaded && s_useCompression.GetBool() )
+		loaded = LoadGeneratedSample(generatedName) || LoadWav(sampleName);
+
+		if(!loaded && s_useCompression.GetBool())
 		{
-			sampleName.SetFileExtension( "wav" );
-			loaded = LoadWav( sampleName );
+			sampleName.SetFileExtension("wav");
+			loaded = LoadWav(sampleName);
 		}
-		
-		if( loaded )
+
+		if(loaded)
 		{
-			if( cvarSystem->GetCVarBool( "fs_buildresources" ) )
+			if(cvarSystem->GetCVarBool("fs_buildresources"))
 			{
-				fileSystem->AddSamplePreload( GetName() );
-				WriteAllSamples( GetName() );
-				
-				if( sampleName.Find( "/vo/" ) >= 0 )
+				fileSystem->AddSamplePreload(GetName());
+				WriteAllSamples(GetName());
+
+				if(sampleName.Find("/vo/") >= 0)
 				{
-					for( int i = 0; i < Sys_NumLangs(); i++ )
+					for(int i = 0; i < Sys_NumLangs(); i++)
 					{
-						const char* lang = Sys_Lang( i );
-						if( idStr::Icmp( lang, ID_LANG_ENGLISH ) == 0 )
+						const char *lang = Sys_Lang(i);
+						if(idStr::Icmp(lang, ID_LANG_ENGLISH) == 0)
 						{
 							continue;
 						}
-						idStrStatic< MAX_OSPATH > locName = GetName();
-						locName.Replace( "/vo/", va( "/vo/%s/", Sys_Lang( i ) ) );
-						WriteAllSamples( locName );
+						idStrStatic<MAX_OSPATH> locName = GetName();
+						locName.Replace("/vo/", va("/vo/%s/", Sys_Lang(i)));
+						WriteAllSamples(locName);
 					}
 				}
 			}
 			return;
 		}
 	}
-	
-	if( !loaded )
+
+	if(!loaded)
 	{
 		// make it default if everything else fails
 		MakeDefault();
@@ -298,126 +298,119 @@ void idSoundSample_XAudio2::LoadResource()
 idSoundSample_XAudio2::LoadWav
 ========================
 */
-bool idSoundSample_XAudio2::LoadWav( const idStr& filename )
+bool idSoundSample_XAudio2::LoadWav(const idStr &filename)
 {
-
 	// load the wave
 	idWaveFile wave;
-	if( !wave.Open( filename ) )
+	if(!wave.Open(filename))
 	{
 		return false;
 	}
-	
-	idStrStatic< MAX_OSPATH > sampleName = filename;
-	sampleName.SetFileExtension( "amp" );
-	LoadAmplitude( sampleName );
-	
-	const char* formatError = wave.ReadWaveFormat( format );
-	if( formatError != nullptr )
+
+	idStrStatic<MAX_OSPATH> sampleName = filename;
+	sampleName.SetFileExtension("amp");
+	LoadAmplitude(sampleName);
+
+	const char *formatError = wave.ReadWaveFormat(format);
+	if(formatError != nullptr)
 	{
-		idLib::Warning( "LoadWav( %s ) : %s", filename.c_str(), formatError );
+		idLib::Warning("LoadWav( %s ) : %s", filename.c_str(), formatError);
 		MakeDefault();
 		return false;
 	}
 	timestamp = wave.Timestamp();
-	
-	totalBufferSize = wave.SeekToChunk( 'data' );
-	
-	if( format.basic.formatTag == idWaveFile::FORMAT_PCM || format.basic.formatTag == idWaveFile::FORMAT_EXTENSIBLE )
+
+	totalBufferSize = wave.SeekToChunk('data');
+
+	if(format.basic.formatTag == idWaveFile::FORMAT_PCM || format.basic.formatTag == idWaveFile::FORMAT_EXTENSIBLE)
 	{
-	
-		if( format.basic.bitsPerSample != 16 )
+		if(format.basic.bitsPerSample != 16)
 		{
-			idLib::Warning( "LoadWav( %s ) : %s", filename.c_str(), "Not a 16 bit PCM wav file" );
+			idLib::Warning("LoadWav( %s ) : %s", filename.c_str(), "Not a 16 bit PCM wav file");
 			MakeDefault();
 			return false;
 		}
-		
+
 		playBegin = 0;
-		playLength = ( totalBufferSize ) / format.basic.blockSize;
-		
-		buffers.SetNum( 1 );
+		playLength = (totalBufferSize) / format.basic.blockSize;
+
+		buffers.SetNum(1);
 		buffers[0].bufferSize = totalBufferSize;
 		buffers[0].numSamples = playLength;
-		buffers[0].buffer = AllocBuffer( totalBufferSize, GetName() );
-		
-		
-		wave.Read( buffers[0].buffer, totalBufferSize );
-		
-		if( format.basic.bitsPerSample == 16 )
+		buffers[0].buffer = AllocBuffer(totalBufferSize, GetName());
+
+		wave.Read(buffers[0].buffer, totalBufferSize);
+
+		if(format.basic.bitsPerSample == 16)
 		{
-			idSwap::LittleArray( ( short* )buffers[0].buffer, totalBufferSize / sizeof( short ) );
+			idSwap::LittleArray((short *)buffers[0].buffer, totalBufferSize / sizeof(short));
 		}
-		
-		buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[0].buffer );
-		
+
+		buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS(buffers[0].buffer);
 	}
-	else if( format.basic.formatTag == idWaveFile::FORMAT_ADPCM )
+	else if(format.basic.formatTag == idWaveFile::FORMAT_ADPCM)
 	{
-	
 		playBegin = 0;
-		playLength = ( ( totalBufferSize / format.basic.blockSize ) * format.extra.adpcm.samplesPerBlock );
-		
-		buffers.SetNum( 1 );
+		playLength = ((totalBufferSize / format.basic.blockSize) * format.extra.adpcm.samplesPerBlock);
+
+		buffers.SetNum(1);
 		buffers[0].bufferSize = totalBufferSize;
 		buffers[0].numSamples = playLength;
-		buffers[0].buffer  = AllocBuffer( totalBufferSize, GetName() );
-		
-		wave.Read( buffers[0].buffer, totalBufferSize );
-		
-		buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[0].buffer );
-		
+		buffers[0].buffer = AllocBuffer(totalBufferSize, GetName());
+
+		wave.Read(buffers[0].buffer, totalBufferSize);
+
+		buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS(buffers[0].buffer);
 	}
-	else if( format.basic.formatTag == idWaveFile::FORMAT_XMA2 )
+	else if(format.basic.formatTag == idWaveFile::FORMAT_XMA2)
 	{
-	
-		if( format.extra.xma2.blockCount == 0 )
+		if(format.extra.xma2.blockCount == 0)
 		{
-			idLib::Warning( "LoadWav( %s ) : %s", filename.c_str(), "No data blocks in file" );
+			idLib::Warning("LoadWav( %s ) : %s", filename.c_str(), "No data blocks in file");
 			MakeDefault();
 			return false;
 		}
-		
+
 		int bytesPerBlock = format.extra.xma2.bytesPerBlock;
-		assert( format.extra.xma2.blockCount == ALIGN( totalBufferSize, bytesPerBlock ) / bytesPerBlock );
-		assert( format.extra.xma2.blockCount * bytesPerBlock >= totalBufferSize );
-		assert( format.extra.xma2.blockCount * bytesPerBlock < totalBufferSize + bytesPerBlock );
-		
-		buffers.SetNum( format.extra.xma2.blockCount );
-		for( int i = 0; i < buffers.Num(); i++ )
+		assert(format.extra.xma2.blockCount == ALIGN(totalBufferSize, bytesPerBlock) / bytesPerBlock);
+		assert(format.extra.xma2.blockCount * bytesPerBlock >= totalBufferSize);
+		assert(format.extra.xma2.blockCount * bytesPerBlock < totalBufferSize + bytesPerBlock);
+
+		buffers.SetNum(format.extra.xma2.blockCount);
+		for(int i = 0; i < buffers.Num(); i++)
 		{
-			if( i == buffers.Num() - 1 )
+			if(i == buffers.Num() - 1)
 			{
-				buffers[i].bufferSize = totalBufferSize - ( i * bytesPerBlock );
+				buffers[i].bufferSize = totalBufferSize - (i * bytesPerBlock);
 			}
 			else
 			{
 				buffers[i].bufferSize = bytesPerBlock;
 			}
-			
-			buffers[i].buffer = AllocBuffer( buffers[i].bufferSize, GetName() );
-			wave.Read( buffers[i].buffer, buffers[i].bufferSize );
-			buffers[i].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[i].buffer );
+
+			buffers[i].buffer = AllocBuffer(buffers[i].bufferSize, GetName());
+			wave.Read(buffers[i].buffer, buffers[i].bufferSize);
+			buffers[i].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS(buffers[i].buffer);
 		}
-		
-		int seekTableSize = wave.SeekToChunk( 'seek' );
-		if( seekTableSize != 4 * buffers.Num() )
+
+		int seekTableSize = wave.SeekToChunk('seek');
+		if(seekTableSize != 4 * buffers.Num())
 		{
-			idLib::Warning( "LoadWav( %s ) : %s", filename.c_str(), "Wrong number of entries in seek table" );
+			idLib::Warning("LoadWav( %s ) : %s", filename.c_str(), "Wrong number of entries in seek table");
 			MakeDefault();
 			return false;
 		}
-		
-		for( int i = 0; i < buffers.Num(); i++ )
+
+		for(int i = 0; i < buffers.Num(); i++)
 		{
-			wave.Read( &buffers[i].numSamples, sizeof( buffers[i].numSamples ) );
-			idSwap::Big( buffers[i].numSamples );
+			wave.Read(&buffers[i].numSamples, sizeof(buffers[i].numSamples));
+			idSwap::Big(buffers[i].numSamples);
 		}
-		
+
 		playBegin = format.extra.xma2.loopBegin;
 		playLength = format.extra.xma2.loopLength;
-		
-		if( buffers[buffers.Num() - 1].numSamples < playBegin + playLength )
+
+		if(buffers[buffers.Num() - 1].numSamples < playBegin + playLength)
 		{
 			// This shouldn't happen, but it's not fatal if it does
 			playLength = buffers[buffers.Num() - 1].numSamples - playBegin;
@@ -425,45 +418,43 @@ bool idSoundSample_XAudio2::LoadWav( const idStr& filename )
 		else
 		{
 			// Discard samples beyond playLength
-			for( int i = 0; i < buffers.Num(); i++ )
+			for(int i = 0; i < buffers.Num(); i++)
 			{
-				if( buffers[i].numSamples > playBegin + playLength )
+				if(buffers[i].numSamples > playBegin + playLength)
 				{
 					buffers[i].numSamples = playBegin + playLength;
 					// Ideally, the following loop should always have 0 iterations because playBegin + playLength ends in the last block already
 					// But there is no guarantee for that, so to be safe, discard all buffers beyond this one
-					for( int j = i + 1; j < buffers.Num(); j++ )
+					for(int j = i + 1; j < buffers.Num(); j++)
 					{
-						FreeBuffer( buffers[j].buffer );
+						FreeBuffer(buffers[j].buffer);
 					}
-					buffers.SetNum( i + 1 );
+					buffers.SetNum(i + 1);
 					break;
 				}
 			}
 		}
-		
 	}
 	else
 	{
-		idLib::Warning( "LoadWav( %s ) : Unsupported wave format %d", filename.c_str(), format.basic.formatTag );
+		idLib::Warning("LoadWav( %s ) : Unsupported wave format %d", filename.c_str(), format.basic.formatTag);
 		MakeDefault();
 		return false;
 	}
-	
+
 	wave.Close();
-	
-	if( format.basic.formatTag == idWaveFile::FORMAT_EXTENSIBLE )
+
+	if(format.basic.formatTag == idWaveFile::FORMAT_EXTENSIBLE)
 	{
 		// HACK: XAudio2 doesn't really support FORMAT_EXTENSIBLE so we convert it to a basic format after extracting the channel mask
 		format.basic.formatTag = format.extra.extensible.subFormat.data1;
 	}
-	
+
 	// sanity check...
-	assert( buffers[buffers.Num() - 1].numSamples == playBegin + playLength );
-	
+	assert(buffers[buffers.Num() - 1].numSamples == playBegin + playLength);
+
 	return true;
 }
-
 
 /*
 ========================
@@ -473,37 +464,37 @@ idSoundSample_XAudio2::MakeDefault
 void idSoundSample_XAudio2::MakeDefault()
 {
 	FreeData();
-	
+
 	static const int DEFAULT_NUM_SAMPLES = 256;
-	
+
 	timestamp = FILE_NOT_FOUND_TIMESTAMP;
 	loaded = true;
-	
-	memset( &format, 0, sizeof( format ) );
+
+	memset(&format, 0, sizeof(format));
 	format.basic.formatTag = idWaveFile::FORMAT_PCM;
 	format.basic.numChannels = 1;
 	format.basic.bitsPerSample = 16;
 	format.basic.samplesPerSec = XAUDIO2_MIN_SAMPLE_RATE;
 	format.basic.blockSize = format.basic.numChannels * format.basic.bitsPerSample / 8;
 	format.basic.avgBytesPerSec = format.basic.samplesPerSec * format.basic.blockSize;
-	
-	assert( format.basic.blockSize == 2 );
-	
+
+	assert(format.basic.blockSize == 2);
+
 	totalBufferSize = DEFAULT_NUM_SAMPLES * 2;
-	
-	short* defaultBuffer = ( short* )AllocBuffer( totalBufferSize, GetName() );
-	for( int i = 0; i < DEFAULT_NUM_SAMPLES; i += 2 )
+
+	short *defaultBuffer = (short *)AllocBuffer(totalBufferSize, GetName());
+	for(int i = 0; i < DEFAULT_NUM_SAMPLES; i += 2)
 	{
 		defaultBuffer[i + 0] = SHRT_MIN;
 		defaultBuffer[i + 1] = SHRT_MAX;
 	}
-	
-	buffers.SetNum( 1 );
+
+	buffers.SetNum(1);
 	buffers[0].buffer = defaultBuffer;
 	buffers[0].bufferSize = totalBufferSize;
 	buffers[0].numSamples = DEFAULT_NUM_SAMPLES;
-	buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[0].buffer );
-	
+	buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS(buffers[0].buffer);
+
 	playBegin = 0;
 	playLength = DEFAULT_NUM_SAMPLES;
 }
@@ -517,19 +508,19 @@ Called before deleting the object and at the start of LoadResource()
 */
 void idSoundSample_XAudio2::FreeData()
 {
-	if( buffers.Num() > 0 )
+	if(buffers.Num() > 0)
 	{
-		soundSystemLocal.StopVoicesWithSample( ( idSoundSample* )this );
-		for( int i = 0; i < buffers.Num(); i++ )
+		soundSystemLocal.StopVoicesWithSample((idSoundSample *)this);
+		for(int i = 0; i < buffers.Num(); i++)
 		{
-			FreeBuffer( buffers[i].buffer );
+			FreeBuffer(buffers[i].buffer);
 		}
 		buffers.Clear();
 	}
 	amplitude.Clear();
-	
+
 	timestamp = FILE_NOT_FOUND_TIMESTAMP;
-	memset( &format, 0, sizeof( format ) );
+	memset(&format, 0, sizeof(format));
 	loaded = false;
 	totalBufferSize = 0;
 	playBegin = 0;
@@ -541,16 +532,16 @@ void idSoundSample_XAudio2::FreeData()
 idSoundSample_XAudio2::LoadAmplitude
 ========================
 */
-bool idSoundSample_XAudio2::LoadAmplitude( const idStr& name )
+bool idSoundSample_XAudio2::LoadAmplitude(const idStr &name)
 {
 	amplitude.Clear();
-	idFileLocal f( fileSystem->OpenFileRead( name ) );
-	if( f == nullptr )
+	idFileLocal f(fileSystem->OpenFileRead(name));
+	if(f == nullptr)
 	{
 		return false;
 	}
-	amplitude.SetNum( f->Length() );
-	f->Read( amplitude.Ptr(), amplitude.Num() );
+	amplitude.SetNum(f->Length());
+	f->Read(amplitude.Ptr(), amplitude.Num());
 	return true;
 }
 
@@ -559,22 +550,22 @@ bool idSoundSample_XAudio2::LoadAmplitude( const idStr& name )
 idSoundSample_XAudio2::GetAmplitude
 ========================
 */
-float idSoundSample_XAudio2::GetAmplitude( int timeMS ) const
+float idSoundSample_XAudio2::GetAmplitude(int timeMS) const
 {
-	if( timeMS < 0 || timeMS > LengthInMsec() )
+	if(timeMS < 0 || timeMS > LengthInMsec())
 	{
 		return 0.0f;
 	}
-	if( IsDefault() )
+	if(IsDefault())
 	{
 		return 1.0f;
 	}
 	int index = timeMS * 60 / 1000;
-	if( index < 0 || index >= amplitude.Num() )
+	if(index < 0 || index >= amplitude.Num())
 	{
 		return 0.0f;
 	}
-	return ( float )amplitude[index] / 255.0f;
+	return (float)amplitude[index] / 255.0f;
 }
 
 //} // namespace BFG

@@ -51,12 +51,12 @@ If you have questions concerning this license or the applicable additional terms
 //namespace sbe
 //{
 
-ID_INLINE_EXTERN ALenum CheckALErrors_( const char* filename, int line )
+ID_INLINE_EXTERN ALenum CheckALErrors_(const char *filename, int line)
 {
 	ALenum err = alGetError();
-	if( err != AL_NO_ERROR )
+	if(err != AL_NO_ERROR)
 	{
-		idLib::Printf( "OpenAL Error: %s (0x%x), @ %s %d\n", alGetString( err ), err, filename, line );
+		idLib::Printf("OpenAL Error: %s (0x%x), @ %s %d\n", alGetString(err), err, filename, line);
 	}
 	return err;
 }

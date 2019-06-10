@@ -61,7 +61,7 @@ void idSoundFade::Clear()
 idSoundFade::SetVolume
 ========================
 */
-void idSoundFade::SetVolume( float to )
+void idSoundFade::SetVolume(float to)
 {
 	fadeStartVolume = to;
 	fadeEndVolume = to;
@@ -74,15 +74,15 @@ void idSoundFade::SetVolume( float to )
 idSoundFade::Fade
 ========================
 */
-void idSoundFade::Fade( float to, int length, int soundTime )
+void idSoundFade::Fade(float to, int length, int soundTime)
 {
 	int startTime = soundTime;
 	// if it is already fading to this volume at this rate, don't change it
-	if( fadeEndTime == startTime + length && fadeEndVolume == to )
+	if(fadeEndTime == startTime + length && fadeEndVolume == to)
 	{
 		return;
 	}
-	fadeStartVolume = GetVolume( soundTime );
+	fadeStartVolume = GetVolume(soundTime);
 	fadeEndVolume = to;
 	fadeStartTime = startTime;
 	fadeEndTime = startTime + length;
@@ -93,22 +93,22 @@ void idSoundFade::Fade( float to, int length, int soundTime )
 idSoundFade::GetVolume
 ========================
 */
-float idSoundFade::GetVolume( const int soundTime ) const
+float idSoundFade::GetVolume(const int soundTime) const
 {
-	const float fadeDuration = ( fadeEndTime - fadeStartTime );
+	const float fadeDuration = (fadeEndTime - fadeStartTime);
 	const int currentTime = soundTime;
-	const float playTime = ( currentTime - fadeStartTime );
-	if( fadeDuration <= 0.0f )
+	const float playTime = (currentTime - fadeStartTime);
+	if(fadeDuration <= 0.0f)
 	{
 		return fadeEndVolume;
 	}
-	else if( currentTime >= fadeEndTime )
+	else if(currentTime >= fadeEndTime)
 	{
 		return fadeEndVolume;
 	}
-	else if( currentTime > fadeStartTime )
+	else if(currentTime > fadeStartTime)
 	{
-		return fadeStartVolume + ( fadeEndVolume - fadeStartVolume ) * playTime / fadeDuration;
+		return fadeStartVolume + (fadeEndVolume - fadeStartVolume) * playTime / fadeDuration;
 	}
 	else
 	{

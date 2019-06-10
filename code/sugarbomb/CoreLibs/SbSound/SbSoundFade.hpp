@@ -39,21 +39,22 @@ If you have questions concerning this license or the applicable additional terms
 class idSoundFade
 {
 public:
-	int		fadeStartTime;
-	int		fadeEndTime;
-	float	fadeStartVolume;
-	float	fadeEndVolume;
+	int fadeStartTime;
+	int fadeEndTime;
+	float fadeStartVolume;
+	float fadeEndVolume;
+
 public:
 	idSoundFade()
 	{
 		Clear();
 	}
-	
-	void	Clear();
-	void	SetVolume( float to );
-	void	Fade( float to, int length, int soundTime );
-	
-	float	GetVolume( int soundTime ) const;
+
+	void Clear();
+	void SetVolume(float to);
+	void Fade(float to, int length, int soundTime);
+
+	float GetVolume(int soundTime) const;
 };
 
 //}; // namespace sbe

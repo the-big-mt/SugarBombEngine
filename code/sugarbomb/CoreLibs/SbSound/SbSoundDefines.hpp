@@ -37,7 +37,7 @@ If you have questions concerning this license or the applicable additional terms
 #define MAX_HARDWARE_VOICES 48
 
 // Maximum number of channels in a sound sample
-#define MAX_CHANNELS_PER_VOICE	8
+#define MAX_CHANNELS_PER_VOICE 8
 
 //namespace sbe
 //{
@@ -48,17 +48,17 @@ const int SOUND_MAX_CLASSES = 4;
 
 // unfortunately, our minDistance / maxDistance is specified in meters, and
 // we have far too many of them to change at this time.
-const float DOOM_TO_METERS = 0.0254f;					// doom to meters
-const float METERS_TO_DOOM = ( 1.0f / DOOM_TO_METERS );	// meters to doom
+const float DOOM_TO_METERS = 0.0254f;                 // doom to meters
+const float METERS_TO_DOOM = (1.0f / DOOM_TO_METERS); // meters to doom
 
 /*
 ========================
 SamplesToMsec
 ========================
 */
-ID_INLINE_EXTERN uint32 SamplesToMsec( uint32 samples, uint32 sampleRate )
+ID_INLINE_EXTERN uint32 SamplesToMsec(uint32 samples, uint32 sampleRate)
 {
-	return sampleRate < 100 ? 0 : ( samples * 10 ) / ( sampleRate / 100 );
+	return sampleRate < 100 ? 0 : (samples * 10) / (sampleRate / 100);
 }
 
 /*
@@ -66,15 +66,15 @@ ID_INLINE_EXTERN uint32 SamplesToMsec( uint32 samples, uint32 sampleRate )
 DBtoLinear
 ========================
 */
-ID_INLINE_EXTERN float DBtoLinear( float db )
+ID_INLINE_EXTERN float DBtoLinear(float db)
 {
-	return idMath::Pow( 2.0f, db * ( 1.0f / 6.0f ) );
+	return idMath::Pow(2.0f, db * (1.0f / 6.0f));
 }
 
 // demo sound commands
 enum soundDemoCommand_t
 {
-	SCMD_STATE,				// followed by a load game state
+	SCMD_STATE, // followed by a load game state
 	SCMD_PLACE_LISTENER,
 	SCMD_ALLOC_EMITTER,
 	SCMD_FREE,

@@ -67,7 +67,7 @@ If you have questions concerning this license or the applicable additional terms
 extern idCVar s_useCompression;
 extern idCVar s_noSound;
 
-#define GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( x ) x
+#define GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS(x) x
 
 const uint32 SOUND_MAGIC_IDMSA = 0x6D7A7274;
 
@@ -78,9 +78,9 @@ extern idCVar sys_lang;
 AllocBuffer
 ========================
 */
-static void* AllocBuffer( int size, const char* name )
+static void *AllocBuffer(int size, const char *name)
 {
-	return Mem_Alloc( size, TAG_AUDIO );
+	return Mem_Alloc(size, TAG_AUDIO);
 }
 
 /*
@@ -88,9 +88,9 @@ static void* AllocBuffer( int size, const char* name )
 FreeBuffer
 ========================
 */
-static void FreeBuffer( void* p )
+static void FreeBuffer(void *p)
 {
-	return Mem_Free( p );
+	return Mem_Free(p);
 }
 
 /*
@@ -104,16 +104,16 @@ idSoundSample_OpenAL::idSoundSample_OpenAL()
 	loaded = false;
 	neverPurge = false;
 	levelLoadReferenced = false;
-	
-	memset( &format, 0, sizeof( format ) );
-	
+
+	memset(&format, 0, sizeof(format));
+
 	totalBufferSize = 0;
-	
+
 	playBegin = 0;
 	playLength = 0;
-	
+
 	lastPlayedTime = 0;
-	
+
 	openalBuffer = 0;
 }
 
@@ -132,23 +132,23 @@ idSoundSample_OpenAL::~idSoundSample_OpenAL()
 idSoundSample_OpenAL::WriteGeneratedSample
 ========================
 */
-void idSoundSample_OpenAL::WriteGeneratedSample( idFile* fileOut )
+void idSoundSample_OpenAL::WriteGeneratedSample(idFile *fileOut)
 {
-	fileOut->WriteBig( SOUND_MAGIC_IDMSA );
-	fileOut->WriteBig( timestamp );
-	fileOut->WriteBig( loaded );
-	fileOut->WriteBig( playBegin );
-	fileOut->WriteBig( playLength );
-	idWaveFile::WriteWaveFormatDirect( format, fileOut );
-	fileOut->WriteBig( ( int )amplitude.Num() );
-	fileOut->Write( amplitude.Ptr(), amplitude.Num() );
-	fileOut->WriteBig( totalBufferSize );
-	fileOut->WriteBig( ( int )buffers.Num() );
-	for( int i = 0; i < buffers.Num(); i++ )
+	fileOut->WriteBig(SOUND_MAGIC_IDMSA);
+	fileOut->WriteBig(timestamp);
+	fileOut->WriteBig(loaded);
+	fileOut->WriteBig(playBegin);
+	fileOut->WriteBig(playLength);
+	idWaveFile::WriteWaveFormatDirect(format, fileOut);
+	fileOut->WriteBig((int)amplitude.Num());
+	fileOut->Write(amplitude.Ptr(), amplitude.Num());
+	fileOut->WriteBig(totalBufferSize);
+	fileOut->WriteBig((int)buffers.Num());
+	for(int i = 0; i < buffers.Num(); i++)
 	{
-		fileOut->WriteBig( buffers[ i ].numSamples );
-		fileOut->WriteBig( buffers[ i ].bufferSize );
-		fileOut->Write( buffers[ i ].buffer, buffers[ i ].bufferSize );
+		fileOut->WriteBig(buffers[i].numSamples);
+		fileOut->WriteBig(buffers[i].bufferSize);
+		fileOut->Write(buffers[i].buffer, buffers[i].bufferSize);
 	};
 }
 /*
@@ -156,23 +156,23 @@ void idSoundSample_OpenAL::WriteGeneratedSample( idFile* fileOut )
 idSoundSample_OpenAL::WriteAllSamples
 ========================
 */
-void idSoundSample_OpenAL::WriteAllSamples( const idStr& sampleName )
+void idSoundSample_OpenAL::WriteAllSamples(const idStr &sampleName)
 {
-	idSoundSample_OpenAL* samplePC = new idSoundSample_OpenAL();
+	idSoundSample_OpenAL *samplePC = new idSoundSample_OpenAL();
 	{
-		idStrStatic< MAX_OSPATH > inName = sampleName;
-		inName.Append( ".msadpcm" );
-		idStrStatic< MAX_OSPATH > inName2 = sampleName;
-		inName2.Append( ".wav" );
-		
-		idStrStatic< MAX_OSPATH > outName = "generated/";
-		outName.Append( sampleName );
-		outName.Append( ".idwav" );
-		
-		if( samplePC->LoadWav( inName ) || samplePC->LoadWav( inName2 ) )
+		idStrStatic<MAX_OSPATH> inName = sampleName;
+		inName.Append(".msadpcm");
+		idStrStatic<MAX_OSPATH> inName2 = sampleName;
+		inName2.Append(".wav");
+
+		idStrStatic<MAX_OSPATH> outName = "generated/";
+		outName.Append(sampleName);
+		outName.Append(".idwav");
+
+		if(samplePC->LoadWav(inName) || samplePC->LoadWav(inName2))
 		{
-			idFile* fileOut = fileSystem->OpenFileWrite( outName, "fs_basepath" );
-			samplePC->WriteGeneratedSample( fileOut );
+			idFile *fileOut = fileSystem->OpenFileWrite(outName, "fs_basepath");
+			samplePC->WriteGeneratedSample(fileOut);
 			delete fileOut;
 		}
 	}
@@ -184,39 +184,39 @@ void idSoundSample_OpenAL::WriteAllSamples( const idStr& sampleName )
 idSoundSample_OpenAL::LoadGeneratedSound
 ========================
 */
-bool idSoundSample_OpenAL::LoadGeneratedSample( const idStr& filename )
+bool idSoundSample_OpenAL::LoadGeneratedSample(const idStr &filename)
 {
 #if 1
-	idFileLocal fileIn( fileSystem->OpenFileReadMemory( filename ) );
-	if( fileIn != nullptr )
+	idFileLocal fileIn(fileSystem->OpenFileReadMemory(filename));
+	if(fileIn != nullptr)
 	{
 		uint32 magic;
-		fileIn->ReadBig( magic );
-		fileIn->ReadBig( timestamp );
-		fileIn->ReadBig( loaded );
-		fileIn->ReadBig( playBegin );
-		fileIn->ReadBig( playLength );
-		idWaveFile::ReadWaveFormatDirect( format, fileIn );
+		fileIn->ReadBig(magic);
+		fileIn->ReadBig(timestamp);
+		fileIn->ReadBig(loaded);
+		fileIn->ReadBig(playBegin);
+		fileIn->ReadBig(playLength);
+		idWaveFile::ReadWaveFormatDirect(format, fileIn);
 		int num;
-		fileIn->ReadBig( num );
+		fileIn->ReadBig(num);
 		amplitude.Clear();
-		amplitude.SetNum( num );
-		fileIn->Read( amplitude.Ptr(), amplitude.Num() );
-		fileIn->ReadBig( totalBufferSize );
-		fileIn->ReadBig( num );
-		buffers.SetNum( num );
-		for( int i = 0; i < num; i++ )
+		amplitude.SetNum(num);
+		fileIn->Read(amplitude.Ptr(), amplitude.Num());
+		fileIn->ReadBig(totalBufferSize);
+		fileIn->ReadBig(num);
+		buffers.SetNum(num);
+		for(int i = 0; i < num; i++)
 		{
-			fileIn->ReadBig( buffers[ i ].numSamples );
-			fileIn->ReadBig( buffers[ i ].bufferSize );
-			buffers[ i ].buffer = AllocBuffer( buffers[ i ].bufferSize, GetName() );
-			fileIn->Read( buffers[ i ].buffer, buffers[ i ].bufferSize );
-			buffers[ i ].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[ i ].buffer );
+			fileIn->ReadBig(buffers[i].numSamples);
+			fileIn->ReadBig(buffers[i].bufferSize);
+			buffers[i].buffer = AllocBuffer(buffers[i].bufferSize, GetName());
+			fileIn->Read(buffers[i].buffer, buffers[i].bufferSize);
+			buffers[i].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS(buffers[i].buffer);
 		}
 		return true;
 	}
 #endif
-	
+
 	return false;
 }
 /*
@@ -227,81 +227,81 @@ idSoundSample_OpenAL::Load
 void idSoundSample_OpenAL::LoadResource()
 {
 	FreeData();
-	
-	if( idStr::Icmpn( GetName(), "_default", 8 ) == 0 )
+
+	if(idStr::Icmpn(GetName(), "_default", 8) == 0)
 	{
 		MakeDefault();
 		return;
 	}
-	
-	if( s_noSound.GetBool() )
+
+	if(s_noSound.GetBool())
 	{
 		MakeDefault();
 		return;
 	}
-	
+
 	loaded = false;
-	
-	for( int i = 0; i < 2; i++ )
+
+	for(int i = 0; i < 2; i++)
 	{
-		idStrStatic< MAX_OSPATH > sampleName = GetName();
-		if( ( i == 0 ) && !sampleName.Replace( "/vo/", va( "/vo/%s/", sys_lang.GetString() ) ) )
+		idStrStatic<MAX_OSPATH> sampleName = GetName();
+		if((i == 0) && !sampleName.Replace("/vo/", va("/vo/%s/", sys_lang.GetString())))
 		{
 			i++;
 		}
-		idStrStatic< MAX_OSPATH > generatedName = "generated/";
-		generatedName.Append( sampleName );
-		
+		idStrStatic<MAX_OSPATH> generatedName = "generated/";
+		generatedName.Append(sampleName);
+
 		{
-			if( s_useCompression.GetBool() )
+			if(s_useCompression.GetBool())
 			{
-				sampleName.Append( ".msadpcm" );
+				sampleName.Append(".msadpcm");
 			}
 			else
 			{
-				sampleName.Append( ".wav" );
+				sampleName.Append(".wav");
 			}
-			generatedName.Append( ".idwav" );
+			generatedName.Append(".idwav");
 		}
-		loaded = LoadGeneratedSample( generatedName ) || LoadWav( sampleName );
-		
-		if( !loaded && s_useCompression.GetBool() )
+		loaded = LoadGeneratedSample(generatedName) || LoadWav(sampleName);
+
+		if(!loaded && s_useCompression.GetBool())
 		{
-			sampleName.SetFileExtension( "wav" );
-			loaded = LoadWav( sampleName );
+			sampleName.SetFileExtension("wav");
+			loaded = LoadWav(sampleName);
 		}
-		
-		if( loaded )
+
+		if(loaded)
 		{
-			if( cvarSystem->GetCVarBool( "fs_buildresources" ) )
+			if(cvarSystem->GetCVarBool("fs_buildresources"))
 			{
-				fileSystem->AddSamplePreload( GetName() );
-				WriteAllSamples( GetName() );
-				
-				if( sampleName.Find( "/vo/" ) >= 0 )
+				fileSystem->AddSamplePreload(GetName());
+				WriteAllSamples(GetName());
+
+				if(sampleName.Find("/vo/") >= 0)
 				{
-					for( int i = 0; i < Sys_NumLangs(); i++ )
+					for(int i = 0; i < Sys_NumLangs(); i++)
 					{
-						const char* lang = Sys_Lang( i );
-						if( idStr::Icmp( lang, ID_LANG_ENGLISH ) == 0 )
+						const char *lang = Sys_Lang(i);
+						if(idStr::Icmp(lang, ID_LANG_ENGLISH) == 0)
 						{
 							continue;
 						}
-						idStrStatic< MAX_OSPATH > locName = GetName();
-						locName.Replace( "/vo/", va( "/vo/%s/", Sys_Lang( i ) ) );
-						WriteAllSamples( locName );
+						idStrStatic<MAX_OSPATH> locName = GetName();
+						locName.Replace("/vo/", va("/vo/%s/", Sys_Lang(i)));
+						WriteAllSamples(locName);
 					}
 				}
 			}
-			
+
 			// upload PCM data to OpenAL
 			CreateOpenALBuffer();
-			
+
 			return;
 		}
 	}
-	
-	if( !loaded )
+
+	if(!loaded)
 	{
 		// make it default if everything else fails
 		MakeDefault();
@@ -313,57 +313,57 @@ void idSoundSample_OpenAL::CreateOpenALBuffer()
 {
 	// build OpenAL buffer
 	CheckALErrors();
-	alGenBuffers( 1, &openalBuffer );
-	
-	if( CheckALErrors() != AL_NO_ERROR )
+	alGenBuffers(1, &openalBuffer);
+
+	if(CheckALErrors() != AL_NO_ERROR)
 	{
-		common->Error( "idSoundSample_OpenAL::CreateOpenALBuffer: error generating OpenAL hardware buffer" );
+		common->Error("idSoundSample_OpenAL::CreateOpenALBuffer: error generating OpenAL hardware buffer");
 	}
-	
-	if( alIsBuffer( openalBuffer ) )
+
+	if(alIsBuffer(openalBuffer))
 	{
 		CheckALErrors();
-		
-		void* buffer = nullptr;
+
+		void *buffer = nullptr;
 		uint32 bufferSize = 0;
-		
-		if( format.basic.formatTag == idWaveFile::FORMAT_ADPCM )
+
+		if(format.basic.formatTag == idWaveFile::FORMAT_ADPCM)
 		{
 			// RB: decode idWaveFile::FORMAT_ADPCM to idWaveFile::FORMAT_PCM
-			
+
 			buffer = buffers[0].buffer;
 			bufferSize = buffers[0].bufferSize;
-			
-			if( MS_ADPCM_decode( ( uint8** ) &buffer, &bufferSize ) < 0 )
+
+			if(MS_ADPCM_decode((uint8 **)&buffer, &bufferSize) < 0)
 			{
-				common->Error( "idSoundSample_OpenAL::CreateOpenALBuffer: could not decode ADPCM '%s' to 16 bit format", GetName() );
+				common->Error("idSoundSample_OpenAL::CreateOpenALBuffer: could not decode ADPCM '%s' to 16 bit format", GetName());
 			}
-			
+
 			buffers[0].buffer = buffer;
 			buffers[0].bufferSize = bufferSize;
-			
+
 			totalBufferSize = bufferSize;
 		}
-		else if( format.basic.formatTag == idWaveFile::FORMAT_XMA2 )
+		else if(format.basic.formatTag == idWaveFile::FORMAT_XMA2)
 		{
 			// RB: not used in the PC version of the BFG edition
-			common->Error( "idSoundSample_OpenAL::CreateOpenALBuffer: could not decode XMA2 '%s' to 16 bit format", GetName() );
+			common->Error("idSoundSample_OpenAL::CreateOpenALBuffer: could not decode XMA2 '%s' to 16 bit format", GetName());
 		}
-		else if( format.basic.formatTag == idWaveFile::FORMAT_EXTENSIBLE )
+		else if(format.basic.formatTag == idWaveFile::FORMAT_EXTENSIBLE)
 		{
 			// RB: not used in the PC version of the BFG edition
-			common->Error( "idSoundSample_OpenAL::CreateOpenALBuffer: could not decode extensible WAV format '%s' to 16 bit format", GetName() );
+			common->Error("idSoundSample_OpenAL::CreateOpenALBuffer: could not decode extensible WAV format '%s' to 16 bit format", GetName());
 		}
 		else
 		{
 			// TODO concatenate buffers
-			
-			assert( buffers.Num() == 1 );
-			
+
+			assert(buffers.Num() == 1);
+
 			buffer = buffers[0].buffer;
 			bufferSize = buffers[0].bufferSize;
 		}
-		
+
 #if 0 //#if defined(AL_SOFT_buffer_samples)
 		if( alIsExtensionPresent( "AL_SOFT_buffer_samples" ) )
 		{
@@ -382,12 +382,12 @@ void idSoundSample_OpenAL::CreateOpenALBuffer()
 		else
 #endif
 		{
-			alBufferData( openalBuffer, GetOpenALBufferFormat(), buffer, bufferSize, format.basic.samplesPerSec );
+			alBufferData(openalBuffer, GetOpenALBufferFormat(), buffer, bufferSize, format.basic.samplesPerSec);
 		}
-		
-		if( CheckALErrors() != AL_NO_ERROR )
+
+		if(CheckALErrors() != AL_NO_ERROR)
 		{
-			common->Error( "idSoundSample_OpenAL::CreateOpenALBuffer: error loading data into OpenAL hardware buffer" );
+			common->Error("idSoundSample_OpenAL::CreateOpenALBuffer: error loading data into OpenAL hardware buffer");
 		}
 	}
 }
@@ -397,126 +397,119 @@ void idSoundSample_OpenAL::CreateOpenALBuffer()
 idSoundSample_OpenAL::LoadWav
 ========================
 */
-bool idSoundSample_OpenAL::LoadWav( const idStr& filename )
+bool idSoundSample_OpenAL::LoadWav(const idStr &filename)
 {
-
 	// load the wave
 	idWaveFile wave;
-	if( !wave.Open( filename ) )
+	if(!wave.Open(filename))
 	{
 		return false;
 	}
-	
-	idStrStatic< MAX_OSPATH > sampleName = filename;
-	sampleName.SetFileExtension( "amp" );
-	LoadAmplitude( sampleName );
-	
-	const char* formatError = wave.ReadWaveFormat( format );
-	if( formatError != nullptr )
+
+	idStrStatic<MAX_OSPATH> sampleName = filename;
+	sampleName.SetFileExtension("amp");
+	LoadAmplitude(sampleName);
+
+	const char *formatError = wave.ReadWaveFormat(format);
+	if(formatError != nullptr)
 	{
-		idLib::Warning( "LoadWav( %s ) : %s", filename.c_str(), formatError );
+		idLib::Warning("LoadWav( %s ) : %s", filename.c_str(), formatError);
 		MakeDefault();
 		return false;
 	}
 	timestamp = wave.Timestamp();
-	
-	totalBufferSize = wave.SeekToChunk( 'data' );
-	
-	if( format.basic.formatTag == idWaveFile::FORMAT_PCM || format.basic.formatTag == idWaveFile::FORMAT_EXTENSIBLE )
+
+	totalBufferSize = wave.SeekToChunk('data');
+
+	if(format.basic.formatTag == idWaveFile::FORMAT_PCM || format.basic.formatTag == idWaveFile::FORMAT_EXTENSIBLE)
 	{
-	
-		if( format.basic.bitsPerSample != 16 )
+		if(format.basic.bitsPerSample != 16)
 		{
-			idLib::Warning( "LoadWav( %s ) : %s", filename.c_str(), "Not a 16 bit PCM wav file" );
+			idLib::Warning("LoadWav( %s ) : %s", filename.c_str(), "Not a 16 bit PCM wav file");
 			MakeDefault();
 			return false;
 		}
-		
+
 		playBegin = 0;
-		playLength = ( totalBufferSize ) / format.basic.blockSize;
-		
-		buffers.SetNum( 1 );
+		playLength = (totalBufferSize) / format.basic.blockSize;
+
+		buffers.SetNum(1);
 		buffers[0].bufferSize = totalBufferSize;
 		buffers[0].numSamples = playLength;
-		buffers[0].buffer = AllocBuffer( totalBufferSize, GetName() );
-		
-		
-		wave.Read( buffers[0].buffer, totalBufferSize );
-		
-		if( format.basic.bitsPerSample == 16 )
+		buffers[0].buffer = AllocBuffer(totalBufferSize, GetName());
+
+		wave.Read(buffers[0].buffer, totalBufferSize);
+
+		if(format.basic.bitsPerSample == 16)
 		{
-			idSwap::LittleArray( ( short* )buffers[0].buffer, totalBufferSize / sizeof( short ) );
+			idSwap::LittleArray((short *)buffers[0].buffer, totalBufferSize / sizeof(short));
 		}
-		
-		buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[0].buffer );
-		
+
+		buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS(buffers[0].buffer);
 	}
-	else if( format.basic.formatTag == idWaveFile::FORMAT_ADPCM )
+	else if(format.basic.formatTag == idWaveFile::FORMAT_ADPCM)
 	{
-	
 		playBegin = 0;
-		playLength = ( ( totalBufferSize / format.basic.blockSize ) * format.extra.adpcm.samplesPerBlock );
-		
-		buffers.SetNum( 1 );
+		playLength = ((totalBufferSize / format.basic.blockSize) * format.extra.adpcm.samplesPerBlock);
+
+		buffers.SetNum(1);
 		buffers[0].bufferSize = totalBufferSize;
 		buffers[0].numSamples = playLength;
-		buffers[0].buffer  = AllocBuffer( totalBufferSize, GetName() );
-		
-		wave.Read( buffers[0].buffer, totalBufferSize );
-		
-		buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[0].buffer );
-		
+		buffers[0].buffer = AllocBuffer(totalBufferSize, GetName());
+
+		wave.Read(buffers[0].buffer, totalBufferSize);
+
+		buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS(buffers[0].buffer);
 	}
-	else if( format.basic.formatTag == idWaveFile::FORMAT_XMA2 )
+	else if(format.basic.formatTag == idWaveFile::FORMAT_XMA2)
 	{
-	
-		if( format.extra.xma2.blockCount == 0 )
+		if(format.extra.xma2.blockCount == 0)
 		{
-			idLib::Warning( "LoadWav( %s ) : %s", filename.c_str(), "No data blocks in file" );
+			idLib::Warning("LoadWav( %s ) : %s", filename.c_str(), "No data blocks in file");
 			MakeDefault();
 			return false;
 		}
-		
+
 		int bytesPerBlock = format.extra.xma2.bytesPerBlock;
-		assert( format.extra.xma2.blockCount == ALIGN( totalBufferSize, bytesPerBlock ) / bytesPerBlock );
-		assert( format.extra.xma2.blockCount * bytesPerBlock >= totalBufferSize );
-		assert( format.extra.xma2.blockCount * bytesPerBlock < totalBufferSize + bytesPerBlock );
-		
-		buffers.SetNum( format.extra.xma2.blockCount );
-		for( int i = 0; i < buffers.Num(); i++ )
+		assert(format.extra.xma2.blockCount == ALIGN(totalBufferSize, bytesPerBlock) / bytesPerBlock);
+		assert(format.extra.xma2.blockCount * bytesPerBlock >= totalBufferSize);
+		assert(format.extra.xma2.blockCount * bytesPerBlock < totalBufferSize + bytesPerBlock);
+
+		buffers.SetNum(format.extra.xma2.blockCount);
+		for(int i = 0; i < buffers.Num(); i++)
 		{
-			if( i == buffers.Num() - 1 )
+			if(i == buffers.Num() - 1)
 			{
-				buffers[i].bufferSize = totalBufferSize - ( i * bytesPerBlock );
+				buffers[i].bufferSize = totalBufferSize - (i * bytesPerBlock);
 			}
 			else
 			{
 				buffers[i].bufferSize = bytesPerBlock;
 			}
-			
-			buffers[i].buffer = AllocBuffer( buffers[i].bufferSize, GetName() );
-			wave.Read( buffers[i].buffer, buffers[i].bufferSize );
-			buffers[i].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[i].buffer );
+
+			buffers[i].buffer = AllocBuffer(buffers[i].bufferSize, GetName());
+			wave.Read(buffers[i].buffer, buffers[i].bufferSize);
+			buffers[i].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS(buffers[i].buffer);
 		}
-		
-		int seekTableSize = wave.SeekToChunk( 'seek' );
-		if( seekTableSize != 4 * buffers.Num() )
+
+		int seekTableSize = wave.SeekToChunk('seek');
+		if(seekTableSize != 4 * buffers.Num())
 		{
-			idLib::Warning( "LoadWav( %s ) : %s", filename.c_str(), "Wrong number of entries in seek table" );
+			idLib::Warning("LoadWav( %s ) : %s", filename.c_str(), "Wrong number of entries in seek table");
 			MakeDefault();
 			return false;
 		}
-		
-		for( int i = 0; i < buffers.Num(); i++ )
+
+		for(int i = 0; i < buffers.Num(); i++)
 		{
-			wave.Read( &buffers[i].numSamples, sizeof( buffers[i].numSamples ) );
-			idSwap::Big( buffers[i].numSamples );
+			wave.Read(&buffers[i].numSamples, sizeof(buffers[i].numSamples));
+			idSwap::Big(buffers[i].numSamples);
 		}
-		
+
 		playBegin = format.extra.xma2.loopBegin;
 		playLength = format.extra.xma2.loopLength;
-		
-		if( buffers[buffers.Num() - 1].numSamples < playBegin + playLength )
+
+		if(buffers[buffers.Num() - 1].numSamples < playBegin + playLength)
 		{
 			// This shouldn't happen, but it's not fatal if it does
 			playLength = buffers[buffers.Num() - 1].numSamples - playBegin;
@@ -524,45 +517,43 @@ bool idSoundSample_OpenAL::LoadWav( const idStr& filename )
 		else
 		{
 			// Discard samples beyond playLength
-			for( int i = 0; i < buffers.Num(); i++ )
+			for(int i = 0; i < buffers.Num(); i++)
 			{
-				if( buffers[i].numSamples > playBegin + playLength )
+				if(buffers[i].numSamples > playBegin + playLength)
 				{
 					buffers[i].numSamples = playBegin + playLength;
 					// Ideally, the following loop should always have 0 iterations because playBegin + playLength ends in the last block already
 					// But there is no guarantee for that, so to be safe, discard all buffers beyond this one
-					for( int j = i + 1; j < buffers.Num(); j++ )
+					for(int j = i + 1; j < buffers.Num(); j++)
 					{
-						FreeBuffer( buffers[j].buffer );
+						FreeBuffer(buffers[j].buffer);
 					}
-					buffers.SetNum( i + 1 );
+					buffers.SetNum(i + 1);
 					break;
 				}
 			}
 		}
-		
 	}
 	else
 	{
-		idLib::Warning( "LoadWav( %s ) : Unsupported wave format %d", filename.c_str(), format.basic.formatTag );
+		idLib::Warning("LoadWav( %s ) : Unsupported wave format %d", filename.c_str(), format.basic.formatTag);
 		MakeDefault();
 		return false;
 	}
-	
+
 	wave.Close();
-	
-	if( format.basic.formatTag == idWaveFile::FORMAT_EXTENSIBLE )
+
+	if(format.basic.formatTag == idWaveFile::FORMAT_EXTENSIBLE)
 	{
 		// HACK: XAudio2 doesn't really support FORMAT_EXTENSIBLE so we convert it to a basic format after extracting the channel mask
 		format.basic.formatTag = format.extra.extensible.subFormat.data1;
 	}
-	
+
 	// sanity check...
-	assert( buffers[buffers.Num() - 1].numSamples == playBegin + playLength );
-	
+	assert(buffers[buffers.Num() - 1].numSamples == playBegin + playLength);
+
 	return true;
 }
-
 
 /*
 ========================
@@ -572,61 +563,60 @@ idSoundSample_OpenAL::MakeDefault
 void idSoundSample_OpenAL::MakeDefault()
 {
 	FreeData();
-	
+
 	static const int DEFAULT_NUM_SAMPLES = 4096;
-	
+
 	timestamp = FILE_NOT_FOUND_TIMESTAMP;
 	loaded = true;
-	
-	memset( &format, 0, sizeof( format ) );
+
+	memset(&format, 0, sizeof(format));
 	format.basic.formatTag = idWaveFile::FORMAT_PCM;
 	format.basic.numChannels = 1;
 	format.basic.bitsPerSample = 16;
 	format.basic.samplesPerSec = 22050; //44100; //XAUDIO2_MIN_SAMPLE_RATE;
 	format.basic.blockSize = format.basic.numChannels * format.basic.bitsPerSample / 8;
 	format.basic.avgBytesPerSec = format.basic.samplesPerSec * format.basic.blockSize;
-	
-	assert( format.basic.blockSize == 2 );
-	
-	totalBufferSize = DEFAULT_NUM_SAMPLES * 2;// * sizeof( short );
-	
-	short* defaultBuffer = ( short* )AllocBuffer( totalBufferSize, GetName() );
-	for( int i = 0; i < DEFAULT_NUM_SAMPLES; i += 2 )
+
+	assert(format.basic.blockSize == 2);
+
+	totalBufferSize = DEFAULT_NUM_SAMPLES * 2; // * sizeof( short );
+
+	short *defaultBuffer = (short *)AllocBuffer(totalBufferSize, GetName());
+	for(int i = 0; i < DEFAULT_NUM_SAMPLES; i += 2)
 	{
-		float v = sin( idMath::PI * 2 * i / 64 );
+		float v = sin(idMath::PI * 2 * i / 64);
 		int sample = v * 0x4000;
 		defaultBuffer[i + 0] = sample;
 		defaultBuffer[i + 1] = sample;
-		
+
 		//defaultBuffer[i + 0] = SHRT_MIN;
 		//defaultBuffer[i + 1] = SHRT_MAX;
 	}
-	
-	buffers.SetNum( 1 );
+
+	buffers.SetNum(1);
 	buffers[0].buffer = defaultBuffer;
 	buffers[0].bufferSize = totalBufferSize;
 	buffers[0].numSamples = DEFAULT_NUM_SAMPLES;
-	buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[0].buffer );
-	
+	buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS(buffers[0].buffer);
+
 	playBegin = 0;
 	playLength = DEFAULT_NUM_SAMPLES;
-	
-	
+
 	CheckALErrors();
-	alGenBuffers( 1, &openalBuffer );
-	
-	if( CheckALErrors() != AL_NO_ERROR )
+	alGenBuffers(1, &openalBuffer);
+
+	if(CheckALErrors() != AL_NO_ERROR)
 	{
-		common->Error( "idSoundSample_OpenAL::MakeDefault: error generating OpenAL hardware buffer" );
+		common->Error("idSoundSample_OpenAL::MakeDefault: error generating OpenAL hardware buffer");
 	}
-	
-	if( alIsBuffer( openalBuffer ) )
+
+	if(alIsBuffer(openalBuffer))
 	{
 		CheckALErrors();
-		alBufferData( openalBuffer, GetOpenALBufferFormat(), defaultBuffer, totalBufferSize, format.basic.samplesPerSec );
-		if( CheckALErrors() != AL_NO_ERROR )
+		alBufferData(openalBuffer, GetOpenALBufferFormat(), defaultBuffer, totalBufferSize, format.basic.samplesPerSec);
+		if(CheckALErrors() != AL_NO_ERROR)
 		{
-			common->Error( "idSoundSample_OpenAL::MakeDefault: error loading data into OpenAL hardware buffer" );
+			common->Error("idSoundSample_OpenAL::MakeDefault: error loading data into OpenAL hardware buffer");
 		}
 	}
 }
@@ -640,32 +630,32 @@ Called before deleting the object and at the start of LoadResource()
 */
 void idSoundSample_OpenAL::FreeData()
 {
-	if( buffers.Num() > 0 )
+	if(buffers.Num() > 0)
 	{
-		soundSystemLocal.StopVoicesWithSample( ( idSoundSample* )this );
-		for( int i = 0; i < buffers.Num(); i++ )
+		soundSystemLocal.StopVoicesWithSample((idSoundSample *)this);
+		for(int i = 0; i < buffers.Num(); i++)
 		{
-			FreeBuffer( buffers[i].buffer );
+			FreeBuffer(buffers[i].buffer);
 		}
 		buffers.Clear();
 	}
 	amplitude.Clear();
-	
+
 	timestamp = FILE_NOT_FOUND_TIMESTAMP;
-	memset( &format, 0, sizeof( format ) );
+	memset(&format, 0, sizeof(format));
 	loaded = false;
 	totalBufferSize = 0;
 	playBegin = 0;
 	playLength = 0;
-	
-	if( alIsBuffer( openalBuffer ) )
+
+	if(alIsBuffer(openalBuffer))
 	{
 		CheckALErrors();
-		
-		alDeleteBuffers( 1, &openalBuffer );
-		if( CheckALErrors() != AL_NO_ERROR )
+
+		alDeleteBuffers(1, &openalBuffer);
+		if(CheckALErrors() != AL_NO_ERROR)
 		{
-			common->Error( "idSoundSample_OpenAL::FreeData: error unloading data from OpenAL hardware buffer" );
+			common->Error("idSoundSample_OpenAL::FreeData: error unloading data from OpenAL hardware buffer");
 		}
 		else
 		{
@@ -679,16 +669,16 @@ void idSoundSample_OpenAL::FreeData()
 idSoundSample_OpenAL::LoadAmplitude
 ========================
 */
-bool idSoundSample_OpenAL::LoadAmplitude( const idStr& name )
+bool idSoundSample_OpenAL::LoadAmplitude(const idStr &name)
 {
 	amplitude.Clear();
-	idFileLocal f( fileSystem->OpenFileRead( name ) );
-	if( f == nullptr )
+	idFileLocal f(fileSystem->OpenFileRead(name));
+	if(f == nullptr)
 	{
 		return false;
 	}
-	amplitude.SetNum( f->Length() );
-	f->Read( amplitude.Ptr(), amplitude.Num() );
+	amplitude.SetNum(f->Length());
+	f->Read(amplitude.Ptr(), amplitude.Num());
 	return true;
 }
 
@@ -697,26 +687,25 @@ bool idSoundSample_OpenAL::LoadAmplitude( const idStr& name )
 idSoundSample_OpenAL::GetAmplitude
 ========================
 */
-float idSoundSample_OpenAL::GetAmplitude( int timeMS ) const
+float idSoundSample_OpenAL::GetAmplitude(int timeMS) const
 {
-	if( timeMS < 0 || timeMS > LengthInMsec() )
+	if(timeMS < 0 || timeMS > LengthInMsec())
 	{
 		return 0.0f;
 	}
-	if( IsDefault() )
+	if(IsDefault())
 	{
 		return 1.0f;
 	}
 	int index = timeMS * 60 / 1000;
-	if( index < 0 || index >= amplitude.Num() )
+	if(index < 0 || index >= amplitude.Num())
 	{
 		return 0.0f;
 	}
-	return ( float )amplitude[index] / 255.0f;
+	return (float)amplitude[index] / 255.0f;
 }
 
-
-#if 0 //defined(AL_SOFT_buffer_samples)
+#if 0  //defined(AL_SOFT_buffer_samples)
 const char* idSoundSample_OpenAL::OpenALSoftChannelsName( ALenum chans ) const
 {
 	switch( chans )
@@ -991,18 +980,18 @@ ALenum idSoundSample_OpenAL::GetOpenALSoftFormat( ALenum channels, ALenum type )
 ALenum idSoundSample_OpenAL::GetOpenALBufferFormat() const
 {
 	ALenum alFormat;
-	
-	if( format.basic.formatTag == idWaveFile::FORMAT_PCM )
+
+	if(format.basic.formatTag == idWaveFile::FORMAT_PCM)
 	{
 		alFormat = NumChannels() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
 	}
-	else if( format.basic.formatTag == idWaveFile::FORMAT_ADPCM )
+	else if(format.basic.formatTag == idWaveFile::FORMAT_ADPCM)
 	{
 		//alFormat = NumChannels() == 1 ? AL_FORMAT_MONO8 : AL_FORMAT_STEREO8;
 		alFormat = NumChannels() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
 		//alFormat = NumChannels() == 1 ? AL_FORMAT_MONO_IMA4 : AL_FORMAT_STEREO_IMA4;
 	}
-	else if( format.basic.formatTag == idWaveFile::FORMAT_XMA2 )
+	else if(format.basic.formatTag == idWaveFile::FORMAT_XMA2)
 	{
 		alFormat = NumChannels() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
 	}
@@ -1010,186 +999,185 @@ ALenum idSoundSample_OpenAL::GetOpenALBufferFormat() const
 	{
 		alFormat = NumChannels() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
 	}
-	
+
 	return alFormat;
 }
 
-int32 idSoundSample_OpenAL::MS_ADPCM_nibble( MS_ADPCM_decodeState_t* state, int8 nybble )
+int32 idSoundSample_OpenAL::MS_ADPCM_nibble(MS_ADPCM_decodeState_t *state, int8 nybble)
 {
-	const int32 max_audioval = ( ( 1 << ( 16 - 1 ) ) - 1 );
-	const int32 min_audioval = -( 1 << ( 16 - 1 ) );
+	const int32 max_audioval = ((1 << (16 - 1)) - 1);
+	const int32 min_audioval = -(1 << (16 - 1));
 	const int32 adaptive[] =
 	{
-		230, 230, 230, 230, 307, 409, 512, 614,
-		768, 614, 512, 409, 307, 230, 230, 230
+	  230, 230, 230, 230, 307, 409, 512, 614,
+	  768, 614, 512, 409, 307, 230, 230, 230
 	};
-	
+
 	int32 new_sample, delta;
-	
-	new_sample = ( ( state->iSamp1 * state->coef1 ) +
-				   ( state->iSamp2 * state->coef2 ) ) / 256;
-				   
-	if( nybble & 0x08 )
+
+	new_sample = ((state->iSamp1 * state->coef1) +
+	              (state->iSamp2 * state->coef2)) /
+	256;
+
+	if(nybble & 0x08)
 	{
-		new_sample += state->iDelta * ( nybble - 0x10 );
+		new_sample += state->iDelta * (nybble - 0x10);
 	}
 	else
 	{
 		new_sample += state->iDelta * nybble;
 	}
-	
-	if( new_sample < min_audioval )
+
+	if(new_sample < min_audioval)
 	{
 		new_sample = min_audioval;
 	}
-	else if( new_sample > max_audioval )
+	else if(new_sample > max_audioval)
 	{
 		new_sample = max_audioval;
 	}
-	
-	delta = ( ( int32 ) state->iDelta * adaptive[nybble] ) / 256;
-	if( delta < 16 )
+
+	delta = ((int32)state->iDelta * adaptive[nybble]) / 256;
+	if(delta < 16)
 	{
 		delta = 16;
 	}
-	
-	state->iDelta = ( uint16 ) delta;
+
+	state->iDelta = (uint16)delta;
 	state->iSamp2 = state->iSamp1;
-	state->iSamp1 = ( int16 ) new_sample;
-	
-	return ( new_sample );
+	state->iSamp1 = (int16)new_sample;
+
+	return (new_sample);
 }
 
-int idSoundSample_OpenAL::MS_ADPCM_decode( uint8** audio_buf, uint32* audio_len )
+int idSoundSample_OpenAL::MS_ADPCM_decode(uint8 **audio_buf, uint32 *audio_len)
 {
-	static MS_ADPCM_decodeState_t	states[2];
-	MS_ADPCM_decodeState_t*			state[2];
-	
-	uint8* freeable, *encoded, *decoded;
+	static MS_ADPCM_decodeState_t states[2];
+	MS_ADPCM_decodeState_t *state[2];
+
+	uint8 *freeable, *encoded, *decoded;
 	int32 encoded_len, samplesleft;
 	int8 nybble;
 	int8 stereo;
 	int32 new_sample;
-	
+
 	// Allocate the proper sized output buffer
 	encoded_len = *audio_len;
 	encoded = *audio_buf;
 	freeable = *audio_buf;
-	
-	*audio_len = ( encoded_len / format.basic.blockSize ) * format.extra.adpcm.samplesPerBlock * format.basic.numChannels * sizeof( int16 );
-	
-	*audio_buf = ( uint8* ) Mem_Alloc( *audio_len, TAG_AUDIO );
-	if( *audio_buf == nullptr )
+
+	*audio_len = (encoded_len / format.basic.blockSize) * format.extra.adpcm.samplesPerBlock * format.basic.numChannels * sizeof(int16);
+
+	*audio_buf = (uint8 *)Mem_Alloc(*audio_len, TAG_AUDIO);
+	if(*audio_buf == nullptr)
 	{
 		//SDL_Error( SDL_ENOMEM );
-		return ( -1 );
+		return (-1);
 	}
 	decoded = *audio_buf;
-	
-	assert( format.basic.numChannels == 1 || format.basic.numChannels == 2 );
-	
+
+	assert(format.basic.numChannels == 1 || format.basic.numChannels == 2);
+
 	// Get ready... Go!
-	stereo = ( format.basic.numChannels == 2 ) ? 1 : 0;
+	stereo = (format.basic.numChannels == 2) ? 1 : 0;
 	state[0] = &states[0];
 	state[1] = &states[stereo];
-	
-	while( encoded_len >= format.basic.blockSize )
+
+	while(encoded_len >= format.basic.blockSize)
 	{
 		// Grab the initial information for this block
 		state[0]->hPredictor = *encoded++;
-		
-		assert( state[0]->hPredictor < format.extra.adpcm.numCoef );
-		state[0]->hPredictor = idMath::ClampInt( 0, 6, state[0]->hPredictor );
-		
+
+		assert(state[0]->hPredictor < format.extra.adpcm.numCoef);
+		state[0]->hPredictor = idMath::ClampInt(0, 6, state[0]->hPredictor);
+
 		state[0]->coef1 = format.extra.adpcm.aCoef[state[0]->hPredictor].coef1;
 		state[0]->coef2 = format.extra.adpcm.aCoef[state[0]->hPredictor].coef2;
-		
-		if( stereo )
+
+		if(stereo)
 		{
 			state[1]->hPredictor = *encoded++;
-			
-			assert( state[1]->hPredictor < format.extra.adpcm.numCoef );
-			state[1]->hPredictor = idMath::ClampInt( 0, 6, state[1]->hPredictor );
-			
+
+			assert(state[1]->hPredictor < format.extra.adpcm.numCoef);
+			state[1]->hPredictor = idMath::ClampInt(0, 6, state[1]->hPredictor);
+
 			state[1]->coef1 = format.extra.adpcm.aCoef[state[1]->hPredictor].coef1;
 			state[1]->coef2 = format.extra.adpcm.aCoef[state[1]->hPredictor].coef2;
 		}
-		
-		state[0]->iDelta = ( ( encoded[1] << 8 ) | encoded[0] );
-		encoded += sizeof( int16 );
-		if( stereo )
+
+		state[0]->iDelta = ((encoded[1] << 8) | encoded[0]);
+		encoded += sizeof(int16);
+		if(stereo)
 		{
-			state[1]->iDelta = ( ( encoded[1] << 8 ) | encoded[0] );
-			encoded += sizeof( int16 );
+			state[1]->iDelta = ((encoded[1] << 8) | encoded[0]);
+			encoded += sizeof(int16);
 		}
-		
-		state[0]->iSamp1 = ( ( encoded[1] << 8 ) | encoded[0] );
-		encoded += sizeof( int16 );
-		if( stereo )
+
+		state[0]->iSamp1 = ((encoded[1] << 8) | encoded[0]);
+		encoded += sizeof(int16);
+		if(stereo)
 		{
-			state[1]->iSamp1 = ( ( encoded[1] << 8 ) | encoded[0] );
-			encoded += sizeof( int16 );
+			state[1]->iSamp1 = ((encoded[1] << 8) | encoded[0]);
+			encoded += sizeof(int16);
 		}
-		
-		state[0]->iSamp2 = ( ( encoded[1] << 8 ) | encoded[0] );
-		encoded += sizeof( int16 );
-		if( stereo )
+
+		state[0]->iSamp2 = ((encoded[1] << 8) | encoded[0]);
+		encoded += sizeof(int16);
+		if(stereo)
 		{
-			state[1]->iSamp2 = ( ( encoded[1] << 8 ) | encoded[0] );
-			encoded += sizeof( int16 );
+			state[1]->iSamp2 = ((encoded[1] << 8) | encoded[0]);
+			encoded += sizeof(int16);
 		}
-		
-		
-		
+
 		// Store the two initial samples we start with
 		decoded[0] = state[0]->iSamp2 & 0xFF;
-		decoded[1] = ( state[0]->iSamp2 >> 8 ) & 0xFF;
+		decoded[1] = (state[0]->iSamp2 >> 8) & 0xFF;
 		decoded += 2;
-		if( stereo )
+		if(stereo)
 		{
 			decoded[0] = state[1]->iSamp2 & 0xFF;
-			decoded[1] = ( state[1]->iSamp2 >> 8 ) & 0xFF;
+			decoded[1] = (state[1]->iSamp2 >> 8) & 0xFF;
 			decoded += 2;
 		}
-		
+
 		decoded[0] = state[0]->iSamp1 & 0xFF;
-		decoded[1] = ( state[0]->iSamp1 >> 8 ) & 0xFF;
+		decoded[1] = (state[0]->iSamp1 >> 8) & 0xFF;
 		decoded += 2;
-		if( stereo )
+		if(stereo)
 		{
 			decoded[0] = state[1]->iSamp1 & 0xFF;
-			decoded[1] = ( state[1]->iSamp1 >> 8 ) & 0xFF;
+			decoded[1] = (state[1]->iSamp1 >> 8) & 0xFF;
 			decoded += 2;
 		}
-		
+
 		// Decode and store the other samples in this block
-		samplesleft = ( format.extra.adpcm.samplesPerBlock - 2 ) * format.basic.numChannels;
-		
-		while( samplesleft > 0 )
+		samplesleft = (format.extra.adpcm.samplesPerBlock - 2) * format.basic.numChannels;
+
+		while(samplesleft > 0)
 		{
-			nybble = ( *encoded ) >> 4;
-			new_sample = MS_ADPCM_nibble( state[0], nybble );
-			
+			nybble = (*encoded) >> 4;
+			new_sample = MS_ADPCM_nibble(state[0], nybble);
+
 			decoded[0] = new_sample & 0xFF;
-			decoded[1] = ( new_sample >> 8 ) & 0xFF;
+			decoded[1] = (new_sample >> 8) & 0xFF;
 			decoded += 2;
-			
-			nybble = ( *encoded ) & 0x0F;
-			new_sample = MS_ADPCM_nibble( state[1], nybble );
-			
+
+			nybble = (*encoded) & 0x0F;
+			new_sample = MS_ADPCM_nibble(state[1], nybble);
+
 			decoded[0] = new_sample & 0xFF;
-			decoded[1] = ( new_sample >> 8 ) & 0xFF;
+			decoded[1] = (new_sample >> 8) & 0xFF;
 			decoded += 2;
-			
+
 			++encoded;
 			samplesleft -= 2;
 		}
-		
+
 		encoded_len -= format.basic.blockSize;
 	}
-	
-	Mem_Free( freeable );
-	
+
+	Mem_Free(freeable);
+
 	return 0;
 }
 

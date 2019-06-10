@@ -47,9 +47,9 @@ If you have questions concerning this license or the applicable additional terms
 //namespace sbe
 //{
 
-DEFINE_PROPERTYKEY( PKEY_AudioEndpoint_Path, 0x9c119480, 0xddc2, 0x4954, 0xa1, 0x50, 0x5b, 0xd2, 0x40, 0xd4, 0x54, 0xad, 1 );
+DEFINE_PROPERTYKEY(PKEY_AudioEndpoint_Path, 0x9c119480, 0xddc2, 0x4954, 0xa1, 0x50, 0x5b, 0xd2, 0x40, 0xd4, 0x54, 0xad, 1);
 
-#pragma comment(lib,"xaudio2.lib")
+#pragma comment(lib, "xaudio2.lib")
 
 struct AudioDevice
 {
