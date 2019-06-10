@@ -117,7 +117,7 @@ int FS_WriteFloatString( char* buf, const char* fmt, va_list argPtr )
 						index += sprintf( buf + index, "%s", format.c_str() );
 						break;
 					default:
-						common->Error( "FS_WriteFloatString: invalid format %s", format.c_str() );
+						mpSys->Error( "FS_WriteFloatString: invalid format %s", format.c_str() );
 						break;
 				}
 				fmt++;
@@ -139,7 +139,7 @@ int FS_WriteFloatString( char* buf, const char* fmt, va_list argPtr )
 						index += sprintf( buf + index, "\\" );
 						break;
 					default:
-						common->Error( "FS_WriteFloatString: unknown escape character \'%c\'", *fmt );
+						mpSys->Error( "FS_WriteFloatString: unknown escape character \'%c\'", *fmt );
 						break;
 				}
 				fmt++;
@@ -190,7 +190,7 @@ idFile::Read
 */
 int idFile::Read( void* buffer, int len )
 {
-	common->FatalError( "idFile::Read: cannot read from idFile" );
+	mpSys->FatalError( "idFile::Read: cannot read from idFile" );
 	return 0;
 }
 
@@ -201,7 +201,7 @@ idFile::Write
 */
 int idFile::Write( const void* buffer, int len )
 {
-	common->FatalError( "idFile::Write: cannot write to idFile" );
+	mpSys->FatalError( "idFile::Write: cannot write to idFile" );
 	return 0;
 }
 
@@ -778,7 +778,7 @@ int idFile_Memory::Read( void* buffer, int len )
 
 	if( !( mode & ( 1 << FS_READ ) ) )
 	{
-		common->FatalError( "idFile_Memory::Read: %s not opened in read mode", name.c_str() );
+		mpSys->FatalError( "idFile_Memory::Read: %s not opened in read mode", name.c_str() );
 		return 0;
 	}
 	
@@ -836,7 +836,7 @@ int idFile_Memory::Write( const void* buffer, int len )
 	
 	if( !( mode & ( 1 << FS_WRITE ) ) )
 	{
-		common->FatalError( "idFile_Memory::Write: %s not opened in write mode", name.c_str() );
+		mpSys->FatalError( "idFile_Memory::Write: %s not opened in write mode", name.c_str() );
 		return 0;
 	}
 	
@@ -845,7 +845,7 @@ int idFile_Memory::Write( const void* buffer, int len )
 	{
 		if( maxSize != 0 )
 		{
-			common->Error( "idFile_Memory::Write: exceeded maximum size %" PRIuSIZE "", maxSize );
+			mpSys->Error( "idFile_Memory::Write: exceeded maximum size %" PRIuSIZE "", maxSize );
 			return 0;
 		}
 		int extra = granularity * ( 1 + alloc / granularity );
@@ -1015,7 +1015,7 @@ int idFile_Memory::Seek( long offset, fsOrigin_t origin )
 		}
 		default:
 		{
-			common->FatalError( "idFile_Memory::Seek: bad origin for %s\n", name.c_str() );
+			mpSys->FatalError( "idFile_Memory::Seek: bad origin for %s\n", name.c_str() );
 			return -1;
 		}
 	}
@@ -1176,7 +1176,7 @@ int idFile_BitMsg::Read( void* buffer, int len )
 
 	if( !( mode & ( 1 << FS_READ ) ) )
 	{
-		common->FatalError( "idFile_BitMsg::Read: %s not opened in read mode", name.c_str() );
+		mpSys->FatalError( "idFile_BitMsg::Read: %s not opened in read mode", name.c_str() );
 		return 0;
 	}
 	
@@ -1193,7 +1193,7 @@ int idFile_BitMsg::Write( const void* buffer, int len )
 
 	if( !( mode & ( 1 << FS_WRITE ) ) )
 	{
-		common->FatalError( "idFile_Memory::Write: %s not opened in write mode", name.c_str() );
+		mpSys->FatalError( "idFile_Memory::Write: %s not opened in write mode", name.c_str() );
 		return 0;
 	}
 	
@@ -1326,7 +1326,7 @@ int idFile_Permanent::Read( void* buffer, int len )
 	
 	if( !( mode & ( 1 << FS_READ ) ) )
 	{
-		common->FatalError( "idFile_Permanent::Read: %s not opened in read mode", name.c_str() );
+		mpSys->FatalError( "idFile_Permanent::Read: %s not opened in read mode", name.c_str() );
 		return 0;
 	}
 	
@@ -1372,7 +1372,7 @@ int idFile_Permanent::Read( void* buffer, int len )
 		
 		if( read == -1 )
 		{
-			common->FatalError( "idFile_Permanent::Read: -1 bytes read from %s", name.c_str() );
+			mpSys->FatalError( "idFile_Permanent::Read: -1 bytes read from %s", name.c_str() );
 		}
 		
 		remaining -= read;
@@ -1397,7 +1397,7 @@ int idFile_Permanent::Write( const void* buffer, int len )
 	
 	if( !( mode & ( 1 << FS_WRITE ) ) )
 	{
-		common->FatalError( "idFile_Permanent::Write: %s not opened in write mode", name.c_str() );
+		mpSys->FatalError( "idFile_Permanent::Write: %s not opened in write mode", name.c_str() );
 		return 0;
 	}
 	
@@ -1432,14 +1432,14 @@ int idFile_Permanent::Write( const void* buffer, int len )
 			}
 			else
 			{
-				common->Printf( "idFile_Permanent::Write: 0 bytes written to %s\n", name.c_str() );
+				mpSys->Printf( "idFile_Permanent::Write: 0 bytes written to %s\n", name.c_str() );
 				return 0;
 			}
 		}
 		
 		if( written == -1 )
 		{
-			common->Printf( "idFile_Permanent::Write: -1 bytes written to %s\n", name.c_str() );
+			mpSys->Printf( "idFile_Permanent::Write: -1 bytes written to %s\n", name.c_str() );
 			return 0;
 		}
 		
@@ -1571,7 +1571,7 @@ int idFile_Permanent::Seek( long offset, fsOrigin_t origin )
 		default:
 		{
 			_origin = SEEK_CUR;
-			common->FatalError( "idFile_Permanent::Seek: bad origin for %s\n", name.c_str() );
+			mpSys->FatalError( "idFile_Permanent::Seek: bad origin for %s\n", name.c_str() );
 			break;
 		}
 	}
@@ -1745,7 +1745,7 @@ idFile_InZip::Write
 */
 int idFile_InZip::Write( const void* buffer, int len )
 {
-	common->FatalError( "idFile_InZip::Write: cannot write to the zipped file %s", name.c_str() );
+	mpSys->FatalError( "idFile_InZip::Write: cannot write to the zipped file %s", name.c_str() );
 	return 0;
 }
 
@@ -1756,7 +1756,7 @@ idFile_InZip::ForceFlush
 */
 void idFile_InZip::ForceFlush()
 {
-	common->FatalError( "idFile_InZip::ForceFlush: cannot flush the zipped file %s", name.c_str() );
+	mpSys->FatalError( "idFile_InZip::ForceFlush: cannot flush the zipped file %s", name.c_str() );
 }
 
 /*
@@ -1766,7 +1766,7 @@ idFile_InZip::Flush
 */
 void idFile_InZip::Flush()
 {
-	common->FatalError( "idFile_InZip::Flush: cannot flush the zipped file %s", name.c_str() );
+	mpSys->FatalError( "idFile_InZip::Flush: cannot flush the zipped file %s", name.c_str() );
 }
 
 /*
@@ -1854,7 +1854,7 @@ int idFile_InZip::Seek( long offset, fsOrigin_t origin )
 		}
 		default:
 		{
-			common->FatalError( "idFile_InZip::Seek: bad origin for %s\n", name.c_str() );
+			mpSys->FatalError( "idFile_InZip::Seek: bad origin for %s\n", name.c_str() );
 			break;
 		}
 	}
@@ -1986,7 +1986,7 @@ int idFile_InnerResource::Seek( long offset, fsOrigin_t origin )
 		}
 		default:
 		{
-			common->FatalError( "idFile_InnerResource::Seek: bad origin for %s\n", name.c_str() );
+			mpSys->FatalError( "idFile_InnerResource::Seek: bad origin for %s\n", name.c_str() );
 			break;
 		}
 	}

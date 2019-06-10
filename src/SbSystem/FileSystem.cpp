@@ -552,14 +552,14 @@ idFileHandle idFileSystemLocal::OpenOSFile( const char* fileName, fsMode_t mode 
 				{
 					if( fs_debug.GetInteger() )
 					{
-						common->Printf( "idFileSystemLocal::OpenFileRead: changed %s to %s\n", fileName, entry.c_str() );
+						mpSys->Printf( "idFileSystemLocal::OpenFileRead: changed %s to %s\n", fileName, entry.c_str() );
 					}
 					break;
 				}
 				else
 				{
 					// not supposed to happen if ListOSFiles is doing it's job correctly
-					common->Warning( "idFileSystemLocal::OpenFileRead: fs_caseSensitiveOS 1 could not open %s", entry.c_str() );
+					mpSys->Warning( "idFileSystemLocal::OpenFileRead: fs_caseSensitiveOS 1 could not open %s", entry.c_str() );
 				}
 			}
 		}
@@ -627,7 +627,7 @@ void idFileSystemLocal::CreateOSPath( const char* OSPath )
 	if( strstr( OSPath, ".." ) || strstr( OSPath, "::" ) )
 	{
 #ifdef _DEBUG
-		common->DPrintf( "refusing to create relative path \"%s\"\n", OSPath );
+		mpSys->DPrintf( "refusing to create relative path \"%s\"\n", OSPath );
 #endif
 		return;
 	}
@@ -1654,7 +1654,7 @@ void idFileSystemLocal::CopyFile( idFile* src, const char* toOSPath )
 		return;
 	}
 	
-	common->Printf( "copy %s to %s\n", src->GetName(), toOSPath );
+	mpSys->Printf( "copy %s to %s\n", src->GetName(), toOSPath );
 	
 	int len = src->Length();
 	int copied = 0;
@@ -1948,13 +1948,13 @@ int idFileSystemLocal::ReadFile( const char* relativePath, void** buffer, ID_TIM
 	
 	if( !IsInitialized() )
 	{
-		common->FatalError( "Filesystem call made without initialization\n" );
+		mpSys->FatalError( "Filesystem call made without initialization\n" );
 		return 0;
 	}
 	
 	if( relativePath == nullptr || !relativePath[0] )
 	{
-		common->FatalError( "idFileSystemLocal::ReadFile with empty name\n" );
+		mpSys->FatalError( "idFileSystemLocal::ReadFile with empty name\n" );
 		return 0;
 	}
 	
@@ -1982,7 +1982,7 @@ int idFileSystemLocal::ReadFile( const char* relativePath, void** buffer, ID_TIM
 			loadCount++;
 			loadStack++;
 			
-			common->DPrintf( "Loading %s from journal file.\n", relativePath );
+			mpSys->DPrintf( "Loading %s from journal file.\n", relativePath );
 			len = 0;
 			r = eventLoop->com_journalDataFile->Read( &len, sizeof( len ) );
 			if( r != sizeof( len ) )
@@ -1995,7 +1995,7 @@ int idFileSystemLocal::ReadFile( const char* relativePath, void** buffer, ID_TIM
 			r = eventLoop->com_journalDataFile->Read( buf, len );
 			if( r != len )
 			{
-				common->FatalError( "Read from journalDataFile failed" );
+				mpSys->FatalError( "Read from journalDataFile failed" );
 			}
 			
 			// guarantee that it will have a trailing 0 for string operations
@@ -2062,7 +2062,7 @@ int idFileSystemLocal::ReadFile( const char* relativePath, void** buffer, ID_TIM
 	// if we are journalling and it is a config file, write it to the journal file
 	if( isConfig && eventLoop && eventLoop->JournalLevel() == 1 )
 	{
-		common->DPrintf( "Writing %s to journal file.\n", relativePath );
+		mpSys->DPrintf( "Writing %s to journal file.\n", relativePath );
 		eventLoop->com_journalDataFile->Write( &len, sizeof( len ) );
 		eventLoop->com_journalDataFile->Write( buf, len );
 		eventLoop->com_journalDataFile->Flush();
@@ -2080,11 +2080,11 @@ void idFileSystemLocal::FreeFile( void* buffer )
 {
 	if( !IsInitialized() )
 	{
-		common->FatalError( "Filesystem call made without initialization\n" );
+		mpSys->FatalError( "Filesystem call made without initialization\n" );
 	}
 	if( !buffer )
 	{
-		common->FatalError( "idFileSystemLocal::FreeFile( nullptr )" );
+		mpSys->FatalError( "idFileSystemLocal::FreeFile( nullptr )" );
 	}
 	loadStack--;
 	
@@ -2104,18 +2104,18 @@ int idFileSystemLocal::WriteFile( const char* relativePath, const void* buffer, 
 	
 	if( !IsInitialized() )
 	{
-		common->FatalError( "Filesystem call made without initialization\n" );
+		mpSys->FatalError( "Filesystem call made without initialization\n" );
 	}
 	
 	if( !relativePath || !buffer )
 	{
-		common->FatalError( "idFileSystemLocal::WriteFile: nullptr parameter" );
+		mpSys->FatalError( "idFileSystemLocal::WriteFile: nullptr parameter" );
 	}
 	
 	f = idFileSystemLocal::OpenFileWrite( relativePath, basePath );
 	if( !f )
 	{
-		common->Printf( "Failed to open %s\n", relativePath );
+		mpSys->Printf( "Failed to open %s\n", relativePath );
 		return -1;
 	}
 	
@@ -2229,7 +2229,7 @@ int idFileSystemLocal::GetFileList( const char* relativePath, const idStrList& e
 {
 	if( !IsInitialized() )
 	{
-		common->FatalError( "Filesystem call made without initialization\n" );
+		mpSys->FatalError( "Filesystem call made without initialization\n" );
 	}
 	
 	if( !extensions.Num() )
@@ -2496,7 +2496,7 @@ void idFileSystemLocal::Dir_f( const idCmdArgs& args )
 	
 	if( args.Argc() < 2 || args.Argc() > 3 )
 	{
-		common->Printf( "usage: dir <directory> [extension]\n" );
+		mpSys->Printf( "usage: dir <directory> [extension]\n" );
 		return;
 	}
 	
@@ -2511,22 +2511,22 @@ void idFileSystemLocal::Dir_f( const idCmdArgs& args )
 		extension = args.Argv( 2 );
 		if( extension[0] != '.' )
 		{
-			common->Warning( "extension should have a leading dot" );
+			mpSys->Warning( "extension should have a leading dot" );
 		}
 	}
 	relativePath.BackSlashesToSlashes();
 	relativePath.StripTrailing( '/' );
 	
-	common->Printf( "Listing of %s/*%s\n", relativePath.c_str(), extension.c_str() );
-	common->Printf( "---------------\n" );
+	mpSys->Printf( "Listing of %s/*%s\n", relativePath.c_str(), extension.c_str() );
+	mpSys->Printf( "---------------\n" );
 	
 	fileList = fileSystemLocal.ListFiles( relativePath, extension );
 	
 	for( i = 0; i < fileList->GetNumFiles(); i++ )
 	{
-		common->Printf( "%s\n", fileList->GetFile( i ) );
+		mpSys->Printf( "%s\n", fileList->GetFile( i ) );
 	}
-	common->Printf( "%d files\n", fileList->list.Num() );
+	mpSys->Printf( "%d files\n", fileList->list.Num() );
 	
 	fileSystemLocal.FreeFileList( fileList );
 }
@@ -2545,7 +2545,7 @@ void idFileSystemLocal::DirTree_f( const idCmdArgs& args )
 	
 	if( args.Argc() < 2 || args.Argc() > 3 )
 	{
-		common->Printf( "usage: dirtree <directory> [extension]\n" );
+		mpSys->Printf( "usage: dirtree <directory> [extension]\n" );
 		return;
 	}
 	
@@ -2560,22 +2560,22 @@ void idFileSystemLocal::DirTree_f( const idCmdArgs& args )
 		extension = args.Argv( 2 );
 		if( extension[0] != '.' )
 		{
-			common->Warning( "extension should have a leading dot" );
+			mpSys->Warning( "extension should have a leading dot" );
 		}
 	}
 	relativePath.BackSlashesToSlashes();
 	relativePath.StripTrailing( '/' );
 	
-	common->Printf( "Listing of %s/*%s /s\n", relativePath.c_str(), extension.c_str() );
-	common->Printf( "---------------\n" );
+	mpSys->Printf( "Listing of %s/*%s /s\n", relativePath.c_str(), extension.c_str() );
+	mpSys->Printf( "---------------\n" );
 	
 	fileList = fileSystemLocal.ListFilesTree( relativePath, extension );
 	
 	for( i = 0; i < fileList->GetNumFiles(); i++ )
 	{
-		common->Printf( "%s\n", fileList->GetFile( i ) );
+		mpSys->Printf( "%s\n", fileList->GetFile( i ) );
 	}
-	common->Printf( "%d files\n", fileList->list.Num() );
+	mpSys->Printf( "%d files\n", fileList->list.Num() );
 	
 	fileSystemLocal.FreeFileList( fileList );
 }
@@ -2608,7 +2608,7 @@ void idFileSystemLocal::WriteResourceFile_f( const idCmdArgs& args )
 {
 	if( args.Argc() != 2 )
 	{
-		common->Printf( "Usage: writeResourceFile <manifest file>\n" );
+		mpSys->Printf( "Usage: writeResourceFile <manifest file>\n" );
 		return;
 	}
 	
@@ -2627,7 +2627,7 @@ void idFileSystemLocal::UpdateResourceFile_f( const idCmdArgs& args )
 {
 	if( args.Argc() < 3 )
 	{
-		common->Printf( "Usage: updateResourceFile <resource file> <files>\n" );
+		mpSys->Printf( "Usage: updateResourceFile <resource file> <files>\n" );
 		return;
 	}
 	
@@ -2649,7 +2649,7 @@ void idFileSystemLocal::ExtractResourceFile_f( const idCmdArgs& args )
 {
 	if( args.Argc() < 3 )
 	{
-		common->Printf( "Usage: extractResourceFile <resource file> <outpath> <copysound>\n" );
+		mpSys->Printf( "Usage: extractResourceFile <resource file> <outpath> <copysound>\n" );
 		return;
 	}
 	
@@ -2666,15 +2666,15 @@ idFileSystemLocal::Path_f
 */
 void idFileSystemLocal::Path_f( const idCmdArgs& args )
 {
-	common->Printf( "Current search path:\n" );
+	mpSys->Printf( "Current search path:\n" );
 	for( int sp = fileSystemLocal.searchPaths.Num() - 1; sp >= 0; sp-- )
 	{
-		common->Printf( "%s/%s\n", fileSystemLocal.searchPaths[sp].path.c_str(), fileSystemLocal.searchPaths[sp].gamedir.c_str() );
+		mpSys->Printf( "%s/%s\n", fileSystemLocal.searchPaths[sp].path.c_str(), fileSystemLocal.searchPaths[sp].gamedir.c_str() );
 	}
 	
 	for( int i = 0; i < fileSystemLocal.resourceFiles.Num(); i++ )
 	{
-		common->Printf( "%s\n", fileSystemLocal.resourceFiles[i]->GetFileName() );
+		mpSys->Printf( "%s\n", fileSystemLocal.resourceFiles[i]->GetFileName() );
 	}
 }
 
@@ -2692,7 +2692,7 @@ void idFileSystemLocal::TouchFile_f( const idCmdArgs& args )
 	
 	if( args.Argc() != 2 )
 	{
-		common->Printf( "Usage: touchFile <file>\n" );
+		mpSys->Printf( "Usage: touchFile <file>\n" );
 		return;
 	}
 	
@@ -2715,7 +2715,7 @@ void idFileSystemLocal::TouchFileList_f( const idCmdArgs& args )
 
 	if( args.Argc() != 2 )
 	{
-		common->Printf( "Usage: touchFileList <filename>\n" );
+		mpSys->Printf( "Usage: touchFileList <filename>\n" );
 		return;
 	}
 	
@@ -2729,7 +2729,7 @@ void idFileSystemLocal::TouchFileList_f( const idCmdArgs& args )
 			idToken token;
 			while( src.ReadToken( &token ) )
 			{
-				common->Printf( "%s\n", token.c_str() );
+				mpSys->Printf( "%s\n", token.c_str() );
 				const bool captureToImage = false;
 				common->UpdateScreen( captureToImage );
 				idFile* f = fileSystemLocal.OpenFileRead( token );
@@ -2871,7 +2871,7 @@ int idFileSystemLocal::AddResourceFile( const char* resourceFileName )
 	if( rc->Init( resourceFile, resourceFiles.Num() ) )
 	{
 		resourceFiles.Append( rc );
-		common->Printf( "Loaded resource file %s\n", resourceFile.c_str() );
+		mpSys->Printf( "Loaded resource file %s\n", resourceFile.c_str() );
 		return resourceFiles.Num() - 1;
 	}
 	return -1;
@@ -3003,7 +3003,7 @@ void idFileSystemLocal::AddGameDirectory( const char* path, const char* dir )
 				if( rc->Init( pakfile, resourceFiles.Num() ) )
 				{
 					resourceFiles.Append( rc );
-					common->Printf( "Loaded resource file %s\n", pakfile.c_str() );
+					mpSys->Printf( "Loaded resource file %s\n", pakfile.c_str() );
 					//com_productionMode.SetInteger( 2 );
 				}
 			}
@@ -3069,7 +3069,7 @@ idFileSystemLocal::Startup
 */
 void idFileSystemLocal::Startup()
 {
-	common->Printf( "------ Initializing File System ------\n" );
+	mpSys->Printf( "------ Initializing File System ------\n" );
 	
 	InitPrecache();
 	
@@ -3107,8 +3107,8 @@ void idFileSystemLocal::Startup()
 	// print the current search paths
 	Path_f( idCmdArgs() );
 	
-	common->Printf( "file system initialized.\n" );
-	common->Printf( "--------------------------------------\n" );
+	mpSys->Printf( "file system initialized.\n" );
+	mpSys->Printf( "--------------------------------------\n" );
 }
 
 /*
@@ -3149,7 +3149,7 @@ void idFileSystemLocal::Init()
 	// Dedicated servers can run with no outside files at all
 	if( ReadFile( "default.cfg", nullptr, nullptr ) <= 0 )
 	{
-		common->FatalError( "Couldn't load default.cfg" );
+		mpSys->FatalError( "Couldn't load default.cfg" );
 	}
 }
 
@@ -3170,7 +3170,7 @@ void idFileSystemLocal::Restart()
 	// graphics screen when the font fails to load
 	if( ReadFile( "default.cfg", nullptr, nullptr ) <= 0 )
 	{
-		common->FatalError( "Couldn't load default.cfg" );
+		mpSys->FatalError( "Couldn't load default.cfg" );
 	}
 }
 
@@ -3341,13 +3341,13 @@ idFile* idFileSystemLocal::OpenFileReadFlags( const char* relativePath, int sear
 
 	if( !IsInitialized() )
 	{
-		common->FatalError( "Filesystem call made without initialization\n" );
+		mpSys->FatalError( "Filesystem call made without initialization\n" );
 		return nullptr;
 	}
 	
 	if( relativePath == nullptr )
 	{
-		common->FatalError( "idFileSystemLocal::OpenFileRead: nullptr 'relativePath' parameter passed\n" );
+		mpSys->FatalError( "idFileSystemLocal::OpenFileRead: nullptr 'relativePath' parameter passed\n" );
 		return nullptr;
 	}
 	
@@ -3415,7 +3415,7 @@ idFile* idFileSystemLocal::OpenFileReadFlags( const char* relativePath, int sear
 			file->fileSize = DirectFileLength( file->o );
 			if( fs_debug.GetInteger() )
 			{
-				common->Printf( "idFileSystem::OpenFileRead: %s (found in '%s/%s')\n", relativePath, searchPaths[sp].path.c_str(), searchPaths[sp].gamedir.c_str() );
+				mpSys->Printf( "idFileSystem::OpenFileRead: %s (found in '%s/%s')\n", relativePath, searchPaths[sp].path.c_str(), searchPaths[sp].gamedir.c_str() );
 			}
 			
 			// if fs_copyfiles is set
@@ -3525,7 +3525,7 @@ idFile* idFileSystemLocal::OpenFileReadFlags( const char* relativePath, int sear
 	
 	if( fs_debug.GetInteger( ) )
 	{
-		common->Printf( "Can't find %s\n", relativePath );
+		mpSys->Printf( "Can't find %s\n", relativePath );
 	}
 	
 	return nullptr;
@@ -3565,7 +3565,7 @@ idFile* idFileSystemLocal::OpenFileWrite( const char* relativePath, const char* 
 	
 	if( !IsInitialized() )
 	{
-		common->FatalError( "Filesystem call made without initialization\n" );
+		mpSys->FatalError( "Filesystem call made without initialization\n" );
 	}
 	
 	path = cvarSystem->GetCVarString( basePath );
@@ -3578,10 +3578,10 @@ idFile* idFileSystemLocal::OpenFileWrite( const char* relativePath, const char* 
 	
 	if( fs_debug.GetInteger() )
 	{
-		common->Printf( "idFileSystem::OpenFileWrite: %s\n", OSpath.c_str() );
+		mpSys->Printf( "idFileSystem::OpenFileWrite: %s\n", OSpath.c_str() );
 	}
 	
-	common->DPrintf( "writing to: %s\n", OSpath.c_str() );
+	mpSys->DPrintf( "writing to: %s\n", OSpath.c_str() );
 	CreateOSPath( OSpath );
 	
 	f = new( TAG_IDFILE ) idFile_Permanent();
@@ -3611,15 +3611,15 @@ idFile* idFileSystemLocal::OpenExplicitFileRead( const char* OSPath )
 	
 	if( !IsInitialized() )
 	{
-		common->FatalError( "Filesystem call made without initialization\n" );
+		mpSys->FatalError( "Filesystem call made without initialization\n" );
 	}
 	
 	if( fs_debug.GetInteger() )
 	{
-		common->Printf( "idFileSystem::OpenExplicitFileRead: %s\n", OSPath );
+		mpSys->Printf( "idFileSystem::OpenExplicitFileRead: %s\n", OSPath );
 	}
 	
-	//common->DPrintf( "idFileSystem::OpenExplicitFileRead - reading from: %s\n", OSPath );
+	//mpSys->DPrintf( "idFileSystem::OpenExplicitFileRead - reading from: %s\n", OSPath );
 	
 	f = new( TAG_IDFILE ) idFile_Permanent();
 	f->o = OpenOSFile( OSPath, FS_READ );
@@ -3648,14 +3648,14 @@ idFile_Cached* idFileSystemLocal::OpenExplicitPakFile( const char* OSPath )
 	
 	if( !IsInitialized() )
 	{
-		common->FatalError( "Filesystem call made without initialization\n" );
+		mpSys->FatalError( "Filesystem call made without initialization\n" );
 	}
 	
 	//if ( fs_debug.GetInteger() ) {
-	//	common->Printf( "idFileSystem::OpenExplicitFileRead: %s\n", OSPath );
+	//	mpSys->Printf( "idFileSystem::OpenExplicitFileRead: %s\n", OSPath );
 	//}
 	
-	//common->DPrintf( "idFileSystem::OpenExplicitFileRead - reading from: %s\n", OSPath );
+	//mpSys->DPrintf( "idFileSystem::OpenExplicitFileRead - reading from: %s\n", OSPath );
 	
 	f = new( TAG_IDFILE ) idFile_Cached();
 	f->o = OpenOSFile( OSPath, FS_READ );
@@ -3684,15 +3684,15 @@ idFile* idFileSystemLocal::OpenExplicitFileWrite( const char* OSPath )
 	
 	if( !IsInitialized() )
 	{
-		common->FatalError( "Filesystem call made without initialization\n" );
+		mpSys->FatalError( "Filesystem call made without initialization\n" );
 	}
 	
 	if( fs_debug.GetInteger() )
 	{
-		common->Printf( "idFileSystem::OpenExplicitFileWrite: %s\n", OSPath );
+		mpSys->Printf( "idFileSystem::OpenExplicitFileWrite: %s\n", OSPath );
 	}
 	
-	common->DPrintf( "writing to: %s\n", OSPath );
+	mpSys->DPrintf( "writing to: %s\n", OSPath );
 	CreateOSPath( OSPath );
 	
 	f = new( TAG_IDFILE ) idFile_Permanent();
@@ -3725,7 +3725,7 @@ idFile* idFileSystemLocal::OpenFileAppend( const char* relativePath, bool sync, 
 	
 	if( !IsInitialized() )
 	{
-		common->FatalError( "Filesystem call made without initialization\n" );
+		mpSys->FatalError( "Filesystem call made without initialization\n" );
 	}
 	
 	path = cvarSystem->GetCVarString( basePath );
@@ -3739,7 +3739,7 @@ idFile* idFileSystemLocal::OpenFileAppend( const char* relativePath, bool sync, 
 	
 	if( fs_debug.GetInteger() )
 	{
-		common->Printf( "idFileSystem::OpenFileAppend: %s\n", OSpath.c_str() );
+		mpSys->Printf( "idFileSystem::OpenFileAppend: %s\n", OSpath.c_str() );
 	}
 	
 	f = new( TAG_IDFILE ) idFile_Permanent();
@@ -3777,7 +3777,7 @@ idFile* idFileSystemLocal::OpenFileByMode( const char* relativePath, fsMode_t mo
 	{
 		return OpenFileAppend( relativePath, true );
 	}
-	common->FatalError( "idFileSystemLocal::OpenFileByMode: bad mode" );
+	mpSys->FatalError( "idFileSystemLocal::OpenFileByMode: bad mode" );
 	return nullptr;
 }
 
@@ -3790,7 +3790,7 @@ void idFileSystemLocal::CloseFile( idFile* f )
 {
 	if( !IsInitialized() )
 	{
-		common->FatalError( "Filesystem call made without initialization\n" );
+		mpSys->FatalError( "Filesystem call made without initialization\n" );
 	}
 	delete f;
 }
