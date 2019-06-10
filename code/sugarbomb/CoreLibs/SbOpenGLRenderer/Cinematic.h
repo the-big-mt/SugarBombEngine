@@ -45,11 +45,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 // cinematic states
-typedef enum
-{
+typedef enum {
 	FMV_IDLE,
-	FMV_PLAY,			// play
-	FMV_EOF,			// all other conditions, i.e. stop/EOF/abort
+	FMV_PLAY, // play
+	FMV_EOF,  // all other conditions, i.e. stop/EOF/abort
 	FMV_ID_BLT,
 	FMV_ID_IDLE,
 	FMV_LOOPED,
@@ -63,60 +62,61 @@ class idImage;
 // a cinematic stream generates an image buffer, which the caller will upload to a texture
 typedef struct
 {
-	int					imageWidth;
-	int					imageHeight;	// will be a power of 2
-	idImage*			imageY;
-	idImage*			imageCr;
-	idImage*			imageCb;
-	idImage*			image;
-	int					status;
+	int imageWidth;
+	int imageHeight; // will be a power of 2
+	idImage *imageY;
+	idImage *imageCr;
+	idImage *imageCb;
+	idImage *image;
+	int status;
 } cinData_t;
 
 class idCinematic
 {
 public:
-	idCinematic(idDeclManager *apDeclManager) : declManager(apDeclManager){}
-	
+	idCinematic(idDeclManager *apDeclManager)
+	    : declManager(apDeclManager) {}
 	// initialize cinematic play back data
-	static void			InitCinematic();
-	
+	static void InitCinematic();
+
 	// shutdown cinematic play back data
-	static void			ShutdownCinematic();
-	
+	static void ShutdownCinematic();
+
 	// allocates and returns a private subclass that implements the methods
 	// This should be used instead of new
-	static idCinematic*	Alloc();
-	
+	static idCinematic *Alloc();
+
 	// frees all allocated memory
-	virtual				~idCinematic();
-	
+	virtual ~idCinematic();
+
 	// returns false if it failed to load
-	virtual bool		InitFromFile( const char* qpath, bool looping );
-	
+	virtual bool InitFromFile(const char *qpath, bool looping);
+
 	// returns the length of the animation in milliseconds
-	virtual int			AnimationLength();
-	
+	virtual int AnimationLength();
+
 	// RB: let us know wether this video went EOF or is still active
-	virtual bool        IsPlaying() const;
+	virtual bool IsPlaying() const;
 	// RB end
-	
+
 	// the pointers in cinData_t will remain valid until the next UpdateForTime() call
-	virtual cinData_t	ImageForTime( int milliseconds );
-	
+	virtual cinData_t ImageForTime(int milliseconds);
+
 	// closes the file and frees all allocated memory
-	virtual void		Close();
-	
+	virtual void Close();
+
 	// sets the cinematic to start at that time (can be in the past)
-	virtual void		ResetTime( int time );
-	
+	virtual void ResetTime(int time);
+
 	// gets the time the cinematic started
-	virtual int			GetStartTime();
-	
-	virtual void		ExportToTGA( bool skipExisting = true );
-	
-	virtual float		GetFrameRate() const;
+	virtual int GetStartTime();
+
+	virtual void ExportToTGA(bool skipExisting = true);
+
+	virtual float GetFrameRate() const;
+
 private:
-	idDeclManager *declManager{nullptr};
+	idDeclManager *declManager{ nullptr };
 };
 
 /*
@@ -130,21 +130,21 @@ private:
 class idSndWindow : public idCinematic
 {
 public:
-
-	idSndWindow(idDeclManager *apDeclManager, idSoundSystem *apSoundSystem) : idCinematic(apDeclManager), soundSystem(apSoundSystem)
+	idSndWindow(idDeclManager *apDeclManager, idSoundSystem *apSoundSystem)
+	    : idCinematic(apDeclManager), soundSystem(apSoundSystem)
 	{
 		showWaveform = false;
 	}
 	~idSndWindow() {}
-	
-	bool				InitFromFile( const char* qpath, bool looping );
-	cinData_t			ImageForTime( int milliseconds );
-	int					AnimationLength();
-	
+	bool InitFromFile(const char *qpath, bool looping);
+	cinData_t ImageForTime(int milliseconds);
+	int AnimationLength();
+
 private:
-	bool				showWaveform;
+	bool showWaveform;
+
 private:
-	idSoundSystem *soundSystem{nullptr};
+	idSoundSystem *soundSystem{ nullptr };
 };
 
 //} // namespace BFG

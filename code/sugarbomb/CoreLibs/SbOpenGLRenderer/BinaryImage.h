@@ -59,90 +59,93 @@ generation.
 class idBinaryImage
 {
 public:
-	idBinaryImage( const char* name, idFileSystem *apFileSystem ) : imgName( name ), fileSystem(apFileSystem) { }
-	
-	const char* 		GetName() const
+	idBinaryImage(const char *name, idFileSystem *apFileSystem)
+	    : imgName(name), fileSystem(apFileSystem) {}
+	const char *GetName() const
 	{
 		return imgName.c_str();
 	}
-	void				SetName( const char* _name )
+	void SetName(const char *_name)
 	{
 		imgName = _name;
 	}
-	
-	void				Load2DFromMemory( int width, int height, const byte* pic_const, int numLevels, textureFormat_t& textureFormat, textureColor_t& colorFormat, bool gammaMips );
-	void				LoadCubeFromMemory( int width, const byte* pics[6], int numLevels, textureFormat_t& textureFormat, bool gammaMips );
-	
-	ID_TIME_T			LoadFromGeneratedFile( ID_TIME_T sourceFileTime );
-	ID_TIME_T			WriteGeneratedFile( ID_TIME_T sourceFileTime );
-	
-	const bimageFile_t& 	GetFileHeader()
+
+	void Load2DFromMemory(int width, int height, const byte *pic_const, int numLevels, textureFormat_t &textureFormat, textureColor_t &colorFormat, bool gammaMips);
+	void LoadCubeFromMemory(int width, const byte *pics[6], int numLevels, textureFormat_t &textureFormat, bool gammaMips);
+
+	ID_TIME_T LoadFromGeneratedFile(ID_TIME_T sourceFileTime);
+	ID_TIME_T WriteGeneratedFile(ID_TIME_T sourceFileTime);
+
+	const bimageFile_t &GetFileHeader()
 	{
 		return fileData;
 	}
-	
-	int					NumImages()
+
+	int NumImages()
 	{
 		return images.Num();
 	}
-	const bimageImage_t& 	GetImageHeader( int i ) const
+	const bimageImage_t &GetImageHeader(int i) const
 	{
 		return images[i];
 	}
-	const byte* 			GetImageData( int i ) const
+	const byte *GetImageData(int i) const
 	{
 		return images[i].data;
 	}
-	static void			GetGeneratedFileName( idStr& gfn, const char* imageName );
+	static void GetGeneratedFileName(idStr &gfn, const char *imageName);
+
 private:
-	idStr				imgName;			// game path, including extension (except for cube maps), may be an image program
-	bimageFile_t		fileData;
-	
+	idStr imgName; // game path, including extension (except for cube maps), may be an image program
+	bimageFile_t fileData;
+
 	class idBinaryImageData : public bimageImage_t
 	{
 	public:
-		byte* data;
-		
-		idBinaryImageData() : data( NULL ) { }
+		byte *data;
+
+		idBinaryImageData()
+		    : data(NULL) {}
 		~idBinaryImageData()
 		{
 			Free();
 		}
-		idBinaryImageData& operator=( idBinaryImageData& other )
+		idBinaryImageData &operator=(idBinaryImageData &other)
 		{
-			if( this == &other )
+			if(this == &other)
 			{
 				return *this;
 			}
-			
-			Alloc( other.dataSize );
-			memcpy( data, other.data, other.dataSize );
+
+			Alloc(other.dataSize);
+			memcpy(data, other.data, other.dataSize);
 			return *this;
 		}
 		void Free()
 		{
-			if( data != NULL )
+			if(data != NULL)
 			{
-				Mem_Free( data );
+				Mem_Free(data);
 				data = NULL;
 				dataSize = 0;
 			}
 		}
-		void Alloc( int size )
+		void Alloc(int size)
 		{
 			Free();
 			dataSize = size;
-			data = ( byte* )Mem_Alloc( size, TAG_CRAP );
+			data = (byte *)Mem_Alloc(size, TAG_CRAP);
 		}
 	};
-	
-	idList< idBinaryImageData, TAG_IDLIB_LIST_IMAGE > images;
-	
+
+	idList<idBinaryImageData, TAG_IDLIB_LIST_IMAGE> images;
+
 private:
-	void				MakeGeneratedFileName( idStr& gfn );
-	bool				LoadFromGeneratedFile( idFile* f, ID_TIME_T sourceFileTime );
+	void MakeGeneratedFileName(idStr &gfn);
+	bool LoadFromGeneratedFile(idFile *f, ID_TIME_T sourceFileTime);
+
 private:
-	idFileSystem *fileSystem{nullptr};
+	idFileSystem *fileSystem{ nullptr };
 };
 
 //} // namespace BFG

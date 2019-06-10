@@ -83,9 +83,11 @@ enum renderLogIndentLabel_t
 };
 
 // using this macro avoids printf parameter overhead if the renderlog isn't active
-#define RENDERLOG_PRINTF( ... ) if ( renderLog.activeLevel ) renderLog.Printf( __VA_ARGS__ );
+#define RENDERLOG_PRINTF(...) \
+	if(renderLog.activeLevel) \
+		renderLog.Printf(__VA_ARGS__);
 
-#if !defined( STUB_RENDER_LOG )
+#if !defined(STUB_RENDER_LOG)
 
 /*
 ================================================
@@ -97,51 +99,51 @@ class idRenderLog
 {
 public:
 	idRenderLog();
-	
-	void		StartFrame();
-	void		EndFrame();
-	void		Close();
-	int			Active()
+
+	void StartFrame();
+	void EndFrame();
+	void Close();
+	int Active()
 	{
-		return activeLevel;    // returns greater than 1 for more detailed logging
+		return activeLevel; // returns greater than 1 for more detailed logging
 	}
-	
+
 	// The label must be a constant string literal and may not point to a temporary.
-	void		OpenMainBlock( renderLogMainBlock_t block );
-	void		CloseMainBlock();
-	
-	void		OpenBlock( const char* label );
-	void		CloseBlock();
-	
-	void		Indent( renderLogIndentLabel_t label = RENDER_LOG_INDENT_DEFAULT );
-	void		Outdent( renderLogIndentLabel_t label = RENDER_LOG_INDENT_DEFAULT );
-	
-	void		Printf( VERIFY_FORMAT_STRING const char* fmt, ... );
-	
-	static const int		MAX_LOG_LEVELS = 20;
-	
-	int						activeLevel;
-	renderLogIndentLabel_t	indentLabel[MAX_LOG_LEVELS];
-	char					indentString[MAX_LOG_LEVELS * 4];
-	int						indentLevel;
-	const char* 			lastLabel;
-	renderLogMainBlock_t	lastMainBlock;
-//	idFile*					logFile;
+	void OpenMainBlock(renderLogMainBlock_t block);
+	void CloseMainBlock();
+
+	void OpenBlock(const char *label);
+	void CloseBlock();
+
+	void Indent(renderLogIndentLabel_t label = RENDER_LOG_INDENT_DEFAULT);
+	void Outdent(renderLogIndentLabel_t label = RENDER_LOG_INDENT_DEFAULT);
+
+	void Printf(VERIFY_FORMAT_STRING const char *fmt, ...);
+
+	static const int MAX_LOG_LEVELS = 20;
+
+	int activeLevel;
+	renderLogIndentLabel_t indentLabel[MAX_LOG_LEVELS];
+	char indentString[MAX_LOG_LEVELS * 4];
+	int indentLevel;
+	const char *lastLabel;
+	renderLogMainBlock_t lastMainBlock;
+	//	idFile*					logFile;
 
 	struct logStats_t
 	{
-		uint64	startTiming;
-		int		startDraws;
-		int		startIndexes;
+		uint64 startTiming;
+		int startDraws;
+		int startIndexes;
 	};
-	
-	uint64					frameStartTime;
-	uint64					closeBlockTime;
-	logStats_t				logStats[MAX_LOG_LEVELS];
-	int						logLevel;
-	
-	void					LogOpenBlock( renderLogIndentLabel_t label, const char* fmt, ... );
-	void					LogCloseBlock( renderLogIndentLabel_t label );
+
+	uint64 frameStartTime;
+	uint64 closeBlockTime;
+	logStats_t logStats[MAX_LOG_LEVELS];
+	int logLevel;
+
+	void LogOpenBlock(renderLogIndentLabel_t label, const char *fmt, ...);
+	void LogCloseBlock(renderLogIndentLabel_t label);
 };
 
 /*
@@ -149,14 +151,14 @@ public:
 idRenderLog::Indent
 ========================
 */
-ID_INLINE void idRenderLog::Indent( renderLogIndentLabel_t label )
+ID_INLINE void idRenderLog::Indent(renderLogIndentLabel_t label)
 {
 	//if( logFile != NULL )
-	if( r_logFile.GetInteger() != 0 )
+	if(r_logFile.GetInteger() != 0)
 	{
 		indentLabel[indentLevel] = label;
 		indentLevel++;
-		for( int i = 4; i > 0; i-- )
+		for(int i = 4; i > 0; i--)
 		{
 			indentString[indentLevel * 4 - i] = ' ';
 		}
@@ -169,18 +171,18 @@ ID_INLINE void idRenderLog::Indent( renderLogIndentLabel_t label )
 idRenderLog::Outdent
 ========================
 */
-ID_INLINE void idRenderLog::Outdent( renderLogIndentLabel_t label )
+ID_INLINE void idRenderLog::Outdent(renderLogIndentLabel_t label)
 {
 	//if( logFile != NULL && indentLevel > 0 )
-	if( r_logFile.GetInteger() != 0 && indentLevel > 0 )
+	if(r_logFile.GetInteger() != 0 && indentLevel > 0)
 	{
 		indentLevel--;
-		assert( indentLabel[indentLevel] == label );	// indent and outdent out of sync ?
+		assert(indentLabel[indentLevel] == label); // indent and outdent out of sync ?
 		indentString[indentLevel * 4] = '\0';
 	}
 }
 
-#else	// !STUB_RENDER_LOG
+#else // !STUB_RENDER_LOG
 
 /*
 ================================================
@@ -192,28 +194,25 @@ class idRenderLog
 {
 public:
 	idRenderLog() {}
-	
-	void		StartFrame() {}
-	void		EndFrame() {}
-	void		Close() {}
-	int			Active()
+	void StartFrame() {}
+	void EndFrame() {}
+	void Close() {}
+	int Active()
 	{
 		return 0;
 	}
-	
-	void		OpenBlock( const char* label );
-	void		CloseBlock();
-	void		OpenMainBlock( renderLogMainBlock_t block ) {}
-	void		CloseMainBlock() {}
-	void		Indent( renderLogIndentLabel_t label = RENDER_LOG_INDENT_DEFAULT ) {}
-	void		Outdent( renderLogIndentLabel_t label = RENDER_LOG_INDENT_DEFAULT ) {}
-	
-	void		Printf( VERIFY_FORMAT_STRING const char* fmt, ... ) {}
-	
-	int			activeLevel;
+
+	void OpenBlock(const char *label);
+	void CloseBlock();
+	void OpenMainBlock(renderLogMainBlock_t block) {}
+	void CloseMainBlock() {}
+	void Indent(renderLogIndentLabel_t label = RENDER_LOG_INDENT_DEFAULT) {}
+	void Outdent(renderLogIndentLabel_t label = RENDER_LOG_INDENT_DEFAULT) {}
+	void Printf(VERIFY_FORMAT_STRING const char *fmt, ...) {}
+	int activeLevel;
 };
 
-#endif	// !STUB_RENDER_LOG
+#endif // !STUB_RENDER_LOG
 
 extern idRenderLog renderLog;
 

@@ -46,43 +46,43 @@ class idScreenRect
 {
 public:
 	// Inclusive pixel bounds inside viewport
-	short		x1;
-	short		y1;
-	short		x2;
-	short		y2;
-	
+	short x1;
+	short y1;
+	short x2;
+	short y2;
+
 	// for depth bounds test
-	float       zmin;
-	float		zmax;
-	
+	float zmin;
+	float zmax;
+
 	// clear to backwards values
-	void		Clear();
-	bool		IsEmpty() const;
-	short		GetWidth() const
+	void Clear();
+	bool IsEmpty() const;
+	short GetWidth() const
 	{
 		return x2 - x1 + 1;
 	}
-	short		GetHeight() const
+	short GetHeight() const
 	{
 		return y2 - y1 + 1;
 	}
-	int			GetArea() const
+	int GetArea() const
 	{
-		return ( x2 - x1 + 1 ) * ( y2 - y1 + 1 );
+		return (x2 - x1 + 1) * (y2 - y1 + 1);
 	}
-	
+
 	// expand by one pixel each way to fix roundoffs
-	void		Expand();
-	
+	void Expand();
+
 	// adds a point
-	void		AddPoint( float x, float y );
-	
-	void		Intersect( const idScreenRect& rect );
-	void		Union( const idScreenRect& rect );
-	bool		Equals( const idScreenRect& rect ) const;
+	void AddPoint(float x, float y);
+
+	void Intersect(const idScreenRect &rect);
+	void Union(const idScreenRect &rect);
+	bool Equals(const idScreenRect &rect) const;
 };
 
-void R_ShowColoredScreenRect( const idScreenRect& rect, int colorIndex );
+void R_ShowColoredScreenRect(const idScreenRect &rect, int colorIndex);
 
 //} // namespace BFG
 

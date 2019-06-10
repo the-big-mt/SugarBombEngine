@@ -54,12 +54,12 @@ TODO:	Emit statistics to the logfile at the end of views and frames.
 ================================================================================================
 */
 
-idCVar r_logLevel( "r_logLevel", "2", CVAR_INTEGER, "1 = blocks only, 2 = everything", 1, 2 );
+idCVar r_logLevel("r_logLevel", "2", CVAR_INTEGER, "1 = blocks only, 2 = everything", 1, 2);
 
-static const int LOG_LEVEL_BLOCKS_ONLY	= 1;
-static const int LOG_LEVEL_EVERYTHING	= 2;
+static const int LOG_LEVEL_BLOCKS_ONLY = 1;
+static const int LOG_LEVEL_EVERYTHING = 2;
 
-const char* renderLogMainBlockLabels[] =
+const char *renderLogMainBlockLabels[] =
 {
 	ASSERT_ENUM_STRING( MRB_NONE,							0 ),
 	ASSERT_ENUM_STRING( MRB_BEGIN_DRAWING_VIEW,				1 ),
@@ -89,7 +89,6 @@ PIX events on all platforms
 ================================================================================================
 */
 
-
 /*
 ================================================
 pixEvent_t
@@ -97,19 +96,19 @@ pixEvent_t
 */
 struct pixEvent_t
 {
-	char		name[256];
-	uint64		cpuTime;
-	uint64		gpuTime;
+	char name[256];
+	uint64 cpuTime;
+	uint64 gpuTime;
 };
 
-idCVar r_pix( "r_pix", "0", CVAR_INTEGER, "print GPU/CPU event timing" );
+idCVar r_pix("r_pix", "0", CVAR_INTEGER, "print GPU/CPU event timing");
 
-static const int	MAX_PIX_EVENTS = 256;
+static const int MAX_PIX_EVENTS = 256;
 // defer allocation of this until needed, so we don't waste lots of memory
-pixEvent_t* 		pixEvents;	// [MAX_PIX_EVENTS]
-int					numPixEvents;
-int					numPixLevels;
-static GLuint		timeQueryIds[MAX_PIX_EVENTS];
+pixEvent_t *pixEvents; // [MAX_PIX_EVENTS]
+int numPixEvents;
+int numPixLevels;
+static GLuint timeQueryIds[MAX_PIX_EVENTS];
 
 /*
 ========================
@@ -118,7 +117,7 @@ PC_BeginNamedEvent
 FIXME: this is not thread safe on the PC
 ========================
 */
-void PC_BeginNamedEvent( const char* szName, ... )
+void PC_BeginNamedEvent(const char *szName, ...)
 {
 #if 0
 	if( !r_pix.GetBool() )
@@ -230,7 +229,6 @@ void PC_EndFrame()
 #endif
 }
 
-
 /*
 ================================================================================================
 
@@ -239,9 +237,9 @@ idRenderLog
 ================================================================================================
 */
 
-idRenderLog	renderLog;
+idRenderLog renderLog;
 
-#if !defined( STUB_RENDER_LOG )
+#if !defined(STUB_RENDER_LOG)
 
 /*
 ========================
@@ -253,7 +251,7 @@ idRenderLog::idRenderLog()
 	activeLevel = 0;
 	indentString[0] = '\0';
 	indentLevel = 0;
-//	logFile = nullptr;
+	//	logFile = nullptr;
 
 	frameStartTime = 0;
 	closeBlockTime = 0;
@@ -267,16 +265,16 @@ idRenderLog::StartFrame
 */
 void idRenderLog::StartFrame()
 {
-	if( r_logFile.GetInteger() == 0 )
+	if(r_logFile.GetInteger() == 0)
 	{
 		return;
 	}
-	
+
 	// open a new logfile
 	indentLevel = 0;
 	indentString[0] = '\0';
 	activeLevel = r_logLevel.GetInteger();
-	
+
 	/*
 	struct tm*		newtime;
 	time_t			aclock;
@@ -299,9 +297,9 @@ void idRenderLog::StartFrame()
 		}
 	}
 	*/
-	
-	common->SetRefreshOnPrint( false );	// problems are caused if this print causes a refresh...
-	
+
+	common->SetRefreshOnPrint(false); // problems are caused if this print causes a refresh...
+
 	/*
 	if( logFile != nullptr )
 	{
@@ -324,10 +322,10 @@ void idRenderLog::StartFrame()
 	logFile->Printf( "// %s", str );
 	logFile->Printf( "// %s\n\n", com_version.GetString() );
 	*/
-	
+
 	frameStartTime = Sys_Microseconds();
 	closeBlockTime = frameStartTime;
-	OpenBlock( "Frame" );
+	OpenBlock("Frame");
 }
 
 /*
@@ -338,11 +336,11 @@ idRenderLog::EndFrame
 void idRenderLog::EndFrame()
 {
 	PC_EndFrame();
-	
+
 	//if( logFile != nullptr )
-	if( r_logFile.GetInteger() != 0 )
+	if(r_logFile.GetInteger() != 0)
 	{
-		if( r_logFile.GetInteger() == 1 )
+		if(r_logFile.GetInteger() == 1)
 		{
 			Close();
 		}
@@ -361,7 +359,7 @@ idRenderLog::Close
 void idRenderLog::Close()
 {
 	//if( logFile != nullptr )
-	if( r_logFile.GetInteger() != 0 )
+	if(r_logFile.GetInteger() != 0)
 	{
 		CloseBlock();
 		//idLib::Printf( "Closing logfile\n" );
@@ -376,7 +374,7 @@ void idRenderLog::Close()
 idRenderLog::OpenMainBlock
 ========================
 */
-void idRenderLog::OpenMainBlock( renderLogMainBlock_t block )
+void idRenderLog::OpenMainBlock(renderLogMainBlock_t block)
 {
 }
 
@@ -394,15 +392,15 @@ void idRenderLog::CloseMainBlock()
 idRenderLog::OpenBlock
 ========================
 */
-void idRenderLog::OpenBlock( const char* label )
+void idRenderLog::OpenBlock(const char *label)
 {
 	// Allow the PIX functionality even when logFile is not running.
-	PC_BeginNamedEvent( label );
-	
+	PC_BeginNamedEvent(label);
+
 	//if( logFile != nullptr )
-	if( r_logFile.GetInteger() != 0 )
+	if(r_logFile.GetInteger() != 0)
 	{
-		LogOpenBlock( RENDER_LOG_INDENT_MAIN_BLOCK, "%s", label );
+		LogOpenBlock(RENDER_LOG_INDENT_MAIN_BLOCK, "%s", label);
 	}
 }
 
@@ -414,11 +412,11 @@ idRenderLog::CloseBlock
 void idRenderLog::CloseBlock()
 {
 	PC_EndNamedEvent();
-	
+
 	//if( logFile != nullptr )
-	if( r_logFile.GetInteger() != 0 )
+	if(r_logFile.GetInteger() != 0)
 	{
-		LogCloseBlock( RENDER_LOG_INDENT_MAIN_BLOCK );
+		LogCloseBlock(RENDER_LOG_INDENT_MAIN_BLOCK);
 	}
 }
 
@@ -427,41 +425,40 @@ void idRenderLog::CloseBlock()
 idRenderLog::Printf
 ========================
 */
-void idRenderLog::Printf( const char* fmt, ... )
+void idRenderLog::Printf(const char *fmt, ...)
 {
 #if !defined(USE_GLES2) && !defined(USE_GLES3)
-	if( activeLevel <= LOG_LEVEL_BLOCKS_ONLY )
+	if(activeLevel <= LOG_LEVEL_BLOCKS_ONLY)
 	{
 		return;
 	}
-	
+
 	//if( logFile == nullptr )
-	if( r_logFile.GetInteger() == 0 || !glConfig.gremedyStringMarkerAvailable )
+	if(r_logFile.GetInteger() == 0 || !glConfig.gremedyStringMarkerAvailable)
 	{
 		return;
 	}
-	
-	va_list		marker;
-	char		msg[4096];
-	
-	idStr		out = indentString;
-	
-	va_start( marker, fmt );
-	idStr::vsnPrintf( msg, sizeof( msg ), fmt, marker );
-	va_end( marker );
-	
-	msg[sizeof( msg ) - 1] = '\0';
-	
-	out.Append( msg );
-	
-	glStringMarkerGREMEDY( out.Length(), out.c_str() );
-	
-	//logFile->Printf( "%s", indentString );
-	//va_start( marker, fmt );
-	//logFile->VPrintf( fmt, marker );
-	//va_end( marker );
-	
-	
+
+	va_list marker;
+	char msg[4096];
+
+	idStr out = indentString;
+
+	va_start(marker, fmt);
+	idStr::vsnPrintf(msg, sizeof(msg), fmt, marker);
+	va_end(marker);
+
+	msg[sizeof(msg) - 1] = '\0';
+
+	out.Append(msg);
+
+	glStringMarkerGREMEDY(out.Length(), out.c_str());
+
+//logFile->Printf( "%s", indentString );
+//va_start( marker, fmt );
+//logFile->VPrintf( fmt, marker );
+//va_end( marker );
+
 //	logFile->Flush();		this makes it take waaaay too long
 #endif
 }
@@ -471,55 +468,54 @@ void idRenderLog::Printf( const char* fmt, ... )
 idRenderLog::LogOpenBlock
 ========================
 */
-void idRenderLog::LogOpenBlock( renderLogIndentLabel_t label, const char* fmt, ... )
+void idRenderLog::LogOpenBlock(renderLogIndentLabel_t label, const char *fmt, ...)
 {
 	uint64 now = Sys_Microseconds();
-	
+
 	//if( logFile != nullptr )
-	if( r_logFile.GetInteger() != 0 )
+	if(r_logFile.GetInteger() != 0)
 	{
-		//if( now - closeBlockTime >= 1000 )
-		//{
-		//logFile->Printf( "%s%1.1f msec gap from last closeblock\n", indentString, ( now - closeBlockTime ) * ( 1.0f / 1000.0f ) );
-		//}
-		
+//if( now - closeBlockTime >= 1000 )
+//{
+//logFile->Printf( "%s%1.1f msec gap from last closeblock\n", indentString, ( now - closeBlockTime ) * ( 1.0f / 1000.0f ) );
+//}
+
 #if !defined(USE_GLES2) && !defined(USE_GLES3)
-		if( glConfig.gremedyStringMarkerAvailable )
+		if(glConfig.gremedyStringMarkerAvailable)
 		{
 			//Printf( fmt, args );
 			//Printf( " {\n" );
-			
+
 			//logFile->Printf( "%s", indentString );
 			//logFile->VPrintf( fmt, args );
 			//logFile->Printf( " {\n" );
-			
-			va_list		marker;
-			char		msg[4096];
-			
-			idStr		out = indentString;
-			
-			va_start( marker, fmt );
-			idStr::vsnPrintf( msg, sizeof( msg ), fmt, marker );
-			va_end( marker );
-			
-			msg[sizeof( msg ) - 1] = '\0';
-			
-			out.Append( msg );
+
+			va_list marker;
+			char msg[4096];
+
+			idStr out = indentString;
+
+			va_start(marker, fmt);
+			idStr::vsnPrintf(msg, sizeof(msg), fmt, marker);
+			va_end(marker);
+
+			msg[sizeof(msg) - 1] = '\0';
+
+			out.Append(msg);
 			out += " {";
-			
-			glStringMarkerGREMEDY( out.Length(), out.c_str() );
+
+			glStringMarkerGREMEDY(out.Length(), out.c_str());
 		}
 #endif
 	}
-	
-	Indent( label );
-	
-	if( logLevel >= MAX_LOG_LEVELS )
+
+	Indent(label);
+
+	if(logLevel >= MAX_LOG_LEVELS)
 	{
-		idLib::Warning( "logLevel %d >= MAX_LOG_LEVELS", logLevel );
+		idLib::Warning("logLevel %d >= MAX_LOG_LEVELS", logLevel);
 	}
-	
-	
+
 	logLevel++;
 }
 
@@ -528,30 +524,30 @@ void idRenderLog::LogOpenBlock( renderLogIndentLabel_t label, const char* fmt, .
 idRenderLog::LogCloseBlock
 ========================
 */
-void idRenderLog::LogCloseBlock( renderLogIndentLabel_t label )
+void idRenderLog::LogCloseBlock(renderLogIndentLabel_t label)
 {
 	closeBlockTime = Sys_Microseconds();
-	
+
 	//assert( logLevel > 0 );
 	logLevel--;
-	
-	Outdent( label );
-	
+
+	Outdent(label);
+
 	//if( logFile != nullptr )
 	//{
 	//}
 }
 
-#else	// !STUB_RENDER_LOG
+#else // !STUB_RENDER_LOG
 
 /*
 ========================
 idRenderLog::OpenBlock
 ========================
 */
-void idRenderLog::OpenBlock( const char* label )
+void idRenderLog::OpenBlock(const char *label)
 {
-	PC_BeginNamedEvent( label );
+	PC_BeginNamedEvent(label);
 }
 
 /*

@@ -49,118 +49,116 @@ If you have questions concerning this license or the applicable additional terms
 
 typedef struct
 {
-	char					name[128];
-	char					parent[128];
+	char name[128];
+	char parent[128];
 } maNodeHeader_t;
 
 typedef struct
 {
-	char					name[128];
-	int						size;
+	char name[128];
+	int size;
 } maAttribHeader_t;
 
 typedef struct maTransform_s
 {
-	idVec3					translate;
-	idVec3					rotate;
-	idVec3					scale;
-	maTransform_s*			parent;
+	idVec3 translate;
+	idVec3 rotate;
+	idVec3 scale;
+	maTransform_s *parent;
 } maTransform_t;
 
 typedef struct
 {
-	int						edge[3];
-	int						vertexNum[3];
-	int						tVertexNum[3];
-	int						vertexColors[3];
-	idVec3					vertexNormals[3];
+	int edge[3];
+	int vertexNum[3];
+	int tVertexNum[3];
+	int vertexColors[3];
+	idVec3 vertexNormals[3];
 } maFace_t;
 
 typedef struct
 {
-
 	//Transform to be applied
-	maTransform_t*			transform;
-	
+	maTransform_t *transform;
+
 	//Verts
-	int						numVertexes;
-	idVec3* 				vertexes;
-	int						numVertTransforms;
-	idVec4* 				vertTransforms;
-	int						nextVertTransformIndex;
-	
+	int numVertexes;
+	idVec3 *vertexes;
+	int numVertTransforms;
+	idVec4 *vertTransforms;
+	int nextVertTransformIndex;
+
 	//Texture Coordinates
-	int						numTVertexes;
-	idVec2* 				tvertexes;
-	
+	int numTVertexes;
+	idVec2 *tvertexes;
+
 	//Edges
-	int						numEdges;
-	idVec3* 				edges;
-	
+	int numEdges;
+	idVec3 *edges;
+
 	//Colors
-	int						numColors;
-	byte*					colors;
-	
+	int numColors;
+	byte *colors;
+
 	//Faces
-	int						numFaces;
-	maFace_t* 				faces;
-	
+	int numFaces;
+	maFace_t *faces;
+
 	//Normals
-	int						numNormals;
-	idVec3* 				normals;
-	bool					normalsParsed;
-	int						nextNormal;
-	
+	int numNormals;
+	idVec3 *normals;
+	bool normalsParsed;
+	int nextNormal;
+
 } maMesh_t;
 
 typedef struct
 {
-	char					name[128];
-	float					uOffset, vOffset;		// max lets you offset by material without changing texCoords
-	float					uTiling, vTiling;		// multiply tex coords by this
-	float					angle;					// in clockwise radians
+	char name[128];
+	float uOffset, vOffset; // max lets you offset by material without changing texCoords
+	float uTiling, vTiling; // multiply tex coords by this
+	float angle;            // in clockwise radians
 } maMaterial_t;
 
 typedef struct
 {
-	char					name[128];
-	int						materialRef;
-	char					materialName[128];
-	
-	maMesh_t				mesh;
-} maObject_t;
+	char name[128];
+	int materialRef;
+	char materialName[128];
 
+	maMesh_t mesh;
+} maObject_t;
 
 typedef struct
 {
-	char					name[128];
-	char					path[1024];
+	char name[128];
+	char path[1024];
 } maFileNode_t;
 
 typedef struct maMaterialNode_s
 {
-	char					name[128];
-	
-	maMaterialNode_s*		child;
-	maFileNode_t*				file;
-	
+	char name[128];
+
+	maMaterialNode_s *child;
+	maFileNode_t *file;
+
 } maMaterialNode_t;
 
 typedef struct maModel_s
 {
-	ID_TIME_T						timeStamp;
-	idList<maMaterial_t*, TAG_MODEL>		materials;
-	idList<maObject_t*, TAG_MODEL>		objects;
-	idHashTable<maTransform_t*> transforms;
-	
+	ID_TIME_T timeStamp;
+	idList<maMaterial_t *, TAG_MODEL> materials;
+	idList<maObject_t *, TAG_MODEL> objects;
+	idHashTable<maTransform_t *> transforms;
+
 	//Material Resolution
-	idHashTable<maFileNode_t*>		fileNodes;
-	idHashTable<maMaterialNode_t*>	materialNodes;
-	
+	idHashTable<maFileNode_t *> fileNodes;
+	idHashTable<maMaterialNode_t *> materialNodes;
+
 } maModel_t;
 
-maModel_t*	MA_Load( const char* fileName, idCommon *apCommon, idFileSystem *apFileSystem );
-void		MA_Free( maModel_t* ma );
+maModel_t *MA_Load(const char *fileName, idCommon *apCommon, idFileSystem *apFileSystem);
+void MA_Free(maModel_t *ma);
 
 //} // namespace BFG
 

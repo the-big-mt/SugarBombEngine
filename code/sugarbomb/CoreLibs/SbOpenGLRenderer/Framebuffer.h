@@ -45,9 +45,9 @@ static const int MAX_SSAO_BUFFERS = 2;
 static const int MAX_HIERARCHICAL_ZBUFFERS = 6; // native resolution + 5 MIP LEVELS
 
 #if 1
-static	int shadowMapResolutions[MAX_SHADOWMAP_RESOLUTIONS] = { 2048, 1024, 512, 512, 256 };
+static int shadowMapResolutions[MAX_SHADOWMAP_RESOLUTIONS] = { 2048, 1024, 512, 512, 256 };
 #else
-static	int shadowMapResolutions[MAX_SHADOWMAP_RESOLUTIONS] = { 1024, 1024, 1024, 1024, 1024 };
+static int shadowMapResolutions[MAX_SHADOWMAP_RESOLUTIONS] = { 1024, 1024, 1024, 1024, 1024 };
 #endif
 
 struct idCommon;
@@ -56,99 +56,99 @@ struct idCmdSystem;
 class Framebuffer
 {
 public:
-
-	Framebuffer( const char* name, int width, int height, idCommon *apCommon);
+	Framebuffer(const char *name, int width, int height, idCommon *apCommon);
 	virtual ~Framebuffer();
-	
-	static void				Init(idCommon *apCommon, idCmdSystem *cmdSystem);
-	static void				Shutdown();
-	
-	static void				CheckFramebuffers();
-	
+
+	static void Init(idCommon *apCommon, idCmdSystem *cmdSystem);
+	static void Shutdown();
+
+	static void CheckFramebuffers();
+
 	// deletes OpenGL object but leaves structure intact for reloading
-	void					PurgeFramebuffer();
-	
-	void					Bind();
-	bool					IsBound();
-	static void				Unbind();
-	static bool				IsDefaultFramebufferActive();
-	
-	void					AddColorBuffer( int format, int index, int multiSamples = 0 );
-	void					AddDepthBuffer( int format, int multiSamples = 0 );
-	
-	void					AttachImage2D( int target, const idImage* image, int index, int mipmapLod = 0 );
-	void					AttachImage3D( const idImage* image );
-	void					AttachImageDepth( int target, const idImage* image );
-	void					AttachImageDepthLayer( const idImage* image, int layer );
-	
+	void PurgeFramebuffer();
+
+	void Bind();
+	bool IsBound();
+	static void Unbind();
+	static bool IsDefaultFramebufferActive();
+
+	void AddColorBuffer(int format, int index, int multiSamples = 0);
+	void AddDepthBuffer(int format, int multiSamples = 0);
+
+	void AttachImage2D(int target, const idImage *image, int index, int mipmapLod = 0);
+	void AttachImage3D(const idImage *image);
+	void AttachImageDepth(int target, const idImage *image);
+	void AttachImageDepthLayer(const idImage *image, int layer);
+
 	// check for OpenGL errors
-	void					Check();
-	uint32_t				GetFramebuffer() const
+	void Check();
+	uint32_t GetFramebuffer() const
 	{
 		return frameBuffer;
 	}
-	
-	int						GetWidth() const
+
+	int GetWidth() const
 	{
 		return width;
 	}
-	
-	int						GetHeight() const
+
+	int GetHeight() const
 	{
 		return height;
 	}
-	
-	bool					IsMultiSampled() const
+
+	bool IsMultiSampled() const
 	{
 		return msaaSamples;
 	}
-	
-	void					Resize( int width_, int height_ )
+
+	void Resize(int width_, int height_)
 	{
 		width = width_;
 		height = height_;
 	}
-	
+
 private:
-	idStr					fboName;
-	
+	idStr fboName;
+
 	// FBO object
-	uint32_t				frameBuffer;
-	
-	uint32_t				colorBuffers[16];
-	int						colorFormat;
-	
-	uint32_t				depthBuffer;
-	int						depthFormat;
-	
-	uint32_t				stencilBuffer;
-	int						stencilFormat;
-	
-	int						width;
-	int						height;
-	
-	bool					msaaSamples;
-	
-	static idList<Framebuffer*>	framebuffers;
+	uint32_t frameBuffer;
+
+	uint32_t colorBuffers[16];
+	int colorFormat;
+
+	uint32_t depthBuffer;
+	int depthFormat;
+
+	uint32_t stencilBuffer;
+	int stencilFormat;
+
+	int width;
+	int height;
+
+	bool msaaSamples;
+
+	static idList<Framebuffer *> framebuffers;
+
 private:
-	idCommon *common{nullptr};
+	idCommon *common{ nullptr };
 };
 
 struct globalFramebuffers_t
 {
-	Framebuffer*				shadowFBO[MAX_SHADOWMAP_RESOLUTIONS];
-	Framebuffer*				hdrFBO;
+	Framebuffer *shadowFBO[MAX_SHADOWMAP_RESOLUTIONS];
+	Framebuffer *hdrFBO;
 #if defined(USE_HDR_MSAA)
-	Framebuffer*				hdrNonMSAAFBO;
+	Framebuffer *hdrNonMSAAFBO;
 #endif
-//	Framebuffer*				hdrQuarterFBO;
-	Framebuffer*				hdr64FBO;
-	Framebuffer*				bloomRenderFBO[MAX_BLOOM_BUFFERS];
-	Framebuffer*				ambientOcclusionFBO[MAX_SSAO_BUFFERS];
-	Framebuffer*				csDepthFBO[MAX_HIERARCHICAL_ZBUFFERS];
-//	Framebuffer*				geometryBufferFBO;
-	Framebuffer*				smaaEdgesFBO;
-	Framebuffer*				smaaBlendFBO;
+	//	Framebuffer*				hdrQuarterFBO;
+	Framebuffer *hdr64FBO;
+	Framebuffer *bloomRenderFBO[MAX_BLOOM_BUFFERS];
+	Framebuffer *ambientOcclusionFBO[MAX_SSAO_BUFFERS];
+	Framebuffer *csDepthFBO[MAX_HIERARCHICAL_ZBUFFERS];
+	//	Framebuffer*				geometryBufferFBO;
+	Framebuffer *smaaEdgesFBO;
+	Framebuffer *smaaBlendFBO;
 };
 extern globalFramebuffers_t globalFramebuffers;
 

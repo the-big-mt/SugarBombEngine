@@ -48,63 +48,62 @@ If you have questions concerning this license or the applicable additional terms
 
 typedef struct
 {
-	int						vertexNum[3];
-	int						tVertexNum[3];
-	idVec3					faceNormal;
-	idVec3					vertexNormals[3];
-	byte					vertexColors[3][4];
+	int vertexNum[3];
+	int tVertexNum[3];
+	idVec3 faceNormal;
+	idVec3 vertexNormals[3];
+	byte vertexColors[3][4];
 } aseFace_t;
 
 typedef struct
 {
-	int						timeValue;
-	
-	int						numVertexes;
-	int						numTVertexes;
-	int						numCVertexes;
-	int						numFaces;
-	int						numTVFaces;
-	int						numCVFaces;
-	
-	idVec3					transform[4];			// applied to normals
-	
-	bool					colorsParsed;
-	bool					normalsParsed;
-	idVec3* 				vertexes;
-	idVec2* 				tvertexes;
-	idVec3* 				cvertexes;
-	aseFace_t* 				faces;
+	int timeValue;
+
+	int numVertexes;
+	int numTVertexes;
+	int numCVertexes;
+	int numFaces;
+	int numTVFaces;
+	int numCVFaces;
+
+	idVec3 transform[4]; // applied to normals
+
+	bool colorsParsed;
+	bool normalsParsed;
+	idVec3 *vertexes;
+	idVec2 *tvertexes;
+	idVec3 *cvertexes;
+	aseFace_t *faces;
 } aseMesh_t;
 
 typedef struct
 {
-	char					name[128];
-	float					uOffset, vOffset;		// max lets you offset by material without changing texCoords
-	float					uTiling, vTiling;		// multiply tex coords by this
-	float					angle;					// in clockwise radians
+	char name[128];
+	float uOffset, vOffset; // max lets you offset by material without changing texCoords
+	float uTiling, vTiling; // multiply tex coords by this
+	float angle;            // in clockwise radians
 } aseMaterial_t;
 
 typedef struct
 {
-	char					name[128];
-	int						materialRef;
-	
-	aseMesh_t				mesh;
-	
+	char name[128];
+	int materialRef;
+
+	aseMesh_t mesh;
+
 	// frames are only present with animations
-	idList<aseMesh_t*, TAG_MODEL>		frames;			// aseMesh_t
+	idList<aseMesh_t *, TAG_MODEL> frames; // aseMesh_t
 } aseObject_t;
 
 typedef struct aseModel_s
 {
-	ID_TIME_T					timeStamp;
-	idList<aseMaterial_t*, TAG_MODEL>	materials;
-	idList<aseObject_t*, TAG_MODEL>	objects;
+	ID_TIME_T timeStamp;
+	idList<aseMaterial_t *, TAG_MODEL> materials;
+	idList<aseObject_t *, TAG_MODEL> objects;
 } aseModel_t;
 
-
-aseModel_t* ASE_Load( const char* fileName, idCommon *apCommon, idFileSystem *fileSystem );
-void		ASE_Free( aseModel_t* ase );
+aseModel_t *ASE_Load(const char *fileName, idCommon *apCommon, idFileSystem *fileSystem);
+void ASE_Free(aseModel_t *ase);
 
 //} // namespace BFG
 

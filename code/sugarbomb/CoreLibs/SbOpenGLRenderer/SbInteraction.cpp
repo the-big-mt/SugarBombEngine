@@ -79,34 +79,34 @@ the number of surface triangles, which will be used to handle dangling
 edge silhouettes.
 ================
 */
-void R_CalcInteractionFacing( const idRenderEntityLocal* ent, const srfTriangles_t* tri, const idRenderLightLocal* light, srfCullInfo_t& cullInfo )
+void R_CalcInteractionFacing(const idRenderEntityLocal *ent, const srfTriangles_t *tri, const idRenderLightLocal *light, srfCullInfo_t &cullInfo)
 {
-	SCOPED_PROFILE_EVENT( "R_CalcInteractionFacing" );
-	
-	if( cullInfo.facing != nullptr )
+	SCOPED_PROFILE_EVENT("R_CalcInteractionFacing");
+
+	if(cullInfo.facing != nullptr)
 	{
 		return;
 	}
-	
+
 	idVec3 localLightOrigin;
-	R_GlobalPointToLocal( ent->modelMatrix, light->globalLightOrigin, localLightOrigin );
-	
+	R_GlobalPointToLocal(ent->modelMatrix, light->globalLightOrigin, localLightOrigin);
+
 	const int numFaces = tri->numIndexes / 3;
-	cullInfo.facing = ( byte* ) R_StaticAlloc( ( numFaces + 1 ) * sizeof( cullInfo.facing[0] ), TAG_RENDER_INTERACTION );
-	
+	cullInfo.facing = (byte *)R_StaticAlloc((numFaces + 1) * sizeof(cullInfo.facing[0]), TAG_RENDER_INTERACTION);
+
 	// exact geometric cull against face
-	for( int i = 0, face = 0; i < tri->numIndexes; i += 3, face++ )
+	for(int i = 0, face = 0; i < tri->numIndexes; i += 3, face++)
 	{
-		const idDrawVert& v0 = tri->verts[tri->indexes[i + 0]];
-		const idDrawVert& v1 = tri->verts[tri->indexes[i + 1]];
-		const idDrawVert& v2 = tri->verts[tri->indexes[i + 2]];
-		
-		const idPlane plane( v0.xyz, v1.xyz, v2.xyz );
-		const float d = plane.Distance( localLightOrigin );
-		
-		cullInfo.facing[face] = ( d >= 0.0f );
+		const idDrawVert &v0 = tri->verts[tri->indexes[i + 0]];
+		const idDrawVert &v1 = tri->verts[tri->indexes[i + 1]];
+		const idDrawVert &v2 = tri->verts[tri->indexes[i + 2]];
+
+		const idPlane plane(v0.xyz, v1.xyz, v2.xyz);
+		const float d = plane.Distance(localLightOrigin);
+
+		cullInfo.facing[face] = (d >= 0.0f);
 	}
-	cullInfo.facing[numFaces] = 1;	// for dangling edges to reference
+	cullInfo.facing[numFaces] = 1; // for dangling edges to reference
 }
 
 /*
@@ -119,53 +119,53 @@ at the border. We throw things out on the border, because if any one
 vertex is clearly inside, the entire triangle will be accepted.
 =====================
 */
-void R_CalcInteractionCullBits( const idRenderEntityLocal* ent, const srfTriangles_t* tri, const idRenderLightLocal* light, srfCullInfo_t& cullInfo )
+void R_CalcInteractionCullBits(const idRenderEntityLocal *ent, const srfTriangles_t *tri, const idRenderLightLocal *light, srfCullInfo_t &cullInfo)
 {
-	SCOPED_PROFILE_EVENT( "R_CalcInteractionCullBits" );
-	
-	if( cullInfo.cullBits != nullptr )
+	SCOPED_PROFILE_EVENT("R_CalcInteractionCullBits");
+
+	if(cullInfo.cullBits != nullptr)
 	{
 		return;
 	}
-	
+
 	idPlane frustumPlanes[6];
-	idRenderMatrix::GetFrustumPlanes( frustumPlanes, light->baseLightProject, true, true );
-	
+	idRenderMatrix::GetFrustumPlanes(frustumPlanes, light->baseLightProject, true, true);
+
 	int frontBits = 0;
-	
+
 	// cull the triangle surface bounding box
-	for( int i = 0; i < 6; i++ )
+	for(int i = 0; i < 6; i++)
 	{
-		R_GlobalPlaneToLocal( ent->modelMatrix, frustumPlanes[i], cullInfo.localClipPlanes[i] );
-		
+		R_GlobalPlaneToLocal(ent->modelMatrix, frustumPlanes[i], cullInfo.localClipPlanes[i]);
+
 		// get front bits for the whole surface
-		if( tri->bounds.PlaneDistance( cullInfo.localClipPlanes[i] ) >= LIGHT_CLIP_EPSILON )
+		if(tri->bounds.PlaneDistance(cullInfo.localClipPlanes[i]) >= LIGHT_CLIP_EPSILON)
 		{
 			frontBits |= 1 << i;
 		}
 	}
-	
+
 	// if the surface is completely inside the light frustum
-	if( frontBits == ( ( 1 << 6 ) - 1 ) )
+	if(frontBits == ((1 << 6) - 1))
 	{
 		cullInfo.cullBits = LIGHT_CULL_ALL_FRONT;
 		return;
 	}
-	
-	cullInfo.cullBits = ( byte* ) R_StaticAlloc( tri->numVerts * sizeof( cullInfo.cullBits[0] ), TAG_RENDER_INTERACTION );
-	memset( cullInfo.cullBits, 0, tri->numVerts * sizeof( cullInfo.cullBits[0] ) );
-	
-	for( int i = 0; i < 6; i++ )
+
+	cullInfo.cullBits = (byte *)R_StaticAlloc(tri->numVerts * sizeof(cullInfo.cullBits[0]), TAG_RENDER_INTERACTION);
+	memset(cullInfo.cullBits, 0, tri->numVerts * sizeof(cullInfo.cullBits[0]));
+
+	for(int i = 0; i < 6; i++)
 	{
 		// if completely infront of this clipping plane
-		if( frontBits & ( 1 << i ) )
+		if(frontBits & (1 << i))
 		{
 			continue;
 		}
-		for( int j = 0; j < tri->numVerts; j++ )
+		for(int j = 0; j < tri->numVerts; j++)
 		{
-			float d = cullInfo.localClipPlanes[i].Distance( tri->verts[j].xyz );
-			cullInfo.cullBits[j] |= ( d < LIGHT_CLIP_EPSILON ) << i;
+			float d = cullInfo.localClipPlanes[i].Distance(tri->verts[j].xyz);
+			cullInfo.cullBits[j] |= (d < LIGHT_CLIP_EPSILON) << i;
 		}
 	}
 }
@@ -175,18 +175,18 @@ void R_CalcInteractionCullBits( const idRenderEntityLocal* ent, const srfTriangl
 R_FreeInteractionCullInfo
 ================
 */
-void R_FreeInteractionCullInfo( srfCullInfo_t& cullInfo )
+void R_FreeInteractionCullInfo(srfCullInfo_t &cullInfo)
 {
-	if( cullInfo.facing != nullptr )
+	if(cullInfo.facing != nullptr)
 	{
-		R_StaticFree( cullInfo.facing );
+		R_StaticFree(cullInfo.facing);
 		cullInfo.facing = nullptr;
 	}
-	if( cullInfo.cullBits != nullptr )
+	if(cullInfo.cullBits != nullptr)
 	{
-		if( cullInfo.cullBits != LIGHT_CULL_ALL_FRONT )
+		if(cullInfo.cullBits != LIGHT_CULL_ALL_FRONT)
 		{
-			R_StaticFree( cullInfo.cullBits );
+			R_StaticFree(cullInfo.cullBits);
 		}
 		cullInfo.cullBits = nullptr;
 	}
@@ -203,33 +203,31 @@ The resulting surface will be a subset of the original triangles,
 it will never clip triangles, but it may cull on a per-triangle basis.
 ====================
 */
-static srfTriangles_t* R_CreateInteractionLightTris( const idRenderEntityLocal* ent,
-		const srfTriangles_t* tri, const idRenderLightLocal* light,
-		const idMaterial* shader )
+static srfTriangles_t *R_CreateInteractionLightTris(const idRenderEntityLocal *ent,
+                                                    const srfTriangles_t *tri, const idRenderLightLocal *light,
+                                                    const idMaterial *shader)
 {
+	SCOPED_PROFILE_EVENT("R_CreateInteractionLightTris");
 
-	SCOPED_PROFILE_EVENT( "R_CreateInteractionLightTris" );
-	
-	int			i;
-	int			numIndexes;
-	triIndex_t*	indexes;
-	srfTriangles_t*	newTri;
-	int			c_backfaced;
-	int			c_distance;
-	idBounds	bounds;
-	bool		includeBackFaces;
-	int			faceNum;
-	
+	int i;
+	int numIndexes;
+	triIndex_t *indexes;
+	srfTriangles_t *newTri;
+	int c_backfaced;
+	int c_distance;
+	idBounds bounds;
+	bool includeBackFaces;
+	int faceNum;
+
 	c_backfaced = 0;
 	c_distance = 0;
-	
+
 	numIndexes = 0;
 	indexes = nullptr;
-	
+
 	// it is debatable if non-shadowing lights should light back faces. we aren't at the moment
 	// RB: now we do with r_useHalfLambert, so don't cull back faces if we have smooth shadowing enabled
-	if( r_lightAllBackFaces.GetBool() || light->lightShader->LightEffectsBackSides()
-			|| shader->ReceivesLightingOnBackSides() || ent->parms.noSelfShadow || ent->parms.noShadow || ( r_useHalfLambertLighting.GetInteger() && r_useShadowMapping.GetBool() ) )
+	if(r_lightAllBackFaces.GetBool() || light->lightShader->LightEffectsBackSides() || shader->ReceivesLightingOnBackSides() || ent->parms.noSelfShadow || ent->parms.noShadow || (r_useHalfLambertLighting.GetInteger() && r_useShadowMapping.GetBool()))
 	{
 		includeBackFaces = true;
 	}
@@ -237,57 +235,53 @@ static srfTriangles_t* R_CreateInteractionLightTris( const idRenderEntityLocal* 
 	{
 		includeBackFaces = false;
 	}
-	
+
 	// allocate a new surface for the lit triangles
 	newTri = R_AllocStaticTriSurf();
-	
+
 	// save a reference to the original surface
-	newTri->ambientSurface = const_cast<srfTriangles_t*>( tri );
-	
+	newTri->ambientSurface = const_cast<srfTriangles_t *>(tri);
+
 	// the light surface references the verts of the ambient surface
 	newTri->numVerts = tri->numVerts;
-	R_ReferenceStaticTriSurfVerts( newTri, tri );
-	
+	R_ReferenceStaticTriSurfVerts(newTri, tri);
+
 	// calculate cull information
 	srfCullInfo_t cullInfo = {};
-	
-	if( !includeBackFaces )
+
+	if(!includeBackFaces)
 	{
-		R_CalcInteractionFacing( ent, tri, light, cullInfo );
+		R_CalcInteractionFacing(ent, tri, light, cullInfo);
 	}
-	R_CalcInteractionCullBits( ent, tri, light, cullInfo );
-	
+	R_CalcInteractionCullBits(ent, tri, light, cullInfo);
+
 	// if the surface is completely inside the light frustum
-	if( cullInfo.cullBits == LIGHT_CULL_ALL_FRONT )
+	if(cullInfo.cullBits == LIGHT_CULL_ALL_FRONT)
 	{
-	
 		// if we aren't self shadowing, let back facing triangles get
 		// through so the smooth shaded bump maps light all the way around
-		if( includeBackFaces )
+		if(includeBackFaces)
 		{
-		
 			// the whole surface is lit so the light surface just references the indexes of the ambient surface
 			newTri->indexes = tri->indexes;
 			newTri->indexCache = tri->indexCache;
-//			R_ReferenceStaticTriSurfIndexes( newTri, tri );
+			//			R_ReferenceStaticTriSurfIndexes( newTri, tri );
 
 			numIndexes = tri->numIndexes;
 			bounds = tri->bounds;
-			
 		}
 		else
 		{
-		
 			// the light tris indexes are going to be a subset of the original indexes so we generally
 			// allocate too much memory here but we decrease the memory block when the number of indexes is known
-			R_AllocStaticTriSurfIndexes( newTri, tri->numIndexes );
-			
+			R_AllocStaticTriSurfIndexes(newTri, tri->numIndexes);
+
 			// back face cull the individual triangles
 			indexes = newTri->indexes;
-			const byte* facing = cullInfo.facing;
-			for( faceNum = i = 0; i < tri->numIndexes; i += 3, faceNum++ )
+			const byte *facing = cullInfo.facing;
+			for(faceNum = i = 0; i < tri->numIndexes; i += 3, faceNum++)
 			{
-				if( !facing[ faceNum ] )
+				if(!facing[faceNum])
 				{
 					c_backfaced++;
 					continue;
@@ -297,83 +291,81 @@ static srfTriangles_t* R_CreateInteractionLightTris( const idRenderEntityLocal* 
 				indexes[numIndexes + 2] = tri->indexes[i + 2];
 				numIndexes += 3;
 			}
-			
+
 			// get bounds for the surface
-			SIMDProcessor->MinMax( bounds[0], bounds[1], tri->verts, indexes, numIndexes );
-			
+			SIMDProcessor->MinMax(bounds[0], bounds[1], tri->verts, indexes, numIndexes);
+
 			// decrease the size of the memory block to the size of the number of used indexes
 			newTri->numIndexes = numIndexes;
-			R_ResizeStaticTriSurfIndexes( newTri, numIndexes );
+			R_ResizeStaticTriSurfIndexes(newTri, numIndexes);
 		}
-		
 	}
 	else
 	{
-	
 		// the light tris indexes are going to be a subset of the original indexes so we generally
 		// allocate too much memory here but we decrease the memory block when the number of indexes is known
-		R_AllocStaticTriSurfIndexes( newTri, tri->numIndexes );
-		
+		R_AllocStaticTriSurfIndexes(newTri, tri->numIndexes);
+
 		// cull individual triangles
 		indexes = newTri->indexes;
-		const byte* facing = cullInfo.facing;
-		const byte* cullBits = cullInfo.cullBits;
-		for( faceNum = i = 0; i < tri->numIndexes; i += 3, faceNum++ )
+		const byte *facing = cullInfo.facing;
+		const byte *cullBits = cullInfo.cullBits;
+		for(faceNum = i = 0; i < tri->numIndexes; i += 3, faceNum++)
 		{
 			int i1, i2, i3;
-			
+
 			// if we aren't self shadowing, let back facing triangles get
 			// through so the smooth shaded bump maps light all the way around
-			if( !includeBackFaces )
+			if(!includeBackFaces)
 			{
 				// back face cull
-				if( !facing[ faceNum ] )
+				if(!facing[faceNum])
 				{
 					c_backfaced++;
 					continue;
 				}
 			}
-			
+
 			i1 = tri->indexes[i + 0];
 			i2 = tri->indexes[i + 1];
 			i3 = tri->indexes[i + 2];
-			
+
 			// fast cull outside the frustum
 			// if all three points are off one plane side, it definately isn't visible
-			if( cullBits[i1] & cullBits[i2] & cullBits[i3] )
+			if(cullBits[i1] & cullBits[i2] & cullBits[i3])
 			{
 				c_distance++;
 				continue;
 			}
-			
+
 			// add to the list
 			indexes[numIndexes + 0] = i1;
 			indexes[numIndexes + 1] = i2;
 			indexes[numIndexes + 2] = i3;
 			numIndexes += 3;
 		}
-		
+
 		// get bounds for the surface
-		SIMDProcessor->MinMax( bounds[0], bounds[1], tri->verts, indexes, numIndexes );
-		
+		SIMDProcessor->MinMax(bounds[0], bounds[1], tri->verts, indexes, numIndexes);
+
 		// decrease the size of the memory block to the size of the number of used indexes
 		newTri->numIndexes = numIndexes;
-		R_ResizeStaticTriSurfIndexes( newTri, numIndexes );
+		R_ResizeStaticTriSurfIndexes(newTri, numIndexes);
 	}
-	
+
 	// free the cull information when it's no longer needed
-	R_FreeInteractionCullInfo( cullInfo );
-	
-	if( !numIndexes )
+	R_FreeInteractionCullInfo(cullInfo);
+
+	if(!numIndexes)
 	{
-		R_FreeStaticTriSurf( newTri );
+		R_FreeStaticTriSurf(newTri);
 		return nullptr;
 	}
-	
+
 	newTri->numIndexes = numIndexes;
-	
+
 	newTri->bounds = bounds;
-	
+
 	return newTri;
 }
 
@@ -386,47 +378,44 @@ a triangle outside the light frustum is considered facing and the "fake triangle
 the outside of the dangling edge is also set to facing: cullInfo.facing[numFaces] = 1;
 =====================
 */
-static srfTriangles_t* R_CreateInteractionShadowVolume( const idRenderEntityLocal* ent,
-		const srfTriangles_t* tri, const idRenderLightLocal* light )
+static srfTriangles_t *R_CreateInteractionShadowVolume(const idRenderEntityLocal *ent,
+                                                       const srfTriangles_t *tri, const idRenderLightLocal *light)
 {
-	SCOPED_PROFILE_EVENT( "R_CreateInteractionShadowVolume" );
-	
+	SCOPED_PROFILE_EVENT("R_CreateInteractionShadowVolume");
+
 	srfCullInfo_t cullInfo = {};
-	
-	R_CalcInteractionFacing( ent, tri, light, cullInfo );
-	R_CalcInteractionCullBits( ent, tri, light, cullInfo );
-	
+
+	R_CalcInteractionFacing(ent, tri, light, cullInfo);
+	R_CalcInteractionCullBits(ent, tri, light, cullInfo);
+
 	int numFaces = tri->numIndexes / 3;
-	int	numShadowingFaces = 0;
-	const byte* facing = cullInfo.facing;
-	
+	int numShadowingFaces = 0;
+	const byte *facing = cullInfo.facing;
+
 	// if all the triangles are inside the light frustum
-	if( cullInfo.cullBits == LIGHT_CULL_ALL_FRONT )
+	if(cullInfo.cullBits == LIGHT_CULL_ALL_FRONT)
 	{
-	
 		// count the number of shadowing faces
-		for( int i = 0; i < numFaces; i++ )
+		for(int i = 0; i < numFaces; i++)
 		{
 			numShadowingFaces += facing[i];
 		}
 		numShadowingFaces = numFaces - numShadowingFaces;
-		
 	}
 	else
 	{
-	
 		// make all triangles that are outside the light frustum "facing", so they won't cast shadows
-		const triIndex_t* indexes = tri->indexes;
-		byte* modifyFacing = cullInfo.facing;
-		const byte* cullBits = cullInfo.cullBits;
-		for( int i = 0, j = 0; i < tri->numIndexes; i += 3, j++ )
+		const triIndex_t *indexes = tri->indexes;
+		byte *modifyFacing = cullInfo.facing;
+		const byte *cullBits = cullInfo.cullBits;
+		for(int i = 0, j = 0; i < tri->numIndexes; i += 3, j++)
 		{
-			if( !modifyFacing[j] )
+			if(!modifyFacing[j])
 			{
-				int	i1 = indexes[i + 0];
-				int	i2 = indexes[i + 1];
-				int	i3 = indexes[i + 2];
-				if( cullBits[i1] & cullBits[i2] & cullBits[i3] )
+				int i1 = indexes[i + 0];
+				int i2 = indexes[i + 1];
+				int i3 = indexes[i + 2];
+				if(cullBits[i1] & cullBits[i2] & cullBits[i3])
 				{
 					modifyFacing[j] = 1;
 				}
@@ -437,92 +426,91 @@ static srfTriangles_t* R_CreateInteractionShadowVolume( const idRenderEntityLoca
 			}
 		}
 	}
-	
-	if( !numShadowingFaces )
+
+	if(!numShadowingFaces)
 	{
 		// no faces are inside the light frustum and still facing the right way
-		R_FreeInteractionCullInfo( cullInfo );
+		R_FreeInteractionCullInfo(cullInfo);
 		return nullptr;
 	}
-	
+
 	// shadowVerts will be nullptr on these surfaces, so the shadowVerts will be taken from the ambient surface
-	srfTriangles_t* newTri = R_AllocStaticTriSurf();
-	
+	srfTriangles_t *newTri = R_AllocStaticTriSurf();
+
 	newTri->numVerts = tri->numVerts * 2;
-	
+
 	// alloc the max possible size
-	R_AllocStaticTriSurfIndexes( newTri, ( numShadowingFaces + tri->numSilEdges ) * 6 );
-	triIndex_t* tempIndexes = newTri->indexes;
-	triIndex_t* shadowIndexes = newTri->indexes;
-	
+	R_AllocStaticTriSurfIndexes(newTri, (numShadowingFaces + tri->numSilEdges) * 6);
+	triIndex_t *tempIndexes = newTri->indexes;
+	triIndex_t *shadowIndexes = newTri->indexes;
+
 	// create new triangles along sil planes
-	const silEdge_t* sil = tri->silEdges;
-	for( int i = tri->numSilEdges; i > 0; i--, sil++ )
+	const silEdge_t *sil = tri->silEdges;
+	for(int i = tri->numSilEdges; i > 0; i--, sil++)
 	{
-	
 		int f1 = facing[sil->p1];
 		int f2 = facing[sil->p2];
-		
-		if( !( f1 ^ f2 ) )
+
+		if(!(f1 ^ f2))
 		{
 			continue;
 		}
-		
+
 		int v1 = sil->v1 << 1;
 		int v2 = sil->v2 << 1;
-		
+
 		// set the two triangle winding orders based on facing
 		// without using a poorly-predictable branch
-		
+
 		shadowIndexes[0] = v1;
 		shadowIndexes[1] = v2 ^ f1;
 		shadowIndexes[2] = v2 ^ f2;
 		shadowIndexes[3] = v1 ^ f2;
 		shadowIndexes[4] = v1 ^ f1;
 		shadowIndexes[5] = v2 ^ 1;
-		
+
 		shadowIndexes += 6;
 	}
-	
-	int	numShadowIndexes = shadowIndexes - tempIndexes;
-	
+
+	int numShadowIndexes = shadowIndexes - tempIndexes;
+
 	// we aren't bothering to separate front and back caps on these
 	newTri->numIndexes = newTri->numShadowIndexesNoFrontCaps = numShadowIndexes + numShadowingFaces * 6;
 	newTri->numShadowIndexesNoCaps = numShadowIndexes;
 	newTri->shadowCapPlaneBits = SHADOW_CAP_INFINITE;
-	
+
 	// decrease the size of the memory block to only store the used indexes
 	// R_ResizeStaticTriSurfIndexes( newTri, newTri->numIndexes );
-	
+
 	// these have no effect, because they extend to infinity
 	newTri->bounds.Clear();
-	
+
 	// put some faces on the model and some on the distant projection
-	const triIndex_t* indexes = tri->indexes;
+	const triIndex_t *indexes = tri->indexes;
 	shadowIndexes = newTri->indexes + numShadowIndexes;
-	for( int i = 0, j = 0; i < tri->numIndexes; i += 3, j++ )
+	for(int i = 0, j = 0; i < tri->numIndexes; i += 3, j++)
 	{
-		if( facing[j] )
+		if(facing[j])
 		{
 			continue;
 		}
-		
+
 		int i0 = indexes[i + 0] << 1;
 		int i1 = indexes[i + 1] << 1;
 		int i2 = indexes[i + 2] << 1;
-		
+
 		shadowIndexes[0] = i2;
 		shadowIndexes[1] = i1;
 		shadowIndexes[2] = i0;
 		shadowIndexes[3] = i0 ^ 1;
 		shadowIndexes[4] = i1 ^ 1;
 		shadowIndexes[5] = i2 ^ 1;
-		
+
 		shadowIndexes += 6;
 	}
-	
-	R_FreeInteractionCullInfo( cullInfo );
-	
+
+	R_FreeInteractionCullInfo(cullInfo);
+
 	return newTri;
 }
 
@@ -533,15 +521,15 @@ idInteraction::idInteraction
 */
 idInteraction::idInteraction()
 {
-	numSurfaces				= 0;
-	surfaces				= nullptr;
-	entityDef				= nullptr;
-	lightDef				= nullptr;
-	lightNext				= nullptr;
-	lightPrev				= nullptr;
-	entityNext				= nullptr;
-	entityPrev				= nullptr;
-	staticInteraction		= false;
+	numSurfaces = 0;
+	surfaces = nullptr;
+	entityDef = nullptr;
+	lightDef = nullptr;
+	lightNext = nullptr;
+	lightPrev = nullptr;
+	entityNext = nullptr;
+	entityPrev = nullptr;
+	staticInteraction = false;
 }
 
 /*
@@ -549,30 +537,30 @@ idInteraction::idInteraction()
 idInteraction::AllocAndLink
 ===============
 */
-idInteraction* idInteraction::AllocAndLink( idRenderEntityLocal* edef, idRenderLightLocal* ldef )
+idInteraction *idInteraction::AllocAndLink(idRenderEntityLocal *edef, idRenderLightLocal *ldef)
 {
-	if( edef == nullptr || ldef == nullptr )
+	if(edef == nullptr || ldef == nullptr)
 	{
-		common->Error( "idInteraction::AllocAndLink: nullptr parm" );
+		common->Error("idInteraction::AllocAndLink: nullptr parm");
 		return nullptr;
 	}
-	
-	idRenderWorldLocal* renderWorld = edef->world;
-	
-	idInteraction* interaction = renderWorld->interactionAllocator.Alloc();
-	
+
+	idRenderWorldLocal *renderWorld = edef->world;
+
+	idInteraction *interaction = renderWorld->interactionAllocator.Alloc();
+
 	// link and initialize
 	interaction->lightDef = ldef;
 	interaction->entityDef = edef;
-	
-	interaction->numSurfaces = -1;		// not checked yet
+
+	interaction->numSurfaces = -1; // not checked yet
 	interaction->surfaces = nullptr;
-	
+
 	// link at the start of the entity's list
 	interaction->lightNext = ldef->firstInteraction;
 	interaction->lightPrev = nullptr;
 	ldef->firstInteraction = interaction;
-	if( interaction->lightNext != nullptr )
+	if(interaction->lightNext != nullptr)
 	{
 		interaction->lightNext->lightPrev = interaction;
 	}
@@ -580,12 +568,12 @@ idInteraction* idInteraction::AllocAndLink( idRenderEntityLocal* edef, idRenderL
 	{
 		ldef->lastInteraction = interaction;
 	}
-	
+
 	// link at the start of the light's list
 	interaction->entityNext = edef->firstInteraction;
 	interaction->entityPrev = nullptr;
 	edef->firstInteraction = interaction;
-	if( interaction->entityNext != nullptr )
+	if(interaction->entityNext != nullptr)
 	{
 		interaction->entityNext->entityPrev = interaction;
 	}
@@ -593,18 +581,18 @@ idInteraction* idInteraction::AllocAndLink( idRenderEntityLocal* edef, idRenderL
 	{
 		edef->lastInteraction = interaction;
 	}
-	
+
 	// update the interaction table
-	if( renderWorld->interactionTable != nullptr )
+	if(renderWorld->interactionTable != nullptr)
 	{
 		int index = ldef->index * renderWorld->interactionTableWidth + edef->index;
-		if( renderWorld->interactionTable[index] != nullptr )
+		if(renderWorld->interactionTable[index] != nullptr)
 		{
-			common->Error( "idInteraction::AllocAndLink: non nullptr table entry" );
+			common->Error("idInteraction::AllocAndLink: non nullptr table entry");
 		}
-		renderWorld->interactionTable[ index ] = interaction;
+		renderWorld->interactionTable[index] = interaction;
 	}
-	
+
 	return interaction;
 }
 
@@ -620,16 +608,16 @@ void idInteraction::FreeSurfaces()
 {
 	// anything regenerated is no longer an optimized static version
 	this->staticInteraction = false;
-	
-	if( this->surfaces != nullptr )
+
+	if(this->surfaces != nullptr)
 	{
-		for( int i = 0; i < this->numSurfaces; i++ )
+		for(int i = 0; i < this->numSurfaces; i++)
 		{
-			surfaceInteraction_t& srf = this->surfaces[i];
-			Mem_Free( srf.shadowIndexes );
+			surfaceInteraction_t &srf = this->surfaces[i];
+			Mem_Free(srf.shadowIndexes);
 			srf.shadowIndexes = nullptr;
 		}
-		R_StaticFree( this->surfaces );
+		R_StaticFree(this->surfaces);
 		this->surfaces = nullptr;
 	}
 	this->numSurfaces = -1;
@@ -642,9 +630,8 @@ idInteraction::Unlink
 */
 void idInteraction::Unlink()
 {
-
 	// unlink from the entity's list
-	if( this->entityPrev )
+	if(this->entityPrev)
 	{
 		this->entityPrev->entityNext = this->entityNext;
 	}
@@ -652,7 +639,7 @@ void idInteraction::Unlink()
 	{
 		this->entityDef->firstInteraction = this->entityNext;
 	}
-	if( this->entityNext )
+	if(this->entityNext)
 	{
 		this->entityNext->entityPrev = this->entityPrev;
 	}
@@ -661,9 +648,9 @@ void idInteraction::Unlink()
 		this->entityDef->lastInteraction = this->entityPrev;
 	}
 	this->entityNext = this->entityPrev = nullptr;
-	
+
 	// unlink from the light's list
-	if( this->lightPrev )
+	if(this->lightPrev)
 	{
 		this->lightPrev->lightNext = this->lightNext;
 	}
@@ -671,7 +658,7 @@ void idInteraction::Unlink()
 	{
 		this->lightDef->firstInteraction = this->lightNext;
 	}
-	if( this->lightNext )
+	if(this->lightNext)
 	{
 		this->lightNext->lightPrev = this->lightPrev;
 	}
@@ -692,25 +679,25 @@ Removes links and puts it back on the free list.
 void idInteraction::UnlinkAndFree()
 {
 	// clear the table pointer
-	idRenderWorldLocal* renderWorld = this->lightDef->world;
+	idRenderWorldLocal *renderWorld = this->lightDef->world;
 	// RB: added check for nullptr
-	if( renderWorld->interactionTable != nullptr )
+	if(renderWorld->interactionTable != nullptr)
 	{
 		int index = this->lightDef->index * renderWorld->interactionTableWidth + this->entityDef->index;
-		if( renderWorld->interactionTable[index] != this && renderWorld->interactionTable[index] != INTERACTION_EMPTY )
+		if(renderWorld->interactionTable[index] != this && renderWorld->interactionTable[index] != INTERACTION_EMPTY)
 		{
-			common->Error( "idInteraction::UnlinkAndFree: interactionTable wasn't set" );
+			common->Error("idInteraction::UnlinkAndFree: interactionTable wasn't set");
 		}
 		renderWorld->interactionTable[index] = nullptr;
 	}
 	// RB end
-	
+
 	Unlink();
-	
+
 	FreeSurfaces();
-	
+
 	// put it back on the free list
-	renderWorld->interactionAllocator.Free( this );
+	renderWorld->interactionAllocator.Free(this);
 }
 
 /*
@@ -728,14 +715,14 @@ void idInteraction::MakeEmpty()
 {
 	// an empty interaction has no surfaces
 	numSurfaces = 0;
-	
+
 	Unlink();
-	
+
 	// relink at the end of the entity's list
 	this->entityNext = nullptr;
 	this->entityPrev = this->entityDef->lastInteraction;
 	this->entityDef->lastInteraction = this;
-	if( this->entityPrev )
+	if(this->entityPrev)
 	{
 		this->entityPrev->entityNext = this;
 	}
@@ -743,12 +730,12 @@ void idInteraction::MakeEmpty()
 	{
 		this->entityDef->firstInteraction = this;
 	}
-	
+
 	// relink at the end of the light's list
 	this->lightNext = nullptr;
 	this->lightPrev = this->lightDef->lastInteraction;
 	this->lightDef->lastInteraction = this;
-	if( this->lightPrev )
+	if(this->lightPrev)
 	{
 		this->lightPrev->lightNext = this;
 	}
@@ -756,11 +743,11 @@ void idInteraction::MakeEmpty()
 	{
 		this->lightDef->firstInteraction = this;
 	}
-	
+
 	// store the special marker in the interaction table
 	const int interactionIndex = lightDef->index * entityDef->world->interactionTableWidth + entityDef->index;
-	assert( entityDef->world->interactionTable[ interactionIndex ] == this );
-	entityDef->world->interactionTable[ interactionIndex ] = INTERACTION_EMPTY;
+	assert(entityDef->world->interactionTable[interactionIndex] == this);
+	entityDef->world->interactionTable[interactionIndex] = INTERACTION_EMPTY;
 }
 
 /*
@@ -784,92 +771,91 @@ void idInteraction::CreateStaticInteraction()
 {
 	// note that it is a static interaction
 	staticInteraction = true;
-	const idRenderModel* model = entityDef->parms.hModel;
-	if( model == nullptr || model->NumSurfaces() <= 0 || model->IsDynamicModel() != DM_STATIC )
+	const idRenderModel *model = entityDef->parms.hModel;
+	if(model == nullptr || model->NumSurfaces() <= 0 || model->IsDynamicModel() != DM_STATIC)
 	{
 		MakeEmpty();
 		return;
 	}
-	
-	const idBounds bounds = model->Bounds( &entityDef->parms );
-	
+
+	const idBounds bounds = model->Bounds(&entityDef->parms);
+
 	// if it doesn't contact the light frustum, none of the surfaces will
-	if( R_CullModelBoundsToLight( lightDef, bounds, entityDef->modelRenderMatrix ) )
+	if(R_CullModelBoundsToLight(lightDef, bounds, entityDef->modelRenderMatrix))
 	{
 		MakeEmpty();
 		return;
 	}
-	
+
 	//
 	// create slots for each of the model's surfaces
 	//
 	numSurfaces = model->NumSurfaces();
-	surfaces = ( surfaceInteraction_t* )R_ClearedStaticAlloc( sizeof( *surfaces ) * numSurfaces );
-	
+	surfaces = (surfaceInteraction_t *)R_ClearedStaticAlloc(sizeof(*surfaces) * numSurfaces);
+
 	bool interactionGenerated = false;
-	
+
 	// check each surface in the model
-	for( int c = 0 ; c < model->NumSurfaces() ; c++ )
+	for(int c = 0; c < model->NumSurfaces(); c++)
 	{
-		const modelSurface_t* surf = model->Surface( c );
-		const srfTriangles_t* tri = surf->geometry;
-		if( tri == nullptr )
+		const modelSurface_t *surf = model->Surface(c);
+		const srfTriangles_t *tri = surf->geometry;
+		if(tri == nullptr)
 		{
 			continue;
 		}
-		
+
 		// determine the shader for this surface, possibly by skinning
 		// Note that this will be wrong if customSkin/customShader are
 		// changed after map load time without invalidating the interaction!
-		const idMaterial* const shader = R_RemapShaderBySkin( surf->shader,
-										 entityDef->parms.customSkin, entityDef->parms.customShader );
-		if( shader == nullptr )
+		const idMaterial *const shader = R_RemapShaderBySkin(surf->shader,
+		                                                     entityDef->parms.customSkin, entityDef->parms.customShader);
+		if(shader == nullptr)
 		{
 			continue;
 		}
-		
+
 		// try to cull each surface
-		if( R_CullModelBoundsToLight( lightDef, tri->bounds, entityDef->modelRenderMatrix ) )
+		if(R_CullModelBoundsToLight(lightDef, tri->bounds, entityDef->modelRenderMatrix))
 		{
 			continue;
 		}
-		
-		surfaceInteraction_t* sint = &surfaces[c];
-		
+
+		surfaceInteraction_t *sint = &surfaces[c];
+
 		// generate a set of indexes for the lit surfaces, culling away triangles that are
 		// not at least partially inside the light
-		if( shader->ReceivesLighting() )
+		if(shader->ReceivesLighting())
 		{
-			srfTriangles_t* lightTris = R_CreateInteractionLightTris( entityDef, tri, lightDef, shader );
-			if( lightTris != nullptr )
+			srfTriangles_t *lightTris = R_CreateInteractionLightTris(entityDef, tri, lightDef, shader);
+			if(lightTris != nullptr)
 			{
 				// make a static index cache
 				sint->numLightTrisIndexes = lightTris->numIndexes;
-				sint->lightTrisIndexCache = vertexCache.AllocStaticIndex( lightTris->indexes, ALIGN( lightTris->numIndexes * sizeof( lightTris->indexes[0] ), INDEX_CACHE_ALIGN ) );
-				
+				sint->lightTrisIndexCache = vertexCache.AllocStaticIndex(lightTris->indexes, ALIGN(lightTris->numIndexes * sizeof(lightTris->indexes[0]), INDEX_CACHE_ALIGN));
+
 				interactionGenerated = true;
-				R_FreeStaticTriSurf( lightTris );
+				R_FreeStaticTriSurf(lightTris);
 			}
 		}
-		
+
 		// if the interaction has shadows and this surface casts a shadow
-		if( HasShadows() && shader->SurfaceCastsShadow() && tri->silEdges != nullptr )
+		if(HasShadows() && shader->SurfaceCastsShadow() && tri->silEdges != nullptr)
 		{
-		
 			// if the light has an optimized shadow volume, don't create shadows for any models that are part of the base areas
-			if( lightDef->parms.prelightModel == nullptr || !model->IsStaticWorldModel() || r_skipPrelightShadows.GetBool() )
+			if(lightDef->parms.prelightModel == nullptr || !model->IsStaticWorldModel() || r_skipPrelightShadows.GetBool())
 			{
-				srfTriangles_t* shadowTris = R_CreateInteractionShadowVolume( entityDef, tri, lightDef );
-				if( shadowTris != nullptr )
+				srfTriangles_t *shadowTris = R_CreateInteractionShadowVolume(entityDef, tri, lightDef);
+				if(shadowTris != nullptr)
 				{
 					// make a static index cache
-					sint->shadowIndexCache = vertexCache.AllocStaticIndex( shadowTris->indexes, ALIGN( shadowTris->numIndexes * sizeof( shadowTris->indexes[0] ), INDEX_CACHE_ALIGN ) );
+					sint->shadowIndexCache = vertexCache.AllocStaticIndex(shadowTris->indexes, ALIGN(shadowTris->numIndexes * sizeof(shadowTris->indexes[0]), INDEX_CACHE_ALIGN));
 					sint->numShadowIndexes = shadowTris->numIndexes;
-#if defined( KEEP_INTERACTION_CPU_DATA )
+#if defined(KEEP_INTERACTION_CPU_DATA)
 					sint->shadowIndexes = shadowTris->indexes;
 					shadowTris->indexes = nullptr;
 #endif
-					if( shader->Coverage() != MC_OPAQUE )
+					if(shader->Coverage() != MC_OPAQUE)
 					{
 						// if any surface is a shadow-casting perforated or translucent surface, or the
 						// base surface is suppressed in the view (world weapon shadows) we can't use
@@ -880,15 +866,15 @@ void idInteraction::CreateStaticInteraction()
 					{
 						sint->numShadowIndexesNoCaps = shadowTris->numShadowIndexesNoCaps;
 					}
-					R_FreeStaticTriSurf( shadowTris );
+					R_FreeStaticTriSurf(shadowTris);
 				}
 				interactionGenerated = true;
 			}
 		}
 	}
-	
+
 	// if none of the surfaces generated anything, don't even bother checking?
-	if( !interactionGenerated )
+	if(!interactionGenerated)
 	{
 		MakeEmpty();
 	}
@@ -899,7 +885,7 @@ void idInteraction::CreateStaticInteraction()
 R_ShowInteractionMemory_f
 ===================
 */
-void R_ShowInteractionMemory_f( const idCmdArgs& args )
+void R_ShowInteractionMemory_f(const idCmdArgs &args)
 {
 	int entities = 0;
 	int interactions = 0;
@@ -911,91 +897,91 @@ void R_ShowInteractionMemory_f( const idCmdArgs& args )
 	int shadowTriIndexes = 0;
 	int maxInteractionsForEntity = 0;
 	int maxInteractionsForLight = 0;
-	
-	for( int i = 0; i < tr.primaryWorld->lightDefs.Num(); i++ )
+
+	for(int i = 0; i < tr.primaryWorld->lightDefs.Num(); i++)
 	{
-		idRenderLightLocal* light = tr.primaryWorld->lightDefs[i];
-		if( light == nullptr )
+		idRenderLightLocal *light = tr.primaryWorld->lightDefs[i];
+		if(light == nullptr)
 		{
 			continue;
 		}
 		int numInteractionsForLight = 0;
-		for( idInteraction* inter = light->firstInteraction; inter != nullptr; inter = inter->lightNext )
+		for(idInteraction *inter = light->firstInteraction; inter != nullptr; inter = inter->lightNext)
 		{
-			if( !inter->IsEmpty() )
+			if(!inter->IsEmpty())
 			{
 				numInteractionsForLight++;
 			}
 		}
-		if( numInteractionsForLight > maxInteractionsForLight )
+		if(numInteractionsForLight > maxInteractionsForLight)
 		{
 			maxInteractionsForLight = numInteractionsForLight;
 		}
 	}
-	
-	for( int i = 0; i < tr.primaryWorld->entityDefs.Num(); i++ )
+
+	for(int i = 0; i < tr.primaryWorld->entityDefs.Num(); i++)
 	{
-		idRenderEntityLocal*	def = tr.primaryWorld->entityDefs[i];
-		if( def == nullptr )
+		idRenderEntityLocal *def = tr.primaryWorld->entityDefs[i];
+		if(def == nullptr)
 		{
 			continue;
 		}
-		if( def->firstInteraction == nullptr )
+		if(def->firstInteraction == nullptr)
 		{
 			continue;
 		}
 		entities++;
-		
+
 		int numInteractionsForEntity = 0;
-		for( idInteraction* inter = def->firstInteraction; inter != nullptr; inter = inter->entityNext )
+		for(idInteraction *inter = def->firstInteraction; inter != nullptr; inter = inter->entityNext)
 		{
 			interactions++;
-			
-			if( !inter->IsEmpty() )
+
+			if(!inter->IsEmpty())
 			{
 				numInteractionsForEntity++;
 			}
-			
-			if( inter->IsDeferred() )
+
+			if(inter->IsDeferred())
 			{
 				deferredInteractions++;
 				continue;
 			}
-			if( inter->IsEmpty() )
+			if(inter->IsEmpty())
 			{
 				emptyInteractions++;
 				continue;
 			}
-			
-			for( int j = 0; j < inter->numSurfaces; j++ )
+
+			for(int j = 0; j < inter->numSurfaces; j++)
 			{
-				surfaceInteraction_t* srf = &inter->surfaces[j];
-				
-				if( srf->numLightTrisIndexes )
+				surfaceInteraction_t *srf = &inter->surfaces[j];
+
+				if(srf->numLightTrisIndexes)
 				{
 					lightTris++;
 					lightTriIndexes += srf->numLightTrisIndexes;
 				}
-				
-				if( srf->numShadowIndexes )
+
+				if(srf->numShadowIndexes)
 				{
 					shadowTris++;
 					shadowTriIndexes += srf->numShadowIndexes;
 				}
 			}
 		}
-		if( numInteractionsForEntity > maxInteractionsForEntity )
+		if(numInteractionsForEntity > maxInteractionsForEntity)
 		{
 			maxInteractionsForEntity = numInteractionsForEntity;
 		}
 	}
-	
-	common->Printf( "%i entities with %i total interactions\n", entities, interactions );
-	common->Printf( "%i deferred interactions, %i empty interactions\n", deferredInteractions, emptyInteractions );
-	common->Printf( "%5i indexes in %5i light tris\n", lightTriIndexes, lightTris );
-	common->Printf( "%5i indexes in %5i shadow tris\n", shadowTriIndexes, shadowTris );
-	common->Printf( "%i maxInteractionsForEntity\n", maxInteractionsForEntity );
-	common->Printf( "%i maxInteractionsForLight\n", maxInteractionsForLight );
+
+	common->Printf("%i entities with %i total interactions\n", entities, interactions);
+	common->Printf("%i deferred interactions, %i empty interactions\n", deferredInteractions, emptyInteractions);
+	common->Printf("%5i indexes in %5i light tris\n", lightTriIndexes, lightTris);
+	common->Printf("%5i indexes in %5i shadow tris\n", shadowTriIndexes, shadowTris);
+	common->Printf("%i maxInteractionsForEntity\n", maxInteractionsForEntity);
+	common->Printf("%i maxInteractionsForLight\n", maxInteractionsForLight);
 }
 
 //} // namespace BFG

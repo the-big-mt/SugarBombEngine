@@ -37,32 +37,32 @@ class idResolutionScale
 {
 public:
 	idResolutionScale();
-	
-	void	InitForMap( const char* mapName );
-	
+
+	void InitForMap(const char *mapName);
+
 	// Returns a float from 0.5 to 1.0, representing
 	// the estimated resolution downscale needed to
 	// maintain the target framerate.
-	void	GetCurrentResolutionScale( float& x, float& y );
-	
+	void GetCurrentResolutionScale(float &x, float &y);
+
 	// This should be called after any discontinuous
 	// view movement or force texture loading to prevent
 	// the unusual frames from causing an excessively
 	// low dynamic resolution.
-	void	ResetToFullResolution();
-	
+	void ResetToFullResolution();
+
 	// Systems that don't have accurate GPU timing can pass 0
 	// to this, which will effectively disable resolution scaling.
-	void	SetCurrentGPUFrameTime( int microseconds );
-	
+	void SetCurrentGPUFrameTime(int microseconds);
+
 	// return console display text
-	void	GetConsoleText( idStr& s );
-	
+	void GetConsoleText(idStr &s);
+
 private:
-	float			dropMilliseconds;
-	float			raiseMilliseconds;
-	int				framesAboveRaise;
-	float			currentResolution;
+	float dropMilliseconds;
+	float raiseMilliseconds;
+	int framesAboveRaise;
+	float currentResolution;
 };
 
 extern idResolutionScale resolutionScale;

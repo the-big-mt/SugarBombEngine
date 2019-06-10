@@ -63,278 +63,285 @@ class ColladaParser
 {
 	friend class ColladaLoader;
 	friend class idRenderModelStatic;
-	
+
 protected:
 	/** Constructor from XML file */
-	ColladaParser( const char* pFile, idCommon *apCommon );
-	
+	ColladaParser(const char *pFile, idCommon *apCommon);
+
 	/** Destructor */
 	~ColladaParser();
-	
+
 	/** Reads the contents of the file */
 	void ReadContents();
-	
+
 	/** Reads the structure of the file */
 	void ReadStructure();
-	
+
 	/** Reads asset informations such as coordinate system informations and legal blah */
 	void ReadAssetInfo();
-	
+
 	/** Reads the animation library */
-//	void ReadAnimationLibrary();
+	//	void ReadAnimationLibrary();
 
 	/** Reads an animation into the given parent structure */
-//	void ReadAnimation( Collada::Animation* pParent );
+	//	void ReadAnimation( Collada::Animation* pParent );
 
 	/** Reads an animation sampler into the given anim channel */
-//	void ReadAnimationSampler( Collada::AnimationChannel& pChannel );
+	//	void ReadAnimationSampler( Collada::AnimationChannel& pChannel );
 
 	/** Reads the skeleton controller library */
-//	void ReadControllerLibrary();
+	//	void ReadControllerLibrary();
 
 	/** Reads a controller into the given mesh structure */
-//	void ReadController( Collada::Controller& pController );
+	//	void ReadController( Collada::Controller& pController );
 
 	/** Reads the joint definitions for the given controller */
-//	void ReadControllerJoints( Collada::Controller& pController );
+	//	void ReadControllerJoints( Collada::Controller& pController );
 
 	/** Reads the joint weights for the given controller */
-//	void ReadControllerWeights( Collada::Controller& pController );
+	//	void ReadControllerWeights( Collada::Controller& pController );
 
 	/** Reads the image library contents */
-//	void ReadImageLibrary();
+	//	void ReadImageLibrary();
 
 	/** Reads an image entry into the given image */
-//	void ReadImage( Collada::Image& pImage );
+	//	void ReadImage( Collada::Image& pImage );
 
 	/** Reads the material library */
 	void ReadMaterialLibrary();
-	
+
 	/** Reads a material entry into the given material */
-	void ReadMaterial( Collada::Material& pMaterial );
-	
+	void ReadMaterial(Collada::Material &pMaterial);
+
 	/** Reads the camera library */
-//	void ReadCameraLibrary();
+	//	void ReadCameraLibrary();
 
 	/** Reads a camera entry into the given camera */
-//	void ReadCamera( Collada::Camera& pCamera );
+	//	void ReadCamera( Collada::Camera& pCamera );
 
 	/** Reads the light library */
-//	void ReadLightLibrary();
+	//	void ReadLightLibrary();
 
 	/** Reads a light entry into the given light */
-//	void ReadLight( Collada::Light& pLight );
+	//	void ReadLight( Collada::Light& pLight );
 
 	/** Reads the effect library */
-//	void ReadEffectLibrary();
+	//	void ReadEffectLibrary();
 
 	/** Reads an effect entry into the given effect*/
-//	void ReadEffect( Collada::Effect& pEffect );
+	//	void ReadEffect( Collada::Effect& pEffect );
 
 	/** Reads an COMMON effect profile */
-//	void ReadEffectProfileCommon( Collada::Effect& pEffect );
+	//	void ReadEffectProfileCommon( Collada::Effect& pEffect );
 
 	/** Read sampler properties */
-//	void ReadSamplerProperties( Collada::Sampler& pSampler );
+	//	void ReadSamplerProperties( Collada::Sampler& pSampler );
 
 	/** Reads an effect entry containing a color or a texture defining that color */
-//	void ReadEffectColor( idVec4& pColor, Collada::Sampler& pSampler );
+	//	void ReadEffectColor( idVec4& pColor, Collada::Sampler& pSampler );
 
 	/** Reads an effect entry containing a float */
-//	void ReadEffectFloat( float& pFloat );
+	//	void ReadEffectFloat( float& pFloat );
 
 	/** Reads an effect parameter specification of any kind */
-//	void ReadEffectParam( Collada::EffectParam& pParam );
+	//	void ReadEffectParam( Collada::EffectParam& pParam );
 
 	/** Reads the geometry library contents */
 	void ReadGeometryLibrary();
-	
+
 	/** Reads a geometry from the geometry library. */
-	void ReadGeometry( Collada::Mesh* pMesh );
-	
+	void ReadGeometry(Collada::Mesh *pMesh);
+
 	/** Reads a mesh from the geometry library */
-	void ReadMesh( Collada::Mesh* pMesh );
-	
+	void ReadMesh(Collada::Mesh *pMesh);
+
 	/** Reads a source element - a combination of raw data and an accessor defining
 	 * things that should not be redefinable. Yes, that's another rant.
 	 */
 	void ReadSource();
-	
+
 	/** Reads a data array holding a number of elements, and stores it in the global library.
 	 * Currently supported are array of floats and arrays of strings.
 	 */
 	void ReadDataArray();
-	
+
 	/** Reads an accessor and stores it in the global library under the given ID -
 	 * accessors use the ID of the parent <source> element
 	 */
-	void ReadAccessor( const idStr& pID );
-	
+	void ReadAccessor(const idStr &pID);
+
 	/** Reads input declarations of per-vertex mesh data into the given mesh */
-	void ReadVertexData( Collada::Mesh* pMesh );
-	
+	void ReadVertexData(Collada::Mesh *pMesh);
+
 	/** Reads input declarations of per-index mesh data into the given mesh */
-	void ReadIndexData( Collada::Mesh* pMesh );
-	
+	void ReadIndexData(Collada::Mesh *pMesh);
+
 	/** Reads a single input channel element and stores it in the given array, if valid */
-	void ReadInputChannel( idList<Collada::InputChannel>& poChannels );
-	
+	void ReadInputChannel(idList<Collada::InputChannel> &poChannels);
+
 	/** Reads a <p> primitive index list and assembles the mesh data into the given mesh */
-	void ReadPrimitives( Collada::Mesh* pMesh, idList<Collada::InputChannel>& pPerIndexChannels,
-						 size_t pNumPrimitives, const idList<size_t>& pVCount, Collada::PrimitiveType pPrimType );
-						 
+	void ReadPrimitives(Collada::Mesh *pMesh, idList<Collada::InputChannel> &pPerIndexChannels,
+	                    size_t pNumPrimitives, const idList<size_t> &pVCount, Collada::PrimitiveType pPrimType);
+
 	/** Extracts a single object from an input channel and stores it in the appropriate mesh data array */
-	void ExtractDataObjectFromChannel( const Collada::InputChannel& pInput, size_t pLocalIndex, Collada::Mesh* pMesh );
-	
+	void ExtractDataObjectFromChannel(const Collada::InputChannel &pInput, size_t pLocalIndex, Collada::Mesh *pMesh);
+
 	/** Reads the library of node hierarchies and scene parts */
 	void ReadSceneLibrary();
-	
+
 	/** Reads a scene node's contents including children and stores it in the given node */
-	void ReadSceneNode( Collada::Node* pNode );
-	
+	void ReadSceneNode(Collada::Node *pNode);
+
 	/** Reads a node transformation entry of the given type and adds it to the given node's transformation list. */
-	void ReadNodeTransformation( Collada::Node* pNode, Collada::TransformType pType );
-	
+	void ReadNodeTransformation(Collada::Node *pNode, Collada::TransformType pType);
+
 	/** Reads a mesh reference in a node and adds it to the node's mesh list */
-	void ReadNodeGeometry( Collada::Node* pNode );
-	
+	void ReadNodeGeometry(Collada::Node *pNode);
+
 	/** Reads the collada scene */
 	void ReadScene();
-	
+
 	// Processes bind_vertex_input and bind elements
-	void ReadMaterialVertexInputBinding( Collada::SemanticMappingTable& tbl );
-	
+	void ReadMaterialVertexInputBinding(Collada::SemanticMappingTable &tbl);
+
 protected:
 	/** Aborts the file reading with an exception */
-	void ThrowException( const idStr& pError ) const;
-	
+	void ThrowException(const idStr &pError) const;
+
 	/** Skips all data until the end node of the current element */
 	void SkipElement();
-	
+
 	/** Skips all data until the end node of the given element */
-	void SkipElement( const char* pElement );
-	
-	bool SkipSpacesAndLineEnd( const char* in, const char** out );
-	
+	void SkipElement(const char *pElement);
+
+	bool SkipSpacesAndLineEnd(const char *in, const char **out);
+
 	/** Compares the current xml element name to the given string and returns true if equal */
-	bool IsElement( const char* pName ) const;
-	
+	bool IsElement(const char *pName) const;
+
 	/** Tests for the opening tag of the given element, throws an exception if not found */
-	void TestOpening( const char* pName );
-	
+	void TestOpening(const char *pName);
+
 	/** Tests for the closing tag of the given element, throws an exception if not found */
-	void TestClosing( const char* pName );
-	
+	void TestClosing(const char *pName);
+
 	/** Checks the present element for the presence of the attribute, returns its index
 	    or throws an exception if not found */
-	int GetAttribute( const char* pAttr ) const;
-	
+	int GetAttribute(const char *pAttr) const;
+
 	/** Returns the index of the named attribute or -1 if not found. Does not throw,
 	    therefore useful for optional attributes */
-	int TestAttribute( const char* pAttr ) const;
-	
+	int TestAttribute(const char *pAttr) const;
+
 	/** Reads the text contents of an element, throws an exception if not given.
 	    Skips leading whitespace. */
-	const char* GetTextContent();
-	
+	const char *GetTextContent();
+
 	/** Reads the text contents of an element, returns NULL if not given.
 	    Skips leading whitespace. */
-	const char* TestTextContent();
-	
+	const char *TestTextContent();
+
 	/** Reads a single bool from current text content */
 	bool ReadBoolFromTextContent();
-	
+
 	/** Reads a single float from current text content */
 	float ReadFloatFromTextContent();
-	
+
 	/** Calculates the resulting transformation from all the given transform steps */
-	idMat4 CalculateResultTransform( const idList<Collada::Transform>& pTransforms ) const;
-	
+	idMat4 CalculateResultTransform(const idList<Collada::Transform> &pTransforms) const;
+
 	/** Determines the input data type for the given semantic string */
-	Collada::InputType GetTypeForSemantic( const idStr& pSemantic );
-	
+	Collada::InputType GetTypeForSemantic(const idStr &pSemantic);
+
 	/** Finds the item in the given library by its reference, throws if not found */
-	template <typename Type> const Type* ResolveLibraryReference(
-		const idHashTable<Type>& pLibrary, const idStr& pURL ) const;
-		
+	template <typename Type>
+	const Type *ResolveLibraryReference(
+	const idHashTable<Type> &pLibrary, const idStr &pURL) const;
+
 protected:
 	/** Filename, for a verbose error message */
 	idStr mFileName;
-	
+
 	/** XML reader, member for everyday use */
-	irr::io::IrrXMLReader* mReader;
-	
+	irr::io::IrrXMLReader *mReader;
+
 	/** All data arrays found in the file by ID. Might be referred to by actually
 	    everyone. Collada, you are a steaming pile of indirection. */
-	typedef idHashTable<Collada::Data*> DataLibrary;
+	typedef idHashTable<Collada::Data *> DataLibrary;
 	DataLibrary mDataLibrary;
-	
+
 	/** Same for accessors which define how the data in a data array is accessed. */
-	typedef idHashTable<Collada::Accessor*> AccessorLibrary;
+	typedef idHashTable<Collada::Accessor *> AccessorLibrary;
 	AccessorLibrary mAccessorLibrary;
-	
+
 	/** Mesh library: mesh by ID */
-	typedef idHashTable<Collada::Mesh*> MeshLibrary;
+	typedef idHashTable<Collada::Mesh *> MeshLibrary;
 	MeshLibrary mMeshLibrary;
-	
+
 	/** node library: root node of the hierarchy part by ID */
-	typedef idHashTable<Collada::Node*> NodeLibrary;
+	typedef idHashTable<Collada::Node *> NodeLibrary;
 	NodeLibrary mNodeLibrary;
-	
+
 	/** Image library: stores texture properties by ID */
-	typedef idHashTable<Collada::Image*> ImageLibrary;
+	typedef idHashTable<Collada::Image *> ImageLibrary;
 	ImageLibrary mImageLibrary;
-	
+
 	/** Effect library: surface attributes by ID */
-	typedef idHashTable<Collada::Effect*> EffectLibrary;
+	typedef idHashTable<Collada::Effect *> EffectLibrary;
 	EffectLibrary mEffectLibrary;
-	
+
 	/** Material library: surface material by ID */
-	typedef idHashTable<Collada::Material*> MaterialLibrary;
+	typedef idHashTable<Collada::Material *> MaterialLibrary;
 	MaterialLibrary mMaterialLibrary;
-	
+
 	/** Light library: surface light by ID */
-	typedef idHashTable<Collada::Light*> LightLibrary;
+	typedef idHashTable<Collada::Light *> LightLibrary;
 	LightLibrary mLightLibrary;
-	
+
 	/** Camera library: surface material by ID */
-	typedef idHashTable<Collada::Camera*> CameraLibrary;
+	typedef idHashTable<Collada::Camera *> CameraLibrary;
 	CameraLibrary mCameraLibrary;
-	
+
 	/** Controller library: joint controllers by ID */
-	typedef idHashTable<Collada::Controller*> ControllerLibrary;
+	typedef idHashTable<Collada::Controller *> ControllerLibrary;
 	ControllerLibrary mControllerLibrary;
-	
+
 	/** Pointer to the root node. Don't delete, it just points to one of
 	    the nodes in the node library. */
-	Collada::Node* mRootNode;
-	
+	Collada::Node *mRootNode;
+
 	/** Root animation container */
 	Collada::Animation mAnims;
-	
+
 	/** Size unit: how large compared to a meter */
 	float mUnitSize;
-	
+
 	/** Which is the up vector */
-	enum { UP_X, UP_Y, UP_Z } mUpDirection;
-	
+	enum
+	{
+		UP_X,
+		UP_Y,
+		UP_Z
+	} mUpDirection;
+
 	/** Collada file format version */
 	Collada::FormatVersion mFormat;
+
 private:
-	idCommon *common{nullptr};
+	idCommon *common{ nullptr };
 };
 
 // ------------------------------------------------------------------------------------------------
 // Check for element match
-inline bool ColladaParser::IsElement( const char* pName ) const
+inline bool ColladaParser::IsElement(const char *pName) const
 {
-	assert( mReader->getNodeType() == irr::io::EXN_ELEMENT );
-	return idStr::Cmp( mReader->getNodeName(), pName ) == 0;
+	assert(mReader->getNodeType() == irr::io::EXN_ELEMENT);
+	return idStr::Cmp(mReader->getNodeName(), pName) == 0;
 }
 
-inline bool ColladaParser::SkipSpacesAndLineEnd( const char* in, const char** out )
+inline bool ColladaParser::SkipSpacesAndLineEnd(const char *in, const char **out)
 {
-	while( *in == ' ' || *in == '\t' ||	*in == '\r' || *in == '\n' )
+	while(*in == ' ' || *in == '\t' || *in == '\r' || *in == '\n')
 		in++;
 	*out = in;
 	return *in != '\0';
@@ -343,15 +350,14 @@ inline bool ColladaParser::SkipSpacesAndLineEnd( const char* in, const char** ou
 // ------------------------------------------------------------------------------------------------
 // Finds the item in the given library by its reference, throws if not found
 template <typename Type>
-const Type* ColladaParser::ResolveLibraryReference( const idHashTable<Type>& pLibrary, const idStr& pURL ) const
+const Type *ColladaParser::ResolveLibraryReference(const idHashTable<Type> &pLibrary, const idStr &pURL) const
 {
-	Type* element = NULL;
-	
-	if( !pLibrary.Get( pURL, &element ) )
-		ThrowException( va( "Unable to resolve library reference \"%s\".", pURL.c_str() ) );
-		
+	Type *element = NULL;
+
+	if(!pLibrary.Get(pURL, &element))
+		ThrowException(va("Unable to resolve library reference \"%s\".", pURL.c_str()));
+
 	return element;
 }
-
 
 #endif // __MODEL_COLLADAPARSER_H__
