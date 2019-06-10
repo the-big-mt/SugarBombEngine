@@ -24,7 +24,7 @@
 # Change this if your clang-format executable is somewhere else
 if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     CLANG_FORMAT="clang-format"
-elif [ "$(uname)" == "WindowsNT" ]; then
+elif [ "$OSTYPE" == "msys" ]; then
     if [ `uname -m` == 'x86_64' ];
     then
 	    CLANG_FORMAT="$PROGRAMFILES (x86)\LLVM\bin\clang-format"
