@@ -184,7 +184,7 @@ typedef enum
 	TG_GLASSWARP
 } texgen_t;
 
-typedef struct
+struct textureStage_t
 {
 	idCinematic* 		cinematic;
 	idImage* 			image;
@@ -196,7 +196,7 @@ typedef struct
 	dynamicidImage_t	dynamic;
 	int					width, height;
 	int					dynamicFrameCount;
-} textureStage_t;
+};
 
 // the order BUMP / DIFFUSE / SPECULAR is necessary for interactions to draw correctly on low end cards
 typedef enum
@@ -210,12 +210,12 @@ typedef enum
 
 // cross-blended terrain textures need to modulate the color by
 // the vertex color to smoothly blend between two textures
-typedef enum
+enum stageVertexColor_t : int
 {
 	SVC_IGNORE,
 	SVC_MODULATE,
 	SVC_INVERSE_MODULATE
-} stageVertexColor_t;
+};
 
 static const int	MAX_FRAGMENT_IMAGES = 8;
 static const int	MAX_VERTEX_PARMS = 4;
@@ -232,7 +232,7 @@ typedef struct
 	idImage* 			fragmentProgramImages[MAX_FRAGMENT_IMAGES];
 } newShaderStage_t;
 
-typedef struct
+struct shaderStage_t
 {
 	int					conditionRegister;	// if registers[conditionRegister] == 0, skip stage
 	stageLighting_t		lighting;			// determines which passes interact with lights
@@ -247,7 +247,7 @@ typedef struct
 	float				privatePolygonOffset;	// a per-stage polygon offset
 	
 	newShaderStage_t*	newStage;			// vertex / fragment program based stage
-} shaderStage_t;
+};
 
 typedef enum
 {
