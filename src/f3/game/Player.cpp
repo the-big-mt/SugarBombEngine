@@ -9938,10 +9938,7 @@ idPlayer::Event_OpenPDA
 */
 void idPlayer::Event_OpenPipBoy()
 {
-	if( !common->IsMultiplayer() )
-	{
-		TogglePipBoy();
-	}
+	TogglePipBoy();
 }
 
 /*
