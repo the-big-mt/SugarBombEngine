@@ -41,44 +41,43 @@ If you have questions concerning this license or the applicable additional terms
 class idMaterial;
 
 // contact type
-typedef enum
-{
-	CONTACT_NONE,							// no contact
-	CONTACT_EDGE,							// trace model edge hits model edge
-	CONTACT_MODELVERTEX,					// model vertex hits trace model polygon
-	CONTACT_TRMVERTEX						// trace model vertex hits model polygon
+typedef enum {
+	CONTACT_NONE,        // no contact
+	CONTACT_EDGE,        // trace model edge hits model edge
+	CONTACT_MODELVERTEX, // model vertex hits trace model polygon
+	CONTACT_TRMVERTEX    // trace model vertex hits model polygon
 } contactType_t;
 
 // contact info
 typedef struct
 {
-	contactType_t			type;			// contact type
-	idVec3					point;			// point of contact
-	idVec3					normal;			// contact plane normal
-	float					dist;			// contact plane distance
-	int						contents;		// contents at other side of surface
-	const idMaterial* 		material;		// surface material
-	int						modelFeature;	// contact feature on model
-	int						trmFeature;		// contact feature on trace model
-	int						entityNum;		// entity the contact surface is a part of
-	int						id;				// id of clip model the contact surface is part of
+	contactType_t type;         // contact type
+	idVec3 point;               // point of contact
+	idVec3 normal;              // contact plane normal
+	float dist;                 // contact plane distance
+	int contents;               // contents at other side of surface
+	const idMaterial *material; // surface material
+	int modelFeature;           // contact feature on model
+	int trmFeature;             // contact feature on trace model
+	int entityNum;              // entity the contact surface is a part of
+	int id;                     // id of clip model the contact surface is part of
 } contactInfo_t;
 
 // trace result
 typedef struct trace_s
 {
-	float					fraction;		// fraction of movement completed, 1.0 = didn't hit anything
-	idVec3					endpos;			// final position of trace model
-	idMat3					endAxis;		// final axis of trace model
-	contactInfo_t			c;				// contact information, only valid if fraction < 1.0
+	float fraction;  // fraction of movement completed, 1.0 = didn't hit anything
+	idVec3 endpos;   // final position of trace model
+	idMat3 endAxis;  // final axis of trace model
+	contactInfo_t c; // contact information, only valid if fraction < 1.0
 } trace_t;
 
-#define CM_CLIP_EPSILON		0.25f			// always stay this distance away from any model
-#define CM_BOX_EPSILON		1.0f			// should always be larger than clip epsilon
-#define CM_MAX_TRACE_DIST	4096.0f			// maximum distance a trace model may be traced, point traces are unlimited
+#define CM_CLIP_EPSILON 0.25f     // always stay this distance away from any model
+#define CM_BOX_EPSILON 1.0f       // should always be larger than clip epsilon
+#define CM_MAX_TRACE_DIST 4096.0f // maximum distance a trace model may be traced, point traces are unlimited
 
 #include "SbCollision/ICollisionModelManager.hpp"
 
-extern idCollisionModelManager* 		collisionModelManager;
+extern idCollisionModelManager *collisionModelManager;
 
 //} // namespace BFG
