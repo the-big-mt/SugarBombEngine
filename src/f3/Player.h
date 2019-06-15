@@ -577,7 +577,7 @@ public:
 	void					RouteGuiMouse( idUserInterface* gui );
 	void					UpdateHud();
 	const idDeclPDA* 		GetPDA() const;
-	bool					GetPDAOpen() const
+	bool					GetPipBoyOpen() const
 	{
 		return objectiveSystemOpen;
 	}
@@ -927,9 +927,9 @@ private:
 	void					Event_GetPreviousWeapon();
 	void					Event_SelectWeapon( const char* weaponName );
 	void					Event_GetWeaponEntity();
-	void					Event_OpenPDA();
+	void					Event_OpenPipBoy();
 	void					Event_PDAAvailable();
-	void					Event_InPDA();
+	void					Event_InPipBoy();
 	void					Event_ExitTeleporter();
 	void					Event_HideTip();
 	void					Event_LevelTrigger();

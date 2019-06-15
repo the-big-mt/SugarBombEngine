@@ -101,8 +101,8 @@ const idEventDef EV_Player_GetCurrentWeapon( "getCurrentWeapon", nullptr, 's' );
 const idEventDef EV_Player_GetPreviousWeapon( "getPreviousWeapon", nullptr, 's' );
 const idEventDef EV_Player_SelectWeapon( "selectWeapon", "s" );
 const idEventDef EV_Player_GetWeaponEntity( "getWeaponEntity", nullptr, 'e' );
-const idEventDef EV_Player_OpenPDA( "openPDA" );
-const idEventDef EV_Player_InPDA( "inPDA", nullptr, 'd' );
+const idEventDef EV_Player_OpenPipBoy( "openPipBoy" );
+const idEventDef EV_Player_InPipBoy( "inPipBoy", nullptr, 'd' );
 const idEventDef EV_Player_ExitTeleporter( "exitTeleporter" );
 const idEventDef EV_Player_StopAudioLog( "stopAudioLog" );
 const idEventDef EV_Player_HideTip( "hideTip" );
@@ -130,8 +130,8 @@ EVENT( EV_Player_GetCurrentWeapon,		idPlayer::Event_GetCurrentWeapon )
 EVENT( EV_Player_GetPreviousWeapon,		idPlayer::Event_GetPreviousWeapon )
 EVENT( EV_Player_SelectWeapon,			idPlayer::Event_SelectWeapon )
 EVENT( EV_Player_GetWeaponEntity,		idPlayer::Event_GetWeaponEntity )
-EVENT( EV_Player_OpenPDA,				idPlayer::Event_OpenPDA )
-EVENT( EV_Player_InPDA,					idPlayer::Event_InPDA )
+EVENT( EV_Player_OpenPipBoy,			idPlayer::Event_OpenPipBoy )
+EVENT( EV_Player_InPipBoy,				idPlayer::Event_InPipBoy )
 EVENT( EV_Player_ExitTeleporter,		idPlayer::Event_ExitTeleporter )
 EVENT( EV_Player_StopAudioLog,			idPlayer::Event_StopAudioLog )
 EVENT( EV_Player_HideTip,				idPlayer::Event_HideTip )
@@ -461,7 +461,7 @@ void idPlayer::Init()
 	previousWeapon			= -1;
 	weaponSwitchTime		= 0;
 	weaponEnabled			= true;
-	weapon_pda				= SlotForWeapon( "weapon_pda" );
+	weapon_pipboy				= SlotForWeapon( "weapon_pipboy" );
 	weapon_fists			= SlotForWeapon( "weapon_fists" );
 	weapon_flashlight		= SlotForWeapon( "weapon_flashlight" );
 	weapon_chainsaw			= SlotForWeapon( "weapon_chainsaw" );
@@ -847,14 +847,14 @@ void idPlayer::Spawn()
 		}
 	}
 	
-	if( GetPDA() )
+	if( GetPipBoy() )
 	{
 		// Add any emails from the inventory
 		for( int i = 0; i < inventory.emails.Num(); i++ )
 		{
-			GetPDA()->AddEmail( inventory.emails[i] );
+			GetPipBoy()->AddEmail( inventory.emails[i] );
 		}
-		GetPDA()->SetSecurity( idLocalization::GetString( "#str_00066" ) );
+		GetPipBoy()->SetSecurity( idLocalization::GetString( "#str_00066" ) );
 	}
 	
 	if( gameLocal.world->spawnArgs.GetBool( "no_Weapons" ) )
@@ -881,7 +881,7 @@ void idPlayer::Spawn()
 		PostEventMS( &EV_Player_LevelTrigger, 0 );
 	}
 	
-	inventory.pdaOpened = false;
+	inventory.pipBoyOpened = false;
 	inventory.selPDA = 0;
 	
 	if( !common->IsMultiplayer() )
@@ -1003,8 +1003,8 @@ idPlayer::~idPlayer()
 	delete hudManager;
 	hudManager = nullptr;
 	
-	delete pdaMenu;
-	pdaMenu = nullptr;
+	delete pipBoyMenu;
+	pipBoyMenu = nullptr;
 	
 	delete mpMessages;
 	mpMessages = nullptr;
@@ -1336,9 +1336,9 @@ void idPlayer::Restore( idRestoreGame* savefile )
 		hud = hudManager->GetHud();
 	}
 	
-	if( pdaMenu != nullptr )
+	if( pipBoyMenu != nullptr )
 	{
-		pdaMenu->Initialize( "pda", common->SW() );
+		pipBoyMenu->Initialize( "pda", common->SW() );
 	}
 	
 	for( i = 0; i < inventory.emails.Num(); i++ )
@@ -3999,7 +3999,7 @@ void idPlayer::SelectWeapon( int num, bool force )
 		return;
 	}
 	
-	if( ( num != weapon_pda ) && gameLocal.world->spawnArgs.GetBool( "no_Weapons" ) )
+	if( ( num != weapon_pipboy ) && gameLocal.world->spawnArgs.GetBool( "no_Weapons" ) )
 	{
 		num = weapon_fists;
 		hiddenWeapon ^= 1;
@@ -4091,7 +4091,7 @@ void idPlayer::SelectWeapon( int num, bool force )
 			}
 			idealWeapon = previousWeapon;
 		}
-		else if( ( weapon_pda >= 0 ) && ( num == weapon_pda ) && ( inventory.pdas.Num() == 0 ) )
+		else if( ( weapon_pipboy >= 0 ) && ( num == weapon_pipboy ) && ( inventory.pdas.Num() == 0 ) )
 		{
 			ShowTip( spawnArgs.GetString( "text_infoTitle" ), spawnArgs.GetString( "text_noPDA" ), true );
 			return;
@@ -9936,7 +9936,7 @@ void idPlayer::Event_GetWeaponEntity()
 idPlayer::Event_OpenPDA
 ==================
 */
-void idPlayer::Event_OpenPDA()
+void idPlayer::Event_OpenPipBoy()
 {
 	if( !common->IsMultiplayer() )
 	{
@@ -9949,7 +9949,7 @@ void idPlayer::Event_OpenPDA()
 idPlayer::Event_InPDA
 ==================
 */
-void idPlayer::Event_InPDA()
+void idPlayer::Event_InPipBoy()
 {
 	idThread::ReturnInt( objectiveSystemOpen );
 }
