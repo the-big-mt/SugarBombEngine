@@ -192,7 +192,7 @@ const int SYS_API_VERSION		= 1;
 struct idCommon;
 struct idCmdSystem;
 struct idCVarSystem;
-struct idFileSystem;
+struct IFileSystem;
 
 struct sysImport_t
 {
@@ -200,13 +200,13 @@ struct sysImport_t
 	idCommon* 					common;					// common
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
-	idFileSystem* 				fileSystem;				// file system
 };
 
 struct sysExport_t
 {
 	int							version;				// API version
 	idSys* 						sys;					// non-portable system services
+	IFileSystem* 				fileSystem;				// file system
 };
 
 extern "C" using GetSysAPI_t = sysExport_t *(*)( sysImport_t* import );
