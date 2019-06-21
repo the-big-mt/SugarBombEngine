@@ -123,6 +123,11 @@ struct sysEvent_t
 
 struct idSys
 {
+	virtual void Init() = 0;
+	virtual void Shutdown() = 0;
+	
+	virtual void Quit() = 0;
+	
 	virtual void			DebugPrintf( VERIFY_FORMAT_STRING const char* fmt, ... ) = 0;
 	virtual void			DebugVPrintf( const char* fmt, va_list arg ) = 0;
 	

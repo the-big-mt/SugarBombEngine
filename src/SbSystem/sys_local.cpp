@@ -106,6 +106,21 @@ sysExport_t *GetSysAPI(sysImport_t *import)
 	return &sysExport;
 };
 
+void idSysLocal::Init()
+{
+	Sys_Init();
+};
+
+void idSysLocal::Shutdown()
+{
+	Sys_Shutdown();
+};
+
+void idSysLocal::Quit()
+{
+	Sys_Quit();
+};
+
 void idSysLocal::DebugPrintf( const char* fmt, ... )
 {
 	va_list argptr;

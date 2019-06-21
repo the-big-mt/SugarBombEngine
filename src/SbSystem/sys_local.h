@@ -37,6 +37,11 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
+void			Sys_Init();
+void			Sys_Shutdown();
+
+void			Sys_Quit();
+
 /*
 ==============================================================
 
@@ -48,6 +53,11 @@ If you have questions concerning this license or the applicable additional terms
 class idSysLocal : public idSys
 {
 public:
+	void Init() override;
+	void Shutdown() override;
+	
+	void Quit() override;
+	
 	virtual void			DebugPrintf( VERIFY_FORMAT_STRING const char* fmt, ... );
 	virtual void			DebugVPrintf( const char* fmt, va_list arg );
 	
