@@ -93,10 +93,8 @@ enum stereoDepthType_t
 	STEREO_DEPTH_TYPE_FAR
 };
 
-struct idRenderSystem
+struct IRenderSystem
 {
-	virtual					~idRenderSystem() {}
-	
 	// set up cvars and basic data structures, but don't
 	// init OpenGL, so it can also be used for dedicated servers
 	virtual void			Init() = 0;
@@ -245,6 +243,11 @@ struct idRenderSystem
 	virtual int				GetFrameCount() const = 0;
 	
 	virtual void			OnFrame() = 0;
+};
+
+struct idRenderSystem : public IRenderSystem
+{
+	virtual					~idRenderSystem() = default;
 };
 
 /*
