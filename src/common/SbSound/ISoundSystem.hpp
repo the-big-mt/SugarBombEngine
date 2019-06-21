@@ -39,10 +39,8 @@ struct idSoundWorld;
 class idDecl;
 class idPreloadManifest;
 
-struct idSoundSystem
+struct ISoundSystem
 {
-	virtual					~idSoundSystem() {}
-	
 	// All non-hardware initialization.
 	virtual void			Init() = 0;
 	
@@ -99,6 +97,11 @@ struct idSoundSystem
 	
 	// prints memory info
 	virtual void			PrintMemInfo( MemInfo_t* mi ) = 0;
+};
+
+struct idSoundSystem : public ISoundSystem
+{
+	virtual					~idSoundSystem() = default;
 };
 
 /*
