@@ -96,10 +96,8 @@ private:
 	idStrList				list;
 };
 
-class idFileSystem
+struct IFileSystem
 {
-public:
-	virtual					~idFileSystem() {}
 	// Initializes the file system.
 	virtual void			Init() = 0;
 	// Restarts the file system.
@@ -219,4 +217,9 @@ public:
 	virtual void			AddParticlePreload( const char* resName ) = 0;
 	virtual void			AddCollisionPreload( const char* resName ) = 0;
 	
+};
+
+struct idFileSystem : public IFileSystem
+{
+	virtual					~idFileSystem() = default;
 };
