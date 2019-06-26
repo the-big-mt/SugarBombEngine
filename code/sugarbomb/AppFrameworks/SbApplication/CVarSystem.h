@@ -33,5 +33,4 @@ If you have questions concerning this license or the applicable additional terms
 #include "framework/ICVarSystem.hpp"
 #include "framework/CVar.hpp"
 
-
 #endif /* !__CVARSYSTEM_H__ */
