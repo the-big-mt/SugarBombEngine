@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -29,24 +30,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __CMDSYSTEM_H__
 #define __CMDSYSTEM_H__
 
+#include "idlib/sys/sys_types.h"
+#include "idlib/sys/sys_defines.h"
+#include "idlib/Str.h"
+#include "idlib/containers/List.h"
+#include "idlib/containers/StrList.h"
+
 #include "framework/ICmdSystem.hpp"
 
-extern idCmdSystem* 	cmdSystem;
-
-
-ID_INLINE void idCmdSystem::ArgCompletion_Boolean( const idCmdArgs& args, void( *callback )( const char* s ) )
+namespace sbe
 {
-	callback( va( "%s 0", args.Argv( 0 ) ) );
-	callback( va( "%s 1", args.Argv( 0 ) ) );
-}
-
-template<int min, int max> ID_INLINE void idCmdSystem::ArgCompletion_Integer( const idCmdArgs& args, void( *callback )( const char* s ) )
-{
-	for( int i = min; i <= max; i++ )
-	{
-		callback( va( "%s %d", args.Argv( 0 ), i ) );
-	}
-}
 
 template<const char** strings> ID_INLINE void idCmdSystem::ArgCompletion_String( const idCmdArgs& args, void( *callback )( const char* s ) )
 {
@@ -81,10 +74,7 @@ ID_INLINE void idCmdSystem::ArgCompletion_ModelName( const idCmdArgs& args, void
 	cmdSystem->ArgCompletion_FolderExtension( args, callback, "models/", false, ".lwo", ".ase", ".md5mesh", ".ma", NULL );
 }
 
-ID_INLINE void idCmdSystem::ArgCompletion_SoundName( const idCmdArgs& args, void( *callback )( const char* s ) )
-{
-	cmdSystem->ArgCompletion_FolderExtension( args, callback, "sound/", false, ".wav", NULL );
-}
+// soundname
 
 ID_INLINE void idCmdSystem::ArgCompletion_ImageName( const idCmdArgs& args, void( *callback )( const char* s ) )
 {
@@ -110,5 +100,7 @@ ID_INLINE void idCmdSystem::ArgCompletion_DemoName( const idCmdArgs& args, void(
 {
 	cmdSystem->ArgCompletion_FolderExtension( args, callback, "demos/", true, ".demo", NULL );
 }
+
+}; // namespace sbe
 
 #endif /* !__CMDSYSTEM_H__ */
