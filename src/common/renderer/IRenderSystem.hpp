@@ -36,6 +36,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/math/Vector.h"
 #include "idlib/sys/sys_types.h"
 
+namespace sbe
+{
 /*
 ===============================================================================
 
@@ -286,4 +288,6 @@ struct rendererExport_t
 	idRenderModelManager* 		renderModelManager;		// render model manager
 };
 
-extern "C" using GetRendererAPI_t = rendererExport_t *(*)( rendererImport_t* import );
+extern "C" using GetRenderAPI_t = renderExport_t *(*)( renderImport_t* import );
+
+}; // namespace sbe

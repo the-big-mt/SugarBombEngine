@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2018-2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -70,6 +71,9 @@ created using the CONSOLE_COMMAND_SHIP macro.
 	void name ## _f( const idCmdArgs &args ); \
 	idCommandLink name ## _v( #name, name ## _f, comment, completion  ); \
 	void name ## _f( const idCmdArgs &args )
+
+namespace sbe
+{
 
 // command function
 typedef void ( *cmdFunction_t )( const idCmdArgs& args );
@@ -198,4 +202,4 @@ public:
 	static void			ArgCompletion_ConfigName( const idCmdArgs& args, void( *callback )( const char* s ) );
 	static void			ArgCompletion_SaveGame( const idCmdArgs& args, void( *callback )( const char* s ) );
 	static void			ArgCompletion_DemoName( const idCmdArgs& args, void( *callback )( const char* s ) );
-};
+};}; // namespace sbe

@@ -36,6 +36,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "SbInput/SbInputTypes.hpp"
 
+namespace sbe
+{
 
 enum cpuid_t
 {
@@ -210,3 +212,5 @@ struct sysExport_t
 };
 
 extern "C" using GetSysAPI_t = sysExport_t *(*)( sysImport_t* import );
+
+}; // namespace sbe

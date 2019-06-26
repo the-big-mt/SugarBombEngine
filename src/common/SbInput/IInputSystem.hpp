@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
+namespace sbe
+{
+
 // input is tied to windows, so it needs to be started up and shut down whenever
 // the main window is recreated
 void			Sys_InitInput();
@@ -161,3 +164,5 @@ struct inputExport_t
 };
 
 extern "C" using GetInputAPI_t = inputExport_t *(*)(inputImport_t *import);
+
+}; // namespace sbe

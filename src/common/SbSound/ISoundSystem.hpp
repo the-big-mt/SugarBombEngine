@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "renderer/Cinematic.h" // for cinData_t, idCinematic
 
+namespace sbe
+{
+
 struct MemInfo_t;
 struct idRenderWorld;
 struct idSoundWorld;
@@ -144,3 +147,5 @@ struct soundExport_t
 };
 
 extern "C" using GetSoundAPI_t = soundExport_t *(*)( soundImport_t* import );
+
+}; // namespace sbe
