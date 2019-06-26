@@ -114,14 +114,21 @@ struct idSoundSystem : public ISoundSystem
 
 const int SOUND_API_VERSION		= 1;
 
+struct ISys;
+struct idCommon;
+struct idCmdSystem;
+struct idCVarSystem;
+struct IFileSystem;
+struct idDeclManager;
+
 struct soundImport_t
 {
 	int							version;				// API version
-	idSys* 						sys;					// non-portable system services
+	ISys* 						sys;					// non-portable system services
 	idCommon* 					common;					// common
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
-	idFileSystem* 				fileSystem;				// file system
+	IFileSystem* 				fileSystem;				// file system
 	//idRenderSystem* 			renderSystem;			// render system
 	//idRenderModelManager* 		renderModelManager;		// render model manager
 	//idUserInterfaceManager* 	uiManager;				// user interface manager
