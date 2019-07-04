@@ -128,10 +128,10 @@ void CClientApp::InitSoundSystem()
 	};
 	
 	const char* functionName = "GetSoundAPI";
-	GetSoundAPI = ( GetSoundAPI_t ) Sys_DLL_GetProcAddress( soundDLL, functionName );
+	GetSoundAPI = ( GetSoundAPI_t ) mpSys->DLL_GetProcAddress( soundDLL, functionName );
 	if( !GetSoundAPI )
 	{
-		Sys_DLL_Unload( soundDLL );
+		mpSys->DLL_Unload( soundDLL );
 		soundDLL = 0;
 		mpSys->FatalError( "couldn't find sound DLL API" );
 		return;
@@ -150,7 +150,7 @@ void CClientApp::InitSoundSystem()
 	
 	if( soundExport.version != SOUND_API_VERSION )
 	{
-		Sys_DLL_Unload( soundDLL );
+		mpSys->DLL_Unload( soundDLL );
 		soundDLL = 0;
 		common->FatalError( "wrong sound DLL API version" );
 		return;
@@ -182,7 +182,7 @@ void CClientApp::ShutdownSoundSystem()
 #ifndef SBE_SINGLE_BINARY
 	if( soundDLL )
 	{
-		Sys_DLL_Unload( soundDLL );
+		mpSys->DLL_Unload( soundDLL );
 		soundDLL = 0;
 	};
 #endif
