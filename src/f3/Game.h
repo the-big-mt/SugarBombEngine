@@ -5,6 +5,7 @@ Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2014-2016 Robert Beckebans
 Copyright (C) 2014-2016 Kot in Action Creative Artel
+Copyright (C) 2018-2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -67,8 +68,6 @@ struct gameReturn_t
 
 #include "game/IGame.hpp"
 
-extern idGame* 					game;
-
 enum
 {
 	TEST_PARTICLE_MODEL = 0,
@@ -80,49 +79,12 @@ enum
 
 #include "game/IGameEdit.hpp"
 
-extern idGameEdit* 				gameEdit;
+extern idGame *game;
+extern idGameEdit *gameEdit;
 
-
-/*
-===============================================================================
-
-	Game API.
-
-===============================================================================
-*/
-
-const int GAME_API_VERSION		= 8;
 
 typedef struct
 {
 
-	int							version;				// API version
-	idSys* 						sys;					// non-portable system services
-	idCommon* 					common;					// common
-	idCmdSystem* 				cmdSystem;				// console command system
-	idCVarSystem* 				cvarSystem;				// console variable system
-	idFileSystem* 				fileSystem;				// file system
-	idRenderSystem* 			renderSystem;			// render system
-	idSoundSystem* 				soundSystem;			// sound system
-	idRenderModelManager* 		renderModelManager;		// render model manager
-	idUserInterfaceManager* 	uiManager;				// user interface manager
-	idDeclManager* 				declManager;			// declaration manager
-	idAASFileManager* 			AASFileManager;			// AAS file manager
-	idCollisionModelManager* 	collisionModelManager;	// collision model manager
-	
-} gameImport_t;
-
-typedef struct
-{
-
-	int							version;				// API version
-	idGame* 					game;					// interface to run the game
-	idGameEdit* 				gameEdit;				// interface for in-game editing
-	
-} gameExport_t;
-
-extern "C" {
-	typedef gameExport_t* ( *GetGameAPI_t )( gameImport_t* import );
-}
 
 #endif /* !__GAME_H__ */
