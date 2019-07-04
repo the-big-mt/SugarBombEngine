@@ -65,7 +65,7 @@ void CClientApp::PostInit()
 	mpFramework->Init(0, nullptr, lpCmdLine);
 	
 #if TEST_FPU_EXCEPTIONS != 0
-	mpCommon->Printf(Sys_FPU_GetState());
+	mpSys->Printf(Sys_FPU_GetState());
 #endif
 };
 
