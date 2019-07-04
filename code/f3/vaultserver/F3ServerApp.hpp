@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "SbClientApp/SbClientApp.hpp"
+#include "SbApplication/SbApplication.hpp"
 
 namespace sbe
 {
@@ -13,11 +13,11 @@ struct IGameFramework;
 namespace f3bfg
 {
 
-class CServerApp final : public SbClientApp
+class CServerApp final : public SbApplication
 {
 public:
-	CClientApp(int argc, const char * const *argv);
-	~CClientApp();
+	CServerApp(int argc, const char * const *argv);
+	~CServerApp();
 private:
 	void PostInit() override;
 	

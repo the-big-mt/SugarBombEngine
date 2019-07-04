@@ -36,7 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 namespace f3bfg
 {
 
-CServerApp::CServerApp(int argc, char **argv) : SbClientApp(argc, argv)
+CServerApp::CServerApp(int argc, char **argv) : SbApplication(argc, argv)
 {
 };
 
