@@ -5,7 +5,7 @@ Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012-2014 Robert Beckebans
 Copyright (C) 2019 SugarBombEngine Developers
 
-This file is part of SugarBombEngine.
+This file is part of SugarBombEngine
 
 SugarBombEngine is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
