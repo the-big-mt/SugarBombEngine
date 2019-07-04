@@ -6,8 +6,12 @@ include_directories(
 	${SBE_ROOT}/common/idlib
 )
 
-add_subdirectory(idlib)
-add_subdirectory(SbCollision)
+include_directories(./SDK) # TODO: temp
+
+add_subdirectory(CoreLibs)
+add_subdirectory(AppFrameworks)
+
+#add_subdirectory(idlib)
 
 add_subdirectory(SbInput)
 add_subdirectory(SbUserInterface)
