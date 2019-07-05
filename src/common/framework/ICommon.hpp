@@ -216,39 +216,6 @@ struct idCommon
 #endif
 	// RB end
 };
-/*
-===============================================================================
 
-	Game framework API.
-
-===============================================================================
-*/
-
-const int FRAMEWORK_API_VERSION		= 1;
-
-struct ISys;
-struct idCmdSystem;
-struct idCVarSystem;
-struct IFileSystem;
-struct ISoundSystem;
-struct idDeclManager;
-
-struct frameworkImport_t
 {
-	int							version;				// API version
-	ISys* 						sys;					// non-portable system services
-	idCmdSystem* 				cmdSystem;				// console command system
-	idCVarSystem* 				cvarSystem;				// console variable system
-	IFileSystem* 				fileSystem;				// file system
-	ISoundSystem* 				soundSystem;			// sound system
-	idDeclManager*				declManager;			// declaration manager
-	//idUserInterfaceManager* 	uiManager;				// user interface manager
 };
-
-struct frameworkExport_t
-{
-	int							version;				// API version
-	idCommon* 			common;			// common
-};
-
-extern "C" using GetFrameworkAPI_t = frameworkExport_t *(*)( frameworkImport_t* import );
