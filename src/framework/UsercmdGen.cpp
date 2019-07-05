@@ -27,6 +27,32 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #include "precompiled.h"
+/*
+#include <cstdlib>
+#include <cstring>
+
+#include "../d3xp/Game.h"
+#include "../framework/CVarSystem.h"
+#include "../framework/CmdSystem.h"
+#include "../framework/Common.h"
+#include "../framework/KeyInput.h"
+#include "../framework/Serializer.h"
+#include "../framework/UsercmdGen.h"
+#include "../idlib/Lib.h"
+#include "../idlib/Str.h"
+#include "../idlib/math/Angles.h"
+#include "../idlib/math/Math.h"
+#include "../idlib/math/Vector.h"
+#include "../idlib/sys/sys_assert.h"
+#include "../idlib/sys/sys_types.h"
+#include "../sys/sys_public.h"
+
+#ifdef USE_CEGUI // we inject mousewheel events in idUsercmdGenLocal::Mouse()
+#include "../cegui/CEGUI_Hooks.h"
+#endif // USE_CEGUI
+
+#include "../imgui/ImGui_Hooks.h"
+*/
 #pragma hdrstop
 
 //namespace BFG
