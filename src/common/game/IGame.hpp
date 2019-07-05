@@ -46,6 +46,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 ===============================================================================
 */
 
+namespace sbe
+{
+
 class idDict;
 
 struct idFile;
@@ -229,3 +232,5 @@ struct gameExport_t
 };
 
 extern "C" using GetGameAPI_t = gameExport_t *(*)( gameImport_t* import );
+
+}; // namespace sbe
