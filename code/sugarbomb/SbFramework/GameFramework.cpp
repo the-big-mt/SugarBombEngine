@@ -284,8 +284,8 @@ void SbGameFramework::Init( int argc, const char* const* argv, const char* cmdli
 		InitializeMPMapsModes();
 		
 		// leaderboards need to be initialized after InitializeMPMapsModes, which populates the MP Map list.
-		if( game != nullptr )
-			game->Leaderboards_Init();
+		if( mpGame != nullptr )
+			mpGame->Leaderboards_Init();
 		
 		CreateMainMenu();
 		
@@ -403,10 +403,10 @@ void SbGameFramework::Shutdown()
 	session->Shutdown();
 	
 	// shutdown, deallocate leaderboard definitions.
-	if( game != nullptr )
+	if( mpGame != nullptr )
 	{
 		printf( "game->Leaderboards_Shutdown();\n" );
-		game->Leaderboards_Shutdown();
+		mpGame->Leaderboards_Shutdown();
 	};
 	
 	// shut down the user interfaces
@@ -471,7 +471,7 @@ idCommonLocal::CreateMainMenu
 */
 void SbGameFramework::CreateMainMenu()
 {
-	if( game != nullptr )
+	if( mpGame != nullptr )
 	{
 		// note which media we are going to need to load
 		declManager->BeginLevelLoad();
@@ -481,9 +481,9 @@ void SbGameFramework::CreateMainMenu()
 		
 		// create main inside an "empty" game level load - so assets get
 		// purged automagically when we transition to a "real" map
-		game->Shell_CreateMenu( false );
-		game->Shell_Show( true );
-		game->Shell_SyncWithSession();
+		mpGame->Shell_CreateMenu( false );
+		mpGame->Shell_Show( true );
+		mpGame->Shell_SyncWithSession();
 		
 		// load
 		renderSystem->EndLevelLoad();
@@ -556,14 +556,14 @@ void SbGameFramework::InitGameModule()
 		return;
 	};
 	
-	game								= gameExport.game;
+	mpGame								= gameExport.game;
 	gameEdit							= gameExport.gameEdit;
 	
 #endif
 	
 	// initialize the game object
-	if( game != nullptr )
-		game->Init();
+	if( mpGame != nullptr )
+		mpGame->Init();
 };
 
 /*
@@ -574,10 +574,10 @@ idCommonLocal::UnloadGameDLL
 void SbGameFramework::ShutdownGameModule()
 {
 	// shut down the game object
-	if( game != nullptr )
+	if( mpGame != nullptr )
 	{
-		game->Shutdown();
-		game = nullptr;
+		mpGame->Shutdown();
+		mpGame = nullptr;
 	};
 	
 #ifndef SBE_SINGLE_BINARY
