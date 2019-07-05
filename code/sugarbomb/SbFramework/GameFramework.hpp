@@ -36,6 +36,7 @@ struct IFileSystem;
 struct idCmdSystem;
 struct idCVarSystem;
 struct ISoundSystem;
+struct IGame;
 };
 
 class SbGameFramework : public sbe::IGameFramework
@@ -70,4 +71,6 @@ private:
 	sbe::idCVarSystem *mpCvarSystem{nullptr};
 	
 	sbe::ISoundSystem *mpSoundSystem{nullptr};
+	
+	sbe::IGame *mpGame{nullptr};
 };
