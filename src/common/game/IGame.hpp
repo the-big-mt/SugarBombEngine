@@ -63,10 +63,8 @@ struct gameReturn_t
 	int			vibrationHigh{0};
 };
 
-struct idGame
+struct IGame
 {
-	virtual						~idGame() {}
-	
 	// Initialize the game for the first time.
 	virtual void				Init() = 0;
 	
@@ -189,6 +187,11 @@ struct idGame
 	virtual void				StartDemoPlayback( idRenderWorld* renderworld ) = 0;
 	
 	virtual bool				ProcessDemoCommand( idDemoFile* readDemo ) = 0;
+};
+
+struct idGame : public IGame
+{
+	virtual						~idGame() {}
 };
 
 /*
