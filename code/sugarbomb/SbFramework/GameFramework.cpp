@@ -659,4 +659,89 @@ void SbGameFramework::WriteConfiguration()
 	// restore the developer cvar
 	com_developer.SetBool( developer );
 #endif
+/*
+========================
+idCommonLocal::ProcessSnapshot
+========================
+*/
+void SbGameFramework::ProcessSnapshot( idSnapShot& ss )
+{
+	int time = Sys_Milliseconds();
+	
+	snapTime = time;
+	snapPrevious			= snapCurrent;
+	snapCurrent.serverTime	= ss.GetTime();
+	snapRate = snapCurrent.serverTime - snapPrevious.serverTime;
+	
+	static int lastReceivedLocalTime = 0;
+	int timeSinceLastSnap = ( time - lastReceivedLocalTime );
+	if( net_debug_snapShotTime.GetBool() )
+	{
+		idLib::Printf( "^2ProcessSnapshot. delta serverTime: %d  delta localTime: %d \n", ( snapCurrent.serverTime - snapPrevious.serverTime ), timeSinceLastSnap );
+	}
+	lastReceivedLocalTime = time;
+	
+	/* JAF ?
+	for ( int i = 0; i < MAX_PLAYERS; i++ ) {
+		idBitMsg msg;
+		if ( ss.GetObjectMsgByID( idSession::SS_PLAYER + i, msg ) ) {
+			if ( msg.GetSize() == 0 ) {
+				snapCurrent.players[ i ].valid = false;
+				continue;
+			}
+	
+			idSerializer ser( msg, false );
+			SerializePlayer( ser, snapCurrent.players[ i ] );
+			snapCurrent.players[ i ].valid = true;
+	
+			extern idCVar com_drawSnapshots;
+			if ( com_drawSnapshots.GetInteger() == 3 ) {
+				console->AddSnapObject( "players", msg.GetSize(), ss.CompareObject( &oldss, idSession::SS_PLAYER + i ) );
+			}
+		}
+	}
+	*/
+	
+	// Read usercmds from other players
+	for( int p = 0; p < MAX_PLAYERS; p++ )
+	{
+		if( p == game->GetLocalClientNum() )
+		{
+			continue;
+		}
+		idBitMsg msg;
+		if( ss.GetObjectMsgByID( SNAP_USERCMDS + p, msg ) )
+		{
+			NetReadUsercmds( p, msg );
+		}
+	}
+	
+	// Set server game time here so that it accurately reflects the time when this frame was saved out, in case any serialize function needs it.
+	int oldTime = Game()->GetServerGameTimeMs();
+	Game()->SetServerGameTimeMs( snapCurrent.serverTime );
+	
+	Game()->ClientReadSnapshot( ss ); //, &oldss );
+	
+	// Restore server game time
+	Game()->SetServerGameTimeMs( oldTime );
+	
+	snapTimeDelta = ss.GetRecvTime() - oldss.GetRecvTime();
+	oldss = ss;
+};
+
+/*
+========================
+idCommonLocal::ProcessNextSnapshot
+========================
+*/
+void SbGameFramework::ProcessNextSnapshot()
+{
+	if( readSnapshotIndex == writeSnapshotIndex )
+	{
+		idLib::Printf( "No snapshots to process.\n" );
+		return;		// No snaps to process
+	};
+	ProcessSnapshot( receivedSnaps[ readSnapshotIndex % RECEIVE_SNAPSHOT_BUFFER_SIZE ] );
+	readSnapshotIndex++;
+};
 };

@@ -64,6 +64,13 @@ private:
 	void WriteConfigToFile(const char *asFileName);
 	void WriteConfiguration();
 	
+	// NETWORKING
+	
+	// Snapshot interpolation
+	void ProcessSnapshot(idSnapShot &aSnapshot);
+	void ProcessNextSnapshot();
+	
+	//
 	sbe::ISys *mpSys{nullptr};
 	sbe::IFileSystem *mpFileSystem{nullptr};
 	
