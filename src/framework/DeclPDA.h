@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __DECLPDA_H__
 #define __DECLPDA_H__
 
+//namespace BFG
+//{
+
 /*
 ===============================================================================
 
@@ -329,5 +332,7 @@ private:
 	//mutable	int				originalEmails;
 	//mutable int				originalVideos;
 };
+
+//} // namespace BFG
 
 #endif /* !__DECLPDA_H__ */
