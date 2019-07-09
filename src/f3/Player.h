@@ -300,7 +300,7 @@ public:
 	int						quickSlot[ NUM_QUICK_SLOTS ];
 	
 	int						weapon_soulcube;
-	int						weapon_pda;
+	int						weapon_pipboy;
 	int						weapon_fists;
 	int						weapon_flashlight;
 	int						weapon_chainsaw;

@@ -259,7 +259,7 @@ idPlayer::idPlayer():
 	weaponSwitchTime		=  0;
 	weaponEnabled			= true;
 	weapon_soulcube			= -1;
-	weapon_pda				= -1;
+	weapon_pipboy			= -1;
 	weapon_fists			= -1;
 	weapon_chainsaw			= -1;
 	harvest_lock			= false;
@@ -4298,7 +4298,7 @@ void idPlayer::Weapon_Combat()
 				assert( idealWeapon.Get() >= 0 );
 				assert( idealWeapon.Get() < MAX_WEAPONS );
 				
-				if( currentWeapon != weapon_pda && !spawnArgs.GetBool( va( "weapon%d_toggle", currentWeapon ) ) )
+				if( currentWeapon != weapon_pipboy && !spawnArgs.GetBool( va( "weapon%d_toggle", currentWeapon ) ) )
 				{
 					previousWeapon = currentWeapon;
 				}
@@ -6330,9 +6330,9 @@ void idPlayer::PerformImpulse( int impulse )
 					{
 						TogglePipBoy();
 					}
-					else if( weapon_pda >= 0 )
+					else if( weapon_pipboy >= 0 )
 					{
-						SelectWeapon( weapon_pda, true );
+						SelectWeapon( weapon_pipboy, true );
 					}
 #if !defined(ID_RETAIL) && !defined(ID_RETAIL_INTERNAL)
 				}
