@@ -304,10 +304,6 @@ public:
 	int						weapon_fists;
 	int						weapon_flashlight;
 	int						weapon_chainsaw;
-	int						weapon_bloodstone;
-	int						weapon_bloodstone_active1;
-	int						weapon_bloodstone_active2;
-	int						weapon_bloodstone_active3;
 	bool					harvest_lock;
 	
 	int						heartRate;

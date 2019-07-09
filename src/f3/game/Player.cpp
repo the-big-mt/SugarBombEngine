@@ -262,10 +262,6 @@ idPlayer::idPlayer():
 	weapon_pda				= -1;
 	weapon_fists			= -1;
 	weapon_chainsaw			= -1;
-	weapon_bloodstone		= -1;
-	weapon_bloodstone_active1 = -1;
-	weapon_bloodstone_active2 = -1;
-	weapon_bloodstone_active3 = -1;
 	harvest_lock			= false;
 	
 	hudPowerup				= -1;
@@ -465,10 +461,6 @@ void idPlayer::Init()
 	weapon_fists			= SlotForWeapon( "weapon_fists" );
 	weapon_flashlight		= SlotForWeapon( "weapon_flashlight" );
 	weapon_chainsaw			= SlotForWeapon( "weapon_chainsaw" );
-	weapon_bloodstone		= SlotForWeapon( "weapon_bloodstone_passive" );
-	weapon_bloodstone_active1 = SlotForWeapon( "weapon_bloodstone_active1" );
-	weapon_bloodstone_active2 = SlotForWeapon( "weapon_bloodstone_active2" );
-	weapon_bloodstone_active3 = SlotForWeapon( "weapon_bloodstone_active3" );
 	harvest_lock			= false;
 	
 	lastDmgTime				= 0;
@@ -950,18 +942,6 @@ void idPlayer::Spawn()
 		{
 			GiveInventoryItem( "weapon_bloodstone_passive" );
 		}
-		if( !WeaponAvailable( "weapon_bloodstone_active1" ) )
-		{
-			GiveInventoryItem( "weapon_bloodstone_active1" );
-		}
-		if( !WeaponAvailable( "weapon_bloodstone_active2" ) )
-		{
-			GiveInventoryItem( "weapon_bloodstone_active2" );
-		}
-		if( !WeaponAvailable( "weapon_bloodstone_active3" ) )
-		{
-			GiveInventoryItem( "weapon_bloodstone_active3" );
-		}
 	}
 	
 	bloomEnabled			= false;
@@ -1053,10 +1033,6 @@ void idPlayer::Save( idSaveGame* savefile ) const
 	savefile->WriteInt( weapon_fists );
 	savefile->WriteInt( weapon_flashlight );
 	savefile->WriteInt( weapon_chainsaw );
-	savefile->WriteInt( weapon_bloodstone );
-	savefile->WriteInt( weapon_bloodstone_active1 );
-	savefile->WriteInt( weapon_bloodstone_active2 );
-	savefile->WriteInt( weapon_bloodstone_active3 );
 	savefile->WriteBool( harvest_lock );
 	savefile->WriteInt( hudPowerup );
 	savefile->WriteInt( lastHudPowerup );
@@ -1356,10 +1332,6 @@ void idPlayer::Restore( idRestoreGame* savefile )
 	savefile->ReadInt( weapon_fists );
 	savefile->ReadInt( weapon_flashlight );
 	savefile->ReadInt( weapon_chainsaw );
-	savefile->ReadInt( weapon_bloodstone );
-	savefile->ReadInt( weapon_bloodstone_active1 );
-	savefile->ReadInt( weapon_bloodstone_active2 );
-	savefile->ReadInt( weapon_bloodstone_active3 );
 	
 	savefile->ReadBool( harvest_lock );
 	savefile->ReadInt( hudPowerup );
