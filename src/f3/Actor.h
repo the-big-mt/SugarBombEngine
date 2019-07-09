@@ -270,6 +270,36 @@ public:
 	void updatePtr(const MWWorld::Ptr& newPtr);
 
 	CharacterController* getCharacterController();
+	void restoreDynamicStats(bool sleep);
+
+	void updateHeadTracking(const MWWorld::Ptr& targetActor, MWWorld::Ptr& headTrackTarget, float& sqrHeadTrackDistance);
+	
+	void addBoundItem (const std::string& itemId);
+	void removeBoundItem (const std::string& itemId);
+	
+	bool isAttackPreparing(const MWWorld::Ptr& ptr);
+	bool isRunning(const MWWorld::Ptr& ptr);
+	bool isSneaking(const MWWorld::Ptr& ptr);
+	
+	
+	bool isCastingSpell(const MWWorld::Ptr& ptr) const;
+	bool isReadyToBlock(const MWWorld::Ptr& ptr) const;
+	bool isAttackingOrSpell(const MWWorld::Ptr& ptr) const;
+private:
+	void calculateDynamicStats ();
+	
+	void adjustMagicEffects (const MWWorld::Ptr& creature);
+
+	void calculateCreatureStatModifiers (const MWWorld::Ptr& ptr, float duration);
+	void calculateNpcStatModifiers (const MWWorld::Ptr& ptr, float duration);
+
+	void calculateRestoration (const MWWorld::Ptr& ptr, float duration);
+
+	void updateDrowning (const MWWorld::Ptr& ptr, float duration, bool isKnockedOut, bool isPlayer);
+
+	void updateEquippedLight (const MWWorld::Ptr& ptr, float duration, bool mayEquip);
+
+	void updateCrimePursuit (const MWWorld::Ptr& ptr, float duration);
 protected:
 	friend class			idAnimState;
 	

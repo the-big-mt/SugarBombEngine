@@ -25,24 +25,6 @@ namespace MWMechanics
     {
             std::map<std::string, int> mDeathCount;
 
-            void addBoundItem (const std::string& itemId, const MWWorld::Ptr& actor);
-            void removeBoundItem (const std::string& itemId, const MWWorld::Ptr& actor);
-
-            void adjustMagicEffects (const MWWorld::Ptr& creature);
-
-            void calculateDynamicStats (const MWWorld::Ptr& ptr);
-
-            void calculateCreatureStatModifiers (const MWWorld::Ptr& ptr, float duration);
-            void calculateNpcStatModifiers (const MWWorld::Ptr& ptr, float duration);
-
-            void calculateRestoration (const MWWorld::Ptr& ptr, float duration);
-
-            void updateDrowning (const MWWorld::Ptr& ptr, float duration, bool isKnockedOut, bool isPlayer);
-
-            void updateEquippedLight (const MWWorld::Ptr& ptr, float duration, bool mayEquip);
-
-            void updateCrimePursuit (const MWWorld::Ptr& ptr, float duration);
-
             void killDeadActors ();
 
             void purgeSpellEffects (int casterActorId);
@@ -102,13 +84,8 @@ namespace MWMechanics
             */
             void engageCombat(const MWWorld::Ptr& actor1, const MWWorld::Ptr& actor2, std::map<const MWWorld::Ptr, const std::set<MWWorld::Ptr> >& cachedAllies, bool againstPlayer);
 
-            void updateHeadTracking(const MWWorld::Ptr& actor, const MWWorld::Ptr& targetActor,
-                                            MWWorld::Ptr& headTrackTarget, float& sqrHeadTrackDistance);
-
             void rest(bool sleep);
             ///< Update actors while the player is waiting or sleeping. This should be called every hour.
-
-            void restoreDynamicStats(const MWWorld::Ptr& actor, bool sleep);
 
             int getHoursToRest(const MWWorld::Ptr& ptr) const;
             ///< Calculate how many hours the given actor needs to rest in order to be fully healed
@@ -118,10 +95,6 @@ namespace MWMechanics
 
             int countDeaths (const std::string& id) const;
             ///< Return the number of deaths for actors with the given ID.
-
-            bool isAttackPreparing(const MWWorld::Ptr& ptr);
-            bool isRunning(const MWWorld::Ptr& ptr);
-            bool isSneaking(const MWWorld::Ptr& ptr);
 
             void forceStateUpdate(const MWWorld::Ptr &ptr);
 
@@ -163,11 +136,6 @@ namespace MWMechanics
             void readRecord (ESM::ESMReader& reader, uint32_t type);
 
             void clear(); // Clear death counter
-
-            bool isCastingSpell(const MWWorld::Ptr& ptr) const;
-            bool isReadyToBlock(const MWWorld::Ptr& ptr) const;
-            bool isAttackingOrSpell(const MWWorld::Ptr& ptr) const;
-
     private:
         PtrActorMap mActors;
         float mTimerDisposeSummonsCorpses;
