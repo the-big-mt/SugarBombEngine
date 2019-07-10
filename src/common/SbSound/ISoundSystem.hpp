@@ -135,7 +135,7 @@ struct soundImport_t
 	//idRenderSystem* 			renderSystem;			// render system
 	//idRenderModelManager* 		renderModelManager;		// render model manager
 	//idUserInterfaceManager* 	uiManager;				// user interface manager
-	//idDeclManager* 				declManager;			// declaration manager
+	idDeclManager* 				declManager;			// declaration manager
 	//idAASFileManager* 			AASFileManager;			// AAS file manager
 	//idCollisionModelManager* 	collisionModelManager;	// collision model manager
 };
@@ -143,7 +143,7 @@ struct soundImport_t
 struct soundExport_t
 {
 	int							version;				// API version
-	idSoundSystem* 				soundSystem;			// sound system
+	ISoundSystem* 				soundSystem;			// sound system
 };
 
 extern "C" using GetSoundAPI_t = soundExport_t *(*)( soundImport_t* import );
