@@ -44,6 +44,12 @@ struct netadr_t
 	netadrtype_t	type;
 	unsigned char	ip[4];
 	unsigned short	port;
+	
+	const char *ToString() const;
+	
+	bool IsLANAddress() const;
+	
+	bool CompareBase(const netadr_t &other) const;
 };
 
 #define	PORT_ANY			-1
