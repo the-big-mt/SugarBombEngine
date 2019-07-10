@@ -32,6 +32,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
+#include "SbInputTypes.hpp"
+
 namespace sbe
 {
 
@@ -104,7 +106,7 @@ struct IInputSystem
 	virtual void Shutdown() = 0;
 	
 	///
-	virtual const char *GetKeyName(keyNum_t keynum) = 0;
+	virtual const char *GetKeyName(keyNum_t keynum) const = 0;
 	
 	///
 	virtual int PollKeyboardInputEvents() = 0;
