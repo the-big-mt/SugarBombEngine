@@ -130,7 +130,7 @@ void CServerApp::InitFrameworkModule()
 	frameworkImport.cmdSystem				= mpCmdSystem.get();
 	frameworkImport.cvarSystem				= mpCVarSystem.get();
 	frameworkImport.fileSystem				= mpFileSystem;
-	frameworkImport.renderSystem				= renderSystem;
+	frameworkImport.renderSystem				= nullptr;
 	frameworkImport.declManager				= ::declManager;
 	
 	frameworkExport							= *GetFrameworkAPI( &frameworkImport );
