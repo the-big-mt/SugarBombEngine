@@ -132,6 +132,7 @@ void CServerApp::InitFrameworkModule()
 	frameworkImport.fileSystem				= mpFileSystem;
 	frameworkImport.renderSystem				= nullptr;
 	frameworkImport.declManager				= ::declManager;
+	frameworkImport.soundSystem				= nullptr;
 	
 	frameworkExport							= *GetFrameworkAPI( &frameworkImport );
 	
