@@ -31,9 +31,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "XA2_SoundHardware.h"
 //#include "snd_local.h"
-#if defined(USE_DOOMCLASSIC)
-#include "../../../doomclassic/doom/i_sound.h"
-#endif
 
 idCVar s_showLevelMeter( "s_showLevelMeter", "0", CVAR_BOOL | CVAR_ARCHIVE, "Show VU meter" );
 idCVar s_meterTopTime( "s_meterTopTime", "1000", CVAR_INTEGER | CVAR_ARCHIVE, "How long (in milliseconds) peaks are displayed on the VU meter" );
