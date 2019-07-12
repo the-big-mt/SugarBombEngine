@@ -234,6 +234,7 @@ void CClientApp::InitFrameworkModule()
 	frameworkImport.fileSystem				= mpFileSystem;
 	frameworkImport.renderSystem				= renderSystem;
 	frameworkImport.declManager				= ::declManager;
+	frameworkImport.soundSystem				= soundSystem;
 	
 	frameworkExport							= *GetFrameworkAPI( &frameworkImport );
 	
