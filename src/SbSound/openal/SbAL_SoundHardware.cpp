@@ -191,7 +191,7 @@ void listDevices_f( const idCmdArgs& args )
 	
 	idSoundHardware_OpenAL::PrintALCInfo( nullptr );
 	
-	idSoundHardware_OpenAL::PrintALCInfo( ( ALCdevice* )soundSystem->GetOpenALDevice() );
+	idSoundHardware_OpenAL::PrintALCInfo( ( ALCdevice* )mpSoundSystem->GetOpenALDevice() );
 }
 
 /*
@@ -201,7 +201,7 @@ idSoundHardware_OpenAL::Init
 */
 void idSoundHardware_OpenAL::Init()
 {
-	cmdSystem->AddCommand( "listDevices", listDevices_f, 0, "Lists the connected sound devices", nullptr );
+	mpCmdSystem->AddCommand( "listDevices", listDevices_f, 0, "Lists the connected sound devices", nullptr );
 	
 	mpSys->Printf( "Setup OpenAL device and context... " );
 	
@@ -409,7 +409,7 @@ void idSoundHardware_OpenAL::Update()
 		return;
 	}
 	
-	if( soundSystem->IsMuted() )
+	if( mpSoundSystem->IsMuted() )
 	{
 		alListenerf( AL_GAIN, 0.0f );
 	}
