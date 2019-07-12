@@ -39,6 +39,14 @@ If you have questions concerning this license or the applicable additional terms
 namespace sbe
 {
 
+// localization
+constexpr auto ID_LANG_ENGLISH{"english"};
+constexpr auto ID_LANG_FRENCH{"french"};
+constexpr auto ID_LANG_ITALIAN{"italian"};
+constexpr auto ID_LANG_GERMAN{"german"};
+constexpr auto ID_LANG_SPANISH{"spanish"};
+constexpr auto ID_LANG_JAPANESE{"japanese"};
+
 enum cpuid_t
 {
 	CPUID_NONE							= 0x00000,
@@ -157,6 +165,10 @@ struct idSys
 	
 	virtual void			OpenURL( const char* url, bool quit ) = 0;
 	virtual void			StartProcess( const char* exePath, bool quit ) = 0;
+	
+	virtual int GetLangsNum() const = 0;
+	virtual const char *GetLangName(int anIndex) const = 0;
+	
 	// BP: Moved here from idCommon
 	
 	/// Prints message to the console, which may cause a screen update if com_refreshOnPrint is set
