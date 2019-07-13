@@ -17,8 +17,6 @@
 #include "Pipe.hpp"
 #include "Utils.hpp"
 
-using namespace std;
-
 struct remotePlayers
 {
     char name[64];
@@ -33,15 +31,15 @@ static remotePlayers players[10];
 
 typedef void (*CallCommand)(void*, void*, void*, void*, void*, void*, void*, void*);
 
-mutex mInput;
-queue<string> qGUI_OnChat;
-queue<bool> qGUI_OnMode;
-queue<string> qGUI_OnClick;
-queue<pair<string, string>> qGUI_OnText;
-queue<pair<string, bool>> qGUI_OnCheckbox;
-queue<vector<string>> qGUI_OnSelect;
-queue<string> qGUI_OnReturn;
-queue<unsigned int> qActivate;
+std::mutex mInput;
+std::queue<std::string> qGUI_OnChat;
+std::queue<bool> qGUI_OnMode;
+std::queue<std::string> qGUI_OnClick;
+std::queue<std::pair<std::string, std::string>> qGUI_OnText;
+std::queue<std::pair<std::string, bool>> qGUI_OnCheckbox;
+std::queue<std::vector<std::string>> qGUI_OnSelect;
+std::queue<std::string> qGUI_OnReturn;
+std::queue<unsigned int> qActivate;
 unsigned int qFire;
 
 static HANDLE hProc;
@@ -92,7 +90,7 @@ static void AVFix();
 static void GetActivate();
 static void PlaceAtMe();
 static void FireWeapon();
-static vector<void*> delegated;
+static std::vector<void*> delegated;
 
 static HINSTANCE silverlock = NULL;
 static HINSTANCE vaultgui = NULL;
@@ -771,7 +769,7 @@ void GUI_OnSelection(const char* name, const char** selections)
 {
 	mInput.lock();
 
-	vector<string> select{name};
+	std::vector<std::string> select{name};
 
 	while (*selections)
 	{
@@ -791,7 +789,7 @@ void GUI_OnReturn(const char* name)
 	mInput.unlock();
 }
 
-void ExecuteCommand(vector<void*>& args, unsigned int r, bool delegate_flag)
+void ExecuteCommand(std::vector<void*>& args, unsigned int r, bool delegate_flag)
 {
 	if (args.size() != 8)
 		return;
@@ -1037,7 +1035,7 @@ players[1].player = false;
 		{
 			case PIPE_OP_COMMAND:
 			{
-				vector<void*> args;
+				std::vector<void*> args;
 				args.reserve(8);
 
 				unsigned int r = *((unsigned int*) content);
@@ -1078,7 +1076,7 @@ players[1].player = false;
 
 		while (!qGUI_OnChat.empty())
 		{
-			const string& chat = qGUI_OnChat.front();
+			const std::string& chat = qGUI_OnChat.front();
 
 			buffer[0] = PIPE_OP_RETURN_RAW;
 			*reinterpret_cast<unsigned int*>(buffer + 1) = 0x0008 | VAULTFUNCTION;
@@ -1104,7 +1102,7 @@ players[1].player = false;
 
 		while (!qGUI_OnClick.empty())
 		{
-			const string& name = qGUI_OnClick.front();
+			const std::string& name = qGUI_OnClick.front();
 
 			buffer[0] = PIPE_OP_RETURN_RAW;
 			*reinterpret_cast<unsigned int*>(buffer + 1) = 0x0020 | VAULTFUNCTION;
@@ -1189,7 +1187,7 @@ players[1].player = false;
 
 		while (!qGUI_OnReturn.empty())
 		{
-			const string& name = qGUI_OnReturn.front();
+			const std::string& name = qGUI_OnReturn.front();
 
 			buffer[0] = PIPE_OP_RETURN_RAW;
 			*reinterpret_cast<unsigned int*>(buffer + 1) = 0x0036 | VAULTFUNCTION;
