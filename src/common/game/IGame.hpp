@@ -210,8 +210,8 @@ const int GAME_API_VERSION		= 8;
 struct gameImport_t
 {
 	int							version;				// API version
-	idSys* 						sys;					// non-portable system services
-	idCommon* 					common;					// common
+	ISys* 						sys;					// non-portable system services
+	IGameFramework* 					common;					// common
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
 	idFileSystem* 				fileSystem;				// file system
