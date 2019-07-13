@@ -1,0 +1,37 @@
+
+object weapon_fists : weapon_base {
+	float		side;
+
+	void		init();
+	
+	void		Lower();
+	void		Raise();
+	void		Idle();
+	void		Fire();
+	void		ExitCinematic();
+	string		GetFireAnim();
+};
+
+void weapon_fists::init() {
+}
+
+void weapon_fists::Raise() {
+}
+
+void weapon_fists::Lower() {
+}
+
+void weapon_fists::Idle() {
+}
+
+void weapon_fists::Fire() {
+	do {
+		melee();
+	} while ( WEAPON_ATTACK || WEAPON_NETFIRING );
+}
+
+void weapon_fists::ExitCinematic() {
+}
+
+string weapon_fists::GetFireAnim() {
+}

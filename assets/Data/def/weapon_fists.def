@@ -1,8 +1,8 @@
-entityDef weapon_kick {
-	"inv_name"		"Kick"
-	"inv_weapon"		"weapon_kick"
-	"weapon_scriptobject"	"weapon_kick"
-	"def_melee"		"damage_kick"
+entityDef weapon_fists {
+	"inv_name"		"Fists"
+	"inv_weapon"		"weapon_fists"
+	"weapon_scriptobject"	"weapon_fists"
+	"def_melee"		"damage_fists"
 	"melee_distance"	"64"
 	"ammoType"		""
 	"ammoRequired"		"0"
@@ -17,10 +17,10 @@ entityDef weapon_kick {
 
 	"impact_damage_effect"	"1"
 
-	"stealing"		"0"	// kicks don't steal other players weapons
+	"stealing"		"0"	// fists don't steal other players weapons (or do they?)
 }
 
-entityDef damage_kick {
+entityDef damage_fists {
 	"damage"		"40"
 	"kickDir"		"-1 0 0"
 	"mtr_blob"		"genericDamage"

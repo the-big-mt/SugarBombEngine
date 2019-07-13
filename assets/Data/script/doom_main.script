@@ -8,7 +8,7 @@
 #include "script/weapon_base.script"
 
 #include "script/player.script"
-#include "script/weapon_kick.script"
+#include "script/weapon_fists.script"
 #include "script/maps.script"
 
 void doom_main() {
