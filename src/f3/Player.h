@@ -303,7 +303,6 @@ public:
 	int						weapon_pipboy;
 	int						weapon_fists;
 	int						weapon_flashlight;
-	int						weapon_chainsaw;
 	bool					harvest_lock;
 	
 	int						heartRate;

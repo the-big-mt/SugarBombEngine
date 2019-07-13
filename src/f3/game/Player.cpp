@@ -261,7 +261,6 @@ idPlayer::idPlayer():
 	weapon_soulcube			= -1;
 	weapon_pipboy			= -1;
 	weapon_fists			= -1;
-	weapon_chainsaw			= -1;
 	harvest_lock			= false;
 	
 	hudPowerup				= -1;
@@ -460,7 +459,6 @@ void idPlayer::Init()
 	weapon_pipboy				= SlotForWeapon( "weapon_pipboy" );
 	weapon_fists			= SlotForWeapon( "weapon_fists" );
 	weapon_flashlight		= SlotForWeapon( "weapon_flashlight" );
-	weapon_chainsaw			= SlotForWeapon( "weapon_chainsaw" );
 	harvest_lock			= false;
 	
 	lastDmgTime				= 0;
@@ -1032,7 +1030,6 @@ void idPlayer::Save( idSaveGame* savefile ) const
 	savefile->WriteInt( weapon_pipboy );
 	savefile->WriteInt( weapon_fists );
 	savefile->WriteInt( weapon_flashlight );
-	savefile->WriteInt( weapon_chainsaw );
 	savefile->WriteBool( harvest_lock );
 	savefile->WriteInt( hudPowerup );
 	savefile->WriteInt( lastHudPowerup );
@@ -1331,7 +1328,6 @@ void idPlayer::Restore( idRestoreGame* savefile )
 	savefile->ReadInt( weapon_pipboy );
 	savefile->ReadInt( weapon_fists );
 	savefile->ReadInt( weapon_flashlight );
-	savefile->ReadInt( weapon_chainsaw );
 	
 	savefile->ReadBool( harvest_lock );
 	savefile->ReadInt( hudPowerup );
