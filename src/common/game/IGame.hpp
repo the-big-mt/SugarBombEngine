@@ -213,6 +213,9 @@ const int GAME_API_VERSION		= 8;
 struct gameImport_t
 {
 	int							version;				// API version
+	
+	// Tier 1 - Core Engine Functionality
+	
 	ISys* 						sys;					// non-portable system services
 	IGameFramework* 					common;					// common
 	idCmdSystem* 				cmdSystem;				// console command system
@@ -226,6 +229,10 @@ struct gameImport_t
 	idAASFileManager* 			AASFileManager;			// AAS file manager
 	idCollisionModelManager* 	collisionModelManager;	// collision model manager
 	IInputManager *mpInputManager{nullptr}; ///< input manager
+	
+	// Tier 2 - Genre-Specific Functionality
+	
+	IDialogueManager *dialogueManager{nullptr};
 };
 
 struct gameExport_t
