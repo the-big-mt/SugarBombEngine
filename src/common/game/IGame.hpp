@@ -214,9 +214,9 @@ struct gameImport_t
 	IGameFramework* 					common;					// common
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
-	idFileSystem* 				fileSystem;				// file system
-	idRenderSystem* 			renderSystem;			// render system
-	idSoundSystem* 				soundSystem;			// sound system
+	IFileSystem* 				fileSystem;				// file system
+	IRenderSystem* 			renderSystem;			// render system
+	ISoundSystem* 				soundSystem;			// sound system
 	idRenderModelManager* 		renderModelManager;		// render model manager
 	idUserInterfaceManager* 	uiManager;				// user interface manager
 	idDeclManager* 				declManager;			// declaration manager
