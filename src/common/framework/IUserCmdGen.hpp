@@ -31,6 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
+struct usercmd_t;
+
 typedef enum
 {
 	INHIBIT_SESSION = 0,
