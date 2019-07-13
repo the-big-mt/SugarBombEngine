@@ -222,6 +222,7 @@ struct gameImport_t
 	idDeclManager* 				declManager;			// declaration manager
 	idAASFileManager* 			AASFileManager;			// AAS file manager
 	idCollisionModelManager* 	collisionModelManager;	// collision model manager
+	IInputManager *mpInputManager{nullptr}; ///< input manager
 };
 
 struct gameExport_t
