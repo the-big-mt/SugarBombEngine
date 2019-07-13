@@ -228,7 +228,7 @@ struct gameImport_t
 struct gameExport_t
 {
 	int							version;				// API version
-	idGame* 					game;					// interface to run the game
+	IGame* 					game;					// interface to run the game
 	idGameEdit* 				gameEdit;				// interface for in-game editing
 };
 
