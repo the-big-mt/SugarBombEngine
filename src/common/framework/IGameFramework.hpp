@@ -107,6 +107,7 @@ struct frameworkImport_t
 	ISoundSystem* 				soundSystem;			// sound system
 	idDeclManager*				declManager;			// declaration manager
 	//idUserInterfaceManager* 	uiManager;				// user interface manager
+	IRenderSystem*				renderSystem;			// render system
 };
 
 struct frameworkExport_t
