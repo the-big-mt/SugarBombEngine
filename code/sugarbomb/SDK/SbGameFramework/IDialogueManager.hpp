@@ -1,3 +1,8 @@
+// Copyright (C) 2008-2018 OpenMW contributors
+// Copyright (C) 2019 BlackPhrase
+
+// TODO: this thing supports only SP?
+
 #ifndef GAME_MWBASE_DIALOGUEMANAGER_H
 #define GAME_MWBASE_DIALOGUEMANAGER_H
 
@@ -40,7 +45,7 @@ namespace MWBase
             {
             public:
                 virtual ~ResponseCallback() = default;
-                virtual void addResponse(const std::string& title, const std::string& text) = 0;
+                virtual void addResponse(const char *title, const char *text) = 0;
             };
 
             DialogueManager() {}
@@ -53,18 +58,18 @@ namespace MWBase
 
             virtual bool startDialogue (const MWWorld::Ptr& actor, ResponseCallback* callback) = 0;
 
-            virtual void addTopic (const std::string& topic) = 0;
+            virtual void addTopic (const char *topic) = 0;
 
-            virtual void addChoice (const std::string& text,int choice) = 0;
+            virtual void addChoice (const char *text,int choice) = 0;
             virtual const std::vector<std::pair<std::string, int> >& getChoices() = 0;
 
             virtual bool isGoodbye() = 0;
 
             virtual void goodbye() = 0;
 
-            virtual void say(const MWWorld::Ptr &actor, const std::string &topic) = 0;
+            virtual void say(const MWWorld::Ptr &actor, const char *topic) = 0;
 
-            virtual void keywordSelected (const std::string& keyword, ResponseCallback* callback) = 0;
+            virtual void keywordSelected (const char *keyword, ResponseCallback* callback) = 0;
             virtual void goodbyeSelected() = 0;
             virtual void questionAnswered (int answer, ResponseCallback* callback) = 0;
 
@@ -85,12 +90,12 @@ namespace MWBase
             virtual void readRecord (ESM::ESMReader& reader, uint32_t type) = 0;
 
             /// Changes faction1's opinion of faction2 by \a diff.
-            virtual void modFactionReaction (const std::string& faction1, const std::string& faction2, int diff) = 0;
+            virtual void modFactionReaction (const char *faction1, const char *faction2, int diff) = 0;
 
-            virtual void setFactionReaction (const std::string& faction1, const std::string& faction2, int absolute) = 0;
+            virtual void setFactionReaction (const char *faction1, const char *faction2, int absolute) = 0;
 
             /// @return faction1's opinion of faction2
-            virtual int getFactionReaction (const std::string& faction1, const std::string& faction2) const = 0;
+            virtual int getFactionReaction (const char *faction1, const char *faction2) const = 0;
 
             /// Removes the last added topic response for the given actor from the journal
             virtual void clearInfoActor (const MWWorld::Ptr& actor) const = 0;
