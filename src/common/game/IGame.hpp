@@ -38,6 +38,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
+#define TIME_GROUP1		0
+#define TIME_GROUP2		1
+
 /*
 ===============================================================================
 
