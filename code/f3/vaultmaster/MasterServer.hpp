@@ -17,20 +17,17 @@
 #define RAKNET_PORT        1660
 #define RAKNET_CONNECTIONS 128
 
-using namespace RakNet;
-using namespace std;
-
-typedef map<SystemAddress, ServerEntry> ServerMap;
+typedef std::map<RakNet::SystemAddress, RakNet::ServerEntry> ServerMap;
 
 class MasterServer
 {
 
 	private:
-		static RakPeerInterface* peer;
-		static SocketDescriptor* sockdescr;
+		static RakNet::RakPeerInterface* peer;
+		static RakNet::SocketDescriptor* sockdescr;
 
 		static ServerMap serverList;
-		static void RemoveServer(SystemAddress addr);
+		static void RemoveServer(RakNet::SystemAddress addr);
 
 		static void MasterThread();
 		static bool thread;

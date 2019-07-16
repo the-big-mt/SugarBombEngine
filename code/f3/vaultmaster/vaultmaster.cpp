@@ -25,8 +25,8 @@ int main()
 	Utils::timestamp();
 	printf("Initializing RakNet...\n");
 
-	thread hMasterThread = MasterServer::InitalizeRakNet();
-	thread hInputThread = thread(InputThread);
+	std::thread hMasterThread = MasterServer::InitalizeRakNet();
+	std::thread hInputThread = std::thread(InputThread);
 
 	hMasterThread.join();
 
