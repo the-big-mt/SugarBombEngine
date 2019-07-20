@@ -130,14 +130,6 @@ struct Win32Vars_t
 	static idCVar	win_allowMultipleInstances;
 	
 	CRITICAL_SECTION criticalSections[MAX_CRITICAL_SECTIONS];
-	
-	HINSTANCE		hInstDI;			// direct input
-	
-	LPDIRECTINPUT8			g_pdi;
-	LPDIRECTINPUTDEVICE8	g_pMouse;
-	LPDIRECTINPUTDEVICE8	g_pKeyboard;
-	idJoystickWin32			g_Joystick;
-	
 };
 
 extern Win32Vars_t	win32;
