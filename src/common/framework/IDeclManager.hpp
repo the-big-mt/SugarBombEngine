@@ -67,29 +67,7 @@ If you have questions concerning this license or the applicable additional terms
 class idMaterial;
 class idDeclSkin;
 class idSoundShader;
-
-typedef enum
-{
-	DECL_TABLE				= 0,
-	DECL_MATERIAL,
-	DECL_SKIN,
-	DECL_SOUND,
-	DECL_ENTITYDEF,
-	DECL_MODELDEF,
-	DECL_FX,
-	DECL_PARTICLE,
-	DECL_AF,
-	DECL_PDA,
-	DECL_VIDEO,
-	DECL_AUDIO,
-	DECL_EMAIL,
-	DECL_MODELEXPORT,
-	DECL_MAPDEF,
-	
-	// new decl types can be added here
-	
-	DECL_MAX_TYPES			= 32
-} declType_t;
+enum declType_t : int;
 
 class idDeclManager
 {
