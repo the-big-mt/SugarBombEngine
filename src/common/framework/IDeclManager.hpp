@@ -69,6 +69,13 @@ class idDeclSkin;
 class idSoundShader;
 enum declType_t : int;
 
+const int DECL_LEXER_FLAGS	=	LEXFL_NOSTRINGCONCAT |				// multiple strings separated by whitespaces are not concatenated
+								LEXFL_NOSTRINGESCAPECHARS |			// no escape characters inside strings
+								LEXFL_ALLOWPATHNAMES |				// allow path seperators in names
+								LEXFL_ALLOWMULTICHARLITERALS |		// allow multi character literals
+								LEXFL_ALLOWBACKSLASHSTRINGCONCAT |	// allow multiple strings separated by '\' to be concatenated
+								LEXFL_NOFATALERRORS;				// just set a flag instead of fatal erroring
+
 class idDeclManager
 {
 public:
