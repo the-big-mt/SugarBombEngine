@@ -177,13 +177,13 @@ public:
 	// Adds a count to the tracked number of events, these events can be applied to multiple achievements
 	void		EventCompletesAchievement( const achievement_t eventId );
 	
-	int			GetLastImpKilledTime()
+	int			GetLastGhoulKilledTime() // TODO: GetLastCreatureKilledTime? GetLastNPCKilledTime?
 	{
-		return lastImpKilledTime;
+		return lastGhoulKilledTime;
 	}
-	void		SetLastImpKilledTime( int time )
+	void		SetLastGhoulKilledTime( int time ) // TODO: SetLastCreatureKilledTime? SetLastNPCKilledTime?
 	{
-		lastImpKilledTime = time;
+		lastGhoulKilledTime = time;
 	}
 	int			GetLastPlayerKilledTime()
 	{
@@ -216,7 +216,7 @@ private:
 	idArray<int, ACHIEVEMENTS_NUM> counts; // How many times has each achievement been given
 	
 	int				lastPlayerKilledTime;
-	int				lastImpKilledTime;
+	int				lastGhoulKilledTime;
 	bool			playerTookDamage;
 	int				currentHellTimeKills;
 	
