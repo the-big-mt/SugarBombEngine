@@ -57,6 +57,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys_lobby_backend.h"
 #include "sys_lobby.h"
 
+//namespace BFG
+//{
+
 class idSaveGameProcessorNextMap;
 class idSaveGameProcessorSaveGame;
 class idSaveGameProcessorLoadGame;
@@ -1004,3 +1007,4 @@ public:
 	idSessionLocal* sessionLocal;
 };
 
+//} // namespace BFG
