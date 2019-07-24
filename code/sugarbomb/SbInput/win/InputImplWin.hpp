@@ -40,7 +40,7 @@ If you have questions concerning this license or the applicable additional terms
 
 struct idUsercmdGen;
 
-class SbInputImplWin final : public IInputSystem
+class SbInputImplWin final : public sbe::IInputSystem
 {
 public:
 	SbInputImplWin(sbe::ISys *apSys, idUsercmdGen *apUserCmdGen, HWND ahWnd);
@@ -56,7 +56,7 @@ public:
 	
 	void GrabMouseCursor(bool grabIt) override;
 	
-	int PollMouseInputEvents(int mouseEvents[MAX_MOUSE_EVENTS][2]) override;
+	int PollMouseInputEvents(int mouseEvents[sbe::MAX_MOUSE_EVENTS][2]) override;
 	
 	void SetRumble(int device, int low, int hi) override;
 	
@@ -75,7 +75,7 @@ private:
 	bool StartupKeyboard();
 	void DeactivateKeyboard();
 	
-	static idCVar in_mouse;
+	static sbe::idCVar in_mouse;
 	
 	sbe::ISys *mpSys{nullptr};
 	idUsercmdGen *usercmdGen{nullptr};

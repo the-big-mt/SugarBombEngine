@@ -275,7 +275,7 @@ void SbInputImplWin::EndKeyboardInputEvents()
 
 //=====================================================================================
 
-int SbInputImplWin::PollMouseInputEvents( int mouseEvents[MAX_MOUSE_EVENTS][2] )
+int SbInputImplWin::PollMouseInputEvents( int mouseEvents[sbe::MAX_MOUSE_EVENTS][2] )
 {
 	DWORD				dwElements;
 	HRESULT				hr;
@@ -303,9 +303,9 @@ int SbInputImplWin::PollMouseInputEvents( int mouseEvents[MAX_MOUSE_EVENTS][2] )
 		return 0;
 	}
 	
-	if( dwElements > MAX_MOUSE_EVENTS )
+	if( dwElements > sbe::MAX_MOUSE_EVENTS )
 	{
-		dwElements = MAX_MOUSE_EVENTS;
+		dwElements = sbe::MAX_MOUSE_EVENTS;
 	}
 	
 	for( DWORD i = 0; i < dwElements; i++ )
@@ -551,7 +551,7 @@ bool SbInputImplWin::InitDIMouse()
 	ActivateMouse();
 	
 	// clear any pending samples
-	int	mouseEvents[MAX_MOUSE_EVENTS][2];
+	int	mouseEvents[sbe::MAX_MOUSE_EVENTS][2];
 	Sys_PollMouseInputEvents( mouseEvents );
 	
 	mpSys->Printf( "mouse: DirectInput initialized.\n" );

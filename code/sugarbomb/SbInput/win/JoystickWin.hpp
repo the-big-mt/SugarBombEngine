@@ -97,7 +97,7 @@ protected:
 	{
 		int event;
 		int value;
-	}						events[ MAX_JOY_EVENT ];
+	}						events[ sbe::MAX_JOY_EVENT ];
 	
 	controllerState_t		controllers[ MAX_JOYSTICKS ];
 	

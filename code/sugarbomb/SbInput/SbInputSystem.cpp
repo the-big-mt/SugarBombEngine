@@ -40,18 +40,18 @@ GetInputAPI
 ============
 */
 #ifndef SBE_SINGLE_BINARY
-static inputExport_t inputExport;
+static sbe::inputExport_t inputExport;
 
-idCmdSystem *cmdSystem{nullptr};
-idCVarSystem *cvarSystem{nullptr};
-//idFileSystem *fileSystem{nullptr};
+sbe::idCmdSystem *cmdSystem{nullptr};
+sbe::idCVarSystem *cvarSystem{nullptr};
 sbe::ISys *sys{nullptr};
+//sbe::IFileSystem *fileSystem{nullptr};
 
-idCVar *idCVar::staticVars{nullptr};
+sbe::idCVar *sbe::idCVar::staticVars{nullptr};
 
-C_EXPORT inputExport_t *GetInputAPI(inputImport_t *import)
+C_EXPORT sbe::inputExport_t *GetInputAPI(sbe::inputImport_t *import)
 {
-	if(import->version == INPUT_API_VERSION)
+	if(import->version == sbe::INPUT_API_VERSION)
 	{
 		// set interface pointers used by the module
 		sys = import->sys;
@@ -68,7 +68,7 @@ C_EXPORT inputExport_t *GetInputAPI(inputImport_t *import)
 	//idLib::fileSystem = fileSystem;
 	
 	// setup export interface
-	inputExport.version = INPUT_API_VERSION;
+	inputExport.version = sbe::INPUT_API_VERSION;
 	inputExport.inputSystem = CreateInputSystem(sys);
 	
 	return &inputExport;
