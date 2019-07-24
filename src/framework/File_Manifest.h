@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2018-2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -29,9 +30,12 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __FILE_MANIFEST_H__
 #define __FILE_MANIFEST_H__
 
-//#include "../idlib/containers/StaticList.h"      // for idStaticList
-//#include "../framework/File.h"          // for idFile, idFileLocal
-//#include "../idlib/containers/StrList.h"         // for idStrList
+#include "idlib/containers/StaticList.h"
+#include "idlib/containers/HashIndex.h"
+#include "idlib/containers/StrList.h"
+#include "idlib/containers/List.h"
+
+//#include "sys/IFile.hpp" // for idFile, idFileLocal
 
 //namespace BFG
 //{
