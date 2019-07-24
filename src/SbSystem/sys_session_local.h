@@ -143,11 +143,11 @@ public:
 	}
 	virtual idPlayerProfile* 			GetProfileFromLobbyUser( lobbyUserID_t lobbyUserID )
 	{
-		return NULL;
+		return nullptr;
 	}
 	virtual idLocalUser* 				GetLocalUserFromLobbyUser( lobbyUserID_t lobbyUserID )
 	{
-		return NULL;
+		return nullptr;
 	}
 	virtual int							GetNumLobbyUsersOnTeam( int teamNumber ) const
 	{
