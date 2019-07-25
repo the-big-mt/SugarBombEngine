@@ -63,6 +63,8 @@ idCmdSystemLocal
 class idCmdSystemLocal : public sbe::idCmdSystem
 {
 public:
+	idCmdSystemLocal(sbe::ISys *apSys, sbe::IFileSystem *apFileSystem) : mpSys(apSys), mpFileSystem(apFileSystem){}
+	
 	virtual void			Init();
 	virtual void			Shutdown();
 	
@@ -130,6 +132,9 @@ private:
 	static void				Parse_f( const idCmdArgs& args );
 	static void				Wait_f( const idCmdArgs& args );
 	static void				PrintMemInfo_f( const idCmdArgs& args );
+private:
+	sbe::ISys *mpSys{nullptr};
+	sbe::IFileSystem *mpFileSystem{nullptr};
 };
 
 idCmdSystemLocal			cmdSystemLocal;
