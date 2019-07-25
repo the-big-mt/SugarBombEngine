@@ -196,10 +196,10 @@ void idCmdSystemLocal::ListByFlags( const idCmdArgs& args, cmdFlags_t flags )
 	{
 		cmd = cmdList[i];
 		
-		common->Printf( "  %-21s %s\n", cmd->name, cmd->description );
+		mpSys->Printf( "  %-21s %s\n", cmd->name, cmd->description );
 	}
 	
-	common->Printf( "%i commands\n", cmdList.Num() );
+	mpSys->Printf( "%i commands\n", cmdList.Num() );
 }
 
 /*
@@ -275,7 +275,7 @@ void idCmdSystemLocal::Exec_f( const idCmdArgs& args )
 	
 	if( args.Argc() != 2 )
 	{
-		common->Printf( "exec <filename> : execute a script file\n" );
+		mpSys->Printf( "exec <filename> : execute a script file\n" );
 		return;
 	}
 	
@@ -284,10 +284,10 @@ void idCmdSystemLocal::Exec_f( const idCmdArgs& args )
 	len = fileSystem->ReadFile( filename, reinterpret_cast<void**>( &f ), nullptr );
 	if( !f )
 	{
-		common->Printf( "couldn't exec %s\n", args.Argv( 1 ) );
+		mpSys->Printf( "couldn't exec %s\n", args.Argv( 1 ) );
 		return;
 	}
-	common->Printf( "execing %s\n", args.Argv( 1 ) );
+	mpSys->Printf( "execing %s\n", args.Argv( 1 ) );
 	
 	cmdSystemLocal.BufferCommandText( CMD_EXEC_INSERT, f );
 	
@@ -307,7 +307,7 @@ void idCmdSystemLocal::Vstr_f( const idCmdArgs& args )
 	
 	if( args.Argc() != 2 )
 	{
-		common->Printf( "vstr <variablename> : execute a variable command\n" );
+		mpSys->Printf( "vstr <variablename> : execute a variable command\n" );
 		return;
 	}
 	
@@ -329,9 +329,9 @@ void idCmdSystemLocal::Echo_f( const idCmdArgs& args )
 	
 	for( i = 1; i < args.Argc(); i++ )
 	{
-		common->Printf( "%s ", args.Argv( i ) );
+		mpSys->Printf( "%s ", args.Argv( i ) );
 	}
-	common->Printf( "\n" );
+	mpSys->Printf( "\n" );
 }
 
 /*
@@ -366,7 +366,7 @@ void idCmdSystemLocal::Parse_f( const idCmdArgs& args )
 	
 	for( i = 0; i < args.Argc(); i++ )
 	{
-		common->Printf( "%i: %s\n", i, args.Argv( i ) );
+		mpSys->Printf( "%i: %s\n", i, args.Argv( i ) );
 	}
 }
 
@@ -440,7 +440,7 @@ void idCmdSystemLocal::AddCommand( const char* cmdName, cmdFunction_t function, 
 		{
 			if( function != cmd->function )
 			{
-				common->Printf( "idCmdSystemLocal::AddCommand: %s already defined\n", cmdName );
+				mpSys->Printf( "idCmdSystemLocal::AddCommand: %s already defined\n", cmdName );
 			}
 			return;
 		}
@@ -572,7 +572,7 @@ void idCmdSystemLocal::ExecuteTokenizedString( const idCmdArgs& args )
 			
 			if( ( cmd->flags & ( CMD_FL_CHEAT | CMD_FL_TOOL ) ) && common->IsMultiplayer() && !net_allowCheats.GetBool() )
 			{
-				common->Printf( "Command '%s' not valid in multiplayer mode.\n", cmd->name );
+				mpSys->Printf( "Command '%s' not valid in multiplayer mode.\n", cmd->name );
 				return;
 			}
 			// perform the action
@@ -594,7 +594,7 @@ void idCmdSystemLocal::ExecuteTokenizedString( const idCmdArgs& args )
 		return;
 	}
 	
-	common->Printf( "Unknown command '%s'\n", args.Argv( 0 ) );
+	mpSys->Printf( "Unknown command '%s'\n", args.Argv( 0 ) );
 }
 
 /*
@@ -625,7 +625,7 @@ void idCmdSystemLocal::InsertCommandText( const char* text )
 	len = strlen( text ) + 1;
 	if( len + textLength > ( int )sizeof( textBuf ) )
 	{
-		common->Printf( "idCmdSystemLocal::InsertText: buffer overflow\n" );
+		mpSys->Printf( "idCmdSystemLocal::InsertText: buffer overflow\n" );
 		return;
 	}
 	
@@ -659,7 +659,7 @@ void idCmdSystemLocal::AppendCommandText( const char* text )
 	
 	if( textLength + l >= ( int )sizeof( textBuf ) )
 	{
-		common->Printf( "idCmdSystemLocal::AppendText: buffer overflow\n" );
+		mpSys->Printf( "idCmdSystemLocal::AppendText: buffer overflow\n" );
 		return;
 	}
 	memcpy( textBuf + textLength, text, l );
@@ -692,7 +692,7 @@ void idCmdSystemLocal::BufferCommandText( cmdExecution_t exec, const char* text 
 		}
 		default:
 		{
-			common->FatalError( "idCmdSystemLocal::BufferCommandText: bad exec type" );
+			mpSys->FatalError( "idCmdSystemLocal::BufferCommandText: bad exec type" );
 		}
 	}
 }
@@ -719,7 +719,7 @@ void idCmdSystemLocal::BufferCommandArgs( cmdExecution_t exec, const idCmdArgs& 
 		}
 		default:
 		{
-			common->FatalError( "idCmdSystemLocal::BufferCommandArgs: bad exec type" );
+			mpSys->FatalError( "idCmdSystemLocal::BufferCommandArgs: bad exec type" );
 		}
 	}
 }
