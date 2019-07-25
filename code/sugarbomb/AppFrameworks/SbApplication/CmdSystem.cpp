@@ -281,7 +281,7 @@ void idCmdSystemLocal::Exec_f( const idCmdArgs& args )
 	
 	filename = args.Argv( 1 );
 	filename.DefaultFileExtension( ".cfg" );
-	len = fileSystem->ReadFile( filename, reinterpret_cast<void**>( &f ), nullptr );
+	len = mpFileSystem->ReadFile( filename, reinterpret_cast<void**>( &f ), nullptr );
 	if( !f )
 	{
 		mpSys->Printf( "couldn't exec %s\n", args.Argv( 1 ) );
@@ -291,7 +291,7 @@ void idCmdSystemLocal::Exec_f( const idCmdArgs& args )
 	
 	cmdSystemLocal.BufferCommandText( CMD_EXEC_INSERT, f );
 	
-	fileSystem->FreeFile( f );
+	mpFileSystem->FreeFile( f );
 }
 
 /*
@@ -846,13 +846,13 @@ void idCmdSystemLocal::ArgCompletion_FolderExtension( const idCmdArgs& args, voi
 			name = args.Argv( 0 ) + ( " " + name ) + "/";
 			completionParms.Append( name );
 		}
-		fileSystem->FreeFileList( names );
+		mpFileSystem->FreeFileList( names );
 		
 		// list files
 		va_start( argPtr, stripFolder );
 		for( extension = va_arg( argPtr, const char* ); extension; extension = va_arg( argPtr, const char* ) )
 		{
-			names = fileSystem->ListFiles( path, extension, true, true );
+			names = mpFileSystem->ListFiles( path, extension, true, true );
 			for( i = 0; i < names->GetNumFiles(); i++ )
 			{
 				idStr name = names->GetFile( i );
@@ -867,7 +867,7 @@ void idCmdSystemLocal::ArgCompletion_FolderExtension( const idCmdArgs& args, voi
 				name = args.Argv( 0 ) + ( " " + name );
 				completionParms.Append( name );
 			}
-			fileSystem->FreeFileList( names );
+			mpFileSystem->FreeFileList( names );
 		}
 		va_end( argPtr );
 	}
