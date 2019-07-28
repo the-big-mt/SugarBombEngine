@@ -47,7 +47,7 @@ If you have questions concerning this license or the applicable additional terms
 // non-portable system services
 #include "sys/ISys.hpp"
 
-#include "network/NetworkTypes.hpp"
+#include "SbNetwork/NetworkTypes.hpp"
 
 // id lib
 #include "Lib.h"
@@ -58,7 +58,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "framework/ICmdSystem.hpp"
 #include "framework/ICVarSystem.hpp"
 #include "framework/ICommon.hpp"
-#include "../framework/Serializer.h"
+#include "framework/Serializer.h"
 
 #include "sys/IFile.hpp"
 #include "sys/IFileSystem.hpp"
