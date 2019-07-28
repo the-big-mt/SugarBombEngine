@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -43,8 +44,6 @@ If you have questions concerning this license or the applicable additional terms
 
 //-----------------------------------------------------
 
-#define ID_TIME_T int64 // Signed because -1 means "File not found" and we don't want that to compare > than any other time
-
 // non-portable system services
 #include "sys/ISys.hpp"
 
@@ -63,11 +62,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "sys/IFile.hpp"
 #include "sys/IFileSystem.hpp"
-
-// We have expression parsing and evaluation code in multiple places:
-// materials, sound shaders, and guis. We should unify them.
-const int MAX_EXPRESSION_OPS = 4096;
-const int MAX_EXPRESSION_REGISTERS = 4096;
 
 // renderer
 
