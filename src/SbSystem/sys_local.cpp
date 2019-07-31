@@ -232,6 +232,16 @@ void idSysLocal::FPU_EnableExceptions( int exceptions )
 	Sys_FPU_EnableExceptions( exceptions );
 }
 
+int idSysLocal::GetLangsNum() const
+{
+	return Sys_NumLangs();
+}
+
+const char *idSysLocal::GetLangName(int anIndex) const
+{
+	return Sys_Lang(anIndex);
+}
+
 /*
 ==================
 idCommonLocal::VPrintf

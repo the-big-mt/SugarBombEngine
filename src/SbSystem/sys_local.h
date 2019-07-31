@@ -85,6 +85,10 @@ public:
 	
 	virtual void			OpenURL( const char* url, bool quit );
 	virtual void			StartProcess( const char* exeName, bool quit );
+	
+	virtual int GetLangsNum() const override;
+	virtual const char *GetLangName(int anIndex) const override;
+	
 };
 
 //} // namespace BFG
