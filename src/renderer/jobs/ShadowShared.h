@@ -38,7 +38,7 @@ class idBounds;
 class idShadowVert;
 class idVec3;
 
-enum shadowVolumeState_t
+enum shadowVolumeState_t : int
 {
 	SHADOWVOLUME_DONE		= 0,
 	SHADOWVOLUME_UNFINISHED	= 1
