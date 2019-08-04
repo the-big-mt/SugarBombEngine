@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_ASSERT_H__
 #define __SYS_ASSERT_H__
 
-//#include <stdint.h>                     // for uintptr_t
+//#include <cstdint> // for uintptr_t
 
 //namespace BFG
 //{

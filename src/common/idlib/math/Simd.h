@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -29,8 +30,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MATH_SIMD_H__
 #define __MATH_SIMD_H__
 
-//#include "../sys/sys_public.h"
-//#include "../idlib/geometry/DrawVert.h"  // for idDrawVert
+//#include "sys/ISys.hpp"
+//#include "idlib/geometry/DrawVert.h"  // for idDrawVert
 
 //namespace BFG
 //{

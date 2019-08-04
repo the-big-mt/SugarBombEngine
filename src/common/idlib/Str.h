@@ -93,6 +93,7 @@ enum utf8Encoding_t
 #define _memicmp		use_idStr_Icmpn
 
 class idVec4;
+class idCmdArgs;
 
 #ifndef FILE_HASH_SIZE
 #define FILE_HASH_SIZE		1024
