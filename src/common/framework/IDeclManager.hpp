@@ -64,6 +64,7 @@ If you have questions concerning this license or the applicable additional terms
 ===============================================================================
 */
 
+struct idDecl;
 class idMaterial;
 class idDeclSkin;
 class idSoundShader;

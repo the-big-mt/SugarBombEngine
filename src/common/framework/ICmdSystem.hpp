@@ -29,6 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
+#include "idlib/sys/sys_types.h"
+#include "idlib/CmdArgs.h"
+#include "idlib/Str.h"
+
 /*
 ================================================
 The CONSOLE_COMMAND macro is an even easier way to create a console command by

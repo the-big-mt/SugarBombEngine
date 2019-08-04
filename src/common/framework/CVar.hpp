@@ -33,6 +33,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "ICVarSystem.hpp"
 
+#include "idlib/sys/sys_assert.h"
+
 extern idCVarSystem *cvarSystem;
 
 /*

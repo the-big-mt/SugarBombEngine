@@ -29,6 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
+#include "idlib/sys/sys_types.h"
+
 /*
 ===============================================================================
 
