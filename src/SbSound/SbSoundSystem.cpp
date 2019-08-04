@@ -43,7 +43,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "renderer/IRenderWorld.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idDecl;
@@ -590,7 +590,7 @@ void idSoundSystemLocal::StopVoicesWithSample( const idSoundSample* const sample
 
 /*
 ========================
-idSoundSystemLocal::FreeVoice
+idSoundSystemLocal::ImageForTime
 ========================
 */
 cinData_t idSoundSystemLocal::ImageForTime( const int milliseconds, const bool waveform )
@@ -764,4 +764,4 @@ void idSoundSystemLocal::PrintMemInfo( MemInfo_t* mi )
 {
 }
 
-//} // namespace BFG
+//} // namespace sbe
