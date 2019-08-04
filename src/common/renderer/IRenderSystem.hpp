@@ -262,11 +262,11 @@ struct idRenderSystem : public IRenderSystem
 
 const int RENDERER_API_VERSION		= 1;
 
-struct idSys;
+struct ISys;
 struct idCommon;
 struct idCmdSystem;
 struct idCVarSystem;
-struct idFileSystem;
+struct IFileSystem;
 struct idSoundSystem;
 struct idDeclManager;
 
