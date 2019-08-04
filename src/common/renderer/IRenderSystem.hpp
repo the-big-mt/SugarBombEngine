@@ -273,11 +273,11 @@ struct idDeclManager;
 struct rendererImport_t
 {
 	int							version;				// API version
-	idSys* 						sys;					// non-portable system services
+	ISys* 						sys;					// non-portable system services
 	idCommon* 					common;					// common
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
-	idFileSystem* 				fileSystem;				// file system
+	IFileSystem* 				fileSystem;				// file system
 	idUserInterfaceManager* 	uiManager;				// user interface manager
 };
 
