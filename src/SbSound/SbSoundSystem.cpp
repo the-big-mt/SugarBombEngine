@@ -64,19 +64,8 @@ idCVar s_maxSamples( "s_maxSamples", "5", CVAR_INTEGER, "max samples to load per
 
 idCVar preLoad_Samples( "preLoad_Samples", "1", CVAR_SYSTEM | CVAR_BOOL, "preload samples during beginlevelload" );
 
-static soundExport_t soundExport;
-
 idSoundSystemLocal soundSystemLocal;
 idSoundSystem* soundSystem = &soundSystemLocal;
-
-#ifndef SBE_SINGLE_BINARY
-idSys *sys = nullptr;
-idCommon *common = nullptr;
-idCmdSystem *cmdSystem = nullptr;
-idCVarSystem *cvarSystem = nullptr;
-idFileSystem *fileSystem = nullptr;
-idCVar *idCVar::staticVars = nullptr;
-#endif
 
 /*
 ===========
@@ -84,9 +73,16 @@ GetSoundAPI
 ============
 */
 #ifndef SBE_SINGLE_BINARY
-C_EXPORT
-#endif
-soundExport_t *GetSoundAPI(soundImport_t *import)
+static soundExport_t soundExport;
+
+idSys *sys{nullptr};
+idCommon *common{nullptr};
+idCmdSystem *cmdSystem{nullptr};
+idCVarSystem *cvarSystem{nullptr};
+idFileSystem *fileSystem{nullptr};
+idCVar *idCVar::staticVars{nullptr};
+
+C_EXPORT soundExport_t *GetSoundAPI(soundImport_t *import)
 {
 	if(import->version == SOUND_API_VERSION)
 	{
@@ -110,6 +106,7 @@ soundExport_t *GetSoundAPI(soundImport_t *import)
 	
 	return &soundExport;
 };
+#endif // SBE_SINGLE_BINARY
 
 /*
 ================================================================================================
