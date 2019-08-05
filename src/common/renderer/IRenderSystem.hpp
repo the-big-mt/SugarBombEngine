@@ -279,6 +279,7 @@ struct rendererImport_t
 	idCVarSystem* 				cvarSystem;				// console variable system
 	IFileSystem* 				fileSystem;				// file system
 	ISoundSystem* 				soundSystem;			// sound system
+	idDeclManager*				declManager;			// declaration manager
 	idUserInterfaceManager* 	uiManager;				// user interface manager
 };
 
