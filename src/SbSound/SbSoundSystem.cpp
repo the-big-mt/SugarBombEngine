@@ -80,6 +80,8 @@ idCommon *common{nullptr};
 idCmdSystem *cmdSystem{nullptr};
 idCVarSystem *cvarSystem{nullptr};
 idFileSystem *fileSystem{nullptr};
+idDeclManager *declManager{nullptr};
+
 idCVar *idCVar::staticVars{nullptr};
 
 C_EXPORT soundExport_t *GetSoundAPI(soundImport_t *import)
@@ -92,6 +94,7 @@ C_EXPORT soundExport_t *GetSoundAPI(soundImport_t *import)
 		cmdSystem					= import->cmdSystem;
 		cvarSystem					= import->cvarSystem;
 		fileSystem					= import->fileSystem;
+		declManager					= import->declManager;
 	};
 	
 	// set interface pointers used by idLib
