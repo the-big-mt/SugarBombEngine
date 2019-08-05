@@ -267,7 +267,7 @@ struct idCommon;
 struct idCmdSystem;
 struct idCVarSystem;
 struct IFileSystem;
-struct idSoundSystem;
+struct ISoundSystem;
 struct idDeclManager;
 
 struct rendererImport_t
@@ -278,6 +278,7 @@ struct rendererImport_t
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
 	IFileSystem* 				fileSystem;				// file system
+	ISoundSystem* 				soundSystem;			// sound system
 	idUserInterfaceManager* 	uiManager;				// user interface manager
 };
 
