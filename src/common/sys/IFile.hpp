@@ -139,10 +139,12 @@ struct IFile
 		return r;
 	};
 };
-class idFile
+
+class idFile : public IFile
 {
 public:
-	virtual					~idFile() {};
+	virtual					~idFile() = default;
+
 	// Get the name of the file.
 	virtual const char* 	GetName() const;
 	// Get the full file path.
