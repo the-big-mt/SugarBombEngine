@@ -491,9 +491,14 @@ Why all the object-oriented nonsense?
 	the manager code in the engine static.
 ================================================
 */
-class idSaveGameManager
+#include "framework/ISaveGameManager.hpp"
+
+class SbSaveGameManager : public ISaveGameManager
 {
 public:
+	explicit SbSaveGameManager();
+	~SbSaveGameManager();
+	
 	enum packageType_t
 	{
 		PACKAGE_PROFILE,
@@ -503,9 +508,6 @@ public:
 	};
 	
 	const static int MAX_SAVEGAME_DIRECTORY_DEPTH = 5;
-	
-	explicit				idSaveGameManager();
-	~idSaveGameManager();
 	
 	// Called within main game thread
 	void					Pump();
@@ -520,8 +522,7 @@ public:
 		storageAvailable = available;
 	}
 	
-	// Check to see if a processor is set within the manager
-	bool					IsWorking() const;
+	bool IsWorking() const override;
 	
 	// Assign a processor to the manager.  The processor should belong in game-side code
 	// This queues up processors and executes them serially
@@ -562,15 +563,15 @@ public:
 	// This will cause the processor to cancel execution, the completion callback will be called
 	void					CancelWithHandle( const saveGameHandle_t& handle );
 	
-	const saveGameDetailsList_t& GetEnumeratedSavegames() const
+	const saveGameDetailsList_t& GetEnumeratedSavegames() const override
 	{
 		return enumeratedSaveGames;
-	}
+	};
+	
 	saveGameDetailsList_t& GetEnumeratedSavegamesNonConst()
 	{
 		return enumeratedSaveGames;
 	}
-	
 private:
 	// These are to make sure that all processors start and finish in the same way without a lot of code duplication.
 	// We need to make sure that we adhere to PS3 system combination initialization issues.
