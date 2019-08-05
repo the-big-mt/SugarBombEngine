@@ -45,40 +45,7 @@ If you have questions concerning this license or the applicable additional terms
 ==============================================================
 */
 
-class idResourceCacheEntry
-{
-public:
-	idResourceCacheEntry()
-	{
-		Clear();
-	}
-	void Clear()
-	{
-		filename.Empty();
-		//filename = NULL;
-		offset = 0;
-		length = 0;
-		containerIndex = 0;
-	}
-	size_t Read( idFile* f )
-	{
-		size_t sz = f->ReadString( filename );
-		sz += f->ReadBig( offset );
-		sz += f->ReadBig( length );
-		return sz;
-	}
-	size_t Write( idFile* f )
-	{
-		size_t sz = f->WriteString( filename );
-		sz += f->WriteBig( offset );
-		sz += f->WriteBig( length );
-		return sz;
-	}
-	idStrStatic< 256 >	filename;
-	int					offset;							// into the resource file
-	int 				length;
-	uint8				containerIndex;
-};
+#include "sys/ResourceCacheEntry.hpp"
 
 static const uint32 RESOURCE_FILE_MAGIC = 0xD000000D;
 class idResourceContainer
