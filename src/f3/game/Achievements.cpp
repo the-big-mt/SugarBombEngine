@@ -114,7 +114,6 @@ idAchievementManager::idAchievementManager() :
 	playerTookDamage( false )
 {
 	counts.Zero();
-	ResetHellTimeKills();
 }
 
 /*
@@ -186,7 +185,6 @@ void idAchievementManager::Save( idSaveGame* savefile ) const
 	savefile->WriteInt( lastGhoulKilledTime );
 	savefile->WriteInt( lastPlayerKilledTime );
 	savefile->WriteBool( playerTookDamage );
-	savefile->WriteInt( currentHellTimeKills );
 }
 
 /*
@@ -206,7 +204,6 @@ void idAchievementManager::Restore( idRestoreGame* savefile )
 	savefile->ReadInt( lastGhoulKilledTime );
 	savefile->ReadInt( lastPlayerKilledTime );
 	savefile->ReadBool( playerTookDamage );
-	savefile->ReadInt( currentHellTimeKills );
 	
 	SyncAchievments();
 }

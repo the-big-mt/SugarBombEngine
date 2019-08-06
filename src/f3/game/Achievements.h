@@ -201,11 +201,6 @@ public:
 	{
 		playerTookDamage = bl;
 	}
-	void		IncrementHellTimeKills();
-	void		ResetHellTimeKills()
-	{
-		currentHellTimeKills = 0;
-	}
 	void		SavePersistentData( idDict& playerInfo );
 	void		RestorePersistentData( const idDict& spawnArgs );
 	
@@ -218,7 +213,6 @@ private:
 	int				lastPlayerKilledTime;
 	int				lastGhoulKilledTime;
 	bool			playerTookDamage;
-	int				currentHellTimeKills;
 	
 	static bool		cheatingDialogShown;
 	
