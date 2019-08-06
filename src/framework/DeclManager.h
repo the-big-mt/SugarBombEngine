@@ -30,13 +30,6 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __DECLMANAGER_H__
 #define __DECLMANAGER_H__
 
-typedef enum
-{
-	DS_UNPARSED,
-	DS_DEFAULTED,			// set if a parse failed due to an error, or the lack of any source
-	DS_PARSED
-} declState_t;
-
 #include "framework/Decl.hpp"
 
 template< class type >
