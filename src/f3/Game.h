@@ -29,9 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __GAME_H__
-#define __GAME_H__
 
+#pragma once
 /*
 ===============================================================================
 
@@ -75,7 +74,6 @@ extern idGameEdit *gameEdit;
 enum
 {
 	//TEST_PARTICLE_MODEL = 0,
-#endif /* !__GAME_H__ */	//TEST_PARTICLE_MODEL = 0,
 	TEST_PARTICLE_IMPACT = 1,
 	//TEST_PARTICLE_MUZZLE,
 	//TEST_PARTICLE_FLIGHT,
