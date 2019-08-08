@@ -67,24 +67,17 @@ struct gameReturn_t
 #define TIME_GROUP2		1
 
 #include "game/IGame.hpp"
-
-enum
-{
-	TEST_PARTICLE_MODEL = 0,
-	TEST_PARTICLE_IMPACT,
-	TEST_PARTICLE_MUZZLE,
-	TEST_PARTICLE_FLIGHT,
-	TEST_PARTICLE_SELECTED
-};
-
 #include "game/IGameEdit.hpp"
 
 extern idGame *game;
 extern idGameEdit *gameEdit;
 
-
-typedef struct
+enum
 {
-
-
-#endif /* !__GAME_H__ */
+	//TEST_PARTICLE_MODEL = 0,
+#endif /* !__GAME_H__ */	//TEST_PARTICLE_MODEL = 0,
+	TEST_PARTICLE_IMPACT = 1,
+	//TEST_PARTICLE_MUZZLE,
+	//TEST_PARTICLE_FLIGHT,
+	//TEST_PARTICLE_SELECTED
+};
