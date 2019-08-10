@@ -6,11 +6,6 @@ include_directories(
 	${SBE_ROOT}/common/idlib
 )
 
-add_subdirectory(renderer)
-
-add_subdirectory(SbSystem)
-#add_subdirectory(SbNetwork)
-
 #add_subdirectory(framework)
 
 if(SBE_BUILD_TOOLS)
