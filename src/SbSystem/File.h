@@ -43,6 +43,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include "../idlib/Str.h"
 //#include "../idlib/BitMsg.h"
 
+#include "CoreLibs/SbSystem/IFile.hpp"
+
 //namespace BFG
 //{
 
@@ -122,7 +124,6 @@ public:
 	virtual int				WriteVec6( const idVec6& vec );
 	virtual int				WriteMat3( const idMat3& mat );
 };
-#include "framework/IFile.hpp"
 
 /*
 ================================================
