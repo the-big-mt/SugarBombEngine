@@ -667,6 +667,12 @@ void idSysLocal::FatalError( const char* fmt, ... )
 	Error( "%s", errorMessage );
 	
 }
+
+bool idSysLocal::AlreadyRunning() const
+{
+	return Sys_AlreadyRunning();
+};
+
 /*
 =================
 Sys_TimeStampToStr

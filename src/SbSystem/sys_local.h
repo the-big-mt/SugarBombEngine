@@ -92,6 +92,7 @@ public:
 	virtual int GetLangsNum() const override;
 	virtual const char *GetLangName(int anIndex) const override;
 	
+	bool AlreadyRunning() const override;
 };
 
 //} // namespace BFG
