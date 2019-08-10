@@ -42,6 +42,17 @@ void			Sys_Shutdown();
 
 void			Sys_Quit();
 
+// lock and unlock memory
+bool			Sys_LockMemory( void* ptr, int bytes );
+bool			Sys_UnlockMemory( void* ptr, int bytes );
+
+// DLL loading, the path should be a fully qualified OS path to the DLL file to be loaded
+
+// RB: 64 bit fixes, changed int to intptr_t
+intptr_t		Sys_DLL_Load( const char* dllName );
+void* 			Sys_DLL_GetProcAddress( intptr_t dllHandle, const char* procName );
+void			Sys_DLL_Unload( intptr_t dllHandle );
+// RB end
 
 bool			Sys_AlreadyRunning();
 
