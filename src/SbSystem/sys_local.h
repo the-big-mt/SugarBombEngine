@@ -42,6 +42,9 @@ void			Sys_Shutdown();
 
 void			Sys_Quit();
 
+
+bool			Sys_AlreadyRunning();
+
 /*
 ==============================================================
 

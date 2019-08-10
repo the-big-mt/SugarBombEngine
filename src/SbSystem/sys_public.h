@@ -178,7 +178,6 @@ void			Sys_Launch( const char* path, idCmdArgs& args,  void* launchData, unsigne
 
 void			Sys_SetLanguageFromSystem();
 const char* 	Sys_DefaultLanguage();
-bool			Sys_AlreadyRunning();
 
 // note that this isn't journaled...
 char* 			Sys_GetClipboardData();
