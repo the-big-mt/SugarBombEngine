@@ -306,7 +306,7 @@ ID_INLINE MapPolygon::MapPolygon( int numIndexes )
 class MapPolygonMesh : public idMapPrimitive
 {
 public:
-	MapPolygonMesh();
+	MapPolygonMesh(idDeclManager *apDeclManager);
 	~MapPolygonMesh()
 	{
 		//verts.DeleteContents();
@@ -316,10 +316,10 @@ public:
 	void					ConvertFromBrush( const idMapBrush* brush, int entityNum, int primitiveNum );
 	void					ConvertFromPatch( const idMapPatch* patch, int entityNum, int primitiveNum );
 	
-	static MapPolygonMesh*	Parse( idLexer& src, const idVec3& origin, float version = CURRENT_MAP_VERSION );
+	static MapPolygonMesh*	Parse( idDeclManager *apDeclManager, idLexer& src, const idVec3& origin, float version = CURRENT_MAP_VERSION );
 	bool					Write( idFile* fp, int primitiveNum, const idVec3& origin ) const;
 	
-	static MapPolygonMesh*	ParseJSON( idLexer& src );
+	static MapPolygonMesh*	ParseJSON( idDeclManager *apDeclManager, idLexer& src );
 	bool					WriteJSON( idFile* fp, int primitiveNum, const idVec3& origin ) const;
 	
 	
@@ -381,6 +381,8 @@ protected:
 	// material surface flags
 	int						contents;
 	bool					opaque;
+private:
+	idDeclManager *declManager{nullptr};
 };
 // RB end
 
@@ -403,10 +405,10 @@ public:
 	{
 		primitives.DeleteContents( true );
 	}
-	static idMapEntity* 	Parse( idLexer& src, bool worldSpawn = false, float version = CURRENT_MAP_VERSION );
+	static idMapEntity* 	Parse( idDeclManager *apDeclManager, idLexer& src, bool worldSpawn = false, float version = CURRENT_MAP_VERSION );
 	bool					Write( idFile* fp, int entityNum ) const;
 	// RB begin
-	static idMapEntity* 	ParseJSON( idLexer& src );
+	static idMapEntity* 	ParseJSON( idDeclManager *apDeclManager, idLexer& src );
 	bool					WriteJSON( idFile* fp, int entityNum, int numEntities ) const;
 	// RB end
 	int						GetNumPrimitives() const
@@ -442,12 +444,12 @@ public:
 	// normally this will use a .reg file instead of a .map file if it exists,
 	// which is what the game and dmap want, but the editor will want to always
 	// load a .map file
-	bool					Parse( const char* filename, bool ignoreRegion = false, bool osPath = false );
+	bool					Parse( idDeclManager *apDeclManager, const char* filename, bool ignoreRegion = false, bool osPath = false );
 	bool					Write( const char* fileName, const char* ext, bool fromBasePath = true );
 	
 	// RB begin
 	bool					WriteJSON( const char* fileName, const char* ext, bool fromBasePath = true );
-	bool					ConvertToPolygonMeshFormat();
+	bool					ConvertToPolygonMeshFormat(idDeclManager *apDeclManager);
 	// RB end
 	
 	// get the number of entities in the map
