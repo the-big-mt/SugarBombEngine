@@ -60,8 +60,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "framework/ICommon.hpp"
 #include "framework/Serializer.h"
 
-#include "sys/IFile.hpp"
-#include "sys/IFileSystem.hpp"
+#include "CoreLibs/SbSystem/IFile.hpp"
+#include "CoreLibs/SbSystem/IFileSystem.hpp"
 
 // renderer
 
