@@ -679,7 +679,7 @@ idFile_Memory
 idFile_Memory::idFile_Memory
 =================
 */
-idFile_Memory::idFile_Memory()
+idFile_Memory::idFile_Memory(sbe::ISys *apSys)
 {
 	name = "*unknown*";
 	maxSize = 0;
@@ -690,6 +690,8 @@ idFile_Memory::idFile_Memory()
 	mode = ( 1 << FS_WRITE );
 	filePtr = nullptr;
 	curPtr = nullptr;
+	
+	mpSys = apSys;
 }
 
 /*
@@ -697,7 +699,7 @@ idFile_Memory::idFile_Memory()
 idFile_Memory::idFile_Memory
 =================
 */
-idFile_Memory::idFile_Memory( const char* name )
+idFile_Memory::idFile_Memory( const char* name, sbe::ISys *apSys )
 {
 	this->name = name;
 	maxSize = 0;
@@ -708,6 +710,8 @@ idFile_Memory::idFile_Memory( const char* name )
 	mode = ( 1 << FS_WRITE );
 	filePtr = nullptr;
 	curPtr = nullptr;
+	
+	mpSys = apSys;
 }
 
 /*
@@ -715,7 +719,7 @@ idFile_Memory::idFile_Memory( const char* name )
 idFile_Memory::idFile_Memory
 =================
 */
-idFile_Memory::idFile_Memory( const char* name, char* data, int length )
+idFile_Memory::idFile_Memory( const char* name, char* data, int length, sbe::ISys *apSys )
 {
 	this->name = name;
 	maxSize = length;
@@ -726,6 +730,8 @@ idFile_Memory::idFile_Memory( const char* name, char* data, int length )
 	mode = ( 1 << FS_WRITE );
 	filePtr = data;
 	curPtr = data;
+	
+	mpSys = apSys;
 }
 
 /*
@@ -733,7 +739,7 @@ idFile_Memory::idFile_Memory( const char* name, char* data, int length )
 idFile_Memory::idFile_Memory
 =================
 */
-idFile_Memory::idFile_Memory( const char* name, const char* data, int length )
+idFile_Memory::idFile_Memory( const char* name, const char* data, int length, sbe::ISys *apSys )
 {
 	this->name = name;
 	maxSize = 0;
@@ -744,6 +750,8 @@ idFile_Memory::idFile_Memory( const char* name, const char* data, int length )
 	mode = ( 1 << FS_READ );
 	filePtr = const_cast<char*>( data );
 	curPtr = const_cast<char*>( data );
+	
+	mpSys = apSys;
 }
 
 /*
@@ -1146,11 +1154,12 @@ idFile_BitMsg
 idFile_BitMsg::idFile_BitMsg
 =================
 */
-idFile_BitMsg::idFile_BitMsg( idBitMsg& msg )
+idFile_BitMsg::idFile_BitMsg( idBitMsg& msg, sbe::ISys *apSys )
 {
 	name = "*unknown*";
 	mode = ( 1 << FS_WRITE );
 	this->msg = &msg;
+	mpSys = apSys;
 }
 
 /*
@@ -1158,11 +1167,12 @@ idFile_BitMsg::idFile_BitMsg( idBitMsg& msg )
 idFile_BitMsg::idFile_BitMsg
 =================
 */
-idFile_BitMsg::idFile_BitMsg( const idBitMsg& msg )
+idFile_BitMsg::idFile_BitMsg( const idBitMsg& msg, sbe::ISys *apSys )
 {
 	name = "*unknown*";
 	mode = ( 1 << FS_READ );
 	this->msg = const_cast<idBitMsg*>( &msg );
+	mpSys = apSys;
 }
 
 /*
@@ -1290,13 +1300,14 @@ idFile_Permanent
 idFile_Permanent::idFile_Permanent
 =================
 */
-idFile_Permanent::idFile_Permanent()
+idFile_Permanent::idFile_Permanent(sbe::ISys *apSys)
 {
 	name = "invalid";
 	o = nullptr;
 	mode = 0;
 	fileSize = 0;
 	handleSync = false;
+	mpSys = apSys;
 }
 
 /*
@@ -1714,12 +1725,13 @@ idFile_InZip
 idFile_InZip::idFile_InZip
 =================
 */
-idFile_InZip::idFile_InZip()
+idFile_InZip::idFile_InZip(sbe::ISys *apSys)
 {
 	name = "invalid";
 	zipFilePos = 0;
 	fileSize = 0;
 	memset( &z, 0, sizeof( z ) );
+	mpSys = apSys;
 }
 
 /*
@@ -1884,7 +1896,7 @@ idFile_InnerResource
 idFile_InnerResource::idFile_InnerResource
 =================
 */
-idFile_InnerResource::idFile_InnerResource( const char* _name, idFile* rezFile, int _offset, int _len )
+idFile_InnerResource::idFile_InnerResource( const char* _name, idFile* rezFile, int _offset, int _len, sbe::IFileSystem *apFileSystem )
 {
 	name = _name;
 	offset = _offset;
@@ -1892,6 +1904,7 @@ idFile_InnerResource::idFile_InnerResource( const char* _name, idFile* rezFile, 
 	resourceFile = rezFile;
 	internalFilePos = 0;
 	resourceBuffer = nullptr;
+	mpFileSystem = apFileSystem;
 }
 
 /*
@@ -1903,7 +1916,7 @@ idFile_InnerResource::~idFile_InnerResource()
 {
 	if( resourceBuffer != nullptr )
 	{
-		fileSystem->FreeResourceBuffer();
+		mpFileSystem->FreeResourceBuffer();
 	}
 }
 
@@ -1937,7 +1950,7 @@ int idFile_InnerResource::Read( void* buffer, int len )
 		}
 		else
 		{
-			read = fileSystem->ReadFromBGL( resourceFile, buffer, offset + internalFilePos, len );
+			read = mpFileSystem->ReadFromBGL( resourceFile, buffer, offset + internalFilePos, len );
 		}
 	}
 	

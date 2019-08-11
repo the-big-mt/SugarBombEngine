@@ -135,10 +135,10 @@ class idFile_Memory : public idFile
 	friend class			idFileSystemLocal;
 	
 public:
-	idFile_Memory();	// file for writing without name
-	idFile_Memory( const char* name );	// file for writing
-	idFile_Memory( const char* name, char* data, int length );	// file for writing
-	idFile_Memory( const char* name, const char* data, int length );	// file for reading
+	idFile_Memory(sbe::ISys *apSys);	// file for writing without name
+	idFile_Memory( const char* name, sbe::ISys *apSys );	// file for writing
+	idFile_Memory( const char* name, char* data, int length, sbe::ISys *apSys	);	// file for writing
+	idFile_Memory( const char* name, const char* data, int length, sbe::ISys *apSys );	// file for reading
 	virtual					~idFile_Memory();
 	
 	virtual const char* 	GetName() const
@@ -212,6 +212,8 @@ private:
 	int						granularity;	// file granularity
 	char* 					filePtr;		// buffer holding the file data
 	char* 					curPtr;			// current read/write pointer
+private:
+	sbe::ISys *mpSys{nullptr};
 };
 
 
@@ -220,8 +222,8 @@ class idFile_BitMsg : public idFile
 	friend class			idFileSystemLocal;
 	
 public:
-	idFile_BitMsg( idBitMsg& msg );
-	idFile_BitMsg( const idBitMsg& msg );
+	idFile_BitMsg( idBitMsg& msg, sbe::ISys *apSys );
+	idFile_BitMsg( const idBitMsg& msg, sbe::ISys *apSys	);
 	virtual					~idFile_BitMsg();
 	
 	virtual const char* 	GetName() const
@@ -245,6 +247,8 @@ private:
 	idStr					name;			// name of the file
 	int						mode;			// open mode
 	idBitMsg* 				msg;
+private:
+	sbe::ISys *mpSys{nullptr};
 };
 
 
@@ -253,7 +257,7 @@ class idFile_Permanent : public idFile
 	friend class			idFileSystemLocal;
 	
 public:
-	idFile_Permanent();
+	idFile_Permanent(sbe::ISys *apSys);
 	virtual					~idFile_Permanent();
 	
 	virtual const char* 	GetName() const
@@ -286,6 +290,8 @@ private:
 	int						fileSize;		// size of the file
 	idFileHandle			o;				// file handle
 	bool					handleSync;		// true if written data is immediately flushed
+private:
+	sbe::ISys *mpSys{nullptr};
 };
 
 class idFile_Cached : public idFile_Permanent
@@ -315,7 +321,7 @@ class idFile_InZip : public idFile
 	friend class			idFileSystemLocal;
 	
 public:
-	idFile_InZip();
+	idFile_InZip(sbe::ISys *apSys);
 	virtual					~idFile_InZip();
 	
 	virtual const char* 	GetName() const
@@ -343,6 +349,8 @@ private:
 	// DG end
 	int						fileSize;		// size of the file
 	void* 					z;				// unzip info
+private:
+	sbe::ISys *mpSys{nullptr};
 };
 
 #if 1
@@ -351,7 +359,7 @@ class idFile_InnerResource : public idFile
 	friend class			idFileSystemLocal;
 	
 public:
-	idFile_InnerResource( const char* _name, idFile* rezFile, int _offset, int _len );
+	idFile_InnerResource( const char* _name, idFile* rezFile, int _offset, int _len, sbe::IFileSystem *apFileSystem );
 	virtual					~idFile_InnerResource();
 	
 	virtual const char* 	GetName() const
@@ -391,6 +399,8 @@ private:
 	idFile* 			resourceFile;		// actual file
 	int					internalFilePos;	// seek offset
 	byte* 				resourceBuffer;		// if using the temp save memory
+private:
+	sbe::IFileSystem *mpFileSystem{nullptr};
 };
 #endif
 
