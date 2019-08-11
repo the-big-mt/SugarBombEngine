@@ -947,7 +947,7 @@ void idFile_Memory::PreAllocate( size_t len )
 	{
 		if( maxSize != 0 )
 		{
-			idLib::Error( "idFile_Memory::SetLength: exceeded maximum size %" PRIuSIZE "", maxSize );
+			idLib::Error( "idFile_Memory::SetLength: exceeded maximum size %" PRIuSIZE "", maxSize ); // TODO: fix
 		}
 		char* newPtr = ( char* )Mem_Alloc( len, TAG_IDFILE );
 		if( allocated > 0 )
@@ -1133,7 +1133,7 @@ void idFile_Memory::TruncateData( size_t len )
 {
 	if( len > allocated )
 	{
-		idLib::Error( "idFile_Memory::TruncateData: len (%" PRIuSIZE ") exceeded allocated size (%" PRIuSIZE ")", len, allocated );
+		idLib::Error( "idFile_Memory::TruncateData: len (%" PRIuSIZE ") exceeded allocated size (%" PRIuSIZE ")", len, allocated ); // TODO: fix
 	}
 	else
 	{
