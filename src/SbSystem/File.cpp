@@ -46,7 +46,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 FS_WriteFloatString
 =================
 */
-int FS_WriteFloatString( char* buf, const char* fmt, va_list argPtr )
+int FS_WriteFloatString( char* buf, const char* fmt, va_list argPtr, sbe::ISys *apSys )
 {
 	// DG: replaced long with int for 64bit compatibility in the whole function
 	int i;
@@ -125,7 +125,7 @@ int FS_WriteFloatString( char* buf, const char* fmt, va_list argPtr )
 						index += std::sprintf( buf + index, "%s", format.c_str() );
 						break;
 					default:
-						mpSys->Error( "FS_WriteFloatString: invalid format %s", format.c_str() );
+						apSys->Error( "FS_WriteFloatString: invalid format %s", format.c_str() );
 						break;
 				}
 				fmt++;
@@ -147,7 +147,7 @@ int FS_WriteFloatString( char* buf, const char* fmt, va_list argPtr )
 						index += std::sprintf( buf + index, "\\" );
 						break;
 					default:
-						mpSys->Error( "FS_WriteFloatString: unknown escape character \'%c\'", *fmt );
+						apSys->Error( "FS_WriteFloatString: unknown escape character \'%c\'", *fmt );
 						break;
 				}
 				fmt++;
