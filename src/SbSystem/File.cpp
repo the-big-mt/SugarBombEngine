@@ -40,6 +40,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "Unzip.h"
 
+//namespace BFG
+//{
 
 /*
 =================
@@ -2132,3 +2134,5 @@ CONSOLE_COMMAND( testEndianNessReset, "Tests the read/write compatibility betwee
 {
 	fileSystem->RemoveFile( testEndianNessFilename );
 }
+
+//} // namespace BFG
