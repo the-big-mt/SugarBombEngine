@@ -59,9 +59,9 @@ private:
 	static ID_TLS				isMainThread;
 	
 public:
-	static class idCVarSystem* 	cvarSystem;
 	static class sbe::ISys* 		sys;
 	static class ICommon* 		common;
+	static class sbe::idCVarSystem* 	cvarSystem;
 	static class sbe::IFileSystem* 	fileSystem;
 	static int					frameNumber;
 	

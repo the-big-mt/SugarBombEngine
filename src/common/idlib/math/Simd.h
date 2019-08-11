@@ -96,10 +96,10 @@ class idSIMDProcessor
 public:
 	idSIMDProcessor()
 	{
-		cpuid = CPUID_NONE;
+		cpuid = sbe::CPUID_NONE;
 	}
 	
-	cpuid_t							cpuid;
+	sbe::cpuid_t							cpuid;
 	
 	virtual const char* VPCALL		GetName() const = 0;
 	
