@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company. 
 Copyright (C) 2012 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").  
 
@@ -77,15 +78,6 @@ static char		sys_cmdline[MAX_STRING_CHARS];
 static sysMemoryStats_t exeLaunchMemoryStats;
 
 static HANDLE hProcessMutex;
-
-/*
-================
-Sys_GetExeLaunchMemoryStatus
-================
-*/
-void Sys_GetExeLaunchMemoryStatus( sysMemoryStats_t &stats ) {
-	stats = exeLaunchMemoryStats;
-}
 
 /*
 ==================
@@ -268,6 +260,7 @@ void Sys_Error( const char *error, ... ) {
 Sys_Launch
 ========================
 */
+// TODO: unused
 void Sys_Launch( const char * path, idCmdArgs & args,  void * data, unsigned int dataSize ) {
 
 	TCHAR				szPathOrig[_MAX_PATH];
@@ -398,15 +391,6 @@ void Sys_DebugVPrintf( const char *fmt, va_list arg ) {
 
 /*
 ==============
-Sys_Sleep
-==============
-*/
-void Sys_Sleep( int msec ) {
-	Sleep( msec );
-}
-
-/*
-==============
 Sys_ShowWindow
 ==============
 */
@@ -421,15 +405,6 @@ Sys_IsWindowVisible
 */
 bool Sys_IsWindowVisible() {
 	return ( ::IsWindowVisible( win32.hWnd ) != 0 );
-}
-
-/*
-==============
-Sys_Mkdir
-==============
-*/
-void Sys_Mkdir( const char *path ) {
-	_mkdir (path);
 }
 
 /*
@@ -473,15 +448,6 @@ ID_TIME_T Sys_FileTimeStamp( idFileHandle fp ) {
 
 /*
 ========================
-Sys_Rmdir
-========================
-*/
-bool Sys_Rmdir( const char *path ) {
-	return _rmdir( path ) == 0;
-}
-
-/*
-========================
 Sys_IsFileWritable
 ========================
 */
@@ -491,220 +457,6 @@ bool Sys_IsFileWritable( const char *path ) {
 		return true;
 	}
 	return ( st.st_mode & S_IWRITE ) != 0;
-}
-
-/*
-========================
-Sys_IsFolder
-========================
-*/
-sysFolder_t Sys_IsFolder( const char *path ) {
-	struct _stat buffer;
-	if ( _stat( path, &buffer ) < 0 ) {
-		return FOLDER_ERROR;
-	}
-	return ( buffer.st_mode & _S_IFDIR ) != 0 ? FOLDER_YES : FOLDER_NO;
-}
-
-/*
-==============
-Sys_Cwd
-==============
-*/
-const char *Sys_Cwd() {
-	static char cwd[MAX_OSPATH];
-
-	_getcwd( cwd, sizeof( cwd ) - 1 );
-	cwd[MAX_OSPATH-1] = 0;
-
-	return cwd;
-}
-
-/*
-==============
-Sys_DefaultBasePath
-==============
-*/
-const char *Sys_DefaultBasePath() {
-	return Sys_Cwd();
-}
-
-// Vista shit
-typedef HRESULT (WINAPI * SHGetKnownFolderPath_t)( const GUID & rfid, DWORD dwFlags, HANDLE hToken, PWSTR *ppszPath );
-// NOTE: FOLIDERID_SavedGames is already exported from in shell32.dll in Windows 7.  We can only detect
-// the compiler version, but that doesn't doesn't tell us which version of the OS we're linking against.
-// This GUID value should never change, so we name it something other than FOLDERID_SavedGames to get
-// around this problem.
-const GUID FOLDERID_SavedGames_IdTech5 = { 0x4c5c32ff, 0xbb9d, 0x43b0, { 0xb5, 0xb4, 0x2d, 0x72, 0xe5, 0x4e, 0xaa, 0xa4 } };
-
-/*
-==============
-Sys_DefaultSavePath
-==============
-*/
-const char *Sys_DefaultSavePath() {
-	static char savePath[ MAX_PATH ];
-	memset( savePath, 0, MAX_PATH );
-
-	HMODULE hShell = LoadLibrary( "shell32.dll" );
-	if ( hShell ) {
-		SHGetKnownFolderPath_t SHGetKnownFolderPath = (SHGetKnownFolderPath_t)GetProcAddress( hShell, "SHGetKnownFolderPath" );
-		if ( SHGetKnownFolderPath ) {
-			wchar_t * path;
-
-			// RB FIXME?
-#if defined(__MINGW32__)
-			if ( SUCCEEDED( SHGetKnownFolderPath( FOLDERID_SavedGames_IdTech5, CSIDL_FLAG_CREATE, 0, &path ) ) )
-#else
-			if ( SUCCEEDED( SHGetKnownFolderPath( FOLDERID_SavedGames_IdTech5, CSIDL_FLAG_CREATE | CSIDL_FLAG_PER_USER_INIT, 0, &path ) ) )
-#endif
-			// RB end
-			{
-				if ( wcstombs( savePath, path, MAX_PATH ) > MAX_PATH ) {
-					savePath[0] = 0;
-				}
-				CoTaskMemFree( path );
-			}
-		}
-		FreeLibrary( hShell );
-	}
-
-	if ( savePath[0] == 0 )
-	{
-		// RB: looks like a bug in the shlobj.h
-#if defined(__MINGW32__)
-		SHGetFolderPath( nullptr, CSIDL_PERSONAL | CSIDL_FLAG_CREATE, nullptr, 1, savePath );
-#else
-		SHGetFolderPath( nullptr, CSIDL_PERSONAL | CSIDL_FLAG_CREATE, nullptr, SHGFP_TYPE_CURRENT, savePath );
-#endif
-		// RB end
-		strcat( savePath, "\\My Games" );
-	}
-
-	strcat( savePath, SAVE_PATH );
-
-	return savePath;
-}
-
-/*
-==============
-Sys_EXEPath
-==============
-*/
-const char *Sys_EXEPath() {
-	static char exe[ MAX_OSPATH ];
-	GetModuleFileName( nullptr, exe, sizeof( exe ) - 1 );
-	return exe;
-}
-
-/*
-==============
-Sys_ListFiles
-==============
-*/
-int Sys_ListFiles( const char *directory, const char *extension, idStrList &list ) {
-	idStr		search;
-	struct _finddata_t findinfo;
-	// RB: 64 bit fixes, changed int to intptr_t
-	intptr_t	findhandle;
-	// RB end
-	int			flag;
-
-	if ( !extension) {
-		extension = "";
-	}
-
-	// passing a slash as extension will find directories
-	if ( extension[0] == '/' && extension[1] == 0 ) {
-		extension = "";
-		flag = 0;
-	} else {
-		flag = _A_SUBDIR;
-	}
-
-	sprintf( search, "%s\\*%s", directory, extension );
-
-	// search
-	list.Clear();
-
-	findhandle = _findfirst( search, &findinfo );
-	if ( findhandle == -1 ) {
-		return -1;
-	}
-
-	do {
-		if ( flag ^ ( findinfo.attrib & _A_SUBDIR ) ) {
-			list.Append( findinfo.name );
-		}
-	} while ( _findnext( findhandle, &findinfo ) != -1 );
-
-	_findclose( findhandle );
-
-	return list.Num();
-}
-
-
-/*
-================
-Sys_GetClipboardData
-================
-*/
-char *Sys_GetClipboardData() {
-	char *data = nullptr;
-	char *cliptext;
-
-	if ( OpenClipboard( nullptr ) != 0 ) {
-		HANDLE hClipboardData;
-
-		if ( ( hClipboardData = GetClipboardData( CF_TEXT ) ) != 0 ) {
-			if ( ( cliptext = (char *)GlobalLock( hClipboardData ) ) != 0 ) {
-				data = (char *)Mem_Alloc( GlobalSize( hClipboardData ) + 1, TAG_CRAP );
-				strcpy( data, cliptext );
-				GlobalUnlock( hClipboardData );
-				
-				strtok( data, "\n\r\b" );
-			}
-		}
-		CloseClipboard();
-	}
-	return data;
-}
-
-/*
-================
-Sys_SetClipboardData
-================
-*/
-void Sys_SetClipboardData( const char *string ) {
-	HGLOBAL HMem;
-	char *PMem;
-
-	// allocate memory block
-	HMem = (char *)::GlobalAlloc( GMEM_MOVEABLE | GMEM_DDESHARE, strlen( string ) + 1 );
-	if ( HMem == nullptr ) {
-		return;
-	}
-	// lock allocated memory and obtain a pointer
-	PMem = (char *)::GlobalLock( HMem );
-	if ( PMem == nullptr ) {
-		return;
-	}
-	// copy text into allocated memory block
-	lstrcpy( PMem, string );
-	// unlock allocated memory
-	::GlobalUnlock( HMem );
-	// open Clipboard
-	if ( !OpenClipboard( 0 ) ) {
-		::GlobalFree( HMem );
-		return;
-	}
-	// remove current Clipboard contents
-	EmptyClipboard();
-	// supply the memory handle to the Clipboard
-	SetClipboardData( CF_TEXT, HMem );
-	HMem = 0;
-	// close Clipboard
-	CloseClipboard();
 }
 
 /*
@@ -726,6 +478,7 @@ If waitMsec is -1, don't wait for the process to exit
 Other waitMsec values will allow the workFn to be called at those intervals.
 ========================
 */
+// TODO: unused
 bool Sys_Exec(	const char * appPath, const char * workingPath, const char * args, 
 	execProcessWorkFunction_t workFn, execOutputFunction_t outputFn, const int waitMS,
 	unsigned int & exitCode ) {
@@ -1084,203 +837,6 @@ void Sys_In_Restart_f( const idCmdArgs &args ) {
 	Sys_ShutdownInput();
 	Sys_InitInput();
 }
-
-/*
-================
-Sys_AlreadyRunning
-
-returns true if there is a copy of D3 running already
-================
-*/
-bool Sys_AlreadyRunning() {
-#ifndef DEBUG
-	if ( !win32.win_allowMultipleInstances.GetBool() ) {
-		hProcessMutex = ::CreateMutex( nullptr, FALSE, "DOOM3" );
-		if ( ::GetLastError() == ERROR_ALREADY_EXISTS || ::GetLastError() == ERROR_ACCESS_DENIED ) {
-			return true;
-		}
-	}
-#endif
-	return false;
-}
-
-/*
-================
-Sys_Init
-
-The cvar system must already be setup
-================
-*/
-#define OSR2_BUILD_NUMBER 1111
-#define WIN98_BUILD_NUMBER 1998
-
-void Sys_Init() {
-
-	CoInitialize( nullptr );
-
-	// get WM_TIMER messages pumped every millisecond
-//	SetTimer( nullptr, 0, 100, nullptr );
-
-	cmdSystem->AddCommand( "in_restart", Sys_In_Restart_f, CMD_FL_SYSTEM, "restarts the input system" );
-
-	//
-	// Windows user name
-	//
-	win32.win_username.SetString( Sys_GetCurrentUser() );
-
-	//
-	// Windows version
-	//
-	win32.osversion.dwOSVersionInfoSize = sizeof( win32.osversion );
-
-	if ( !GetVersionEx( (LPOSVERSIONINFO)&win32.osversion ) )
-		Sys_Error( "Couldn't get OS info" );
-
-	if ( win32.osversion.dwMajorVersion < 4 ) {
-		Sys_Error( GAME_NAME " requires Windows version 4 (NT) or greater" );
-	}
-	if ( win32.osversion.dwPlatformId == VER_PLATFORM_WIN32s ) {
-		Sys_Error( GAME_NAME " doesn't run on Win32s" );
-	}
-
-	if( win32.osversion.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
-		if( win32.osversion.dwMajorVersion <= 4 ) {
-			win32.sys_arch.SetString( "WinNT (NT)" );
-		} else if( win32.osversion.dwMajorVersion == 5 && win32.osversion.dwMinorVersion == 0 ) {
-			win32.sys_arch.SetString( "Win2K (NT)" );
-		} else if( win32.osversion.dwMajorVersion == 5 && win32.osversion.dwMinorVersion == 1 ) {
-			win32.sys_arch.SetString( "WinXP (NT)" );
-		} else if( win32.osversion.dwMajorVersion == 6 ) {
-			win32.sys_arch.SetString( "Vista" );
-		} else if( win32.osversion.dwMajorVersion == 6 && win32.osversion.dwMinorVersion == 1 ) {
-			win32.sys_arch.SetString( "Win7" );
-		} else if( win32.osversion.dwMajorVersion == 6 && win32.osversion.dwMinorVersion == 2 ) {
-			win32.sys_arch.SetString( "Win8" );
-		} else if( win32.osversion.dwMajorVersion == 6 && win32.osversion.dwMinorVersion == 3 ) {
-			win32.sys_arch.SetString( "Win8.1" );
-		} else {
-			win32.sys_arch.SetString( "Unknown NT variant" );
-		}
-	} else if( win32.osversion.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) {
-		if( win32.osversion.dwMajorVersion == 4 && win32.osversion.dwMinorVersion == 0 ) {
-			// Win95
-			if( win32.osversion.szCSDVersion[1] == 'C' ) {
-				win32.sys_arch.SetString( "Win95 OSR2 (95)" );
-			} else {
-				win32.sys_arch.SetString( "Win95 (95)" );
-			}
-		} else if( win32.osversion.dwMajorVersion == 4 && win32.osversion.dwMinorVersion == 10 ) {
-			// Win98
-			if( win32.osversion.szCSDVersion[1] == 'A' ) {
-				win32.sys_arch.SetString( "Win98SE (95)" );
-			} else {
-				win32.sys_arch.SetString( "Win98 (95)" );
-			}
-		} else if( win32.osversion.dwMajorVersion == 4 && win32.osversion.dwMinorVersion == 90 ) {
-			// WinMe
-		  	win32.sys_arch.SetString( "WinMe (95)" );
-		} else {
-		  	win32.sys_arch.SetString( "Unknown 95 variant" );
-		}
-	} else {
-		win32.sys_arch.SetString( "unknown Windows variant" );
-	}
-
-	//
-	// CPU type
-	//
-	if ( !idStr::Icmp( win32.sys_cpustring.GetString(), "detect" ) ) {
-		idStr string;
-
-		common->Printf( "%1.0f MHz ", Sys_ClockTicksPerSecond() / 1000000.0f );
-
-		win32.cpuid = Sys_GetCPUId();
-
-		string.Clear();
-
-		if ( win32.cpuid & CPUID_AMD ) {
-			string += "AMD CPU";
-		} else if ( win32.cpuid & CPUID_INTEL ) {
-			string += "Intel CPU";
-		} else if ( win32.cpuid & CPUID_UNSUPPORTED ) {
-			string += "unsupported CPU";
-		} else {
-			string += "generic CPU";
-		}
-
-		string += " with ";
-		if ( win32.cpuid & CPUID_MMX ) {
-			string += "MMX & ";
-		}
-		if ( win32.cpuid & CPUID_3DNOW ) {
-			string += "3DNow! & ";
-		}
-		if ( win32.cpuid & CPUID_SSE ) {
-			string += "SSE & ";
-		}
-		if ( win32.cpuid & CPUID_SSE2 ) {
-            string += "SSE2 & ";
-		}
-		if ( win32.cpuid & CPUID_SSE3 ) {
-			string += "SSE3 & ";
-		}
-		if ( win32.cpuid & CPUID_HTT ) {
-			string += "HTT & ";
-		}
-		string.StripTrailing( " & " );
-		string.StripTrailing( " with " );
-		win32.sys_cpustring.SetString( string );
-	} else {
-		common->Printf( "forcing CPU type to " );
-		idLexer src( win32.sys_cpustring.GetString(), idStr::Length( win32.sys_cpustring.GetString() ), "sys_cpustring" );
-		idToken token;
-
-		int id = CPUID_NONE;
-		while( src.ReadToken( &token ) ) {
-			if ( token.Icmp( "generic" ) == 0 ) {
-				id |= CPUID_GENERIC;
-			} else if ( token.Icmp( "intel" ) == 0 ) {
-				id |= CPUID_INTEL;
-			} else if ( token.Icmp( "amd" ) == 0 ) {
-				id |= CPUID_AMD;
-			} else if ( token.Icmp( "mmx" ) == 0 ) {
-				id |= CPUID_MMX;
-			} else if ( token.Icmp( "3dnow" ) == 0 ) {
-				id |= CPUID_3DNOW;
-			} else if ( token.Icmp( "sse" ) == 0 ) {
-				id |= CPUID_SSE;
-			} else if ( token.Icmp( "sse2" ) == 0 ) {
-				id |= CPUID_SSE2;
-			} else if ( token.Icmp( "sse3" ) == 0 ) {
-				id |= CPUID_SSE3;
-			} else if ( token.Icmp( "htt" ) == 0 ) {
-				id |= CPUID_HTT;
-			}
-		}
-		if ( id == CPUID_NONE ) {
-			common->Printf( "WARNING: unknown sys_cpustring '%s'\n", win32.sys_cpustring.GetString() );
-			id = CPUID_GENERIC;
-		}
-		win32.cpuid = (cpuid_t) id;
-	}
-
-	common->Printf( "%s\n", win32.sys_cpustring.GetString() );
-	if ( ( win32.cpuid & CPUID_SSE2 ) == 0 ) {
-		common->Error( "SSE2 not supported!" );
-	}
-
-	win32.g_Joystick.Init();
-}
-
-/*
-================
-Sys_Shutdown
-================
-*/
-void Sys_Shutdown() {
-	CoUninitialize();
-}
-
 /*
 ================
 Sys_GetProcessorId
@@ -1496,64 +1052,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 //namespace BFG
 //{
-
-/*
-==================
-idSysLocal::OpenURL
-==================
-*/
-void idSysLocal::OpenURL( const char *url, bool doexit ) {
-	static bool doexit_spamguard = false;
-	HWND wnd;
-
-	if (doexit_spamguard) {
-		common->DPrintf( "OpenURL: already in an exit sequence, ignoring %s\n", url );
-		return;
-	}
-
-	common->Printf("Open URL: %s\n", url);
-
-	if ( !ShellExecute( nullptr, "open", url, nullptr, nullptr, SW_RESTORE ) ) {
-		common->Error( "Could not open url: '%s' ", url );
-		return;
-	}
-
-	wnd = GetForegroundWindow();
-	if ( wnd ) {
-		ShowWindow( wnd, SW_MAXIMIZE );
-	}
-
-	if ( doexit ) {
-		doexit_spamguard = true;
-		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "quit\n" );
-	}
-}
-
-/*
-==================
-idSysLocal::StartProcess
-==================
-*/
-void idSysLocal::StartProcess( const char *exePath, bool doexit ) {
-	TCHAR				szPathOrig[_MAX_PATH];
-	STARTUPINFO			si;
-	PROCESS_INFORMATION	pi;
-
-	ZeroMemory( &si, sizeof(si) );
-	si.cb = sizeof(si);
-
-	strncpy( szPathOrig, exePath, _MAX_PATH );
-
-	if( !CreateProcess( nullptr, szPathOrig, nullptr, nullptr, FALSE, 0, nullptr, nullptr, &si, &pi ) ) {
-        common->Error( "Could not start process: '%s' ", szPathOrig );
-	    return;
-	}
-
-	if ( doexit ) {
-		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "quit\n" );
-	}
-}
-
 /*
 ==================
 Sys_SetFatalError

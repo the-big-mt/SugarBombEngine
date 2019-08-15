@@ -57,24 +57,6 @@ static int cmdargc = 0;
 // DG end
 
 /*
-==============
-Sys_EXEPath
-==============
-*/
-const char* Sys_EXEPath()
-{
-	static char path[1024];
-	uint32_t size = sizeof( path );
-	
-	if( _NSGetExecutablePath( path, &size ) != 0 )
-	{
-		Sys_Printf( "buffer too small to store exe path, need size %u\n", size );
-		path[0] = '\0';
-	}
-	return path;
-}
-
-/*
 ===============
 Sys_GetProcessorId
 ===============

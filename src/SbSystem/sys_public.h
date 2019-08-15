@@ -176,12 +176,6 @@ void			Sys_ReLaunch();
 // DG end
 void			Sys_Launch( const char* path, idCmdArgs& args,  void* launchData, unsigned int launchDataSize );
 
-void			Sys_SetLanguageFromSystem();
-const char* 	Sys_DefaultLanguage();
-
-// note that this isn't journaled...
-char* 			Sys_GetClipboardData();
-void			Sys_SetClipboardData( const char* string );
 
 // will go to the various text consoles
 // NOT thread safe - never use in the async paths
@@ -193,10 +187,6 @@ void			Sys_DebugVPrintf( const char* fmt, va_list arg );
 
 // a decent minimum sleep time to avoid going below the process scheduler speeds
 #define			SYS_MINSLEEP	20
-
-// allow game to yield CPU time
-// NOTE: due to SYS_MINSLEEP this is very bad portability karma, and should be completely removed
-void			Sys_Sleep( int msec );
 
 // Sys_Milliseconds should only be used for profiling purposes,
 // any game related timing information should come from event timestamps

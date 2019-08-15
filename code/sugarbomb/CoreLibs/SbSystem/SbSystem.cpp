@@ -106,20 +106,6 @@ sysExport_t *GetSysAPI(sysImport_t *import)
 	return &sysExport;
 };
 
-void idSysLocal::Init()
-{
-	Sys_Init();
-};
-
-void idSysLocal::Shutdown()
-{
-	Sys_Shutdown();
-};
-
-void idSysLocal::Quit()
-{
-	Sys_Quit();
-};
 
 void idSysLocal::DebugPrintf( const char* fmt, ... )
 {
@@ -175,15 +161,6 @@ void idSysLocal::FPU_SetDAZ( bool enable )
 	Sys_FPU_SetDAZ( enable );
 }
 
-bool idSysLocal::LockMemory( void* ptr, int bytes )
-{
-	return Sys_LockMemory( ptr, bytes );
-}
-
-bool idSysLocal::UnlockMemory( void* ptr, int bytes )
-{
-	return Sys_UnlockMemory( ptr, bytes );
-}
 
 int idSysLocal::DLL_Load( const char* dllName )
 {
@@ -491,9 +468,7 @@ void idSysLocal::Warning( const char* fmt, ... )
 	char		msg[MAX_PRINT_MSG_SIZE];
 	
 	if( !idLib::IsMainThread() )
-	{
 		return;	// not thread safe!
-	}
 	
 	va_start( argptr, fmt );
 	idStr::vsnPrintf( msg, sizeof( msg ), fmt, argptr );
@@ -503,10 +478,8 @@ void idSysLocal::Warning( const char* fmt, ... )
 	Printf( S_COLOR_YELLOW "WARNING: " S_COLOR_RED "%s\n", msg );
 	
 	if( warningList.Num() < MAX_WARNING_LIST )
-	{
 		warningList.AddUnique( msg );
-	}
-}
+};
 
 /*
 ==================
@@ -766,17 +739,11 @@ const char* Sys_SecToStr( int sec )
 	sec -= min * 60;
 	
 	if( weeks > 0 )
-	{
 		std::sprintf( timeString, "%dw, %dd, %d:%02d:%02d", weeks, days, hours, min, sec );
-	}
 	else if( days > 0 )
-	{
 		std::sprintf( timeString, "%dd, %d:%02d:%02d", days, hours, min, sec );
-	}
 	else
-	{
 		std::sprintf( timeString, "%d:%02d:%02d", hours, min, sec );
-	}
 	
 	return timeString;
 }

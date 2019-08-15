@@ -4,6 +4,7 @@
 Doom 3 GPL Source Code
 Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 GPL Source Code (?Doom 3 Source Code?).
 
@@ -66,9 +67,6 @@ If you have questions concerning this license or the applicable additional terms
 #define					MAX_OSPATH 256
 #define					COMMAND_HISTORY 64
 
-static idStr			basepath;
-static idStr			savepath;
-
 static int				input_hide = 0;
 
 idEditField				input_field;
@@ -93,27 +91,6 @@ idCVar com_pid( "com_pid", "0", CVAR_INTEGER | CVAR_INIT | CVAR_SYSTEM, "process
 
 static int set_exit = 0;
 static char exit_spawn[ 1024 ];
-
-/*
- ==============
- Sys_DefaultSavePath
- ==============
- */
-const char* Sys_DefaultSavePath()
-{
-#if defined(__APPLE__)
-	char* base_path = SDL_GetPrefPath( "", "RBDOOM-3-BFG" );
-	if( base_path )
-	{
-		savepath = SDL_strdup( base_path );
-		SDL_free( base_path );
-	}
-#else
-	sprintf( savepath, "%s/.rbdoom3bfg", getenv( "HOME" ) );
-#endif
-	
-	return savepath.c_str();
-}
 
 /*
 ================
@@ -160,62 +137,6 @@ Posix_SetExit
 void Posix_SetExit( int ret )
 {
 	set_exit = 0;
-}
-
-/*
-===============
-Posix_SetExitSpawn
-set the process to be spawned when we quit
-===============
-*/
-void Posix_SetExitSpawn( const char* exeName )
-{
-	idStr::Copynz( exit_spawn, exeName, 1024 );
-}
-
-/*
-==================
-idSysLocal::StartProcess
-if !quit, start the process asap
-otherwise, push it for execution at exit
-(i.e. let complete shutdown of the game and freeing of resources happen)
-NOTE: might even want to add a small delay?
-==================
-*/
-void idSysLocal::StartProcess( const char* exeName, bool quit )
-{
-	if( quit )
-	{
-		common->DPrintf( "Sys_StartProcess %s (delaying until final exit)\n", exeName );
-		Posix_SetExitSpawn( exeName );
-		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "quit\n" );
-		return;
-	}
-	
-	common->DPrintf( "Sys_StartProcess %s\n", exeName );
-	Sys_DoStartProcess( exeName );
-}
-
-/*
-================
-Sys_Quit
-================
-*/
-void Sys_Quit()
-{
-	Posix_Exit( EXIT_SUCCESS );
-}
-
-/*
-===============
-Sys_Shutdown
-===============
-*/
-void Sys_Shutdown()
-{
-	basepath.Clear();
-	savepath.Clear();
-	Posix_Shutdown();
 }
 
 /*
@@ -398,76 +319,6 @@ uint64 Sys_Microseconds()
 }
 
 /*
-================
-Sys_DefaultBasePath
-
-Get the default base path
-- binary image path
-- current directory
-- hardcoded
-Try to be intelligent: if there is no BASE_GAMEDIR, try the next path
-================
-*/
-const char* Sys_DefaultBasePath()
-{
-	struct stat st;
-	idStr testbase;
-	basepath = Sys_EXEPath();
-	if( basepath.Length() )
-	{
-		basepath.StripFilename();
-		testbase = basepath;
-		testbase += "/";
-		testbase += BASE_GAMEDIR;
-		if( stat( testbase.c_str(), &st ) != -1 && S_ISDIR( st.st_mode ) )
-		{
-			return basepath.c_str();
-		}
-		else
-		{
-			common->Printf( "no '%s' directory in exe path %s, skipping\n", BASE_GAMEDIR, basepath.c_str() );
-		}
-	}
-	if( basepath != Posix_Cwd() )
-	{
-		basepath = Posix_Cwd();
-		testbase = basepath;
-		testbase += "/";
-		testbase += BASE_GAMEDIR;
-		if( stat( testbase.c_str(), &st ) != -1 && S_ISDIR( st.st_mode ) )
-		{
-			return basepath.c_str();
-		}
-		else
-		{
-			common->Printf( "no '%s' directory in cwd path %s, skipping\n", BASE_GAMEDIR, basepath.c_str() );
-		}
-	}
-	common->Printf( "WARNING: using hardcoded default base path %s\n", DEFAULT_BASEPATH );
-	return DEFAULT_BASEPATH;
-}
-
-/*
-================
-Sys_Mkdir
-================
-*/
-void Sys_Mkdir( const char* path )
-{
-	mkdir( path, 0777 );
-}
-
-/*
-================
-Sys_Rmdir
-================
-*/
-bool Sys_Rmdir( const char* path )
-{
-	return ( rmdir( path ) == 0 );
-}
-
-/*
 ========================
 Sys_IsFileWritable
 ========================
@@ -483,118 +334,7 @@ bool Sys_IsFileWritable( const char* path )
 	return ( st.st_mode & S_IWRITE ) != 0;
 }
 
-/*
-========================
-Sys_IsFolder
-========================
-*/
-sysFolder_t	 Sys_IsFolder( const char* path )
-{
-	struct stat buffer;
-	
-	if( stat( path, &buffer ) < 0 )
-	{
-		return FOLDER_ERROR;
-	}
-	
-	return ( buffer.st_mode & S_IFDIR ) != 0 ? FOLDER_YES : FOLDER_NO;
-}
-
 // RB end
-
-/*
-================
-Sys_ListFiles
-================
-*/
-int Sys_ListFiles( const char* directory, const char* extension, idStrList& list )
-{
-	struct dirent* d;
-	DIR* fdir;
-	bool dironly = false;
-	char search[MAX_OSPATH];
-	struct stat st;
-	bool debug;
-	
-	list.Clear();
-	
-	debug = cvarSystem->GetCVarBool( "fs_debug" );
-	// DG: we use fnmatch for shell-style pattern matching
-	// so the pattern should at least contain "*" to match everything,
-	// the extension will be added behind that (if !dironly)
-	idStr pattern( "*" );
-	
-	// passing a slash as extension will find directories
-	if( extension[0] == '/' && extension[1] == 0 )
-	{
-		dironly = true;
-	}
-	else
-	{
-		// so we have *<extension>, the same as in the windows code basically
-		pattern += extension;
-	}
-	// DG end
-	
-	// NOTE: case sensitivity of directory path can screw us up here
-	if( ( fdir = opendir( directory ) ) == nullptr )
-	{
-		if( debug )
-		{
-			common->Printf( "Sys_ListFiles: opendir %s failed\n", directory );
-		}
-		return -1;
-	}
-	
-	// DG: use readdir_r instead of readdir for thread safety
-	// the following lines are from the readdir_r manpage.. fscking ugly.
-	int nameMax = pathconf( directory, _PC_NAME_MAX );
-	if( nameMax == -1 )
-		nameMax = 255;
-	int direntLen = offsetof( struct dirent, d_name ) + nameMax + 1;
-	
-	struct dirent* entry = ( struct dirent* )Mem_Alloc( direntLen, TAG_CRAP );
-	
-	if( entry == nullptr )
-	{
-		common->Warning( "Sys_ListFiles: Mem_Alloc for entry failed!" );
-		closedir( fdir );
-		return 0;
-	}
-	
-	while( readdir_r( fdir, entry, &d ) == 0 && d != nullptr )
-	{
-		// DG end
-		idStr::snPrintf( search, sizeof( search ), "%s/%s", directory, d->d_name );
-		if( stat( search, &st ) == -1 )
-			continue;
-		if( !dironly )
-		{
-			// DG: the original code didn't work because d3 bfg abuses the extension
-			// to match whole filenames and patterns in the savegame-code, not just file extensions...
-			// so just use fnmatch() which supports matching shell wildcard patterns ("*.foo" etc)
-			// if we should ever need case insensitivity, use FNM_CASEFOLD as third flag
-			if( fnmatch( pattern.c_str(), d->d_name, 0 ) != 0 )
-				continue;
-			// DG end
-		}
-		if( ( dironly && !( st.st_mode & S_IFDIR ) ) ||
-				( !dironly && ( st.st_mode & S_IFDIR ) ) )
-			continue;
-			
-		list.Append( d->d_name );
-	}
-	
-	closedir( fdir );
-	Mem_Free( entry );
-	
-	if( debug )
-	{
-		common->Printf( "Sys_ListFiles: %d entries in %s\n", list.Num(), directory );
-	}
-	
-	return list.Num();
-}
 
 /*
 ============================================================================
@@ -686,21 +426,6 @@ void Sys_ClearEvents()
 */
 
 /*
-================
-Posix_Cwd
-================
-*/
-const char* Posix_Cwd()
-{
-	static char cwd[MAX_OSPATH];
-	
-	getcwd( cwd, sizeof( cwd ) - 1 );
-	cwd[MAX_OSPATH - 1] = 0;
-	
-	return cwd;
-}
-
-/*
 =================
 Sys_GetMemoryStatus
 =================
@@ -708,37 +433,6 @@ Sys_GetMemoryStatus
 void Sys_GetMemoryStatus( sysMemoryStats_t& stats )
 {
 	common->Printf( "FIXME: Sys_GetMemoryStatus stub\n" );
-}
-
-void Sys_GetCurrentMemoryStatus( sysMemoryStats_t& stats )
-{
-	common->Printf( "FIXME: Sys_GetCurrentMemoryStatus\n" );
-}
-
-void Sys_GetExeLaunchMemoryStatus( sysMemoryStats_t& stats )
-{
-	common->Printf( "FIXME: Sys_GetExeLaunchMemoryStatus\n" );
-}
-
-/*
-=================
-Sys_Init
-Posix_EarlyInit/Posix_LateInit is better
-=================
-*/
-void Sys_Init() { }
-
-/*
-=================
-Posix_Shutdown
-=================
-*/
-void Posix_Shutdown()
-{
-	for( int i = 0; i < COMMAND_HISTORY; i++ )
-	{
-		history[ i ].Clear();
-	}
 }
 
 /*
@@ -812,33 +506,6 @@ ID_TIME_T Sys_FileTimeStamp( idFileHandle fp )
 	return st.st_mtime;
 }
 
-void Sys_Sleep( int msec )
-{
-#if 0 // DG: I don't really care, this spams the console (and on windows this case isn't handled either)
-	// Furthermore, there are several Sys_Sleep( 10 ) calls throughout the code
-	if( msec < 20 )
-	{
-		static int last = 0;
-		int now = Sys_Milliseconds();
-		if( now - last > 1000 )
-		{
-			Sys_Printf( "WARNING: Sys_Sleep - %d < 20 msec is not portable\n", msec );
-			last = now;
-		}
-		// ignore that sleep call, keep going
-		return;
-	}
-#endif // DG end
-	// use nanosleep? keep sleeping if signal interrupt?
-	
-	// RB begin
-#if defined(__ANDROID__)
-	usleep( msec * 1000 );
-#else
-	if( usleep( msec * 1000 ) == -1 )
-		Sys_Printf( "usleep: %s\n", strerror( errno ) );
-#endif
-}
 
 // stub pretty much everywhere - heavy calling
 void Sys_FlushCacheMemory( void* base, int bytes )
@@ -868,96 +535,12 @@ void Sys_FPU_SetPrecision( int precision )
 
 /*
 ================
-Sys_LockMemory
-================
-*/
-bool Sys_LockMemory( void* ptr, int bytes )
-{
-	return true;
-}
-
-/*
-================
-Sys_UnlockMemory
-================
-*/
-bool Sys_UnlockMemory( void* ptr, int bytes )
-{
-	return true;
-}
-
-/*
-================
 Sys_SetPhysicalWorkMemory
 ================
 */
 void Sys_SetPhysicalWorkMemory( int minBytes, int maxBytes )
 {
 	common->DPrintf( "TODO: Sys_SetPhysicalWorkMemory\n" );
-}
-
-// RB begin
-
-/*
-================
-Sys_GetDriveFreeSpace
-returns in megabytes
-================
-*/
-int Sys_GetDriveFreeSpace( const char* path )
-{
-	int ret = 26;
-	
-	struct statvfs st;
-	
-	if( statvfs( path, &st ) == 0 )
-	{
-		unsigned long blocksize = st.f_bsize;
-		unsigned long freeblocks = st.f_bfree;
-		
-		unsigned long free = blocksize * freeblocks;
-		
-		ret = ( double )( free ) / ( 1024.0 * 1024.0 );
-	}
-	
-	return ret;
-}
-
-/*
-========================
-Sys_GetDriveFreeSpaceInBytes
-========================
-*/
-int64 Sys_GetDriveFreeSpaceInBytes( const char* path )
-{
-	int64 ret = 1;
-	
-	struct statvfs st;
-	
-	if( statvfs( path, &st ) == 0 )
-	{
-		unsigned long blocksize = st.f_bsize;
-		unsigned long freeblocks = st.f_bfree;
-		
-		unsigned long free = blocksize * freeblocks;
-		
-		ret = free;
-	}
-	
-	return ret;
-}
-
-// RB end
-
-/*
-================
-Sys_AlreadyRunning
-return true if there is a copy of D3 running already
-================
-*/
-bool Sys_AlreadyRunning()
-{
-	return false;
 }
 
 /*
@@ -1598,71 +1181,6 @@ void Sys_Error( const char* error, ... )
 	Sys_Printf( "\n" );
 	
 	Posix_Exit( EXIT_FAILURE );
-}
-
-/*
-================
-Sys_SetLanguageFromSystem
-================
-*/
-extern idCVar sys_lang;
-void Sys_SetLanguageFromSystem()
-{
-	sys_lang.SetString( Sys_DefaultLanguage() );
-}
-
-/*
-=================
-Sys_OpenURL
-=================
-*/
-void idSysLocal::OpenURL( const char* url, bool quit )
-{
-	const char*	script_path;
-	idFile*		script_file;
-	char		cmdline[ 1024 ];
-	
-	static bool	quit_spamguard = false;
-	
-	if( quit_spamguard )
-	{
-		common->DPrintf( "Sys_OpenURL: already in a doexit sequence, ignoring %s\n", url );
-		return;
-	}
-	
-	// FIXME: this could use xdg-open
-	
-	common->Printf( "Open URL: %s\n", url );
-	// opening an URL on *nix can mean a lot of things ..
-	// just spawn a script instead of deciding for the user :-)
-	
-	// look in the savepath first, then in the basepath
-	script_path = fileSystem->BuildOSPath( cvarSystem->GetCVarString( "fs_savepath" ), "", "openurl.sh" );
-	script_file = fileSystem->OpenExplicitFileRead( script_path );
-	if( !script_file )
-	{
-		script_path = fileSystem->BuildOSPath( cvarSystem->GetCVarString( "fs_basepath" ), "", "openurl.sh" );
-		script_file = fileSystem->OpenExplicitFileRead( script_path );
-	}
-	if( !script_file )
-	{
-		common->Printf( "Can't find URL script 'openurl.sh' in either savepath or basepath\n" );
-		common->Printf( "OpenURL '%s' failed\n", url );
-		return;
-	}
-	fileSystem->CloseFile( script_file );
-	
-	// if we are going to quit, only accept a single URL before quitting and spawning the script
-	if( quit )
-	{
-		quit_spamguard = true;
-	}
-	
-	common->Printf( "URL script: %s\n", script_path );
-	
-	// StartProcess is going to execute a system() call with that - hence the &
-	idStr::snPrintf( cmdline, 1024, "%s '%s' &",  script_path, url );
-	sys->StartProcess( cmdline, quit );
 }
 
 

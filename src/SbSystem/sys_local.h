@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -37,14 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
-void			Sys_Init();
-void			Sys_Shutdown();
 
 void			Sys_Quit();
 
-// lock and unlock memory
-bool			Sys_LockMemory( void* ptr, int bytes );
-bool			Sys_UnlockMemory( void* ptr, int bytes );
 
 // DLL loading, the path should be a fully qualified OS path to the DLL file to be loaded
 
@@ -55,6 +51,13 @@ void			Sys_DLL_Unload( intptr_t dllHandle );
 // RB end
 
 bool			Sys_AlreadyRunning();
+
+
+// empties the FPU stack
+void			Sys_FPU_ClearStack();
+
+// sets the FPU rounding mode
+void			Sys_FPU_SetRounding( int rounding );
 
 /*
 ==============================================================
@@ -73,7 +76,7 @@ public:
 	void Quit() override;
 	
 	virtual void			DebugPrintf( VERIFY_FORMAT_STRING const char* fmt, ... );
-	virtual void			DebugVPrintf( const char* fmt, va_list arg );
+	virtual void			DebugVPrintf( const char* fmt, va_list arg ) override;
 	
 	virtual double			GetClockTicks();
 	virtual double			ClockTicksPerSecond();
@@ -86,13 +89,14 @@ public:
 	
 	virtual void			FPU_EnableExceptions( int exceptions );
 	
+	/// lock and unlock memory
 	virtual bool			LockMemory( void* ptr, int bytes );
 	virtual bool			UnlockMemory( void* ptr, int bytes );
 	
-	virtual int				DLL_Load( const char* dllName );
-	virtual void* 			DLL_GetProcAddress( int dllHandle, const char* procName );
-	virtual void			DLL_Unload( int dllHandle );
-	virtual void			DLL_GetFileName( const char* baseName, char* dllName, int maxLength );
+	virtual int				DLL_Load( const char* dllName ) override;
+	virtual void* 			DLL_GetProcAddress( int dllHandle, const char* procName ) override;
+	virtual void			DLL_Unload( int dllHandle ) override;
+	virtual void			DLL_GetFileName( const char* baseName, char* dllName, int maxLength ) override;
 	
 	virtual sysEvent_t		GenerateMouseButtonEvent( int button, bool down );
 	virtual sysEvent_t		GenerateMouseMoveEvent( int deltax, int deltay );
@@ -104,6 +108,21 @@ public:
 	virtual const char *GetLangName(int anIndex) const override;
 	
 	bool AlreadyRunning() const override;
+	
+	/// returns memory stats
+	void GetCurrentMemoryStatus(sysMemoryStats_t &aStats) override; // TODO: should this be public?
+	
+	/// allow game to yield CPU time
+	// NOTE: due to SYS_MINSLEEP this is very bad portability karma, and should be completely removed
+	void Sleep(int msec) override;
+private:
+	/// returns amount of drive space in path
+	int GetDriveFreeSpace(const char *asPath) const;
+
+	/// returns amount of drive space in path in bytes
+	int64 GetDriveFreeSpaceInBytes(const char *asPath) const;
+
+	void GetExeLaunchMemoryStatus(sysMemoryStats_t &aStats);
 };
 
 //} // namespace BFG

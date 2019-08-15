@@ -53,30 +53,6 @@ static int cmdargc = 0;
 #endif
 
 /*
-==============
-Sys_EXEPath
-==============
-*/
-const char* Sys_EXEPath()
-{
-	static char	buf[ 1024 ];
-	idStr		linkpath;
-	int			len;
-	
-	buf[ 0 ] = '\0';
-	sprintf( linkpath, "/proc/%d/exe", getpid() );
-	len = readlink( linkpath.c_str(), buf, sizeof( buf ) );
-	if( len == -1 )
-	{
-		Sys_Printf( "couldn't stat exe path link %s\n", linkpath.c_str() );
-		// RB: fixed array subscript is below array bounds
-		buf[ 0 ] = '\0';
-		// RB end
-	}
-	return buf;
-}
-
-/*
 ===============
 Sys_GetProcessorId
 ===============
