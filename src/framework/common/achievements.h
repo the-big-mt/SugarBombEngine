@@ -57,5 +57,3 @@ public:
 };
 
 //} // namespace sbe
-
-#endif // __WIN_ACHIEVEMENTS_H__

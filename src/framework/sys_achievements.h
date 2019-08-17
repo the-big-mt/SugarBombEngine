@@ -148,5 +148,3 @@ protected:
 };
 
 //} // namespace sbe
-
-#endif // __SYS_ACHIEVEMENTS_H__
