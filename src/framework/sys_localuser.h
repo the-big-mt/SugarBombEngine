@@ -25,13 +25,12 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __SYS_LOCALUSER_H__
-#define __SYS_LOCALUSER_H__
 
 //#include "../idlib/BitMsg.h"
 //#include "../idlib/sys/sys_types.h"
 #include "sys_profile.h"
 
+#pragma once
 //namespace BFG
 //{
 
@@ -189,4 +188,3 @@ private:
 
 //} // namespace BFG
 
-#endif // __SYS_LOCALUSER_H__
