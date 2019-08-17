@@ -98,114 +98,13 @@ uint64 Sys_Microseconds()
 
 /*
 ================
-Sys_GetDriveFreeSpace
-returns in megabytes
-================
-*/
-int Sys_GetDriveFreeSpace( const char* path )
-{
-	DWORDLONG lpFreeBytesAvailable;
-	DWORDLONG lpTotalNumberOfBytes;
-	DWORDLONG lpTotalNumberOfFreeBytes;
-	int ret = 26;
-	//FIXME: see why this is failing on some machines
-	if( ::GetDiskFreeSpaceEx( path, ( PULARGE_INTEGER )&lpFreeBytesAvailable, ( PULARGE_INTEGER )&lpTotalNumberOfBytes, ( PULARGE_INTEGER )&lpTotalNumberOfFreeBytes ) )
-	{
-		ret = ( double )( lpFreeBytesAvailable ) / ( 1024.0 * 1024.0 );
-	}
-	return ret;
-}
-
-/*
-========================
-Sys_GetDriveFreeSpaceInBytes
-========================
-*/
-int64 Sys_GetDriveFreeSpaceInBytes( const char* path )
-{
-	DWORDLONG lpFreeBytesAvailable;
-	DWORDLONG lpTotalNumberOfBytes;
-	DWORDLONG lpTotalNumberOfFreeBytes;
-	int64 ret = 1;
-	//FIXME: see why this is failing on some machines
-	if( ::GetDiskFreeSpaceEx( path, ( PULARGE_INTEGER )&lpFreeBytesAvailable, ( PULARGE_INTEGER )&lpTotalNumberOfBytes, ( PULARGE_INTEGER )&lpTotalNumberOfFreeBytes ) )
-	{
-		ret = lpFreeBytesAvailable;
-	}
-	return ret;
-}
-
-/*
-================
-Sys_GetCurrentMemoryStatus
-
-	returns OS mem info
-	all values are in kB except the memoryload
-================
-*/
-void Sys_GetCurrentMemoryStatus( sysMemoryStats_t& stats )
-{
-	MEMORYSTATUSEX statex = {};
-	unsigned __int64 work;
-	
-	statex.dwLength = sizeof( statex );
-	GlobalMemoryStatusEx( &statex );
-	
-	memset( &stats, 0, sizeof( stats ) );
-	
-	stats.memoryLoad = statex.dwMemoryLoad;
-	
-	work = statex.ullTotalPhys >> 20;
-	stats.totalPhysical = *( int* )&work;
-	
-	work = statex.ullAvailPhys >> 20;
-	stats.availPhysical = *( int* )&work;
-	
-	work = statex.ullAvailPageFile >> 20;
-	stats.availPageFile = *( int* )&work;
-	
-	work = statex.ullTotalPageFile >> 20;
-	stats.totalPageFile = *( int* )&work;
-	
-	work = statex.ullTotalVirtual >> 20;
-	stats.totalVirtual = *( int* )&work;
-	
-	work = statex.ullAvailVirtual >> 20;
-	stats.availVirtual = *( int* )&work;
-	
-	work = statex.ullAvailExtendedVirtual >> 20;
-	stats.availExtendedVirtual = *( int* )&work;
-}
-
-/*
-================
-Sys_LockMemory
-================
-*/
-bool Sys_LockMemory( void* ptr, int bytes )
-{
-	return ( VirtualLock( ptr, ( SIZE_T )bytes ) != FALSE );
-}
-
-/*
-================
-Sys_UnlockMemory
-================
-*/
-bool Sys_UnlockMemory( void* ptr, int bytes )
-{
-	return ( VirtualUnlock( ptr, ( SIZE_T )bytes ) != FALSE );
-}
-
-/*
-================
 Sys_SetPhysicalWorkMemory
 ================
 */
 void Sys_SetPhysicalWorkMemory( int minBytes, int maxBytes )
 {
 	::SetProcessWorkingSetSize( GetCurrentProcess(), minBytes, maxBytes );
-}
+};
 
 /*
 ================
