@@ -27,8 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __MODELMANAGER_H__
-#define __MODELMANAGER_H__
+#pragma once
 
 #include "renderer/IModelManager.hpp"
 
@@ -36,4 +35,3 @@ If you have questions concerning this license or the applicable additional terms
 // this will be statically pointed at a private implementation
 extern	idRenderModelManager*	renderModelManager;
 
-#endif /* !__MODELMANAGER_H__ */
