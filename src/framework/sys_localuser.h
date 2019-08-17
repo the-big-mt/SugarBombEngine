@@ -26,6 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+/// @file
 //#include "../idlib/BitMsg.h"
 //#include "../idlib/sys/sys_types.h"
 #include "sys_profile.h"

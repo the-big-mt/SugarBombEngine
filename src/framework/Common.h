@@ -29,6 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+/// @file
+
 #pragma once
 
 extern idCVar com_engineHz;
