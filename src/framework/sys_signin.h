@@ -29,6 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #define __SYS_SIGNIN_H__
 
 //namespace BFG
+#include "framework/ISignInManager.hpp"
+
 //{
 
 /*
@@ -36,22 +38,18 @@ If you have questions concerning this license or the applicable additional terms
 idSignInManagerBase
 ================================================
 */
-class idSignInManagerBase
+class SbSignInManagerBase : public ISignInManager
 {
 public:
-
-	idSignInManagerBase() :
-		minDesiredLocalUsers( 0 ),
-		maxDesiredLocalUsers( 0 ),
-		defaultProfile( NULL ) {}
-	virtual							~idSignInManagerBase() {}
+	SbSignInManagerBase() = default;
+	virtual ~SbSignInManagerBase() = default;
 	
 	virtual void					Pump() = 0;
 	virtual int					GetNumLocalUsers() const = 0;
 	virtual idLocalUser* 			GetLocalUserByIndex( int index ) = 0;
 	virtual const idLocalUser* 	GetLocalUserByIndex( int index ) const = 0;
 	virtual void					RemoveLocalUserByIndex( int index ) = 0;
-	virtual void					RegisterLocalUser( int inputDevice ) = 0;								// Register a local controller user to the passed in input device
+
 	virtual idLocalUser* 			GetRegisteringUser()
 	{
 		return NULL;    // This is a user that has started the registration process but is not yet a local user.
@@ -87,7 +85,7 @@ public:
 	idPlayerProfile* 		GetDefaultProfile();
 	
 	// Master user always index 0
-	idLocalUser* 			GetMasterLocalUser()
+	idLocalUser* 			GetMasterLocalUser() const override
 	{
 		return ( GetNumLocalUsers() > 0 ) ? GetLocalUserByIndex( 0 ) : NULL;
 	}
@@ -100,18 +98,12 @@ public:
 	{
 		return ( GetMasterLocalUser() != NULL ) ? GetMasterLocalUser()->IsPersistent() : false;
 	}
-	bool 					IsMasterLocalUserOnline() const
-	{
-		return ( GetMasterLocalUser() != NULL ) ? GetMasterLocalUser()->IsOnline() : false;
-	}
+	
 	int					GetMasterInputDevice() const
 	{
 		return ( GetMasterLocalUser() != NULL ) ? GetMasterLocalUser()->GetInputDevice() : -1;
 	}
-	localUserHandle_t		GetMasterLocalUserHandle() const
-	{
-		return ( GetMasterLocalUser() != NULL ) ? GetMasterLocalUser()->GetLocalUserHandle() : localUserHandle_t();
-	}
+	
 	idLocalUser* 			GetLocalUserByInputDevice( int index );
 	idLocalUser* 			GetLocalUserByHandle( localUserHandle_t handle );
 	idPlayerProfile* 		GetPlayerProfileByInputDevice( int index );
@@ -127,11 +119,10 @@ public:
 	bool					RequirePersistentMaster();
 	
 	localUserHandle_t		GetUniqueLocalUserHandle( const char* name );
-	
 protected:
-	int					minDesiredLocalUsers;
-	int					maxDesiredLocalUsers;
-	idPlayerProfile* 	defaultProfile;
+	int					minDesiredLocalUsers{0};
+	int					maxDesiredLocalUsers{0};
+	idPlayerProfile* 	defaultProfile{nullptr};
 };
 
 //} // namespace BFG
