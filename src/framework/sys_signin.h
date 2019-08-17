@@ -27,11 +27,11 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-//namespace BFG
 #pragma once
 
 #include "framework/ISignInManager.hpp"
 
+//namespace sbe
 //{
 
 /*
@@ -126,5 +126,4 @@ protected:
 	idPlayerProfile* 	defaultProfile{nullptr};
 };
 
-//} // namespace BFG
-
+//}; // namespace sbe

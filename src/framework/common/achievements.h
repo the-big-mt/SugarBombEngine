@@ -30,7 +30,8 @@ If you have questions concerning this license or the applicable additional terms
 //#include "../sys/sys_achievements.h"
 
 #pragma once
-//namespace BFG
+
+//namespace sbe
 //{
 
 //class idLocalUser;
@@ -55,6 +56,6 @@ public:
 	bool	GetAchievementState( idLocalUser* user, idArray< bool, idAchievementSystem::MAX_ACHIEVEMENTS >& achievements ) const;
 };
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif // __WIN_ACHIEVEMENTS_H__

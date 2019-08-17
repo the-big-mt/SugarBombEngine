@@ -39,7 +39,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys_savegame.h"
 #include "sys_session_savegames.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idFile_SaveGame;
@@ -128,5 +128,4 @@ private:
 // Synchronous check, just checks if a profile exists within the savegame location
 bool Sys_SaveGameProfileCheck();
 
-//} // namespace BFG
-
+//} // namespace sbe

@@ -31,8 +31,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys_profile.h"
 
 #pragma once
-//namespace BFG
-//{
 
 struct achievementDescription_t;
 class idPlayerProfile;
@@ -45,6 +43,8 @@ enum onlineCaps_t
 	CAP_CAN_PLAY_ONLINE		= BIT( 2 ),
 };
 
+//namespace sbe
+//{
 class idSerializer;
 
 /*
@@ -186,5 +186,4 @@ private:
 	bool						syncAchievementsRequested;
 };
 
-//} // namespace BFG
-
+//} // namespace sbe

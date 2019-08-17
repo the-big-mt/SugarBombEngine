@@ -30,11 +30,11 @@ If you have questions concerning this license or the applicable additional terms
 //#include "../sys/sys_session.h"
 
 #pragma once
-//namespace BFG
-//{
 
 class idLocalUser;
 
+//namespace sbe
+//{
 // data structure for online achievement entry descriptions
 // this is used for testing purposes to make sure that the consoles
 // achievement settings match the game's decls
@@ -147,6 +147,6 @@ protected:
 	idStaticList< idLocalUser*, MAX_LOCAL_PLAYERS > users;
 };
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif // __SYS_ACHIEVEMENTS_H__
