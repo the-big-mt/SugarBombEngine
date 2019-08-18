@@ -34,9 +34,6 @@ If you have questions concerning this license or the applicable additional terms
 //#include "precompiled.h"
 
 #include "InputImplWin.hpp"
-
-//#include "framework/sys_session_local.h"
-
 //#include "win_local.h"
 
 #include "idlib/sys/sys_assert.h"
@@ -45,6 +42,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys/ISys.hpp"
 
 #include "framework/IUsercmdGen.hpp"
+//#include "framework/sys_session_local.h"
 
 //namespace sbe
 //{
@@ -552,7 +550,7 @@ bool SbInputImplWin::InitDIMouse()
 	
 	// clear any pending samples
 	int	mouseEvents[sbe::MAX_MOUSE_EVENTS][2];
-	Sys_PollMouseInputEvents( mouseEvents );
+	PollMouseInputEvents( mouseEvents );
 	
 	mpSys->Printf( "mouse: DirectInput initialized.\n" );
 	return true;
