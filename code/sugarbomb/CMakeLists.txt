@@ -13,3 +13,4 @@ add_subdirectory(AppFrameworks)
 
 #add_subdirectory(idlib)
 
+add_subdirectory(SbNetwork)
