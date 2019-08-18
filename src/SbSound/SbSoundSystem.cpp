@@ -65,7 +65,7 @@ idCVar s_maxSamples( "s_maxSamples", "5", CVAR_INTEGER, "max samples to load per
 idCVar preLoad_Samples( "preLoad_Samples", "1", CVAR_SYSTEM | CVAR_BOOL, "preload samples during beginlevelload" );
 
 idSoundSystemLocal soundSystemLocal;
-idSoundSystem* soundSystem = &soundSystemLocal;
+idSoundSystem* soundSystem{&soundSystemLocal};
 
 /*
 ===========
@@ -105,7 +105,7 @@ C_EXPORT soundExport_t *GetSoundAPI(soundImport_t *import)
 	
 	// setup export interface
 	soundExport.version = SOUND_API_VERSION;
-	soundExport.soundSystem = soundSystem;
+	soundExport.soundSystem = soundSystem; // TODO: CreateSoundSystem();
 	
 	return &soundExport;
 };
