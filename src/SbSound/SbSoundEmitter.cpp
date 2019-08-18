@@ -59,7 +59,6 @@ idCVar s_singleEmitter( "s_singleEmitter", "0", CVAR_INTEGER, "mute all sounds b
 idCVar s_showStartSound( "s_showStartSound", "0", CVAR_BOOL, "print a message every time a sound starts/stops" );
 idCVar s_useOcclusion( "s_useOcclusion", "1", CVAR_BOOL, "Attenuate sounds based on walls" );
 
-extern idCVar s_playDefaultSound;
 extern idCVar s_noSound;
 
 /*
