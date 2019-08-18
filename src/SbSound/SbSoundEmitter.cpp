@@ -64,16 +64,6 @@ extern idCVar s_playDefaultSound;
 extern idCVar s_noSound;
 
 /*
-========================
-LinearToDB
-========================
-*/
-ID_INLINE_EXTERN float LinearToDB( float linear )
-{
-	return ( linear > 0.0f ) ? ( idMath::Log( linear ) * ( 6.0f / 0.693147181f ) ) : -999.0f;
-}
-
-/*
 ================================================================================================
 
 	idSoundEmitterLocal
