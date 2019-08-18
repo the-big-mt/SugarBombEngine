@@ -32,20 +32,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "SbNetworkSystem.hpp"
 
-static netExport_t gNetExport;
-
 SbNetworkSystem gNetworkSystem;
 SbNetworkSystem *gpNetworkSystem{&gNetworkSystem};
-
-#ifndef SBE_SINGLE_BINARY
-idSys *gpSys{nullptr};
-idCommon *gpCommon{nullptr};
-idCmdSystem *gpCmdSystem{nullptr};
-idCVarSystem *gpCvarSystem{nullptr};
-idFileSystem *gpFileSystem{nullptr};
-
-idCVar *idCVar::staticVars{nullptr};
-#endif
 
 /*
 ===========
@@ -53,9 +41,17 @@ GetNetAPI
 ============
 */
 #ifndef SBE_SINGLE_BINARY
-C_EXPORT
-#endif
-netExport_t *GetNetAPI(inputImport_t *apImport)
+static netExport_t gNetExport;
+
+idSys *gpSys{nullptr};
+idCommon *gpCommon{nullptr};
+idCmdSystem *gpCmdSystem{nullptr};
+idCVarSystem *gpCvarSystem{nullptr};
+idFileSystem *gpFileSystem{nullptr};
+
+idCVar *idCVar::staticVars{nullptr};
+
+C_EXPORT netExport_t *GetNetAPI(inputImport_t *apImport)
 {
 	if(apImport->version == NET_API_VERSION)
 	{
@@ -75,10 +71,11 @@ netExport_t *GetNetAPI(inputImport_t *apImport)
 	
 	// setup export interface
 	gNetExport.version = NET_API_VERSION;
-	gNetExport.networkSystem = gpNetworkSystem;
+	gNetExport.networkSystem = gpNetworkSystem; // TODO: CreateNetworkSystem();
 	
 	return &gNetExport;
 };
+#endif // SBE_SINGLE_BINARY
 
 /*
 ================================================================================================
