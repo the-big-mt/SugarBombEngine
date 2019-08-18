@@ -52,16 +52,15 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
-struct idSys;
-struct idFileSystem;
-
+struct ISys;
+struct IFileSystem;
 
 // ok, this one isn't really a stub, because it seems to be XAudio-independent,
 // I just copied the class from idSoundSample_XAudio2 and renamed it
 class idSoundSample
 {
 public:
-	idSoundSample(idSys *apSys, idFileSystem *apFileSystem);
+	idSoundSample(ISys *apSys, IFileSystem *apFileSystem);
 	
 	~idSoundSample(); // destructor should be public so lists of  soundsamples can be destroyed etc
 	
@@ -196,8 +195,8 @@ protected:
 	
 	idList<byte, TAG_AMPLITUDE> amplitude;
 private:
-	idSys *mpSys{nullptr};
-	idFileSystem *fileSystem{nullptr};
+	ISys *mpSys{nullptr};
+	IFileSystem *fileSystem{nullptr};
 };
 
 class idSoundVoice : public idSoundVoice_Base
