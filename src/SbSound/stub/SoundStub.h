@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012 Daniel Gibson
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -53,83 +54,7 @@ If you have questions concerning this license or the applicable additional terms
 
 struct idSys;
 struct idFileSystem;
-class idSoundVoice : public idSoundVoice_Base
-{
-public:
-	void					Create( const idSoundSample* leadinSample, const idSoundSample* loopingSample ) {}
-	
-	// Start playing at a particular point in the buffer.  Does an Update() too
-	void					Start( int offsetMS, int ssFlags ) {}
-	
-	// Stop playing.
-	void					Stop() {}
-	
-	// Stop consuming buffers
-	void					Pause() {}
-	// Start consuming buffers again
-	void					UnPause() {}
-	
-	// Sends new position/volume/pitch information to the hardware
-	bool					Update()
-	{
-		return false;
-	}
-	
-	// returns the RMS levels of the most recently processed block of audio, SSF_FLICKER must have been passed to Start
-	float					GetAmplitude()
-	{
-		return 0.0f;
-	}
-	
-	// returns true if we can re-use this voice
-	bool					CompatibleFormat( idSoundSample* s )
-	{
-		return false;
-	}
-	
-	uint32					GetSampleRate() const
-	{
-		return 0;
-	}
-	
-	// callback function
-	void					OnBufferStart( idSoundSample* sample, int bufferNumber ) {}
-};
 
-class idSoundHardware
-{
-public:
-	idSoundHardware() {}
-	
-	void			Init() {}
-	void			Shutdown() {}
-	
-	void 			Update() {}
-	
-	// FIXME: this is a bad name when having multiple sound backends... and maybe it's not even needed
-	void* 		GetIXAudio2() const // NOTE: originally this returned IXAudio2*, but that was casted to void later anyway
-	{
-		return NULL;
-	}
-	
-	idSoundVoice* 	AllocateVoice( const idSoundSample* leadinSample, const idSoundSample* loopingSample )
-	{
-		return NULL;
-	}
-	
-	void			FreeVoice( idSoundVoice* voice ) {}
-	
-	int				GetNumZombieVoices() const
-	{
-		return 0;
-	}
-	
-	int				GetNumFreeVoices() const
-	{
-		return 0;
-	}
-	
-};
 
 // ok, this one isn't really a stub, because it seems to be XAudio-independent,
 // I just copied the class from idSoundSample_XAudio2 and renamed it
@@ -274,6 +199,83 @@ private:
 	idSys *mpSys{nullptr};
 	idFileSystem *fileSystem{nullptr};
 };
+
+class idSoundVoice : public idSoundVoice_Base
+{
+public:
+	void					Create( const idSoundSample* leadinSample, const idSoundSample* loopingSample ) {}
+	
+	// Start playing at a particular point in the buffer.  Does an Update() too
+	void					Start( int offsetMS, int ssFlags ) {}
+	
+	// Stop playing.
+	void					Stop() {}
+	
+	// Stop consuming buffers
+	void					Pause() {}
+	// Start consuming buffers again
+	void					UnPause() {}
+	
+	// Sends new position/volume/pitch information to the hardware
+	bool					Update()
+	{
+		return false;
+	}
+	
+	// returns the RMS levels of the most recently processed block of audio, SSF_FLICKER must have been passed to Start
+	float					GetAmplitude()
+	{
+		return 0.0f;
+	}
+	
+	// returns true if we can re-use this voice
+	bool					CompatibleFormat( idSoundSample* s )
+	{
+		return false;
+	}
+	
+	uint32					GetSampleRate() const
+	{
+		return 0;
+	}
+	
+	// callback function
+	void					OnBufferStart( idSoundSample* sample, int bufferNumber ) {}
+};
+
+class idSoundHardware
+{
+public:
+	idSoundHardware() {}
+	
+	void			Init() {}
+	void			Shutdown() {}
+	
+	void 			Update() {}
+	
+	// FIXME: this is a bad name when having multiple sound backends... and maybe it's not even needed
+	void* 		GetIXAudio2() const // NOTE: originally this returned IXAudio2*, but that was casted to void later anyway
+	{
+		return NULL;
+	}
+	
+	idSoundVoice* 	AllocateVoice( const idSoundSample* leadinSample, const idSoundSample* loopingSample )
+	{
+		return NULL;
+	}
+	
+	void			FreeVoice( idSoundVoice* voice ) {}
+	
+	int				GetNumZombieVoices() const
+	{
+		return 0;
+	}
+	
+	int				GetNumFreeVoices() const
+	{
+		return 0;
+	}
+	
 };
 
 //} // namespace BFG
