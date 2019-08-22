@@ -5,6 +5,7 @@ Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2013 Robert Beckebans
 Copyright (C) 1997-2012 Sam Lantinga <slouken@libsdl.org>  (MS ADPCM decoder)
 Copyright (c) 2011 Chris Robinson <chris.kcat@gmail.com> (OpenAL helpers)
+Copyright (C) 2019 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 

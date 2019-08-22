@@ -4,6 +4,7 @@
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2013 Robert Beckebans
 Copyright (c) 2010 by Chris Robinson <chris.kcat@gmail.com> (OpenAL Info Utility)
+Copyright (C) 2019 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
