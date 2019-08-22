@@ -33,10 +33,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
+
+/// @file
+
 #pragma hdrstop
 #include "precompiled.h"
 //#include <XAudio2.h>
 //#include <XAudio2fx.h>
+
 //#include <cstddef>
 
 #include "framework/ICVarSystem.hpp"

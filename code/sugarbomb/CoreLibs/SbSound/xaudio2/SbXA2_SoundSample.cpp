@@ -33,6 +33,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
+
+/// @file
+
 #pragma hdrstop
 //#include <XAudio2.h>
 //#include <cmath>

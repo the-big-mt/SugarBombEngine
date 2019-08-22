@@ -34,6 +34,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+/// @file
+
 // DG: SoundSample seems to be XAudio-independent, so this is just a copy of idSoundSample_XAudio2
 
 #include "idlib/precompiled.h"

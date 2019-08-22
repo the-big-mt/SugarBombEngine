@@ -35,6 +35,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+/// @file
+
 /*
  * DG: a stub to get d3 bfg to compile without XAudio2, because that doesn't work with MinGW
  * or on non-Windows platforms.

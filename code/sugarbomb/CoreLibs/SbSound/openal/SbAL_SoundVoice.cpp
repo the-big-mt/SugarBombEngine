@@ -34,12 +34,17 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
+
+/// @file
+
 #pragma hdrstop
+
 //#ifdef __APPLE__
 //#	include <OpenAL/al.h>
 //#else
 //#	include <AL/al.h>
 //#endif
+
 //#include <cstddef>
 #include "precompiled.h"
 

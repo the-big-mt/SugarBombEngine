@@ -35,6 +35,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+/// @file
+
 #pragma once
 
 //#include "SbAL_SoundSample.hpp" // for idSoundSample_OpenAL, etc

@@ -35,6 +35,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+/// @file
+
 #pragma once
 
 //#include "SbXA2_SoundVoice.hpp" // for idSoundVoice_XAudio2

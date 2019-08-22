@@ -34,6 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
+
+/// @file
+
 #pragma hdrstop
 #include "precompiled.h"
 
