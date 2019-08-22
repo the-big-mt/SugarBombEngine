@@ -42,13 +42,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbSoundEmitter.hpp"
 #include "SbSoundChannel.hpp"
 
-#include "framework/Common.h" // for MemInfo_t
-#include "framework/DeclManager.h" // for declManager, idDeclManager, etc
+#include "framework/ICommon.h" // for MemInfo_t
+#include "framework/IDeclManager.hpp" // for declManager, idDeclManager, etc
 #include "framework/File_Manifest.h" // for idPreloadManifest, etc
 
-#include "sys/ResourceCacheEntry.hpp"
+#include "SbSystem/ResourceCacheEntry.hpp"
 
-#include "renderer/IRenderWorld.hpp"
+#include "SbRenderer/IRenderWorld.hpp"
 
 //namespace sbe
 //{

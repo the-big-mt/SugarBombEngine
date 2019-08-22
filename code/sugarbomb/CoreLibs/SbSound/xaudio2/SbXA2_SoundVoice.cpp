@@ -46,14 +46,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/sys/sys_assert.h"
 #include "idlib/sys/sys_types.h"
 
-#include "XA2_SoundSample.h"
-#include "XA2_SoundVoice.h"
+#include "SbXA2_SoundSample.hpp"
+#include "SbXA2_SoundVoice.hpp"
 #include "snd_local.h"
 #include "SbWaveFile.hpp"
-#include "sound.h"
-//#include "../sound/snd_defines.h"
+#include "SbSound/SbSound.h"
+//#include "SbSoundDefines.hpp"
 
-//#include "../sys/sys_public.h"
+//#include "CoreLibs/SbSystem/ISystem.hpp"
 
 //namespace BFG
 //{

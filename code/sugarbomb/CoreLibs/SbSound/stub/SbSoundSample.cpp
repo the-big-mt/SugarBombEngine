@@ -38,12 +38,12 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "idlib/precompiled.h"
 
-#include "sys/IFile.hpp"
-#include "sys/IFileSystem.hpp"
+#include "CoreLibs/SbSystem/IFile.hpp"
+#include "CoreLibs/SbSystem/IFileSystem.hpp"
 
 #include "framework/CVar.hpp"
 
-#include "SoundStub.h"
+#include "SbSoundStub.hpp"
 #include "SbSoundSystem.hpp"
 #include "snd_local.h"
 

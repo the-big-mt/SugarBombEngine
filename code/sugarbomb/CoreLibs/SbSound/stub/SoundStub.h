@@ -48,10 +48,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef SOUNDSTUB_H_
 #define SOUNDSTUB_H_
 
-#include "idlib/precompiled.h" // TIME_T
 #include "idlib/containers/List.h"
 #include "idlib/Str.h"
-//#include "idlib/sys/sys_defines.h"
+#include "idlib/sys/sys_defines.h" // TIME_T
 
 #include "SbSoundVoice.hpp"
 #include "SbWaveFile.hpp"

@@ -37,7 +37,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #pragma hdrstop
 #include "precompiled.h"
 
-#include "XA2_SoundHardware.h"
+#include "SbXA2_SoundHardware.hpp"
 //#include "snd_local.h"
 
 idCVar s_showLevelMeter( "s_showLevelMeter", "0", CVAR_BOOL | CVAR_ARCHIVE, "Show VU meter" );

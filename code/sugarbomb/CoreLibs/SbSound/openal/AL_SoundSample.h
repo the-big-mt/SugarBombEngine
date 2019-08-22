@@ -46,8 +46,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include <AL/alext.h>
 //#endif
 
-//#include "../framework/FileSystem.h"
-#include "WaveFile.h"
+//#include "CoreLibs/SbSystem/IFileSystem.hpp"
+
+#include "SbWaveFile.hpp"
 
 //namespace BFG
 //{

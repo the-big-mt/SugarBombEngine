@@ -36,7 +36,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef __XA2_SOUNDVOICE_H__
 #define __XA2_SOUNDVOICE_H__
 
-//#include "XA2_SoundSample.h"
+//#include "SbXA2_SoundSample.hpp"
 #include "SbSoundVoice.hpp"
 
 //namespace BFG

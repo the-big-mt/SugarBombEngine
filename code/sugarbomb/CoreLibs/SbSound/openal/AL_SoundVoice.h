@@ -37,7 +37,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef __AL_SOUNDVOICE_H__
 #define __AL_SOUNDVOICE_H__
 
-//#include "AL_SoundSample.h" // for idSoundSample_OpenAL, etc
+//#include "SbAL_SoundSample.hpp" // for idSoundSample_OpenAL, etc
 #include "SbSoundVoice.hpp" // for idSoundVoice_Base
 
 //namespace BFG

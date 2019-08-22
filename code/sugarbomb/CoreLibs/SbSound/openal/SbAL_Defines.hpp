@@ -51,9 +51,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 #	include <AL/alext.h>
 #endif
 
-//#include "AL_SoundSample.h"
-//#include "AL_SoundVoice.h"
-//#include "AL_SoundHardware.h"
+//#include "SbAL_SoundSample.hpp"
+//#include "SbAL_SoundVoice.hpp"
+//#include "SbAL_SoundHardware.hpp"
 
 //namespace sbe
 //{

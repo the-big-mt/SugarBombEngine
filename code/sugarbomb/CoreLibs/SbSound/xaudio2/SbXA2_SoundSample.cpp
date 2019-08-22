@@ -42,8 +42,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "framework/ICVarSystem.hpp"
 #include "framework/ICommon.hpp"
 
-#include "sys/IFile.hpp"
-#include "sys/IFileSystem.hpp"
+#include "CoreLibs/SbSystem/IFile.hpp"
+#include "CoreLibs/SbSystem/IFileSystem.hpp"
 
 #include "idlib/Heap.h"
 #include "idlib/Lib.h"
@@ -56,11 +56,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/sys/sys_defines.h"
 #include "idlib/sys/sys_types.h"
 
-#include "XA2_SoundSample.h"
+#include "SbXA2_SoundSample.hpp"
 #include "snd_local.h"
-#include "WaveFile.h"
+#include "SbWaveFile.hpp"
 
-//#include "../sys/sys_public.h"
+//#include "CoreLibs/SbSystem/ISystem.hpp"
 
 //namespace BFG
 //{

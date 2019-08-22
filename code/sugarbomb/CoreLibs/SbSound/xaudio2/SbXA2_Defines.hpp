@@ -81,6 +81,6 @@ struct AudioDevice
 #endif
 // RB end
 
-#include "XA2_SoundSample.h"
-#include "XA2_SoundVoice.h"
-#include "XA2_SoundHardware.h"
+#include "SbXA2_SoundSample.hpp"
+#include "SbXA2_SoundVoice.hpp"
+#include "SbXA2_SoundHardware.hpp"

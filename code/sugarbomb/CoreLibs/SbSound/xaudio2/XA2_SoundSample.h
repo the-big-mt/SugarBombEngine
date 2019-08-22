@@ -39,7 +39,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include <XAudio2.h>
 //#include <XAudio2fx.h>
 
-//#include "../framework/FileSystem.h"
+//#include "CoreLibs/SbSystem/IFileSystem.hpp"
 
 #include "SbWaveFile.hpp"
 //#include "SbSoundDefines.hpp"

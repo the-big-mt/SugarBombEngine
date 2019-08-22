@@ -55,7 +55,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbSound/SoundTypes.hpp"
 #include "snd_local.h" // TODO
 
-#include "renderer/IRenderWorld.hpp"
+#include "SbRenderer/IRenderWorld.hpp"
 
 //namespace BFG
 //{

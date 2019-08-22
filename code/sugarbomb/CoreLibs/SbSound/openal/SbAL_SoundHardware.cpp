@@ -44,20 +44,20 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "framework/CVar.hpp" // TODO: #include "framework/ICVarSystem.hpp"?
 #include "framework/ICmdSystem.hpp"
-#include "framework/ICommon.hpp"
 
 #include "idlib/Lib.h"
 #include "idlib/containers/StaticList.h"
 
-#include "AL_SoundHardware.h"
-#include "AL_SoundSample.h"
-#include "AL_SoundVoice.h"
+#include "SbAL_SoundHardware.hpp"
+#include "SbAL_SoundSample.hpp"
+#include "SbAL_SoundVoice.hpp"
 #include "SbWaveFile.hpp"
 #include "snd_local.h"
-#include "sound.h"
 //#include "SbSoundDefines.hpp"
 
-//#include "../sys/sys_public.h"
+#include "SbSound/SbSound.h"
+
+//#include "CoreLibs/SbSystem/ISystem.hpp"
 
 //namespace BFG
 //{

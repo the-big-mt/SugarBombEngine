@@ -37,7 +37,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef __XA_SOUNDHARDWARE_H__
 #define __XA_SOUNDHARDWARE_H__
 
-//#include "XA2_SoundVoice.h" // for idSoundVoice_XAudio2
+//#include "SbXA2_SoundVoice.hpp" // for idSoundVoice_XAudio2
 //#include "SbSoundDefines.hpp"
 
 //#include "framework/DebugGraph.h"

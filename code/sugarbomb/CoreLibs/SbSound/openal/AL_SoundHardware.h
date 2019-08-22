@@ -47,8 +47,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include <AL/alext.h>
 //#endif
 
-//#include "../sound/OpenAL/AL_SoundVoice.h"  // for idSoundVoice_OpenAL
-
+//#include "SbAL_SoundVoice.hpp" // for idSoundVoice_OpenAL
 //#include "SbSoundDefines.hpp"
 
 //namespace BFG
