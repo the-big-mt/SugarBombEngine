@@ -45,8 +45,7 @@ Suite 120, Rockville, Maryland 20850 USA.
  *  cleaner and may be feasible)
  */
 
-#ifndef SOUNDSTUB_H_
-#define SOUNDSTUB_H_
+#pragma once
 
 #include "idlib/containers/List.h"
 #include "idlib/Str.h"
@@ -284,5 +283,3 @@ public:
 };
 
 //} // namespace sbe
-
-#endif /* SOUNDSTUB_H_ */

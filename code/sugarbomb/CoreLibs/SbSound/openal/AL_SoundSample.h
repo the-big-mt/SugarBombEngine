@@ -34,8 +34,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __AL_SOUNDSAMPLE_H__
-#define __AL_SOUNDSAMPLE_H__
+
+#pragma once
 
 //#ifdef __APPLE__
 //#include <OpenAL/al.h>
@@ -247,4 +247,4 @@ class idSoundSample : public idSoundSample_OpenAL
 public:
 };
 
-#endif // __AL_SOUNDSAMPLE_H__//} // namespace sbe
+//} // namespace sbe

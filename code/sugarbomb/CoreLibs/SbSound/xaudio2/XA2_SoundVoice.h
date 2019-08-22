@@ -33,8 +33,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __XA2_SOUNDVOICE_H__
-#define __XA2_SOUNDVOICE_H__
+
+#pragma once
 
 //#include "SbXA2_SoundSample.hpp"
 #include "SbSoundVoice.hpp"
@@ -130,4 +130,4 @@ class idSoundVoice : public idSoundVoice_XAudio2
 {
 };
 
-#endif // __XA2_SOUNDVOICE_H__//} // namespace sbe
+//} // namespace sbe

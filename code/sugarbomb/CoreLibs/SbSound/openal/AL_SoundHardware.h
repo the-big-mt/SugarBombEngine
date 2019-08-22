@@ -35,8 +35,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __AL_SOUNDHARDWARE_H__
-#define __AL_SOUNDHARDWARE_H__
+#pragma once
 
 //#ifdef __APPLE__
 //#include <OpenAL/al.h>
@@ -139,5 +138,4 @@ class idSoundHardware : public idSoundHardware_OpenAL
 {
 };
 
-
-#endif // __AL_SOUNDHARDWARE_H__//} // namespace sbe
+//} // namespace sbe
