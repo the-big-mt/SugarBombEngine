@@ -47,7 +47,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbSoundSystem.hpp"
 #include "snd_local.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 extern idCVar s_useCompression;
@@ -572,4 +572,4 @@ float idSoundSample::GetAmplitude( int timeMS ) const
 	return ( float )amplitude[index] / 255.0f;
 }
 
-//} // namespace BFG
+//} // namespace sbe

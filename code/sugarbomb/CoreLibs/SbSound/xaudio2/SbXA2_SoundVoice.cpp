@@ -55,7 +55,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //#include "CoreLibs/SbSystem/ISystem.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 idCVar s_skipHardwareSets("s_skipHardwareSets", "0", CVAR_BOOL, "Do all calculation, but skip XA2 calls");
@@ -598,4 +598,4 @@ void idSoundVoice_XAudio2::OnBufferStart(idSoundSample_XAudio2 *sample, int buff
 	SubmitBuffer(nextSample, nextBuffer, 0);
 }
 
-//} // namespace BFG
+//} // namespace sbe

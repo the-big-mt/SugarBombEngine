@@ -50,7 +50,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include "SbAL_SoundVoice.hpp" // for idSoundVoice_OpenAL
 //#include "SbSoundDefines.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 class idSoundSample_OpenAL;
@@ -139,6 +139,5 @@ class idSoundHardware : public idSoundHardware_OpenAL
 {
 };
 
-//} // namespace BFG
 
-#endif // __AL_SOUNDHARDWARE_H__
+#endif // __AL_SOUNDHARDWARE_H__//} // namespace sbe

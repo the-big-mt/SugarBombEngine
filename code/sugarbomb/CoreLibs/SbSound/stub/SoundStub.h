@@ -55,7 +55,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbSoundVoice.hpp"
 #include "SbWaveFile.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 struct ISys;
@@ -283,6 +283,6 @@ public:
 	
 };
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif /* SOUNDSTUB_H_ */

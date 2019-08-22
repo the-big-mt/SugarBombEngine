@@ -44,7 +44,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbWaveFile.hpp"
 //#include "SbSoundDefines.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -202,6 +202,4 @@ class idSoundSample : public idSoundSample_XAudio2
 public:
 };
 
-//} // namespace BFG
-
-#endif // __XA2_SOUNDSAMPLE_H__
+#endif // __XA2_SOUNDSAMPLE_H__//} // namespace sbe

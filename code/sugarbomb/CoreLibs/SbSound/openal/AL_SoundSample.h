@@ -50,7 +50,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "SbWaveFile.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //ID_INLINE_EXTERN uint32 SamplesToMsec( uint32 samples, uint32 sampleRate );
@@ -247,6 +247,4 @@ class idSoundSample : public idSoundSample_OpenAL
 public:
 };
 
-//} // namespace BFG
-
-#endif // __AL_SOUNDSAMPLE_H__
+#endif // __AL_SOUNDSAMPLE_H__//} // namespace sbe

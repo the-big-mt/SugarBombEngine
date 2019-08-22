@@ -57,7 +57,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "SbRenderer/IRenderWorld.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idDecl;
@@ -821,4 +821,4 @@ float idSoundEmitterLocal::CurrentAmplitude()
 	return amplitude;
 }
 
-//} // namespace BFG
+//} // namespace sbe
