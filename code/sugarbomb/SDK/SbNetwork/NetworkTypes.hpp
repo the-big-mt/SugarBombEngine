@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -30,26 +31,5 @@ If you have questions concerning this license or the applicable additional terms
 /// @file
 
 #pragma once
-
-enum netadrtype_t
-{
-	NA_BAD,					// an address lookup failed
-	NA_LOOPBACK,
-	NA_BROADCAST,
-	NA_IP
-};
-
-struct netadr_t
-{
-	netadrtype_t	type;
-	unsigned char	ip[4];
-	unsigned short	port;
-	
-	const char *ToString() const;
-	
-	bool IsLANAddress() const;
-	
-	bool CompareBase(const netadr_t &other) const;
-};
 
 #define	PORT_ANY			-1
