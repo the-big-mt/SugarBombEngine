@@ -300,15 +300,6 @@ bool Sys_Exec(	const char* appPath, const char* workingPath, const char* args,
 int Sys_NumLangs();
 const char* Sys_Lang( int idx );
 
-/*
-==============================================================
-
-	Networking
-
-==============================================================
-*/
-
-#include "network/NetworkTypes.hpp"
 
 struct idSys : public ISys
 {
@@ -319,25 +310,6 @@ struct idSys : public ISys
 	/// Same as Printf, with a more usable API - Printf pipes to this
 	virtual void				VPrintf( const char* fmt, va_list arg ) = 0;
 };
-
-
-
-// parses the port number
-// can also do DNS resolve if you ask for it.
-// NOTE: DNS resolve is a slow/blocking call, think before you use
-// ( could be exploited for server DoS )
-bool			Sys_StringToNetAdr( const char* s, netadr_t* a, bool doDNSResolve );
-const char* 	Sys_NetAdrToString( const netadr_t a );
-bool			Sys_IsLANAddress( const netadr_t a );
-bool			Sys_CompareNetAdrBase( const netadr_t a, const netadr_t b );
-
-int				Sys_GetLocalIPCount();
-const char* 	Sys_GetLocalIP( int i );
-
-void			Sys_InitNetworking();
-void			Sys_ShutdownNetworking();
-
-
 
 /*
 ================================================
