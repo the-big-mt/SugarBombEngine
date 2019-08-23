@@ -310,9 +310,14 @@ const char* Sys_Lang( int idx );
 
 #include "network/NetworkTypes.hpp"
 
+struct idSys : public ISys
 {
+	virtual void			DebugVPrintf( const char* fmt, va_list arg ) = 0;
 	
+	// BP: Moved here from idCommon
 	
+	/// Same as Printf, with a more usable API - Printf pipes to this
+	virtual void				VPrintf( const char* fmt, va_list arg ) = 0;
 };
 
 
