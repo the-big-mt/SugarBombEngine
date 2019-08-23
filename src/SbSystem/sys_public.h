@@ -310,66 +310,9 @@ const char* Sys_Lang( int idx );
 
 #include "network/NetworkTypes.hpp"
 
-/*
-================================================
-idUDP
-================================================
-*/
-class idUDP
 {
-public:
-	// this just zeros netSocket and port
-	idUDP();
-	virtual		~idUDP();
 	
-	// if the InitForPort fails, the idUDP.port field will remain 0
-	bool		InitForPort( int portNumber );
 	
-	int			GetPort() const
-	{
-		return bound_to.port;
-	}
-	netadr_t	GetAdr() const
-	{
-		return bound_to;
-	}
-	uint32		GetUIntAdr() const
-	{
-		return ( bound_to.ip[0] | bound_to.ip[1] << 8 | bound_to.ip[2] << 16 | bound_to.ip[3] << 24 );
-	}
-	void		Close();
-	
-	bool		GetPacket( netadr_t& from, void* data, int& size, int maxSize );
-	
-	bool		GetPacketBlocking( netadr_t& from, void* data, int& size, int maxSize,
-								   int timeout );
-								   
-	void		SendPacket( const netadr_t to, const void* data, int size );
-	
-	void		SetSilent( bool silent )
-	{
-		this->silent = silent;
-	}
-	bool		GetSilent() const
-	{
-		return silent;
-	}
-	
-	int			packetsRead;
-	int			bytesRead;
-	
-	int			packetsWritten;
-	int			bytesWritten;
-	
-	bool		IsOpen() const
-	{
-		return netSocket > 0;
-	}
-	
-private:
-	netadr_t	bound_to;		// interface and port
-	int			netSocket;		// OS specific socket
-	bool		silent;			// don't emit anything ( black hole )
 };
 
 
