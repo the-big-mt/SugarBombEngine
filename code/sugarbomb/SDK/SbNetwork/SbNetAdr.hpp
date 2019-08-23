@@ -59,3 +59,113 @@ struct netadr_t
 	
 	bool CompareBase(const netadr_t &other) const;
 };
+
+/*
+========================
+Sys_NetAdrToString
+========================
+*/
+const char* netadr_t::ToString() const
+{
+	// DG: FIXME: those static buffers look fishy - I would feel better if they were
+	//            at least thread-local - so /maybe/ use ID_TLS here?
+	//            or maybe return an idStr and change calling code accordingly
+	static int index = 0;
+	static char buf[ 4 ][ 64 ];	// flip/flop
+	char* s;
+	
+	s = buf[index];
+	index = ( index + 1 ) & 3;
+	if( type == NA_IP || type == NA_LOOPBACK )
+		idStr::snPrintf( s, 64, "%i.%i.%i.%i:%i", ip[0], ip[1], ip[2], ip[3], port );
+	else if( type == NA_BROADCAST )
+		idStr::snPrintf( s, 64, "BROADCAST" );
+	else if( type == NA_BAD )
+		idStr::snPrintf( s, 64, "BAD_IP" );
+	else
+	{
+		idStr::snPrintf( s, 64, "WTF_UNKNOWN_IP_TYPE_%i", type );
+	}
+	return s;
+}
+
+/*
+========================
+Sys_IsLANAddress
+========================
+*/
+bool netadr_t::IsLANAddress() const
+{
+	if( type == NA_LOOPBACK )
+	{
+		return true;
+	}
+	
+	if( type != NA_IP )
+	{
+		return false;
+	}
+	
+	// NOTE: this function won't work reliably for addresses on the local net
+	// that are connected through a router (i.e. no IP from that net is on any interface)
+	// However, I don't expect most people to have such setups at home and the code
+	// would get a lot more complex and less portable.
+	// Furthermore, this function isn't even used currently
+	if( num_interfaces )
+	{
+		int i;
+		// DG: for 64bit compatibility, make these longs ints.
+		unsigned int* p_ip;
+		unsigned int ip;
+		p_ip = ( unsigned int* )&ip[0];
+		// DG end
+		ip = ntohl( *p_ip );
+		
+		for( i = 0; i < num_interfaces; i++ )
+		{
+			if( ( netint[i].ip & netint[i].mask ) == ( ip & netint[i].mask ) )
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+/*
+========================
+Sys_CompareNetAdrBase
+
+Compares without the port.
+========================
+*/
+bool netadr_t::CompareBase( const netadr_t &b ) const
+{
+	if( type != b.type )
+	{
+		return false;
+	}
+	
+	if( type == NA_LOOPBACK )
+	{
+		// DG: wtf is this comparison about, the comment above says "without the port"
+		if( port == b.port )
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	if( type == NA_IP )
+	{
+		if( ip[0] == b.ip[0] && ip[1] == b.ip[1] && ip[2] == b.ip[2] && ip[3] == b.ip[3] )
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	idLib::Printf( "Sys_CompareNetAdrBase: bad address type\n" );
+	return false;
+}
