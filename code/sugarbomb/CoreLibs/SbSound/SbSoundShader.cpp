@@ -43,7 +43,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include <cstddef>
 #include "precompiled.h"
 
-#include "sys/ISys.hpp"
+#include "CoreLibs/SbSystem/ISystem.hpp"
 
 #include "framework/CVar.hpp" // TODO: #include "framework/ICVarSystem.hpp"?
 #include "framework/IDeclManager.hpp"

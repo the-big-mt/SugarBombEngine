@@ -40,8 +40,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
-#include "SbSound/ISoundEmitter.hpp"
-#include "SbSound/SoundShaderParms.hpp"
+#include "CoreLibs/SbSound/ISoundEmitter.hpp"
+#include "CoreLibs/SbSound/SoundShaderParms.hpp"
 
 #include "idlib/containers/StaticList.h"
 #include "idlib/math/Vector.h"

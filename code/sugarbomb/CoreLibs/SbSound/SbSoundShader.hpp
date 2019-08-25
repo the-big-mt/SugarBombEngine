@@ -41,7 +41,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include <cstddef>
 //#include "precompiled.h"
 
-#include "SbSound/SoundShaderParms.hpp"
+#include "CoreLibs/SbSound/SoundShaderParms.hpp"
 
 #include "idlib/containers/List.h"
 

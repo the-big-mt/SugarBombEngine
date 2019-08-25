@@ -40,7 +40,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
-#include "SbSound/SoundShaderParms.hpp"
+#include "CoreLibs/SbSound/SoundShaderParms.hpp"
 #include "SbSoundFade.hpp"
 
 //namespace sbe
