@@ -39,4 +39,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
+namespace sbe
+{
+
 constexpr auto PORT_ANY{-1};
+
+}; // namespace sbe

@@ -48,6 +48,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 #include "NetworkTypes.hpp"
+namespace sbe
+{
 
 /*
 ================================================
@@ -169,3 +171,4 @@ struct netExport_t
 };
 
 extern "C" using GetNetAPI_t = netExport_t *(*)(netImport_t *import);
+}; // namespace sbe
