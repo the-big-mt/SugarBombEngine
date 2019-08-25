@@ -39,4 +39,4 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
-#define	PORT_ANY			-1
+constexpr auto PORT_ANY{-1};
