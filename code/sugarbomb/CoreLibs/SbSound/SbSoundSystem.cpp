@@ -54,8 +54,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 //{
 
 //class idDecl;
-//class idRenderWorld;
 //class idSoundVoice;
+
+//struct IRenderWorld;
 
 idCVar s_noSound( "s_noSound", "0", CVAR_BOOL, "returns nullptr for all sounds loaded and does not update the sound rendering" );
 
@@ -71,8 +72,8 @@ idCVar s_maxSamples( "s_maxSamples", "5", CVAR_INTEGER, "max samples to load per
 
 idCVar preLoad_Samples( "preLoad_Samples", "1", CVAR_SYSTEM | CVAR_BOOL, "preload samples during beginlevelload" );
 
-idSoundSystemLocal soundSystemLocal;
-idSoundSystem* soundSystem{&soundSystemLocal};
+SbSoundSystemLocal soundSystemLocal;
+sbe::ISoundSystem* soundSystem{&soundSystemLocal};
 
 /*
 ===========
@@ -82,12 +83,11 @@ GetSoundAPI
 #ifndef SBE_SINGLE_BINARY
 static soundExport_t soundExport;
 
-idSys *sys{nullptr};
-idCommon *common{nullptr};
+sbe::ISystem *sys{nullptr};
 idCmdSystem *cmdSystem{nullptr};
 idCVarSystem *cvarSystem{nullptr};
-idFileSystem *fileSystem{nullptr};
-idDeclManager *declManager{nullptr};
+sbe::IFileSystem *fileSystem{nullptr};
+IDeclManager *declManager{nullptr};
 
 idCVar *idCVar::staticVars{nullptr};
 
@@ -139,12 +139,10 @@ void TestSound_f( const idCmdArgs& args )
 	{
 		idLib::Printf( "Usage: testSound <file>\n" );
 		return;
-	}
+	};
 	if( soundSystemLocal.currentSoundWorld )
-	{
 		soundSystemLocal.currentSoundWorld->PlayShaderDirectly( args.Argv( 1 ) );
-	}
-}
+};
 
 /*
 ========================
@@ -154,7 +152,7 @@ RestartSound_f
 void RestartSound_f( const idCmdArgs& args )
 {
 	soundSystemLocal.Restart();
-}
+};
 
 /*
 ========================
@@ -170,42 +168,37 @@ void ListSamples_f( const idCmdArgs& args )
 	{
 		idLib::Printf( "%05dkb\t%s\n", soundSystemLocal.samples[ i ]->BufferSize() / 1024, soundSystemLocal.samples[ i ]->GetName() );
 		totSize += soundSystemLocal.samples[ i ]->BufferSize();
-	}
+	};
 	idLib::Printf( "--------------------------\n" );
 	idLib::Printf( "%05dkb total size\n", totSize / 1024 );
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::Restart
 ========================
 */
-void idSoundSystemLocal::Restart()
+void SbSoundSystemLocal::Restart()
 {
-
 	// Mute all channels in all worlds
 	for( int i = 0; i < soundWorlds.Num(); i++ )
 	{
-		idSoundWorldLocal* sw = soundWorlds[i];
+		SbSoundWorldLocal* sw = soundWorlds[i];
 		for( int e = 0; e < sw->emitters.Num(); e++ )
 		{
-			idSoundEmitterLocal* emitter = sw->emitters[e];
+			SbSoundEmitterLocal* emitter = sw->emitters[e];
 			for( int c = 0; c < emitter->channels.Num(); c++ )
-			{
 				emitter->channels[c]->Mute();
-			}
-		}
-	}
+		};
+	};
 	// Shutdown sound hardware
 	hardware.Shutdown();
 	// Reinitialize sound hardware
 	if( !s_noSound.GetBool() )
-	{
 		hardware.Init();
-	}
 	
 	InitStreamBuffers();
-}
+};
 
 /*
 ========================
@@ -214,9 +207,9 @@ idSoundSystemLocal::Init
 Initialize the SoundSystem.
 ========================
 */
-void idSoundSystemLocal::Init()
+void SbSoundSystemLocal::Init()
 {
-	idLib::Printf( "----- Initializing Sound System ------\n" );
+	mpSys->Printf( "----- Initializing Sound System ------\n" );
 	
 #ifndef SBE_SINGLE_BINARY
 	// initialize idLib
@@ -233,22 +226,22 @@ void idSoundSystemLocal::Init()
 	{
 		hardware.Init();
 		InitStreamBuffers();
-	}
+	};
 	
 	cmdSystem->AddCommand( "testSound", TestSound_f, 0, "tests a sound", idCmdSystem::ArgCompletion_SoundName );
 	cmdSystem->AddCommand( "s_restart", RestartSound_f, 0, "restart sound system" );
 	cmdSystem->AddCommand( "listSamples", ListSamples_f, 0, "lists all loaded sound samples" );
 	
-	idLib::Printf( "sound system initialized.\n" );
-	idLib::Printf( "--------------------------------------\n" );
-}
+	mpSys->Printf( "sound system initialized.\n" );
+	mpSys->Printf( "--------------------------------------\n" );
+};
 
 /*
 ========================
 idSoundSystemLocal::InitStreamBuffers
 ========================
 */
-void idSoundSystemLocal::InitStreamBuffers()
+void SbSoundSystemLocal::InitStreamBuffers()
 {
 	streamBufferMutex.Lock();
 	const bool empty = ( bufferContexts.Num() == 0 );
@@ -256,50 +249,46 @@ void idSoundSystemLocal::InitStreamBuffers()
 	{
 		bufferContexts.SetNum( MAX_SOUND_BUFFERS );
 		for( int i = 0; i < MAX_SOUND_BUFFERS; i++ )
-		{
 			freeStreamBufferContexts.Append( &( bufferContexts[ i ] ) );
-		}
 	}
 	else
 	{
 		for( int i = 0; i < activeStreamBufferContexts.Num(); i++ )
-		{
 			freeStreamBufferContexts.Append( activeStreamBufferContexts[ i ] );
-		}
 		activeStreamBufferContexts.Clear();
-	}
+	};
 	assert( bufferContexts.Num() == MAX_SOUND_BUFFERS );
 	assert( freeStreamBufferContexts.Num() == MAX_SOUND_BUFFERS );
 	assert( activeStreamBufferContexts.Num() == 0 );
 	streamBufferMutex.Unlock();
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::FreeStreamBuffers
 ========================
 */
-void idSoundSystemLocal::FreeStreamBuffers()
+void SbSoundSystemLocal::FreeStreamBuffers()
 {
 	streamBufferMutex.Lock();
 	bufferContexts.Clear();
 	freeStreamBufferContexts.Clear();
 	activeStreamBufferContexts.Clear();
 	streamBufferMutex.Unlock();
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::Shutdown
 ========================
 */
-void idSoundSystemLocal::Shutdown()
+void SbSoundSystemLocal::Shutdown()
 {
 	hardware.Shutdown();
 	FreeStreamBuffers();
 	samples.DeleteContents( true );
 	sampleHash.Free();
-}
+};
 
 /*
 ========================
@@ -308,19 +297,19 @@ idSoundSystemLocal::ObtainStreamBuffer
 Get a stream buffer from the free pool, returns nullptr if none are available
 ========================
 */
-idSoundSystemLocal::bufferContext_t* idSoundSystemLocal::ObtainStreamBufferContext()
+SbSoundSystemLocal::bufferContext_t* SbSoundSystemLocal::ObtainStreamBufferContext()
 {
-	bufferContext_t* bufferContext = nullptr;
+	bufferContext_t* bufferContext{nullptr};
 	streamBufferMutex.Lock();
 	if( freeStreamBufferContexts.Num() != 0 )
 	{
 		bufferContext = freeStreamBufferContexts[ freeStreamBufferContexts.Num() - 1 ];
 		freeStreamBufferContexts.SetNum( freeStreamBufferContexts.Num() - 1 );
 		activeStreamBufferContexts.Append( bufferContext );
-	}
+	};
 	streamBufferMutex.Unlock();
 	return bufferContext;
-}
+};
 
 /*
 ========================
@@ -329,40 +318,38 @@ idSoundSystemLocal::ReleaseStreamBuffer
 Releases a stream buffer back to the free pool
 ========================
 */
-void idSoundSystemLocal::ReleaseStreamBufferContext( bufferContext_t* bufferContext )
+void SbSoundSystemLocal::ReleaseStreamBufferContext( bufferContext_t* bufferContext )
 {
 	streamBufferMutex.Lock();
 	if( activeStreamBufferContexts.Remove( bufferContext ) )
-	{
 		freeStreamBufferContexts.Append( bufferContext );
-	}
 	streamBufferMutex.Unlock();
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::AllocSoundWorld
 ========================
 */
-idSoundWorld* idSoundSystemLocal::AllocSoundWorld( idRenderWorld* rw )
+sbe::ISoundWorld* SbSoundSystemLocal::AllocSoundWorld( sbe::IRenderWorld* rw )
 {
-	idSoundWorldLocal* local = new( TAG_AUDIO ) idSoundWorldLocal(common, nullptr); // TODO: pass in the idConsole
+	SbSoundWorldLocal* local{new( TAG_AUDIO ) SbSoundWorldLocal(mpSys, nullptr)}; // TODO: pass in the idConsole
 	local->renderWorld = rw;
 	soundWorlds.Append( local );
 	return local;
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::FreeSoundWorld
 ========================
 */
-void idSoundSystemLocal::FreeSoundWorld( idSoundWorld* sw )
+void SbSoundSystemLocal::FreeSoundWorld( sbe::ISoundWorld* sw )
 {
-	idSoundWorldLocal* local = static_cast<idSoundWorldLocal*>( sw );
+	SbSoundWorldLocal* local{static_cast<SbSoundWorldLocal*>( sw )};
 	soundWorlds.Remove( local );
 	delete local;
-}
+};
 
 /*
 ========================
@@ -371,110 +358,98 @@ idSoundSystemLocal::SetPlayingSoundWorld
 Specifying nullptr will cause silence to be played.
 ========================
 */
-void idSoundSystemLocal::SetPlayingSoundWorld( idSoundWorld* soundWorld )
+void SbSoundSystemLocal::SetPlayingSoundWorld( sbe::ISoundWorld* soundWorld )
 {
 	if( currentSoundWorld == soundWorld )
-	{
 		return;
-	}
-	idSoundWorldLocal* oldSoundWorld = currentSoundWorld;
+
+	SbSoundWorldLocal* oldSoundWorld{currentSoundWorld};
 	
-	currentSoundWorld = static_cast<idSoundWorldLocal*>( soundWorld );
+	currentSoundWorld = static_cast<SbSoundWorldLocal*>( soundWorld );
 	
 	if( oldSoundWorld != nullptr )
-	{
 		oldSoundWorld->Update(1.0f / 60.0f); // TODO: de-hardcode
-	}
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::GetPlayingSoundWorld
 ========================
 */
-idSoundWorld* idSoundSystemLocal::GetPlayingSoundWorld()
+sbe::ISoundWorld* SbSoundSystemLocal::GetPlayingSoundWorld() const
 {
 	return currentSoundWorld;
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::Render
 ========================
 */
-void idSoundSystemLocal::Render(float afTimeStep)
+void SbSoundSystemLocal::Render(float afTimeStep)
 {
-
 	if( s_noSound.GetBool() )
-	{
 		return;
-	}
 	
 	if( needsRestart )
 	{
 		needsRestart = false;
 		Restart();
-	}
+	};
 	
 	SCOPED_PROFILE_EVENT( "SoundSystem::Render" );
 	
 	if( currentSoundWorld != nullptr )
-	{
 		currentSoundWorld->Update(afTimeStep);
-	}
 	
 	hardware.Update();
 	
 	// The sound system doesn't use game time or anything like that because the sounds are decoded in real time.
 	soundTime = Sys_Milliseconds();
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::OnReloadSound
 ========================
 */
-void idSoundSystemLocal::OnReloadSound( const idDecl* sound )
+void SbSoundSystemLocal::OnReloadSound( const idDecl* sound )
 {
 	for( int i = 0; i < soundWorlds.Num(); i++ )
-	{
 		soundWorlds[i]->OnReloadSound( sound );
-	}
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::StopAllSounds
 ========================
 */
-void idSoundSystemLocal::StopAllSounds()
+void SbSoundSystemLocal::StopAllSounds()
 {
 	for( int i = 0; i < soundWorlds.Num(); i++ )
 	{
-		idSoundWorld* sw = soundWorlds[i];
+		sbe::ISoundWorld* sw{soundWorlds[i]};
 		if( sw )
-		{
 			sw->StopAllSounds();
-		}
-	}
+	};
 	hardware.Update();
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::GetIXAudio2
 ========================
 */
-void* idSoundSystemLocal::GetIXAudio2() const
+void* SbSoundSystemLocal::GetIXAudio2() const
 {
 	// RB begin
-#if defined(USE_OPENAL)
+#if defined(SBE_USE_OPENAL)
 	return nullptr;
 #else
 	return ( void* )hardware.GetIXAudio2();
 #endif
 	// RB end
-}
+};
 
 /*
 ========================
@@ -482,14 +457,14 @@ idSoundSystemLocal::GetOpenALDevice
 ========================
 */
 // RB begin
-void* idSoundSystemLocal::GetOpenALDevice() const
+void* SbSoundSystemLocal::GetOpenALDevice() const
 {
-#if defined(USE_OPENAL)
+#if defined(SBE_USE_OPENAL)
 	return ( void* )hardware.GetOpenALDevice();
 #else
 	return ( void* )hardware.GetIXAudio2();
 #endif
-}
+};
 // RB end
 
 /*
@@ -497,37 +472,37 @@ void* idSoundSystemLocal::GetOpenALDevice() const
 idSoundSystemLocal::SoundTime
 ========================
 */
-int idSoundSystemLocal::SoundTime() const
+int SbSoundSystemLocal::SoundTime() const
 {
 	return soundTime;
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::AllocateVoice
 ========================
 */
-idSoundVoice* idSoundSystemLocal::AllocateVoice( const idSoundSample* leadinSample, const idSoundSample* loopingSample )
+idSoundVoice* SbSoundSystemLocal::AllocateVoice( const idSoundSample* leadinSample, const idSoundSample* loopingSample )
 {
 	return hardware.AllocateVoice( leadinSample, loopingSample );
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::FreeVoice
 ========================
 */
-void idSoundSystemLocal::FreeVoice( idSoundVoice* voice )
+void SbSoundSystemLocal::FreeVoice( idSoundVoice* voice )
 {
 	hardware.FreeVoice( voice );
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::LoadSample
 ========================
 */
-idSoundSample* idSoundSystemLocal::LoadSample( const char* name )
+idSoundSample* SbSoundSystemLocal::LoadSample( const char* name )
 {
 	idStrStatic< MAX_OSPATH > canonical = name;
 	canonical.ToLower();
@@ -540,8 +515,8 @@ idSoundSample* idSoundSystemLocal::LoadSample( const char* name )
 		{
 			samples[i]->SetLevelLoadReferenced();
 			return samples[i];
-		}
-	}
+		};
+	};
 	idSoundSample* sample = new( TAG_AUDIO ) idSoundSample(sys, fileSystem);
 	sample->SetName( canonical );
 	sampleHash.Add( hashKey, samples.Append( sample ) );
@@ -552,17 +527,13 @@ idSoundSample* idSoundSystemLocal::LoadSample( const char* name )
 		sample->LoadResource();
 	}
 	else
-	{
 		sample->SetLevelLoadReferenced();
-	}
 	
-	if( cvarSystem->GetCVarBool( "fs_buildgame" ) )
-	{
-		fileSystem->AddSamplePreload( canonical );
-	}
+	if( mpCvarSystem->GetCVarBool( "fs_buildgame" ) )
+		mpFileSystem->AddSamplePreload( canonical );
 	
 	return sample;
-}
+};
 
 /*
 ========================
@@ -571,39 +542,35 @@ idSoundSystemLocal::StopVoicesWithSample
 A sample is about to be freed, make sure the hardware isn't mixing from it.
 ========================
 */
-void idSoundSystemLocal::StopVoicesWithSample( const idSoundSample* const sample )
+void SbSoundSystemLocal::StopVoicesWithSample( const idSoundSample* const sample )
 {
 	for( int w = 0; w < soundWorlds.Num(); w++ )
 	{
-		idSoundWorldLocal* sw = soundWorlds[w];
+		SdSoundWorldLocal* sw{soundWorlds[w]};
 		if( sw == nullptr )
-		{
 			continue;
-		}
+
 		for( int e = 0; e < sw->emitters.Num(); e++ )
 		{
-			idSoundEmitterLocal* emitter = sw->emitters[e];
+			SbSoundEmitterLocal* emitter{sw->emitters[e]};
 			if( emitter == nullptr )
-			{
 				continue;
-			}
+
 			for( int i = 0; i < emitter->channels.Num(); i++ )
 			{
 				if( emitter->channels[i]->leadinSample == sample || emitter->channels[i]->loopingSample == sample )
-				{
 					emitter->channels[i]->Mute();
-				}
-			}
-		}
-	}
-}
+			};
+		};
+	};
+};
 
 /*
 ========================
 idSoundSystemLocal::ImageForTime
 ========================
 */
-cinData_t idSoundSystemLocal::ImageForTime( const int milliseconds, const bool waveform )
+cinData_t SbSoundSystemLocal::ImageForTime( const int milliseconds, const bool waveform )
 {
 	cinData_t cd;
 	cd.imageY = nullptr;
@@ -613,37 +580,33 @@ cinData_t idSoundSystemLocal::ImageForTime( const int milliseconds, const bool w
 	cd.imageHeight = 0;
 	cd.status = FMV_IDLE;
 	return cd;
-}
+};
 
 /*
 ========================
 idSoundSystemLocal::BeginLevelLoad
 ========================
 */
-void idSoundSystemLocal::BeginLevelLoad()
+void SbSoundSystemLocal::BeginLevelLoad()
 {
 	insideLevelLoad = true;
 	for( int i = 0; i < samples.Num(); i++ )
 	{
 		if( samples[i]->GetNeverPurge() )
-		{
 			continue;
-		}
+
 		samples[i]->FreeData();
 		samples[i]->ResetLevelLoadReferenced();
-	}
-}
-
-
+	};
+};
 
 /*
 ========================
 idSoundSystemLocal::Preload
 ========================
 */
-void idSoundSystemLocal::Preload( idPreloadManifest& manifest )
+void SbSoundSystemLocal::Preload( idPreloadManifest& manifest )
 {
-
 	idStrStatic< MAX_OSPATH > filename;
 	
 	int	start = Sys_Milliseconds();
@@ -659,21 +622,20 @@ void idSoundSystemLocal::Preload( idPreloadManifest& manifest )
 		if( p.resType == PRELOAD_SAMPLE )
 		{
 			if( p.resourceName.Find( "/vo/", false ) >= 0 )
-			{
 				continue;
-			}
+
 			filename  = "generated/";
 			filename += p.resourceName;
 			filename.SetFileExtension( "idwav" );
-			if( fileSystem->GetResourceCacheEntry( filename, rc ) )
+			if( mpFileSystem->GetResourceCacheEntry( filename, rc ) )
 			{
 				preloadSort_t ps = {};
 				ps.idx = i;
 				ps.ofs = rc.offset;
 				preloadSort.Append( ps );
-			}
-		}
-	}
+			};
+		};
+	};
 	
 	preloadSort.SortWithTemplate( idSort_Preload() );
 	
@@ -689,25 +651,24 @@ void idSoundSystemLocal::Preload( idPreloadManifest& manifest )
 		{
 			sample->LoadResource();
 			sample->SetLevelLoadReferenced();
-		}
-	}
+		};
+	};
 	
 	int	end = Sys_Milliseconds();
-	common->Printf( "%05d sounds preloaded in %5.1f seconds\n", numLoaded, ( end - start ) * 0.001 );
-	common->Printf( "----------------------------------------\n" );
-}
+	mpSys->Printf( "%05d sounds preloaded in %5.1f seconds\n", numLoaded, ( end - start ) * 0.001 );
+	mpSys->Printf( "----------------------------------------\n" );
+};
 
 /*
 ========================
 idSoundSystemLocal::EndLevelLoad
 ========================
 */
-void idSoundSystemLocal::EndLevelLoad()
+void SbSoundSystemLocal::EndLevelLoad()
 {
-
 	insideLevelLoad = false;
 	
-	common->Printf( "----- idSoundSystemLocal::EndLevelLoad -----\n" );
+	mpSys->Printf( "----- idSoundSystemLocal::EndLevelLoad -----\n" );
 	int		start = Sys_Milliseconds();
 	int		keepCount = 0;
 	int		loadCount = 0;
@@ -717,18 +678,17 @@ void idSoundSystemLocal::EndLevelLoad()
 	
 	for( int i = 0; i < samples.Num(); i++ )
 	{
-		common->UpdateLevelLoadPacifier();
-		
+		mpSys->UpdateLevelLoadPacifier();
 		
 		if( samples[i]->GetNeverPurge() )
-		{
 			continue;
-		}
+
 		if( samples[i]->IsLoaded() )
 		{
 			keepCount++;
 			continue;
-		}
+		};
+
 		if( samples[i]->GetLevelLoadReferenced() )
 		{
 			idStrStatic< MAX_OSPATH > filename  = "generated/";
@@ -737,41 +697,34 @@ void idSoundSystemLocal::EndLevelLoad()
 			preloadSort_t ps = {};
 			ps.idx = i;
 			idResourceCacheEntry rc;
-			if( fileSystem->GetResourceCacheEntry( filename, rc ) )
-			{
+			if( mpFileSystem->GetResourceCacheEntry( filename, rc ) )
 				ps.ofs = rc.offset;
-			}
 			else
-			{
 				ps.ofs = 0;
-			}
 			preloadSort.Append( ps );
 			loadCount++;
-		}
-	}
+		};
+	};
 	preloadSort.SortWithTemplate( idSort_Preload() );
 	for( int i = 0; i < preloadSort.Num(); i++ )
 	{
-		common->UpdateLevelLoadPacifier();
-		
+		mpSys->UpdateLevelLoadPacifier();
 		
 		samples[ preloadSort[ i ].idx ]->LoadResource();
-	}
+	};
 	int	end = Sys_Milliseconds();
 	
-	common->Printf( "%5i sounds loaded in %5.1f seconds\n", loadCount, ( end - start ) * 0.001 );
-	common->Printf( "----------------------------------------\n" );
-}
-
-
+	mpSys->Printf( "%5i sounds loaded in %5.1f seconds\n", loadCount, ( end - start ) * 0.001 );
+	mpSys->Printf( "----------------------------------------\n" );
+};
 
 /*
 ========================
 idSoundSystemLocal::FreeVoice
 ========================
 */
-void idSoundSystemLocal::PrintMemInfo( MemInfo_t* mi )
+void SbSoundSystemLocal::PrintMemInfo( MemInfo_t* mi )
 {
-}
+};
 
 //} // namespace sbe

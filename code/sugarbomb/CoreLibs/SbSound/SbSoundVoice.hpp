@@ -60,17 +60,17 @@ MsecToSamples
 ID_INLINE_EXTERN uint32 MsecToSamples(uint32 msec, uint32 sampleRate)
 {
 	return (msec * (sampleRate / 100)) / 10;
-}
+};
 
 /*
 ================================================
 idSoundVoice_Base
 ================================================
 */
-class idSoundVoice_Base
+class SbSoundVoice_Base
 {
 public:
-	idSoundVoice_Base();
+	SbSoundVoice_Base();
 
 	static void InitSurround(int outputChannels, int channelMask);
 
@@ -80,63 +80,63 @@ public:
 	virtual void SetPosition(const idVec3 &p)
 	{
 		position = p;
-	}
+	};
 
 	virtual void SetGain(float g)
 	{
 		gain = g;
-	}
+	};
 
 	virtual void SetPitch(float p)
 	{
 		pitch = p;
-	}
+	};
 	// RB end
 
 	void SetCenterChannel(float c)
 	{
 		centerChannel = c;
-	}
+	};
 
 	void SetInnerRadius(float r)
 	{
 		innerRadius = r;
-	}
+	};
 	void SetChannelMask(uint32 mask)
 	{
 		channelMask = mask;
-	}
+	};
 
-	const idSoundSample *GetCurrentSample();
+	const idSoundSample *GetCurrentSample() const;
 
 	// Controls the low pass filter, where 0.0f = no filtering, 1.0f = full filter
 	void SetOcclusion(float f)
 	{
 		occlusion = f;
-	}
+	};
 
-	float GetGain()
+	float GetGain() const
 	{
 		return gain;
-	}
-	float GetPitch()
+	};
+	float GetPitch() const
 	{
 		return pitch;
-	}
+	};
 
-	virtual ~idSoundVoice_Base() {}
+	virtual ~SbSoundVoice_Base() = default;
 protected:
-	idVec3 position;     // Position of the sound relative to listener
-	float gain;          // Volume (0-1)
-	float centerChannel; // Value (0-1) which indicates how much of this voice goes to the center channel
-	float pitch;         // Pitch multiplier
-	float innerRadius;   // Anything closer than this is omni
-	float occlusion;     // How much of this sound is occluded (0-1)
-	uint32 channelMask;  // Set to override the default channel mask
+	idVec3 position{};     // Position of the sound relative to listener
+	float gain{0.0f};          // Volume (0-1)
+	float centerChannel{0.0f}; // Value (0-1) which indicates how much of this voice goes to the center channel
+	float pitch{0.0f};         // Pitch multiplier
+	float innerRadius{0.0f};   // Anything closer than this is omni
+	float occlusion{0.0f};     // How much of this sound is occluded (0-1)
+	uint32 channelMask{0};  // Set to override the default channel mask
 
 	// These are some setting used to do SSF_DISTANCE_BASED_STERO blending
-	float innerSampleRangeSqr;
-	float outerSampleRangeSqr;
+	float innerSampleRangeSqr{0.0f};
+	float outerSampleRangeSqr{0.0f};
 
 	idList<idSoundSample *, TAG_AUDIO> samples;
 
@@ -150,20 +150,20 @@ protected:
 	static int speakerRight[idWaveFile::CHANNEL_INDEX_MAX];
 
 	// Number of channels in the output hardware
-	static int dstChannels;
+	static int dstChannels{0};
 
 	// Mask indicating which speakers exist in the hardware configuration
-	static int dstMask;
+	static int dstMask{0};
 
 	// dstMap maps a destination channel to a speaker
 	// invMap maps a speaker to a destination channel
-	static int dstCenter;
-	static int dstLFE;
+	static int dstCenter{0};
+	static int dstLFE{0};
 	static int dstMap[MAX_CHANNELS_PER_VOICE];
 	static int invMap[idWaveFile::CHANNEL_INDEX_MAX];
 
 	// specifies what volume to specify for each channel when a speaker is omni
-	static float omniLevel;
+	static float omniLevel{0.0f};
 };
 
 //} // namespace BFG

@@ -55,70 +55,61 @@ Suite 120, Rockville, Maryland 20850 USA.
 idSoundFade::Clear
 ========================
 */
-void idSoundFade::Clear()
+void SbSoundFade::Clear()
 {
 	fadeStartTime = 0;
 	fadeEndTime = 0;
 	fadeStartVolume = 0.0f;
 	fadeEndVolume = 0.0f;
-}
+};
 
 /*
 ========================
 idSoundFade::SetVolume
 ========================
 */
-void idSoundFade::SetVolume(float to)
+void SbSoundFade::SetVolume(float to)
 {
 	fadeStartVolume = to;
 	fadeEndVolume = to;
 	fadeStartTime = 0;
 	fadeEndTime = 0;
-}
+};
 
 /*
 ========================
 idSoundFade::Fade
 ========================
 */
-void idSoundFade::Fade(float to, int length, int soundTime)
+void SbSoundFade::Fade(float to, int length, int soundTime)
 {
 	int startTime = soundTime;
 	// if it is already fading to this volume at this rate, don't change it
 	if(fadeEndTime == startTime + length && fadeEndVolume == to)
-	{
 		return;
-	}
+
 	fadeStartVolume = GetVolume(soundTime);
 	fadeEndVolume = to;
 	fadeStartTime = startTime;
 	fadeEndTime = startTime + length;
-}
+};
 
 /*
 ========================
 idSoundFade::GetVolume
 ========================
 */
-float idSoundFade::GetVolume(const int soundTime) const
+float SbSoundFade::GetVolume(const int soundTime) const
 {
 	const float fadeDuration = (fadeEndTime - fadeStartTime);
 	const int currentTime = soundTime;
 	const float playTime = (currentTime - fadeStartTime);
 	if(fadeDuration <= 0.0f)
-	{
 		return fadeEndVolume;
-	}
 	else if(currentTime >= fadeEndTime)
-	{
 		return fadeEndVolume;
-	}
 	else if(currentTime > fadeStartTime)
-	{
 		return fadeStartVolume + (fadeEndVolume - fadeStartVolume) * playTime / fadeDuration;
-	}
 	else
-	{
 		return fadeStartVolume;
-	}
-}
+};

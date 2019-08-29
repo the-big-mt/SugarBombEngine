@@ -77,17 +77,17 @@ namespace sbe
 struct ISys;
 }; // namespace sbe
 
-struct idDeclManager;
+struct IDeclManager;
 class idSoundSample;
 class idLexer;
 
 // it is somewhat tempting to make this a virtual class to hide the private
 // details here, but that doesn't fit easily with the decl manager at the moment.
-class idSoundShader : public idDecl
+class SbSoundShader : public idDecl
 {
 public:
-	idSoundShader(sbe::ISys *apSys);
-	virtual ~idSoundShader();
+	SbSoundShader(sbe::ISys *apSys);
+	virtual ~SbSoundShader();
 
 	virtual size_t Size() const;
 	virtual bool SetDefaultText();
@@ -103,34 +103,31 @@ public:
 
 	// returns NULL if an AltSound isn't defined in the shader.
 	// we use this for pairing a specific broken light sound with a normal light sound
-	virtual const idSoundShader *GetAltSound() const;
+	virtual const SbSoundShader *GetAltSound() const;
 
 	virtual bool HasDefaultSound() const;
 
 	virtual const soundShaderParms_t *GetParms() const;
 	virtual int GetNumSounds() const;
 	virtual const char *GetSound(int index) const;
-
 private:
-	friend class idSoundWorldLocal;
-	friend class idSoundEmitterLocal;
-	friend class idSoundChannel;
+	friend class SbSoundWorldLocal;
+	friend class SbSoundEmitterLocal;
+	friend class SbSoundChannel;
 
 	// options from sound shader text
-	soundShaderParms_t parms; // can be overriden on a per-channel basis
+	soundShaderParms_t parms{}; // can be overriden on a per-channel basis
 
-	int speakerMask;
-	const idSoundShader *altSound;
+	int speakerMask{0};
+	const SbSoundShader *altSound{nullptr};
 
-	bool leadin;        // true if this sound has a leadin
-	float leadinVolume; // allows light breaking leadin sounds to be much louder than the broken loop
+	bool leadin{false};        // true if this sound has a leadin
+	float leadinVolume{0.0f}; // allows light breaking leadin sounds to be much louder than the broken loop
 
 	idList<idSoundSample *, TAG_AUDIO> entries;
-
 private:
 	void Init();
-	bool ParseShader(idDeclManager *apDeclManager, idLexer &src);
-
+	bool ParseShader(sbe::IDeclManager *apDeclManager, idLexer &src);
 private:
 	sbe::ISys *mpSys{ nullptr };
 };

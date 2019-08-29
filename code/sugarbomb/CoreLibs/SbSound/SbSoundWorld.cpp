@@ -62,7 +62,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 // A single voice can play multiple channels (up to 5.1, but most commonly stereo)
 // This is the maximum number of channels which can play simultaneously
 // This is limited primarily by seeking on the optical drive, secondarily by memory consumption, and tertiarily by CPU time spent mixing
-#define MAX_HARDWARE_CHANNELS 64
+constexpr auto MAX_HARDWARE_CHANNELS{64};
 
 //namespace BFG
 //{
@@ -88,16 +88,15 @@ extern void WriteDeclCache(idDemoFile *f, int demoCategory, int demoCode, declTy
 idSoundWorldLocal::idSoundWorldLocal
 ========================
 */
-idSoundWorldLocal::idSoundWorldLocal(idCommon *apCommon, idConsole *apConsole)
+SbSoundWorldLocal::SbSoundWorldLocal(sbe::ISystem *apSystem, idConsole *apConsole)
 {
-	common = apCommon;
+	common = apSystem;
 	console = apConsole; // TODO: common->GetConsole()?
 
 	volumeFade.Clear();
 	for(int i = 0; i < SOUND_MAX_CLASSES; i++)
-	{
 		soundClassFade[i].Clear();
-	}
+
 	renderWorld = nullptr;
 	writeDemo = nullptr;
 
@@ -118,25 +117,23 @@ idSoundWorldLocal::idSoundWorldLocal(idCommon *apCommon, idConsole *apConsole)
 
 	slowmoSpeed = 1.0f;
 	enviroSuitActive = false;
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::~idSoundWorldLocal
 ========================
 */
-idSoundWorldLocal::~idSoundWorldLocal()
+SbSoundWorldLocal::~SbSoundWorldLocal()
 {
 	if(soundSystemLocal.currentSoundWorld == this)
-	{
 		soundSystemLocal.currentSoundWorld = nullptr;
-	}
 
 	for(int i = 0; i < emitters.Num(); i++)
 	{
 		emitters[i]->Reset();
 		emitterAllocator.Free(emitters[i]);
-	}
+	};
 
 	// Make sure we aren't leaking emitters or channels
 	assert(emitterAllocator.GetAllocCount() == 0);
@@ -147,7 +144,7 @@ idSoundWorldLocal::~idSoundWorldLocal()
 
 	renderWorld = nullptr;
 	localSound = nullptr;
-}
+};
 
 /*
 ========================
@@ -156,54 +153,52 @@ idSoundWorldLocal::AllocSoundEmitter
 This is called from the main thread.
 ========================
 */
-idSoundEmitter *idSoundWorldLocal::AllocSoundEmitter()
+idSoundEmitter *SbSoundWorldLocal::AllocSoundEmitter()
 {
-	idSoundEmitterLocal *emitter = emitterAllocator.Alloc();
+	SbSoundEmitterLocal *emitter = emitterAllocator.Alloc();
 	emitter->Init(emitters.Append(emitter), this);
 	return emitter;
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::AllocSoundChannel
 ========================
 */
-idSoundChannel *idSoundWorldLocal::AllocSoundChannel()
+SbSoundChannel *SbSoundWorldLocal::AllocSoundChannel()
 {
 	return channelAllocator.Alloc();
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::FreeSoundChannel
 ========================
 */
-void idSoundWorldLocal::FreeSoundChannel(idSoundChannel *channel)
+void SbSoundWorldLocal::FreeSoundChannel(SbSoundChannel *channel)
 {
 	channel->Mute();
 	channelAllocator.Free(channel);
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::CurrentShakeAmplitude
 ========================
 */
-float idSoundWorldLocal::CurrentShakeAmplitude()
+float SbSoundWorldLocal::CurrentShakeAmplitude()
 {
 	if(s_constantAmplitude.GetFloat() >= 0.0f)
-	{
 		return s_constantAmplitude.GetFloat();
-	}
 	return shakeAmp;
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::PlaceListener
 ========================
 */
-void idSoundWorldLocal::PlaceListener(const idVec3 &origin, const idMat3 &axis, const int id)
+void SbSoundWorldLocal::PlaceListener(const idVec3 &origin, const idMat3 &axis, const int id)
 {
 	if(writeDemo)
 	{
@@ -212,33 +207,27 @@ void idSoundWorldLocal::PlaceListener(const idVec3 &origin, const idMat3 &axis, 
 		writeDemo->WriteVec3(origin);
 		writeDemo->WriteMat3(axis);
 		writeDemo->WriteInt(id);
-	}
+	};
 
 	if(s_lockListener.GetBool())
-	{
 		return;
-	}
 
 	listener.axis = axis;
 	listener.pos = origin;
 	listener.id = id;
 
 	if(renderWorld)
-	{
 		listener.area = renderWorld->PointInArea(origin); // where are we?
-	}
 	else
-	{
 		listener.area = 0;
-	}
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::WriteSoundShaderLoad
 ========================
 */
-void idSoundWorldLocal::WriteSoundShaderLoad(const idSoundShader *snd)
+void SbSoundWorldLocal::WriteSoundShaderLoad(const idSoundShader *snd)
 {
 	if(writeDemo)
 	{
@@ -246,25 +235,23 @@ void idSoundWorldLocal::WriteSoundShaderLoad(const idSoundShader *snd)
 		writeDemo->WriteInt(SCMD_CACHESOUNDSHADER);
 		writeDemo->WriteInt(1);
 		writeDemo->WriteHashString(snd->GetName());
-	}
-}
+	};
+};
 
 /*
 ========================
 idActiveChannel
 ========================
 */
-class idActiveChannel
+class SbActiveChannel
 {
 public:
-	idActiveChannel()
-	    : channel(nullptr),
-	      sortKey(0) {}
-	idActiveChannel(idSoundChannel *channel_, int sortKey_)
+	SbActiveChannel() = default;
+	SbActiveChannel(SbSoundChannel *channel_, int sortKey_)
 	    : channel(channel_),
 	      sortKey(sortKey_) {}
-	idSoundChannel *channel;
-	int sortKey;
+	SbSoundChannel *channel{nullptr};
+	int sortKey{0};
 };
 
 /*
@@ -277,9 +264,7 @@ Ramp down volumes that are close to fadeDB so that fadeDB is DB_SILENCE
 float MapVolumeFromFadeDB(const float volumeDB, const float fadeDB)
 {
 	if(volumeDB <= fadeDB)
-	{
 		return DB_SILENCE;
-	}
 
 	const float fadeOver = s_cushionFadeOver.GetFloat();
 	const float fadeFrom = fadeDB + fadeOver;
@@ -288,12 +273,12 @@ float MapVolumeFromFadeDB(const float volumeDB, const float fadeDB)
 	{
 		// unchanged
 		return volumeDB;
-	}
+	};
 	const float fadeFraction = (volumeDB - fadeDB) / fadeOver;
 
 	const float mappedDB = DB_SILENCE + (fadeFrom - DB_SILENCE) * fadeFraction;
 	return mappedDB;
-}
+};
 
 /*
 ========================
@@ -322,14 +307,10 @@ static float AdjustForCushionChannels(const idStaticList<idActiveChannel, MAX_HA
 		// we should be able to hear all of them
 		targetCushionDB = activeEmitterChannels[uncushionedChannels].channel->volumeDB;
 		if(targetCushionDB < DB_SILENCE)
-		{
 			targetCushionDB = DB_SILENCE;
-		}
 		else if(targetCushionDB > s_cushionFadeLimit.GetFloat())
-		{
 			targetCushionDB = s_cushionFadeLimit.GetFloat();
-		}
-	}
+	};
 
 	// linearly drift the currentTargetCushionDB towards targetCushionDB
 	float driftedDB = currentCushionDB;
@@ -337,40 +318,34 @@ static float AdjustForCushionChannels(const idStaticList<idActiveChannel, MAX_HA
 	{
 		driftedDB += driftRate;
 		if(driftedDB > targetCushionDB)
-		{
 			driftedDB = targetCushionDB;
-		}
 	}
 	else
 	{
 		driftedDB -= driftRate;
 		if(driftedDB < targetCushionDB)
-		{
 			driftedDB = targetCushionDB;
-		}
-	}
+	};
 
 	// ramp the lower sound volumes down
 	for(int i = 0; i < activeEmitterChannels.Num(); i++)
 	{
-		idSoundChannel *chan = activeEmitterChannels[i].channel;
+		SbSoundChannel *chan = activeEmitterChannels[i].channel;
 		chan->volumeDB = MapVolumeFromFadeDB(chan->volumeDB, driftedDB);
-	}
+	};
 
 	return driftedDB;
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::Update
 ========================
 */
-void idSoundWorldLocal::Update(float afTimeStep)
+void SbSoundWorldLocal::Update(float afTimeStep)
 {
 	if(s_noSound.GetBool())
-	{
 		return;
-	}
 
 	// ------------------
 	// Update emitters
@@ -385,9 +360,7 @@ void idSoundWorldLocal::Update(float afTimeStep)
 	idStaticList<idActiveChannel, MAX_HARDWARE_VOICES> activeEmitterChannels;
 	int maxEmitterChannels = s_maxEmitterChannels.GetInteger() + 1; // +1 to leave room for insert-before-sort
 	if(maxEmitterChannels > MAX_HARDWARE_VOICES)
-	{
 		maxEmitterChannels = MAX_HARDWARE_VOICES;
-	}
 
 	int activeHardwareChannels = 0;
 	int totalHardwareChannels = 0;
@@ -408,10 +381,10 @@ void idSoundWorldLocal::Update(float afTimeStep)
 			{
 				emitters[e] = emitters[lastEmitter];
 				emitters[e]->index = e;
-			}
+			};
 			emitters.SetNum(lastEmitter);
 			continue;
-		}
+		};
 
 		emitters[e]->Update(currentTime);
 
@@ -420,17 +393,17 @@ void idSoundWorldLocal::Update(float afTimeStep)
 		// sort the active channels into the hardware list
 		for(int i = 0; i < emitters[e]->channels.Num(); i++)
 		{
-			idSoundChannel *channel = emitters[e]->channels[i];
+			SbSoundChannel *channel = emitters[e]->channels[i];
 
 			// check if this channel contributes at all
 			const bool canMute = channel->CanMute();
 			if(canMute && channel->volumeDB <= DB_SILENCE)
 			{
-#if !defined(USE_OPENAL)
+#if !defined(SBE_USE_OPENAL)
 				channel->Mute();
 				continue;
 #endif
-			}
+			};
 
 			// Calculate the sort key.
 			// VO can't be stopped and restarted accurately, so always keep VO channels by adding a large value to the sort key.
@@ -447,10 +420,8 @@ void idSoundWorldLocal::Update(float afTimeStep)
 			for(insertIndex = 0; insertIndex < activeEmitterChannels.Num(); insertIndex++)
 			{
 				if(sortKey > activeEmitterChannels[insertIndex].sortKey)
-				{
 					break;
-				}
-			}
+			};
 
 			// Only insert at the end if there is room.
 			if(insertIndex == activeEmitterChannels.Num())
@@ -461,8 +432,8 @@ void idSoundWorldLocal::Update(float afTimeStep)
 					// We don't have enough voices to play this, so mute it if it was playing.
 					channel->Mute();
 					continue;
-				}
-			}
+				};
+			};
 
 			// We want to insert the sound at this point.
 			activeEmitterChannels.Insert(idActiveChannel(channel, sortKey), insertIndex);
@@ -473,13 +444,13 @@ void idSoundWorldLocal::Update(float afTimeStep)
 			while(activeEmitterChannels.Num() == maxEmitterChannels || activeHardwareChannels > MAX_HARDWARE_CHANNELS)
 			{
 				const int indexToRemove = activeEmitterChannels.Num() - 1;
-				idSoundChannel *const channelToMute = activeEmitterChannels[indexToRemove].channel;
+				SbSoundChannel *const channelToMute = activeEmitterChannels[indexToRemove].channel;
 				channelToMute->Mute();
 				activeHardwareChannels -= channelToMute->leadinSample->NumChannels();
 				activeEmitterChannels.RemoveIndex(indexToRemove);
-			}
-		}
-	}
+			};
+		};
+	};
 
 	// ------------------
 	// In the very common case of having more sounds that would contribute to the
@@ -506,10 +477,11 @@ void idSoundWorldLocal::Update(float afTimeStep)
 		showVoiceTable.Format("currentCushionDB: %5.1f  freeVoices: %i zombieVoices: %i buffers:%i/%i\n", currentCushionDB,
 		                      soundSystemLocal.hardware.GetNumFreeVoices(), soundSystemLocal.hardware.GetNumZombieVoices(),
 		                      soundSystemLocal.activeStreamBufferContexts.Num(), soundSystemLocal.freeStreamBufferContexts.Num());
-	}
+	};
+	
 	for(int i = 0; i < activeEmitterChannels.Num(); i++)
 	{
-		idSoundChannel *chan = activeEmitterChannels[i].channel;
+		SbSoundChannel *chan = activeEmitterChannels[i].channel;
 		chan->UpdateHardware(0.0f, currentTime);
 
 		if(showVoices)
@@ -519,33 +491,26 @@ void idSoundWorldLocal::Update(float afTimeStep)
 			idSoundSample *leadinSample = chan->leadinSample;
 			idSoundSample *loopingSample = chan->loopingSample;
 			if(loopingSample == nullptr)
-			{
 				voiceLine.Append(va("%ikhz*%i %s\n", leadinSample->SampleRate() / 1000, leadinSample->NumChannels(), leadinSample->GetName()));
-			}
 			else if(loopingSample == leadinSample)
-			{
 				voiceLine.Append(va("%ikhz*%i <LOOPING> %s\n", leadinSample->SampleRate() / 1000, leadinSample->NumChannels(), leadinSample->GetName()));
-			}
 			else
-			{
 				voiceLine.Append(va("%ikhz*%i %s | %ikhz*%i %s\n", leadinSample->SampleRate() / 1000, leadinSample->NumChannels(), leadinSample->GetName(), loopingSample->SampleRate() / 1000, loopingSample->NumChannels(), loopingSample->GetName()));
-			}
 			showVoiceTable += voiceLine;
-		}
+		};
 
 		// Calculate shakes
 		if(chan->hardwareVoice == nullptr)
-		{
 			continue;
-		}
 
 		shakeAmp += chan->parms.shakes * chan->hardwareVoice->GetGain() * chan->currentAmplitude;
-	}
+	};
+	
 	if(showVoices)
 	{
 		static idOverlayHandle handle;
 		console->PrintOverlay(handle, JUSTIFY_LEFT, showVoiceTable.c_str());
-	}
+	};
 
 	if(s_drawSounds.GetBool() && renderWorld != nullptr)
 	{
@@ -560,12 +525,11 @@ void idSoundWorldLocal::Update(float afTimeStep)
 				{
 					audible = true;
 					maxGain = Max(maxGain, emitter->channels[c]->hardwareVoice->GetGain());
-				}
-			}
+				};
+			};
+			
 			if(!audible)
-			{
 				continue;
-			}
 
 			static const int lifetime = 20;
 
@@ -577,9 +541,7 @@ void idSoundWorldLocal::Update(float afTimeStep)
 			// draw a box
 			renderWorld->DebugBounds(idVec4(maxGain, maxGain, 1.0f, 1.0f), ref, emitter->origin, lifetime);
 			if(emitter->origin != emitter->spatializedOrigin)
-			{
 				renderWorld->DebugLine(idVec4(1.0f, 0.0f, 0.0f, 1.0f), emitter->origin, emitter->spatializedOrigin, lifetime);
-			}
 
 			// draw the index
 			idVec3 textPos = emitter->origin;
@@ -590,7 +552,7 @@ void idSoundWorldLocal::Update(float afTimeStep)
 			// run through all the channels
 			for(int k = 0; k < emitter->channels.Num(); k++)
 			{
-				idSoundChannel *chan = emitter->channels[k];
+				SbSoundChannel *chan = emitter->channels[k];
 				float min = chan->parms.minDistance;
 				float max = chan->parms.maxDistance;
 				const char *defaulted = chan->leadinSample->IsDefault() ? " *DEFAULTED*" : "";
@@ -598,59 +560,55 @@ void idSoundWorldLocal::Update(float afTimeStep)
 				text.Format("%s (%i %i/%i)%s", chan->soundShader->GetName(), idMath::Ftoi(emitter->spatializedDistance), idMath::Ftoi(min), idMath::Ftoi(max), defaulted);
 				renderWorld->DrawText(text, textPos, 0.1f, idVec4(1, 0, 0, 1), listener.axis, 1, lifetime);
 				textPos.z += 8;
-			}
-		}
-	}
-}
+			};
+		};
+	};
+};
 
 /*
 ========================
 idSoundWorldLocal::OnReloadSound
 ========================
 */
-void idSoundWorldLocal::OnReloadSound(const idDecl *shader)
+void SbSoundWorldLocal::OnReloadSound(const idDecl *shader)
 {
 	for(int i = 0; i < emitters.Num(); i++)
-	{
 		emitters[i]->OnReloadSound(shader);
-	}
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::EmitterForIndex
 ========================
 */
-idSoundEmitter *idSoundWorldLocal::EmitterForIndex(int index)
+idSoundEmitter *SbSoundWorldLocal::EmitterForIndex(int index) const
 {
 	// This is only used by save/load code which assumes index = 0 is invalid
 	// Which is fine since we use index 0 for the local sound emitter anyway
 	if(index <= 0)
-	{
 		return nullptr;
-	}
+
 	if(index >= emitters.Num())
-	{
 		idLib::Error("idSoundWorldLocal::EmitterForIndex: %i >= %i", index, emitters.Num());
-	}
+
 	return emitters[index];
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::ClearAllSoundEmitters
 ========================
 */
-void idSoundWorldLocal::ClearAllSoundEmitters()
+void SbSoundWorldLocal::ClearAllSoundEmitters()
 {
 	for(int i = 0; i < emitters.Num(); i++)
 	{
 		emitters[i]->Reset();
 		emitterAllocator.Free(emitters[i]);
-	}
+	};
 	emitters.Clear();
 	localSound = AllocSoundEmitter();
-}
+};
 
 /*
 ========================
@@ -659,56 +617,52 @@ idSoundWorldLocal::StopAllSounds
 This is called from the main thread.
 ========================
 */
-void idSoundWorldLocal::StopAllSounds()
+void SbSoundWorldLocal::StopAllSounds()
 {
 	for(int i = 0; i < emitters.Num(); i++)
-	{
 		emitters[i]->Reset();
-	}
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::PlayShaderDirectly
 ========================
 */
-int idSoundWorldLocal::PlayShaderDirectly(const char *name, int channel)
+int SbSoundWorldLocal::PlayShaderDirectly(const char *name, int channel)
 {
 	if(name == nullptr || name[0] == 0)
 	{
 		localSound->StopSound(channel);
 		return 0;
-	}
-	const idSoundShader *shader = declManager->FindSound(name);
+	};
+	const SbSoundShader *shader = declManager->FindSound(name);
 	if(shader == nullptr)
 	{
 		localSound->StopSound(channel);
 		return 0;
 	}
 	else
-	{
 		return localSound->StartSound(shader, channel, soundSystemLocal.random.RandomFloat(), SSF_GLOBAL, true);
-	}
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::Skip
 ========================
 */
-void idSoundWorldLocal::Skip(int time)
+void SbSoundWorldLocal::Skip(int time)
 {
 	accumulatedPauseTime -= time;
 	pauseFade.SetVolume(DB_SILENCE);
 	pauseFade.Fade(0.0f, s_unpauseFadeInTime.GetInteger(), GetSoundTime());
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::Pause
 ========================
 */
-void idSoundWorldLocal::Pause()
+void SbSoundWorldLocal::Pause()
 {
 	if(!isPaused)
 	{
@@ -719,22 +673,20 @@ void idSoundWorldLocal::Pause()
 		{
 			for(int i = 0; i < emitters[e]->channels.Num(); i++)
 			{
-				idSoundChannel *channel = emitters[e]->channels[i];
+				SbSoundChannel *channel = emitters[e]->channels[i];
 				if(!channel->CanMute() && channel->hardwareVoice != nullptr)
-				{
 					channel->hardwareVoice->Pause();
-				}
-			}
-		}
-	}
-}
+			};
+		};
+	};
+};
 
 /*
 ========================
 idSoundWorldLocal::UnPause
 ========================
 */
-void idSoundWorldLocal::UnPause()
+void SbSoundWorldLocal::UnPause()
 {
 	if(isPaused)
 	{
@@ -748,32 +700,26 @@ void idSoundWorldLocal::UnPause()
 		{
 			for(int i = 0; i < emitters[e]->channels.Num(); i++)
 			{
-				idSoundChannel *channel = emitters[e]->channels[i];
+				SbSoundChannel *channel = emitters[e]->channels[i];
 				if(!channel->CanMute() && channel->hardwareVoice != nullptr)
-				{
 					channel->hardwareVoice->UnPause();
-				}
-			}
-		}
-	}
-}
+			};
+		};
+	};
+};
 
 /*
 ========================
 idSoundWorldLocal::GetSoundTime
 ========================
 */
-int idSoundWorldLocal::GetSoundTime()
+int SbSoundWorldLocal::GetSoundTime()
 {
 	if(isPaused)
-	{
 		return pausedTime - accumulatedPauseTime;
-	}
 	else
-	{
 		return soundSystemLocal.SoundTime() - accumulatedPauseTime;
-	}
-}
+};
 
 /*
 ===================
@@ -790,15 +736,15 @@ If there is no path through open portals from the sound to the listener, def->sp
 set at maxDistance
 ===================
 */
-static const int MAX_PORTAL_TRACE_DEPTH = 10;
+static constexpr auto MAX_PORTAL_TRACE_DEPTH{10};
 
-void idSoundWorldLocal::ResolveOrigin(const int stackDepth, const soundPortalTrace_t *prevStack, const int soundArea, const float dist, const idVec3 &soundOrigin, idSoundEmitterLocal *def)
+void SbSoundWorldLocal::ResolveOrigin(const int stackDepth, const soundPortalTrace_t *prevStack, const int soundArea, const float dist, const idVec3 &soundOrigin, idSoundEmitterLocal *def)
 {
 	if(dist >= def->spatializedDistance)
 	{
 		// we can't possibly hear the sound through this chain of portals
 		return;
-	}
+	};
 
 	if(soundArea == listener.area)
 	{
@@ -807,15 +753,15 @@ void idSoundWorldLocal::ResolveOrigin(const int stackDepth, const soundPortalTra
 		{
 			def->spatializedDistance = fullDist;
 			def->spatializedOrigin = soundOrigin;
-		}
+		};
 		return;
-	}
+	};
 
 	if(stackDepth == MAX_PORTAL_TRACE_DEPTH)
 	{
 		// don't spend too much time doing these calculations in big maps
 		return;
-	}
+	};
 
 	soundPortalTrace_t newStack;
 	newStack.portalArea = soundArea;
@@ -834,28 +780,23 @@ void idSoundWorldLocal::ResolveOrigin(const int stackDepth, const soundPortalTra
 			// we could just completely cut sound off, but reducing the volume works better
 			// continue;
 			occlusionDistance = s_doorDistanceAdd.GetFloat();
-		}
+		};
 
 		// what area are we about to go look at
 		int otherArea = re.areas[0];
 		if(re.areas[0] == soundArea)
-		{
 			otherArea = re.areas[1];
-		}
 
 		// if this area is already in our portal chain, don't bother looking into it
 		const soundPortalTrace_t *prev;
 		for(prev = prevStack; prev; prev = prev->prevStack)
 		{
 			if(prev->portalArea == otherArea)
-			{
 				break;
-			}
-		}
+		};
+		
 		if(prev)
-		{
 			continue;
-		}
 
 		// pick a point on the portal to serve as our virtual sound origin
 		idVec3 source;
@@ -866,9 +807,7 @@ void idSoundWorldLocal::ResolveOrigin(const int stackDepth, const soundPortalTra
 		float scale;
 		idVec3 dir = listener.pos - soundOrigin;
 		if(!pl.RayIntersection(soundOrigin, dir, scale))
-		{
 			source = re.w->GetCenter();
-		}
 		else
 		{
 			source = soundOrigin + scale * dir;
@@ -892,23 +831,23 @@ void idSoundWorldLocal::ResolveOrigin(const int stackDepth, const soundPortalTra
 					d /= div;
 
 					source -= d * edgeNormal;
-				}
-			}
-		}
+				};
+			};
+		};
 
 		idVec3 tlen = source - soundOrigin;
 		float tlenLength = tlen.LengthFast();
 
 		ResolveOrigin(stackDepth + 1, &newStack, otherArea, dist + tlenLength + occlusionDistance, source, def);
-	}
-}
+	};
+};
 
 /*
 ========================
 idSoundWorldLocal::StartWritingDemo
 ========================
 */
-void idSoundWorldLocal::StartWritingDemo(idDemoFile *demo)
+void SbSoundWorldLocal::StartWritingDemo(idDemoFile *demo)
 {
 	writeDemo = demo;
 
@@ -919,37 +858,33 @@ void idSoundWorldLocal::StartWritingDemo(idDemoFile *demo)
 
 	// use the normal save game code to archive all the emitters
 	WriteToSaveGame(writeDemo);
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::StopWritingDemo
 ========================
 */
-void idSoundWorldLocal::StopWritingDemo()
+void SbSoundWorldLocal::StopWritingDemo()
 {
 	writeDemo = nullptr;
-}
+};
 
 /*
 ========================
 idSoundWorldLocal::ProcessDemoCommand
 ========================
 */
-void idSoundWorldLocal::ProcessDemoCommand(idDemoFile *readDemo)
+void SbSoundWorldLocal::ProcessDemoCommand(idDemoFile *readDemo)
 {
 	if(!readDemo)
-	{
 		return;
-	}
 
 	int index;
 	soundDemoCommand_t dc;
 
 	if(!readDemo->ReadInt((int &)dc))
-	{
 		return;
-	}
 
 	switch(dc)
 	{
@@ -961,7 +896,7 @@ void idSoundWorldLocal::ProcessDemoCommand(idDemoFile *readDemo)
 		{
 			const char *declName = readDemo->ReadHashString();
 			declManager->FindSound(declName);
-		}
+		};
 		break;
 	}
 	case SCMD_STATE:
@@ -1071,33 +1006,33 @@ void idSoundWorldLocal::ProcessDemoCommand(idDemoFile *readDemo)
 		EmitterForIndex(index)->FadeSound((s_channelType)channel, to, over);
 	}
 	break;
-	}
-}
+	};
+};
 
 /*
 =================
 idSoundWorldLocal::AVIOpen
 =================
 */
-void idSoundWorldLocal::AVIOpen(const char *, const char *)
+void SbSoundWorldLocal::AVIOpen(const char *, const char *)
 {
-}
+};
 
 /*
 =================
 idSoundWorldLocal::AVIClose
 =================
 */
-void idSoundWorldLocal::AVIClose()
+void SbSoundWorldLocal::AVIClose()
 {
-}
+};
 
 /*
 =================
 idSoundWorldLocal::WriteToSaveGame
 =================
 */
-void idSoundWorldLocal::WriteToSaveGame(idFile *savefile)
+void SbSoundWorldLocal::WriteToSaveGame(idFile *savefile)
 {
 	struct helper
 	{
@@ -1107,7 +1042,7 @@ void idSoundWorldLocal::WriteToSaveGame(idFile *savefile)
 			savefile->WriteInt(sf.fadeEndTime);
 			savefile->WriteFloat(sf.fadeStartVolume);
 			savefile->WriteFloat(sf.fadeEndVolume);
-		}
+		};
 		static void WriteShaderParms(idFile *savefile, soundShaderParms_t &parms)
 		{
 			savefile->WriteFloat(parms.minDistance);
@@ -1116,7 +1051,7 @@ void idSoundWorldLocal::WriteToSaveGame(idFile *savefile)
 			savefile->WriteFloat(parms.shakes);
 			savefile->WriteInt(parms.soundShaderFlags);
 			savefile->WriteInt(parms.soundClass);
-		}
+		};
 	};
 	savefile->WriteInt(GetSoundTime());
 
@@ -1140,7 +1075,7 @@ void idSoundWorldLocal::WriteToSaveGame(idFile *savefile)
 	// Start at 1 because the local sound emitter is not saved
 	for(int e = 1; e < emitters.Num(); e++)
 	{
-		idSoundEmitterLocal *emitter = emitters[e];
+		SbSoundEmitterLocal *emitter = emitters[e];
 		savefile->WriteBool(emitter->canFree);
 		savefile->WriteVec3(emitter->origin);
 		savefile->WriteInt(emitter->emitterId);
@@ -1148,7 +1083,7 @@ void idSoundWorldLocal::WriteToSaveGame(idFile *savefile)
 		savefile->WriteInt(emitter->channels.Num());
 		for(int c = 0; c < emitter->channels.Num(); c++)
 		{
-			idSoundChannel *channel = emitter->channels[c];
+			SbSoundChannel *channel = emitter->channels[c];
 			savefile->WriteInt(channel->startTime);
 			savefile->WriteInt(channel->endTime);
 			savefile->WriteInt(channel->logicalChannel);
@@ -1161,26 +1096,23 @@ void idSoundWorldLocal::WriteToSaveGame(idFile *savefile)
 			for(int i = 0; i < channel->soundShader->entries.Num(); i++)
 			{
 				if(channel->soundShader->entries[i] == channel->leadinSample)
-				{
 					leadin = i;
-				}
+
 				if(channel->soundShader->entries[i] == channel->loopingSample)
-				{
 					looping = i;
-				}
-			}
+			};
 			savefile->WriteInt(leadin);
 			savefile->WriteInt(looping);
-		}
-	}
-}
+		};
+	};
+};
 
 /*
 =================
 idSoundWorldLocal::ReadFromSaveGame
 =================
 */
-void idSoundWorldLocal::ReadFromSaveGame(idFile *savefile)
+void SbSoundWorldLocal::ReadFromSaveGame(idFile *savefile)
 {
 	struct helper
 	{
@@ -1194,8 +1126,8 @@ void idSoundWorldLocal::ReadFromSaveGame(idFile *savefile)
 			{
 				sf.fadeStartTime += timeDelta;
 				sf.fadeEndTime += timeDelta;
-			}
-		}
+			};
+		};
 		static void ReadShaderParms(idFile *savefile, soundShaderParms_t &parms)
 		{
 			savefile->ReadFloat(parms.minDistance);
@@ -1204,7 +1136,7 @@ void idSoundWorldLocal::ReadFromSaveGame(idFile *savefile)
 			savefile->ReadFloat(parms.shakes);
 			savefile->ReadInt(parms.soundShaderFlags);
 			savefile->ReadInt(parms.soundClass);
-		}
+		};
 	};
 	int oldSoundTime = 0;
 	savefile->ReadInt(oldSoundTime);
@@ -1232,7 +1164,7 @@ void idSoundWorldLocal::ReadFromSaveGame(idFile *savefile)
 	// Start at 1 because the local sound emitter is not saved
 	for(int e = 1; e < numEmitters; e++)
 	{
-		idSoundEmitterLocal *emitter = (idSoundEmitterLocal *)AllocSoundEmitter();
+		SbSoundEmitterLocal *emitter = (idSoundEmitterLocal *)AllocSoundEmitter();
 		assert(emitter == emitters[e]);
 		assert(emitter->index == e);
 		assert(emitter->soundWorld == this);
@@ -1246,7 +1178,7 @@ void idSoundWorldLocal::ReadFromSaveGame(idFile *savefile)
 		emitter->channels.SetNum(numChannels);
 		for(int c = 0; c < numChannels; c++)
 		{
-			idSoundChannel *channel = AllocSoundChannel();
+			SbSoundChannel *channel = AllocSoundChannel();
 			emitter->channels[c] = channel;
 			channel->emitter = emitter;
 			savefile->ReadInt(channel->startTime);
@@ -1266,15 +1198,13 @@ void idSoundWorldLocal::ReadFromSaveGame(idFile *savefile)
 			{
 				channel->leadinSample = channel->soundShader->entries[leadin];
 				if(looping >= 0 && looping < channel->soundShader->entries.Num())
-				{
 					channel->loopingSample = channel->soundShader->entries[looping];
-				}
 			}
 			else
 			{
 				channel->leadinSample = nullptr;
 				channel->loopingSample = nullptr;
-			}
+			};
 			channel->startTime += timeDelta;
 			if(channel->endTime == 0)
 			{
@@ -1286,12 +1216,10 @@ void idSoundWorldLocal::ReadFromSaveGame(idFile *savefile)
 				channel->endTime = 1;
 			}
 			else
-			{
 				channel->endTime += timeDelta;
-			}
-		}
-	}
-}
+		};
+	};
+};
 
 /*
 =================
@@ -1301,34 +1229,34 @@ fade all sounds in the world with a given shader soundClass
 to is in Db, over is in seconds
 =================
 */
-void idSoundWorldLocal::FadeSoundClasses(const int soundClass, const float to, const float over)
+void SbSoundWorldLocal::FadeSoundClasses(const int soundClass, const float to, const float over)
 {
 	if(soundClass < 0 || soundClass >= SOUND_MAX_CLASSES)
 	{
-		common->Error("idSoundWorldLocal::FadeSoundClasses: bad soundClass %i", soundClass);
+		mpSys->Error("idSoundWorldLocal::FadeSoundClasses: bad soundClass %i", soundClass);
 		return;
-	}
+	};
 	soundClassFade[soundClass].Fade(to, SEC2MS(over), GetSoundTime());
-}
+};
 
 /*
 =================
 idSoundWorldLocal::SetSlowmoSpeed
 =================
 */
-void idSoundWorldLocal::SetSlowmoSpeed(float speed)
+void SbSoundWorldLocal::SetSlowmoSpeed(float speed)
 {
 	slowmoSpeed = speed;
-}
+};
 
 /*
 =================
 idSoundWorldLocal::SetEnviroSuit
 =================
 */
-void idSoundWorldLocal::SetEnviroSuit(bool active)
+void SbSoundWorldLocal::SetEnviroSuit(bool active)
 {
 	enviroSuitActive = active;
-}
+};
 
 //} // namespace BFG

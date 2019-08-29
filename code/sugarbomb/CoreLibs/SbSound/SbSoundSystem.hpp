@@ -51,15 +51,16 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "framework/CVar.hpp"
 
-// We may need up to 3 buffers for each hardware voice if they are all long sounds
-#define MAX_SOUND_BUFFERS (MAX_HARDWARE_VOICES * 3)
-
 //namespace sbe
 //{
 
+// We may need up to 3 buffers for each hardware voice if they are all long sounds
+constexpr auto MAX_SOUND_BUFFERS{MAX_HARDWARE_VOICES * 3};
+
 struct idSoundSample;
 class idSoundVoice;
-class idSoundWorldLocal;
+
+class SbSoundWorldLocal;
 
 #if defined(USE_OPENAL)
 	class idSoundVoice_OpenAL;
@@ -69,123 +70,118 @@ class idSoundWorldLocal;
 	class idSoundSample_XAudio2;
 #endif // _MSC_VER ; DG end
 
-class idSoundSystemLocal : public idSoundSystem
+class SbSoundSystemLocal : public idSoundSystem
 {
 public:
 	// all non-hardware initialization
-	virtual void Init();
+	virtual void Init() override;
 
 	// shutdown routine
-	virtual void Shutdown();
+	virtual void Shutdown() override;
 
-	virtual idSoundWorld *AllocSoundWorld(idRenderWorld *rw);
-	virtual void FreeSoundWorld(idSoundWorld *sw);
+	virtual ISoundWorld *AllocSoundWorld(IRenderWorld *rw) override;
+	virtual void FreeSoundWorld(ISoundWorld *sw) override;
 
-	// specifying NULL will cause silence to be played
-	virtual void SetPlayingSoundWorld(idSoundWorld *soundWorld);
+	// specifying nullptr will cause silence to be played
+	virtual void SetPlayingSoundWorld(ISoundWorld *soundWorld) override;
 
 	// some tools, like the sound dialog, may be used in both the game and the editor
-	// This can return NULL, so check!
-	virtual idSoundWorld *GetPlayingSoundWorld();
+	// This can return nullptr, so check!
+	virtual ISoundWorld *GetPlayingSoundWorld() const override;
 
 	// sends the current playing sound world information to the sound hardware
-	virtual void Render(float afTimeStep);
+	virtual void Render(float afTimeStep) override;
 
 	// Mutes the SSG_MUSIC group
-	virtual void MuteBackgroundMusic(bool mute)
+	virtual void MuteBackgroundMusic(bool mute) override
 	{
 		musicMuted = mute;
-	}
+	};
 
 	// sets the final output volume to 0
 	// This should only be used when the app is deactivated
 	// Since otherwise there will be problems with different subsystems muting and unmuting at different times
-	virtual void SetMute(bool mute)
+	virtual void SetMute(bool mute) override
 	{
 		muted = mute;
-	}
-	virtual bool IsMuted()
+	};
+	virtual bool IsMuted() const override
 	{
 		return muted;
-	}
+	};
 
-	virtual void OnReloadSound(const idDecl *sound);
+	virtual void OnReloadSound(const idDecl *sound) override;
 
-	virtual void StopAllSounds();
+	virtual void StopAllSounds() override;
 
-	virtual void InitStreamBuffers();
-	virtual void FreeStreamBuffers();
+	virtual void InitStreamBuffers() override;
+	virtual void FreeStreamBuffers() override;
 
-	virtual void *GetIXAudio2() const; // FIXME: stupid name; get rid of this? not sure if it's really needed..
+	virtual void *GetIXAudio2() const override; // FIXME: stupid name; get rid of this? not sure if it's really needed..
 
 	// RB begin
-	virtual void *GetOpenALDevice() const;
+	virtual void *GetOpenALDevice() const override;
 	// RB end
 
 	// for the sound level meter window
-	virtual cinData_t ImageForTime(const int milliseconds, const bool waveform);
+	virtual cinData_t ImageForTime(const int milliseconds, const bool waveform) const override;
 
 	// Free all sounds loaded during the last map load
-	virtual void BeginLevelLoad();
+	virtual void BeginLevelLoad() override;
 
 	// We might want to defer the loading of new sounds to this point
-	virtual void EndLevelLoad();
+	virtual void EndLevelLoad() override;
 
 	// prints memory info
-	virtual void PrintMemInfo(MemInfo_t *mi);
+	virtual void PrintMemInfo(MemInfo_t *mi) override;
 
 	//-------------------------
 
 	// Before a sound is reloaded, any active voices using it must
 	// be stopped.  Returns true if any were playing, and should be
 	// restarted after the sound is reloaded.
-	void StopVoicesWithSample(const idSoundSample *const sample);
+	void StopVoicesWithSample(const idSoundSample *const sample) override;
 
-	void Restart();
-	void SetNeedsRestart()
+	void Restart() override;
+	void SetNeedsRestart() override
 	{
 		needsRestart = true;
-	}
+	};
 
-	int SoundTime() const;
+	int SoundTime() const override;
 
 	// may return NULL if there are no more voices left
-	idSoundVoice *AllocateVoice(const idSoundSample *leadinSample, const idSoundSample *loopingSample);
-	void FreeVoice(idSoundVoice *);
+	idSoundVoice *AllocateVoice(const idSoundSample *leadinSample, const idSoundSample *loopingSample) override;
+	void FreeVoice(idSoundVoice *) override;
 
-	idSoundSample *LoadSample(const char *name);
+	idSoundSample *LoadSample(const char *name) override;
 
-	virtual void Preload(idPreloadManifest &preload);
+	virtual void Preload(idPreloadManifest &preload) override;
 
 	struct bufferContext_t
 	{
-		bufferContext_t()
-		    : voice(NULL),
-		      sample(NULL),
-		      bufferNumber(0)
-		{
-		}
+		bufferContext_t() = default;
 
-#if defined(USE_OPENAL)
-		idSoundVoice_OpenAL *voice;
-		idSoundSample_OpenAL *sample;
+#if defined(SBE_USE_OPENAL)
+		SbSoundVoice_OpenAL *voice{nullptr};
+		SbSoundSample_OpenAL *sample{nullptr};
 #elif defined(_MSC_VER) // XAudio backend
 		// DG: because the inheritance is kinda strange (idSoundVoice is derived
 		// from idSoundVoice_XAudio2), casting the latter to the former isn't possible
 		// so we need this ugly #ifdef ..
-		idSoundVoice_XAudio2 *voice;
-		idSoundSample_XAudio2 *sample;
-#else                   // not _MSC_VER
+		SbSoundVoice_XAudio2 *voice{nullptr};
+		SbSoundSample_XAudio2 *sample{nullptr};
+#else // not _MSC_VER
 		// from stub or something..
-		idSoundVoice *voice;
-		idSoundSample *sample;
-#endif                  // _MSC_VER ; DG end
+		SbSoundVoice *voice{nullptr};
+		SbSoundSample *sample{nullptr};
+#endif // _MSC_VER ; DG end
 
-		int bufferNumber;
+		int bufferNumber{0};
 	};
 
-	// Get a stream buffer from the free pool, returns NULL if none are available
-	bufferContext_t *ObtainStreamBufferContext();
+	// Get a stream buffer from the free pool, returns nullptr if none are available
+	bufferContext_t *ObtainStreamBufferContext() const;
 	void ReleaseStreamBufferContext(bufferContext_t *p);
 
 	idSysMutex streamBufferMutex;
@@ -193,8 +189,8 @@ public:
 	idStaticList<bufferContext_t *, MAX_SOUND_BUFFERS> activeStreamBufferContexts;
 	idStaticList<bufferContext_t, MAX_SOUND_BUFFERS> bufferContexts;
 
-	idSoundWorldLocal *currentSoundWorld;
-	idStaticList<idSoundWorldLocal *, 32> soundWorlds;
+	SbSoundWorldLocal *currentSoundWorld{nullptr};
+	idStaticList<SbSoundWorldLocal *, 32> soundWorlds;
 
 	idList<idSoundSample *, TAG_AUDIO> samples;
 	idHashIndex sampleHash;
@@ -203,25 +199,18 @@ public:
 
 	idRandom2 random;
 
-	int soundTime;
-	bool muted;
-	bool musicMuted;
-	bool needsRestart;
+	int soundTime{0};
+	bool muted{false};
+	bool musicMuted{false};
+	bool needsRestart{false};
 
-	bool insideLevelLoad;
+	bool insideLevelLoad{false};
 
 	//-------------------------
 
-	idSoundSystemLocal()
-	    : currentSoundWorld(NULL),
-	      soundTime(0),
-	      muted(false),
-	      musicMuted(false),
-	      needsRestart(false)
-	{
-	}
+	SbSoundSystemLocal() = default;
 };
 
-extern idSoundSystemLocal soundSystemLocal;
+extern SbSoundSystemLocal soundSystemLocal;
 
 //}; // namespace sbe

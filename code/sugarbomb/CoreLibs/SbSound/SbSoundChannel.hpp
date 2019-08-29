@@ -46,17 +46,18 @@ Suite 120, Rockville, Maryland 20850 USA.
 //namespace sbe
 //{
 
-struct idSoundShader;
 struct idSoundSample;
-class idSoundEmitterLocal;
 class idSoundVoice;
+
+class SbSoundShader;
+class SbSoundEmitterLocal;
 
 /*
 ================================================
 idSoundChannel
 ================================================
 */
-class idSoundChannel
+class SbSoundChannel
 {
 public:
 	bool CanMute() const;
@@ -70,29 +71,29 @@ public:
 	// returns true if this channel is marked as looping
 	bool IsLooping() const;
 
-	class idSoundEmitterLocal *emitter;
+	SbSoundEmitterLocal *emitter{nullptr};
 
-	int startTime;
-	int endTime;
-	int logicalChannel;
-	bool allowSlow;
+	int startTime{0};
+	int endTime{0};
+	int logicalChannel{0};
+	bool allowSlow{false};
 
-	soundShaderParms_t parms; // combines shader parms and per-channel overrides
-	const idSoundShader *soundShader;
-	idSoundSample *leadinSample;
-	idSoundSample *loopingSample;
-	idSoundFade volumeFade;
+	soundShaderParms_t parms{}; // combines shader parms and per-channel overrides
+	const SbSoundShader *soundShader{nullptr};
+	idSoundSample *leadinSample{nullptr};
+	idSoundSample *loopingSample{nullptr};
+	SbSoundFade volumeFade{};
 
-	float volumeDB;         // last volume at which this channel will play (calculated in UpdateVolume)
-	float currentAmplitude; // current amplitude on the hardware voice
+	float volumeDB{0.0f};         // last volume at which this channel will play (calculated in UpdateVolume)
+	float currentAmplitude{0.0f}; // current amplitude on the hardware voice
 
 	// hardwareVoice will be freed and NULL'd when a sound is out of range,
 	// and reallocated when it comes back in range
-	idSoundVoice *hardwareVoice;
+	idSoundVoice *hardwareVoice{nullptr};
 
 	// only allocated by the soundWorld block allocator
-	idSoundChannel();
-	~idSoundChannel();
+	SbSoundChannel();
+	~SbSoundChannel();
 };
 
 //}; // namespace sbe

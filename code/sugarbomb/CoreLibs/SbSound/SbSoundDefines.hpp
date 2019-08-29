@@ -40,23 +40,23 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
-// Maximum number of voices we can have allocated
-#define MAX_HARDWARE_VOICES 48
 
-// Maximum number of channels in a sound sample
-#define MAX_CHANNELS_PER_VOICE 8
+/// Maximum number of voices we can have allocated
+constexpr auto MAX_HARDWARE_VOICES{48};
 
+/// Maximum number of channels in a sound sample
+constexpr auto MAX_CHANNELS_PER_VOICE{8};
 //namespace sbe
 //{
 
-// sound classes are used to fade most sounds down inside cinematics, leaving dialog
-// flagged with a non-zero class full volume
-const int SOUND_MAX_CLASSES = 4;
+/// Sound classes are used to fade most sounds down inside cinematics, leaving dialog
+/// flagged with a non-zero class full volume
+constexpr auto SOUND_MAX_CLASSES{4};
 
-// unfortunately, our minDistance / maxDistance is specified in meters, and
-// we have far too many of them to change at this time.
-const float DOOM_TO_METERS = 0.0254f;                 // doom to meters
-const float METERS_TO_DOOM = (1.0f / DOOM_TO_METERS); // meters to doom
+/// Unfortunately, our minDistance / maxDistance is specified in meters, and
+/// we have far too many of them to change at this time.
+constexpr auto DOOM_TO_METERS{0.0254f};                 // doom to meters
+constexpr float METERS_TO_DOOM = (1.0f / DOOM_TO_METERS); // meters to doom
 
 /*
 ========================
@@ -66,7 +66,7 @@ SamplesToMsec
 ID_INLINE_EXTERN uint32 SamplesToMsec(uint32 samples, uint32 sampleRate)
 {
 	return sampleRate < 100 ? 0 : (samples * 10) / (sampleRate / 100);
-}
+};
 
 /*
 ========================
@@ -76,12 +76,12 @@ DBtoLinear
 ID_INLINE_EXTERN float DBtoLinear(float db)
 {
 	return idMath::Pow(2.0f, db * (1.0f / 6.0f));
-}
+};
 
-// demo sound commands
+/// Demo sound commands
 enum soundDemoCommand_t
 {
-	SCMD_STATE, // followed by a load game state
+	SCMD_STATE, ///< Followed by a load game state
 	SCMD_PLACE_LISTENER,
 	SCMD_ALLOC_EMITTER,
 	SCMD_FREE,
@@ -90,7 +90,7 @@ enum soundDemoCommand_t
 	SCMD_MODIFY,
 	SCMD_STOP,
 	SCMD_FADE,
-	SCMD_CACHESOUNDSHADER,
+	SCMD_CACHESOUNDSHADER
 };
 
 //} // namespace sbe

@@ -52,30 +52,35 @@ Suite 120, Rockville, Maryland 20850 USA.
 //namespace sbe
 //{
 
-struct idRenderWorld;
-struct idCommon;
+namespace sbe
+{
+struct ISystem;
+struct IRenderWorld;
 struct idConsole;
+};
+
 class idDecl;
-class idSoundChannel;
-class idSoundEmitterLocal;
-class idSoundShader;
+
+class SbSoundChannel;
+class SbSoundEmitterLocal;
+class SbSoundShader;
 
 //------------------------
 // Listener data
 //------------------------
 struct listener_t
 {
-	idMat3 axis; // orientation of the listener
-	idVec3 pos;  // position in meters
-	int id;      // the entity number, used to detect when a sound is local
-	int area;    // area number the listener is in
+	idMat3 axis{}; // orientation of the listener
+	idVec3 pos{};  // position in meters
+	int id{0};      // the entity number, used to detect when a sound is local
+	int area{0};    // area number the listener is in
 };
 
-class idSoundWorldLocal : public idSoundWorld
+class SbSoundWorldLocal : public idSoundWorld
 {
 public:
-	idSoundWorldLocal(idCommon *apCommon, idConsole *apConsole);
-	virtual ~idSoundWorldLocal();
+	SbSoundWorldLocal(sbe::ICommon *apCommon, idConsole *apConsole);
+	virtual ~SbSoundWorldLocal();
 
 	//------------------------
 	// Functions from idSoundWorld, implemented in SoundWorld.cpp
@@ -91,10 +96,10 @@ public:
 	virtual idSoundEmitter *AllocSoundEmitter();
 
 	// for load games
-	virtual idSoundEmitter *EmitterForIndex(int index);
+	virtual idSoundEmitter *EmitterForIndex(int index) const;
 
 	// query data from all emitters in the world
-	virtual float CurrentShakeAmplitude();
+	virtual float CurrentShakeAmplitude() const;
 
 	// where is the camera
 	virtual void PlaceListener(const idVec3 &origin, const idMat3 &axis, const int listenerId);
@@ -119,20 +124,20 @@ public:
 
 	virtual void Pause();
 	virtual void UnPause();
-	virtual bool IsPaused()
+	virtual bool IsPaused() const
 	{
 		return isPaused;
 	}
 
-	virtual int GetSoundTime();
+	virtual int GetSoundTime() const;
 
 	// avidump
 	virtual void AVIOpen(const char *path, const char *name);
 	virtual void AVIClose();
 
 	// SaveGame Support
-	virtual void WriteToSaveGame(idFile *savefile);
-	virtual void ReadFromSaveGame(idFile *savefile);
+	virtual void WriteToSaveGame(sbe::IFile *savefile);
+	virtual void ReadFromSaveGame(sbe::IFile *savefile);
 
 	virtual void SetSlowmoSpeed(float speed);
 	virtual void SetEnviroSuit(bool active);
@@ -145,50 +150,47 @@ public:
 	void Update(float afTimeStep);
 	void OnReloadSound(const idDecl *decl);
 
-	idSoundChannel *AllocSoundChannel();
-	void FreeSoundChannel(idSoundChannel *);
-
+	SbSoundChannel *AllocSoundChannel();
+	void FreeSoundChannel(SbSoundChannel *);
 public:
 	// even though all these variables are public, nobody outside the sound system includes SoundWorld_local.h
 	// so this is equivalent to making it private and friending all the other classes in the sound system
 
-	idSoundFade volumeFade; // master volume knob for the entire world
-	idSoundFade soundClassFade[SOUND_MAX_CLASSES];
+	SbSoundFade volumeFade{}; // master volume knob for the entire world
+	SbSoundFade soundClassFade[SOUND_MAX_CLASSES];
 
-	idRenderWorld *renderWorld; // for debug visualization and light amplitude sampling
-	idDemoFile *writeDemo;      // if not NULL, archive commands here
+	sbe::IRenderWorld *renderWorld{nullptr}; // for debug visualization and light amplitude sampling
+	idDemoFile *writeDemo{nullptr};      // if not nullptr, archive commands here
 
-	float currentCushionDB; // channels at or below this level will be faded to 0
-	float shakeAmp;         // last calculated shake amplitude
+	float currentCushionDB{0.0f}; // channels at or below this level will be faded to 0
+	float shakeAmp{0.0f};         // last calculated shake amplitude
 
-	listener_t listener;
-	idList<idSoundEmitterLocal *, TAG_AUDIO> emitters;
+	listener_t listener{};
+	idList<SbSoundEmitterLocal *, TAG_AUDIO> emitters;
 
-	idSoundEmitter *localSound; // for PlayShaderDirectly()
+	idSoundEmitter *localSound{nullptr}; // for PlayShaderDirectly()
 
 	idBlockAlloc<idSoundEmitterLocal, 16> emitterAllocator;
 	idBlockAlloc<idSoundChannel, 16> channelAllocator;
 
-	idSoundFade pauseFade;
-	int pausedTime;
-	int accumulatedPauseTime;
-	bool isPaused;
+	SbSoundFade pauseFade{};
+	int pausedTime{0};
+	int accumulatedPauseTime{0};
+	bool isPaused{false};
 
-	float slowmoSpeed;
-	bool enviroSuitActive;
-
+	float slowmoSpeed{0.0f};
+	bool enviroSuitActive{false};
 public:
 	struct soundPortalTrace_t
 	{
-		int portalArea;
-		const soundPortalTrace_t *prevStack;
+		int portalArea{0};
+		const soundPortalTrace_t *prevStack{nullptr};
 	};
 
-	void ResolveOrigin(const int stackDepth, const soundPortalTrace_t *prevStack, const int soundArea, const float dist, const idVec3 &soundOrigin, idSoundEmitterLocal *def);
-
+	void ResolveOrigin(const int stackDepth, const soundPortalTrace_t *prevStack, const int soundArea, const float dist, const idVec3 &soundOrigin, SbSoundEmitterLocal *def);
 private:
 	idCommon *common{ nullptr };
-	idConsole *console{ nullptr };
+	idConsole *console{nullptr};
 };
 
 //}; // namespace sbe

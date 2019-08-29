@@ -43,19 +43,19 @@ Suite 120, Rockville, Maryland 20850 USA.
 //namespace sbe
 //{
 
-class idSoundFade
+class SbSoundFade
 {
 public:
-	int fadeStartTime;
-	int fadeEndTime;
-	float fadeStartVolume;
-	float fadeEndVolume;
+	int fadeStartTime{0};
+	int fadeEndTime{0};
+	float fadeStartVolume{false};
+	float fadeEndVolume{false};
 
 public:
-	idSoundFade()
+	SbSoundFade()
 	{
 		Clear();
-	}
+	};
 
 	void Clear();
 	void SetVolume(float to);

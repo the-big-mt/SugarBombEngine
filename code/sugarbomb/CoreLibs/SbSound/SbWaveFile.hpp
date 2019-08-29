@@ -48,8 +48,12 @@ Suite 120, Rockville, Maryland 20850 USA.
 //namespace BFG
 //{
 
-struct idFile;
-struct idFileSystem;
+namespace sbe
+{
+struct IFile;
+struct IFileSystem;
+};
+
 //class idList;
 
 /*
@@ -63,26 +67,27 @@ Contains the WaveFile declaration.
 idWaveFile is used for reading generic RIFF WAVE files.
 ================================================
 */
-class idWaveFile
+class SbWaveFile
 {
 public:
 	ID_INLINE idWaveFile();
 	ID_INLINE ~idWaveFile();
 
-	bool Open(idFileSystem *fileSystem, const char *filename);
-	void Close();
-	uint32 SeekToChunk(uint32 id);
+	bool Open(sbe::IFileSystem *apFileSystem, const char *asFileName);
+	void Close(sbe::IFileSystem *apFileSystem);
+	
+	uint32 SeekToChunk(uint32 id) const;
 	size_t Read(void *buffer, size_t len)
 	{
-		return file->Read(buffer, len);
+		return mpFile->Read(buffer, len);
 	}
-	uint32 GetChunkOffset(uint32 id);
+	uint32 GetChunkOffset(uint32 id) const;
 
-	ID_TIME_T Timestamp()
+	ID_TIME_T Timestamp() const
 	{
-		return file->Timestamp();
+		return mpFile->Timestamp();
 	}
-	const char *Name()
+	const char *Name() const
 	{
 		return (file == nullptr ? "" : file->GetName());
 	}
@@ -133,7 +138,7 @@ public:
 #pragma pack(push, 1)
 	struct waveFmt_t
 	{
-		static const uint32 id = 'fmt ';
+		static const uint32 id{'fmt '};
 		// This is the basic data we'd expect to see in any valid wave file
 		struct basic_t
 		{
@@ -200,14 +205,14 @@ public:
 
 	struct dataChunk_t
 	{
-		static const uint32 id = 'data';
+		static const uint32 id{'data'};
 		uint32 size;
 		void *data;
 	};
 
 	struct formatChunk_t
 	{
-		static const uint32 id = 'fmt ';
+		static const uint32 id{'fmt '};
 		uint32 size;
 		uint16 compressionCode;
 		uint16 numChannels;
@@ -220,7 +225,7 @@ public:
 
 	struct samplerChunk_t
 	{
-		static const uint32 id = 'smpl';
+		static const uint32 id{'smpl'};
 		uint32 manufacturer;      // ignored
 		uint32 product;           // ignored
 		uint32 samplePeriod;      // ignored (normally 1000000000/samplesPerSec)
@@ -243,16 +248,16 @@ public:
 	};
 
 	const char *ReadWaveFormat(waveFmt_t &waveFmt);
-	static bool ReadWaveFormatDirect(waveFmt_t &format, idFile *file);
-	static bool WriteWaveFormatDirect(waveFmt_t &format, idFile *file);
-	static bool WriteSampleDataDirect(idList<sampleData_t> &sampleData, idFile *file);
-	static bool WriteDataDirect(char *_data, uint32 size, idFile *file);
-	static bool WriteHeaderDirect(uint32 fileSize, idFile *file);
+	
+	static bool ReadWaveFormatDirect(waveFmt_t &format, sbe::IFile *file);
+	static bool WriteWaveFormatDirect(waveFmt_t &format, sbe::IFile *file);
+	static bool WriteSampleDataDirect(idList<sampleData_t> &sampleData, sbe::IFile *file);
+	static bool WriteDataDirect(char *_data, uint32 size, sbe::IFile *file);
+	static bool WriteHeaderDirect(uint32 fileSize, sbe::IFile *file);
 
 	bool ReadLoopData(int &start, int &end);
-
 private:
-	idFile *file;
+	sbe::IFile *mpFile{nullptr};
 
 	struct chunk_t
 	{
@@ -269,19 +274,16 @@ private:
 idWaveFile::idWaveFile
 ========================
 */
-ID_INLINE idWaveFile::idWaveFile()
-    : file(nullptr)
-{
-}
+ID_INLINE SbWaveFile::SbWaveFile() = default;
 
 /*
 ========================
 idWaveFile::~idWaveFile
 ========================
 */
-ID_INLINE idWaveFile::~idWaveFile()
+ID_INLINE SbWaveFile::~SbWaveFile()
 {
 	Close();
-}
+};
 
 //} // namespace BFG

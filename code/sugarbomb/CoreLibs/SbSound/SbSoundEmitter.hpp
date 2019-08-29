@@ -51,10 +51,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 // Maximum number of SoundChannels for a single SoundEmitter.
 // This is probably excessive...
-const int MAX_CHANNELS_PER_EMITTER = 16;
+constexpr auto MAX_CHANNELS_PER_EMITTER{16};
 
-class idSoundWorldLocal;
-class idSoundChannel;
+class SbSoundWorldLocal;
+class SbSoundChannel;
 class idDecl;
 
 /*
@@ -62,7 +62,7 @@ class idDecl;
 idSoundEmitterLocal
 ================================================
 */
-class idSoundEmitterLocal : public idSoundEmitter
+class SbSoundEmitterLocal : public idSoundEmitter
 {
 public:
 	virtual void Free(bool immediate);
@@ -71,7 +71,7 @@ public:
 
 	virtual void UpdateEmitter(const idVec3 &origin, int listenerId, const soundShaderParms_t *parms);
 
-	virtual int StartSound(const idSoundShader *shader, const s_channelType channel, float diversity = 0, int shaderFlags = 0, bool allowSlow = true);
+	virtual int StartSound(const SbSoundShader *shader, const s_channelType channel, float diversity = 0, int shaderFlags = 0, bool allowSlow = true);
 
 	virtual void ModifySound(const s_channelType channel, const soundShaderParms_t *parms);
 	virtual void StopSound(const s_channelType channel);
@@ -80,13 +80,13 @@ public:
 
 	virtual bool CurrentlyPlaying(const s_channelType channel = SCHANNEL_ANY) const;
 
-	virtual float CurrentAmplitude();
+	virtual float CurrentAmplitude() const;
 
 	virtual int Index() const;
 
 	//----------------------------------------------
 
-	void Init(int i, idSoundWorldLocal *sw);
+	void Init(int i, SbSoundWorldLocal *sw);
 
 	// Returns true if the emitter should be freed.
 	bool CheckForCompletion(int currentTime);
@@ -98,28 +98,28 @@ public:
 
 	//----------------------------------------------
 
-	idSoundWorldLocal *soundWorld; // the world that holds this emitter
+	SbSoundWorldLocal *soundWorld{nullptr}; // the world that holds this emitter
 
-	int index;    // in world emitter list
-	bool canFree; // if true, this emitter can be canFree (once channels.Num() == 0)
+	int index{0};    // in world emitter list
+	bool canFree{false}; // if true, this emitter can be canFree (once channels.Num() == 0)
 
 	// a single soundEmitter can have many channels playing from the same point
-	idStaticList<idSoundChannel *, MAX_CHANNELS_PER_EMITTER> channels;
+	idStaticList<SbSoundChannel *, MAX_CHANNELS_PER_EMITTER> channels;
 
 	//----- set by UpdateEmitter -----
-	idVec3 origin;
-	soundShaderParms_t parms;
-	int emitterId; // sounds will be full volume when emitterId == listenerId
+	idVec3 origin{};
+	soundShaderParms_t parms{};
+	int emitterId{0}; // sounds will be full volume when emitterId == listenerId
 
 	//----- set by Update -----
-	int lastValidPortalArea;
-	float directDistance;
-	float spatializedDistance;
-	idVec3 spatializedOrigin;
+	int lastValidPortalArea{0};
+	float directDistance{0.0f};
+	float spatializedDistance{0.0f};
+	idVec3 spatializedOrigin{};
 
 	// sound emitters are only allocated by the soundWorld block allocator
-	idSoundEmitterLocal();
-	virtual ~idSoundEmitterLocal();
+	SbSoundEmitterLocal();
+	virtual ~SbSoundEmitterLocal();
 };
 
 //}; // namespace sbe

@@ -60,7 +60,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbSoundWorld.hpp"
 
 /*
-#if defined(USE_OPENAL)
+#if defined(SBE_USE_OPENAL)
 #	include "openal/AL_SoundSample.h"
 #else
 #	include "xaudio2/XA2_SoundSample.h"
@@ -72,14 +72,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 extern idCVar s_maxSamples;
 
-typedef enum {
+enum speakerLabel
+{
 	SPEAKER_LEFT = 0,
 	SPEAKER_RIGHT,
 	SPEAKER_CENTER,
 	SPEAKER_LFE,
 	SPEAKER_BACKLEFT,
 	SPEAKER_BACKRIGHT
-} speakerLabel;
+};
 
 /*
 ===============
@@ -91,7 +92,7 @@ void idSoundShader::Init()
 	leadin = false;
 	leadinVolume = 0;
 	altSound = nullptr;
-}
+};
 
 /*
 ===============
@@ -102,16 +103,14 @@ idSoundShader::idSoundShader(sbe::ISys *apSys)
     : mpSys(apSys)
 {
 	Init();
-}
+};
 
 /*
 ===============
 idSoundShader::~idSoundShader
 ===============
 */
-idSoundShader::~idSoundShader()
-{
-}
+idSoundShader::~idSoundShader() = default;
 
 /*
 =================
@@ -121,7 +120,7 @@ idSoundShader::Size
 size_t idSoundShader::Size() const
 {
 	return sizeof(idSoundShader);
-}
+};
 
 /*
 ===============
@@ -130,7 +129,7 @@ idSoundShader::idSoundShader::FreeData
 */
 void idSoundShader::FreeData()
 {
-}
+};
 
 /*
 ===================
@@ -139,9 +138,7 @@ idSoundShader::SetDefaultText
 */
 bool idSoundShader::SetDefaultText()
 {
-	idStr wavname;
-
-	wavname = GetName();
+	idStr wavname = GetName();
 	wavname.DefaultFileExtension(".wav"); // if the name has .ogg in it, that will stay
 
 	// if there exists a wav file with the same name
@@ -158,10 +155,8 @@ bool idSoundShader::SetDefaultText()
 		return true;
 	}
 	else
-	{
 		return false;
-	}
-}
+};
 
 /*
 ===================
@@ -174,7 +169,7 @@ const char *idSoundShader::DefaultDefinition() const
 	       "\t"
 	       "_default.wav\n"
 	       "}";
-}
+};
 
 /*
 ===============
@@ -198,9 +193,9 @@ bool idSoundShader::Parse(const char *text, const int textLength, bool allowBina
 	{
 		MakeDefault();
 		return false;
-	}
+	};
 	return true;
-}
+};
 
 /*
 ===============
@@ -429,18 +424,18 @@ bool idSoundShader::ParseShader(idDeclManager *declManager, idLexer &src)
 		{
 			src.Warning("unknown token '%s'", token.c_str());
 			return false;
-		}
-	}
+		};
+	};
 
 	return true;
-}
+};
 
 /*
 ===============
 idSoundShader::List
 ===============
 */
-void idSoundShader::List() const
+void SbSoundShader::List()
 {
 	idStrList shaders;
 
@@ -449,91 +444,85 @@ void idSoundShader::List() const
 	{
 		const idSoundSample *objectp = entries[k];
 		if(objectp)
-		{
 			mpSys->Printf("      %5dms %4dKb %s\n", objectp->LengthInMsec(), (objectp->BufferSize() / 1024), objectp->GetName());
-		}
-	}
-}
+	};
+};
 
 /*
 ===============
 idSoundShader::GetAltSound
 ===============
 */
-const idSoundShader *idSoundShader::GetAltSound() const
+const SbSoundShader *SbSoundShader::GetAltSound() const
 {
 	return altSound;
-}
+};
 
 /*
 ===============
 idSoundShader::GetMinDistance
 ===============
 */
-float idSoundShader::GetMinDistance() const
+float SbSoundShader::GetMinDistance() const
 {
 	return parms.minDistance;
-}
+};
 
 /*
 ===============
 idSoundShader::GetMaxDistance
 ===============
 */
-float idSoundShader::GetMaxDistance() const
+float SbSoundShader::GetMaxDistance() const
 {
 	return parms.maxDistance;
-}
+};
 
 /*
 ===============
 idSoundShader::HasDefaultSound
 ===============
 */
-bool idSoundShader::HasDefaultSound() const
+bool SbSoundShader::HasDefaultSound() const
 {
 	for(int i = 0; i < entries.Num(); i++)
-	{
 		if(entries[i] && entries[i]->IsDefault())
-		{
 			return true;
-		}
-	}
+
 	return false;
-}
+};
 
 /*
 ===============
 idSoundShader::GetParms
 ===============
 */
-const soundShaderParms_t *idSoundShader::GetParms() const
+const soundShaderParms_t *SbSoundShader::GetParms() const
 {
 	return &parms;
-}
+};
 
 /*
 ===============
 idSoundShader::GetNumSounds
 ===============
 */
-int idSoundShader::GetNumSounds() const
+int SbSoundShader::GetNumSounds() const
 {
 	return entries.Num();
-}
+};
 
 /*
 ===============
 idSoundShader::GetSound
 ===============
 */
-const char *idSoundShader::GetSound(int index) const
+const char *SbSoundShader::GetSound(int index) const
 {
 	if(index >= 0 && index < entries.Num())
-	{
 		return entries[index]->GetName();
-	}
+
 	return "";
-}
+};
 
 //} // namespace BFG
