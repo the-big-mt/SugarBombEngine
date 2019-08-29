@@ -40,7 +40,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
-#include "SbSound/ISoundWorld.hpp"
+#include "CoreLibs/SbSound/ISoundWorld.hpp"
 #include "SbSoundFade.hpp"
 #include "SbSoundDefines.hpp"
 

@@ -52,10 +52,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbSoundChannel.hpp"
 #include "SbSoundSystem.hpp"
 #include "SbSoundDefines.hpp"
-#include "SbSound/SoundTypes.hpp"
+#include "SbSound/SbSoundTypes.hpp"
 #include "snd_local.h" // TODO
 
-#include "SbRenderer/IRenderWorld.hpp"
+#include "CoreLibs/SbRenderer/IRenderWorld.hpp"
 
 //namespace sbe
 //{

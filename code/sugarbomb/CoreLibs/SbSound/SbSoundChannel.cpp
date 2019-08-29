@@ -50,7 +50,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbSoundWorld.hpp"
 #include "SbSoundSystem.hpp"
 #include "SbSoundDefines.hpp"
-#include "SbSound/SoundTypes.hpp"
+#include "SbSound/SbSoundTypes.hpp"
 
 extern idCVar timescale;
 extern idCVar s_playDefaultSound;

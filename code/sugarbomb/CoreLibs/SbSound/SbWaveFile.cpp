@@ -43,8 +43,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "SbWaveFile.hpp"
 
-#include "sys/IFileSystem.hpp"
-#include "sys/IFile.hpp"
+#include "CoreLibs/SbSystem/IFileSystem.hpp"
+#include "CoreLibs/SbSystem/IFile.hpp"
 
 #include "idlib/Heap.h"
 #include "idlib/Lib.h"

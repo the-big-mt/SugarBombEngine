@@ -48,16 +48,17 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbSoundEmitter.hpp"
 #include "SbSoundSystem.hpp"
 #include "SbSoundShader.hpp"
-#include "SbSound/SoundTypes.hpp"
+#include "CoreLibs/SbSound/SbSoundTypes.hpp"
 
-#include "renderer/IRenderWorld.hpp"
+#include "CoreLibs/SbRenderer/IRenderWorld.hpp"
 
-#include "framework/DeclManager.h"
+#include "framework/IDeclManager.hpp"
 #include "framework/DemoFile.hpp"
-#include "framework/ICommon.hpp"
 #include "framework/IConsole.hpp"
 
-#include "sys/IFile.hpp"
+#include "CoreLibs/SbSystem/ISystem.hpp"
+#include "CoreLibs/SbSystem/IFile.hpp"
+
 
 // A single voice can play multiple channels (up to 5.1, but most commonly stereo)
 // This is the maximum number of channels which can play simultaneously

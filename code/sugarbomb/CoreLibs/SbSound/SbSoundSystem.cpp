@@ -46,9 +46,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "framework/IDeclManager.hpp" // for declManager, idDeclManager, etc
 #include "framework/File_Manifest.h" // for idPreloadManifest, etc
 
-#include "SbSystem/ResourceCacheEntry.hpp"
+#include "CoreLibs/SbSystem/ResourceCacheEntry.hpp"
 
-#include "SbRenderer/IRenderWorld.hpp"
+#include "CoreLibs/SbRenderer/IRenderWorld.hpp"
 
 //namespace sbe
 //{

@@ -40,7 +40,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
-#include "SbSound/ISoundSystem.hpp"
+#include "CoreLibs/SbSound/ISoundSystem.hpp"
 #include "snd_local.h" // for idSoundHardware
 
 #include "idlib/Thread.h"
