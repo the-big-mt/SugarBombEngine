@@ -225,6 +225,20 @@ struct ISystem
 	///
 	virtual bool AlreadyRunning() const = 0;
 	
+	struct sysMemoryStats_t
+	{
+		int memoryLoad;
+		int totalPhysical;
+		int availPhysical;
+		int totalPageFile;
+		int availPageFile;
+		int totalVirtual;
+		int availVirtual;
+		int availExtendedVirtual;
+	};
+
+	///
+	virtual void GetCurrentMemoryStatus(sysMemoryStats_t &aStats) = 0;
 	///
 	virtual void Sleep(int msec = SYS_MINSLEEP) = 0;
 	
