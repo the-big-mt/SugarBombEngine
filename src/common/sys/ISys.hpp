@@ -39,6 +39,9 @@ If you have questions concerning this license or the applicable additional terms
 namespace sbe
 {
 
+// a decent minimum sleep time to avoid going below the process scheduler speeds
+constexpr auto SYS_MINSLEEP{20};
+
 // localization
 constexpr auto ID_LANG_ENGLISH{"english"};
 constexpr auto ID_LANG_FRENCH{"french"};
@@ -132,6 +135,8 @@ struct sysEvent_t
 */
 
 struct idSys
+struct ISystemEventListener;
+
 {
 	virtual void Init() = 0;
 	virtual void Shutdown() = 0;
@@ -192,6 +197,16 @@ struct idSys
 	/// static internal errors or cases where the system may be corrupted
 	virtual void                FatalError( VERIFY_FORMAT_STRING const char* fmt, ... ) ID_INSTANCE_ATTRIBUTE_PRINTF( 1, 2 ) = 0;
 	virtual bool AlreadyRunning() const = 0;
+	///
+	virtual void Sleep(int msec = SYS_MINSLEEP) = 0;
+	
+	/// Attaches an event listener to receive and handle them in some way
+	/// @param aListener - reference to a class instance which implements ISystemEventListener interface
+	virtual void AttachEventListener(ISystemEventListener &aListener) = 0;
+	
+	/// Detaches the specified event listener if it was previously attached
+	/// @param aListener - reference to interface implementor instance
+	virtual void DetachEventListener(ISystemEventListener &aListener) = 0;
 };
 
 /*
