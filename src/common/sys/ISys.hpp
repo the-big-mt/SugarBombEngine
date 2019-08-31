@@ -226,7 +226,6 @@ struct ISystem
 
 const int SYS_API_VERSION		= 1;
 
-struct idCommon;
 struct idCmdSystem;
 struct idCVarSystem;
 struct IFileSystem;
@@ -234,7 +233,6 @@ struct IFileSystem;
 struct sysImport_t
 {
 	int							version;				// API version
-	//idCommon* 					common;					// common
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
 };
@@ -242,7 +240,7 @@ struct sysImport_t
 struct sysExport_t
 {
 	int							version;				// API version
-	ISys* 						sys;					// non-portable system services
+	ISystem* 						sys;					// non-portable system services
 	IFileSystem* 				fileSystem;				// file system
 };
 
