@@ -40,6 +40,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
+#include "idlib/sys/sys_types.h"
 
 #include "SbInput/SbInputTypes.hpp"
 
