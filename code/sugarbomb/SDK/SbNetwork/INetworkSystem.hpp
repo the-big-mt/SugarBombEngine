@@ -147,25 +147,26 @@ struct INetworkSystem
 
 const auto NET_API_VERSION{1};
 
-struct idCommon;
+struct ISystem;
 struct idCmdSystem;
 struct idCVarSystem;
-struct idFileSystem;
+struct IFileSystem;
 
 struct netImport_t
 {
 	int version{-1}; ///< API version
-	idCommon *common{nullptr}; ///< common
+	ISystem *sys{nullptr}; ///< system
 	idCmdSystem *cmdSystem{nullptr}; ///< console command system
 	idCVarSystem *cvarSystem{nullptr}; ///< console variable system
-	idFileSystem *fileSystem{nullptr}; ///< file system
+	IFileSystem *fileSystem{nullptr}; ///< file system
 };
 
 struct netExport_t
 {
 	int version{-1}; ///< API version
-	INetwork *netSystem{nullptr};
+	INetworkSystem *netSystem{nullptr};
 };
 
 extern "C" using GetNetAPI_t = netExport_t *(*)(netImport_t *import);
+
 }; // namespace sbe
