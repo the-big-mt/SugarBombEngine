@@ -141,6 +141,18 @@ struct sysEvent_t
 ==============================================================
 */
 
+// TODO: is it ok to have these free functions here instead of methods?
+
+// Sys_Milliseconds should only be used for profiling purposes,
+// any game related timing information should come from event timestamps
+int Sys_Milliseconds();
+
+uint64 Sys_Microseconds();
+
+// NOTE: do we need to guarantee the same output on all platforms?
+const char *Sys_TimeStampToStr(ID_TIME_T timeStamp);
+const char *Sys_SecToStr(int sec);
+
 struct ISystemEventListener;
 
 struct ISystem
