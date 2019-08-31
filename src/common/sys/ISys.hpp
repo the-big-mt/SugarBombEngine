@@ -166,8 +166,10 @@ struct ISystem
 	
 	virtual double			GetClockTicks() = 0;
 	virtual double			ClockTicksPerSecond() = 0;
+	
 	virtual cpuid_t			GetProcessorId() = 0;
 	virtual const char* 	GetProcessorString() = 0;
+	
 	virtual const char* 	FPU_GetState() = 0;
 	virtual bool			FPU_StackIsEmpty() = 0;
 	virtual void			FPU_SetFTZ( bool enable ) = 0;
@@ -217,7 +219,12 @@ struct ISystem
 	/// Fatal errors quit all the way to a system dialog box, which is appropriate for
 	/// static internal errors or cases where the system may be corrupted
 	virtual void                FatalError( VERIFY_FORMAT_STRING const char* fmt, ... ) ID_INSTANCE_ATTRIBUTE_PRINTF( 1, 2 ) = 0;
+	
+	//
+	
+	///
 	virtual bool AlreadyRunning() const = 0;
+	
 	///
 	virtual void Sleep(int msec = SYS_MINSLEEP) = 0;
 	
