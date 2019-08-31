@@ -67,7 +67,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #endif
 */
 
-//namespace BFG
+//namespace sbe
 //{
 
 extern idCVar s_maxSamples;
@@ -525,4 +525,4 @@ const char *SbSoundShader::GetSound(int index) const
 	return "";
 };
 
-//} // namespace BFG
+//} // namespace sbe

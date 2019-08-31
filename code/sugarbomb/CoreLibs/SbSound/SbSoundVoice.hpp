@@ -47,7 +47,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/math/Vector.h"
 #include "idlib/sys/sys_types.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 class idSoundSample;
@@ -166,4 +166,4 @@ protected:
 	static float omniLevel{0.0f};
 };
 
-//} // namespace BFG
+//} // namespace sbe

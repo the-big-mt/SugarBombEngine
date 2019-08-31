@@ -45,7 +45,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/sys/sys_defines.h"
 #include "idlib/sys/sys_types.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 namespace sbe
@@ -286,4 +286,4 @@ ID_INLINE SbWaveFile::~SbWaveFile()
 	Close();
 };
 
-//} // namespace BFG
+//} // namespace sbe

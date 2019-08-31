@@ -59,14 +59,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "CoreLibs/SbSystem/ISystem.hpp"
 #include "CoreLibs/SbSystem/IFile.hpp"
 
+//namespace sbe
+//{
 
 // A single voice can play multiple channels (up to 5.1, but most commonly stereo)
 // This is the maximum number of channels which can play simultaneously
 // This is limited primarily by seeking on the optical drive, secondarily by memory consumption, and tertiarily by CPU time spent mixing
 constexpr auto MAX_HARDWARE_CHANNELS{64};
-
-//namespace BFG
-//{
 
 idCVar s_lockListener("s_lockListener", "0", CVAR_BOOL, "lock listener updates");
 idCVar s_constantAmplitude("s_constantAmplitude", "-1", CVAR_FLOAT, "");
@@ -1260,4 +1259,4 @@ void SbSoundWorldLocal::SetEnviroSuit(bool active)
 	enviroSuitActive = active;
 };
 
-//} // namespace BFG
+//} // namespace sbe

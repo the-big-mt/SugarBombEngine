@@ -56,7 +56,7 @@ Contains the WaveFile implementation
 ================================================================================================
 */
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -589,4 +589,4 @@ void SbWaveFile::Close(sbe::IFileSystem *apFileSystem)
 	chunks.SetNum(0);
 };
 
-//} // namespace BFG
+//} // namespace sbe
