@@ -240,6 +240,7 @@ struct ISystem
 
 	///
 	virtual void GetCurrentMemoryStatus(sysMemoryStats_t &aStats) = 0;
+	
 	///
 	virtual void Sleep(int msec = SYS_MINSLEEP) = 0;
 	
