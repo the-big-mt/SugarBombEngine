@@ -134,9 +134,9 @@ struct sysEvent_t
 ==============================================================
 */
 
-struct idSys
 struct ISystemEventListener;
 
+struct ISystem
 {
 	virtual void Init() = 0;
 	virtual void Shutdown() = 0;
