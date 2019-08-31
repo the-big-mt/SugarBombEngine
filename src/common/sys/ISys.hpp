@@ -183,6 +183,7 @@ struct ISystem
 	virtual void			DLL_Unload( int dllHandle ) = 0;
 	virtual void			DLL_GetFileName( const char* baseName, char* dllName, int maxLength ) = 0;
 	
+	// TODO: these should probably be moved to ICommon
 	virtual sysEvent_t		GenerateMouseButtonEvent( int button, bool down ) = 0;
 	virtual sysEvent_t		GenerateMouseMoveEvent( int deltax, int deltay ) = 0;
 	
@@ -191,6 +192,8 @@ struct ISystem
 	
 	virtual int GetLangsNum() const = 0;
 	virtual const char *GetLangName(int anIndex) const = 0;
+	
+	// BP: (Temp?) access to event system functionality
 	
 	// BP: Moved here from idCommon
 	
