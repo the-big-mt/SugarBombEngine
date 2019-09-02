@@ -37,13 +37,16 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 /// @file
 
-#include "SbApplication.hpp"
+#include "precompiled.h"
+
+#include "AppFrameworks/SbApplication/SbApplication.hpp"
 
 #include "framework/ICmdSystem.hpp"
 #include "framework/ICVarSystem.hpp"
 #include "framework/CVar.hpp"
 
-#include "sys/IFileSystem.hpp"
+#include "CoreLibs/SbSystem/ISystem.hpp"
+#include "CoreLibs/SbSystem/IFileSystem.hpp"
 
 #include "idlib/CmdArgs.h"
 #include "idlib/math/SIMD.h"
