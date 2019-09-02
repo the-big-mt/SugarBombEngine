@@ -31,9 +31,11 @@ If you have questions concerning this license or the applicable additional terms
 #define __SYS_LOCAL__
 
 //#include <cstdarg>
+//#include <cstdint>
+//#include <cstdio>
 
-//#include "../idlib/sys/sys_defines.h"
-//#include "../sys/sys_public.h"
+//#include "idlib/sys/sys_defines.h"
+//#include "idlib/CmdArgs.h"
 
 //namespace BFG
 //{

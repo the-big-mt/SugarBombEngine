@@ -35,8 +35,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "../../libs/glew/include/GL/wglew.h" // windows OpenGL extensions
 // RB end
 
-//#include "../framework/CVarSystem.h"
-
+//#include "framework/ICVarSystem.hpp"
 #include "win_input.h"
 
 //#include <dinput.h>

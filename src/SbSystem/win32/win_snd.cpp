@@ -39,5 +39,5 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <ks.h>
 #include <ksmedia.h>
-#include "../../sound/snd_local.h"
+#include "SbSound/snd_local.h"
 #include "win_local.h"

@@ -53,9 +53,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sys_local.h"
 #include "win_local.h"
-#include "../../renderer/RenderCommon.h"
-//#include "../renderer/tr_local.h"
-//#include "../framework/Licensee.h"
+#include "renderer/RenderCommon.h"
+//#include "framework/Licensee.h"
 
 //namespace BFG
 //{
