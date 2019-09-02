@@ -311,7 +311,7 @@ void SbApplication::InitSystemModule()
 		return;
 	}
 	mpSys->DPrintf( "Loading system DLL: '%s'\n", dllPath );
-	sysDLL = Sys_DLL_Load( dllPath );
+	sysDLL = DLL_Load( dllPath );
 	if( !sysDLL )
 	{
 		mpSys->FatalError( "couldn't load system dynamic library" );
@@ -319,10 +319,10 @@ void SbApplication::InitSystemModule()
 	}
 	
 	const char* functionName = "GetSysAPI";
-	GetSysAPI = ( sbe::GetSysAPI_t ) Sys_DLL_GetProcAddress( sysDLL, functionName );
+	GetSysAPI = ( sbe::GetSysAPI_t ) DLL_GetProcAddress( sysDLL, functionName );
 	if( !GetSysAPI )
 	{
-		Sys_DLL_Unload( sysDLL );
+		DLL_Unload( sysDLL );
 		sysDLL = 0;
 		mpSys->FatalError( "couldn't find system DLL API" );
 		return;
@@ -337,7 +337,7 @@ void SbApplication::InitSystemModule()
 	
 	if( sysExport.version != sbe::SYS_API_VERSION )
 	{
-		Sys_DLL_Unload( sysDLL );
+		DLL_Unload( sysDLL );
 		sysDLL = 0;
 		mpSys->FatalError( "wrong system DLL API version" );
 		return;
@@ -373,7 +373,7 @@ void SbApplication::ShutdownSystemModule()
 #ifndef SBE_SINGLE_BINARY
 	if( sysDLL )
 	{
-		Sys_DLL_Unload( sysDLL );
+		DLL_Unload( sysDLL );
 		sysDLL = 0;
 	};
 #endif
