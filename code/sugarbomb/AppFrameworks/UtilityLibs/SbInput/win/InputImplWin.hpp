@@ -64,6 +64,9 @@ public:
 	int ReturnJoystickInputEvent(const int n, int &action, int &value) override;
 	void EndJoystickInputEvents() override;
 private:
+	void AttachToWindow(HWND ahWindow);
+	void DetachToWindow();
+	
 	void Frame();
 	
 	void InitDirectInput();

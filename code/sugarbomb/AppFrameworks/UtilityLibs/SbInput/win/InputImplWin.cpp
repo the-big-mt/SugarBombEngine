@@ -70,6 +70,9 @@ Sys_InitInput
 void SbInputImplWin::Init()
 {
 	mpSys->Printf( "\n------- Input Initialization -------\n" );
+	
+	AttachToWindow(mhWnd);
+	
 	InitDirectInput();
 
 	if( SbInputImplWin::in_mouse.GetBool() )
@@ -116,6 +119,8 @@ void SbInputImplWin::Shutdown()
 		g_pdi->Release();
 		g_pdi = nullptr;
 	};
+	
+	DetachFromWindow();
 };
 
 const char *SbInputImplWin::GetKeyName(keyNum_t keynum) const
@@ -379,6 +384,16 @@ int SbInputImplWin::ReturnJoystickInputEvent( const int n, int& action, int& val
 
 void SbInputImplWin::EndJoystickInputEvents()
 {
+};
+
+void SbInputImplWin::AttachToWindow(HWND ahWindow)
+{
+	SetWindowSubclass(ahWindow, &InputWndProc, 1, 0);
+};
+
+void SbInputImplWin::DetachFromWindow()
+{
+	RemoveWindowSubclass(mhWnd, &InputWndProc, 1);
 };
 
 /*
