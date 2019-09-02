@@ -37,9 +37,9 @@ If you have questions concerning this license or the applicable additional terms
 //#include "idlib/sys/sys_defines.h"
 //#include "idlib/CmdArgs.h"
 
-//namespace BFG
-//{
 
+//namespace sbe
+//{
 
 void			Sys_Quit();
 
@@ -127,6 +127,5 @@ private:
 	void GetExeLaunchMemoryStatus(sysMemoryStats_t &aStats);
 };
 
-//} // namespace BFG
 
-#endif /* !__SYS_LOCAL__ */
+#endif /* !__SYS_LOCAL__ *///} // namespace sbe

@@ -37,7 +37,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <windowsx.h>
 
-//namespace BFG
+//namespace sbe
 //{
 
 LONG WINAPI MainWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam );
@@ -338,4 +338,4 @@ LONG WINAPI MainWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 	return DefWindowProc( hWnd, uMsg, wParam, lParam );
 }
 
-//} // namespace BFG
+//} // namespace sbe

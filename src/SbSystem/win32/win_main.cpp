@@ -56,7 +56,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "renderer/RenderCommon.h"
 //#include "framework/Licensee.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 idCVar Win32Vars_t::sys_arch( "sys_arch", "", CVAR_SYSTEM | CVAR_INIT, "" );
@@ -1069,4 +1069,4 @@ void Sys_SetLanguageFromSystem() {
 	sys_lang.SetString( Sys_DefaultLanguage() );
 }
 
-//} // namespace BFG
+//} // namespace sbe
