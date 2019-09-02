@@ -35,6 +35,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 /// @file
+/// @brief master header for SbSound module - includes every other module header
 
 #pragma once
 
