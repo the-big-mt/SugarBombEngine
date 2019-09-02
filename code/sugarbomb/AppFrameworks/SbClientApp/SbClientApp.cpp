@@ -30,14 +30,17 @@ If you have questions concerning this license or the applicable additional terms
 
 /// @file
 
-#include "SbClientApp.hpp"
+#include "AppFrameworks/SbClientApp/SbClientApp.hpp"
 #include "EventLoop.h"
 #include "framework/CmdSystem.h"
 #include "framework/CVarSystem.h"
-#include "sys/ISys.hpp"
-#include "sys/IFileSystem.hpp"
-#include "renderer/IRenderSystem.hpp"
-#include "SbInput/IInputSystem.hpp"
+
+#include "CoreLibs/SbSystem/ISystem.hpp"
+#include "CoreLibs/SbSystem/IFileSystem.hpp"
+
+#include "CoreLibs/SbRenderer/IRenderSystem.hpp"
+
+#include "AppFrameworks/UtilityLibs/SbInput/IInputSystem.hpp"
 
 SbClientApp::~SbClientApp()
 {
