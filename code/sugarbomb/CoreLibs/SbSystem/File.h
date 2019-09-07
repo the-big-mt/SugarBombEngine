@@ -36,8 +36,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 /// @file
 
-#ifndef __FILE_H__
-#define __FILE_H__
+#pragma once
 
 //#include <minizip/ioapi.h>
 
@@ -406,4 +405,4 @@ private:
 };
 #endif
 
-#endif /* !__FILE_H__ *///} // namespace sbe
+//} // namespace sbe

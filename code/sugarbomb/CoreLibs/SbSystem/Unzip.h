@@ -34,8 +34,8 @@
 
 
 */
-#ifndef __UNZIP_H__
-#define __UNZIP_H__
+
+#pragma once
 
 #include "zlib/minizip/unzip.h"
 
@@ -46,5 +46,3 @@
  *     Furthermore, updates to future minizip should be much easier now, as my changes to the
  *     original source files from minizip are quite small.
  */
-
-#endif /* __UNZIP_H__ */

@@ -34,11 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __FILESYSTEM_H__
-#define __FILESYSTEM_H__
 
+#pragma once
 
 #include "CoreLibs/SbSystem/IFileSystem.hpp"
 extern idFileSystem* 		fileSystem;
 
-#endif /* !__FILESYSTEM_H__ */
