@@ -40,6 +40,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "precompiled.h"
 #pragma hdrstop
 
+#include "SbFile.hpp"
 #include "Unzip.h"
 
 //namespace BFG

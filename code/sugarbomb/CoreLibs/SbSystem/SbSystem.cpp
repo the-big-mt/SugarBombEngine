@@ -39,12 +39,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include <cstdio>
 //#include <ctime>
 
-//#include "../framework/CVarSystem.h"
-//#include "../framework/CmdSystem.h"
-//#include "../framework/FileSystem.h"
-//#include "../idlib/Lib.h"
-//#include "../idlib/Str.h"
-#include "sys_local.h"
+//#include "framework/CVarSystem.h"
+//#include "framework/CmdSystem.h"
+
+//#include "CoreLibs/SbSystem/IFileSystem.hpp"
+
+//#include "idlib/Lib.h"
+//#include "idlib/Str.h"
+
+#include "SbSystem.hpp"
 
 //namespace BFG
 //{

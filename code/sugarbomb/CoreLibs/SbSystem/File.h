@@ -41,9 +41,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //#include <minizip/ioapi.h>
 
-//#include "../idlib/Swap.h"
-//#include "../idlib/Str.h"
-//#include "../idlib/BitMsg.h"
+//#include "idlib/Swap.h"
+//#include "idlib/Str.h"
+//#include "idlib/BitMsg.h"
 
 #include "CoreLibs/SbSystem/IFile.hpp"
 
