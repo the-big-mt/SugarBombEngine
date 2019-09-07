@@ -4,3 +4,4 @@ openmw-cc9cii-6d38b5a
 OpenTechBFG-dfd9dd2
 RBDOOM-3-BFG-4356376
 vaultmp-reorganisation-133dbc9
+fhDOOM-e05007e
