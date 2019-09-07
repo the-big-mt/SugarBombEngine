@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "Unzip.h"
 #include "Zip.h"
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <io.h>	// for _read
 #else
 #if !__MACH__ && __MWERKS__
@@ -2733,7 +2733,7 @@ void idFileSystemLocal::TouchFileList_f( const idCmdArgs& args )
 			{
 				mpSys->Printf( "%s\n", token.c_str() );
 				const bool captureToImage = false;
-				common->UpdateScreen( captureToImage );
+				mpSys->UpdateScreen( captureToImage );
 				idFile* f = fileSystemLocal.OpenFileRead( token );
 				if( f )
 				{
@@ -3127,11 +3127,11 @@ void idFileSystemLocal::Init()
 	// we have to specially handle this, because normal command
 	// line variable sets don't happen until after the filesystem
 	// has already been initialized
-	common->StartupVariable( "fs_basepath" );
-	common->StartupVariable( "fs_savepath" );
-	common->StartupVariable( "fs_game" );
-	common->StartupVariable( "fs_game_base" );
-	common->StartupVariable( "fs_copyfiles" );
+	mpSys->StartupVariable( "fs_basepath" );
+	mpSys->StartupVariable( "fs_savepath" );
+	mpSys->StartupVariable( "fs_game" );
+	mpSys->StartupVariable( "fs_game_base" );
+	mpSys->StartupVariable( "fs_copyfiles" );
 	
 	if( fs_basepath.GetString()[0] == '\0' )
 	{
