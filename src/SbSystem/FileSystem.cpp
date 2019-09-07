@@ -143,6 +143,7 @@ public:
 	virtual const char* 	BuildOSPath( const char* base, const char* game, const char* relativePath );
 	virtual const char* 	BuildOSPath( const char* base, const char* relativePath );
 	virtual void			CreateOSPath( const char* OSPath );
+	//virtual bool FileIsInPAK(const char *asRelativePath) override; // TODO
 	virtual int				ReadFile( const char* relativePath, void** buffer, ID_TIME_T* timestamp );
 	virtual void			FreeFile( void* buffer );
 	virtual int				WriteFile( const char* relativePath, const void* buffer, int size, const char* basePath = "fs_savepath" );
@@ -161,6 +162,7 @@ public:
 	virtual void			CloseFile( idFile* f );
 	virtual void			FindDLL( const char* basename, char dllPath[ MAX_OSPATH ] );
 	virtual void			CopyFile( const char* fromOSPath, const char* toOSPath );
+	//virtual int AddZipFile(const char *asName) override; // TODO
 	virtual findFile_t		FindFile( const char* path );
 	virtual bool			FilenameCompare( const char* s1, const char* s2 ) const;
 	virtual int				GetFileLength( const char* relativePath );
@@ -3848,4 +3850,214 @@ idFileSystemLocal::IsFolder
 sysFolder_t idFileSystemLocal::IsFolder( const char* relativePath, const char* basePath )
 {
 	return Sys_IsFolder( RelativePathToOSPath( relativePath, basePath ) );
+}
+
+/*
+================
+idFileSystemLocal::FileIsInPAK
+================
+*/
+bool idFileSystemLocal::FileIsInPAK( const char *relativePath ) {
+	searchpath_t	*search;
+	pack_t			*pak;
+	fileInPack_t	*pakFile;
+	long			hash;
+
+	if ( !searchPaths ) {
+		common->FatalError( "Filesystem call made without initialization\n" );
+	}
+
+	if ( !relativePath ) {
+		common->FatalError( "idFileSystemLocal::FileIsInPAK: NULL 'relativePath' parameter passed\n" );
+	}
+
+	// qpaths are not supposed to have a leading slash
+	if ( relativePath[0] == '/' || relativePath[0] == '\\' ) {
+		relativePath++;
+	}
+
+	// make absolutely sure that it can't back up the path.
+	// The searchpaths do guarantee that something will always
+	// be prepended, so we don't need to worry about "c:" or "//limbo"
+	if ( strstr( relativePath, ".." ) || strstr( relativePath, "::" ) ) {
+		return false;
+	}
+
+	//
+	// search through the path, one element at a time
+	//
+
+	hash = HashFileName( relativePath );
+
+	for ( search = searchPaths; search; search = search->next ) {
+		// is the element a pak file?
+		if ( search->pack && search->pack->hashTable[hash] ) {
+
+			// disregard if it doesn't match one of the allowed pure pak files - or is a localization file
+			if ( serverPaks.Num() ) {
+				GetPackStatus( search->pack );
+				if ( search->pack->pureStatus != PURE_NEVER && !serverPaks.Find( search->pack ) ) {
+					continue; // not on the pure server pak list
+				}
+			}
+
+			// look through all the pak file elements
+			pak = search->pack;
+			pakFile = pak->hashTable[hash];
+			do {
+				// case and separator insensitive comparisons
+				if ( !FilenameCompare( pakFile->name, relativePath ) ) {
+					return true;
+				}
+				pakFile = pakFile->next;
+			} while( pakFile != NULL );
+		}
+	}
+	return false;
+}
+
+/*
+=================
+idFileSystemLocal::LoadZipFile
+=================
+*/
+pack_t *idFileSystemLocal::LoadZipFile( const char *zipfile ) {
+	fileInPack_t *	buildBuffer;
+	pack_t *		pack;
+	unzFile			uf;
+	int				err;
+	unz_global_info gi;
+	char			filename_inzip[MAX_ZIPPED_FILE_NAME];
+	unz_file_info	file_info;
+	int				i;
+	long			hash;
+	int				fs_numHeaderLongs;
+	int *			fs_headerLongs;
+	FILE			*f;
+	int				len;
+	int				confHash;
+	fileInPack_t	*pakFile;
+
+	f = OpenOSFile( zipfile, "rb" );
+	if ( !f ) {
+		return NULL;
+	}
+	fseek( f, 0, SEEK_END );
+	len = ftell( f );
+	fclose( f );
+
+	fs_numHeaderLongs = 0;
+
+	uf = unzOpen( zipfile );
+	err = unzGetGlobalInfo( uf, &gi );
+
+	if ( err != UNZ_OK ) {
+		return NULL;
+	}
+
+	buildBuffer = new fileInPack_t[gi.number_entry];
+	pack = new pack_t;
+	for( i = 0; i < FILE_HASH_SIZE; i++ ) {
+		pack->hashTable[i] = NULL;
+	}
+
+	pack->pakFilename = zipfile;
+	pack->handle = uf;
+	pack->numfiles = gi.number_entry;
+	pack->buildBuffer = buildBuffer;
+	pack->referenced = false;
+	pack->binary = BINARY_UNKNOWN;
+	pack->addon = false;
+	pack->addon_search = false;
+	pack->addon_info = NULL;
+	pack->pureStatus = PURE_UNKNOWN;
+	pack->isNew = false;
+
+	pack->length = len;
+
+	unzGoToFirstFile(uf);
+	fs_headerLongs = (int *)Mem_ClearedAlloc( gi.number_entry * sizeof(int) );
+	for ( i = 0; i < (int)gi.number_entry; i++ ) {
+		err = unzGetCurrentFileInfo( uf, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0 );
+		if ( err != UNZ_OK ) {
+			break;
+		}
+		if ( file_info.uncompressed_size > 0 ) {
+			fs_headerLongs[fs_numHeaderLongs++] = LittleLong( file_info.crc );
+		}
+		hash = HashFileName( filename_inzip );
+		buildBuffer[i].name = filename_inzip;
+		buildBuffer[i].name.ToLower();
+		buildBuffer[i].name.BackSlashesToSlashes();
+		// store the file position in the zip
+		unzGetCurrentFileInfoPosition( uf, &buildBuffer[i].pos );
+		// add the file to the hash
+		buildBuffer[i].next = pack->hashTable[hash];
+		pack->hashTable[hash] = &buildBuffer[i];
+		// go to the next file in the zip
+		unzGoToNextFile(uf);
+	}
+
+	// check if this is an addon pak
+	pack->addon = false;
+	confHash = HashFileName( ADDON_CONFIG );
+	for ( pakFile = pack->hashTable[confHash]; pakFile; pakFile = pakFile->next ) {
+		if ( !FilenameCompare( pakFile->name, ADDON_CONFIG ) ) {
+			pack->addon = true;
+			idFile_InZip *file = ReadFileFromZip( pack, pakFile, ADDON_CONFIG );
+			// may be just an empty file if you don't bother about the mapDef
+			if ( file && file->Length() ) {
+				char *buf;
+				buf = new char[ file->Length() + 1 ];
+				file->Read( (void *)buf, file->Length() );
+				buf[ file->Length() ] = '\0';
+				pack->addon_info = ParseAddonDef( buf, file->Length() );
+				delete[] buf;
+			}
+			if ( file ) {
+				CloseFile( file );
+			}
+			break;
+		}
+	}
+
+	pack->checksum = MD4_BlockChecksum( fs_headerLongs, 4 * fs_numHeaderLongs );
+	pack->checksum = LittleLong( pack->checksum );
+
+	Mem_Free( fs_headerLongs );
+
+	return pack;
+}
+
+/*
+===============
+idFileSystemLocal::AddZipFile
+adds a downloaded pak file to the list so we can work out what we have and what we still need
+the isNew flag is set to true, indicating that we cannot add this pak to the search lists without a restart
+===============
+*/
+int idFileSystemLocal::AddZipFile( const char *path ) {
+	idStr			fullpath = fs_savepath.GetString();
+	pack_t			*pak;
+	searchpath_t	*search, *last;
+
+	fullpath.AppendPath( path );
+	pak = LoadZipFile( fullpath );
+	if ( !pak ) {
+		common->Warning( "AddZipFile %s failed\n", path );
+		return 0;
+	}
+	// insert the pak at the end of the search list - temporary until we restart
+	pak->isNew = true;
+	search = new searchpath_t;
+	search->dir = NULL;
+	search->pack = pak;
+	search->next = NULL;
+	last = searchPaths;
+	while ( last->next ) {
+		last = last->next;
+	}
+	last->next = search;
+	common->Printf( "Appended pk4 %s with checksum 0x%x\n", pak->pakFilename.c_str(), pak->checksum );
+	return pak->checksum;
 }
