@@ -47,7 +47,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "CoreLibs/SbSystem/IFile.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -406,6 +406,4 @@ private:
 };
 #endif
 
-//} // namespace BFG
-
-#endif /* !__FILE_H__ */
+#endif /* !__FILE_H__ *///} // namespace sbe

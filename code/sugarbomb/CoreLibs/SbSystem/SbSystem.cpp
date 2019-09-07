@@ -49,7 +49,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "SbSystem.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 const char* sysLanguageNames[] =
@@ -864,4 +864,4 @@ const char* Sys_DefaultLanguage()
 	
 }
 
-//} // namespace BFG
+//} // namespace sbe
