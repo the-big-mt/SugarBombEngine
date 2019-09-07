@@ -138,6 +138,8 @@ struct IFileSystem
 	virtual const char* 	BuildOSPath( const char* base, const char* relativePath ) = 0;
 	// Creates the given OS path for as far as it doesn't exist already.
 	virtual void			CreateOSPath( const char* OSPath ) = 0;
+	// Returns true if a file is in a pak file.
+	virtual bool			FileIsInPAK( const char *relativePath ) = 0;
 	// Reads a complete file.
 	// Returns the length of the file, or -1 on failure.
 	// A null buffer will just return the file length without loading.
@@ -180,6 +182,9 @@ struct IFileSystem
 	
 	// don't use for large copies - allocates a single memory block for the copy
 	virtual void			CopyFile( const char* fromOSPath, const char* toOSPath ) = 0;
+	
+	// make downloaded pak files known so pure negociation works next time
+	virtual int				AddZipFile( const char *path ) = 0;
 	
 	// look for a file in the loaded paks or the addon paks
 	// if the file is found in addons, FS's internal structures are ready for a reloadEngine
