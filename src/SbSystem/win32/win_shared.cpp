@@ -34,11 +34,16 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+/// @file
+
 #pragma hdrstop
+
 #include "precompiled.h"
+
 //#include "idlib/sys/sys_types.h"
 
 #include "win_local.h"
+
 #include <lmerr.h>
 #include <lmcons.h>
 #include <lmwksta.h>

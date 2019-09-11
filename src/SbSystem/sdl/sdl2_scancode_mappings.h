@@ -15,6 +15,8 @@
 
 // Copyright (C) 2019 SugarBombEngine Developers
 
+/// @file
+
 #ifndef _SDL2_SCANCODE_TO_DINPUT_MAPPINGS_H_
 #define _SDL2_SCANCODE_TO_DINPUT_MAPPINGS_H_
 

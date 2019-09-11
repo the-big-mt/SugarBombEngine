@@ -33,8 +33,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
+
+/// @file
+
 #pragma hdrstop
+
 #include "precompiled.h"
+
 //#include <windows.h>
 
 // RB: <DxErr.h> not available on Windows 8 SDK

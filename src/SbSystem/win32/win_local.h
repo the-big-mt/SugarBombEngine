@@ -34,6 +34,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+/// @file
+
 #ifndef __WIN_LOCAL_H__
 #define __WIN_LOCAL_H__
 
