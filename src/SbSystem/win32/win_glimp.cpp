@@ -57,7 +57,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "rc/doom_resource.h"
 #include "../../renderer/RenderCommon.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 idCVar r_useOpenGL32( "r_useOpenGL32", "1", CVAR_INTEGER, "0 = OpenGL 2.0, 1 = OpenGL 3.2 compatibility profile, 2 = OpenGL 3.2 core profile", 0, 2 );
@@ -1517,4 +1517,4 @@ void GLimp_SwapBuffers()
 }
 // RB end
 
-//} // namespace BFG
+//} // namespace sbe

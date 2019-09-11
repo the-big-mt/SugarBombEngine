@@ -18,7 +18,7 @@
 #ifndef _SDL2_SCANCODE_TO_DINPUT_MAPPINGS_H_
 #define _SDL2_SCANCODE_TO_DINPUT_MAPPINGS_H_
 
-//namespace BFG
+//namespace sbe
 //{
 
 // TODO: map the following keys, if possible:
@@ -362,6 +362,6 @@ static int scanCodeToKeyNum[SDL_NUM_SCANCODES] =
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 // 501-511 unused
 };
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif /* _SDL2_SCANCODE_TO_DINPUT_MAPPINGS_H_ */

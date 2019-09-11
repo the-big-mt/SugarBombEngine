@@ -42,7 +42,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //
 #include "win_local.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 #define DLLEXPORT __declspec(dllexport)
@@ -169,4 +169,4 @@ void DisableTaskKeys( BOOL bDisable, BOOL bBeep, BOOL bTaskMgr )
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

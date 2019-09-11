@@ -59,7 +59,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "posix_public.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idFile;
@@ -1183,5 +1183,4 @@ void Sys_Error( const char* error, ... )
 	Posix_Exit( EXIT_FAILURE );
 }
 
-
-//} // namespace BFG
+//} // namespace sbe

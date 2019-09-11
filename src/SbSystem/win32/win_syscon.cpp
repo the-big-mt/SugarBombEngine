@@ -56,7 +56,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "win_local.h"
 #include "rc/doom_resource.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 #define COPY_ID			1
@@ -639,4 +639,4 @@ void Win_SetErrorText( const char* buf )
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe
