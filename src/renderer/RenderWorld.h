@@ -55,9 +55,6 @@ class idDeclSkin;
 ===============================================================================
 */
 
-#define PROC_FILE_EXT				"proc"
-#define	PROC_FILE_ID				"mapProcFile003"
-
 // shader parms
 const int SHADERPARM_RED			= 0;
 const int SHADERPARM_GREEN			= 1;
@@ -256,24 +253,6 @@ typedef struct renderView_s
 	float					stereoScreenSeparation;		// projection matrix horizontal offset, positive or negative based on camera eye
 } renderView_t;
 
-// exitPortal_t is returned by idRenderWorld::GetPortal()
-typedef struct
-{
-	int					areas[2];		// areas connected by this portal
-	const idWinding*		w;				// winding points have counter clockwise ordering seen from areas[0]
-	int					blockingBits;	// PS_BLOCK_VIEW, PS_BLOCK_AIR, etc
-	qhandle_t			portalHandle;
-} exitPortal_t;
-
-
-// guiPoint_t is returned by idRenderWorld::GuiTrace()
-typedef struct
-{
-	float				x, y;			// 0.0 to 1.0 range if trace hit a gui, otherwise -1
-	int					guiId;			// id of gui ( 0, 1, or 2 ) that the trace happened against
-} guiPoint_t;
-
-
 // modelTrace_t is for tracing vs. visual geometry
 typedef struct modelTrace_s
 {
@@ -284,22 +263,6 @@ typedef struct modelTrace_s
 	const renderEntity_t* 	entity;				// render entity that was hit
 	int						jointNumber;		// md5 joint nearest to the hit triangle
 } modelTrace_t;
-
-
-static const int NUM_PORTAL_ATTRIBUTES = 3;
-
-typedef enum
-{
-	PS_BLOCK_NONE = 0,
-	
-	PS_BLOCK_VIEW = 1,
-	PS_BLOCK_LOCATION = 2,		// game map location strings often stop in hallways
-	PS_BLOCK_AIR = 4,			// windows between pressurized and unpresurized areas
-	
-	PS_BLOCK_ALL = ( 1 << NUM_PORTAL_ATTRIBUTES ) - 1
-} portalConnection_t;
-
-#include "renderer/IRenderWorld.hpp"
 
 //} // namespace BFG
 
