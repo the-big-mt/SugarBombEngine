@@ -370,6 +370,8 @@ idRenderModel* idRenderModelManagerLocal::GetModel( const char* _modelName, bool
 	{
 		model = new( TAG_MODEL ) idRenderModelLiquid;
 	}
+	else if(extension.Icmp("nif") == 0)
+		model = new (TAG_MODEL) SbRenderModelNIF;
 	
 	idStrStatic< MAX_OSPATH > generatedFileName;
 	
