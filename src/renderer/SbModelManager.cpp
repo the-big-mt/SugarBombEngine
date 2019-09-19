@@ -31,7 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include <cstdio>
 #include "precompiled.h"
 
-#include "ModelManager.h"
+#include "SbModelManager.h"
 //#include "Model_local.h"
 //#include "RenderCommon.h" // just for R_FreeWorldInteractions and R_CreateWorldInteractions
 

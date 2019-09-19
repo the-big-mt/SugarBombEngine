@@ -33,17 +33,14 @@ If you have questions concerning this license or the applicable additional terms
 #include "renderer/IRenderModel.hpp"
 
 //#include "Material.h" // for idMaterial, etc
-#include "VertexCache.h"
 
 //#include "jobs/ShadowShared.h"
 //#include "jobs/prelightshadowvolume/PreLightShadowVolume.h"
 //#include "jobs/staticshadowvolume/StaticShadowVolume.h"
 //#include "jobs/dynamicshadowvolume/DynamicShadowVolume.h"
 
-#include "idlib/sys/sys_types.h"
 #include "idlib/sys/sys_defines.h"
 #include "idlib/Str.h"
-#include "idlib/containers/List.h"
 
 //namespace BFG
 //{

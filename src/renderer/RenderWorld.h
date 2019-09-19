@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __RENDERWORLD_H__
 
 #include "renderer/IRenderWorld.hpp"
-//#include "../renderer/Model.h"          // for idRenderModel
+//#include "renderer/Model.h" // for idRenderModel
 #include "Material.h"
 
 #include "idlib/sys/sys_defines.h"
