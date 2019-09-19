@@ -36,15 +36,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+/// @file
+/// @brief Public game interface with methods for in-game editing
+
 #pragma once
 
-/*
-===============================================================================
 
-	Public game interface with methods for in-game editing.
 
-===============================================================================
-*/
 
 class idEntity;
 class idMD5Anim;
@@ -69,7 +67,7 @@ class idGameEdit
 public:
 	virtual						~idGameEdit() {}
 	
-	// These are the canonical idDict to parameter parsing routines used by both the game and tools.
+	/// These are the canonical idDict to parameter parsing routines used by both the game and tools.
 	virtual void				ParseSpawnArgsToRenderLight( const idDict* args, renderLight_t* renderLight );
 	virtual void				ParseSpawnArgsToRenderEntity( const idDict* args, renderEntity_t* renderEntity );
 	virtual void				ParseSpawnArgsToRefSound( const idDict* args, refSound_t* refSound );
@@ -88,28 +86,27 @@ public:
 	virtual void				ANIM_CreateAnimFrame( const idRenderModel* model, const idMD5Anim* anim, int numJoints, idJointMat* frame, int time, const idVec3& offset, bool remove_origin_offset );
 	virtual idRenderModel* 		ANIM_CreateMeshForAnim( idRenderModel* model, const char* classname, const char* animname, int frame, bool remove_origin_offset );
 	
-	// Articulated Figure calls for AF editor and Radiant.
+	/// Articulated Figure calls for AF editor and Radiant.
 	virtual bool				AF_SpawnEntity( const char* fileName );
 	virtual void				AF_UpdateEntities( const char* fileName );
 	virtual void				AF_UndoChanges();
 	virtual idRenderModel* 		AF_CreateMesh( const idDict& args, idVec3& meshOrigin, idMat3& meshAxis, bool& poseIsSet );
 	
-	
-	// Entity selection.
+	/// Entity selection
 	virtual void				ClearEntitySelection();
 	virtual int					GetSelectedEntities( idEntity* list[], int max );
 	virtual void				AddSelectedEntity( idEntity* ent );
 	
-	// Selection methods
+	/// Selection methods
 	virtual void				TriggerSelected();
 	
-	// Entity defs and spawning.
+	/// Entity defs and spawning
 	virtual const idDict* 		FindEntityDefDict( const char* name, bool makeDefault = true ) const;
 	virtual void				SpawnEntityDef( const idDict& args, idEntity** ent );
 	virtual idEntity* 			FindEntity( const char* name ) const;
 	virtual const char* 		GetUniqueEntityName( const char* classname ) const;
 	
-	// Entity methods.
+	/// Entity methods
 	virtual void				EntityGetOrigin( idEntity* ent, idVec3& org ) const;
 	virtual void				EntityGetAxis( idEntity* ent, idMat3& axis ) const;
 	virtual void				EntitySetOrigin( idEntity* ent, const idVec3& org );
@@ -124,14 +121,14 @@ public:
 	virtual void				EntityDelete( idEntity* ent );
 	virtual void				EntitySetColor( idEntity* ent, const idVec3 color );
 	
-	// Player methods.
+	/// Player methods
 	virtual bool				PlayerIsValid() const;
 	virtual void				PlayerGetOrigin( idVec3& org ) const;
 	virtual void				PlayerGetAxis( idMat3& axis ) const;
 	virtual void				PlayerGetViewAngles( idAngles& angles ) const;
 	virtual void				PlayerGetEyePosition( idVec3& org ) const;
 	
-	// In game map editing support.
+	/// In game map editing support
 	virtual const idDict* 		MapGetEntityDict( const char* name ) const;
 	virtual void				MapSave( const char* path = nullptr ) const;
 	virtual void				MapSetEntityKeyVal( const char* name, const char* key, const char* val ) const ;

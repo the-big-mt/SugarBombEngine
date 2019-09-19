@@ -36,6 +36,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 /// @file
+/// @brief network address data
 
 #pragma once
 

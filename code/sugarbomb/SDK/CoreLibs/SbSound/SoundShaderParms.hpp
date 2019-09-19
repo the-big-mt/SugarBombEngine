@@ -38,7 +38,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
-// these options can be overriden from sound shader defaults on a per-emitter and per-channel basis
+/// These options can be overriden from sound shader defaults on a per-emitter and per-channel basis
 struct soundShaderParms_t
 {
 	float					minDistance;

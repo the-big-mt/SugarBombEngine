@@ -36,18 +36,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#pragma once
-
 #define TIME_GROUP1		0
 #define TIME_GROUP2		1
 
-/*
-===============================================================================
+/// @file
+/// @brief Public game interface with methods to run the game
 
-	Public game interface with methods to run the game.
-
-===============================================================================
-*/
+#pragma once
 
 namespace sbe
 {
@@ -71,105 +66,105 @@ struct gameReturn_t
 
 struct IGame
 {
-	// Initialize the game for the first time.
+	/// Initialize the game for the first time
 	virtual void				Init() = 0;
 	
-	// Shut down the entire game.
+	/// Shut down the entire game
 	virtual void				Shutdown() = 0;
 	
-	// Sets the serverinfo at map loads and when it changes.
+	/// Sets the serverinfo at map loads and when it changes
 	virtual void				SetServerInfo( const idDict& serverInfo ) = 0;
 	
-	// Gets the serverinfo, common calls this before saving the game
+	/// Gets the serverinfo, common calls this before saving the game
 	virtual const idDict& 		GetServerInfo() = 0;
 	
-	// Interpolated server time
+	/// Interpolated server time
 	virtual void				SetServerGameTimeMs( const int time ) = 0;
 	
-	// Interpolated server time
+	/// Interpolated server time
 	virtual int					GetServerGameTimeMs() const = 0;
 	
 	virtual int					GetSSEndTime() const  = 0;
 	virtual int					GetSSStartTime() const = 0;
 	
-	// common calls this before moving the single player game to a new level.
+	/// game framework calls this before moving the single player game to a new level
 	virtual const idDict& 		GetPersistentPlayerInfo( int clientNum ) = 0;
 	
-	// common calls this right before a new level is loaded.
+	/// game framework calls this right before a new level is loaded
 	virtual void				SetPersistentPlayerInfo( int clientNum, const idDict& playerInfo ) = 0;
 	
-	// Loads a map and spawns all the entities.
+	/// Loads a map and spawns all the entities
 	virtual void				InitFromNewMap( const char* mapName, idRenderWorld* renderWorld, idSoundWorld* soundWorld, int gameMode, int randseed ) = 0;
 	
-	// Loads a map from a savegame file.
+	/// Loads a map from a savegame file
 	virtual bool				InitFromSaveGame( const char* mapName, idRenderWorld* renderWorld, idSoundWorld* soundWorld, idFile* saveGameFile, idFile* stringTableFile, int saveGameVersion ) = 0;
 	
-	// Saves the current game state, common may have written some data to the file already.
+	/// Saves the current game state, common may have written some data to the file already
 	virtual void				SaveGame( idFile* saveGameFile, idFile* stringTableFile ) = 0;
 	
-	// Pulls the current player location from the game information
+	/// Pulls the current player location from the game information
 	virtual void				GetSaveGameDetails( idSaveGameDetails& gameDetails ) = 0;
 	
-	// Shut down the current map.
+	/// Shut down the current map
 	virtual void				MapShutdown() = 0;
 	
-	// Caches media referenced from in key/value pairs in the given dictionary.
+	/// Caches media referenced from in key/value pairs in the given dictionary
 	virtual void				CacheDictionaryMedia( const idDict* dict ) = 0;
 	
 	virtual void				Preload( const idPreloadManifest& manifest ) = 0;
 	
-	// Runs a game frame, may return a session command for level changing, etc
+	/// Runs a game frame, may return a session command for level changing, etc
 	virtual void				RunFrame( idUserCmdMgr& cmdMgr, gameReturn_t& gameReturn ) = 0;
 	
-	// Makes rendering and sound system calls to display for a given clientNum.
+	/// Makes rendering and sound system calls to display for a given clientNum.
 	virtual bool				Draw( int clientNum ) = 0;
 	
 	virtual bool				HandlePlayerGuiEvent( const sysEvent_t* ev ) = 0;
 	
-	// Writes a snapshot of the server game state.
+	/// Writes a snapshot of the server game state.
 	virtual void				ServerWriteSnapshot( idSnapShot& ss ) = 0;
 	
-	// Processes a reliable message
+	/// Processes a reliable message
 	virtual void				ProcessReliableMessage( int clientNum, int type, const idBitMsg& msg ) = 0;
 	
 	virtual void				SetInterpolation( const float fraction, const int serverGameMS, const int ssStartTime, const int ssEndTime ) = 0;
 	
-	// Reads a snapshot and updates the client game state.
+	/// Reads a snapshot and updates the client game state.
 	virtual void				ClientReadSnapshot( const idSnapShot& ss ) = 0;
 	
-	// Runs prediction on entities at the client.
+	/// Runs prediction on entities at the client.
 	virtual void				ClientRunFrame( idUserCmdMgr& cmdMgr, bool lastPredictFrame, gameReturn_t& ret ) = 0;
 	
-	// Used to manage divergent time-lines
+	/// Used to manage divergent time-lines
 	virtual int					GetTimeGroupTime( int timeGroup ) = 0;
 	
-	// Returns a list of available multiplayer game modes
+	/// Returns a list of available multiplayer game modes
 	virtual int					GetMPGameModes( const char** * gameModes, const char** * gameModesDisplay ) = 0;
 	
-	// Returns a summary of stats for a given client
+	/// Returns a summary of stats for a given client
 	virtual void				GetClientStats( int clientNum, char* data, const int len ) = 0;
 	
 	virtual bool				IsInGame() const = 0;
 	
-	// Get the player entity number for a network peer.
+	/// Get the player entity number for a network peer.
 	virtual int					MapPeerToClient( int peer ) const = 0;
 	
-	// Get the player entity number of the local player.
+	/// Get the player entity number of the local player.
 	virtual int					GetLocalClientNum() const = 0;
 	
-	// compute an angle offset to be applied to the given client's aim
+	/// compute an angle offset to be applied to the given client's aim
 	virtual void				GetAimAssistAngles( idAngles& angles ) = 0;
 	virtual float				GetAimAssistSensitivity() = 0;
 	
-	// Release the mouse when the PDA is open
+	/// Release the mouse when the PDA is open
 	virtual bool				IsPDAOpen() const = 0;
 	virtual bool				IsPlayerChatting() const = 0;
 	
-	// Creates leaderboards for each map/mode defined.
+	/// Creates leaderboards for each map/mode defined.
 	virtual void				Leaderboards_Init() = 0;
 	virtual void				Leaderboards_Shutdown() = 0;
 	
-	// MAIN MENU FUNCTIONS
+	/// MAIN MENU FUNCTIONS
 	virtual bool				InhibitControls() = 0;
 	virtual void				Shell_Init( const char* filename, idSoundWorld* sw ) = 0;
 	virtual void				Shell_Cleanup() = 0;
@@ -189,7 +184,7 @@ struct IGame
 	virtual bool				SkipCinematicScene() = 0;
 	virtual bool				CheckInCinematic() = 0;
 	
-	// Demo helper functions
+	/// Demo helper functions
 	virtual void				StartDemoPlayback( idRenderWorld* renderworld ) = 0;
 	
 	virtual bool				ProcessDemoCommand( idDemoFile* readDemo ) = 0;

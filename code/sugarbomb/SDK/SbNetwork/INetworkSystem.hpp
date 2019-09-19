@@ -111,10 +111,10 @@ private:
 	bool silent{false}; ///< don't emit anything ( black hole )
 };
 
-// parses the port number
-// can also do DNS resolve if you ask for it.
-// NOTE: DNS resolve is a slow/blocking call, think before you use
-// ( could be exploited for server DoS )
+/// parses the port number
+/// can also do DNS resolve if you ask for it.
+/// NOTE: DNS resolve is a slow/blocking call, think before you use
+/// ( could be exploited for server DoS )
 bool			Sys_StringToNetAdr( const char* s, netadr_t* a, bool doDNSResolve );
 
 int				Sys_GetLocalIPCount();
