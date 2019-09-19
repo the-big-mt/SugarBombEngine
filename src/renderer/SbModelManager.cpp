@@ -115,14 +115,14 @@ void idRenderModelManagerLocal::PrintModel_f( const idCmdArgs& args )
 	
 	if( args.Argc() != 2 )
 	{
-		common->Printf( "usage: printModel <modelName>\n" );
+		gpSys->Printf( "usage: printModel <modelName>\n" );
 		return;
 	}
 	
 	model = renderModelManager->CheckModel( args.Argv( 1 ) );
 	if( !model )
 	{
-		common->Printf( "model \"%s\" not found\n", args.Argv( 1 ) );
+		gpSys->Printf( "model \"%s\" not found\n", args.Argv( 1 ) );
 		return;
 	}
 	
@@ -139,8 +139,8 @@ void idRenderModelManagerLocal::ListModels_f( const idCmdArgs& args )
 	int		totalMem = 0;
 	int		inUse = 0;
 	
-	common->Printf( " mem   srf verts tris\n" );
-	common->Printf( " ---   --- ----- ----\n" );
+	gpSys->Printf( " mem   srf verts tris\n" );
+	gpSys->Printf( " ---   --- ----- ----\n" );
 	
 	for( int i = 0; i < localModelManager.models.Num(); i++ )
 	{
@@ -155,11 +155,11 @@ void idRenderModelManagerLocal::ListModels_f( const idCmdArgs& args )
 		inUse++;
 	}
 	
-	common->Printf( " ---   --- ----- ----\n" );
-	common->Printf( " mem   srf verts tris\n" );
+	gpSys->Printf( " ---   --- ----- ----\n" );
+	gpSys->Printf( " mem   srf verts tris\n" );
 	
-	common->Printf( "%i loaded models\n", inUse );
-	common->Printf( "total memory: %4.1fM\n", ( float )totalMem / ( 1024 * 1024 ) );
+	gpSys->Printf( "%i loaded models\n", inUse );
+	gpSys->Printf( "total memory: %4.1fM\n", ( float )totalMem / ( 1024 * 1024 ) );
 }
 
 /*
@@ -192,17 +192,17 @@ void idRenderModelManagerLocal::TouchModel_f( const idCmdArgs& args )
 	
 	if( !model[0] )
 	{
-		common->Printf( "usage: touchModel <modelName>\n" );
+		gpSys->Printf( "usage: touchModel <modelName>\n" );
 		return;
 	}
 	
-	common->Printf( "touchModel %s\n", model );
+	gpSys->Printf( "touchModel %s\n", model );
 	const bool captureToImage = false;
-	common->UpdateScreen( captureToImage );
+	gpSys->UpdateScreen( captureToImage );
 	idRenderModel* m = renderModelManager->CheckModel( model );
 	if( !m )
 	{
-		common->Printf( "...not found\n" );
+		gpSys->Printf( "...not found\n" );
 	}
 }
 
@@ -228,7 +228,7 @@ void idRenderModelManagerLocal::WritePrecacheCommands( idFile* f )
 		
 		char	str[1024];
 		std::sprintf( str, "touchModel %s\n", model->Name() );
-		common->Printf( "%s", str );
+		mpSys->Printf( "%s", str );
 		f->Printf( "%s", str );
 	}
 }
@@ -417,7 +417,7 @@ idRenderModel* idRenderModelManagerLocal::GetModel( const char* _modelName, bool
 	
 		if( extension.Length() )
 		{
-			common->Warning( "unknown model type '%s'", canonical.c_str() );
+			mpSys->Warning( "unknown model type '%s'", canonical.c_str() );
 		}
 		
 		if( !createIfNotFound )
@@ -506,22 +506,22 @@ void idRenderModelManagerLocal::FreeModel( idRenderModel* model )
 	}
 	if( !dynamic_cast<idRenderModelStatic*>( model ) )
 	{
-		common->Error( "idRenderModelManager::FreeModel: model '%s' is not a static model", model->Name() );
+		mpSys->Error( "idRenderModelManager::FreeModel: model '%s' is not a static model", model->Name() );
 		return;
 	}
 	if( model == defaultModel )
 	{
-		common->Error( "idRenderModelManager::FreeModel: can't free the default model" );
+		mpSys->Error( "idRenderModelManager::FreeModel: can't free the default model" );
 		return;
 	}
 	if( model == beamModel )
 	{
-		common->Error( "idRenderModelManager::FreeModel: can't free the beam model" );
+		mpSys->Error( "idRenderModelManager::FreeModel: can't free the beam model" );
 		return;
 	}
 	if( model == spriteModel )
 	{
-		common->Error( "idRenderModelManager::FreeModel: can't free the sprite model" );
+		mpSys->Error( "idRenderModelManager::FreeModel: can't free the sprite model" );
 		return;
 	}
 	
@@ -594,11 +594,11 @@ void idRenderModelManagerLocal::ReloadModels( bool forceAll )
 {
 	if( forceAll )
 	{
-		common->Printf( "Reloading all model files...\n" );
+		mpSys->Printf( "Reloading all model files...\n" );
 	}
 	else
 	{
-		common->Printf( "Checking for changed model files...\n" );
+		mpSys->Printf( "Checking for changed model files...\n" );
 	}
 	
 	R_FreeDerivedData();
@@ -626,7 +626,7 @@ void idRenderModelManagerLocal::ReloadModels( bool forceAll )
 			}
 		}
 		
-		common->DPrintf( "reloading %s.\n", model->Name() );
+		mpSys->DPrintf( "reloading %s.\n", model->Name() );
 		
 		model->LoadModel();
 	}
@@ -743,8 +743,8 @@ void idRenderModelManagerLocal::Preload( const idPreloadManifest& manifest )
 		}
 		
 		int	end = Sys_Milliseconds();
-		common->Printf( "%05d models preloaded ( or were already loaded ) in %5.1f seconds\n", numLoaded, ( end - start ) * 0.001 );
-		common->Printf( "----------------------------------------\n" );
+		mpSys->Printf( "%05d models preloaded ( or were already loaded ) in %5.1f seconds\n", numLoaded, ( end - start ) * 0.001 );
+		mpSys->Printf( "----------------------------------------\n" );
 	}
 }
 
@@ -757,7 +757,7 @@ idRenderModelManagerLocal::EndLevelLoad
 */
 void idRenderModelManagerLocal::EndLevelLoad()
 {
-	common->Printf( "----- idRenderModelManagerLocal::EndLevelLoad -----\n" );
+	mpSys->Printf( "----- idRenderModelManagerLocal::EndLevelLoad -----\n" );
 	
 	int start = Sys_Milliseconds();
 	
@@ -828,13 +828,13 @@ void idRenderModelManagerLocal::EndLevelLoad()
 	
 	// _D3XP added this
 	int	end = Sys_Milliseconds();
-	common->Printf( "%5i models purged from previous level, ", purgeCount );
-	common->Printf( "%5i models kept.\n", keepCount );
+	mpSys->Printf( "%5i models purged from previous level, ", purgeCount );
+	mpSys->Printf( "%5i models kept.\n", keepCount );
 	if( loadCount )
 	{
-		common->Printf( "%5i new models loaded in %5.1f seconds\n", loadCount, ( end - start ) * 0.001 );
+		mpSys->Printf( "%5i new models loaded in %5.1f seconds\n", loadCount, ( end - start ) * 0.001 );
 	}
-	common->Printf( "---------------------------------------------------\n" );
+	mpSys->Printf( "---------------------------------------------------\n" );
 }
 
 /*
