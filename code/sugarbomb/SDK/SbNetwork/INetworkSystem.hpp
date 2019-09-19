@@ -47,7 +47,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 ==============================================================
 */
 
-#include "NetworkTypes.hpp"
+#include "SbNetworkTypes.hpp"
+
 namespace sbe
 {
 

@@ -41,12 +41,12 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "SoundShaderParms.hpp"
 
-#include "SbSound/SbSoundShader.hpp"
+#include "SbSound/SbSoundShader.hpp" // TODO
 
 #include "ISoundEmitter.hpp"
 #include "ISoundWorld.hpp"
 #include "ISoundSystem.hpp"
-#include "SoundTypes.hpp"
+#include "SbSoundTypes.hpp"
 
 //namespace sbe
 //{

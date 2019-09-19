@@ -37,8 +37,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef __LISTGUI_H__
 #define __LISTGUI_H__
 
-//#include "../idlib/Str.h"
 
+//#include "idlib/Str.h"
 //namespace BFG
 //{
 

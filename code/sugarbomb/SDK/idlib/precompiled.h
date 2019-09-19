@@ -45,7 +45,7 @@ If you have questions concerning this license or the applicable additional terms
 //-----------------------------------------------------
 
 // non-portable system services
-#include "sys/ISys.hpp"
+#include "CoreLibs/SbSystem/ISystem.hpp"
 
 #include "SbNetwork/NetworkTypes.hpp"
 

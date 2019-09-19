@@ -39,7 +39,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //#include "ListGUI.h" // for idListGUI
 
-//#include "sys/sys_public.h" // for sysEvent_t
+//#include "CoreLibs/SbSystem/ISystem.hpp" // for sysEvent_t
 
 //#include "idlib/Dict.h" // for idDict
 

@@ -32,7 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
-#include "SbApplication/SbApplication.hpp"
+#include "AppFrameworks/SbApplication/SbApplication.hpp"
 
 #ifdef _WIN32
 using HWND = void*;

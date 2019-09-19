@@ -38,7 +38,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
-#include "renderer/Cinematic.h" // for cinData_t, idCinematic
+#include "SbRenderer/Cinematic.h" // for cinData_t, idCinematic
 
 namespace sbe
 {

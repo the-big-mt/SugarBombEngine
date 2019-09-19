@@ -31,7 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma once
 
-#include "sys/IFile.hpp"
+#include "CoreLibs/SbSystem/IFile.hpp"
 
 #include "idlib/sys/sys_types.h"
 #include "idlib/StrStatic.h"
