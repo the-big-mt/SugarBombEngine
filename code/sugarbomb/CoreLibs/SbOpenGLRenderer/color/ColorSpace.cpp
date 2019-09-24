@@ -42,7 +42,7 @@ Contains the ColorSpace conversion implementation.
 //#include "../idlib/math/Vector.h"
 #include "ColorSpace.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -660,4 +660,4 @@ void idColorSpace::ConvertMonochromeToRGB( byte* rgb, const byte* mono, int widt
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

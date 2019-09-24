@@ -49,7 +49,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "Model_local.h"
 #include "Model_md3.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idMaterial;
@@ -412,4 +412,4 @@ idBounds idRenderModelMD3::Bounds(const struct renderEntity_s *ent) const
 	return ret;
 }
 
-//} // namespace BFG
+//} // namespace sbe

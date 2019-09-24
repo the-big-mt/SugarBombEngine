@@ -49,7 +49,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "Model_ma.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -1289,4 +1289,4 @@ void MA_Free(maModel_t *ma)
 	delete ma;
 }
 
-//} // namespace BFG
+//} // namespace sbe

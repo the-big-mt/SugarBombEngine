@@ -40,7 +40,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "framework/IDeclManager.hpp"
 #include "framework/DemoFile.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idDemoFile;
@@ -906,4 +906,4 @@ void idRenderModelOverlay::WriteToDemoFile(idDemoFile *f) const
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

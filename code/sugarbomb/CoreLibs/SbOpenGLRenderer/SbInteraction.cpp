@@ -55,7 +55,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "VertexCache.h"
 #include "jobs/dynamicshadowvolume/DynamicShadowVolume.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idCmdArgs;
@@ -984,4 +984,4 @@ void R_ShowInteractionMemory_f(const idCmdArgs &args)
 	gpSys->Printf("%i maxInteractionsForLight\n", maxInteractionsForLight);
 }
 
-//} // namespace BFG
+//} // namespace sbe

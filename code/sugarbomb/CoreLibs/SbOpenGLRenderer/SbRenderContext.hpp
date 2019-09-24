@@ -31,7 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "idlib/sys/sys_types.h" // <cstdint>
 
-//namespace BFG
+//namespace sbe
 //{
 
 struct emptyCommand_t;
@@ -116,6 +116,6 @@ private:
 
 extern idRenderContext rRenderContext;
 
-//} // namespace BFG
 
+//} // namespace sbe
 #endif // !__RENDERCONTEXT_H__

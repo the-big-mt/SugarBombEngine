@@ -63,7 +63,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "RenderWorld_local.h"
 #include "ScreenRect.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -1182,4 +1182,4 @@ void idRenderWorldLocal::ResetLocalRenderModels()
 	localModels.Clear(); // Clear out the list when switching between expansion packs, so InitFromMap doesn't try to delete the list whose content has already been deleted by the model manager being re-started
 }
 
-//} // namespace BFG
+//} // namespace sbe

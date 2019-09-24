@@ -988,4 +988,4 @@ void idRenderWorldLocal::WriteFreeOverlay(idDemoFile *f, qhandle_t handle)
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

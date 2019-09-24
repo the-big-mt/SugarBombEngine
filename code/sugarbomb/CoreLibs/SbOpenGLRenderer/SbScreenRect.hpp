@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SCREENRECT_H__
 #define __SCREENRECT_H__
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -84,6 +84,6 @@ public:
 
 void R_ShowColoredScreenRect(const idScreenRect &rect, int colorIndex);
 
-//} // namespace BFG
 
+//} // namespace sbe
 #endif /* !__SCREENRECT_H__ */

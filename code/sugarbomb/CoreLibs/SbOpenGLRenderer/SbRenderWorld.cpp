@@ -2395,4 +2395,4 @@ const idMaterial *R_RemapShaderBySkin(const idMaterial *shader, const idDeclSkin
 	return skin->RemapShaderBySkin(shader);
 }
 
-//} // namespace BFG
+//} // namespace sbe

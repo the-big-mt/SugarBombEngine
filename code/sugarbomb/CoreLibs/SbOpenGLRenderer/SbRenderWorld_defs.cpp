@@ -62,7 +62,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include "../ui/UserInterface.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -943,4 +943,4 @@ void R_ModulateLights_f(const idCmdArgs &args)
 	gpSys->Printf("modulated %i lights\n", count);
 }
 
-//} // namespace BFG
+//} // namespace sbe

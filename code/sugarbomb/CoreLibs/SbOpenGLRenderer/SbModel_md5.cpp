@@ -73,7 +73,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include "sys/sys_intrinsics.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 #if defined(USE_INTRINSICS)
@@ -1644,4 +1644,4 @@ int idRenderModelMD5::Memory() const
 	return total;
 }
 
-//} // namespace BFG
+//} // namespace sbe

@@ -41,7 +41,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/containers/List.h"
 #include "idlib/containers/Array.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 // assume any lightDef or entityDef index above this is an internal error
@@ -327,6 +327,6 @@ static idInteraction *const INTERACTION_EMPTY = (idInteraction *)1;
 void R_ListRenderLightDefs_f(const idCmdArgs &args);
 void R_ListRenderEntityDefs_f(const idCmdArgs &args);
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif /* !__RENDERWORLDLOCAL_H__ */

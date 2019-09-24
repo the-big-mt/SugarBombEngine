@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include "idlib/sys/sys_defines.h" // TODO: ID_TIME_T should actually be defined here instead of precompiled header
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -72,6 +72,5 @@ struct bimageFile_t
 };
 #pragma pack(pop)
 
-//} // namespace BFG
 
-#endif // __BINARYIMAGEDATA_H__
+#endif // __BINARYIMAGEDATA_H__//} // namespace sbe

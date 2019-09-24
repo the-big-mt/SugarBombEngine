@@ -46,7 +46,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "RenderSystem.h"
 #include "RenderProgs.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idCmdArgs;
@@ -542,4 +542,4 @@ void idRenderProgManager::SetRenderParm(renderParm_t rp, const float *value)
 	SetUniformValue(rp, value);
 }
 
-//} // namespace BFG
+//} // namespace sbe

@@ -58,7 +58,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "RenderSystem.h"
 #include "RenderProgs_embedded.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 idCVar r_skipStripDeadCode( "r_skipStripDeadCode", "0", CVAR_BOOL, "Skip stripping dead code" );
@@ -2323,4 +2323,4 @@ void idRenderProgManager::ZeroUniforms()
 	memset( glslUniforms.Ptr(), 0, glslUniforms.Allocated() );
 }
 
-//} // namespace BFG
+//} // namespace sbe

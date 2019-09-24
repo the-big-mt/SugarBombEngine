@@ -40,7 +40,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "RenderCommon.h"
 #include "ResolutionScale.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 idResolutionScale resolutionScale;
@@ -241,4 +241,4 @@ void idResolutionScale::GetConsoleText(idStr &s)
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

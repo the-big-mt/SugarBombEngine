@@ -36,7 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/sys/sys_assert.h"
 #include "idlib/sys/sys_types.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 struct drawSurf_t;
@@ -136,6 +136,6 @@ private:
 	idDeclManager *declManager{ nullptr };
 };
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif /* !__MODELOVERLAY_H__ */

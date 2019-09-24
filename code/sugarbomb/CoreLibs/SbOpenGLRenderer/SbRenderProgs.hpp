@@ -37,7 +37,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/math/Vector.h"
 #include "idlib/sys/sys_types.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 static const int PC_ATTRIB_INDEX_VERTEX = 0;
@@ -737,6 +737,6 @@ protected:
 
 extern idRenderProgManager renderProgManager;
 
-//} // namespace BFG
 
+//} // namespace sbe
 #endif // __RENDERPROGS_H__

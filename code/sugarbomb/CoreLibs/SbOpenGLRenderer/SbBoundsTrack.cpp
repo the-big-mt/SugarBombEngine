@@ -46,7 +46,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include "../sys/sys_public.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -303,7 +303,7 @@ class interactionPair_t
 	int lightIndex;
 };
 
-//} // namespace BFG
+//} // namespace sbe
 
 /*
 

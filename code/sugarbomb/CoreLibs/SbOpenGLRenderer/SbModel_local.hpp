@@ -38,7 +38,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/math/Vector.h"
 // TODO: idRandom
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -569,6 +569,6 @@ public:
 	};
 };
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif /* !__MODEL_LOCAL_H__ */

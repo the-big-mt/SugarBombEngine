@@ -55,7 +55,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "RenderWorld_local.h"
 #include "ScreenRect.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 // if we hit this many planes, we will just stop cropping the
@@ -1172,4 +1172,4 @@ int idRenderWorldLocal::GetPortalState(qhandle_t portal)
 	return doublePortals[portal - 1].blockingBits;
 }
 
-//} // namespace BFG
+//} // namespace sbe

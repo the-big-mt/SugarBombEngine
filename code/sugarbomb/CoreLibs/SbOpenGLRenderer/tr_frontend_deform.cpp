@@ -63,7 +63,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //class idJointMat;
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -1181,4 +1181,4 @@ drawSurf_t *R_DeformDrawSurf(drawSurf_t *drawSurf)
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "renderer/IRenderSystem.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 struct idPlane;
@@ -183,6 +183,6 @@ void R_LightProjectionMatrix(const idVec3 &origin, const idPlane &rearPlane, idV
 // used by the view shot taker
 void R_ScreenshotFilename(int &lastNumber, const char *base, idStr &fileName);
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif /* !__RENDERER_H__ */

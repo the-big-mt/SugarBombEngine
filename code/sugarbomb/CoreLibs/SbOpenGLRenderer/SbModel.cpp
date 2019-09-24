@@ -42,7 +42,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "framework/IDeclManager.hpp"
 #include "framework/DemoFile.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idJointQuat;
@@ -3506,4 +3506,4 @@ bool idRenderModelStatic::FindSurfaceWithId(int id, int &surfaceNum) const
 	return false;
 }
 
-//} // namespace BFG
+//} // namespace sbe

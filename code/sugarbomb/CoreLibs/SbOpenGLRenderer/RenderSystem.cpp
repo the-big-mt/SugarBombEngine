@@ -1109,4 +1109,4 @@ bool idRenderSystemLocal::UploadImage(const char *imageName, const byte *data, i
 	return true;
 }
 
-//} // namespace BFG
+//} // namespace sbe

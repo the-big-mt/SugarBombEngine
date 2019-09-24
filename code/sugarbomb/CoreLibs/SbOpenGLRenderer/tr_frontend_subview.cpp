@@ -54,7 +54,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "ScreenRect.h"
 #include "Model_local.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idJointMat;
@@ -609,4 +609,4 @@ bool R_GenerateSubViews(const drawSurf_t *const drawSurfs[], const int numDrawSu
 	return subviews;
 }
 
-//} // namespace BFG
+//} // namespace sbe

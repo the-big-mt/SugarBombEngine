@@ -290,6 +290,5 @@ private:
 	DISALLOW_COPY_AND_ASSIGN(idJointBuffer);
 };
 
-//} // namespace BFG
 
-#endif // !__BUFFEROBJECT_H__
+#endif // !__BUFFEROBJECT_H__//} // namespace sbe

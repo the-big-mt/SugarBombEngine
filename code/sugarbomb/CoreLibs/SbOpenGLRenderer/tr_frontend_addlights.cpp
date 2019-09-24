@@ -61,7 +61,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include "ParallelJobList.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idInteraction;
@@ -806,4 +806,4 @@ void R_OptimizeViewLightsList()
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

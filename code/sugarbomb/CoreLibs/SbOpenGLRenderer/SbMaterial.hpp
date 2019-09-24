@@ -42,7 +42,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // TODO: BIT definition???
 
-//namespace BFG
+//namespace sbe
 //{
 
 struct idSoundEmitter;
@@ -933,6 +933,6 @@ private:
 
 typedef idList<const idMaterial *, TAG_MATERIAL> idMatList;
 
-//} // namespace BFG
 
+//} // namespace sbe
 #endif /* !__MATERIAL_H__ */

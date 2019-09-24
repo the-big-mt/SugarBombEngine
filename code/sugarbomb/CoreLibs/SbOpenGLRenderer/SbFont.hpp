@@ -31,7 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/Str.h"
 #include "idlib/sys/sys_types.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 struct idFileSystem;
@@ -122,6 +122,6 @@ private:
 	idDeclManager *declManager{ nullptr };
 };
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif // __FONT_H__

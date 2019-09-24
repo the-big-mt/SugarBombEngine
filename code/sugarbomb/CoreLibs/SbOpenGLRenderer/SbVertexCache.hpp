@@ -35,7 +35,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "BufferObject.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 const int VERTCACHE_INDEX_MEMORY_PER_FRAME = 31 * 1024 * 1024;
@@ -197,6 +197,5 @@ void CopyBuffer(byte *dst, const byte *src, int numBytes);
 
 extern idVertexCache vertexCache;
 
-//} // namespace BFG
 
-#endif // __VERTEXCACHE2_H__
+#endif // __VERTEXCACHE2_H__//} // namespace sbe

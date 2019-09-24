@@ -49,7 +49,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include "sys/sys_intrinsics.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -610,4 +610,4 @@ void R_MatrixFullInverse(idCommon *common, const float a[16], float r[16])
 }
 // RB end
 
-//} // namespace BFG
+//} // namespace sbe

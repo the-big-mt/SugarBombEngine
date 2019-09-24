@@ -41,7 +41,7 @@ Contains the DxtDecoder implementation.
 #include "DXTCodec_local.h"
 #include "DXTCodec.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -837,4 +837,4 @@ void idDxtDecoder::DecomposeImageDXT5( const byte* inBuf, byte* colorIndices, by
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

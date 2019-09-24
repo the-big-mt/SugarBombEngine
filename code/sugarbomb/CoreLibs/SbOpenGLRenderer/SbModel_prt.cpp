@@ -49,7 +49,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "RenderWorld.h"
 #include "Model_local.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idDrawVert;
@@ -339,4 +339,4 @@ int idRenderModelPrt::Memory() const
 	return total;
 }
 
-//} // namespace BFG
+//} // namespace sbe

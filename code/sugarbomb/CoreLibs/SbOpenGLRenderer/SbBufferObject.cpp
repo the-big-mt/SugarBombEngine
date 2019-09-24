@@ -34,7 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include "RenderCommon.h"
 #include "BufferObject.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 idCVar r_showBuffers("r_showBuffers", "0", CVAR_INTEGER, "");
@@ -981,4 +981,4 @@ void idJointBuffer::Swap(idJointBuffer &other)
 	SwapValues(other.apiObject, apiObject);
 }
 
-//} // namespace BFG
+//} // namespace sbe

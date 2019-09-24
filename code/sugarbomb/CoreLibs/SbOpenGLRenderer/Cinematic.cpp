@@ -2843,4 +2843,4 @@ int idSndWindow::AnimationLength()
 	return -1;
 }
 
-//} // namespace BFG
+//} // namespace sbe

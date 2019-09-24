@@ -36,7 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "framework/ICommon.hpp"
 #include "framework/ICmdSystem.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idCmdArgs;

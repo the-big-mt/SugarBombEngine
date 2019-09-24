@@ -60,7 +60,7 @@ If you have questions concerning this license or the applicable additional terms
 //#undef min
 //#endif
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -2236,4 +2236,4 @@ void R_CreateStaticBuffersForTri(srfTriangles_t &tri)
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

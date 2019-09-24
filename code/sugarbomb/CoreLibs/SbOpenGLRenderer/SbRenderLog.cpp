@@ -43,7 +43,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "RenderLog.h"
 #include "RenderSystem.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -562,4 +562,4 @@ void idRenderLog::CloseBlock()
 
 #endif // !STUB_RENDER_LOG
 
-//} // namespace BFG
+//} // namespace sbe

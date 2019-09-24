@@ -47,7 +47,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/Common_local.h"
 #endif
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idPreloadManifest;
@@ -3281,4 +3281,4 @@ float idRenderSystemLocal::GetPhysicalScreenWidthInCentimeters() const
 	return glConfig.physicalScreenWidthInCentimeters;
 }
 
-//} // namespace BFG
+//} // namespace sbe

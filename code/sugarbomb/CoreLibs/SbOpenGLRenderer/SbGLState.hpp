@@ -32,7 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "idlib/sys/sys_types.h" // for uint64
 
-//namespace BFG
+//namespace sbe
 //{
 
 // one/zero is flipped on src/dest so a gl state of 0 is SRC_ONE,DST_ZERO
@@ -163,6 +163,5 @@ static const uint64 GLS_DEFAULT = 0;
 #define STENCIL_SHADOW_TEST_VALUE 128
 #define STENCIL_SHADOW_MASK_VALUE 255
 
-//} // namespace BFG
 
-#endif /* !__GLSTATE_H__ */
+#endif /* !__GLSTATE_H__ *///} // namespace sbe

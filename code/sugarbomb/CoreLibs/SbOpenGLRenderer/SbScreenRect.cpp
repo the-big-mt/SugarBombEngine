@@ -38,7 +38,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "RenderWorld_local.h"
 #include "ScreenRect.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -187,4 +187,4 @@ void R_ShowColoredScreenRect(const idScreenRect &rect, int colorIndex)
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

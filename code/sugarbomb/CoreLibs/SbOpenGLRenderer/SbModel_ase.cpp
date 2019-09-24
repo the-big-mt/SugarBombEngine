@@ -42,7 +42,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include "sys/sys_types.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -1007,4 +1007,4 @@ void ASE_Free(aseModel_t *ase)
 	delete ase;
 }
 
-//} // namespace BFG
+//} // namespace sbe

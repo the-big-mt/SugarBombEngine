@@ -35,7 +35,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include "idlib/sys/sys_defines.h"
 #include "idlib/sys/sys_types.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -105,6 +105,6 @@ typedef struct aseModel_s
 aseModel_t *ASE_Load(const char *fileName, idCommon *apCommon, idFileSystem *fileSystem);
 void ASE_Free(aseModel_t *ase);
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif /* !__MODEL_ASE_H__ */

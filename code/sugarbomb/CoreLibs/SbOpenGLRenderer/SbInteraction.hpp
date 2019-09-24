@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/sys/sys_types.h"
 #include "VertexCache.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -159,6 +159,6 @@ private:
 
 void R_ShowInteractionMemory_f(const idCmdArgs &args);
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif /* !__INTERACTION_H__ */

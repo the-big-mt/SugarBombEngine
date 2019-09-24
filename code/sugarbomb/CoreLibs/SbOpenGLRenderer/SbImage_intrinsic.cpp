@@ -48,7 +48,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "SMAA/AreaTex.h"
 #include "SMAA/SearchTex.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 #define DEFAULT_SIZE 16
@@ -904,4 +904,4 @@ void idImageManager::CreateIntrinsicImages()
 	release_assert(hellLoadingIconImage->referencedOutsideLevelLoad);
 }
 
-//} // namespace BFG
+//} // namespace sbe

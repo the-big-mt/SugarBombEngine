@@ -43,7 +43,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "Model_lwo.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -4525,4 +4525,4 @@ int lwGetPolyVMaps(lwPolygonList *polygon, lwVMap *vmap)
 	return 1;
 }
 
-//} // namespace BFG
+//} // namespace sbe

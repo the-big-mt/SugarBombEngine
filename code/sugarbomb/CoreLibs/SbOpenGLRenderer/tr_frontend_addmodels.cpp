@@ -67,7 +67,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include "sys/sys_public.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 idCVar r_skipStaticShadows("r_skipStaticShadows", "0", CVAR_RENDERER | CVAR_BOOL, "skip static shadows");
@@ -1463,4 +1463,4 @@ void R_AddModels()
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

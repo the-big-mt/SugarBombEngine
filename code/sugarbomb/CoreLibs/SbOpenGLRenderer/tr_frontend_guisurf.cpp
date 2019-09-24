@@ -56,7 +56,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include "../framework/DeclParticle.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idJointMat;
@@ -298,4 +298,4 @@ void R_ListGuis_f(const idCmdArgs &args)
 	uiManager->ListGuis();
 }
 
-//} // namespace BFG
+//} // namespace sbe

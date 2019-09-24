@@ -34,7 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/Str.h"
 #include "idlib/containers/List.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 class idImage;
@@ -152,6 +152,5 @@ struct globalFramebuffers_t
 };
 extern globalFramebuffers_t globalFramebuffers;
 
-//} // namespace BFG
 
-#endif // __FRAMEBUFFER_H__
+#endif // __FRAMEBUFFER_H__//} // namespace sbe

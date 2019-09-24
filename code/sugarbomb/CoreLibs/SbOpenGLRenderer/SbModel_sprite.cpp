@@ -46,7 +46,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "RenderWorld.h"
 #include "Model_local.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -218,4 +218,4 @@ idBounds idRenderModelSprite::Bounds(const struct renderEntity_s *renderEntity) 
 	return b;
 }
 
-//} // namespace BFG
+//} // namespace sbe

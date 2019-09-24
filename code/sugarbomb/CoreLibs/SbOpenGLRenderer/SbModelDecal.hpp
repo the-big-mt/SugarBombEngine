@@ -39,7 +39,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/sys/sys_defines.h"
 #include "idlib/sys/sys_types.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 struct viewEntity_t;
@@ -172,6 +172,6 @@ private:
 	idDeclManager *declManager{ nullptr };
 };
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif /* !__MODELDECAL_H__ */

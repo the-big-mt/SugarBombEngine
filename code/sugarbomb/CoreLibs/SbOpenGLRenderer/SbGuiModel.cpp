@@ -50,7 +50,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "ScreenRect.h"
 #include "VertexCache.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idDemoFile;
@@ -448,4 +448,4 @@ idDrawVert *idGuiModel::AllocTris(int vertCount, const triIndex_t *tempIndexes, 
 	return vertexPointer + startVert;
 }
 
-//} // namespace BFG
+//} // namespace sbe

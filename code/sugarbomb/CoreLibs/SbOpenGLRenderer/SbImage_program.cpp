@@ -70,7 +70,7 @@ Manager
 //#include "idlib/sys/sys_defines.h"
 //#include "idlib/sys/sys_types.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -761,4 +761,4 @@ const char *R_ParsePastImageProgram(idLexer &src, idCommon *apCommon, idFileSyst
 	return parseBuffer;
 }
 
-//} // namespace BFG
+//} // namespace sbe

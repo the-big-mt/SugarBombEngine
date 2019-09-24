@@ -57,7 +57,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 #include "Model_local.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 #define LIQUID_MAX_SKIP_FRAMES 5
@@ -637,4 +637,4 @@ idBounds idRenderModelLiquid::Bounds(const struct renderEntity_s *ent) const
 	return bounds;
 }
 
-//} // namespace BFG
+//} // namespace sbe

@@ -36,7 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include "idlib/sys/sys_defines.h"
 #include "idlib/sys/sys_types.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -160,6 +160,6 @@ typedef struct maModel_s
 maModel_t *MA_Load(const char *fileName, idCommon *apCommon, idFileSystem *apFileSystem);
 void MA_Free(maModel_t *ma);
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif /* !__MODEL_MA_H__ */

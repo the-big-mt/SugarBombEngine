@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __BOUNDSTRACK_H__
 #define __BOUNDSTRACK_H__
 
-//namespace BFG
+//namespace sbe
 //{
 
 class idBounds;
@@ -72,6 +72,6 @@ private:
 	int maxIndex;
 };
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif // __BOUNDSTRACK_H__

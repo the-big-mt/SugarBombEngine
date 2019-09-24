@@ -40,7 +40,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include "ImageOpts.h"
 #include "BinaryImageData.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 enum textureFormat_t : int;
@@ -148,6 +148,6 @@ private:
 	idFileSystem *fileSystem{ nullptr };
 };
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif // __BINARYIMAGE_H__

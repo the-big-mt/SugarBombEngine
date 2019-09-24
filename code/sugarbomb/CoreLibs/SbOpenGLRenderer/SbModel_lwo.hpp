@@ -34,7 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include "idlib/math/Math.h"
 #include "idlib/sys/sys_defines.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 class idFile;
@@ -709,6 +709,6 @@ int sgetVX(unsigned char **bp);
 float sgetF4(unsigned char **bp);
 char *sgetS0(unsigned char **bp);
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif /* !__LWO2_H__ */

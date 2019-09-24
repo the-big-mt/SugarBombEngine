@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __DXTCODEC_H__
 #define __DXTCODEC_H__
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -717,6 +717,6 @@ ID_INLINE byte idDxtDecoder::NormalScaleFrom565( unsigned short c565 ) const
 	return ( c | ( c >> 5 ) );
 }
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif // !__DXTCODEC_H__

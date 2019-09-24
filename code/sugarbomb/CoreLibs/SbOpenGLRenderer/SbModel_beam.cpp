@@ -47,7 +47,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "RenderWorld.h"
 #include "Model_local.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -237,4 +237,4 @@ idBounds idRenderModelBeam::Bounds(const struct renderEntity_s *renderEntity) co
 	return b;
 }
 
-//} // namespace BFG
+//} // namespace sbe
