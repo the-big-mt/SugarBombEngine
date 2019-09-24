@@ -41,10 +41,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 /// These options can be overriden from sound shader defaults on a per-emitter and per-channel basis
 struct soundShaderParms_t
 {
-	float					minDistance;
-	float					maxDistance;
-	float					volume;					// in dB.  Negative values get quieter
-	float					shakes;
-	int						soundShaderFlags;		// SSF_* bit flags
-	int						soundClass;				// for global fading of sounds
+	float					minDistance{0.0f};
+	float					maxDistance{0.0f};
+	float					volume{0.0f}; ///< In dB. Negative values get quieter
+	float					shakes{0.0f};
+	int						soundShaderFlags{0}; ///< SSF_* bit flags
+	int						soundClass{0}; ///< For global fading of sounds
 };
