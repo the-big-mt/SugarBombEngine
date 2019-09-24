@@ -39,9 +39,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
-//namespace sbe
-//{
+namespace sbe
+{
 
 const float DB_SILENCE = -60.0f;
 
-//}; // namespace sbe
+}; // namespace sbe
