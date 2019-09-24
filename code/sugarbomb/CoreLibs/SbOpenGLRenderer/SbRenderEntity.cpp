@@ -256,7 +256,7 @@ void idRenderEntityLocal::ReadFromDemoFile(class idDemoFile *f)
 	}
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("DC_UPDATE_ENTITYDEF: %i = %s\n", index, parms.hModel ? parms.hModel->Name() : "nullptr");
+		mpSystem->Printf("DC_UPDATE_ENTITYDEF: %i = %s\n", index, parms.hModel ? parms.hModel->Name() : "nullptr"); // TODO: WHAT?
 	}
 }
 void idRenderEntityLocal::WriteToDemoFile(class idDemoFile *f) const
@@ -330,6 +330,6 @@ void idRenderEntityLocal::WriteToDemoFile(class idDemoFile *f) const
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("write DC_UPDATE_ENTITYDEF: %i = %s\n", index, parms.hModel ? parms.hModel->Name() : "nullptr");
+		mpSystem->Printf("write DC_UPDATE_ENTITYDEF: %i = %s\n", index, parms.hModel ? parms.hModel->Name() : "nullptr"); // TODO: WHAT?!
 	}
 }

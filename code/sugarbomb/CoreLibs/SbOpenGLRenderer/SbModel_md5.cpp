@@ -1139,10 +1139,10 @@ idRenderModelMD5::Print
 */
 void idRenderModelMD5::Print() const
 {
-	common->Printf("%s\n", name.c_str());
-	common->Printf("Dynamic model.\n");
-	common->Printf("Generated smooth normals.\n");
-	common->Printf("    verts  tris weights material\n");
+	mpSys->Printf("%s\n", name.c_str());
+	mpSys->Printf("Dynamic model.\n");
+	mpSys->Printf("Generated smooth normals.\n");
+	mpSys->Printf("    verts  tris weights material\n");
 	int totalVerts = 0;
 	int totalTris = 0;
 	const idMD5Mesh *mesh = meshes.Ptr();
@@ -1150,12 +1150,12 @@ void idRenderModelMD5::Print() const
 	{
 		totalVerts += mesh->NumVerts();
 		totalTris += mesh->NumTris();
-		common->Printf("%2i: %5i %5i %s\n", i, mesh->NumVerts(), mesh->NumTris(), mesh->shader->GetName());
+		mpSys->Printf("%2i: %5i %5i %s\n", i, mesh->NumVerts(), mesh->NumTris(), mesh->shader->GetName());
 	}
-	common->Printf("-----\n");
-	common->Printf("%4i verts.\n", totalVerts);
-	common->Printf("%4i tris.\n", totalTris);
-	common->Printf("%4i joints.\n", joints.Num());
+	mpSys->Printf("-----\n");
+	mpSys->Printf("%4i verts.\n", totalVerts);
+	mpSys->Printf("%4i tris.\n", totalTris);
+	mpSys->Printf("%4i joints.\n", joints.Num());
 }
 
 /*
@@ -1175,14 +1175,14 @@ void idRenderModelMD5::List() const
 		totalTris += mesh->numTris;
 		totalVerts += mesh->NumVerts();
 	}
-	common->Printf(" %4ik %3i %4i %4i %s(MD5)", Memory() / 1024, meshes.Num(), totalVerts, totalTris, Name());
+	mpSys->Printf(" %4ik %3i %4i %4i %s(MD5)", Memory() / 1024, meshes.Num(), totalVerts, totalTris, Name());
 
 	if(defaulted)
 	{
-		common->Printf(" (DEFAULTED)");
+		mpSys->Printf(" (DEFAULTED)");
 	}
 
-	common->Printf("\n");
+	mpSys->Printf("\n");
 }
 
 /*
@@ -1373,19 +1373,19 @@ idRenderModel *idRenderModelMD5::InstantiateDynamicModel(const struct renderEnti
 
 	if(purged)
 	{
-		common->DWarning("model %s instantiated while purged", Name());
+		mpSys->DWarning("model %s instantiated while purged", Name());
 		LoadModel();
 	}
 
 	if(!ent->joints)
 	{
-		common->Printf("idRenderModelMD5::InstantiateDynamicModel: nullptr joints on renderEntity for '%s'\n", Name());
+		mpSys->Printf("idRenderModelMD5::InstantiateDynamicModel: nullptr joints on renderEntity for '%s'\n", Name());
 		delete cachedModel;
 		return nullptr;
 	}
 	else if(ent->numJoints != joints.Num())
 	{
-		common->Printf("idRenderModelMD5::InstantiateDynamicModel: renderEntity has different number of joints than model for '%s'\n", Name());
+		mpSys->Printf("idRenderModelMD5::InstantiateDynamicModel: renderEntity has different number of joints than model for '%s'\n", Name());
 		delete cachedModel;
 		return nullptr;
 	}
@@ -1567,7 +1567,7 @@ int idRenderModelMD5::NearestJoint(int surfaceNum, int a, int b, int c) const
 {
 	if(surfaceNum > meshes.Num())
 	{
-		common->Error("idRenderModelMD5::NearestJoint: surfaceNum > meshes.Num()");
+		mpSys->Error("idRenderModelMD5::NearestJoint: surfaceNum > meshes.Num()");
 	}
 
 	const idMD5Mesh *mesh = meshes.Ptr();

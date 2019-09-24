@@ -214,12 +214,12 @@ void idRenderBackend::DBG_ScanStencilBuffer()
 	R_StaticFree( stencilReadback );
 	
 	// print some stats (not supposed to do from back end in SMP...)
-	common->Printf( "stencil values:\n" );
+	mpSys->Printf( "stencil values:\n" );
 	for( i = 0; i < 255; i++ )
 	{
 		if( counts[i] )
 		{
-			common->Printf( "%i: %i\n", i, counts[i] );
+			mpSys->Printf( "%i: %i\n", i, counts[i] );
 		}
 	}
 }
@@ -251,7 +251,7 @@ void idRenderBackend::DBG_CountStencilBuffer()
 	R_StaticFree( stencilReadback );
 	
 	// print some stats (not supposed to do from back end in SMP...)
-	common->Printf( "overdraw: %5.1f\n", ( float )count / ( renderSystem->GetWidth() * renderSystem->GetHeight() ) );
+	mpSys->Printf( "overdraw: %5.1f\n", ( float )count / ( renderSystem->GetWidth() * renderSystem->GetHeight() ) );
 }
 
 /*
@@ -904,19 +904,19 @@ void idRenderBackend::DBG_ShowViewEntitys( viewEntity_t* vModels )
 	
 	if( r_showViewEntitys.GetInteger() >= 2 )
 	{
-		common->Printf( "view entities: " );
+		mpSys->Printf( "view entities: " );
 		for( const viewEntity_t* vModel = vModels; vModel; vModel = vModel->next )
 		{
 			if( vModel->entityDef->IsDirectlyVisible() )
 			{
-				common->Printf( "<%i> ", vModel->entityDef->index );
+				mpSys->Printf( "<%i> ", vModel->entityDef->index );
 			}
 			else
 			{
-				common->Printf( "%i ", vModel->entityDef->index );
+				mpSys->Printf( "%i ", vModel->entityDef->index );
 			}
 		}
-		common->Printf( "\n" );
+		mpSys->Printf( "\n" );
 	}
 	
 	renderProgManager.BindShader_Color();
@@ -1652,7 +1652,7 @@ void idRenderBackend::DBG_ShowLights()
 	
 	GL_Cull( CT_TWO_SIDED );
 	
-	common->Printf( "volumes: " );	// FIXME: not in back end!
+	mpSys->Printf( "volumes: " );	// FIXME: not in back end!
 	
 	int count = 0;
 	for( viewLight_t* vLight = viewDef->viewLights; vLight != nullptr; vLight = vLight->next )
@@ -1696,10 +1696,10 @@ void idRenderBackend::DBG_ShowLights()
 			DrawElementsWithCounters( &zeroOneCubeSurface );
 		}
 		
-		common->Printf( "%i ", vLight->lightDef->index );
+		mpSys->Printf( "%i ", vLight->lightDef->index );
 	}
 	
-	common->Printf( " = %i total\n", count );
+	mpSys->Printf( " = %i total\n", count );
 }
 
 // RB begin
@@ -1716,7 +1716,7 @@ void idRenderBackend::DBG_ShowShadowMapLODs()
 	
 	GL_Cull( CT_TWO_SIDED );
 	
-	common->Printf( "volumes: " );	// FIXME: not in back end!
+	mpSys->Printf( "volumes: " );	// FIXME: not in back end!
 	
 	int count = 0;
 	for( viewLight_t* vLight = viewDef->viewLights; vLight != nullptr; vLight = vLight->next )
@@ -1783,10 +1783,10 @@ void idRenderBackend::DBG_ShowShadowMapLODs()
 			DrawElementsWithCounters( &zeroOneCubeSurface );
 		}
 		
-		common->Printf( "%i ", vLight->lightDef->index );
+		mpSys->Printf( "%i ", vLight->lightDef->index );
 	}
 	
-	common->Printf( " = %i total\n", count );
+	mpSys->Printf( " = %i total\n", count );
 }
 // RB end
 

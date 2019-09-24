@@ -514,7 +514,7 @@ void idImage::SetTexParameters()
 			glTexParameterf( target, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
 			break;
 		default:
-			common->FatalError( "%s: bad texture filter %d", GetName(), filter );
+			mpSys->FatalError( "%s: bad texture filter %d", GetName(), filter );
 	}
 	
 	if( glConfig.anisotropicFilterAvailable )
@@ -577,7 +577,7 @@ void idImage::SetTexParameters()
 			glTexParameterf( target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
 			break;
 		default:
-			common->FatalError( "%s: bad texture repeat %d", GetName(), repeat );
+			mpSys->FatalError( "%s: bad texture repeat %d", GetName(), repeat );
 	}
 	
 	// RB: added shadow compare parameters for shadow map textures

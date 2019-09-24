@@ -100,13 +100,13 @@ idRenderModelStatic::Print
 */
 void idRenderModelStatic::Print() const
 {
-	common->Printf("%s\n", name.c_str());
-	common->Printf("Static model.\n");
-	common->Printf("bounds: (%f %f %f) to (%f %f %f)\n",
+	mpSys->Printf("%s\n", name.c_str());
+	mpSys->Printf("Static model.\n");
+	mpSys->Printf("bounds: (%f %f %f) to (%f %f %f)\n",
 	               bounds[0][0], bounds[0][1], bounds[0][2],
 	               bounds[1][0], bounds[1][1], bounds[1][2]);
 
-	common->Printf("    verts  tris material\n");
+	mpSys->Printf("    verts  tris material\n");
 	for(int i = 0; i < NumSurfaces(); i++)
 	{
 		const modelSurface_t *surf = Surface(i);
@@ -116,18 +116,18 @@ void idRenderModelStatic::Print() const
 
 		if(!tri)
 		{
-			common->Printf("%2i: %s, nullptr surface geometry\n", i, material->GetName());
+			mpSys->Printf("%2i: %s, nullptr surface geometry\n", i, material->GetName());
 			continue;
 		}
 
-		common->Printf("%2i: %5i %5i %s", i, tri->numVerts, tri->numIndexes / 3, material->GetName());
+		mpSys->Printf("%2i: %5i %5i %s", i, tri->numVerts, tri->numIndexes / 3, material->GetName());
 		if(tri->generateNormals)
 		{
-			common->Printf(" (smoothed)\n");
+			mpSys->Printf(" (smoothed)\n");
 		}
 		else
 		{
-			common->Printf("\n");
+			mpSys->Printf("\n");
 		}
 	}
 }
@@ -186,30 +186,30 @@ void idRenderModelStatic::List() const
 		totalTris += surf->geometry->numIndexes / 3;
 		totalVerts += surf->geometry->numVerts;
 	}
-	common->Printf("%c%4ik %3i %4i %4i %s", closed, totalBytes / 1024, NumSurfaces(), totalVerts, totalTris, Name());
+	mpSys->Printf("%c%4ik %3i %4i %4i %s", closed, totalBytes / 1024, NumSurfaces(), totalVerts, totalTris, Name());
 
 	if(IsDynamicModel() == DM_CACHED)
 	{
-		common->Printf(" (DM_CACHED)");
+		mpSys->Printf(" (DM_CACHED)");
 	}
 	if(IsDynamicModel() == DM_CONTINUOUS)
 	{
-		common->Printf(" (DM_CONTINUOUS)");
+		mpSys->Printf(" (DM_CONTINUOUS)");
 	}
 	if(defaulted)
 	{
-		common->Printf(" (DEFAULTED)");
+		mpSys->Printf(" (DEFAULTED)");
 	}
 	if(bounds[0][0] >= bounds[1][0])
 	{
-		common->Printf(" (EMPTY BOUNDS)");
+		mpSys->Printf(" (EMPTY BOUNDS)");
 	}
 	if(bounds[1][0] - bounds[0][0] > 100000)
 	{
-		common->Printf(" (HUGE BOUNDS)");
+		mpSys->Printf(" (HUGE BOUNDS)");
 	}
 
-	common->Printf("\n");
+	mpSys->Printf("\n");
 }
 
 /*
@@ -345,20 +345,20 @@ void idRenderModelStatic::InitFromFile(const char *fileName)
 	}
 	else if(extension.Icmp("nif") == 0)
 	{
-		common->Warning("idRenderModelStatic::InitFromFile: NIF models are not yet supported!: \'%s\'", name.c_str());
+		mpSys->Warning("idRenderModelStatic::InitFromFile: NIF models are not yet supported!: \'%s\'", name.c_str());
 		//loaded = LoadNIF( name );
 		loaded = false;
 		reloadable = true;
 	}
 	else
 	{
-		common->Warning("idRenderModelStatic::InitFromFile: unknown type for model: \'%s\'", name.c_str());
+		mpSys->Warning("idRenderModelStatic::InitFromFile: unknown type for model: \'%s\'", name.c_str());
 		loaded = false;
 	}
 
 	if(!loaded)
 	{
-		common->Warning("Couldn't load model: '%s'", name.c_str());
+		mpSys->Warning("Couldn't load model: '%s'", name.c_str());
 		MakeDefaultModel();
 		return;
 	}
@@ -575,7 +575,7 @@ void idRenderModelStatic::WriteBinaryModel(idFile *file, ID_TIME_T *_timeStamp) 
 {
 	if(file == nullptr)
 	{
-		common->Printf("Failed to WriteBinaryModel\n");
+		mpSys->Printf("Failed to WriteBinaryModel\n");
 		return;
 	}
 
@@ -744,7 +744,7 @@ void idRenderModelStatic::ExportOBJ(idFile *objFile, idFile *mtlFile, ID_TIME_T 
 {
 	if(objFile == nullptr || mtlFile == nullptr)
 	{
-		common->Printf("Failed to ExportOBJ\n");
+		mpSys->Printf("Failed to ExportOBJ\n");
 		return;
 	}
 
@@ -1047,7 +1047,7 @@ idRenderModel *idRenderModelStatic::InstantiateDynamicModel(const struct renderE
 		delete cachedModel;
 		cachedModel = nullptr;
 	}
-	common->Error("InstantiateDynamicModel called on static model '%s'", name.c_str());
+	mpSys->Error("InstantiateDynamicModel called on static model '%s'", name.c_str());
 	return nullptr;
 }
 
@@ -1186,12 +1186,12 @@ void idRenderModelStatic::FinishSurfaces()
 		if(surf->geometry == nullptr || surf->shader == nullptr)
 		{
 			MakeDefaultModel();
-			common->Error("Model %s, surface %i had nullptr geometry", name.c_str(), i);
+			mpSys->Error("Model %s, surface %i had nullptr geometry", name.c_str(), i);
 		}
 		if(surf->shader == nullptr)
 		{
 			MakeDefaultModel();
-			common->Error("Model %s, surface %i had nullptr shader", name.c_str(), i);
+			mpSys->Error("Model %s, surface %i had nullptr shader", name.c_str(), i);
 		}
 	}
 
@@ -1638,7 +1638,7 @@ bool idRenderModelStatic::ConvertDAEToModelSurfaces(const ColladaParser *dae)
 
 				if(index < 0 || index >= (*mesh)->mPositions.Num())
 				{
-					common->Error("ConvertDAEToModelSurfaces: bad vertex index in DAE file %s", name.c_str());
+					mpSys->Error("ConvertDAEToModelSurfaces: bad vertex index in DAE file %s", name.c_str());
 				}
 
 				// collapse the position if it was slightly offset
@@ -1653,7 +1653,7 @@ bool idRenderModelStatic::ConvertDAEToModelSurfaces(const ColladaParser *dae)
 
 					if(tv < 0 || tv >= (*mesh)->mTexCoords.Num())
 					{
-						common->Error("ConvertDAEToModelSurfaces: bad tex coord index in DAE file %s", name.c_str());
+						mpSys->Error("ConvertDAEToModelSurfaces: bad tex coord index in DAE file %s", name.c_str());
 					}
 
 					// collapse the tex coord if it was slightly offset
@@ -1729,11 +1729,11 @@ bool idRenderModelStatic::ConvertDAEToModelSurfaces(const ColladaParser *dae)
 		// allocate space for the indexes and copy them
 		if(tri->numIndexes > (*mesh)->mFacePosIndices.Num()) // mesh->numFaces * 3 )
 		{
-			common->FatalError("ConvertDAEToModelSurfaces: index miscount in DAE file %s", name.c_str());
+			mpSys->FatalError("ConvertDAEToModelSurfaces: index miscount in DAE file %s", name.c_str());
 		}
 		if(tri->numVerts > (*mesh)->mFacePosIndices.Num()) //mesh->numFaces * 3 )
 		{
-			common->FatalError("ConvertDAEToModelSurfaces: vertex miscount in DAE file %s", name.c_str());
+			mpSys->FatalError("ConvertDAEToModelSurfaces: vertex miscount in DAE file %s", name.c_str());
 		}
 
 		// an ASE allows the texture coordinates to be scaled, translated, and rotated
@@ -2017,7 +2017,7 @@ bool idRenderModelStatic::ConvertASEToModelSurfaces(const struct aseModel_s *ase
 
 				if(v < 0 || v >= mesh->numVertexes)
 				{
-					common->Error("ConvertASEToModelSurfaces: bad vertex index in ASE file %s", name.c_str());
+					mpSys->Error("ConvertASEToModelSurfaces: bad vertex index in ASE file %s", name.c_str());
 				}
 
 				// collapse the position if it was slightly offset
@@ -2029,7 +2029,7 @@ bool idRenderModelStatic::ConvertASEToModelSurfaces(const struct aseModel_s *ase
 					tv = mesh->faces[j].tVertexNum[k];
 					if(tv < 0 || tv >= mesh->numTVertexes)
 					{
-						common->Error("ConvertASEToModelSurfaces: bad tex coord index in ASE file %s", name.c_str());
+						mpSys->Error("ConvertASEToModelSurfaces: bad tex coord index in ASE file %s", name.c_str());
 					}
 					// collapse the tex coord if it was slightly offset
 					tv = tvRemap[tv];
@@ -2097,11 +2097,11 @@ bool idRenderModelStatic::ConvertASEToModelSurfaces(const struct aseModel_s *ase
 		// allocate space for the indexes and copy them
 		if(tri->numIndexes > mesh->numFaces * 3)
 		{
-			common->FatalError("ConvertASEToModelSurfaces: index miscount in ASE file %s", name.c_str());
+			mpSys->FatalError("ConvertASEToModelSurfaces: index miscount in ASE file %s", name.c_str());
 		}
 		if(tri->numVerts > mesh->numFaces * 3)
 		{
-			common->FatalError("ConvertASEToModelSurfaces: vertex miscount in ASE file %s", name.c_str());
+			mpSys->FatalError("ConvertASEToModelSurfaces: vertex miscount in ASE file %s", name.c_str());
 		}
 
 		// an ASE allows the texture coordinates to be scaled, translated, and rotated
@@ -2270,7 +2270,7 @@ bool idRenderModelStatic::ConvertLWOToModelSurfaces(const struct st_lwObject *lw
 	// vertex positions
 	if(layer->point.count <= 0)
 	{
-		common->Warning("ConvertLWOToModelSurfaces: model \'%s\' has bad or missing vertex data", name.c_str());
+		mpSys->Warning("ConvertLWOToModelSurfaces: model \'%s\' has bad or missing vertex data", name.c_str());
 		return false;
 	}
 
@@ -2316,7 +2316,7 @@ bool idRenderModelStatic::ConvertLWOToModelSurfaces(const struct st_lwObject *lw
 	}
 	else
 	{
-		common->Warning("ConvertLWOToModelSurfaces: model \'%s\' has bad or missing uv data", name.c_str());
+		mpSys->Warning("ConvertLWOToModelSurfaces: model \'%s\' has bad or missing uv data", name.c_str());
 		numTVertexes = 1;
 		tvList = (idVec2 *)Mem_ClearedAlloc(numTVertexes * sizeof(tvList[0]), TAG_MODEL);
 	}
@@ -2430,7 +2430,7 @@ bool idRenderModelStatic::ConvertLWOToModelSurfaces(const struct st_lwObject *lw
 
 			if(poly->nverts != 3)
 			{
-				common->Warning("ConvertLWOToModelSurfaces: model %s has too many verts for a poly! Make sure you triplet it down", name.c_str());
+				mpSys->Warning("ConvertLWOToModelSurfaces: model %s has too many verts for a poly! Make sure you triplet it down", name.c_str());
 				continue;
 			}
 
@@ -2540,11 +2540,11 @@ bool idRenderModelStatic::ConvertLWOToModelSurfaces(const struct st_lwObject *lw
 		// allocate space for the indexes and copy them
 		if(tri->numIndexes > layer->polygon.count * 3)
 		{
-			common->FatalError("ConvertLWOToModelSurfaces: index miscount in LWO file %s", name.c_str());
+			mpSys->FatalError("ConvertLWOToModelSurfaces: index miscount in LWO file %s", name.c_str());
 		}
 		if(tri->numVerts > layer->polygon.count * 3)
 		{
-			common->FatalError("ConvertLWOToModelSurfaces: vertex miscount in LWO file %s", name.c_str());
+			mpSys->FatalError("ConvertLWOToModelSurfaces: vertex miscount in LWO file %s", name.c_str());
 		}
 
 		// now allocate and generate the combined vertexes
@@ -2634,7 +2634,7 @@ struct aseModel_s *idRenderModelStatic::ConvertLWOToASE(const struct st_lwObject
 		// vertex positions
 		if(layer->point.count <= 0)
 		{
-			common->Warning("ConvertLWOToASE: model \'%s\' has bad or missing vertex data", name.c_str());
+			mpSys->Warning("ConvertLWOToASE: model \'%s\' has bad or missing vertex data", name.c_str());
 		}
 
 		for(j = 0; j < layer->point.count; j++)
@@ -2678,7 +2678,7 @@ struct aseModel_s *idRenderModelStatic::ConvertLWOToASE(const struct st_lwObject
 		}
 		else
 		{
-			common->Warning("ConvertLWOToASE: model \'%s\' has bad or missing uv data", fileName);
+			mpSys->Warning("ConvertLWOToASE: model \'%s\' has bad or missing uv data", fileName);
 			mesh->numTVertexes = 1;
 			mesh->tvertexes = (idVec2 *)Mem_ClearedAlloc(mesh->numTVertexes * sizeof(mesh->tvertexes[0]), TAG_MODEL);
 		}
@@ -2699,7 +2699,7 @@ struct aseModel_s *idRenderModelStatic::ConvertLWOToASE(const struct st_lwObject
 
 			if(poly->nverts != 3)
 			{
-				common->Warning("ConvertLWOToASE: model %s has too many verts for a poly! Make sure you triplet it down", fileName);
+				mpSys->Warning("ConvertLWOToASE: model %s has too many verts for a poly! Make sure you triplet it down", fileName);
 				continue;
 			}
 
@@ -3017,7 +3017,7 @@ bool idRenderModelStatic::ConvertMAToModelSurfaces(const struct maModel_s *ma)
 
 				if(v < 0 || v >= mesh->numVertexes)
 				{
-					common->Error("ConvertMAToModelSurfaces: bad vertex index in MA file %s", name.c_str());
+					mpSys->Error("ConvertMAToModelSurfaces: bad vertex index in MA file %s", name.c_str());
 				}
 
 				// collapse the position if it was slightly offset
@@ -3029,7 +3029,7 @@ bool idRenderModelStatic::ConvertMAToModelSurfaces(const struct maModel_s *ma)
 					tv = mesh->faces[j].tVertexNum[k];
 					if(tv < 0 || tv >= mesh->numTVertexes)
 					{
-						common->Error("ConvertMAToModelSurfaces: bad tex coord index in MA file %s", name.c_str());
+						mpSys->Error("ConvertMAToModelSurfaces: bad tex coord index in MA file %s", name.c_str());
 					}
 					// collapse the tex coord if it was slightly offset
 					tv = tvRemap[tv];
@@ -3098,11 +3098,11 @@ bool idRenderModelStatic::ConvertMAToModelSurfaces(const struct maModel_s *ma)
 		// allocate space for the indexes and copy them
 		if(tri->numIndexes > mesh->numFaces * 3)
 		{
-			common->FatalError("ConvertMAToModelSurfaces: index miscount in MA file %s", name.c_str());
+			mpSys->FatalError("ConvertMAToModelSurfaces: index miscount in MA file %s", name.c_str());
 		}
 		if(tri->numVerts > mesh->numFaces * 3)
 		{
-			common->FatalError("ConvertMAToModelSurfaces: vertex miscount in MA file %s", name.c_str());
+			mpSys->FatalError("ConvertMAToModelSurfaces: vertex miscount in MA file %s", name.c_str());
 		}
 
 		// an MA allows the texture coordinates to be scaled, translated, and rotated
@@ -3250,12 +3250,12 @@ bool idRenderModelStatic::LoadDAE(const char *fileName)
 
 		timer.Stop();
 
-		common->Printf("...loaded '%s' in %5.2f seconds\n", fileName, timer.Milliseconds() / 1000.0);
+		mpSys->Printf("...loaded '%s' in %5.2f seconds\n", fileName, timer.Milliseconds() / 1000.0);
 	}
 #if defined(USE_EXCEPTIONS)
 	catch(idException &e)
 	{
-		common->Warning("%s", e.GetError());
+		mpSys->Warning("%s", e.GetError());
 	}
 #endif
 

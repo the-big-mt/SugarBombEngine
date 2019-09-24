@@ -320,7 +320,7 @@ idImage *idImageManager::AllocStandaloneImage(const char *name)
 {
 	if(strlen(name) >= MAX_IMAGE_NAME)
 	{
-		common->Error("idImageManager::AllocImage: \"%s\" is too long\n", name);
+		mpSystem->Error("idImageManager::AllocImage: \"%s\" is too long\n", name);
 	}
 
 	idImage *image = new(TAG_IMAGE) idImage(name);
@@ -353,7 +353,7 @@ idImage *idImageManager::ImageFromFunction(const char *_name, void (*generatorFu
 		{
 			if(image->generatorFunction != generatorFunction)
 			{
-				common->DPrintf("WARNING: reused image %s with mixed generators\n", name.c_str());
+				mpSystem->DPrintf("WARNING: reused image %s with mixed generators\n", name.c_str());
 			}
 			return image;
 		}
@@ -692,7 +692,7 @@ void R_CombineCubeImages_f(const idCmdArgs &args)
 		idLib::Printf("writing %s\n", filename);
 		R_WriteTGA(filename, combined, width, height * 6);
 	}
-	gpCommon->SetRefreshOnPrint(false);
+	gpSystem->SetRefreshOnPrint(false);
 }
 
 /*

@@ -111,7 +111,7 @@ bool GL_CheckErrors_( const char* filename, int line )
 				break;
 		}
 		
-		common->Printf( "caught OpenGL error: %s in file %s line %i\n", s, filename, line );
+		gpSys->Printf( "caught OpenGL error: %s in file %s line %i\n", s, filename, line );
 	}
 	
 	return error;
@@ -753,7 +753,7 @@ void idRenderBackend::GL_SelectTexture( int unit )
 	
 	if( unit < 0 || unit >= glConfig.maxTextureImageUnits )
 	{
-		common->Warning( "GL_SelectTexture: unit = %i", unit );
+		mpSys->Warning( "GL_SelectTexture: unit = %i", unit );
 		return;
 	}
 	
@@ -1154,7 +1154,7 @@ void idRenderBackend::BlockingSwapBuffers()
 	const int beforeSwap = Sys_Milliseconds();
 	if( r_showSwapBuffers.GetBool() && beforeSwap - beforeFinish > 1 )
 	{
-		common->Printf( "%i msec to glFinish\n", beforeSwap - beforeFinish );
+		mpSys->Printf( "%i msec to glFinish\n", beforeSwap - beforeFinish );
 	}
 	
 	GLimp_SwapBuffers();
@@ -1162,7 +1162,7 @@ void idRenderBackend::BlockingSwapBuffers()
 	const int beforeFence = Sys_Milliseconds();
 	if( r_showSwapBuffers.GetBool() && beforeFence - beforeSwap > 1 )
 	{
-		common->Printf( "%i msec to swapBuffers\n", beforeFence - beforeSwap );
+		mpSys->Printf( "%i msec to swapBuffers\n", beforeFence - beforeSwap );
 	}
 	
 	if( glConfig.syncAvailable )
@@ -1182,7 +1182,7 @@ void idRenderBackend::BlockingSwapBuffers()
 		const int end = Sys_Milliseconds();
 		if( r_showSwapBuffers.GetBool() && end - start > 1 )
 		{
-			common->Printf( "%i msec to start fence\n", end - start );
+			mpSys->Printf( "%i msec to start fence\n", end - start );
 		}
 		
 		GLsync	syncToWaitOn;
@@ -1207,7 +1207,7 @@ void idRenderBackend::BlockingSwapBuffers()
 	const int afterFence = Sys_Milliseconds();
 	if( r_showSwapBuffers.GetBool() && afterFence - beforeFence > 1 )
 	{
-		common->Printf( "%i msec to wait on fence\n", afterFence - beforeFence );
+		mpSys->Printf( "%i msec to wait on fence\n", afterFence - beforeFence );
 	}
 	
 	const int64 exitBlockTime = Sys_Microseconds();
@@ -1216,7 +1216,7 @@ void idRenderBackend::BlockingSwapBuffers()
 	if( r_showSwapBuffers.GetBool() && prevBlockTime )
 	{
 		const int delta = ( int )( exitBlockTime - prevBlockTime );
-		common->Printf( "blockToBlock: %i\n", delta );
+		mpSys->Printf( "blockToBlock: %i\n", delta );
 	}
 	prevBlockTime = exitBlockTime;
 }
@@ -1367,7 +1367,7 @@ void idRenderBackend::StereoRenderExecuteBackEndCommands( const emptyCommand_t* 
 				}
 				break;
 				default:
-					common->Error( "RB_ExecuteBackEndCommands: bad commandId" );
+					mpSys->Error( "RB_ExecuteBackEndCommands: bad commandId" );
 					break;
 			}
 		}
@@ -1651,7 +1651,7 @@ void idRenderBackend::ExecuteBackEndCommands( const emptyCommand_t* cmds )
 				PostProcess( cmds );
 				break;
 			default:
-				common->Error( "RB_ExecuteBackEndCommands: bad commandId" );
+				mpSys->Error( "RB_ExecuteBackEndCommands: bad commandId" );
 				break;
 		}
 	}
@@ -1669,7 +1669,7 @@ void idRenderBackend::ExecuteBackEndCommands( const emptyCommand_t* cmds )
 	
 	if( r_debugRenderToTexture.GetInteger() == 1 )
 	{
-		common->Printf( "3d: %i, 2d: %i, SetBuf: %i, CpyRenders: %i, CpyFrameBuf: %i\n", c_draw3d, c_draw2d, c_setBuffers, c_copyRenders, pc.c_copyFrameBuffer );
+		mpSys->Printf( "3d: %i, 2d: %i, SetBuf: %i, CpyRenders: %i, CpyFrameBuf: %i\n", c_draw3d, c_draw2d, c_setBuffers, c_copyRenders, pc.c_copyFrameBuffer );
 		pc.c_copyFrameBuffer = 0;
 	}
 	

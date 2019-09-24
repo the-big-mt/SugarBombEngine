@@ -155,12 +155,12 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 		// the internal version value got replaced by DS_VERSION at toplevel
 		if(header.version != 4)
 		{
-			common->Error("Demo version mismatch.\n");
+			mpSys->Error("Demo version mismatch.\n");
 		}
 
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_LOADMAP: %s\n", header.mapname);
+			mpSys->Printf("DC_LOADMAP: %s\n", header.mapname);
 		}
 		// Clean up existing Renderer before loading the new map.
 		FreeWorld();
@@ -184,7 +184,7 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_CACHESKINS: %d\n", numSkins);
+			mpSys->Printf("DC_CACHESKINS: %d\n", numSkins);
 		}
 		break;
 	}
@@ -201,7 +201,7 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_CACHE_PARTICLES: %d\n", numDecls);
+			mpSys->Printf("DC_CACHE_PARTICLES: %d\n", numDecls);
 		}
 		break;
 	}
@@ -218,7 +218,7 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_CACHE_MATERIALS: %d\n", numDecls);
+			mpSys->Printf("DC_CACHE_MATERIALS: %d\n", numDecls);
 		}
 		break;
 	}
@@ -248,7 +248,7 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 		if(r_showDemo.GetBool())
 		{
 			// foresthale 2014-05-19: /analyze fix - was time, changed to time[0]
-			common->Printf("DC_RENDERVIEW: %i\n", renderView->time[0]);
+			mpSys->Printf("DC_RENDERVIEW: %i\n", renderView->time[0]);
 		}
 
 		// possibly change the time offset if this is from a new map
@@ -271,7 +271,7 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 		}
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_DELETE_ENTITYDEF: %i\n", h);
+			mpSys->Printf("DC_DELETE_ENTITYDEF: %i\n", h);
 		}
 		FreeEntityDef(h);
 		break;
@@ -289,7 +289,7 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 		}
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_DELETE_LIGHTDEF: %i\n", h);
+			mpSys->Printf("DC_DELETE_LIGHTDEF: %i\n", h);
 		}
 		FreeLightDef(h);
 		break;
@@ -298,7 +298,7 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 	{
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_CAPTURE_RENDER\n");
+			mpSys->Printf("DC_CAPTURE_RENDER\n");
 		}
 		renderSystem->CaptureRenderToImage(readDemo->ReadHashString());
 		break;
@@ -307,7 +307,7 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 	{
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_CROP_RENDER\n");
+			mpSys->Printf("DC_CROP_RENDER\n");
 		}
 		int width, height;
 		readDemo->ReadInt(width);
@@ -319,7 +319,7 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 	{
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_UNCROP\n");
+			mpSys->Printf("DC_UNCROP\n");
 		}
 		renderSystem->UnCrop();
 		break;
@@ -328,7 +328,7 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 	{
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_GUI_MODEL\n");
+			mpSys->Printf("DC_GUI_MODEL\n");
 		}
 		break;
 	}
@@ -344,7 +344,7 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_DEFINE_MODEL\n");
+			mpSys->Printf("DC_DEFINE_MODEL\n");
 		}
 		break;
 	}
@@ -413,7 +413,7 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 		SetPortalState(data[0], data[1]);
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_SET_PORTAL_STATE: %i %i\n", data[0], data[1]);
+			mpSys->Printf("DC_SET_PORTAL_STATE: %i %i\n", data[0], data[1]);
 		}
 		break;
 	}
@@ -421,12 +421,12 @@ bool idRenderWorldLocal::ProcessDemoCommand(idDemoFile *readDemo, renderView_t *
 	{
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("DC_END_FRAME\n");
+			mpSys->Printf("DC_END_FRAME\n");
 		}
 		return true;
 	}
 	default:
-		common->Error("Bad demo render command '%d' in demo stream", dc);
+		mpSys->Error("Bad demo render command '%d' in demo stream", dc);
 		break;
 	}
 
@@ -463,7 +463,7 @@ void idRenderWorldLocal::WriteLoadMap()
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("write DC_LOADMAP: %s\n", mapName.c_str());
+		mpSys->Printf("write DC_LOADMAP: %s\n", mapName.c_str());
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -472,21 +472,21 @@ void idRenderWorldLocal::WriteLoadMap()
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("write DC_CACHESKINS: %s\n", mapName.c_str());
+		mpSys->Printf("write DC_CACHESKINS: %s\n", mapName.c_str());
 	}
 
 	WriteDeclCache(f, DS_RENDER, DC_CACHE_PARTICLES, DECL_PARTICLE);
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("write DC_CACHEPARTICLES: %s\n", mapName.c_str());
+		mpSys->Printf("write DC_CACHEPARTICLES: %s\n", mapName.c_str());
 	}
 
 	WriteDeclCache(f, DS_RENDER, DC_CACHE_MATERIALS, DECL_MATERIAL);
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("write DC_CACHEPARTICLES: %s\n", mapName.c_str());
+		mpSys->Printf("write DC_CACHEPARTICLES: %s\n", mapName.c_str());
 	}
 
 	for(int i = 0; i < lightDefs.Num(); i++)
@@ -506,7 +506,7 @@ void idRenderWorldLocal::WriteLoadMap()
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("write DC_CACHESKIN: %s\n", mapName.c_str());
+		mpSys->Printf("write DC_CACHESKIN: %s\n", mapName.c_str());
 	}
 }
 
@@ -593,7 +593,7 @@ void idRenderWorldLocal::WriteRenderView(const renderView_t *renderView)
 	if(r_showDemo.GetBool())
 	{
 		// foresthale 2014-05-19: /analyze fix - was time, changed to time[0]
-		common->Printf("write DC_RENDERVIEW: %i\n", renderView->time[0]);
+		mpSys->Printf("write DC_RENDERVIEW: %i\n", renderView->time[0]);
 	}
 }
 
@@ -617,7 +617,7 @@ void idRenderWorldLocal::WriteFreeEntity(qhandle_t handle)
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("write DC_DELETE_ENTITYDEF: %i\n", handle);
+		mpSys->Printf("write DC_DELETE_ENTITYDEF: %i\n", handle);
 	}
 }
 
@@ -641,7 +641,7 @@ void idRenderWorldLocal::WriteFreeLight(qhandle_t handle)
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("write DC_DELETE_LIGHTDEF: %i\n", handle);
+		mpSys->Printf("write DC_DELETE_LIGHTDEF: %i\n", handle);
 	}
 }
 
@@ -716,7 +716,7 @@ void idRenderWorldLocal::WriteRenderLight(idDemoFile *f, qhandle_t handle, const
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("write DC_UPDATE_LIGHTDEF: %i\n", handle);
+		mpSys->Printf("write DC_UPDATE_LIGHTDEF: %i\n", handle);
 	}
 }
 
@@ -733,12 +733,12 @@ void idRenderWorldLocal::ReadRenderLight()
 	common->ReadDemo()->ReadInt(index);
 	if(index < 0)
 	{
-		common->Error("ReadRenderLight: index < 0 ");
+		mpSys->Error("ReadRenderLight: index < 0 ");
 	}
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("DC_UPDATE_LIGHTDEF: init %i\n", index);
+		mpSys->Printf("DC_UPDATE_LIGHTDEF: init %i\n", index);
 	}
 	/* Initialize Pointers */
 	light.prelightModel = nullptr;
@@ -790,7 +790,7 @@ void idRenderWorldLocal::ReadRenderLight()
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("DC_UPDATE_LIGHTDEF: %i\n", index);
+		mpSys->Printf("DC_UPDATE_LIGHTDEF: %i\n", index);
 	}
 }
 
@@ -937,7 +937,7 @@ void idRenderWorldLocal::WriteFreeDecal(idDemoFile *f, qhandle_t handle)
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("write DC_DELETE_DECAL: %i\n", handle);
+		mpSys->Printf("write DC_DELETE_DECAL: %i\n", handle);
 	}
 }
 
@@ -961,7 +961,7 @@ void idRenderWorldLocal::WriteRenderOverlay(idDemoFile *f, qhandle_t handle)
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("write DC_UPDATE_OVERLAY: %i\n", handle);
+		mpSys->Printf("write DC_UPDATE_OVERLAY: %i\n", handle);
 	}
 }
 
@@ -984,7 +984,7 @@ void idRenderWorldLocal::WriteFreeOverlay(idDemoFile *f, qhandle_t handle)
 
 	if(r_showDemo.GetBool())
 	{
-		common->Printf("write DC_DELETE_OVERLAY: %i\n", handle);
+		mpSys->Printf("write DC_DELETE_OVERLAY: %i\n", handle);
 	}
 }
 

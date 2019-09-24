@@ -58,7 +58,7 @@ void R_ListRenderLightDefs_f(const idCmdArgs &args)
 		ldef = tr.primaryWorld->lightDefs[i];
 		if(!ldef)
 		{
-			common->Printf("%4i: FREED\n", i);
+			gpSys->Printf("%4i: FREED\n", i);
 			continue;
 		}
 
@@ -78,11 +78,11 @@ void R_ListRenderLightDefs_f(const idCmdArgs &args)
 		}
 		totalRef += rCount;
 
-		common->Printf("%4i: %3i intr %2i refs %s\n", i, iCount, rCount, ldef->lightShader->GetName());
+		gpSys->Printf("%4i: %3i intr %2i refs %s\n", i, iCount, rCount, ldef->lightShader->GetName());
 		active++;
 	}
 
-	common->Printf("%i lightDefs, %i interactions, %i areaRefs\n", active, totalIntr, totalRef);
+	gpSys->Printf("%i lightDefs, %i interactions, %i areaRefs\n", active, totalIntr, totalRef);
 }
 
 /*
@@ -108,7 +108,7 @@ void R_ListRenderEntityDefs_f(const idCmdArgs &args)
 		mdef = tr.primaryWorld->entityDefs[i];
 		if(!mdef)
 		{
-			common->Printf("%4i: FREED\n", i);
+			gpSys->Printf("%4i: FREED\n", i);
 			continue;
 		}
 
@@ -128,11 +128,11 @@ void R_ListRenderEntityDefs_f(const idCmdArgs &args)
 		}
 		totalRef += rCount;
 
-		common->Printf("%4i: %3i intr %2i refs %s\n", i, iCount, rCount, mdef->parms.hModel->Name());
+		gpSys->Printf("%4i: %3i intr %2i refs %s\n", i, iCount, rCount, mdef->parms.hModel->Name());
 		active++;
 	}
 
-	common->Printf("total active: %i\n", active);
+	gpSys->Printf("total active: %i\n", active);
 }
 
 /*
@@ -211,7 +211,7 @@ ResizeInteractionTable
 void idRenderWorldLocal::ResizeInteractionTable()
 {
 	// we overflowed the interaction table, so make it larger
-	common->Printf("idRenderWorldLocal::ResizeInteractionTable: overflowed interactionTable, resizing\n");
+	mpSys->Printf("idRenderWorldLocal::ResizeInteractionTable: overflowed interactionTable, resizing\n");
 
 	const int oldInteractionTableWidth = interactionTableWidth;
 	const int oldIinteractionTableHeight = interactionTableHeight;
@@ -279,13 +279,13 @@ void idRenderWorldLocal::UpdateEntityDef(qhandle_t entityHandle, const renderEnt
 
 	if(!re->hModel && !re->callback)
 	{
-		common->Error("idRenderWorld::UpdateEntityDef: nullptr hModel");
+		mpSys->Error("idRenderWorld::UpdateEntityDef: nullptr hModel");
 	}
 
 	// create new slots if needed
 	if(entityHandle < 0 || entityHandle > LUDICROUS_INDEX)
 	{
-		common->Error("idRenderWorld::UpdateEntityDef: index = %i", entityHandle);
+		mpSys->Error("idRenderWorld::UpdateEntityDef: index = %i", entityHandle);
 	}
 	while(entityHandle >= entityDefs.Num())
 	{
@@ -383,14 +383,14 @@ void idRenderWorldLocal::FreeEntityDef(qhandle_t entityHandle)
 
 	if(entityHandle < 0 || entityHandle >= entityDefs.Num())
 	{
-		common->Printf("idRenderWorld::FreeEntityDef: handle %i > %i\n", entityHandle, entityDefs.Num());
+		mpSys->Printf("idRenderWorld::FreeEntityDef: handle %i > %i\n", entityHandle, entityDefs.Num());
 		return;
 	}
 
 	def = entityDefs[entityHandle];
 	if(!def)
 	{
-		common->Printf("idRenderWorld::FreeEntityDef: handle %i is nullptr\n", entityHandle);
+		mpSys->Printf("idRenderWorld::FreeEntityDef: handle %i is nullptr\n", entityHandle);
 		return;
 	}
 
@@ -424,14 +424,14 @@ const renderEntity_t *idRenderWorldLocal::GetRenderEntity(qhandle_t entityHandle
 
 	if(entityHandle < 0 || entityHandle >= entityDefs.Num())
 	{
-		common->Printf("idRenderWorld::GetRenderEntity: invalid handle %i [0, %i]\n", entityHandle, entityDefs.Num());
+		mpSys->Printf("idRenderWorld::GetRenderEntity: invalid handle %i [0, %i]\n", entityHandle, entityDefs.Num());
 		return nullptr;
 	}
 
 	def = entityDefs[entityHandle];
 	if(!def)
 	{
-		common->Printf("idRenderWorld::GetRenderEntity: handle %i is nullptr\n", entityHandle);
+		mpSys->Printf("idRenderWorld::GetRenderEntity: handle %i is nullptr\n", entityHandle);
 		return nullptr;
 	}
 
@@ -483,7 +483,7 @@ void idRenderWorldLocal::UpdateLightDef(qhandle_t lightHandle, const renderLight
 	// create new slots if needed
 	if(lightHandle < 0 || lightHandle > LUDICROUS_INDEX)
 	{
-		common->Error("idRenderWorld::UpdateLightDef: index = %i", lightHandle);
+		mpSys->Error("idRenderWorld::UpdateLightDef: index = %i", lightHandle);
 	}
 	while(lightHandle >= lightDefs.Num())
 	{
@@ -563,14 +563,14 @@ void idRenderWorldLocal::FreeLightDef(qhandle_t lightHandle)
 
 	if(lightHandle < 0 || lightHandle >= lightDefs.Num())
 	{
-		common->Printf("idRenderWorld::FreeLightDef: invalid handle %i [0, %i]\n", lightHandle, lightDefs.Num());
+		mpSys->Printf("idRenderWorld::FreeLightDef: invalid handle %i [0, %i]\n", lightHandle, lightDefs.Num());
 		return;
 	}
 
 	light = lightDefs[lightHandle];
 	if(!light)
 	{
-		common->Printf("idRenderWorld::FreeLightDef: handle %i is nullptr\n", lightHandle);
+		mpSys->Printf("idRenderWorld::FreeLightDef: handle %i is nullptr\n", lightHandle);
 		return;
 	}
 
@@ -596,14 +596,14 @@ const renderLight_t *idRenderWorldLocal::GetRenderLight(qhandle_t lightHandle) c
 
 	if(lightHandle < 0 || lightHandle >= lightDefs.Num())
 	{
-		common->Printf("idRenderWorld::GetRenderLight: handle %i > %i\n", lightHandle, lightDefs.Num());
+		mpSys->Printf("idRenderWorld::GetRenderLight: handle %i > %i\n", lightHandle, lightDefs.Num());
 		return nullptr;
 	}
 
 	def = lightDefs[lightHandle];
 	if(!def)
 	{
-		common->Printf("idRenderWorld::GetRenderLight: handle %i is nullptr\n", lightHandle);
+		mpSys->Printf("idRenderWorld::GetRenderLight: handle %i is nullptr\n", lightHandle);
 		return nullptr;
 	}
 
@@ -688,7 +688,7 @@ void idRenderWorldLocal::ProjectDecal(qhandle_t entityHandle, const idFixedWindi
 {
 	if(entityHandle < 0 || entityHandle >= entityDefs.Num())
 	{
-		common->Error("idRenderWorld::ProjectOverlay: index = %i", entityHandle);
+		mpSys->Error("idRenderWorld::ProjectOverlay: index = %i", entityHandle);
 		return;
 	}
 
@@ -742,7 +742,7 @@ void idRenderWorldLocal::ProjectOverlay(qhandle_t entityHandle, const idPlane lo
 {
 	if(entityHandle < 0 || entityHandle >= entityDefs.Num())
 	{
-		common->Error("idRenderWorld::ProjectOverlay: index = %i", entityHandle);
+		mpSys->Error("idRenderWorld::ProjectOverlay: index = %i", entityHandle);
 		return;
 	}
 
@@ -854,7 +854,7 @@ void idRenderWorldLocal::RemoveDecals(qhandle_t entityHandle)
 {
 	if(entityHandle < 0 || entityHandle >= entityDefs.Num())
 	{
-		common->Error("idRenderWorld::ProjectOverlay: index = %i", entityHandle);
+		mpSys->Error("idRenderWorld::ProjectOverlay: index = %i", entityHandle);
 		return;
 	}
 
@@ -911,7 +911,7 @@ void idRenderWorldLocal::RenderScene(const renderView_t *renderView)
 
 	if(renderView->fov_x <= 0 || renderView->fov_y <= 0)
 	{
-		common->Error("idRenderWorld::RenderScene: bad FOVs: %f, %f", renderView->fov_x, renderView->fov_y);
+		mpSys->Error("idRenderWorld::RenderScene: bad FOVs: %f, %f", renderView->fov_x, renderView->fov_y);
 	}
 
 	// close any gui drawing
@@ -1039,7 +1039,7 @@ int idRenderWorldLocal::NumPortalsInArea(int areaNum)
 
 	if(areaNum >= numPortalAreas || areaNum < 0)
 	{
-		common->Error("idRenderWorld::NumPortalsInArea: bad areanum %i", areaNum);
+		mpSys->Error("idRenderWorld::NumPortalsInArea: bad areanum %i", areaNum);
 	}
 	area = &portalAreas[areaNum];
 
@@ -1065,7 +1065,7 @@ exitPortal_t idRenderWorldLocal::GetPortal(int areaNum, int portalNum)
 
 	if(areaNum > numPortalAreas)
 	{
-		common->Error("idRenderWorld::GetPortal: areaNum > numAreas");
+		mpSys->Error("idRenderWorld::GetPortal: areaNum > numAreas");
 	}
 	area = &portalAreas[areaNum];
 
@@ -1084,7 +1084,7 @@ exitPortal_t idRenderWorldLocal::GetPortal(int areaNum, int portalNum)
 		count++;
 	}
 
-	common->Error("idRenderWorld::GetPortal: portalNum > numPortals");
+	mpSys->Error("idRenderWorld::GetPortal: portalNum > numPortals");
 
 	memset(&ret, 0, sizeof(ret));
 	return ret;
@@ -1129,7 +1129,7 @@ int idRenderWorldLocal::PointInArea(const idVec3 &point) const
 			nodeNum = -1 - nodeNum;
 			if(nodeNum >= numPortalAreas)
 			{
-				common->Error("idRenderWorld::PointInArea: area out of range");
+				mpSys->Error("idRenderWorld::PointInArea: area out of range");
 			}
 			return nodeNum;
 		}
@@ -1239,14 +1239,14 @@ guiPoint_t idRenderWorldLocal::GuiTrace(qhandle_t entityHandle, const idVec3 sta
 
 	if((entityHandle < 0) || (entityHandle >= entityDefs.Num()))
 	{
-		common->Printf("idRenderWorld::GuiTrace: invalid handle %i\n", entityHandle);
+		mpSys->Printf("idRenderWorld::GuiTrace: invalid handle %i\n", entityHandle);
 		return pt;
 	}
 
 	idRenderEntityLocal *def = entityDefs[entityHandle];
 	if(def == nullptr)
 	{
-		common->Printf("idRenderWorld::GuiTrace: handle %i is nullptr\n", entityHandle);
+		mpSys->Printf("idRenderWorld::GuiTrace: handle %i is nullptr\n", entityHandle);
 		return pt;
 	}
 
@@ -1671,7 +1671,7 @@ void idRenderWorldLocal::AddEntityRefToArea(idRenderEntityLocal *def, portalArea
 
 	if(def == nullptr)
 	{
-		common->Error("idRenderWorldLocal::AddEntityRefToArea: nullptr def");
+		mpSys->Error("idRenderWorldLocal::AddEntityRefToArea: nullptr def");
 		return;
 	}
 
@@ -1819,9 +1819,9 @@ void idRenderWorldLocal::GenerateAllInteractions()
 	int end = Sys_Milliseconds();
 	int msec = end - start;
 
-	common->Printf("idRenderWorld::GenerateAllInteractions, msec = %i\n", msec);
-	common->Printf("interactionTable size: %i bytes\n", size);
-	common->Printf("%i interactions take %i bytes\n", count, count * sizeof(idInteraction));
+	mpSys->Printf("idRenderWorld::GenerateAllInteractions, msec = %i\n", msec);
+	mpSys->Printf("interactionTable size: %i bytes\n", size);
+	mpSys->Printf("%i interactions take %i bytes\n", count, count * sizeof(idInteraction));
 
 	// entities flagged as noDynamicInteractions will no longer make any
 	generateAllInteractionsCalled = true;

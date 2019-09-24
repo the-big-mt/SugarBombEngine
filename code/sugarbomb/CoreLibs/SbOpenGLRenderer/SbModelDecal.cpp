@@ -93,7 +93,7 @@ bool idRenderModelDecal::CreateProjectionParms(idCommon *common, decalProjection
 {
 	if(winding.GetNumPoints() != NUM_DECAL_BOUNDING_PLANES - 2)
 	{
-		common->Printf("idRenderModelDecal::CreateProjectionInfo: winding must have %d points\n", NUM_DECAL_BOUNDING_PLANES - 2);
+		apSystem->Printf("idRenderModelDecal::CreateProjectionInfo: winding must have %d points\n", NUM_DECAL_BOUNDING_PLANES - 2);
 		return false;
 	}
 

@@ -135,17 +135,17 @@ void ColladaParser::ReadContents()
 					if(!idStr::Cmpn(version, "1.5", 3))
 					{
 						mFormat = FV_1_5_n;
-						common->Printf("Collada schema version is 1.5.n\n");
+						mpSystem->Printf("Collada schema version is 1.5.n\n");
 					}
 					else if(!idStr::Cmpn(version, "1.4", 3))
 					{
 						mFormat = FV_1_4_n;
-						common->Printf("Collada schema version is 1.4.n\n");
+						mpSystem->Printf("Collada schema version is 1.4.n\n");
 					}
 					else if(!idStr::Cmpn(version, "1.3", 3))
 					{
 						mFormat = FV_1_3_n;
-						common->Printf("Collada schema version is 1.3.n\n");
+						mpSystem->Printf("Collada schema version is 1.3.n\n");
 					}
 				}
 
@@ -153,7 +153,7 @@ void ColladaParser::ReadContents()
 			}
 			else
 			{
-				common->Printf("Ignoring global element \"%s\".\n", mReader->getNodeName());
+				mpSystem->Printf("Ignoring global element \"%s\".\n", mReader->getNodeName());
 				SkipElement();
 			}
 		}
@@ -2453,7 +2453,7 @@ void ColladaParser::ExtractDataObjectFromChannel(const InputChannel &pInput, siz
 		if(pInput.mIndex == 0)
 			pMesh->mPositions.Append(idVec3(obj[0], obj[1], obj[2]));
 		else
-			common->Error("Collada: just one vertex position stream supported");
+			mpSystem->Error("Collada: just one vertex position stream supported");
 		break;
 
 	case IT_Normal:
@@ -2472,7 +2472,7 @@ void ColladaParser::ExtractDataObjectFromChannel(const InputChannel &pInput, siz
 		if(pInput.mIndex == 0)
 			pMesh->mNormals.Append(idVec3(obj[0], obj[1], obj[2]));
 		else
-			common->Error("Collada: just one vertex normal stream supported");
+			mpSystem->Error("Collada: just one vertex normal stream supported");
 		break;
 
 	case IT_Tangent:
@@ -2491,7 +2491,7 @@ void ColladaParser::ExtractDataObjectFromChannel(const InputChannel &pInput, siz
 		if(pInput.mIndex == 0)
 			pMesh->mTangents.Append(idVec3(obj[0], obj[1], obj[2]));
 		else
-			common->Error("Collada: just one vertex tangent stream supported");
+			mpSystem->Error("Collada: just one vertex tangent stream supported");
 		break;
 
 	case IT_Bitangent:
@@ -2510,7 +2510,7 @@ void ColladaParser::ExtractDataObjectFromChannel(const InputChannel &pInput, siz
 		if(pInput.mIndex == 0)
 			pMesh->mBitangents.Append(idVec3(obj[0], obj[1], obj[2]));
 		else
-			common->Error("Collada: just one vertex bitangent stream supported");
+			mpSystem->Error("Collada: just one vertex bitangent stream supported");
 		break;
 
 	case IT_Texcoord:
@@ -2545,7 +2545,7 @@ void ColladaParser::ExtractDataObjectFromChannel(const InputChannel &pInput, siz
 		}
 		else
 		{
-			common->Error("Collada: too many texture coordinate sets. Skipping.");
+			mpSystem->Error("Collada: too many texture coordinate sets. Skipping.");
 		}
 		break;
 
@@ -2576,7 +2576,7 @@ void ColladaParser::ExtractDataObjectFromChannel(const InputChannel &pInput, siz
 		}
 		else
 		{
-			common->Error("Collada: too many vertex color sets. Skipping.");
+			mpSystem->Error("Collada: too many vertex color sets. Skipping.");
 		}
 
 		break;
@@ -2710,7 +2710,7 @@ void ColladaParser::ReadSceneNode(Node *pNode)
 				{
 					const char *s = mReader->getAttributeValue(attrId);
 					if(s[0] != '#')
-						common->Error("Collada: Unresolved reference format of camera");
+						mpSystem->Error("Collada: Unresolved reference format of camera");
 					else
 						pNode->mPrimaryCamera = s + 1;
 				}
@@ -2723,7 +2723,7 @@ void ColladaParser::ReadSceneNode(Node *pNode)
 				{
 					const char *s = mReader->getAttributeValue(attrID);
 					if(s[0] != '#')
-						common->Error("Collada: Unresolved reference format of node");
+						mpSystem->Error("Collada: Unresolved reference format of node");
 					else
 					{
 						NodeInstance nodeInstance;
@@ -2743,7 +2743,7 @@ void ColladaParser::ReadSceneNode(Node *pNode)
 				// Reference to a light, name given in 'url' attribute
 				int attrID = TestAttribute("url");
 				if(-1 == attrID)
-					common->Warning("Collada: Expected url attribute in <instance_light> element");
+					mpSystem->Warning("Collada: Expected url attribute in <instance_light> element");
 				else
 				{
 					const char *url = mReader->getAttributeValue(attrID);
@@ -2761,7 +2761,7 @@ void ColladaParser::ReadSceneNode(Node *pNode)
 				// Reference to a camera, name given in 'url' attribute
 				int attrID = TestAttribute("url");
 				if(-1 == attrID)
-					common->Warning("Collada: Expected url attribute in <instance_camera> element");
+					mpSystem->Warning("Collada: Expected url attribute in <instance_camera> element");
 				else
 				{
 					const char *url = mReader->getAttributeValue(attrID);
@@ -2861,7 +2861,7 @@ void ColladaParser::ReadMaterialVertexInputBinding(Collada::SemanticMappingTable
 			}
 			else if(IsElement("bind"))
 			{
-				common->Warning("Collada: Found unsupported <bind> element");
+				mpSystem->Warning("Collada: Found unsupported <bind> element");
 			}
 		}
 		else if(mReader->getNodeType() == irr::io::EXN_ELEMENT_END)
@@ -2976,7 +2976,7 @@ void ColladaParser::ThrowException(const idStr &pError) const
 #if defined(USE_EXCEPTIONS)
 	throw idException(va("Collada: %s - %s", mFileName.c_str(), pError.c_str()));
 #else
-	common->FatalError("%s", va("Collada: %s - %s", mFileName.c_str(), pError.c_str()));
+	mpSystem->FatalError("%s", va("Collada: %s - %s", mFileName.c_str(), pError.c_str()));
 #endif
 }
 
@@ -3199,7 +3199,7 @@ Collada::InputType ColladaParser::GetTypeForSemantic(const idStr &pSemantic)
 	else if(pSemantic == "TANGENT" || pSemantic == "TEXTANGENT")
 		return IT_Tangent;
 
-	common->Warning("Unknown vertex input type \"%s\". Ignoring.", pSemantic.c_str());
+	mpSystem->Warning("Unknown vertex input type \"%s\". Ignoring.", pSemantic.c_str());
 	return IT_Invalid;
 }
 

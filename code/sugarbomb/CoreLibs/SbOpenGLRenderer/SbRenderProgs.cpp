@@ -89,7 +89,7 @@ idRenderProgManager::Init()
 */
 void idRenderProgManager::Init()
 {
-	common->Printf("----- Initializing Render Shaders -----\n");
+	mpSys->Printf("----- Initializing Render Shaders -----\n");
 
 	for(int i = 0; i < MAX_BUILTINS; i++)
 	{

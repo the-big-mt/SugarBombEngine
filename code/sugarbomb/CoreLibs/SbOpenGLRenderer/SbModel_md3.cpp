@@ -96,7 +96,7 @@ void idRenderModelMD3::InitFromFile(const char *fileName)
 	if(version != MD3_VERSION)
 	{
 		fileSystem->FreeFile(buffer);
-		common->Warning("InitFromFile: %s has wrong version (%i should be %i)",
+		mpSys->Warning("InitFromFile: %s has wrong version (%i should be %i)",
 		                fileName, version, MD3_VERSION);
 		return;
 	}
@@ -119,7 +119,7 @@ void idRenderModelMD3::InitFromFile(const char *fileName)
 
 	if(md3->numFrames < 1)
 	{
-		common->Warning("InitFromFile: %s has no frames", fileName);
+		mpSys->Warning("InitFromFile: %s has no frames", fileName);
 		fileSystem->FreeFile(buffer);
 		return;
 	}
@@ -168,12 +168,12 @@ void idRenderModelMD3::InitFromFile(const char *fileName)
 
 		if(surf->numVerts > SHADER_MAX_VERTEXES)
 		{
-			common->Error("InitFromFile: %s has more than %i verts on a surface (%i)",
+			mpSys->Error("InitFromFile: %s has more than %i verts on a surface (%i)",
 			              fileName, SHADER_MAX_VERTEXES, surf->numVerts);
 		}
 		if(surf->numTriangles * 3 > SHADER_MAX_INDEXES)
 		{
-			common->Error("InitFromFile: %s has more than %i triangles on a surface (%i)",
+			mpSys->Error("InitFromFile: %s has more than %i triangles on a surface (%i)",
 			              fileName, SHADER_MAX_INDEXES / 3, surf->numTriangles);
 		}
 

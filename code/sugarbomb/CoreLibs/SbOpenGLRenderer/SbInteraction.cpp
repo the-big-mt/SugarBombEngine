@@ -541,7 +541,7 @@ idInteraction *idInteraction::AllocAndLink(idRenderEntityLocal *edef, idRenderLi
 {
 	if(edef == nullptr || ldef == nullptr)
 	{
-		common->Error("idInteraction::AllocAndLink: nullptr parm");
+		mpSystem->Error("idInteraction::AllocAndLink: nullptr parm");
 		return nullptr;
 	}
 
@@ -588,7 +588,7 @@ idInteraction *idInteraction::AllocAndLink(idRenderEntityLocal *edef, idRenderLi
 		int index = ldef->index * renderWorld->interactionTableWidth + edef->index;
 		if(renderWorld->interactionTable[index] != nullptr)
 		{
-			common->Error("idInteraction::AllocAndLink: non nullptr table entry");
+			mpSystem->Error("idInteraction::AllocAndLink: non nullptr table entry");
 		}
 		renderWorld->interactionTable[index] = interaction;
 	}
@@ -686,7 +686,7 @@ void idInteraction::UnlinkAndFree()
 		int index = this->lightDef->index * renderWorld->interactionTableWidth + this->entityDef->index;
 		if(renderWorld->interactionTable[index] != this && renderWorld->interactionTable[index] != INTERACTION_EMPTY)
 		{
-			common->Error("idInteraction::UnlinkAndFree: interactionTable wasn't set");
+			mpSystem->Error("idInteraction::UnlinkAndFree: interactionTable wasn't set");
 		}
 		renderWorld->interactionTable[index] = nullptr;
 	}
@@ -976,12 +976,12 @@ void R_ShowInteractionMemory_f(const idCmdArgs &args)
 		}
 	}
 
-	common->Printf("%i entities with %i total interactions\n", entities, interactions);
-	common->Printf("%i deferred interactions, %i empty interactions\n", deferredInteractions, emptyInteractions);
-	common->Printf("%5i indexes in %5i light tris\n", lightTriIndexes, lightTris);
-	common->Printf("%5i indexes in %5i shadow tris\n", shadowTriIndexes, shadowTris);
-	common->Printf("%i maxInteractionsForEntity\n", maxInteractionsForEntity);
-	common->Printf("%i maxInteractionsForLight\n", maxInteractionsForLight);
+	gpSys->Printf("%i entities with %i total interactions\n", entities, interactions);
+	gpSys->Printf("%i deferred interactions, %i empty interactions\n", deferredInteractions, emptyInteractions);
+	gpSys->Printf("%5i indexes in %5i light tris\n", lightTriIndexes, lightTris);
+	gpSys->Printf("%5i indexes in %5i shadow tris\n", shadowTriIndexes, shadowTris);
+	gpSys->Printf("%i maxInteractionsForEntity\n", maxInteractionsForEntity);
+	gpSys->Printf("%i maxInteractionsForLight\n", maxInteractionsForLight);
 }
 
 //} // namespace BFG

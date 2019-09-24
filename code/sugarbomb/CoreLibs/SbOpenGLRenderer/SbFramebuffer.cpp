@@ -51,7 +51,7 @@ static void R_ListFramebuffers_f(const idCmdArgs &args)
 {
 	if(!glConfig.framebufferObjectAvailable)
 	{
-		gpCommon->Printf("GL_EXT_framebuffer_object is not available.\n");
+		gpSystem->Printf("GL_EXT_framebuffer_object is not available.\n");
 		return;
 	}
 }
@@ -387,7 +387,7 @@ void Framebuffer::AddColorBuffer(int format, int index, int multiSamples)
 {
 	if(index < 0 || index >= glConfig.maxColorAttachments)
 	{
-		common->Warning("Framebuffer::AddColorBuffer( %s ): bad index = %i", fboName.c_str(), index);
+		mpSys->Warning("Framebuffer::AddColorBuffer( %s ): bad index = %i", fboName.c_str(), index);
 		return;
 	}
 
@@ -455,13 +455,13 @@ void Framebuffer::AttachImage2D(int target, const idImage *image, int index, int
 {
 	if((target != GL_TEXTURE_2D) && (target != GL_TEXTURE_2D_MULTISAMPLE) && (target < GL_TEXTURE_CUBE_MAP_POSITIVE_X || target > GL_TEXTURE_CUBE_MAP_NEGATIVE_Z))
 	{
-		common->Warning("Framebuffer::AttachImage2D( %s ): invalid target", fboName.c_str());
+		mpSys->Warning("Framebuffer::AttachImage2D( %s ): invalid target", fboName.c_str());
 		return;
 	}
 
 	if(index < 0 || index >= glConfig.maxColorAttachments)
 	{
-		common->Warning("Framebuffer::AttachImage2D( %s ): bad index = %i", fboName.c_str(), index);
+		mpSys->Warning("Framebuffer::AttachImage2D( %s ): bad index = %i", fboName.c_str(), index);
 		return;
 	}
 
@@ -472,7 +472,7 @@ void Framebuffer::AttachImageDepth(int target, const idImage *image)
 {
 	if((target != GL_TEXTURE_2D) && (target != GL_TEXTURE_2D_MULTISAMPLE))
 	{
-		common->Warning("Framebuffer::AttachImageDepth( %s ): invalid target", fboName.c_str());
+		mpSys->Warning("Framebuffer::AttachImageDepth( %s ): invalid target", fboName.c_str());
 		return;
 	}
 
@@ -502,35 +502,35 @@ void Framebuffer::Check()
 	switch(status)
 	{
 	case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
-		common->Error("Framebuffer::Check( %s ): Framebuffer incomplete, incomplete attachment", fboName.c_str());
+		mpSys->Error("Framebuffer::Check( %s ): Framebuffer incomplete, incomplete attachment", fboName.c_str());
 		break;
 
 	case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
-		common->Error("Framebuffer::Check( %s ): Framebuffer incomplete, missing attachment", fboName.c_str());
+		mpSys->Error("Framebuffer::Check( %s ): Framebuffer incomplete, missing attachment", fboName.c_str());
 		break;
 
 	case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER:
-		common->Error("Framebuffer::Check( %s ): Framebuffer incomplete, missing draw buffer", fboName.c_str());
+		mpSys->Error("Framebuffer::Check( %s ): Framebuffer incomplete, missing draw buffer", fboName.c_str());
 		break;
 
 	case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER:
-		common->Error("Framebuffer::Check( %s ): Framebuffer incomplete, missing read buffer", fboName.c_str());
+		mpSys->Error("Framebuffer::Check( %s ): Framebuffer incomplete, missing read buffer", fboName.c_str());
 		break;
 
 	case GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS:
-		common->Error("Framebuffer::Check( %s ): Framebuffer incomplete, missing layer targets", fboName.c_str());
+		mpSys->Error("Framebuffer::Check( %s ): Framebuffer incomplete, missing layer targets", fboName.c_str());
 		break;
 
 	case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE:
-		common->Error("Framebuffer::Check( %s ): Framebuffer incomplete, missing multisample", fboName.c_str());
+		mpSys->Error("Framebuffer::Check( %s ): Framebuffer incomplete, missing multisample", fboName.c_str());
 		break;
 
 	case GL_FRAMEBUFFER_UNSUPPORTED:
-		common->Error("Framebuffer::Check( %s ): Unsupported framebuffer format", fboName.c_str());
+		mpSys->Error("Framebuffer::Check( %s ): Unsupported framebuffer format", fboName.c_str());
 		break;
 
 	default:
-		common->Error("Framebuffer::Check( %s ): Unknown error 0x%X", fboName.c_str(), status);
+		mpSys->Error("Framebuffer::Check( %s ): Unknown error 0x%X", fboName.c_str(), status);
 		break;
 	};
 

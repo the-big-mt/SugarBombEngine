@@ -96,7 +96,7 @@ void idRenderSystemLocal::PrintPerformanceCounters()
 {
 	if(r_showPrimitives.GetInteger() != 0)
 	{
-		common->Printf("views:%i draws:%i tris:%i (shdw:%i)\n",
+		mpSystem->Printf("views:%i draws:%i tris:%i (shdw:%i)\n",
 		               pc.c_numViews,
 		               backend.pc.c_drawElements + backend.pc.c_shadowElements,
 		               (backend.pc.c_drawIndexes + backend.pc.c_shadowIndexes) / 3,
@@ -105,7 +105,7 @@ void idRenderSystemLocal::PrintPerformanceCounters()
 
 	if(r_showDynamic.GetBool())
 	{
-		common->Printf("callback:%i md5:%i dfrmVerts:%i dfrmTris:%i tangTris:%i guis:%i\n",
+		mpSystem->Printf("callback:%i md5:%i dfrmVerts:%i dfrmTris:%i tangTris:%i guis:%i\n",
 		               pc.c_entityDefCallbacks,
 		               pc.c_generateMd5,
 		               pc.c_deformedVerts,
@@ -116,26 +116,26 @@ void idRenderSystemLocal::PrintPerformanceCounters()
 
 	if(r_showCull.GetBool())
 	{
-		common->Printf("%i box in %i box out\n",
+		mpSystem->Printf("%i box in %i box out\n",
 		               pc.c_box_cull_in, pc.c_box_cull_out);
 	}
 
 	if(r_showAddModel.GetBool())
 	{
-		common->Printf("callback:%i createInteractions:%i createShadowVolumes:%i\n",
+		mpSystem->Printf("callback:%i createInteractions:%i createShadowVolumes:%i\n",
 		               pc.c_entityDefCallbacks, pc.c_createInteractions, pc.c_createShadowVolumes);
-		common->Printf("viewEntities:%i  shadowEntities:%i  viewLights:%i\n", pc.c_visibleViewEntities,
+		mpSystem->Printf("viewEntities:%i  shadowEntities:%i  viewLights:%i\n", pc.c_visibleViewEntities,
 		               pc.c_shadowViewEntities, pc.c_viewLights);
 	}
 	if(r_showUpdates.GetBool())
 	{
-		common->Printf("entityUpdates:%i  entityRefs:%i  lightUpdates:%i  lightRefs:%i\n",
+		mpSystem->Printf("entityUpdates:%i  entityRefs:%i  lightUpdates:%i  lightRefs:%i\n",
 		               pc.c_entityUpdates, pc.c_entityReferences,
 		               pc.c_lightUpdates, pc.c_lightReferences);
 	}
 	if(r_showMemory.GetBool())
 	{
-		common->Printf("frameData: %i (%i)\n", frameData->frameMemoryAllocated.GetValue(), frameData->highWaterAllocated);
+		mpSystem->Printf("frameData: %i (%i)\n", frameData->frameMemoryAllocated.GetValue(), frameData->highWaterAllocated);
 	}
 
 	memset(&pc, 0, sizeof(pc));
@@ -230,7 +230,7 @@ static void R_ViewStatistics(viewDef_t *parms)
 	{
 		return;
 	}
-	common->Printf("view:%p surfs:%i\n", parms, parms->numDrawSurfs);
+	gpSys->Printf("view:%p surfs:%i\n", parms, parms->numDrawSurfs);
 }
 
 /*
@@ -899,7 +899,7 @@ void idRenderSystemLocal::CropRenderSize(int width, int height)
 
 	if(width < 1 || height < 1)
 	{
-		common->Error("CropRenderSize: bad sizes");
+		mpSystem->Error("CropRenderSize: bad sizes");
 	}
 
 	if(common->WriteDemo())
@@ -911,7 +911,7 @@ void idRenderSystemLocal::CropRenderSize(int width, int height)
 
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("write DC_CROP_RENDER\n");
+			mpSystem->Printf("write DC_CROP_RENDER\n");
 		}
 	}
 
@@ -941,7 +941,7 @@ void idRenderSystemLocal::UnCrop()
 
 	if(currentRenderCrop < 1)
 	{
-		common->Error("idRenderSystemLocal::UnCrop: currentRenderCrop < 1");
+		mpSystem->Error("idRenderSystemLocal::UnCrop: currentRenderCrop < 1");
 	}
 
 	// close any gui drawing
@@ -957,7 +957,7 @@ void idRenderSystemLocal::UnCrop()
 
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("write DC_UNCROP\n");
+			mpSystem->Printf("write DC_UNCROP\n");
 		}
 	}
 }
@@ -984,7 +984,7 @@ void idRenderSystemLocal::CaptureRenderToImage(const char *imageName, bool clear
 
 		if(r_showDemo.GetBool())
 		{
-			common->Printf("write DC_CAPTURE_RENDER: %s\n", imageName);
+			mpSystem->Printf("write DC_CAPTURE_RENDER: %s\n", imageName);
 		}
 	}
 	idImage *image = globalImages->GetImage(imageName);

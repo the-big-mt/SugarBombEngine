@@ -66,7 +66,7 @@ void jpg_Error(const char *fmt, ...)
 	vsprintf(msg, fmt, argptr);
 	va_end(argptr);
 
-	gpCommon->FatalError("%s", msg);
+	gpSystem->FatalError("%s", msg);
 }
 
 void jpg_Printf(const char *fmt, ...)
@@ -78,7 +78,7 @@ void jpg_Printf(const char *fmt, ...)
 	vsprintf(msg, fmt, argptr);
 	va_end(argptr);
 
-	gpCommon->Printf("%s", msg);
+	gpSystem->Printf("%s", msg);
 }
 
 /*
@@ -203,17 +203,17 @@ static void LoadTGA(const char *name, byte **pic, int *width, int *height, ID_TI
 
 	if(targa_header.image_type != 2 && targa_header.image_type != 10 && targa_header.image_type != 3)
 	{
-		common->Error("LoadTGA( %s ): Only type 2 (RGB), 3 (gray), and 10 (RGB) TGA images supported\n", name);
+		apSystem->Error("LoadTGA( %s ): Only type 2 (RGB), 3 (gray), and 10 (RGB) TGA images supported\n", name);
 	}
 
 	if(targa_header.colormap_type != 0)
 	{
-		common->Error("LoadTGA( %s ): colormaps not supported\n", name);
+		apSystem->Error("LoadTGA( %s ): colormaps not supported\n", name);
 	}
 
 	if((targa_header.pixel_size != 32 && targa_header.pixel_size != 24) && targa_header.image_type != 3)
 	{
-		common->Error("LoadTGA( %s ): Only 32 or 24 bit images supported (no colormaps)\n", name);
+		apSystem->Error("LoadTGA( %s ): Only 32 or 24 bit images supported (no colormaps)\n", name);
 	}
 
 	if(targa_header.image_type == 2 || targa_header.image_type == 3)
@@ -221,7 +221,7 @@ static void LoadTGA(const char *name, byte **pic, int *width, int *height, ID_TI
 		numBytes = targa_header.width * targa_header.height * (targa_header.pixel_size >> 3);
 		if(numBytes > fileSize - 18 - targa_header.id_length)
 		{
-			common->Error("LoadTGA( %s ): incomplete file\n", name);
+			apSystem->Error("LoadTGA( %s ): incomplete file\n", name);
 		}
 	}
 
@@ -287,7 +287,7 @@ static void LoadTGA(const char *name, byte **pic, int *width, int *height, ID_TI
 					*pixbuf++ = alphabyte;
 					break;
 				default:
-					common->Error("LoadTGA( %s ): illegal pixel_size '%d'\n", name, targa_header.pixel_size);
+					apSystem->Error("LoadTGA( %s ): illegal pixel_size '%d'\n", name, targa_header.pixel_size);
 					break;
 				}
 			}
@@ -326,7 +326,7 @@ static void LoadTGA(const char *name, byte **pic, int *width, int *height, ID_TI
 						alphabyte = *buf_p++;
 						break;
 					default:
-						common->Error("LoadTGA( %s ): illegal pixel_size '%d'\n", name, targa_header.pixel_size);
+						apSystem->Error("LoadTGA( %s ): illegal pixel_size '%d'\n", name, targa_header.pixel_size);
 						break;
 					}
 
@@ -378,7 +378,7 @@ static void LoadTGA(const char *name, byte **pic, int *width, int *height, ID_TI
 							*pixbuf++ = alphabyte;
 							break;
 						default:
-							common->Error("LoadTGA( %s ): illegal pixel_size '%d'\n", name, targa_header.pixel_size);
+							apSystem->Error("LoadTGA( %s ): illegal pixel_size '%d'\n", name, targa_header.pixel_size);
 							break;
 						}
 						column++;
@@ -541,7 +541,7 @@ static void LoadJPG(const char *filename, unsigned char **pic, int *width, int *
 
 	if(cinfo.output_components != 4)
 	{
-		common->DWarning("JPG %s is unsupported color depth (%d)",
+		apSystem->DWarning("JPG %s is unsupported color depth (%d)",
 		                 filename, cinfo.output_components);
 	}
 	out = (byte *)R_StaticAlloc(cinfo.output_width * cinfo.output_height * 4, TAG_IMAGE);
@@ -621,12 +621,12 @@ extern "C" {
 
 static void png_Error(png_structp pngPtr, png_const_charp msg)
 {
-	gpCommon->FatalError("%s", msg);
+	apSystem->FatalError("%s", msg);
 }
 
 static void png_Warning(png_structp pngPtr, png_const_charp msg)
 {
-	gpCommon->Warning("%s", msg);
+	apSystem->Warning("%s", msg);
 }
 
 static void png_ReadData(png_structp pngPtr, png_bytep data, png_size_t length)
@@ -667,14 +667,14 @@ static void LoadPNG(const char *filename, unsigned char **pic, int *width, int *
 	png_structp pngPtr = png_create_read_struct(PNG_LIBPNG_VER_STRING, (png_voidp) nullptr, png_Error, png_Warning);
 	if(!pngPtr)
 	{
-		common->Error("LoadPNG( %s ): png_create_read_struct failed", filename);
+		apSystem->Error("LoadPNG( %s ): png_create_read_struct failed", filename);
 	}
 
 	// allocate the memory for image information
 	png_infop infoPtr = png_create_info_struct(pngPtr);
 	if(!infoPtr)
 	{
-		common->Error("LoadPNG( %s ): png_create_info_struct failed", filename);
+		apSystem->Error("LoadPNG( %s ): png_create_info_struct failed", filename);
 	}
 
 	png_set_read_fn(pngPtr, fbuffer, png_ReadData);
@@ -784,13 +784,13 @@ void R_WritePNG(const char *filename, const byte *data, int bytesPerPixel, int w
 	png_structp pngPtr = png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, png_Error, png_Warning);
 	if(!pngPtr)
 	{
-		common->Error("R_WritePNG( %s ): png_create_write_struct failed", filename);
+		apSystem->Error("R_WritePNG( %s ): png_create_write_struct failed", filename);
 	}
 
 	png_infop infoPtr = png_create_info_struct(pngPtr);
 	if(!infoPtr)
 	{
-		common->Error("R_WritePNG( %s ): png_create_info_struct failed", filename);
+		apSystem->Error("R_WritePNG( %s ): png_create_info_struct failed", filename);
 	}
 
 	png_compressedSize = 0;
@@ -807,7 +807,7 @@ void R_WritePNG(const char *filename, const byte *data, int bytesPerPixel, int w
 	}
 	else
 	{
-		common->Error("R_WritePNG( %s ): bytesPerPixel = %i not supported", filename, bytesPerPixel);
+		apSystem->Error("R_WritePNG( %s ): bytesPerPixel = %i not supported", filename, bytesPerPixel);
 	}
 
 	// write header
@@ -1052,7 +1052,7 @@ bool R_LoadCubeImages(const char *imgName, cubeFiles_t extensions, byte *pics[6]
 		}
 		if(width != size || height != size)
 		{
-			common->Warning("Mismatched sizes on cube map '%s'", imgName);
+			apSystem->Warning("Mismatched sizes on cube map '%s'", imgName);
 			break;
 		}
 		if(timestamp)

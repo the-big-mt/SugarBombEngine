@@ -596,7 +596,7 @@ void R_MatrixFullInverse(idCommon *common, const float a[16], float r[16])
 
 	if(!am.InverseSelf())
 	{
-		common->Error("Invert failed");
+		apSystem->Error("Invert failed");
 	}
 	//	inverted = transformed * am;
 

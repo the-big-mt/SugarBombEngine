@@ -93,11 +93,11 @@ void idRenderWorldLocal::FreeWorld()
 		// there shouldn't be any remaining lightRefs or entityRefs
 		if(area->lightRefs.areaNext != &area->lightRefs)
 		{
-			common->Error("FreeWorld: unexpected remaining lightRefs");
+			mpSys->Error("FreeWorld: unexpected remaining lightRefs");
 		}
 		if(area->entityRefs.areaNext != &area->entityRefs)
 		{
-			common->Error("FreeWorld: unexpected remaining entityRefs");
+			mpSys->Error("FreeWorld: unexpected remaining entityRefs");
 		}
 	}
 
@@ -864,14 +864,14 @@ bool idRenderWorldLocal::InitFromMap(const char *name)
 	{
 		if(fileSystem->InProductionMode() || (currentTimeStamp != FILE_NOT_FOUND_TIMESTAMP && currentTimeStamp == mapTimeStamp))
 		{
-			common->Printf("idRenderWorldLocal::InitFromMap: retaining existing map\n");
+			mpSys->Printf("idRenderWorldLocal::InitFromMap: retaining existing map\n");
 			FreeDefs();
 			TouchWorldModels();
 			AddWorldModelEntities();
 			ClearPortalStates();
 			return true;
 		}
-		common->Printf("idRenderWorldLocal::InitFromMap: timestamp has changed, reloading.\n");
+		mpSys->Printf("idRenderWorldLocal::InitFromMap: timestamp has changed, reloading.\n");
 	}
 
 	FreeWorld();
@@ -940,7 +940,7 @@ bool idRenderWorldLocal::InitFromMap(const char *name)
 		src = new(TAG_RENDER) idLexer(filename, LEXFL_NOSTRINGCONCAT | LEXFL_NODOLLARPRECOMPILE);
 		if(!src->IsLoaded())
 		{
-			common->Printf("idRenderWorldLocal::InitFromMap: %s not found\n", filename.c_str());
+			mpSys->Printf("idRenderWorldLocal::InitFromMap: %s not found\n", filename.c_str());
 			ClearWorld();
 			return false;
 		}
@@ -956,7 +956,7 @@ bool idRenderWorldLocal::InitFromMap(const char *name)
 
 		if(!src->ReadToken(&token) || token.Icmp(PROC_FILE_ID))
 		{
-			common->Printf("idRenderWorldLocal::InitFromMap: bad id '%s' instead of '%s'\n", token.c_str(), PROC_FILE_ID);
+			mpSys->Printf("idRenderWorldLocal::InitFromMap: bad id '%s' instead of '%s'\n", token.c_str(), PROC_FILE_ID);
 			delete src;
 			return false;
 		}
@@ -1114,7 +1114,7 @@ void idRenderWorldLocal::AddWorldModelEntities()
 		def->parms.hModel = renderModelManager->FindModel(va("_area%i", i));
 		if(def->parms.hModel->IsDefaultModel() || !def->parms.hModel->IsStaticWorldModel())
 		{
-			common->Error("idRenderWorldLocal::InitFromMap: bad area model lookup");
+			mpSys->Error("idRenderWorldLocal::InitFromMap: bad area model lookup");
 		}
 
 		idRenderModel *hModel = def->parms.hModel;

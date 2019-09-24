@@ -147,7 +147,7 @@ static void R_AddSingleLight(viewLight_t *vLight)
 	const idMaterial *lightShader = light->lightShader;
 	if(lightShader == nullptr)
 	{
-		common->Error("R_AddSingleLight: nullptr lightShader");
+		gpSys->Error("R_AddSingleLight: nullptr lightShader");
 		return;
 	}
 

@@ -316,11 +316,11 @@ static bool R_CheckExtension(const char *name)
 {
 	if(!strstr(glConfig.extensions_string, name))
 	{
-		common->Printf("X..%s not found\n", name);
+		gpSys->Printf("X..%s not found\n", name);
 		return false;
 	}
 
-	common->Printf("...using %s\n", name);
+	gpSys->Printf("...using %s\n", name);
 	return true;
 }
 
@@ -356,11 +356,11 @@ bool R_CheckExtension(char *name)
 {
 	if(!strstr(glConfig.extensions_string, name))
 	{
-		common->Printf("X..%s not found\n", name);
+		gpSys->Printf("X..%s not found\n", name);
 		return false;
 	}
 
-	common->Printf("...using %s\n", name);
+	gpSys->Printf("...using %s\n", name);
 	return true;
 }
 
@@ -437,7 +437,7 @@ static void R_CheckPortableExtensions()
 	if(glConfig.anisotropicFilterAvailable)
 	{
 		glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &glConfig.maxTextureAnisotropy);
-		common->Printf("   maxTextureAnisotropy: %f\n", glConfig.maxTextureAnisotropy);
+		gpSys->Printf("   maxTextureAnisotropy: %f\n", glConfig.maxTextureAnisotropy);
 	}
 	else
 	{
@@ -450,11 +450,11 @@ static void R_CheckPortableExtensions()
 	glConfig.textureLODBiasAvailable = (glConfig.glVersion >= 1.4 || GLEW_EXT_texture_lod_bias != 0);
 	if(glConfig.textureLODBiasAvailable)
 	{
-		common->Printf("...using %s\n", "GL_EXT_texture_lod_bias");
+		gpSys->Printf("...using %s\n", "GL_EXT_texture_lod_bias");
 	}
 	else
 	{
-		common->Printf("X..%s not found\n", "GL_EXT_texture_lod_bias");
+		gpSys->Printf("X..%s not found\n", "GL_EXT_texture_lod_bias");
 	}
 
 	// GL_ARB_seamless_cube_map
@@ -544,11 +544,11 @@ static void R_CheckPortableExtensions()
 	glConfig.gremedyStringMarkerAvailable = GLEW_GREMEDY_string_marker != 0;
 	if(glConfig.gremedyStringMarkerAvailable)
 	{
-		common->Printf("...using %s\n", "GL_GREMEDY_string_marker");
+		gpSys->Printf("...using %s\n", "GL_GREMEDY_string_marker");
 	}
 	else
 	{
-		common->Printf("X..%s not found\n", "GL_GREMEDY_string_marker");
+		gpSys->Printf("X..%s not found\n", "GL_GREMEDY_string_marker");
 	}
 
 	// GL_ARB_framebuffer_object
@@ -558,22 +558,22 @@ static void R_CheckPortableExtensions()
 		glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE, &glConfig.maxRenderbufferSize);
 		glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &glConfig.maxColorAttachments);
 
-		common->Printf("...using %s\n", "GL_ARB_framebuffer_object");
+		gpSys->Printf("...using %s\n", "GL_ARB_framebuffer_object");
 	}
 	else
 	{
-		common->Printf("X..%s not found\n", "GL_ARB_framebuffer_object");
+		gpSys->Printf("X..%s not found\n", "GL_ARB_framebuffer_object");
 	}
 
 	// GL_EXT_framebuffer_blit
 	glConfig.framebufferBlitAvailable = GLEW_EXT_framebuffer_blit != 0;
 	if(glConfig.framebufferBlitAvailable)
 	{
-		common->Printf("...using %s\n", "GL_EXT_framebuffer_blit");
+		gpSys->Printf("...using %s\n", "GL_EXT_framebuffer_blit");
 	}
 	else
 	{
-		common->Printf("X..%s not found\n", "GL_EXT_framebuffer_blit");
+		gpSys->Printf("X..%s not found\n", "GL_EXT_framebuffer_blit");
 	}
 
 	// GL_ARB_debug_output
@@ -800,7 +800,7 @@ void R_SetNewMode(const bool fullInit)
 
 		if(i == 2)
 		{
-			common->FatalError("Unable to initialize OpenGL");
+			gpSys->FatalError("Unable to initialize OpenGL");
 		}
 
 		if(i == 0)
@@ -839,11 +839,11 @@ and model information functions.
 */
 void R_InitOpenGL()
 {
-	common->Printf("----- R_InitOpenGL -----\n");
+	gpSys->Printf("----- R_InitOpenGL -----\n");
 
 	if(R_IsInitialized())
 	{
-		common->FatalError("R_InitOpenGL called while active");
+		gpSys->FatalError("R_InitOpenGL called while active");
 	}
 
 	// DG: make sure SDL has setup video so getting supported modes in R_SetNewMode() works
@@ -970,7 +970,7 @@ static void R_ReloadSurface_f(const idCmdArgs &args)
 		return;
 	}
 
-	common->Printf("Reloading %s\n", mt.material->GetName());
+	gpSys->Printf("Reloading %s\n", mt.material->GetName());
 
 	// reload the decl
 	mt.material->base->Reload();
@@ -995,7 +995,7 @@ static void R_ListModes_f(const idCmdArgs &args)
 		}
 		for(int i = 0; i < modeList.Num(); i++)
 		{
-			common->Printf("Monitor %i, mode %3i: %4i x %4i @ %ihz\n", displayNum + 1, i, modeList[i].width, modeList[i].height, modeList[i].displayHz);
+			gpSys->Printf("Monitor %i, mode %3i: %4i x %4i @ %ihz\n", displayNum + 1, i, modeList[i].width, modeList[i].height, modeList[i].displayHz);
 		}
 	}
 }
@@ -1074,10 +1074,10 @@ void R_TestVideo_f(const idCmdArgs &args)
 		return;
 	}
 
-	common->Printf("%i x %i images\n", cin.imageWidth, cin.imageHeight);
+	gpSys->Printf("%i x %i images\n", cin.imageWidth, cin.imageHeight);
 
 	int len = tr.testVideo->AnimationLength();
-	common->Printf("%5.1f seconds of video\n", len * 0.001);
+	gpSys->Printf("%5.1f seconds of video\n", len * 0.001);
 
 	tr.testVideoStartTime = tr.primaryRenderView.time[1];
 
@@ -1165,7 +1165,7 @@ void R_ReportSurfaceAreas_f(const idCmdArgs &args)
 	{
 		// report size in "editor blocks"
 		int blocks = list[i]->GetSurfaceArea() / 4096.0;
-		common->Printf("%7i %s\n", blocks, list[i]->GetName());
+		gpSys->Printf("%7i %s\n", blocks, list[i]->GetName());
 	}
 }
 #pragma warning(default : 6385)
@@ -1549,7 +1549,7 @@ void R_ScreenShot_f(const idCmdArgs &args)
 		R_ScreenshotFilename(lastNumber, "screenshots/", checkname);
 		break;
 	default:
-		common->Printf("usage: screenshot\n       screenshot <filename>\n       screenshot <width> <height>\n       screenshot <width> <height> <blends>\n");
+		gpSys->Printf("usage: screenshot\n       screenshot <filename>\n       screenshot <width> <height>\n       screenshot <width> <height> <blends>\n");
 		return;
 	}
 
@@ -1558,7 +1558,7 @@ void R_ScreenShot_f(const idCmdArgs &args)
 
 	tr.TakeScreenshot(width, height, checkname, blends, nullptr, PNG);
 
-	common->Printf("Wrote %s\n", checkname.c_str());
+	gpSys->Printf("Wrote %s\n", checkname.c_str());
 }
 
 /*
@@ -1630,7 +1630,7 @@ void R_EnvShot_f(const idCmdArgs &args)
 
 	if(args.Argc() != 2 && args.Argc() != 3 && args.Argc() != 4)
 	{
-		common->Printf("USAGE: envshot <basename> [size] [blends]\n");
+		gpSys->Printf("USAGE: envshot <basename> [size] [blends]\n");
 		return;
 	}
 	baseName = args.Argv(1);
@@ -1654,7 +1654,7 @@ void R_EnvShot_f(const idCmdArgs &args)
 
 	if(!tr.primaryView)
 	{
-		common->Printf("No primary view.\n");
+		gpSys->Printf("No primary view.\n");
 		return;
 	}
 
@@ -1726,7 +1726,7 @@ void R_EnvShot_f(const idCmdArgs &args)
 	cvarSystem->SetCVarInteger("r_windowHeight", res_h);
 	R_SetNewMode(false); // the same as "vid_restart"
 
-	common->Printf("Wrote a env set with the name %s\n", baseName);
+	gpSys->Printf("Wrote a env set with the name %s\n", baseName);
 }
 
 //============================================================================
@@ -1815,10 +1815,10 @@ public:
 	{
 		expectedCount = _expectedCount;
 
-		common->Printf("0%%  10   20   30   40   50   60   70   80   90   100%%\n");
-		common->Printf("|----|----|----|----|----|----|----|----|----|----|\n");
+		mpSys->Printf("0%%  10   20   30   40   50   60   70   80   90   100%%\n");
+		mpSys->Printf("|----|----|----|----|----|----|----|----|----|----|\n");
 
-		common->UpdateScreen(false);
+		mpSys->UpdateScreen(false);
 	}
 
 	void Increment()
@@ -1829,7 +1829,7 @@ public:
 
 			do
 			{
-				common->Printf("*");
+				mpSys->Printf("*");
 			} while(++tics < ticsNeeded);
 
 			nextTicCount = (size_t)((tics / 50.0) * expectedCount);
@@ -1837,12 +1837,12 @@ public:
 			{
 				if(tics < 51)
 				{
-					common->Printf("*");
+					mpSys->Printf("*");
 				}
-				common->Printf("\n");
+				mpSys->Printf("\n");
 			}
 
-			common->UpdateScreen(false);
+			mpSys->UpdateScreen(false);
 		}
 
 		count++;
@@ -1943,7 +1943,7 @@ void R_MakeAmbientMap_f(const idCmdArgs &args)
 
 	if(args.Argc() != 2 && args.Argc() != 3)
 	{
-		common->Printf("USAGE: ambientshot <basename> [size]\n");
+		gpSys->Printf("USAGE: ambientshot <basename> [size]\n");
 		return;
 	}
 	baseName = args.Argv(1);
@@ -1987,13 +1987,13 @@ void R_MakeAmbientMap_f(const idCmdArgs &args)
 	for(i = 0; i < 6; i++)
 	{
 		fullname.Format("env/%s%s.%s", baseName, envDirection[i], fileExten[TGA]);
-		common->Printf("loading %s\n", fullname.c_str());
+		gpSys->Printf("loading %s\n", fullname.c_str());
 		const bool captureToImage = false;
-		common->UpdateScreen(captureToImage);
+		gpSys->UpdateScreen(captureToImage);
 		R_LoadImage(fullname, &buffers[i], &width, &height, nullptr, true);
 		if(!buffers[i])
 		{
-			common->Printf("failed.\n");
+			gpSys->Printf("failed.\n");
 			for(i--; i >= 0; i--)
 			{
 				Mem_Free(buffers[i]);
@@ -2059,10 +2059,10 @@ void R_MakeAmbientMap_f(const idCmdArgs &args)
 			{
 				fullname.Format("env/%s_spec%s.%s", baseName, envDirection[i], fileExten[PNG]);
 			}
-			//common->Printf( "writing %s\n", fullname.c_str() );
+			//gpSys->Printf( "writing %s\n", fullname.c_str() );
 
 			const bool captureToImage = false;
-			common->UpdateScreen(captureToImage);
+			gpSys->UpdateScreen(captureToImage);
 
 			//R_WriteTGA( fullname, outBuffer, outSize, outSize, false, "fs_basepath" );
 			R_WritePNG(fullname, outBuffer, 4, outSize, outSize, true, "fs_basepath");
@@ -2072,11 +2072,11 @@ void R_MakeAmbientMap_f(const idCmdArgs &args)
 
 		if(map == 0)
 		{
-			common->Printf("env/%s_amb convolved  in %5.1f seconds\n\n", baseName, (end - start) * 0.001f);
+			gpSys->Printf("env/%s_amb convolved  in %5.1f seconds\n\n", baseName, (end - start) * 0.001f);
 		}
 		else
 		{
-			common->Printf("env/%s_spec convolved  in %5.1f seconds\n\n", baseName, (end - start) * 0.001f);
+			gpSys->Printf("env/%s_spec convolved  in %5.1f seconds\n\n", baseName, (end - start) * 0.001f);
 		}
 	}
 
@@ -2101,20 +2101,20 @@ void R_TransformCubemap(const char *orgDirection[6], const char *orgDir, const c
 	{
 		// read every image images
 		fullname.Format("%s/%s%s.%s", orgDir, baseName, orgDirection[i], fileExten[TGA]);
-		common->Printf("loading %s\n", fullname.c_str());
+		gpSys->Printf("loading %s\n", fullname.c_str());
 		const bool captureToImage = false;
-		common->UpdateScreen(captureToImage);
+		gpSys->UpdateScreen(captureToImage);
 		R_LoadImage(fullname, &buffers[i], &width, &height, nullptr, true);
 
 		//check if the buffer is troublesome
 		if(!buffers[i])
 		{
-			common->Printf("failed.\n");
+			gpSys->Printf("failed.\n");
 			errorInOriginalImages = true;
 		}
 		else if(width != height)
 		{
-			common->Printf("wrong size pal!\n\n\nget your shit together and set the size according to your images!\n\n\ninept programmers are inept!\n");
+			gpSys->Printf("wrong size pal!\n\n\nget your shit together and set the size according to your images!\n\n\ninept programmers are inept!\n");
 			errorInOriginalImages = true; // yeah, but don't just choke on a joke!
 		}
 		else
@@ -2138,8 +2138,8 @@ void R_TransformCubemap(const char *orgDirection[6], const char *orgDir, const c
 
 		//save the images with the appropiate skybox naming convention
 		fullname.Format("%s/%s/%s%s.%s", destDir, baseName, baseName, destDirection[i], fileExten[TGA]);
-		common->Printf("writing %s\n", fullname.c_str());
-		common->UpdateScreen(false);
+		gpSys->Printf("writing %s\n", fullname.c_str());
+		gpSys->UpdateScreen(false);
 		R_WriteTGA(fullname, buffers[i], width, width, false, "fs_basepath");
 	}
 
@@ -2166,7 +2166,7 @@ void R_TransformEnvToSkybox_f(const idCmdArgs &args)
 {
 	if(args.Argc() != 2)
 	{
-		common->Printf("USAGE: envToSky <basename>\n");
+		gpSys->Printf("USAGE: envToSky <basename>\n");
 		return;
 	}
 
@@ -2188,7 +2188,7 @@ void R_TransformSkyboxToEnv_f(const idCmdArgs &args)
 {
 	if(args.Argc() != 2)
 	{
-		common->Printf("USAGE: skyToEnv <basename>\n");
+		gpSys->Printf("USAGE: skyToEnv <basename>\n");
 		return;
 	}
 
@@ -2224,7 +2224,7 @@ GfxInfo_f
 */
 void GfxInfo_f(const idCmdArgs &args)
 {
-	common->Printf("CPU: %s\n", Sys_GetProcessorString());
+	gpSys->Printf("CPU: %s\n", Sys_GetProcessorString());
 
 	const char *fsstrings[] =
 	{
@@ -2232,34 +2232,34 @@ void GfxInfo_f(const idCmdArgs &args)
 	  "fullscreen"
 	};
 
-	common->Printf("\nGL_VENDOR: %s\n", glConfig.vendor_string);
-	common->Printf("GL_RENDERER: %s\n", glConfig.renderer_string);
-	common->Printf("GL_VERSION: %s\n", glConfig.version_string);
-	common->Printf("GL_EXTENSIONS: %s\n", glConfig.extensions_string);
+	gpSys->Printf("\nGL_VENDOR: %s\n", glConfig.vendor_string);
+	gpSys->Printf("GL_RENDERER: %s\n", glConfig.renderer_string);
+	gpSys->Printf("GL_VERSION: %s\n", glConfig.version_string);
+	gpSys->Printf("GL_EXTENSIONS: %s\n", glConfig.extensions_string);
 	if(glConfig.wgl_extensions_string)
 	{
-		common->Printf("WGL_EXTENSIONS: %s\n", glConfig.wgl_extensions_string);
+		gpSys->Printf("WGL_EXTENSIONS: %s\n", glConfig.wgl_extensions_string);
 	}
-	common->Printf("GL_MAX_TEXTURE_SIZE: %d\n", glConfig.maxTextureSize);
-	common->Printf("GL_MAX_TEXTURE_COORDS_ARB: %d\n", glConfig.maxTextureCoords);
-	common->Printf("GL_MAX_TEXTURE_IMAGE_UNITS_ARB: %d\n", glConfig.maxTextureImageUnits);
+	gpSys->Printf("GL_MAX_TEXTURE_SIZE: %d\n", glConfig.maxTextureSize);
+	gpSys->Printf("GL_MAX_TEXTURE_COORDS_ARB: %d\n", glConfig.maxTextureCoords);
+	gpSys->Printf("GL_MAX_TEXTURE_IMAGE_UNITS_ARB: %d\n", glConfig.maxTextureImageUnits);
 
 	// print all the display adapters, monitors, and video modes
 	//void DumpAllDisplayDevices();
 	//DumpAllDisplayDevices();
 
-	common->Printf("\nPIXELFORMAT: color(%d-bits) Z(%d-bit) stencil(%d-bits)\n", glConfig.colorBits, glConfig.depthBits, glConfig.stencilBits);
-	common->Printf("MODE: %d, %d x %d %s hz:", r_vidMode.GetInteger(), renderSystem->GetWidth(), renderSystem->GetHeight(), fsstrings[r_fullscreen.GetBool()]);
+	gpSys->Printf("\nPIXELFORMAT: color(%d-bits) Z(%d-bit) stencil(%d-bits)\n", glConfig.colorBits, glConfig.depthBits, glConfig.stencilBits);
+	gpSys->Printf("MODE: %d, %d x %d %s hz:", r_vidMode.GetInteger(), renderSystem->GetWidth(), renderSystem->GetHeight(), fsstrings[r_fullscreen.GetBool()]);
 	if(glConfig.displayFrequency)
 	{
-		common->Printf("%d\n", glConfig.displayFrequency);
+		gpSys->Printf("%d\n", glConfig.displayFrequency);
 	}
 	else
 	{
-		common->Printf("N/A\n");
+		gpSys->Printf("N/A\n");
 	}
 
-	common->Printf("-------\n");
+	gpSys->Printf("-------\n");
 
 // RB begin
 #if defined(_WIN32) && !defined(USE_GLES2)
@@ -2269,11 +2269,11 @@ void GfxInfo_f(const idCmdArgs &args)
 
 	if(r_swapInterval.GetInteger() && wglSwapIntervalEXT != nullptr)
 	{
-		common->Printf("Forcing swapInterval %i\n", r_swapInterval.GetInteger());
+		gpSys->Printf("Forcing swapInterval %i\n", r_swapInterval.GetInteger());
 	}
 	else
 	{
-		common->Printf("swapInterval not forced\n");
+		gpSys->Printf("swapInterval not forced\n");
 	}
 #endif
 	// RB end
@@ -2322,22 +2322,22 @@ void GfxInfo_f(const idCmdArgs &args)
 
 	idLib::Printf("%i multisamples\n", glConfig.multisamples);
 
-	common->Printf("%5.1f cm screen width (%4.1f\" diagonal)\n",
+	gpSys->Printf("%5.1f cm screen width (%4.1f\" diagonal)\n",
 	               glConfig.physicalScreenWidthInCentimeters, glConfig.physicalScreenWidthInCentimeters / 2.54f * sqrt((float)(16 * 16 + 9 * 9)) / 16.0f);
 	extern idCVar r_forceScreenWidthCentimeters;
 	if(r_forceScreenWidthCentimeters.GetFloat())
 	{
-		common->Printf("screen size manually forced to %5.1f cm width (%4.1f\" diagonal)\n",
+		gpSys->Printf("screen size manually forced to %5.1f cm width (%4.1f\" diagonal)\n",
 		               renderSystem->GetPhysicalScreenWidthInCentimeters(), renderSystem->GetPhysicalScreenWidthInCentimeters() / 2.54f * sqrt((float)(16 * 16 + 9 * 9)) / 16.0f);
 	}
 
 	if(glConfig.gpuSkinningAvailable)
 	{
-		common->Printf(S_COLOR_GREEN "GPU skeletal animation available\n");
+		gpSys->Printf(S_COLOR_GREEN "GPU skeletal animation available\n");
 	}
 	else
 	{
-		common->Printf(S_COLOR_RED "GPU skeletal animation not available (slower CPU path active)\n");
+		gpSys->Printf(S_COLOR_RED "GPU skeletal animation not available (slower CPU path active)\n");
 	}
 }
 
@@ -2435,7 +2435,7 @@ void R_VidRestart_f(const idCmdArgs &args)
 	int err = glGetError();
 	if( err != GL_NO_ERROR )
 	{
-		common->Printf( "glGetError() = 0x%x\n", err );
+		gpSys->Printf( "glGetError() = 0x%x\n", err );
 	}
 #endif
 }
@@ -2450,7 +2450,7 @@ void R_InitMaterials()
 	tr.defaultMaterial = declManager->FindMaterial("_default", false);
 	if(!tr.defaultMaterial)
 	{
-		common->FatalError("_default material not found");
+		gpSys->FatalError("_default material not found");
 	}
 	tr.defaultPointLight = declManager->FindMaterial("lights/defaultPointLight");
 	tr.defaultProjectedLight = declManager->FindMaterial("lights/defaultProjectedLight");
@@ -2509,13 +2509,13 @@ void R_TouchGui_f(const idCmdArgs &args)
 
 	if(!gui[0])
 	{
-		common->Printf("USAGE: touchGui <guiName>\n");
+		gpSys->Printf("USAGE: touchGui <guiName>\n");
 		return;
 	}
 
-	common->Printf("touchGui %s\n", gui);
+	gpSys->Printf("touchGui %s\n", gui);
 	const bool captureToImage = false;
-	common->UpdateScreen(captureToImage);
+	gpSys->UpdateScreen(captureToImage);
 	uiManager->Touch(gui);
 }
 
@@ -2814,7 +2814,7 @@ idRenderSystemLocal::Init
 */
 void idRenderSystemLocal::Init()
 {
-	common->Printf("------- Initializing renderSystem --------\n");
+	mpSys->Printf("------- Initializing renderSystem --------\n");
 
 #ifndef SBE_SINGLE_BINARY
 	// initialize idLib
@@ -2887,8 +2887,8 @@ void idRenderSystemLocal::Init()
 	// make sure the command buffers are ready to accept the first screen update
 	SwapCommandBuffers(nullptr, nullptr, nullptr, nullptr);
 
-	common->Printf("renderSystem initialized.\n");
-	common->Printf("--------------------------------------\n");
+	mpSys->Printf("renderSystem initialized.\n");
+	mpSys->Printf("--------------------------------------\n");
 }
 
 /*
@@ -2898,7 +2898,7 @@ idRenderSystemLocal::Shutdown
 */
 void idRenderSystemLocal::Shutdown()
 {
-	common->Printf("idRenderSystem::Shutdown()\n");
+	mpSys->Printf("idRenderSystem::Shutdown()\n");
 
 	fonts.DeleteContents();
 
@@ -3074,7 +3074,7 @@ void idRenderSystemLocal::InitOpenGL()
 		int err = glGetError();
 		if(err != GL_NO_ERROR)
 		{
-			common->Printf("glGetError() = 0x%x\n", err);
+			mpSys->Printf("glGetError() = 0x%x\n", err);
 		}
 	}
 }

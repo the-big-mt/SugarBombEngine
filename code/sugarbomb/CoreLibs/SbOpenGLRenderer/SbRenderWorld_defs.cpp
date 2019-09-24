@@ -237,7 +237,7 @@ void R_CreateEntityRefs(idRenderEntityLocal *entity)
 	   (entity->localReferenceBounds[1][0] - entity->localReferenceBounds[0][0] > 1024.0f ||
 	    entity->localReferenceBounds[1][1] - entity->localReferenceBounds[0][1] > 1024.0f))
 	{
-		common->Printf("big entityRef: %f,%f\n", entity->localReferenceBounds[1][0] - entity->localReferenceBounds[0][0],
+		gpSys->Printf("big entityRef: %f,%f\n", entity->localReferenceBounds[1][0] - entity->localReferenceBounds[0][0],
 		               entity->localReferenceBounds[1][1] - entity->localReferenceBounds[0][1]);
 	}
 
@@ -598,7 +598,7 @@ srfTriangles_t *R_PolytopeSurface(int numPlanes, const idPlane *planes, idWindin
 
 	if(numPlanes > MAX_POLYTOPE_PLANES)
 	{
-		common->Error("R_PolytopeSurface: more than %d planes", MAX_POLYTOPE_PLANES);
+		gpSys->Error("R_PolytopeSurface: more than %d planes", MAX_POLYTOPE_PLANES);
 	}
 
 	numVerts = 0;
@@ -917,7 +917,7 @@ void R_ModulateLights_f(const idCmdArgs &args)
 	}
 	if(args.Argc() != 4)
 	{
-		common->Printf("usage: modulateLights <redFloat> <greenFloat> <blueFloat>\n");
+		gpSys->Printf("usage: modulateLights <redFloat> <greenFloat> <blueFloat>\n");
 		return;
 	}
 
@@ -940,7 +940,7 @@ void R_ModulateLights_f(const idCmdArgs &args)
 			}
 		}
 	}
-	common->Printf("modulated %i lights\n", count);
+	gpSys->Printf("modulated %i lights\n", count);
 }
 
 //} // namespace BFG

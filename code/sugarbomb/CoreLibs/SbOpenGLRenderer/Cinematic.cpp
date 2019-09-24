@@ -570,7 +570,7 @@ bool idCinematicLocal::InitFromFFMPEGFile(const char *qpath, bool amilooping)
 		}
 		else
 		{
-			common->Warning("idCinematic: Cannot open FFMPEG video file: '%s', %d\n", qpath, looping);
+			mpSystem->Warning("idCinematic: Cannot open FFMPEG video file: '%s', %d\n", qpath, looping);
 			return false;
 		}
 	}
@@ -579,19 +579,19 @@ bool idCinematicLocal::InitFromFFMPEGFile(const char *qpath, bool amilooping)
 
 	if((ret = avformat_open_input(&fmt_ctx, fullpath, nullptr, nullptr)) < 0)
 	{
-		common->Warning("idCinematic: Cannot open FFMPEG video file: '%s', %d\n", qpath, looping);
+		mpSystem->Warning("idCinematic: Cannot open FFMPEG video file: '%s', %d\n", qpath, looping);
 		return false;
 	}
 	if((ret = avformat_find_stream_info(fmt_ctx, nullptr)) < 0)
 	{
-		common->Warning("idCinematic: Cannot find stream info: '%s', %d\n", qpath, looping);
+		mpSystem->Warning("idCinematic: Cannot find stream info: '%s', %d\n", qpath, looping);
 		return false;
 	}
 	/* select the video stream */
 	ret = av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, &dec, 0);
 	if(ret < 0)
 	{
-		common->Warning("idCinematic: Cannot find a video stream in: '%s', %d\n", qpath, looping);
+		mpSystem->Warning("idCinematic: Cannot find a video stream in: '%s', %d\n", qpath, looping);
 		return false;
 	}
 	video_stream_index = ret;
@@ -599,7 +599,7 @@ bool idCinematicLocal::InitFromFFMPEGFile(const char *qpath, bool amilooping)
 	/* init the video decoder */
 	if((ret = avcodec_open2(dec_ctx, dec, nullptr)) < 0)
 	{
-		common->Warning("idCinematic: Cannot open video decoder for: '%s', %d\n", qpath, looping);
+		mpSystem->Warning("idCinematic: Cannot open video decoder for: '%s', %d\n", qpath, looping);
 		return false;
 	}
 
@@ -628,7 +628,7 @@ bool idCinematicLocal::InitFromFFMPEGFile(const char *qpath, bool amilooping)
 	buf = nullptr;
 	hasFrame = false;
 	framePos = -1;
-	common->Printf("Loaded FFMPEG file: '%s', looping=%d%dx%d, %f FPS, %f sec\n", qpath, looping, CIN_WIDTH, CIN_HEIGHT, frameRate, durationSec);
+	mpSystem->Printf("Loaded FFMPEG file: '%s', looping=%d%dx%d, %f FPS, %f sec\n", qpath, looping, CIN_WIDTH, CIN_HEIGHT, frameRate, durationSec);
 	image = (byte *)Mem_Alloc(CIN_WIDTH * CIN_HEIGHT * 4 * 2, TAG_CINEMATIC);
 	avpicture_fill((AVPicture *)frame2, image, AV_PIX_FMT_BGR32, CIN_WIDTH, CIN_HEIGHT);
 	if(img_convert_ctx)
@@ -703,7 +703,7 @@ bool idCinematicLocal::InitFromBinkDecFile(const char *qpath, bool amilooping)
 		}
 		else
 		{
-			common->Warning("idCinematic: Cannot open BinkDec video file: '%s', %d\n", qpath, looping);
+			mpSystem->Warning("idCinematic: Cannot open BinkDec video file: '%s', %d\n", qpath, looping);
 			return false;
 		}
 	}
@@ -711,7 +711,7 @@ bool idCinematicLocal::InitFromBinkDecFile(const char *qpath, bool amilooping)
 	binkHandle = Bink_Open(fullpath);
 	if(!binkHandle.isValid)
 	{
-		common->Warning("idCinematic: Cannot open BinkDec video file: '%s', %d\n", qpath, looping);
+		mpSystem->Warning("idCinematic: Cannot open BinkDec video file: '%s', %d\n", qpath, looping);
 		return false;
 	}
 
@@ -728,7 +728,7 @@ bool idCinematicLocal::InitFromBinkDecFile(const char *qpath, bool amilooping)
 	animationLength = durationSec;
 	buf = nullptr;
 
-	common->Printf("Loaded BinkDec file: '%s', looping=%d%dx%d, %f FPS, %f sec\n", qpath, looping, CIN_WIDTH, CIN_HEIGHT, frameRate, durationSec);
+	mpSystem->Printf("Loaded BinkDec file: '%s', looping=%d%dx%d, %f FPS, %f sec\n", qpath, looping, CIN_WIDTH, CIN_HEIGHT, frameRate, durationSec);
 
 	status = FMV_PLAY;
 
@@ -2734,7 +2734,7 @@ redump:
 
 	if(RoQFrameSize > 65536 || roq_id == 0x1084)
 	{
-		common->DPrintf("roq_size>65536||roq_id==0x1084\n");
+		mpSystem->DPrintf("roq_size>65536||roq_id==0x1084\n");
 		status = FMV_EOF;
 		if(looping)
 		{

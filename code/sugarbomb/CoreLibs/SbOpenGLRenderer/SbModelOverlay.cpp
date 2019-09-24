@@ -767,7 +767,7 @@ drawSurf_t *idRenderModelOverlay::CreateOverlayDrawSurf(const viewEntity_t *spac
 		if(overlay.maxReferencedVertex >= baseTri->numVerts)
 		{
 			// This can happen when playing a demofile and a model has been changed since it was recorded, so just issue a warning and go on.
-			common->Warning("idRenderModelOverlay::CreateOverlayDrawSurf: overlay vertex out of range.  Model has probably changed since generating the overlay.");
+			mpSystem->Warning("idRenderModelOverlay::CreateOverlayDrawSurf: overlay vertex out of range.  Model has probably changed since generating the overlay.");
 			FreeOverlay(overlay);
 			if(i == firstOverlay)
 			{

@@ -109,12 +109,12 @@ static drawSurf_t *R_AutospriteDeform(drawSurf_t *surf)
 
 	if(srcTri->numVerts & 3)
 	{
-		common->Warning("R_AutospriteDeform: shader had odd vertex count");
+		gpSys->Warning("R_AutospriteDeform: shader had odd vertex count");
 		return nullptr;
 	}
 	if(srcTri->numIndexes != (srcTri->numVerts >> 2) * 6)
 	{
-		common->Warning("R_AutospriteDeform: autosprite had odd index count");
+		gpSys->Warning("R_AutospriteDeform: autosprite had odd index count");
 		return nullptr;
 	}
 
@@ -208,11 +208,11 @@ static drawSurf_t *R_TubeDeform(drawSurf_t *surf)
 
 	if(srcTri->numVerts & 3)
 	{
-		common->Error("R_TubeDeform: shader had odd vertex count");
+		gpSys->Error("R_TubeDeform: shader had odd vertex count");
 	}
 	if(srcTri->numIndexes != (srcTri->numVerts >> 2) * 6)
 	{
-		common->Error("R_TubeDeform: autosprite had odd index count");
+		gpSys->Error("R_TubeDeform: autosprite had odd index count");
 	}
 
 	// RB: added check wether GPU skinning is available at all
@@ -431,7 +431,7 @@ static drawSurf_t *R_FlareDeform(drawSurf_t *surf)
 	if(srcTri->numVerts != 4 || srcTri->numIndexes != 6)
 	{
 		// FIXME: temp hack for flares on tripleted models
-		common->Warning("R_FlareDeform: not a single quad");
+		gpSys->Warning("R_FlareDeform: not a single quad");
 		return nullptr;
 	}
 
@@ -680,7 +680,7 @@ static void AddTriangleToIsland_r(const srfTriangles_t *tri, int triangleNum, bo
 	// add to the current island
 	if(island->numTris >= MAX_EYEBALL_TRIS)
 	{
-		common->Error("MAX_EYEBALL_TRIS");
+		gpSys->Error("MAX_EYEBALL_TRIS");
 		return;
 	}
 	island->tris[island->numTris] = triangleNum;
@@ -733,7 +733,7 @@ static drawSurf_t *R_EyeballDeform(drawSurf_t *surf)
 	const int numTri = srcTri->numIndexes / 3;
 	if(numTri > MAX_EYEBALL_ISLANDS * MAX_EYEBALL_TRIS)
 	{
-		common->Printf("R_EyeballDeform: too many triangles in surface");
+		gpSys->Printf("R_EyeballDeform: too many triangles in surface");
 		return nullptr;
 	}
 
@@ -764,7 +764,7 @@ static drawSurf_t *R_EyeballDeform(drawSurf_t *surf)
 	// assume we always have two eyes, two origins, and two targets
 	if(numIslands != 3)
 	{
-		common->Printf("R_EyeballDeform: %i triangle islands\n", numIslands);
+		gpSys->Printf("R_EyeballDeform: %i triangle islands\n", numIslands);
 		return nullptr;
 	}
 

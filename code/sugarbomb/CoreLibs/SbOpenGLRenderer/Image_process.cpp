@@ -244,7 +244,7 @@ byte *R_MipMapWithAlphaSpecularity(idCommon *common, const byte *in, int width, 
 
 	if(width < 1 || height < 1 || (width + height == 2))
 	{
-		common->FatalError("R_MipMapWithAlphaMin called with size %i,%i", width, height);
+		gpSys->FatalError("R_MipMapWithAlphaMin called with size %i,%i", width, height);
 	}
 
 	// convert the incoming texture to centered floating point

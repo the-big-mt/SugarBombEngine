@@ -808,7 +808,7 @@ void idRenderWorldLocal::FindViewLightsAndEntities()
 			if(tr.viewDef->areaNum != lastPrintedAreaNum)
 			{
 				lastPrintedAreaNum = tr.viewDef->areaNum;
-				common->Printf("entering portal area %i\n", tr.viewDef->areaNum);
+				mpSys->Printf("entering portal area %i\n", tr.viewDef->areaNum);
 			}
 
 			portalStack_t ps;
@@ -1087,7 +1087,7 @@ bool idRenderWorldLocal::AreasAreConnected(int areaNum1, int areaNum2, portalCon
 	}
 	if(areaNum1 > numPortalAreas || areaNum2 > numPortalAreas || areaNum1 < 0 || areaNum2 < 0)
 	{
-		common->Error("idRenderWorldLocal::AreAreasConnected: bad parms: %i, %i", areaNum1, areaNum2);
+		mpSys->Error("idRenderWorldLocal::AreAreasConnected: bad parms: %i, %i", areaNum1, areaNum2);
 	}
 
 	int attribute = 0;
@@ -1101,7 +1101,7 @@ bool idRenderWorldLocal::AreasAreConnected(int areaNum1, int areaNum2, portalCon
 	}
 	if(attribute >= NUM_PORTAL_ATTRIBUTES || (1 << attribute) != (int)connection)
 	{
-		common->Error("idRenderWorldLocal::AreasAreConnected: bad connection number: %i\n", (int)connection);
+		mpSys->Error("idRenderWorldLocal::AreasAreConnected: bad connection number: %i\n", (int)connection);
 	}
 
 	return portalAreas[areaNum1].connectedAreaNum[attribute] == portalAreas[areaNum2].connectedAreaNum[attribute];
@@ -1123,7 +1123,7 @@ void idRenderWorldLocal::SetPortalState(qhandle_t portal, int blockTypes)
 
 	if(portal < 1 || portal > numInterAreaPortals)
 	{
-		common->Error("SetPortalState: bad portal number %i", portal);
+		mpSys->Error("SetPortalState: bad portal number %i", portal);
 	}
 	int old = doublePortals[portal - 1].blockingBits;
 	if(old == blockTypes)
@@ -1166,7 +1166,7 @@ int idRenderWorldLocal::GetPortalState(qhandle_t portal)
 
 	if(portal < 1 || portal > numInterAreaPortals)
 	{
-		common->Error("GetPortalState: bad portal number %i", portal);
+		mpSys->Error("GetPortalState: bad portal number %i", portal);
 	}
 
 	return doublePortals[portal - 1].blockingBits;

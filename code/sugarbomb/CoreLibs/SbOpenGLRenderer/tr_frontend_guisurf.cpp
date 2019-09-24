@@ -277,12 +277,12 @@ void R_ReloadGuis_f(const idCmdArgs &args)
 	if(!idStr::Icmp(args.Argv(1), "all"))
 	{
 		all = true;
-		common->Printf("Reloading all gui files...\n");
+		gpSys->Printf("Reloading all gui files...\n");
 	}
 	else
 	{
 		all = false;
-		common->Printf("Checking for changed gui files...\n");
+		gpSys->Printf("Checking for changed gui files...\n");
 	}
 
 	uiManager->Reload(all);

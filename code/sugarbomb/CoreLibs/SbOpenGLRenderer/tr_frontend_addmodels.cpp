@@ -195,7 +195,7 @@ bool R_IssueEntityDefCallback(idRenderEntityLocal *def)
 
 	if(def->parms.hModel == nullptr)
 	{
-		common->Error("R_IssueEntityDefCallback: dynamic entity callback didn't set model");
+		gpSys->Error("R_IssueEntityDefCallback: dynamic entity callback didn't set model");
 	}
 
 	if(r_checkBounds.GetBool())
@@ -207,7 +207,7 @@ bool R_IssueEntityDefCallback(idRenderEntityLocal *def)
 		   oldBounds[1][1] < def->localReferenceBounds[1][1] - CHECK_BOUNDS_EPSILON ||
 		   oldBounds[1][2] < def->localReferenceBounds[1][2] - CHECK_BOUNDS_EPSILON)
 		{
-			common->Printf("entity %i callback extended reference bounds\n", def->index);
+			gpSys->Printf("entity %i callback extended reference bounds\n", def->index);
 		}
 	}
 
@@ -248,7 +248,7 @@ idRenderModel *R_EntityDefDynamicModel(idRenderEntityLocal *def)
 
 	if(model == nullptr)
 	{
-		common->Error("R_EntityDefDynamicModel: nullptr model");
+		gpSys->Error("R_EntityDefDynamicModel: nullptr model");
 		return nullptr;
 	}
 
@@ -283,7 +283,7 @@ idRenderModel *R_EntityDefDynamicModel(idRenderEntityLocal *def)
 			   b[1][1] > def->localReferenceBounds[1][1] + CHECK_BOUNDS_EPSILON ||
 			   b[1][2] > def->localReferenceBounds[1][2] + CHECK_BOUNDS_EPSILON)
 			{
-				common->Printf("entity %i dynamic model exceeded reference bounds\n", def->index);
+				gpSys->Printf("entity %i dynamic model exceeded reference bounds\n", def->index);
 			}
 		}
 
@@ -717,12 +717,12 @@ void R_AddSingleModel(viewEntity_t *vEntity)
 				{
 					if(tri->verts[j].xyz[k] > tri->bounds[1][k] + CHECK_BOUNDS_EPSILON || tri->verts[j].xyz[k] < tri->bounds[0][k] - CHECK_BOUNDS_EPSILON)
 					{
-						common->Printf("bad tri->bounds on %s:%s\n", entityDef->parms.hModel->Name(), shader->GetName());
+						gpSys->Printf("bad tri->bounds on %s:%s\n", entityDef->parms.hModel->Name(), shader->GetName());
 						break;
 					}
 					if(tri->verts[j].xyz[k] > entityDef->localReferenceBounds[1][k] + CHECK_BOUNDS_EPSILON || tri->verts[j].xyz[k] < entityDef->localReferenceBounds[0][k] - CHECK_BOUNDS_EPSILON)
 					{
-						common->Printf("bad referenceBounds on %s:%s\n", entityDef->parms.hModel->Name(), shader->GetName());
+						gpSys->Printf("bad referenceBounds on %s:%s\n", entityDef->parms.hModel->Name(), shader->GetName());
 						break;
 					}
 				}

@@ -63,7 +63,7 @@ static idFileSystem *fileSystem{ nullptr };
 	{                         \
 		if(ase.verbose)       \
 		{                     \
-			common->Printf x; \
+			gpSys->Printf x; \
 		}                     \
 	}
 
@@ -152,7 +152,7 @@ static void ASE_ParseBracedBlock(void (*parser)(const char *token))
 			if(indent == 0)
 				break;
 			else if(indent < 0)
-				common->Error("Unexpected '}'");
+				gpSys->Error("Unexpected '}'");
 		}
 		else
 		{
@@ -178,7 +178,7 @@ static void ASE_SkipEnclosingBraces()
 			if(indent == 0)
 				break;
 			else if(indent < 0)
-				common->Error("Unexpected '}'");
+				gpSys->Error("Unexpected '}'");
 		}
 	}
 }
@@ -338,12 +338,12 @@ static void ASE_KeyMESH_VERTEX_LIST(const char *token)
 
 		if(ase.currentVertex > pMesh->numVertexes)
 		{
-			common->Error("ase.currentVertex >= pMesh->numVertexes");
+			gpSys->Error("ase.currentVertex >= pMesh->numVertexes");
 		}
 	}
 	else
 	{
-		common->Error("Unknown token '%s' while parsing MESH_VERTEX_LIST", token);
+		gpSys->Error("Unknown token '%s' while parsing MESH_VERTEX_LIST", token);
 	}
 }
 
@@ -388,7 +388,7 @@ static void ASE_KeyMESH_FACE_LIST(const char *token)
 	}
 	else
 	{
-		common->Error("Unknown token '%s' while parsing MESH_FACE_LIST", token);
+		gpSys->Error("Unknown token '%s' while parsing MESH_FACE_LIST", token);
 	}
 }
 
@@ -417,7 +417,7 @@ static void ASE_KeyTFACE_LIST(const char *token)
 	}
 	else
 	{
-		common->Error("Unknown token '%s' in MESH_TFACE", token);
+		gpSys->Error("Unknown token '%s' in MESH_TFACE", token);
 	}
 }
 
@@ -445,7 +445,7 @@ static void ASE_KeyCFACE_LIST(const char *token)
 	}
 	else
 	{
-		common->Error("Unknown token '%s' in MESH_CFACE", token);
+		gpSys->Error("Unknown token '%s' in MESH_CFACE", token);
 	}
 }
 
@@ -480,12 +480,12 @@ static void ASE_KeyMESH_TVERTLIST(const char *token)
 
 		if(ase.currentVertex > pMesh->numTVertexes)
 		{
-			common->Error("ase.currentVertex > pMesh->numTVertexes");
+			gpSys->Error("ase.currentVertex > pMesh->numTVertexes");
 		}
 	}
 	else
 	{
-		common->Error("Unknown token '%s' while parsing MESH_TVERTLIST", token);
+		gpSys->Error("Unknown token '%s' while parsing MESH_TVERTLIST", token);
 	}
 }
 
@@ -512,12 +512,12 @@ static void ASE_KeyMESH_CVERTLIST(const char *token)
 
 		if(ase.currentVertex > pMesh->numCVertexes)
 		{
-			common->Error("ase.currentVertex > pMesh->numCVertexes");
+			gpSys->Error("ase.currentVertex > pMesh->numCVertexes");
 		}
 	}
 	else
 	{
-		common->Error("Unknown token '%s' while parsing MESH_CVERTLIST", token);
+		gpSys->Error("Unknown token '%s' while parsing MESH_CVERTLIST", token);
 	}
 }
 
@@ -539,12 +539,12 @@ static void ASE_KeyMESH_NORMALS(const char *token)
 
 		if(num >= pMesh->numFaces || num < 0)
 		{
-			common->Error("MESH_NORMALS face index out of range: %i", num);
+			gpSys->Error("MESH_NORMALS face index out of range: %i", num);
 		}
 
 		if(num != ase.currentFace)
 		{
-			common->Error("MESH_NORMALS face index != currentFace");
+			gpSys->Error("MESH_NORMALS face index != currentFace");
 		}
 
 		ASE_GetToken(false);
@@ -572,7 +572,7 @@ static void ASE_KeyMESH_NORMALS(const char *token)
 
 		if(num >= pMesh->numVertexes || num < 0)
 		{
-			common->Error("MESH_NORMALS vertex index out of range: %i", num);
+			gpSys->Error("MESH_NORMALS vertex index out of range: %i", num);
 		}
 
 		f = &pMesh->faces[ase.currentFace - 1];
@@ -587,7 +587,7 @@ static void ASE_KeyMESH_NORMALS(const char *token)
 
 		if(v >= 3)
 		{
-			common->Error("MESH_NORMALS vertex index doesn't match face");
+			gpSys->Error("MESH_NORMALS vertex index doesn't match face");
 			return;
 		}
 
@@ -654,7 +654,7 @@ static void ASE_KeyMESH(const char *token)
 
 		if(pMesh->numTVFaces != pMesh->numFaces)
 		{
-			common->Error("MESH_NUMTVFACES != MESH_NUMFACES");
+			gpSys->Error("MESH_NUMTVFACES != MESH_NUMFACES");
 		}
 	}
 	else if(!strcmp(token, "*MESH_NUMCVFACES"))
@@ -666,7 +666,7 @@ static void ASE_KeyMESH(const char *token)
 
 		if(pMesh->numTVFaces != pMesh->numFaces)
 		{
-			common->Error("MESH_NUMCVFACES != MESH_NUMFACES");
+			gpSys->Error("MESH_NUMCVFACES != MESH_NUMFACES");
 		}
 	}
 	else if(!strcmp(token, "*MESH_VERTEX_LIST"))
@@ -701,7 +701,7 @@ static void ASE_KeyMESH(const char *token)
 	{
 		if(!pMesh->faces)
 		{
-			common->Error("*MESH_TFACELIST before *MESH_FACE_LIST");
+			gpSys->Error("*MESH_TFACELIST before *MESH_FACE_LIST");
 		}
 		ase.currentFace = 0;
 		VERBOSE((".....parsing MESH_TFACE_LIST\n"));
@@ -721,7 +721,7 @@ static void ASE_KeyMESH(const char *token)
 	{
 		if(!pMesh->faces)
 		{
-			common->Warning("*MESH_NORMALS before *MESH_FACE_LIST");
+			gpSys->Warning("*MESH_NORMALS before *MESH_FACE_LIST");
 		}
 		ase.currentFace = 0;
 		VERBOSE((".....parsing MESH_NORMALS\n"));
@@ -748,7 +748,7 @@ static void ASE_KeyMESH_ANIMATION(const char *token)
 	}
 	else
 	{
-		common->Error("Unknown token '%s' while parsing MESH_ANIMATION", token);
+		gpSys->Error("Unknown token '%s' while parsing MESH_ANIMATION", token);
 	}
 }
 
@@ -897,7 +897,7 @@ aseModel_t *ASE_Parse(const char *buffer, bool verbose)
 		}
 		else if(ase.token[0])
 		{
-			common->Printf("Unknown token '%s'\n", ase.token);
+			gpSys->Printf("Unknown token '%s'\n", ase.token);
 		}
 	}
 

@@ -516,24 +516,24 @@ void R_RangeCheckIndexes(const srfTriangles_t *tri)
 
 	if(tri->numIndexes < 0)
 	{
-		common->Error("R_RangeCheckIndexes: numIndexes < 0");
+		gpSys->Error("R_RangeCheckIndexes: numIndexes < 0");
 	}
 	if(tri->numVerts < 0)
 	{
-		common->Error("R_RangeCheckIndexes: numVerts < 0");
+		gpSys->Error("R_RangeCheckIndexes: numVerts < 0");
 	}
 
 	// must specify an integral number of triangles
 	if(tri->numIndexes % 3 != 0)
 	{
-		common->Error("R_RangeCheckIndexes: numIndexes %% 3");
+		gpSys->Error("R_RangeCheckIndexes: numIndexes %% 3");
 	}
 
 	for(i = 0; i < tri->numIndexes; i++)
 	{
 		if(tri->indexes[i] >= tri->numVerts)
 		{
-			common->Error("R_RangeCheckIndexes: index out of range");
+			gpSys->Error("R_RangeCheckIndexes: index out of range");
 		}
 	}
 
@@ -541,7 +541,7 @@ void R_RangeCheckIndexes(const srfTriangles_t *tri)
 	if(tri->numVerts > tri->numIndexes)
 	{
 		// FIXME: find the causes of these
-		// common->Printf( "R_RangeCheckIndexes: tri->numVerts > tri->numIndexes\n" );
+		// gpSys->Printf( "R_RangeCheckIndexes: tri->numVerts > tri->numIndexes\n" );
 	}
 }
 
@@ -809,7 +809,7 @@ void R_IdentifySilEdges(srfTriangles_t *tri, bool omitCoplanarEdges)
 
 	if(c_duplicatedEdges || c_tripledEdges)
 	{
-		common->DWarning("%i duplicated edge directions, %i tripled edges", c_duplicatedEdges, c_tripledEdges);
+		gpSys->DWarning("%i duplicated edge directions, %i tripled edges", c_duplicatedEdges, c_tripledEdges);
 	}
 
 	// if we know that the vertexes aren't going
@@ -1688,7 +1688,7 @@ void R_RemoveDuplicatedTriangles(srfTriangles_t *tri)
 
 	if(c_removed)
 	{
-		common->Printf("removed %i duplicated triangles\n", c_removed);
+		gpSys->Printf("removed %i duplicated triangles\n", c_removed);
 	}
 }
 
@@ -1728,7 +1728,7 @@ void R_RemoveDegenerateTriangles(srfTriangles_t *tri)
 
 	if(c_removed)
 	{
-		common->Printf("removed %i degenerate triangles\n", c_removed);
+		gpSys->Printf("removed %i degenerate triangles\n", c_removed);
 	}
 }
 
@@ -1760,7 +1760,7 @@ void R_TestDegenerateTextureSpace(srfTriangles_t *tri)
 
 	if(c_degenerate)
 	{
-		//		common->Printf( "%d triangles with a degenerate texture space\n", c_degenerate );
+		//		gpSys->Printf( "%d triangles with a degenerate texture space\n", c_degenerate );
 	}
 }
 
@@ -1783,7 +1783,7 @@ void R_RemoveUnusedVerts(srfTriangles_t *tri)
 		index = tri->indexes[i];
 		if(index < 0 || index >= tri->numVerts)
 		{
-			common->Error("R_RemoveUnusedVerts: bad index");
+			gpSys->Error("R_RemoveUnusedVerts: bad index");
 		}
 		mark[index] = 1;
 
@@ -1792,7 +1792,7 @@ void R_RemoveUnusedVerts(srfTriangles_t *tri)
 			index = tri->silIndexes[i];
 			if(index < 0 || index >= tri->numVerts)
 			{
-				common->Error("R_RemoveUnusedVerts: bad index");
+				gpSys->Error("R_RemoveUnusedVerts: bad index");
 			}
 			mark[index] = 1;
 		}

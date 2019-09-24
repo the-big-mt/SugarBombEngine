@@ -241,7 +241,7 @@ void *R_StaticAlloc(int bytes, const memTag_t tag)
 	// don't exit on failure on zero length allocations since the old code didn't
 	if(buf == nullptr && bytes != 0)
 	{
-		common->FatalError("R_StaticAlloc failed on %i bytes", bytes);
+		gpSys->FatalError("R_StaticAlloc failed on %i bytes", bytes);
 	}
 	return buf;
 }
