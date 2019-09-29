@@ -52,7 +52,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //namespace sbe
 //{
 
-//class idSoundSample;
+//class SbSoundSample;
 
 idCVar s_subFraction("s_subFraction", "0.5", CVAR_ARCHIVE | CVAR_FLOAT, "Amount of each sound to send to the LFE channel");
 

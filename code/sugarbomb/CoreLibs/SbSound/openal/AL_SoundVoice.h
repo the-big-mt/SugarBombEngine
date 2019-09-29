@@ -100,7 +100,7 @@ public:
 	float GetAmplitude();
 
 	// returns true if we can re-use this voice
-	bool CompatibleFormat(idSoundSample_OpenAL *s);
+	bool CompatibleFormat(SbSoundSample_OpenAL *s);
 
 	uint32 GetSampleRate() const
 	{
@@ -108,10 +108,10 @@ public:
 	}
 
 	// callback function
-	void OnBufferStart(idSoundSample_OpenAL *sample, int bufferNumber);
+	void OnBufferStart(SbSoundSample_OpenAL *sample, int bufferNumber);
 
 private:
-	friend class idSoundHardware_OpenAL;
+	friend class SbSoundHardware_OpenAL;
 
 	// Returns true when all the buffers are finished processing
 	bool IsPlaying();
@@ -126,7 +126,7 @@ private:
 	int RestartAt(int offsetSamples);
 
 	// Helper function to submit a buffer
-	int SubmitBuffer(idSoundSample_OpenAL *sample, int bufferNumber, int offset);
+	int SubmitBuffer(SbSoundSample_OpenAL *sample, int bufferNumber, int offset);
 
 	// Adjust the voice frequency based on the new sample rate for the buffer
 	void SetSampleRate(uint32 newSampleRate, uint32 operationSet);
@@ -138,8 +138,8 @@ private:
 	ALuint openalStreamingBuffer[3];
 	ALuint lastopenalStreamingBuffer[3];
 
-	idSoundSample_OpenAL *leadinSample;
-	idSoundSample_OpenAL *loopingSample;
+	SbSoundSample_OpenAL *leadinSample;
+	SbSoundSample_OpenAL *loopingSample;
 
 	// These are the fields from the sample format that matter to us for voice reuse
 	uint16 formatTag;
@@ -157,7 +157,7 @@ private:
 idSoundVoice
 ================================================
 */
-class idSoundVoice : public idSoundVoice_OpenAL
+class idSoundVoice : public SbSoundVoice_OpenAL
 {
 };
 

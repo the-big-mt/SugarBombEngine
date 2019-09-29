@@ -78,8 +78,9 @@ struct ISys;
 }; // namespace sbe
 
 struct IDeclManager;
-class idSoundSample;
 class idLexer;
+
+class SbSoundSample;
 
 // it is somewhat tempting to make this a virtual class to hide the private
 // details here, but that doesn't fit easily with the decl manager at the moment.
@@ -124,7 +125,7 @@ private:
 	bool leadin{false};        // true if this sound has a leadin
 	float leadinVolume{0.0f}; // allows light breaking leadin sounds to be much louder than the broken loop
 
-	idList<idSoundSample *, TAG_AUDIO> entries;
+	idList<SbSoundSample *, TAG_AUDIO> entries;
 private:
 	void Init();
 	bool ParseShader(sbe::IDeclManager *apDeclManager, idLexer &src);

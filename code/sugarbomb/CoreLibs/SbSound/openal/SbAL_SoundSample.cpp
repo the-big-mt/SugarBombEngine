@@ -152,7 +152,7 @@ void idSoundSample_OpenAL::WriteGeneratedSample(idFile *fileOut)
 	fileOut->WriteBig(loaded);
 	fileOut->WriteBig(playBegin);
 	fileOut->WriteBig(playLength);
-	idWaveFile::WriteWaveFormatDirect(format, fileOut);
+	SbWaveFile::WriteWaveFormatDirect(format, fileOut);
 	fileOut->WriteBig((int)amplitude.Num());
 	fileOut->Write(amplitude.Ptr(), amplitude.Num());
 	fileOut->WriteBig(totalBufferSize);
@@ -209,7 +209,7 @@ bool idSoundSample_OpenAL::LoadGeneratedSample(const idStr &filename)
 		fileIn->ReadBig(loaded);
 		fileIn->ReadBig(playBegin);
 		fileIn->ReadBig(playLength);
-		idWaveFile::ReadWaveFormatDirect(format, fileIn);
+		SbWaveFile::ReadWaveFormatDirect(format, fileIn);
 		int num;
 		fileIn->ReadBig(num);
 		amplitude.Clear();
@@ -413,7 +413,7 @@ idSoundSample_OpenAL::LoadWav
 bool idSoundSample_OpenAL::LoadWav(const idStr &filename)
 {
 	// load the wave
-	idWaveFile wave;
+	SbWaveFile wave;
 	if(!wave.Open(filename))
 	{
 		return false;
@@ -583,7 +583,7 @@ void idSoundSample_OpenAL::MakeDefault()
 	loaded = true;
 
 	memset(&format, 0, sizeof(format));
-	format.basic.formatTag = idWaveFile::FORMAT_PCM;
+	format.basic.formatTag = SbWaveFile::FORMAT_PCM;
 	format.basic.numChannels = 1;
 	format.basic.bitsPerSample = 16;
 	format.basic.samplesPerSec = 22050; //44100; //XAUDIO2_MIN_SAMPLE_RATE;

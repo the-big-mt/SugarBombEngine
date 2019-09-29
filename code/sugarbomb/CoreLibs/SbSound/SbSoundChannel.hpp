@@ -46,8 +46,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 //namespace sbe
 //{
 
-struct idSoundSample;
-class idSoundVoice;
+class SbSoundSample;
+class SbSoundVoice;
 
 class SbSoundShader;
 class SbSoundEmitterLocal;
@@ -80,8 +80,8 @@ public:
 
 	soundShaderParms_t parms{}; // combines shader parms and per-channel overrides
 	const SbSoundShader *soundShader{nullptr};
-	idSoundSample *leadinSample{nullptr};
-	idSoundSample *loopingSample{nullptr};
+	SbSoundSample *leadinSample{nullptr};
+	SbSoundSample *loopingSample{nullptr};
 	SbSoundFade volumeFade{};
 
 	float volumeDB{0.0f};         // last volume at which this channel will play (calculated in UpdateVolume)
@@ -89,7 +89,7 @@ public:
 
 	// hardwareVoice will be freed and NULL'd when a sound is out of range,
 	// and reallocated when it comes back in range
-	idSoundVoice *hardwareVoice{nullptr};
+	SbSoundVoice *hardwareVoice{nullptr};
 
 	// only allocated by the soundWorld block allocator
 	SbSoundChannel();

@@ -57,8 +57,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 // We may need up to 3 buffers for each hardware voice if they are all long sounds
 constexpr auto MAX_SOUND_BUFFERS{MAX_HARDWARE_VOICES * 3};
 
-struct idSoundSample;
-class idSoundVoice;
+class SbSoundSample;
+class SbSoundVoice;
 
 class SbSoundWorldLocal;
 
@@ -192,7 +192,7 @@ public:
 	SbSoundWorldLocal *currentSoundWorld{nullptr};
 	idStaticList<SbSoundWorldLocal *, 32> soundWorlds;
 
-	idList<idSoundSample *, TAG_AUDIO> samples;
+	idList<SbSoundSample *, TAG_AUDIO> samples;
 	idHashIndex sampleHash;
 
 	idSoundHardware hardware;

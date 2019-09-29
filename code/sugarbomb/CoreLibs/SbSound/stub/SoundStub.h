@@ -64,12 +64,12 @@ struct IFileSystem;
 
 // ok, this one isn't really a stub, because it seems to be XAudio-independent,
 // I just copied the class from idSoundSample_XAudio2 and renamed it
-class idSoundSample
+class SbSoundSample
 {
 public:
 	idSoundSample(ISys *apSys, IFileSystem *apFileSystem);
 	
-	~idSoundSample(); // destructor should be public so lists of  soundsamples can be destroyed etc
+	~SbSoundSample(); // destructor should be public so lists of  soundsamples can be destroyed etc
 	
 	// Loads and initializes the resource based on the name.
 	virtual void	 LoadResource();
@@ -116,7 +116,7 @@ public:
 	
 	bool			IsCompressed() const
 	{
-		return ( format.basic.formatTag != idWaveFile::FORMAT_PCM );
+		return ( format.basic.formatTag != SbWaveFile::FORMAT_PCM );
 	}
 	
 	bool			IsDefault() const
@@ -164,8 +164,8 @@ public:
 protected:
 
 	/*
-		friend class idSoundHardware_XAudio2;
-		friend class idSoundVoice_XAudio2;
+		friend class SbSoundHardware_XAudio2;
+		friend class SbSoundVoice_XAudio2;
 	*/
 	
 	bool			LoadWav( const idStr& name );
@@ -198,7 +198,7 @@ protected:
 	int				playBegin;
 	int				playLength;
 	
-	idWaveFile::waveFmt_t	format;
+	SbWaveFile::waveFmt_t	format;
 	
 	idList<byte, TAG_AMPLITUDE> amplitude;
 private:
@@ -206,10 +206,10 @@ private:
 	IFileSystem *fileSystem{nullptr};
 };
 
-class idSoundVoice : public idSoundVoice_Base
+class SbSoundVoice : public SbSoundVoice_Base
 {
 public:
-	void					Create( const idSoundSample* leadinSample, const idSoundSample* loopingSample ) {}
+	void					Create( const SbSoundSample* leadinSample, const SbSoundSample* loopingSample ) {}
 	
 	// Start playing at a particular point in the buffer.  Does an Update() too
 	void					Start( int offsetMS, int ssFlags ) {}
@@ -235,7 +235,7 @@ public:
 	}
 	
 	// returns true if we can re-use this voice
-	bool					CompatibleFormat( idSoundSample* s )
+	bool					CompatibleFormat( SbSoundSample* s )
 	{
 		return false;
 	}
@@ -246,7 +246,7 @@ public:
 	}
 	
 	// callback function
-	void					OnBufferStart( idSoundSample* sample, int bufferNumber ) {}
+	void					OnBufferStart( SbSoundSample* sample, int bufferNumber ) {}
 };
 
 class idSoundHardware
@@ -270,7 +270,7 @@ public:
 		return NULL;
 	}
 	
-	void			FreeVoice( idSoundVoice* voice ) {}
+	void			FreeVoice( SbSoundVoice* voice ) {}
 	
 	int				GetNumZombieVoices() const
 	{

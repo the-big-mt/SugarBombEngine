@@ -80,7 +80,7 @@ static float ONE_OVER_SYSTEM_SAMPLE_RATE = 1.0f / SYSTEM_SAMPLE_RATE;
 idSoundVoice_OpenAL::idSoundVoice_OpenAL
 ========================
 */
-idSoundVoice_OpenAL::idSoundVoice_OpenAL()
+SbSoundVoice_OpenAL::SbSoundVoice_OpenAL()
     : triggered(false),
       openalSource(0),
       leadinSample(nullptr),
@@ -98,7 +98,7 @@ idSoundVoice_OpenAL::idSoundVoice_OpenAL()
 idSoundVoice_OpenAL::~idSoundVoice_OpenAL
 ========================
 */
-idSoundVoice_OpenAL::~idSoundVoice_OpenAL()
+SbSoundVoice_OpenAL::~SbSoundVoice_OpenAL()
 {
 	DestroyInternal();
 }
@@ -108,7 +108,7 @@ idSoundVoice_OpenAL::~idSoundVoice_OpenAL()
 idSoundVoice_OpenAL::CompatibleFormat
 ========================
 */
-bool idSoundVoice_OpenAL::CompatibleFormat(idSoundSample_OpenAL *s)
+bool SbSoundVoice_OpenAL::CompatibleFormat(SbSoundSample_OpenAL *s)
 {
 	if(alIsSource(openalSource))
 	{
@@ -135,8 +135,8 @@ void idSoundVoice_OpenAL::Create(const idSoundSample *leadinSample_, const idSou
 
 	triggered = true;
 
-	leadinSample = (idSoundSample_OpenAL *)leadinSample_;
-	loopingSample = (idSoundSample_OpenAL *)loopingSample_;
+	leadinSample = (SbSoundSample_OpenAL *)leadinSample_;
+	loopingSample = (SbSoundSample_OpenAL *)loopingSample_;
 
 	if(alIsSource(openalSource) && CompatibleFormat(leadinSample))
 	{
@@ -231,7 +231,7 @@ void idSoundVoice_OpenAL::Create(const idSoundSample *leadinSample_, const idSou
 idSoundVoice_OpenAL::DestroyInternal
 ========================
 */
-void idSoundVoice_OpenAL::DestroyInternal()
+void SbSoundVoice_OpenAL::DestroyInternal()
 {
 	if(alIsSource(openalSource))
 	{
@@ -278,7 +278,7 @@ void idSoundVoice_OpenAL::DestroyInternal()
 idSoundVoice_OpenAL::Start
 ========================
 */
-void idSoundVoice_OpenAL::Start(int offsetMS, int ssFlags)
+void SbSoundVoice_OpenAL::Start(int offsetMS, int ssFlags)
 {
 	if(s_debugHardware.GetBool())
 	{
@@ -352,11 +352,11 @@ void idSoundVoice_OpenAL::Start(int offsetMS, int ssFlags)
 idSoundVoice_OpenAL::RestartAt
 ========================
 */
-int idSoundVoice_OpenAL::RestartAt(int offsetSamples)
+int SbSoundVoice_OpenAL::RestartAt(int offsetSamples)
 {
 	offsetSamples &= ~127;
 
-	idSoundSample_OpenAL *sample = leadinSample;
+	SbSoundSample_OpenAL *sample = leadinSample;
 	if(offsetSamples >= leadinSample->playLength)
 	{
 		if(loopingSample != nullptr)

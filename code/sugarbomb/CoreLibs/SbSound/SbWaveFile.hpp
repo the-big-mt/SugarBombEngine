@@ -71,7 +71,7 @@ class SbWaveFile
 {
 public:
 	ID_INLINE idWaveFile();
-	ID_INLINE ~idWaveFile();
+	ID_INLINE ~SbWaveFile();
 
 	bool Open(sbe::IFileSystem *apFileSystem, const char *asFileName);
 	void Close(sbe::IFileSystem *apFileSystem);

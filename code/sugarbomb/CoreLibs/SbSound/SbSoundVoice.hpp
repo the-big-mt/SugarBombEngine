@@ -50,7 +50,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //namespace sbe
 //{
 
-class idSoundSample;
+class SbSoundSample;
 
 /*
 ========================
@@ -107,7 +107,7 @@ public:
 		channelMask = mask;
 	};
 
-	const idSoundSample *GetCurrentSample() const;
+	const SbSoundSample *GetCurrentSample() const;
 
 	// Controls the low pass filter, where 0.0f = no filtering, 1.0f = full filter
 	void SetOcclusion(float f)
@@ -138,16 +138,16 @@ protected:
 	float innerSampleRangeSqr{0.0f};
 	float outerSampleRangeSqr{0.0f};
 
-	idList<idSoundSample *, TAG_AUDIO> samples;
+	idList<SbSoundSample *, TAG_AUDIO> samples;
 
 	// These are constants which are initialized with InitSurround
 	//-------------------------------------------------------------
 
-	static idVec2 speakerPositions[idWaveFile::CHANNEL_INDEX_MAX];
+	static idVec2 speakerPositions[SbWaveFile::CHANNEL_INDEX_MAX];
 
 	// This is to figure out which speakers are "next to" this one
-	static int speakerLeft[idWaveFile::CHANNEL_INDEX_MAX];
-	static int speakerRight[idWaveFile::CHANNEL_INDEX_MAX];
+	static int speakerLeft[SbWaveFile::CHANNEL_INDEX_MAX];
+	static int speakerRight[SbWaveFile::CHANNEL_INDEX_MAX];
 
 	// Number of channels in the output hardware
 	static int dstChannels{0};
@@ -160,7 +160,7 @@ protected:
 	static int dstCenter{0};
 	static int dstLFE{0};
 	static int dstMap[MAX_CHANNELS_PER_VOICE];
-	static int invMap[idWaveFile::CHANNEL_INDEX_MAX];
+	static int invMap[SbWaveFile::CHANNEL_INDEX_MAX];
 
 	// specifies what volume to specify for each channel when a speaker is omni
 	static float omniLevel{0.0f};

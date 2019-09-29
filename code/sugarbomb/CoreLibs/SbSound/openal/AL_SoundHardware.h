@@ -54,9 +54,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 //namespace sbe
 //{
 
-class idSoundSample_OpenAL;
-class idSoundVoice_OpenAL;
-class idSoundHardware_OpenAL;
+class SbSoundSample_OpenAL;
+class SbSoundVoice_OpenAL;
+class SbSoundHardware_OpenAL;
 
 //class idSoundVoice;
 //class idSoundSample;
@@ -67,10 +67,10 @@ idSoundHardware_OpenAL
 ================================================
 */
 
-class idSoundHardware_OpenAL
+class SbSoundHardware_OpenAL
 {
 public:
-	idSoundHardware_OpenAL();
+	SbSoundHardware_OpenAL();
 
 	void Init();
 	void Shutdown();
@@ -101,8 +101,8 @@ public:
 	static void PrintALInfo();
 
 protected:
-	friend class idSoundSample_OpenAL;
-	friend class idSoundVoice_OpenAL;
+	friend class SbSoundSample_OpenAL;
+	friend class SbSoundVoice_OpenAL;
 
 private:
 	/*
@@ -126,9 +126,9 @@ private:
 	//int				vuMeterPeakTimes[ 8 ];
 
 	// Can't stop and start a voice on the same frame, so we have to double this to handle the worst case scenario of stopping all voices and starting a full new set
-	idStaticList<idSoundVoice_OpenAL, MAX_HARDWARE_VOICES * 2> voices;
-	idStaticList<idSoundVoice_OpenAL *, MAX_HARDWARE_VOICES * 2> zombieVoices;
-	idStaticList<idSoundVoice_OpenAL *, MAX_HARDWARE_VOICES * 2> freeVoices;
+	idStaticList<SbSoundVoice_OpenAL, MAX_HARDWARE_VOICES * 2> voices;
+	idStaticList<SbSoundVoice_OpenAL *, MAX_HARDWARE_VOICES * 2> zombieVoices;
+	idStaticList<SbSoundVoice_OpenAL *, MAX_HARDWARE_VOICES * 2> freeVoices;
 };
 
 /*
@@ -136,7 +136,7 @@ private:
 idSoundHardware
 ================================================
 */
-class idSoundHardware : public idSoundHardware_OpenAL
+class idSoundHardware : public SbSoundHardware_OpenAL
 {
 };
 

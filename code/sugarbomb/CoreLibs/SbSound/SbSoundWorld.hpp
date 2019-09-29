@@ -170,8 +170,8 @@ public:
 
 	idSoundEmitter *localSound{nullptr}; // for PlayShaderDirectly()
 
-	idBlockAlloc<idSoundEmitterLocal, 16> emitterAllocator;
-	idBlockAlloc<idSoundChannel, 16> channelAllocator;
+	idBlockAlloc<SbSoundEmitterLocal, 16> emitterAllocator;
+	idBlockAlloc<SbSoundChannel, 16> channelAllocator;
 
 	SbSoundFade pauseFade{};
 	int pausedTime{0};

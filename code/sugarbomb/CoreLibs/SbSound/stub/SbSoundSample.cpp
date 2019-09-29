@@ -110,7 +110,7 @@ idSoundSample::idSoundSample(idSys *apSys, idFileSystem *apFileSystem) : mpSys(a
 idSoundSample::~idSoundSample
 ========================
 */
-idSoundSample::~idSoundSample()
+SbSoundSample::~SbSoundSample()
 {
 	FreeData();
 }
@@ -127,7 +127,7 @@ void idSoundSample::WriteGeneratedSample( idFile* fileOut )
 	fileOut->WriteBig( loaded );
 	fileOut->WriteBig( playBegin );
 	fileOut->WriteBig( playLength );
-	idWaveFile::WriteWaveFormatDirect( format, fileOut );
+	SbWaveFile::WriteWaveFormatDirect( format, fileOut );
 	fileOut->WriteBig( ( int )amplitude.Num() );
 	fileOut->Write( amplitude.Ptr(), amplitude.Num() );
 	fileOut->WriteBig( totalBufferSize );
@@ -144,9 +144,9 @@ void idSoundSample::WriteGeneratedSample( idFile* fileOut )
 idSoundSample::WriteAllSamples
 ========================
 */
-void idSoundSample::WriteAllSamples( const idStr& sampleName )
+void SbSoundSample::WriteAllSamples( const idStr& sampleName )
 {
-	idSoundSample* samplePC = new idSoundSample(mpSys, fileSystem);
+	SbSoundSample* samplePC = new SbSoundSample(mpSys, fileSystem);
 	{
 		idStrStatic< MAX_OSPATH > inName = sampleName;
 		inName.Append( ".msadpcm" );
@@ -172,7 +172,7 @@ void idSoundSample::WriteAllSamples( const idStr& sampleName )
 idSoundSample::LoadGeneratedSound
 ========================
 */
-bool idSoundSample::LoadGeneratedSample( const idStr& filename )
+bool SbSoundSample::LoadGeneratedSample( const idStr& filename )
 {
 	idFileLocal fileIn( fileSystem->OpenFileReadMemory( filename ) );
 	if( fileIn != nullptr )
@@ -183,7 +183,7 @@ bool idSoundSample::LoadGeneratedSample( const idStr& filename )
 		fileIn->ReadBig( loaded );
 		fileIn->ReadBig( playBegin );
 		fileIn->ReadBig( playLength );
-		idWaveFile::ReadWaveFormatDirect( format, fileIn );
+		SbWaveFile::ReadWaveFormatDirect( format, fileIn );
 		int num;
 		fileIn->ReadBig( num );
 		amplitude.Clear();
@@ -209,7 +209,7 @@ bool idSoundSample::LoadGeneratedSample( const idStr& filename )
 idSoundSample::Load
 ========================
 */
-void idSoundSample::LoadResource()
+void SbSoundSample::LoadResource()
 {
 	FreeData();
 	
@@ -295,11 +295,11 @@ void idSoundSample::LoadResource()
 idSoundSample::LoadWav
 ========================
 */
-bool idSoundSample::LoadWav( const idStr& filename )
+bool SbSoundSample::LoadWav( const idStr& filename )
 {
 
 	// load the wave
-	idWaveFile wave;
+	SbWaveFile wave;
 	if( !wave.Open( fileSystem, filename ) )
 	{
 		return false;
@@ -349,7 +349,7 @@ bool idSoundSample::LoadWav( const idStr& filename )
 		buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[0].buffer );
 		
 	}
-	else if( format.basic.formatTag == idWaveFile::FORMAT_ADPCM )
+	else if( format.basic.formatTag == SbWaveFile::FORMAT_ADPCM )
 	{
 	
 		playBegin = 0;
@@ -365,7 +365,7 @@ bool idSoundSample::LoadWav( const idStr& filename )
 		buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[0].buffer );
 		
 	}
-	else if( format.basic.formatTag == idWaveFile::FORMAT_XMA2 )
+	else if( format.basic.formatTag == SbWaveFile::FORMAT_XMA2 )
 	{
 	
 		if( format.extra.xma2.blockCount == 0 )
@@ -449,7 +449,7 @@ bool idSoundSample::LoadWav( const idStr& filename )
 	
 	wave.Close();
 	
-	if( format.basic.formatTag == idWaveFile::FORMAT_EXTENSIBLE )
+	if( format.basic.formatTag == SbWaveFile::FORMAT_EXTENSIBLE )
 	{
 		// HACK: XAudio2 doesn't really support FORMAT_EXTENSIBLE so we convert it to a basic format after extracting the channel mask
 		format.basic.formatTag = format.extra.extensible.subFormat.data1;
@@ -467,7 +467,7 @@ bool idSoundSample::LoadWav( const idStr& filename )
 idSoundSample::MakeDefault
 ========================
 */
-void idSoundSample::MakeDefault()
+void SbSoundSample::MakeDefault()
 {
 	FreeData();
 	
@@ -477,7 +477,7 @@ void idSoundSample::MakeDefault()
 	loaded = true;
 	
 	memset( &format, 0, sizeof( format ) );
-	format.basic.formatTag = idWaveFile::FORMAT_PCM;
+	format.basic.formatTag = SbWaveFile::FORMAT_PCM;
 	format.basic.numChannels = 1;
 	format.basic.bitsPerSample = 16;
 	format.basic.samplesPerSec = MIN_SAMPLE_RATE;
@@ -512,7 +512,7 @@ idSoundSample::FreeData
 Called before deleting the object and at the start of LoadResource()
 ========================
 */
-void idSoundSample::FreeData()
+void SbSoundSample::FreeData()
 {
 	if( buffers.Num() > 0 )
 	{
@@ -538,7 +538,7 @@ void idSoundSample::FreeData()
 idSoundSample::LoadAmplitude
 ========================
 */
-bool idSoundSample::LoadAmplitude( const idStr& name )
+bool SbSoundSample::LoadAmplitude( const idStr& name )
 {
 	amplitude.Clear();
 	idFileLocal f( fileSystem->OpenFileRead( name ) );
@@ -556,7 +556,7 @@ bool idSoundSample::LoadAmplitude( const idStr& name )
 idSoundSample::GetAmplitude
 ========================
 */
-float idSoundSample::GetAmplitude( int timeMS ) const
+float SbSoundSample::GetAmplitude( int timeMS ) const
 {
 	if( timeMS < 0 || timeMS > LengthInMsec() )
 	{

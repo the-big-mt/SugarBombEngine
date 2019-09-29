@@ -63,10 +63,10 @@ idSoundSample_OpenAL
 ================================================
 */
 class idSampleInfo;
-class idSoundSample_OpenAL
+class SbSoundSample_OpenAL
 {
 public:
-	idSoundSample_OpenAL();
+	SbSoundSample_OpenAL();
 
 	// Loads and initializes the resource based on the name.
 	virtual void LoadResource();
@@ -179,10 +179,10 @@ public:
 	void CreateOpenALBuffer();
 
 protected:
-	friend class idSoundHardware_OpenAL;
-	friend class idSoundVoice_OpenAL;
+	friend class SbSoundHardware_OpenAL;
+	friend class SbSoundVoice_OpenAL;
 
-	~idSoundSample_OpenAL();
+	~SbSoundSample_OpenAL();
 
 	bool LoadWav(const idStr &name);
 	bool LoadAmplitude(const idStr &name);
@@ -231,7 +231,7 @@ protected:
 	int playBegin;
 	int playLength;
 
-	idWaveFile::waveFmt_t format;
+	SbWaveFile::waveFmt_t format;
 
 	idList<byte, TAG_AMPLITUDE> amplitude;
 };
@@ -244,7 +244,7 @@ This reverse-inheritance purportedly makes working on
 multiple platforms easier.
 ================================================
 */
-class idSoundSample : public idSoundSample_OpenAL
+class idSoundSample : public SbSoundSample_OpenAL
 {
 public:
 };
