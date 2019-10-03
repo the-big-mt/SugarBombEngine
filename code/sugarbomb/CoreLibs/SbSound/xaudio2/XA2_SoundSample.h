@@ -55,10 +55,10 @@ idSoundSample_XAudio2
 ================================================
 */
 class idSampleInfo;
-class idSoundSample_XAudio2
+class SbSoundSample_XAudio2
 {
 public:
-	idSoundSample_XAudio2();
+	SbSoundSample_XAudio2();
 
 	// Loads and initializes the resource based on the name.
 	virtual void LoadResource();
@@ -151,10 +151,10 @@ public:
 	float GetAmplitude(int timeMS) const;
 
 protected:
-	friend class idSoundHardware_XAudio2;
-	friend class idSoundVoice_XAudio2;
+	friend class SbSoundHardware_XAudio2;
+	friend class SbSoundVoice_XAudio2;
 
-	~idSoundSample_XAudio2();
+	~SbSoundSample_XAudio2();
 
 	bool LoadWav(const idStr &name);
 	bool LoadAmplitude(const idStr &name);
@@ -186,7 +186,7 @@ protected:
 	int playBegin;
 	int playLength;
 
-	idWaveFile::waveFmt_t format;
+	SbWaveFile::waveFmt_t format;
 
 	idList<byte, TAG_AMPLITUDE> amplitude;
 };
@@ -199,7 +199,7 @@ This reverse-inheritance purportedly makes working on
 multiple platforms easier.
 ================================================
 */
-class idSoundSample : public idSoundSample_XAudio2
+class SbSoundSample : public SbSoundSample_XAudio2
 {
 public:
 };

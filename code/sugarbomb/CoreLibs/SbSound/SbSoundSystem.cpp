@@ -54,12 +54,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 namespace sbe
 {
-//class idSoundVoice;
 
 //struct IRenderWorld;
 
 namespace SbSound
 {
+
+//class SbSoundVoice;
+
 idCVar s_noSound( "s_noSound", "0", CVAR_BOOL, "returns nullptr for all sounds loaded and does not update the sound rendering" );
 
 #ifdef ID_RETAIL
@@ -484,7 +486,7 @@ int SbSoundSystemLocal::SoundTime() const
 idSoundSystemLocal::AllocateVoice
 ========================
 */
-idSoundVoice* SbSoundSystemLocal::AllocateVoice( const idSoundSample* leadinSample, const idSoundSample* loopingSample )
+SbSoundVoice* SbSoundSystemLocal::AllocateVoice( const SbSoundSample* leadinSample, const SbSoundSample* loopingSample )
 {
 	return hardware.AllocateVoice( leadinSample, loopingSample );
 };
@@ -494,7 +496,7 @@ idSoundVoice* SbSoundSystemLocal::AllocateVoice( const idSoundSample* leadinSamp
 idSoundSystemLocal::FreeVoice
 ========================
 */
-void SbSoundSystemLocal::FreeVoice( idSoundVoice* voice )
+void SbSoundSystemLocal::FreeVoice( SbSoundVoice* voice )
 {
 	hardware.FreeVoice( voice );
 };
@@ -504,7 +506,7 @@ void SbSoundSystemLocal::FreeVoice( idSoundVoice* voice )
 idSoundSystemLocal::LoadSample
 ========================
 */
-idSoundSample* SbSoundSystemLocal::LoadSample( const char* name )
+SbSoundSample* SbSoundSystemLocal::LoadSample( const char* name )
 {
 	idStrStatic< MAX_OSPATH > canonical = name;
 	canonical.ToLower();
@@ -519,7 +521,7 @@ idSoundSample* SbSoundSystemLocal::LoadSample( const char* name )
 			return samples[i];
 		};
 	};
-	idSoundSample* sample = new( TAG_AUDIO ) idSoundSample(sys, fileSystem);
+	SbSoundSample* sample = new( TAG_AUDIO ) SbSoundSample(sys, fileSystem);
 	sample->SetName( canonical );
 	sampleHash.Add( hashKey, samples.Append( sample ) );
 	if( !insideLevelLoad )
@@ -544,7 +546,7 @@ idSoundSystemLocal::StopVoicesWithSample
 A sample is about to be freed, make sure the hardware isn't mixing from it.
 ========================
 */
-void SbSoundSystemLocal::StopVoicesWithSample( const idSoundSample* const sample )
+void SbSoundSystemLocal::StopVoicesWithSample( const SbSoundSample* const sample )
 {
 	for( int w = 0; w < soundWorlds.Num(); w++ )
 	{

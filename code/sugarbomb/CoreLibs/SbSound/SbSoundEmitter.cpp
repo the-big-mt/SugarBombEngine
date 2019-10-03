@@ -248,7 +248,7 @@ void SbSoundEmitterLocal::Update( int currentTime )
 	{
 		for( int i = 0; i < channels.Num(); i++ )
 		{
-			idSoundChannel* chan = channels[i];
+			SbSoundChannel* chan = channels[i];
 			if( ( chan->parms.soundShaderFlags & SSF_GLOBAL ) != 0 )
 				continue;
 
@@ -378,7 +378,7 @@ in most cases play sounds immediately, however
 return: int	- the length of the started sound in msec.
 ========================
 */
-int SbSoundEmitterLocal::StartSound( const idSoundShader* shader, const s_channelType channel, float diversity, int shaderFlags, bool allowSlow )
+int SbSoundEmitterLocal::StartSound( const SbSoundShader* shader, const s_channelType channel, float diversity, int shaderFlags, bool allowSlow )
 {
 	assert( soundWorld != nullptr );
 	assert( soundWorld->emitters[this->index] == this );
@@ -467,8 +467,8 @@ int SbSoundEmitterLocal::StartSound( const idSoundShader* shader, const s_channe
 		};
 	};
 	
-	idSoundSample* leadinSample{nullptr};
-	idSoundSample* loopingSample{nullptr};
+	SbSoundSample* leadinSample{nullptr};
+	SbSoundSample* loopingSample{nullptr};
 	
 	if( shader->leadin && ( chanParms.soundShaderFlags & SSF_LOOPING ) )
 	{

@@ -87,7 +87,7 @@ enum speakerLabel
 idSoundShader::Init
 ===============
 */
-void idSoundShader::Init()
+void SbSoundShader::Init()
 {
 	leadin = false;
 	leadinVolume = 0;
@@ -110,16 +110,16 @@ idSoundShader::idSoundShader(sbe::ISys *apSys)
 idSoundShader::~idSoundShader
 ===============
 */
-idSoundShader::~idSoundShader() = default;
+SbSoundShader::~SbSoundShader() = default;
 
 /*
 =================
 idSoundShader::Size
 =================
 */
-size_t idSoundShader::Size() const
+size_t SbSoundShader::Size() const
 {
-	return sizeof(idSoundShader);
+	return sizeof(SbSoundShader);
 };
 
 /*
@@ -127,7 +127,7 @@ size_t idSoundShader::Size() const
 idSoundShader::idSoundShader::FreeData
 ===============
 */
-void idSoundShader::FreeData()
+void SbSoundShader::FreeData()
 {
 };
 
@@ -136,7 +136,7 @@ void idSoundShader::FreeData()
 idSoundShader::SetDefaultText
 ===================
 */
-bool idSoundShader::SetDefaultText()
+bool SbSoundShader::SetDefaultText()
 {
 	idStr wavname = GetName();
 	wavname.DefaultFileExtension(".wav"); // if the name has .ogg in it, that will stay
@@ -163,7 +163,7 @@ bool idSoundShader::SetDefaultText()
 DefaultDefinition
 ===================
 */
-const char *idSoundShader::DefaultDefinition() const
+const char *SbSoundShader::DefaultDefinition() const
 {
 	return "{\n"
 	       "\t"
@@ -178,7 +178,7 @@ idSoundShader::Parse
   this is called by the declManager
 ===============
 */
-bool idSoundShader::Parse(const char *text, const int textLength, bool allowBinaryVersion)
+bool SbSoundShader::Parse(const char *text, const int textLength, bool allowBinaryVersion)
 {
 	if(soundSystemLocal.currentSoundWorld)
 		soundSystemLocal.currentSoundWorld->WriteSoundShaderLoad(this);
@@ -202,7 +202,7 @@ bool idSoundShader::Parse(const char *text, const int textLength, bool allowBina
 idSoundShader::ParseShader
 ===============
 */
-bool idSoundShader::ParseShader(idDeclManager *declManager, idLexer &src)
+bool SbSoundShader::ParseShader(idDeclManager *declManager, idLexer &src)
 {
 	idToken token;
 

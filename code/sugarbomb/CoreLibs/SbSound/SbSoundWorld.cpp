@@ -227,7 +227,7 @@ void SbSoundWorldLocal::PlaceListener(const idVec3 &origin, const idMat3 &axis, 
 idSoundWorldLocal::WriteSoundShaderLoad
 ========================
 */
-void SbSoundWorldLocal::WriteSoundShaderLoad(const idSoundShader *snd)
+void SbSoundWorldLocal::WriteSoundShaderLoad(const SbSoundShader *snd)
 {
 	if(writeDemo)
 	{
@@ -293,7 +293,7 @@ It isn't obvious what the exact best volume ramping method should be, just that
 it smoothly change frame to frame.
 ========================
 */
-static float AdjustForCushionChannels(const idStaticList<idActiveChannel, MAX_HARDWARE_VOICES> &activeEmitterChannels,
+static float AdjustForCushionChannels(const idStaticList<SbActiveChannel, MAX_HARDWARE_VOICES> &activeEmitterChannels,
                                       const int uncushionedChannels, const float currentCushionDB, const float driftRate)
 {
 	float targetCushionDB;
@@ -488,8 +488,8 @@ void SbSoundWorldLocal::Update(float afTimeStep)
 		{
 			idStr voiceLine;
 			voiceLine.Format("%5.1f db [%3i:%2i] %s", chan->volumeDB, chan->emitter->index, chan->logicalChannel, chan->CanMute() ? "" : " <CANT MUTE>\n");
-			idSoundSample *leadinSample = chan->leadinSample;
-			idSoundSample *loopingSample = chan->loopingSample;
+			SbSoundSample *leadinSample = chan->leadinSample;
+			SbSoundSample *loopingSample = chan->loopingSample;
 			if(loopingSample == nullptr)
 				voiceLine.Append(va("%ikhz*%i %s\n", leadinSample->SampleRate() / 1000, leadinSample->NumChannels(), leadinSample->GetName()));
 			else if(loopingSample == leadinSample)
@@ -956,7 +956,7 @@ void SbSoundWorldLocal::ProcessDemoCommand(idDemoFile *readDemo)
 	break;
 	case SCMD_START:
 	{
-		const idSoundShader *shader;
+		const SbSoundShader *shader;
 		int channel;
 		float diversity;
 		int shaderFlags;

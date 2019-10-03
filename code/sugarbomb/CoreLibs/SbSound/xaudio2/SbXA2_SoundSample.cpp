@@ -102,7 +102,7 @@ static void FreeBuffer(void *p)
 idSoundSample_XAudio2::idSoundSample_XAudio2
 ========================
 */
-idSoundSample_XAudio2::idSoundSample_XAudio2()
+SbSoundSample_XAudio2::SbSoundSample_XAudio2()
 {
 	timestamp = FILE_NOT_FOUND_TIMESTAMP;
 	loaded = false;
@@ -124,7 +124,7 @@ idSoundSample_XAudio2::idSoundSample_XAudio2()
 idSoundSample_XAudio2::~idSoundSample_XAudio2
 ========================
 */
-idSoundSample_XAudio2::~idSoundSample_XAudio2()
+SbSoundSample_XAudio2::~SbSoundSample_XAudio2()
 {
 	FreeData();
 }
@@ -158,9 +158,9 @@ void idSoundSample_XAudio2::WriteGeneratedSample(idFile *fileOut)
 idSoundSample_XAudio2::WriteAllSamples
 ========================
 */
-void idSoundSample_XAudio2::WriteAllSamples(const idStr &sampleName)
+void SbSoundSample_XAudio2::WriteAllSamples(const idStr &sampleName)
 {
-	idSoundSample_XAudio2 *samplePC = new idSoundSample_XAudio2();
+	SbSoundSample_XAudio2 *samplePC = new SbSoundSample_XAudio2();
 	{
 		idStrStatic<MAX_OSPATH> inName = sampleName;
 		inName.Append(".msadpcm");

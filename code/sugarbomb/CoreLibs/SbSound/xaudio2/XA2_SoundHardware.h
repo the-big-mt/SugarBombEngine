@@ -49,10 +49,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe::SbSound
 {
 
-class idSoundSample_XAudio2;
-class idSoundVoice_XAudio2;
+class SbSoundSample_XAudio2;
+class SbSoundVoice_XAudio2;
 // RB
-class idSoundHardware_XAudio2;
+class SbSoundHardware_XAudio2;
 
 struct IXAudio2;
 struct IXAudio2MasteringVoice;
@@ -69,7 +69,7 @@ idSoundEngineCallback
 class idSoundEngineCallback : public IXAudio2EngineCallback
 {
 public:
-	idSoundHardware_XAudio2 *hardware;
+	SbSoundHardware_XAudio2 *hardware;
 
 private:
 	// Called by XAudio2 just before an audio processing pass begins.
@@ -89,10 +89,10 @@ idSoundHardware_XAudio2
 ================================================
 */
 
-class idSoundHardware_XAudio2
+class SbSoundHardware_XAudio2
 {
 public:
-	idSoundHardware_XAudio2();
+	SbSoundHardware_XAudio2();
 
 	void Init();
 	void Shutdown();
@@ -118,8 +118,8 @@ public:
 	}
 
 protected:
-	friend class idSoundSample_XAudio2;
-	friend class idSoundVoice_XAudio2;
+	friend class SbSoundSample_XAudio2;
+	friend class SbSoundVoice_XAudio2;
 
 private:
 	IXAudio2 *pXAudio2;

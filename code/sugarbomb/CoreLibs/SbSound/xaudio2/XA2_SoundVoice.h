@@ -51,13 +51,13 @@ static const int MAX_QUEUED_BUFFERS = 3;
 idSoundVoice_XAudio2
 ================================================
 */
-class idSoundVoice_XAudio2 : public idSoundVoice_Base
+class SbSoundVoice_XAudio2 : public SbSoundVoice_Base
 {
 public:
-	idSoundVoice_XAudio2();
-	~idSoundVoice_XAudio2();
+	SbSoundVoice_XAudio2();
+	~SbSoundVoice_XAudio2();
 
-	void Create(const idSoundSample *leadinSample, const idSoundSample *loopingSample);
+	void Create(const SbSoundSample *leadinSample, const SbSoundSample *loopingSample);
 
 	// Start playing at a particular point in the buffer.  Does an Update() too
 	void Start(int offsetMS, int ssFlags);
@@ -77,7 +77,7 @@ public:
 	float GetAmplitude();
 
 	// returns true if we can re-use this voice
-	bool CompatibleFormat(idSoundSample_XAudio2 *s);
+	bool CompatibleFormat(SbSoundSample_XAudio2 *s);
 
 	uint32 GetSampleRate() const
 	{
@@ -88,7 +88,7 @@ public:
 	void OnBufferStart(idSoundSample_XAudio2 *sample, int bufferNumber);
 
 private:
-	friend class idSoundHardware_XAudio2;
+	friend class SbSoundHardware_XAudio2;
 
 	// Returns true when all the buffers are finished processing
 	bool IsPlaying();
@@ -103,14 +103,14 @@ private:
 	int RestartAt(int offsetSamples);
 
 	// Helper function to submit a buffer
-	int SubmitBuffer(idSoundSample_XAudio2 *sample, int bufferNumber, int offset);
+	int SubmitBuffer(SbSoundSample_XAudio2 *sample, int bufferNumber, int offset);
 
 	// Adjust the voice frequency based on the new sample rate for the buffer
 	void SetSampleRate(uint32 newSampleRate, uint32 operationSet);
 
 	IXAudio2SourceVoice *pSourceVoice;
-	idSoundSample_XAudio2 *leadinSample;
-	idSoundSample_XAudio2 *loopingSample;
+	SbSoundSample_XAudio2 *leadinSample;
+	SbSoundSample_XAudio2 *loopingSample;
 
 	// These are the fields from the sample format that matter to us for voice reuse
 	uint16 formatTag;
@@ -128,7 +128,7 @@ private:
 idSoundVoice
 ================================================
 */
-class idSoundVoice : public idSoundVoice_XAudio2
+class SbSoundVoice : public SbSoundVoice_XAudio2
 {
 };
 
