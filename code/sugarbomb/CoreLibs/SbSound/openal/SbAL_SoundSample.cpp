@@ -94,7 +94,7 @@ AllocBuffer
 static void *AllocBuffer(int size, const char *name)
 {
 	return Mem_Alloc(size, TAG_AUDIO);
-}
+};
 
 /*
 ========================
@@ -104,7 +104,7 @@ FreeBuffer
 static void FreeBuffer(void *p)
 {
 	return Mem_Free(p);
-}
+};
 
 /*
 ========================

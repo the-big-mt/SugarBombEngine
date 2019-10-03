@@ -149,7 +149,6 @@ public:
 	}
 
 	float GetAmplitude(int timeMS) const;
-
 protected:
 	friend class SbSoundHardware_XAudio2;
 	friend class SbSoundVoice_XAudio2;

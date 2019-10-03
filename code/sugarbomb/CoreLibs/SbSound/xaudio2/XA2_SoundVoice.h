@@ -82,11 +82,10 @@ public:
 	uint32 GetSampleRate() const
 	{
 		return sampleRate;
-	}
+	};
 
 	// callback function
 	void OnBufferStart(SbSoundSample_XAudio2 *sample, int bufferNumber);
-
 private:
 	friend class SbSoundHardware_XAudio2;
 

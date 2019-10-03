@@ -101,7 +101,7 @@ idSoundVoice_OpenAL::~idSoundVoice_OpenAL
 SbSoundVoice_OpenAL::~SbSoundVoice_OpenAL()
 {
 	DestroyInternal();
-}
+};
 
 /*
 ========================
@@ -114,10 +114,10 @@ bool SbSoundVoice_OpenAL::CompatibleFormat(SbSoundSample_OpenAL *s)
 	{
 		// If this voice has never been allocated, then it's compatible with everything
 		return true;
-	}
+	};
 
 	return false;
-}
+};
 
 /*
 ========================
@@ -131,7 +131,7 @@ void SbSoundVoice_OpenAL::Create(const SbSoundSample *leadinSample_, const SbSou
 		// This should never hit
 		Stop();
 		return;
-	}
+	};
 
 	triggered = true;
 
@@ -139,9 +139,7 @@ void SbSoundVoice_OpenAL::Create(const SbSoundSample *leadinSample_, const SbSou
 	loopingSample = (SbSoundSample_OpenAL *)loopingSample_;
 
 	if(alIsSource(openalSource) && CompatibleFormat(leadinSample))
-	{
 		sampleRate = leadinSample->format.basic.samplesPerSec;
-	}
 	else
 	{
 		DestroyInternal();
@@ -159,7 +157,7 @@ void SbSoundVoice_OpenAL::Create(const SbSoundSample *leadinSample_, const SbSou
 		{
 			// If this hits, then we are most likely passing an invalid sample format, which should have been caught by the loader (and the sample defaulted)
 			return;
-		}
+		};
 
 		alSourcef(openalSource, AL_ROLLOFF_FACTOR, 0.0f);
 
@@ -198,7 +196,7 @@ void SbSoundVoice_OpenAL::Create(const SbSoundSample *leadinSample_, const SbSou
 			openalStreamingBuffer[0];
 			openalStreamingBuffer[1];
 			openalStreamingBuffer[2];
-		}
+		};
 
 		if(s_debugHardware.GetBool())
 		{
@@ -251,10 +249,8 @@ void SbSoundVoice_OpenAL::DestroyInternal()
 
 			alDeleteBuffers(3, &openalStreamingBuffer[0]);
 			if(CheckALErrors() == AL_NO_ERROR)
-			{
 				openalStreamingBuffer[0] = openalStreamingBuffer[1] = openalStreamingBuffer[2] = 0;
-			}
-		}
+		};
 
 		if(lastopenalStreamingBuffer[0] && lastopenalStreamingBuffer[1] && lastopenalStreamingBuffer[2])
 		{
@@ -262,16 +258,14 @@ void SbSoundVoice_OpenAL::DestroyInternal()
 
 			alDeleteBuffers(3, &lastopenalStreamingBuffer[0]);
 			if(CheckALErrors() == AL_NO_ERROR)
-			{
 				lastopenalStreamingBuffer[0] = lastopenalStreamingBuffer[1] = lastopenalStreamingBuffer[2] = 0;
-			}
-		}
+		};
 
 		openalStreamingOffset = 0;
 
 		hasVUMeter = false;
-	}
-}
+	};
+};
 
 /*
 ========================
@@ -333,19 +327,17 @@ void SbSoundVoice_OpenAL::Start(int offsetMS, int ssFlags)
 			pSourceVoice->SetEffectChain( nullptr );
 		}
 		*/
-	}
+	};
 
 	assert(offsetMS >= 0);
 	int offsetSamples = MsecToSamples(offsetMS, leadinSample->SampleRate());
 	if(loopingSample == nullptr && offsetSamples >= leadinSample->playLength)
-	{
 		return;
-	}
 
 	RestartAt(offsetSamples);
 	Update();
 	UnPause();
-}
+};
 
 /*
 ========================
@@ -365,23 +357,20 @@ int SbSoundVoice_OpenAL::RestartAt(int offsetSamples)
 			sample = loopingSample;
 		}
 		else
-		{
 			return 0;
-		}
-	}
+	};
 
 	int previousNumSamples = 0;
 	for(int i = 0; i < sample->buffers.Num(); i++)
 	{
 		if(sample->buffers[i].numSamples > sample->playBegin + offsetSamples)
-		{
 			return SubmitBuffer(sample, i, sample->playBegin + offsetSamples - previousNumSamples);
-		}
+
 		previousNumSamples = sample->buffers[i].numSamples;
-	}
+	};
 
 	return 0;
-}
+};
 
 /*
 ========================
@@ -391,9 +380,7 @@ idSoundVoice_OpenAL::SubmitBuffer
 int SbSoundVoice_OpenAL::SubmitBuffer(SbSoundSample_OpenAL *sample, int bufferNumber, int offset)
 {
 	if(sample == nullptr || (bufferNumber < 0) || (bufferNumber >= sample->buffers.Num()))
-	{
 		return 0;
-	}
 
 #if 0
 	SbSoundSystemLocal::bufferContext_t* bufferContext = soundSystemLocal.ObtainStreamBufferContext();
@@ -424,14 +411,10 @@ int SbSoundVoice_OpenAL::SubmitBuffer(SbSoundSample_OpenAL *sample, int bufferNu
 			alGetSourcei(openalSource, AL_BUFFERS_PROCESSED, &finishedbuffers);
 			alSourceUnqueueBuffers(openalSource, finishedbuffers, &openalStreamingBuffer[0]);
 			if(finishedbuffers == 3)
-			{
 				triggered = true;
-			}
 		}
 		else
-		{
 			finishedbuffers = 3;
-		}
 
 		ALenum format;
 
@@ -448,9 +431,7 @@ int SbSoundVoice_OpenAL::SubmitBuffer(SbSoundSample_OpenAL *sample, int bufferNu
 			format = sample->NumChannels() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
 		}
 		else
-		{
 			format = sample->NumChannels() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
-		}
 
 		int rate = sample->SampleRate(); /*44100*/
 
@@ -473,7 +454,7 @@ int SbSoundVoice_OpenAL::SubmitBuffer(SbSoundSample_OpenAL *sample, int bufferNu
 
 			alBufferData(openalStreamingBuffer[j], format, sample->buffers[bufferNumber].buffer, sample->buffers[bufferNumber].bufferSize, rate);
 			//openalStreamingOffset += MIXBUFFER_SAMPLES;
-		}
+		};
 
 		if(finishedbuffers > 0)
 		{
@@ -484,11 +465,11 @@ int SbSoundVoice_OpenAL::SubmitBuffer(SbSoundSample_OpenAL *sample, int bufferNu
 			{
 				//alSourcePlay( openalSource );
 				triggered = false;
-			}
+			};
 
 			return sample->buffers[bufferNumber].bufferSize;
-		}
-	}
+		};
+	};
 
 	// should never happen
 	return 0;
@@ -518,7 +499,7 @@ int SbSoundVoice_OpenAL::SubmitBuffer(SbSoundSample_OpenAL *sample, int bufferNu
 	return buffer.AudioBytes;
 	
 	*/
-}
+};
 
 /*
 ========================
@@ -557,7 +538,7 @@ bool SbSoundVoice_OpenAL::Update()
 	// UnPause();
 	*/
 	return true;
-}
+};
 
 /*
 ========================
@@ -567,9 +548,7 @@ idSoundVoice_OpenAL::IsPlaying
 bool SbSoundVoice_OpenAL::IsPlaying()
 {
 	if(!alIsSource(openalSource))
-	{
 		return false;
-	}
 
 	ALint state = AL_INITIAL;
 
@@ -581,7 +560,7 @@ bool SbSoundVoice_OpenAL::IsPlaying()
 	//pSourceVoice->GetState( &state );
 
 	//return ( state.BuffersQueued != 0 );
-}
+};
 
 /*
 ========================
@@ -593,8 +572,8 @@ void SbSoundVoice_OpenAL::FlushSourceBuffers()
 	if(alIsSource(openalSource))
 	{
 		//pSourceVoice->FlushSourceBuffers();
-	}
-}
+	};
+};
 
 /*
 ========================
@@ -648,9 +627,7 @@ idSoundVoice_OpenAL::Stop
 void SbSoundVoice_OpenAL::Stop()
 {
 	if(!alIsSource(openalSource))
-	{
 		return;
-	}
 
 	if(!paused)
 	{
@@ -664,8 +641,8 @@ void SbSoundVoice_OpenAL::Stop()
 
 		//pSourceVoice->Stop( 0, OPERATION_SET );
 		paused = true;
-	}
-}
+	};
+};
 
 /*
 ========================
@@ -714,7 +691,7 @@ float SbSoundVoice_OpenAL::GetAmplitude()
 	
 	return rms / ( float )levels.ChannelCount;
 	*/
-}
+};
 
 /*
 ========================
@@ -764,7 +741,7 @@ void SbSoundVoice_OpenAL::SetSampleRate(uint32 newSampleRate, uint32 operationSe
 	
 	pSourceVoice->SetFrequencyRatio( freqRatio, operationSet );
 	*/
-}
+};
 
 /*
 ========================
@@ -782,15 +759,14 @@ void SbSoundVoice_OpenAL::OnBufferStart(SbSoundSample_OpenAL *sample, int buffer
 		if(sample == leadinSample)
 		{
 			if(loopingSample == nullptr)
-			{
 				return;
-			}
+
 			nextSample = loopingSample;
-		}
+		};
 		nextBuffer = 0;
-	}
+	};
 
 	SubmitBuffer(nextSample, nextBuffer, 0);
-}
+};
 
 }; // namespace sbe::SbSound

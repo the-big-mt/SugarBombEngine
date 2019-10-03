@@ -71,7 +71,7 @@ AllocBuffer
 static void* AllocBuffer( int size, const char* name )
 {
 	return Mem_Alloc( size, TAG_AUDIO );
-}
+};
 
 /*
 ========================
@@ -81,7 +81,7 @@ FreeBuffer
 static void FreeBuffer( void* p )
 {
 	return Mem_Free( p );
-}
+};
 
 /*
 ========================
@@ -113,7 +113,7 @@ idSoundSample::~idSoundSample
 SbSoundSample::~SbSoundSample()
 {
 	FreeData();
-}
+};
 
 /*
 ========================
@@ -138,7 +138,8 @@ void idSoundSample::WriteGeneratedSample( idFile* fileOut )
 		fileOut->WriteBig( buffers[ i ].bufferSize );
 		fileOut->Write( buffers[ i ].buffer, buffers[ i ].bufferSize );
 	};
-}
+};
+
 /*
 ========================
 idSoundSample::WriteAllSamples
@@ -199,11 +200,12 @@ bool SbSoundSample::LoadGeneratedSample( const idStr& filename )
 			buffers[ i ].buffer = AllocBuffer( buffers[ i ].bufferSize, GetName() );
 			fileIn->Read( buffers[ i ].buffer, buffers[ i ].bufferSize );
 			buffers[ i ].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[ i ].buffer );
-		}
+		};
 		return true;
-	}
+	};
 	return false;
-}
+};
+
 /*
 ========================
 idSoundSample::Load
@@ -217,13 +219,13 @@ void SbSoundSample::LoadResource()
 	{
 		MakeDefault();
 		return;
-	}
+	};
 	
 	if( s_noSound.GetBool() )
 	{
 		MakeDefault();
 		return;
-	}
+	};
 	
 	loaded = false;
 	
@@ -231,23 +233,20 @@ void SbSoundSample::LoadResource()
 	{
 		idStrStatic< MAX_OSPATH > sampleName = GetName();
 		if( ( i == 0 ) && !sampleName.Replace( "/vo/", va( "/vo/%s/", sys_lang.GetString() ) ) )
-		{
 			i++;
-		}
+
 		idStrStatic< MAX_OSPATH > generatedName = "generated/";
 		generatedName.Append( sampleName );
 		
 		{
 			if( s_useCompression.GetBool() )
-			{
 				sampleName.Append( ".msadpcm" );
-			}
 			else
-			{
 				sampleName.Append( ".wav" );
-			}
+
 			generatedName.Append( ".idwav" );
-		}
+		};
+
 		loaded = LoadGeneratedSample( generatedName ) || LoadWav( sampleName );
 		
 		if( !loaded && s_useCompression.GetBool() )
@@ -275,20 +274,20 @@ void SbSoundSample::LoadResource()
 						idStrStatic< MAX_OSPATH > locName = GetName();
 						locName.Replace( "/vo/", va( "/vo/%s/", mpSys->GetLangName( i ) ) ); // TODO: replace with sys_lang cvar?
 						WriteAllSamples( locName );
-					}
-				}
-			}
+					};
+				};
+			};
 			return;
-		}
-	}
+		};
+	};
 	
 	if( !loaded )
 	{
 		// make it default if everything else fails
 		MakeDefault();
-	}
+	};
 	return;
-}
+};
 
 /*
 ========================
@@ -338,20 +337,15 @@ bool SbSoundSample::LoadWav( const idStr& filename )
 		buffers[0].numSamples = playLength;
 		buffers[0].buffer = AllocBuffer( totalBufferSize, GetName() );
 		
-		
 		wave.Read( buffers[0].buffer, totalBufferSize );
 		
 		if( format.basic.bitsPerSample == 16 )
-		{
 			idSwap::LittleArray( ( short* )buffers[0].buffer, totalBufferSize / sizeof( short ) );
-		}
 		
 		buffers[0].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[0].buffer );
-		
 	}
 	else if( format.basic.formatTag == SbWaveFile::FORMAT_ADPCM )
 	{
-	
 		playBegin = 0;
 		playLength = ( ( totalBufferSize / format.basic.blockSize ) * format.extra.adpcm.samplesPerBlock );
 		
@@ -384,18 +378,14 @@ bool SbSoundSample::LoadWav( const idStr& filename )
 		for( int i = 0; i < buffers.Num(); i++ )
 		{
 			if( i == buffers.Num() - 1 )
-			{
 				buffers[i].bufferSize = totalBufferSize - ( i * bytesPerBlock );
-			}
 			else
-			{
 				buffers[i].bufferSize = bytesPerBlock;
-			}
 			
 			buffers[i].buffer = AllocBuffer( buffers[i].bufferSize, GetName() );
 			wave.Read( buffers[i].buffer, buffers[i].bufferSize );
 			buffers[i].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[i].buffer );
-		}
+		};
 		
 		int seekTableSize = wave.SeekToChunk( 'seek' );
 		if( seekTableSize != 4 * buffers.Num() )
@@ -430,15 +420,13 @@ bool SbSoundSample::LoadWav( const idStr& filename )
 					// Ideally, the following loop should always have 0 iterations because playBegin + playLength ends in the last block already
 					// But there is no guarantee for that, so to be safe, discard all buffers beyond this one
 					for( int j = i + 1; j < buffers.Num(); j++ )
-					{
 						FreeBuffer( buffers[j].buffer );
-					}
+
 					buffers.SetNum( i + 1 );
 					break;
-				}
-			}
-		}
-		
+				};
+			};
+		};
 	}
 	else
 	{

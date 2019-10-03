@@ -112,7 +112,7 @@ SbSoundVoice_XAudio2::SbSoundVoice_XAudio2()
       paused(true),
       hasVUMeter(false)
 {
-}
+};
 
 /*
 ========================
@@ -122,7 +122,7 @@ idSoundVoice_XAudio2::~idSoundVoice_XAudio2
 SbSoundVoice_XAudio2::~SbSoundVoice_XAudio2()
 {
 	DestroyInternal();
-}
+};
 
 /*
 ========================
@@ -135,9 +135,9 @@ bool SbSoundVoice_XAudio2::CompatibleFormat(SbSoundSample_XAudio2 *s)
 	{
 		// If this voice has never been allocated, then it's compatible with everything
 		return true;
-	}
+	};
 	return false;
-}
+};
 
 /*
 ========================
@@ -156,9 +156,7 @@ void SbSoundVoice_XAudio2::Create(const SbSoundSample *leadinSample_, const SbSo
 	loopingSample = (idSoundSample_XAudio2 *)loopingSample_;
 
 	if(pSourceVoice != nullptr && CompatibleFormat(leadinSample))
-	{
 		sampleRate = leadinSample->format.basic.samplesPerSec;
-	}
 	else
 	{
 		DestroyInternal();
@@ -171,7 +169,8 @@ void SbSoundVoice_XAudio2::Create(const SbSoundSample *leadinSample_, const SbSo
 		{
 			// If this hits, then we are most likely passing an invalid sample format, which should have been caught by the loader (and the sample defaulted)
 			return;
-		}
+		};
+
 		if(s_debugHardware.GetBool())
 		{
 			if(loopingSample == nullptr || loopingSample == leadinSample)
@@ -187,7 +186,7 @@ void SbSoundVoice_XAudio2::Create(const SbSoundSample *leadinSample_, const SbSo
 	sourceVoiceRate = sampleRate;
 	pSourceVoice->SetSourceSampleRate(sampleRate);
 	pSourceVoice->SetVolume(0.0f);
-}
+};
 
 /*
 ========================
@@ -199,14 +198,13 @@ void SbSoundVoice_XAudio2::DestroyInternal()
 	if(pSourceVoice != nullptr)
 	{
 		if(s_debugHardware.GetBool())
-		{
 			idLib::Printf("%dms: %p destroyed\n", Sys_Milliseconds(), pSourceVoice);
-		}
+
 		pSourceVoice->DestroyVoice();
 		pSourceVoice = nullptr;
 		hasVUMeter = false;
-	}
-}
+	};
+};
 
 /*
 ========================
@@ -221,13 +219,10 @@ void SbSoundVoice_XAudio2::Start(int offsetMS, int ssFlags)
 	}
 
 	if(!leadinSample)
-	{
 		return;
-	}
+
 	if(!pSourceVoice)
-	{
 		return;
-	}
 
 	if(leadinSample->IsDefault())
 	{
@@ -257,25 +252,21 @@ void SbSoundVoice_XAudio2::Start(int offsetMS, int ssFlags)
 				pSourceVoice->SetEffectChain(&chain);
 
 				vuMeter->Release();
-			}
+			};
 		}
 		else
-		{
 			pSourceVoice->SetEffectChain(nullptr);
-		}
-	}
+	};
 
 	assert(offsetMS >= 0);
 	int offsetSamples = MsecToSamples(offsetMS, leadinSample->SampleRate());
 	if(loopingSample == nullptr && offsetSamples >= leadinSample->playLength)
-	{
 		return;
-	}
 
 	RestartAt(offsetSamples);
 	Update();
 	UnPause();
-}
+};
 
 /*
 ========================
@@ -295,23 +286,20 @@ int SbSoundVoice_XAudio2::RestartAt(int offsetSamples)
 			sample = loopingSample;
 		}
 		else
-		{
 			return 0;
-		}
-	}
+	};
 
 	int previousNumSamples = 0;
 	for(int i = 0; i < sample->buffers.Num(); i++)
 	{
 		if(sample->buffers[i].numSamples > sample->playBegin + offsetSamples)
-		{
 			return SubmitBuffer(sample, i, sample->playBegin + offsetSamples - previousNumSamples);
-		}
+
 		previousNumSamples = sample->buffers[i].numSamples;
-	}
+	};
 
 	return 0;
-}
+};
 
 /*
 ========================
@@ -321,16 +309,14 @@ idSoundVoice_XAudio2::SubmitBuffer
 int SbSoundVoice_XAudio2::SubmitBuffer(SbSoundSample_XAudio2 *sample, int bufferNumber, int offset)
 {
 	if(sample == nullptr || (bufferNumber < 0) || (bufferNumber >= sample->buffers.Num()))
-	{
 		return 0;
-	}
 
 	SbSoundSystemLocal::bufferContext_t *bufferContext = soundSystemLocal.ObtainStreamBufferContext();
 	if(bufferContext == nullptr)
 	{
 		idLib::Warning("No free buffer contexts!");
 		return 0;
-	}
+	};
 
 	bufferContext->voice = this;
 	bufferContext->sample = sample;
@@ -341,23 +327,21 @@ int SbSoundVoice_XAudio2::SubmitBuffer(SbSoundSample_XAudio2 *sample, int buffer
 	{
 		int previousNumSamples = 0;
 		if(bufferNumber > 0)
-		{
 			previousNumSamples = sample->buffers[bufferNumber - 1].numSamples;
-		}
+
 		buffer.PlayBegin = offset;
 		buffer.PlayLength = sample->buffers[bufferNumber].numSamples - previousNumSamples - offset;
-	}
+	};
 	buffer.AudioBytes = sample->buffers[bufferNumber].bufferSize;
 	buffer.pAudioData = (BYTE *)sample->buffers[bufferNumber].buffer;
 	buffer.pContext = bufferContext;
 	if((loopingSample == nullptr) && (bufferNumber == sample->buffers.Num() - 1))
-	{
 		buffer.Flags = XAUDIO2_END_OF_STREAM;
-	}
+
 	pSourceVoice->SubmitSourceBuffer(&buffer);
 
 	return buffer.AudioBytes;
-}
+};
 
 /*
 ========================
@@ -367,9 +351,7 @@ idSoundVoice_XAudio2::Update
 bool SbSoundVoice_XAudio2::Update()
 {
 	if(pSourceVoice == nullptr || leadinSample == nullptr)
-	{
 		return false;
-	}
 
 	XAUDIO2_VOICE_STATE state;
 	pSourceVoice->GetState(&state);
@@ -380,9 +362,7 @@ bool SbSoundVoice_XAudio2::Update()
 	CalculateSurround(srcChannels, pLevelMatrix, 1.0f);
 
 	if(s_skipHardwareSets.GetBool())
-	{
 		return true;
-	}
 
 	pSourceVoice->SetOutputMatrix(soundSystemLocal.hardware.pMasterVoice, srcChannels, dstChannels, pLevelMatrix, OPERATION_SET);
 
@@ -394,7 +374,7 @@ bool SbSoundVoice_XAudio2::Update()
 	// we don't do this any longer because we pause and unpause explicitly when the soundworld is paused or unpaused
 	// UnPause();
 	return true;
-}
+};
 
 /*
 ========================
@@ -404,13 +384,12 @@ idSoundVoice_XAudio2::IsPlaying
 bool SbSoundVoice_XAudio2::IsPlaying()
 {
 	if(pSourceVoice == nullptr)
-	{
 		return false;
-	}
+
 	XAUDIO2_VOICE_STATE state;
 	pSourceVoice->GetState(&state);
 	return (state.BuffersQueued != 0);
-}
+};
 
 /*
 ========================
@@ -420,10 +399,8 @@ idSoundVoice_XAudio2::FlushSourceBuffers
 void SbSoundVoice_XAudio2::FlushSourceBuffers()
 {
 	if(pSourceVoice != nullptr)
-	{
 		pSourceVoice->FlushSourceBuffers();
-	}
-}
+};
 
 /*
 ========================
@@ -433,16 +410,15 @@ idSoundVoice_XAudio2::Pause
 void SbSoundVoice_XAudio2::Pause()
 {
 	if(!pSourceVoice || paused)
-	{
 		return;
-	}
+
 	if(s_debugHardware.GetBool())
 	{
 		idLib::Printf("%dms: %p pausing %s\n", Sys_Milliseconds(), pSourceVoice, leadinSample ? leadinSample->GetName() : "<null>");
 	}
 	pSourceVoice->Stop(0, OPERATION_SET);
 	paused = true;
-}
+};
 
 /*
 ========================
@@ -452,16 +428,15 @@ idSoundVoice_XAudio2::UnPause
 void SbSoundVoice_XAudio2::UnPause()
 {
 	if(!pSourceVoice || !paused)
-	{
 		return;
-	}
+
 	if(s_debugHardware.GetBool())
 	{
 		idLib::Printf("%dms: %p unpausing %s\n", Sys_Milliseconds(), pSourceVoice, leadinSample ? leadinSample->GetName() : "<null>");
 	}
 	pSourceVoice->Start(0, OPERATION_SET);
 	paused = false;
-}
+};
 
 /*
 ========================
@@ -471,9 +446,8 @@ idSoundVoice_XAudio2::Stop
 void SbSoundVoice_XAudio2::Stop()
 {
 	if(!pSourceVoice)
-	{
 		return;
-	}
+
 	if(!paused)
 	{
 		if(s_debugHardware.GetBool())
@@ -482,8 +456,8 @@ void SbSoundVoice_XAudio2::Stop()
 		}
 		pSourceVoice->Stop(0, OPERATION_SET);
 		paused = true;
-	}
-}
+	};
+};
 
 /*
 ========================
@@ -493,9 +467,7 @@ idSoundVoice_XAudio2::GetAmplitude
 float SbSoundVoice_XAudio2::GetAmplitude()
 {
 	if(!hasVUMeter)
-	{
 		return 1.0f;
-	}
 
 	float peakLevels[MAX_CHANNELS_PER_VOICE];
 	float rmsLevels[MAX_CHANNELS_PER_VOICE];
@@ -506,28 +478,20 @@ float SbSoundVoice_XAudio2::GetAmplitude()
 	levels.pRMSLevels = rmsLevels;
 
 	if(levels.ChannelCount > MAX_CHANNELS_PER_VOICE)
-	{
 		levels.ChannelCount = MAX_CHANNELS_PER_VOICE;
-	}
 
 	if(pSourceVoice->GetEffectParameters(0, &levels, sizeof(levels)) != S_OK)
-	{
 		return 0.0f;
-	}
 
 	if(levels.ChannelCount == 1)
-	{
 		return rmsLevels[0];
-	}
 
 	float rms = 0.0f;
 	for(uint32 i = 0; i < levels.ChannelCount; i++)
-	{
 		rms += rmsLevels[i];
-	}
 
 	return rms / (float)levels.ChannelCount;
-}
+};
 
 /*
 ========================
@@ -537,9 +501,7 @@ idSoundVoice_XAudio2::ResetSampleRate
 void SbSoundVoice_XAudio2::SetSampleRate(uint32 newSampleRate, uint32 operationSet)
 {
 	if(pSourceVoice == nullptr || leadinSample == nullptr)
-	{
 		return;
-	}
 
 	sampleRate = newSampleRate;
 
@@ -548,13 +510,10 @@ void SbSoundVoice_XAudio2::SetSampleRate(uint32 newSampleRate, uint32 operationS
 	filter.OneOverQ = 1.0f; // [0.0f, XAUDIO2_MAX_FILTER_ONEOVERQ]
 	float cutoffFrequency = 1000.0f / Max(0.01f, occlusion);
 	if(cutoffFrequency * 6.0f >= (float)sampleRate)
-	{
 		filter.Frequency = XAUDIO2_MAX_FILTER_FREQUENCY;
-	}
 	else
-	{
 		filter.Frequency = 2.0f * idMath::Sin(idMath::PI * cutoffFrequency / (float)sampleRate);
-	}
+
 	assert(filter.Frequency >= 0.0f && filter.Frequency <= XAUDIO2_MAX_FILTER_FREQUENCY);
 	filter.Frequency = idMath::ClampFloat(0.0f, XAUDIO2_MAX_FILTER_FREQUENCY, filter.Frequency);
 
@@ -566,15 +525,12 @@ void SbSoundVoice_XAudio2::SetSampleRate(uint32 newSampleRate, uint32 operationS
 
 	// if the value specified for maxFreqRatio is too high for the specified format, the call to CreateSourceVoice will fail
 	if(numChannels == 1)
-	{
 		assert(freqRatio * (float)SYSTEM_SAMPLE_RATE <= XAUDIO2_MAX_RATIO_TIMES_RATE_XMA_MONO);
-	}
 	else
-	{
 		assert(freqRatio * (float)SYSTEM_SAMPLE_RATE <= XAUDIO2_MAX_RATIO_TIMES_RATE_XMA_MULTICHANNEL);
-	}
+
 	pSourceVoice->SetFrequencyRatio(freqRatio, operationSet);
-}
+};
 
 /*
 ========================
@@ -592,15 +548,14 @@ void SbSoundVoice_XAudio2::OnBufferStart(SbSoundSample_XAudio2 *sample, int buff
 		if(sample == leadinSample)
 		{
 			if(loopingSample == nullptr)
-			{
 				return;
-			}
+
 			nextSample = loopingSample;
-		}
+		};
 		nextBuffer = 0;
-	}
+	};
 
 	SubmitBuffer(nextSample, nextBuffer, 0);
-}
+};
 
 }; // namespace sbe::SbSound

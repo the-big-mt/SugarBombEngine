@@ -76,11 +76,10 @@ ID_INLINE_EXTERN ALCenum CheckALCErrors_( ALCdevice* device, const char* filenam
 {
 	ALCenum err = alcGetError( device );
 	if( err != ALC_NO_ERROR )
-	{
 		idLib::Printf( "ALC Error: %s (0x%x), @ %s %d\n", alcGetString( device, err ), err, filename, linenum );
-	}
+
 	return err;
-}
+};
 #define CheckALCErrors(x) CheckALCErrors_((x), __FILE__, __LINE__)
 
 /*
@@ -105,7 +104,7 @@ idSoundHardware_OpenAL::idSoundHardware_OpenAL(sbe::ISoundSystem *apSoundSystem,
 	freeVoices.SetNum( 0 );
 	
 	lastResetTime = 0;
-}
+};
 
 void SbSoundHardware_OpenAL::PrintDeviceList( const char* list )
 {
@@ -121,8 +120,8 @@ void SbSoundHardware_OpenAL::PrintDeviceList( const char* list )
 			list += strlen( list ) + 1;
 		}
 		while( *list != '\0' );
-	}
-}
+	};
+};
 
 void SbSoundHardware_OpenAL::PrintALCInfo( ALCdevice* device )
 {
@@ -133,14 +132,10 @@ void SbSoundHardware_OpenAL::PrintALCInfo( ALCdevice* device )
 		const ALCchar* devname = nullptr;
 		idLib::Printf( "\n" );
 		if( alcIsExtensionPresent( device, "ALC_ENUMERATE_ALL_EXT" ) != AL_FALSE )
-		{
 			devname = alcGetString( device, ALC_ALL_DEVICES_SPECIFIER );
-		}
 		
 		if( CheckALCErrors( device ) != ALC_NO_ERROR || !devname )
-		{
 			devname = alcGetString( device, ALC_DEVICE_SPECIFIER );
-		}
 		
 		idLib::Printf( "** Info for device \"%s\" **\n", devname );
 	}
@@ -157,8 +152,8 @@ void SbSoundHardware_OpenAL::PrintALCInfo( ALCdevice* device )
 		//idLib::Printf("ALC extensions:");
 		//printList(alcGetString(device, ALC_EXTENSIONS), ' ');
 		CheckALCErrors( device );
-	}
-}
+	};
+};
 
 void SbSoundHardware_OpenAL::PrintALInfo()
 {
@@ -168,7 +163,7 @@ void SbSoundHardware_OpenAL::PrintALInfo()
 	idLib::Printf( "OpenAL extensions: %s", alGetString( AL_EXTENSIONS ) );
 	//PrintList(alGetString(AL_EXTENSIONS), ' ');
 	CheckALErrors();
-}
+};
 
 //void SbSoundHardware_OpenAL::listDevices_f( const idCmdArgs& args )
 void listDevices_f( const idCmdArgs& args )
@@ -218,14 +213,14 @@ void SbSoundHardware_OpenAL::Init()
 	{
 		mpSys->FatalError( "idSoundHardware_OpenAL::Init: alcOpenDevice() failed\n" );
 		return;
-	}
+	};
 	
 	openalContext = alcCreateContext( openalDevice, nullptr );
 	if( alcMakeContextCurrent( openalContext ) == 0 )
 	{
 		mpSys->FatalError( "idSoundHardware_OpenAL::Init: alcMakeContextCurrent( %p) failed\n", openalContext );
 		return;
-	}
+	};
 	
 	mpSys->Printf( "Done.\n" );
 	
@@ -285,12 +280,11 @@ void SbSoundHardware_OpenAL::Init()
 	for( int i = 0, ci = 0; ci < sizeof( channelNames ) / sizeof( channelNames[0] ); ci++ )
 	{
 		if( ( channelMask & BIT( ci ) ) == 0 )
-		{
 			continue;
-		}
+
 		vuMeterRMS->SetLabel( i, channelNames[ ci ] );
 		i++;
-	}
+	};
 	*/
 	
 	// OpenAL doesn't really impose a maximum number of sources
@@ -298,10 +292,8 @@ void SbSoundHardware_OpenAL::Init()
 	freeVoices.SetNum( voices.Max() );
 	zombieVoices.SetNum( 0 );
 	for( int i = 0; i < voices.Num(); i++ )
-	{
 		freeVoices[i] = &voices[i];
-	}
-}
+};
 
 /*
 ========================
@@ -311,9 +303,8 @@ idSoundHardware_OpenAL::Shutdown
 void SbSoundHardware_OpenAL::Shutdown()
 {
 	for( int i = 0; i < voices.Num(); i++ )
-	{
 		voices[ i ].DestroyInternal();
-	}
+
 	voices.Clear();
 	freeVoices.Clear();
 	zombieVoices.Clear();
@@ -331,14 +322,14 @@ void SbSoundHardware_OpenAL::Shutdown()
 	{
 		console->DestroyGraph( vuMeterRMS );
 		vuMeterRMS = nullptr;
-	}
+	};
 	if( vuMeterPeak != nullptr )
 	{
 		console->DestroyGraph( vuMeterPeak );
 		vuMeterPeak = nullptr;
-	}
+	};
 	*/
-}
+};
 
 /*
 ========================
@@ -348,17 +339,16 @@ idSoundHardware_OpenAL::AllocateVoice
 SbSoundVoice* SbSoundHardware_OpenAL::AllocateVoice( const SbSoundSample* leadinSample, const SbSoundSample* loopingSample )
 {
 	if( leadinSample == nullptr )
-	{
 		return nullptr;
-	}
+
 	if( loopingSample != nullptr )
 	{
 		if( ( leadinSample->format.basic.formatTag != loopingSample->format.basic.formatTag ) || ( leadinSample->format.basic.numChannels != loopingSample->format.basic.numChannels ) )
 		{
 			mpSys->Warning( "Leadin/looping format mismatch: %s & %s", leadinSample->GetName(), loopingSample->GetName() );
 			loopingSample = nullptr;
-		}
-	}
+		};
+	};
 	
 	// Try to find a free voice that matches the format
 	// But fallback to the last free voice if none match the format
@@ -366,9 +356,7 @@ SbSoundVoice* SbSoundHardware_OpenAL::AllocateVoice( const SbSoundSample* leadin
 	for( int i = 0; i < freeVoices.Num(); i++ )
 	{
 		if( freeVoices[i]->IsPlaying() )
-		{
 			continue;
-		}
 		voice = ( idSoundVoice* )freeVoices[i];
 		if( voice->CompatibleFormat( ( idSoundSample_OpenAL* )leadinSample ) )
 		{
@@ -380,10 +368,10 @@ SbSoundVoice* SbSoundHardware_OpenAL::AllocateVoice( const SbSoundSample* leadin
 		voice->Create( leadinSample, loopingSample );
 		freeVoices.Remove( voice );
 		return voice;
-	}
+	};
 	
 	return nullptr;
-}
+};
 
 /*
 ========================
@@ -397,7 +385,7 @@ void SbSoundHardware_OpenAL::FreeVoice( SbSoundVoice* voice )
 	// Stop() is asyncronous, so we won't flush bufferes until the
 	// voice on the zombie channel actually returns !IsPlaying()
 	zombieVoices.Append( voice );
-}
+};
 
 /*
 ========================
@@ -413,18 +401,14 @@ void SbSoundHardware_OpenAL::Update()
 		{
 			lastResetTime = nowTime;
 			Init();
-		}
+		};
 		return;
-	}
+	};
 	
 	if( mpSoundSystem->IsMuted() )
-	{
 		alListenerf( AL_GAIN, 0.0f );
-	}
 	else
-	{
 		alListenerf( AL_GAIN, DBtoLinear( s_volume_dB.GetFloat() ) );
-	}
 	
 	// IXAudio2SourceVoice::Stop() has been called for every sound on the
 	// zombie list, but it is documented as asyncronous, so we have to wait
@@ -442,8 +426,8 @@ void SbSoundHardware_OpenAL::Update()
 		{
 			static int playingZombies;
 			playingZombies++;
-		}
-	}
+		};
+	};
 	
 	/*
 	if( s_showPerfData.GetBool() )
@@ -451,7 +435,7 @@ void SbSoundHardware_OpenAL::Update()
 		XAUDIO2_PERFORMANCE_DATA perfData;
 		pXAudio2->GetPerformanceData( &perfData );
 		idLib::Printf( "Voices: %d/%d CPU: %.2f%% Mem: %dkb\n", perfData.ActiveSourceVoiceCount, perfData.TotalSourceVoiceCount, perfData.AudioCyclesSinceLastQuery / ( float )perfData.TotalCyclesSinceLastQuery, perfData.MemoryUsageInBytes / 1024 );
-	}
+	};
 	*/
 	
 	/*
@@ -459,7 +443,7 @@ void SbSoundHardware_OpenAL::Update()
 	{
 		// Init probably hasn't been called yet
 		return;
-	}
+	};
 	
 	vuMeterRMS->Enable( s_showLevelMeter.GetBool() );
 	vuMeterPeak->Enable( s_showLevelMeter.GetBool() );
@@ -470,9 +454,7 @@ void SbSoundHardware_OpenAL::Update()
 		return;
 	}
 	else
-	{
 		pMasterVoice->EnableEffect( 0 );
-	}
 	
 	float peakLevels[ 8 ];
 	float rmsLevels[ 8 ];
@@ -483,9 +465,7 @@ void SbSoundHardware_OpenAL::Update()
 	levels.pRMSLevels = rmsLevels;
 	
 	if( levels.ChannelCount > 8 )
-	{
 		levels.ChannelCount = 8;
-	}
 	
 	pMasterVoice->GetEffectParameters( 0, &levels, sizeof( levels ) );
 	
@@ -493,10 +473,8 @@ void SbSoundHardware_OpenAL::Update()
 	for( int i = 0; i < outputChannels; i++ )
 	{
 		if( vuMeterPeakTimes[i] < currentTime )
-		{
 			vuMeterPeak->SetValue( i, vuMeterPeak->GetValue( i ) * 0.9f, colorRed );
-		}
-	}
+	};
 	
 	float width = 20.0f;
 	float height = 200.0f;
@@ -515,9 +493,9 @@ void SbSoundHardware_OpenAL::Update()
 		{
 			vuMeterPeak->SetValue( i, peakLevels[ i ], colorRed );
 			vuMeterPeakTimes[i] = currentTime + s_meterTopTime.GetInteger();
-		}
-	}
+		};
+	};
 	*/
-}
+};
 
 }; // namespace sbe::SbSound
