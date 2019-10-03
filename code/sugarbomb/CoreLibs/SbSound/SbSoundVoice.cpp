@@ -49,8 +49,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/sys/sys_assert.h"
 #include "idlib/sys/sys_types.h"
 
-//namespace sbe
-//{
+namespace sbe::SbSound
+{
 
 //class SbSoundSample;
 
@@ -294,4 +294,4 @@ void SbSoundVoice_Base::CalculateSurround(int srcChannels, float pLevelMatrix[MA
 		pLevelMatrix[i] *= scale;
 };
 
-//} // namespace sbe
+}; // namespace sbe::SbSound

@@ -45,16 +45,16 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/sys/sys_defines.h"
 #include "idlib/sys/sys_types.h"
 
-//namespace sbe
-//{
-
 namespace sbe
 {
+
 struct IFile;
 struct IFileSystem;
-};
 
 //class idList;
+
+namespace SbSound
+{
 
 /*
 ================================================================================================
@@ -286,4 +286,4 @@ ID_INLINE SbWaveFile::~SbWaveFile()
 	Close();
 };
 
-//} // namespace sbe
+};}; // namespace sbe::SbSound

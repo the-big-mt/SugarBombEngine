@@ -55,8 +55,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include "SbAL_SoundVoice.hpp"
 //#include "SbAL_SoundHardware.hpp"
 
-//namespace sbe
-//{
+namespace sbe::SbSound
+{
 
 ID_INLINE_EXTERN ALenum CheckALErrors_(const char *filename, int line)
 {
@@ -69,4 +69,4 @@ ID_INLINE_EXTERN ALenum CheckALErrors_(const char *filename, int line)
 }
 #define CheckALErrors() CheckALErrors_(__FILE__, __LINE__)
 
-//} // namespace sbe
+}; // namespace sbe::SbSound

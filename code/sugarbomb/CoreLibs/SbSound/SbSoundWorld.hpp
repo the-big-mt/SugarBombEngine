@@ -49,17 +49,17 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/math/Vector.h"
 #include "idlib/containers/List.h"
 
-//namespace sbe
-//{
+class idDecl;
 
 namespace sbe
 {
+
 struct ISystem;
 struct IRenderWorld;
 struct idConsole;
-};
 
-class idDecl;
+namespace SbSound
+{
 
 class SbSoundChannel;
 class SbSoundEmitterLocal;
@@ -193,4 +193,4 @@ private:
 	idConsole *console{nullptr};
 };
 
-//}; // namespace sbe
+};}; // namespace sbe::SbSound

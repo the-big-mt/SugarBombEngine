@@ -50,14 +50,16 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "CoreLibs/SbRenderer/IRenderWorld.hpp"
 
-//namespace sbe
-//{
-
 //class idDecl;
+
+namespace sbe
+{
 //class idSoundVoice;
 
 //struct IRenderWorld;
 
+namespace SbSound
+{
 idCVar s_noSound( "s_noSound", "0", CVAR_BOOL, "returns nullptr for all sounds loaded and does not update the sound rendering" );
 
 #ifdef ID_RETAIL
@@ -727,4 +729,4 @@ void SbSoundSystemLocal::PrintMemInfo( MemInfo_t* mi )
 {
 };
 
-//} // namespace sbe
+};}; // namespace sbe::SbSound

@@ -59,8 +59,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "CoreLibs/SbSystem/ISystem.hpp"
 #include "CoreLibs/SbSystem/IFile.hpp"
 
-//namespace sbe
-//{
+namespace sbe::SbSound
+{
 
 // A single voice can play multiple channels (up to 5.1, but most commonly stereo)
 // This is the maximum number of channels which can play simultaneously
@@ -1259,4 +1259,4 @@ void SbSoundWorldLocal::SetEnviroSuit(bool active)
 	enviroSuitActive = active;
 };
 
-//} // namespace sbe
+}; // namespace sbe::SbSound

@@ -42,8 +42,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include "SbAL_SoundSample.hpp" // for idSoundSample_OpenAL, etc
 #include "SbSoundVoice.hpp" // for idSoundVoice_Base
 
-//namespace sbe
-//{
+namespace sbe::SbSound
+{
 
 static const int MAX_QUEUED_BUFFERS = 3;
 
@@ -161,4 +161,4 @@ class idSoundVoice : public SbSoundVoice_OpenAL
 {
 };
 
-//} // namespace sbe
+}; // namespace sbe::SbSound

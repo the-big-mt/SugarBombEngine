@@ -56,8 +56,8 @@ Contains the WaveFile implementation
 ================================================================================================
 */
 
-//namespace sbe
-//{
+namespace sbe::SbSound
+{
 
 /*
 ========================
@@ -589,4 +589,4 @@ void SbWaveFile::Close(sbe::IFileSystem *apFileSystem)
 	chunks.SetNum(0);
 };
 
-//} // namespace sbe
+}; // namespace sbe::SbSound

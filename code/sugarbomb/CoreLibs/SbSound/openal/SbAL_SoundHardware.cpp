@@ -59,8 +59,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //#include "CoreLibs/SbSystem/ISystem.hpp"
 
-//namespace sbe
-//{
+namespace sbe::SbSound
+{
 
 //class idCmdArgs;
 
@@ -520,4 +520,4 @@ void idSoundHardware_OpenAL::Update()
 	*/
 }
 
-//} // namespace sbe
+}; // namespace sbe::SbSound

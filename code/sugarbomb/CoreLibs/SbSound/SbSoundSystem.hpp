@@ -51,8 +51,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "framework/CVar.hpp"
 
-//namespace sbe
-//{
+namespace sbe::SbSound
+{
 
 // We may need up to 3 buffers for each hardware voice if they are all long sounds
 constexpr auto MAX_SOUND_BUFFERS{MAX_HARDWARE_VOICES * 3};
@@ -213,4 +213,4 @@ public:
 
 extern SbSoundSystemLocal soundSystemLocal;
 
-//}; // namespace sbe
+}; // namespace sbe::SbSound

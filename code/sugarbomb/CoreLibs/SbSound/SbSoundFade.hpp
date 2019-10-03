@@ -40,8 +40,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
-//namespace sbe
-//{
+namespace sbe::SbSound
+{
 
 class SbSoundFade
 {
@@ -64,4 +64,4 @@ public:
 	float GetVolume(int soundTime) const;
 };
 
-//}; // namespace sbe
+}; // namespace sbe::SbSound

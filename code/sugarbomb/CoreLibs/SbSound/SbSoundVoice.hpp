@@ -47,8 +47,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/math/Vector.h"
 #include "idlib/sys/sys_types.h"
 
-//namespace sbe
-//{
+namespace sbe
+{
+
+namespace SbSound
+{
 
 class SbSoundSample;
 
@@ -166,4 +169,4 @@ protected:
 	static float omniLevel{0.0f};
 };
 
-//} // namespace sbe
+};}; // namespace sbe::SbSound

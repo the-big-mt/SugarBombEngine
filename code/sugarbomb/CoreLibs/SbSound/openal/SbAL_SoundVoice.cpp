@@ -793,4 +793,4 @@ void idSoundVoice_OpenAL::OnBufferStart(idSoundSample_OpenAL *sample, int buffer
 	SubmitBuffer(nextSample, nextBuffer, 0);
 }
 
-//} // namespace sbe
+}; // namespace sbe::SbSound

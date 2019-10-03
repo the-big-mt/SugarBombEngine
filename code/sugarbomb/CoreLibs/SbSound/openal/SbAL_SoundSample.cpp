@@ -74,8 +74,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //#include "CoreLibs/SbSystem/ISystem.hpp"
 
-//namespace sbe
-//{
+namespace sbe::SbSound
+{
 
 extern idCVar s_useCompression;
 extern idCVar s_noSound;
@@ -1194,4 +1194,4 @@ int idSoundSample_OpenAL::MS_ADPCM_decode(uint8 **audio_buf, uint32 *audio_len)
 	return 0;
 }
 
-//} // namespace sbe
+}; // namespace sbe::SbSound

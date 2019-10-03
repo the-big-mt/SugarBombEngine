@@ -134,4 +134,4 @@ private:
 	sbe::ISys *mpSys{ nullptr };
 };
 
-//}; // namespace sbe
+}; // namespace sbe::SbSound
