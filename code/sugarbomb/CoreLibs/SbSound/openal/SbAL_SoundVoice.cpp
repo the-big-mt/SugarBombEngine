@@ -65,8 +65,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //#include "CoreLibs/SbSystem/ISystem.hpp"
 
-//namespace sbe
-//{
+namespace sbe::SbSound
+{
 
 idCVar s_skipHardwareSets("s_skipHardwareSets", "0", CVAR_BOOL, "Do all calculation, but skip XA2 calls");
 idCVar s_debugHardware("s_debugHardware", "0", CVAR_BOOL, "Print a message any time a hardware voice changes");

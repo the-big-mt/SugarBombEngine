@@ -50,6 +50,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 ================================================================================================
 */
 
+namespace sbe::SbSound
+{
+
 /*
 ========================
 idSoundFade::Clear
@@ -113,3 +116,5 @@ float SbSoundFade::GetVolume(const int soundTime) const
 	else
 		return fadeStartVolume;
 };
+
+}; // namespace sbe::SbSound

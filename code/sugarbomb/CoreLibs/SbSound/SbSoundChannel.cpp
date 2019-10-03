@@ -52,6 +52,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbSoundDefines.hpp"
 #include "SbSound/SbSoundTypes.hpp"
 
+namespace sbe::SbSound
+{
+
 extern idCVar timescale;
 extern idCVar s_playDefaultSound;
 
@@ -309,3 +312,5 @@ void SbSoundChannel::UpdateHardware(float volumeAdd, int currentTime)
 	else
 		hardwareVoice->Update();
 };
+
+}; // namespace sbe::SbSound

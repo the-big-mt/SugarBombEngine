@@ -57,10 +57,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "CoreLibs/SbRenderer/IRenderWorld.hpp"
 
-//namespace sbe
-//{
 
 //class idDecl;
+
+namespace sbe::SbSound
+{
 
 idCVar s_singleEmitter( "s_singleEmitter", "0", CVAR_INTEGER, "mute all sounds but this emitter" );
 idCVar s_showStartSound( "s_showStartSound", "0", CVAR_BOOL, "print a message every time a sound starts/stops" );
@@ -748,4 +749,4 @@ float SbSoundEmitterLocal::CurrentAmplitude()
 	return amplitude;
 };
 
-//} // namespace sbe
+}; // namespace sbe::SbSound

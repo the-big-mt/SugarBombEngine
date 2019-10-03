@@ -43,8 +43,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "CoreLibs/SbSound/SoundShaderParms.hpp"
 #include "SbSoundFade.hpp"
 
-//namespace sbe
-//{
+namespace sbe::SbSound
+{
 
 class SbSoundSample;
 class SbSoundVoice;
@@ -96,4 +96,4 @@ public:
 	~SbSoundChannel();
 };
 
-//}; // namespace sbe
+}; // namespace sbe::SbSound

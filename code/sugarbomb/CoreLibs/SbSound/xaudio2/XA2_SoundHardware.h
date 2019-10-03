@@ -46,8 +46,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "idlib/containers/StaticList.h"
 
-//namespace sbe
-//{
+namespace sbe::SbSound
+{
 
 class idSoundSample_XAudio2;
 class idSoundVoice_XAudio2;
@@ -151,4 +151,4 @@ class idSoundHardware : public idSoundHardware_XAudio2
 {
 };
 
-//} // namespace sbe
+}; // namespace sbe::SbSound

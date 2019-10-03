@@ -55,8 +55,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 ===============================================================================
 */
 
-//namespace sbe
-//{
+namespace sbe
+{
 
 // sound shader flags
 static const int SSF_PRIVATE_SOUND = BIT(0);      // only plays for the current listenerId
@@ -72,13 +72,14 @@ static const int SSF_NO_DUPS = BIT(9);            // try not to play the same so
 static const int SSF_VO = BIT(10);                // VO - direct a portion of the sound through the center channel (set automatically on shaders that contain files that start with "sound/vo/")
 static const int SSF_MUSIC = BIT(11);             // Music - Muted when the player is playing his own music
 
-namespace sbe
-{
 struct ISys;
 }; // namespace sbe
 
 struct IDeclManager;
 class idLexer;
+
+namespace sbe::SbSound
+{
 
 class SbSoundSample;
 

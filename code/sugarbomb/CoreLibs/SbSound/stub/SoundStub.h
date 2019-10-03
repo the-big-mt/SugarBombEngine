@@ -56,11 +56,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbSoundVoice.hpp"
 #include "SbWaveFile.hpp"
 
-//namespace sbe
-//{
+namespace sbe
+{
 
 struct ISys;
 struct IFileSystem;
+
+namespace SbSound
+{
 
 // ok, this one isn't really a stub, because it seems to be XAudio-independent,
 // I just copied the class from idSoundSample_XAudio2 and renamed it
@@ -284,4 +287,4 @@ public:
 	
 };
 
-//} // namespace sbe
+};}; // namespace sbe::SbSound

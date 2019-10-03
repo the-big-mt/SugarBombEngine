@@ -41,13 +41,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 #pragma once
 
 
+namespace sbe::SbSound
+{
+
 /// Maximum number of voices we can have allocated
 constexpr auto MAX_HARDWARE_VOICES{48};
 
 /// Maximum number of channels in a sound sample
 constexpr auto MAX_CHANNELS_PER_VOICE{8};
-//namespace sbe
-//{
 
 /// Sound classes are used to fade most sounds down inside cinematics, leaving dialog
 /// flagged with a non-zero class full volume
@@ -93,4 +94,4 @@ enum soundDemoCommand_t
 	SCMD_CACHESOUNDSHADER
 };
 
-//} // namespace sbe
+}; // namespace sbe::SbSound

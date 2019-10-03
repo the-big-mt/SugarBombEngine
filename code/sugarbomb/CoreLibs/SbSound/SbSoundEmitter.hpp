@@ -46,8 +46,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/containers/StaticList.h"
 #include "idlib/math/Vector.h"
 
-//namespace sbe
-//{
+
+namespace sbe::SbSound
+{
 
 // Maximum number of SoundChannels for a single SoundEmitter.
 // This is probably excessive...
@@ -122,4 +123,4 @@ public:
 	virtual ~SbSoundEmitterLocal();
 };
 
-//}; // namespace sbe
+}; // namespace sbe::SbSound

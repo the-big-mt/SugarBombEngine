@@ -51,8 +51,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 #	include <string>
 #	include <vector>
 
-//namespace sbe
-//{
+
+namespace sbe::SbSound
+{
 
 DEFINE_PROPERTYKEY(PKEY_AudioEndpoint_Path, 0x9c119480, 0xddc2, 0x4954, 0xa1, 0x50, 0x5b, 0xd2, 0x40, 0xd4, 0x54, 0xad, 1);
 
@@ -64,7 +65,7 @@ struct AudioDevice
 	std::wstring id;
 };
 
-//} // namespace sbe
+}; // namespace sbe::SbSound
 
 #else
 #	include <dxsdkver.h>
