@@ -174,7 +174,7 @@ idSoundSample::LoadGeneratedSound
 */
 bool SbSoundSample::LoadGeneratedSample( const idStr& filename )
 {
-	idFileLocal fileIn( fileSystem->OpenFileReadMemory( filename ) );
+	SbFileLocal fileIn( fileSystem->OpenFileReadMemory( filename ) );
 	if( fileIn != nullptr )
 	{
 		uint32 magic;
@@ -516,7 +516,7 @@ void SbSoundSample::FreeData()
 {
 	if( buffers.Num() > 0 )
 	{
-		soundSystemLocal.StopVoicesWithSample( ( idSoundSample* )this );
+		soundSystemLocal.StopVoicesWithSample( ( SbSoundSample* )this );
 		for( int i = 0; i < buffers.Num(); i++ )
 		{
 			FreeBuffer( buffers[i].buffer );
@@ -541,7 +541,7 @@ idSoundSample::LoadAmplitude
 bool SbSoundSample::LoadAmplitude( const idStr& name )
 {
 	amplitude.Clear();
-	idFileLocal f( fileSystem->OpenFileRead( name ) );
+	SbFileLocal f( fileSystem->OpenFileRead( name ) );
 	if( f == nullptr )
 	{
 		return false;

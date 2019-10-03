@@ -58,8 +58,8 @@ class SbSoundSample_OpenAL;
 class SbSoundVoice_OpenAL;
 class SbSoundHardware_OpenAL;
 
-//class idSoundVoice;
-//class idSoundSample;
+//class SbSoundVoice;
+//class SbSoundSample;
 
 /*
 ================================================
@@ -77,8 +77,8 @@ public:
 
 	void Update();
 
-	idSoundVoice *AllocateVoice(const idSoundSample *leadinSample, const idSoundSample *loopingSample);
-	void FreeVoice(idSoundVoice *voice);
+	SbSoundVoice *AllocateVoice(const SbSoundSample *leadinSample, const SbSoundSample *loopingSample);
+	void FreeVoice(SbSoundVoice *voice);
 
 	// listDevices needs this
 	ALCdevice *GetOpenALDevice() const

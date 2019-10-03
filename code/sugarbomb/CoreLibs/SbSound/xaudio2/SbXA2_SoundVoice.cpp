@@ -102,7 +102,7 @@ public:
 idSoundVoice_XAudio2::idSoundVoice_XAudio2
 ========================
 */
-idSoundVoice_XAudio2::idSoundVoice_XAudio2()
+SbSoundVoice_XAudio2::SbSoundVoice_XAudio2()
     : pSourceVoice(nullptr),
       leadinSample(nullptr),
       loopingSample(nullptr),
@@ -119,7 +119,7 @@ idSoundVoice_XAudio2::idSoundVoice_XAudio2()
 idSoundVoice_XAudio2::~idSoundVoice_XAudio2
 ========================
 */
-idSoundVoice_XAudio2::~idSoundVoice_XAudio2()
+SbSoundVoice_XAudio2::~SbSoundVoice_XAudio2()
 {
 	DestroyInternal();
 }
@@ -129,7 +129,7 @@ idSoundVoice_XAudio2::~idSoundVoice_XAudio2()
 idSoundVoice_XAudio2::CompatibleFormat
 ========================
 */
-bool idSoundVoice_XAudio2::CompatibleFormat(idSoundSample_XAudio2 *s)
+bool SbSoundVoice_XAudio2::CompatibleFormat(SbSoundSample_XAudio2 *s)
 {
 	if(pSourceVoice == nullptr)
 	{
@@ -144,7 +144,7 @@ bool idSoundVoice_XAudio2::CompatibleFormat(idSoundSample_XAudio2 *s)
 idSoundVoice_XAudio2::Create
 ========================
 */
-void idSoundVoice_XAudio2::Create(const idSoundSample *leadinSample_, const idSoundSample *loopingSample_)
+void SbSoundVoice_XAudio2::Create(const SbSoundSample *leadinSample_, const SbSoundSample *loopingSample_)
 {
 	if(IsPlaying())
 	{
@@ -194,7 +194,7 @@ void idSoundVoice_XAudio2::Create(const idSoundSample *leadinSample_, const idSo
 idSoundVoice_XAudio2::DestroyInternal
 ========================
 */
-void idSoundVoice_XAudio2::DestroyInternal()
+void SbSoundVoice_XAudio2::DestroyInternal()
 {
 	if(pSourceVoice != nullptr)
 	{
@@ -213,7 +213,7 @@ void idSoundVoice_XAudio2::DestroyInternal()
 idSoundVoice_XAudio2::Start
 ========================
 */
-void idSoundVoice_XAudio2::Start(int offsetMS, int ssFlags)
+void SbSoundVoice_XAudio2::Start(int offsetMS, int ssFlags)
 {
 	if(s_debugHardware.GetBool())
 	{
@@ -282,11 +282,11 @@ void idSoundVoice_XAudio2::Start(int offsetMS, int ssFlags)
 idSoundVoice_XAudio2::RestartAt
 ========================
 */
-int idSoundVoice_XAudio2::RestartAt(int offsetSamples)
+int SbSoundVoice_XAudio2::RestartAt(int offsetSamples)
 {
 	offsetSamples &= ~127;
 
-	idSoundSample_XAudio2 *sample = leadinSample;
+	SbSoundSample_XAudio2 *sample = leadinSample;
 	if(offsetSamples >= leadinSample->playLength)
 	{
 		if(loopingSample != nullptr)
@@ -318,13 +318,14 @@ int idSoundVoice_XAudio2::RestartAt(int offsetSamples)
 idSoundVoice_XAudio2::SubmitBuffer
 ========================
 */
-int idSoundVoice_XAudio2::SubmitBuffer(idSoundSample_XAudio2 *sample, int bufferNumber, int offset)
+int SbSoundVoice_XAudio2::SubmitBuffer(SbSoundSample_XAudio2 *sample, int bufferNumber, int offset)
 {
 	if(sample == nullptr || (bufferNumber < 0) || (bufferNumber >= sample->buffers.Num()))
 	{
 		return 0;
 	}
-	idSoundSystemLocal::bufferContext_t *bufferContext = soundSystemLocal.ObtainStreamBufferContext();
+
+	SbSoundSystemLocal::bufferContext_t *bufferContext = soundSystemLocal.ObtainStreamBufferContext();
 	if(bufferContext == nullptr)
 	{
 		idLib::Warning("No free buffer contexts!");
@@ -363,7 +364,7 @@ int idSoundVoice_XAudio2::SubmitBuffer(idSoundSample_XAudio2 *sample, int buffer
 idSoundVoice_XAudio2::Update
 ========================
 */
-bool idSoundVoice_XAudio2::Update()
+bool SbSoundVoice_XAudio2::Update()
 {
 	if(pSourceVoice == nullptr || leadinSample == nullptr)
 	{
@@ -400,7 +401,7 @@ bool idSoundVoice_XAudio2::Update()
 idSoundVoice_XAudio2::IsPlaying
 ========================
 */
-bool idSoundVoice_XAudio2::IsPlaying()
+bool SbSoundVoice_XAudio2::IsPlaying()
 {
 	if(pSourceVoice == nullptr)
 	{
@@ -416,7 +417,7 @@ bool idSoundVoice_XAudio2::IsPlaying()
 idSoundVoice_XAudio2::FlushSourceBuffers
 ========================
 */
-void idSoundVoice_XAudio2::FlushSourceBuffers()
+void SbSoundVoice_XAudio2::FlushSourceBuffers()
 {
 	if(pSourceVoice != nullptr)
 	{
@@ -429,7 +430,7 @@ void idSoundVoice_XAudio2::FlushSourceBuffers()
 idSoundVoice_XAudio2::Pause
 ========================
 */
-void idSoundVoice_XAudio2::Pause()
+void SbSoundVoice_XAudio2::Pause()
 {
 	if(!pSourceVoice || paused)
 	{
@@ -448,7 +449,7 @@ void idSoundVoice_XAudio2::Pause()
 idSoundVoice_XAudio2::UnPause
 ========================
 */
-void idSoundVoice_XAudio2::UnPause()
+void SbSoundVoice_XAudio2::UnPause()
 {
 	if(!pSourceVoice || !paused)
 	{
@@ -467,7 +468,7 @@ void idSoundVoice_XAudio2::UnPause()
 idSoundVoice_XAudio2::Stop
 ========================
 */
-void idSoundVoice_XAudio2::Stop()
+void SbSoundVoice_XAudio2::Stop()
 {
 	if(!pSourceVoice)
 	{
@@ -489,7 +490,7 @@ void idSoundVoice_XAudio2::Stop()
 idSoundVoice_XAudio2::GetAmplitude
 ========================
 */
-float idSoundVoice_XAudio2::GetAmplitude()
+float SbSoundVoice_XAudio2::GetAmplitude()
 {
 	if(!hasVUMeter)
 	{
@@ -533,7 +534,7 @@ float idSoundVoice_XAudio2::GetAmplitude()
 idSoundVoice_XAudio2::ResetSampleRate
 ========================
 */
-void idSoundVoice_XAudio2::SetSampleRate(uint32 newSampleRate, uint32 operationSet)
+void SbSoundVoice_XAudio2::SetSampleRate(uint32 newSampleRate, uint32 operationSet)
 {
 	if(pSourceVoice == nullptr || leadinSample == nullptr)
 	{
@@ -580,11 +581,11 @@ void idSoundVoice_XAudio2::SetSampleRate(uint32 newSampleRate, uint32 operationS
 idSoundVoice_XAudio2::OnBufferStart
 ========================
 */
-void idSoundVoice_XAudio2::OnBufferStart(idSoundSample_XAudio2 *sample, int bufferNumber)
+void SbSoundVoice_XAudio2::OnBufferStart(SbSoundSample_XAudio2 *sample, int bufferNumber)
 {
 	SetSampleRate(sample->SampleRate(), XAUDIO2_COMMIT_NOW);
 
-	idSoundSample_XAudio2 *nextSample = sample;
+	SbSoundSample_XAudio2 *nextSample = sample;
 	int nextBuffer = bufferNumber + 1;
 	if(nextBuffer == sample->buffers.Num())
 	{

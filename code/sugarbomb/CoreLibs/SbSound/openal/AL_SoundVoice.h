@@ -52,34 +52,34 @@ static const int MAX_QUEUED_BUFFERS = 3;
 idSoundVoice_OpenAL
 ================================================
 */
-class idSoundVoice_OpenAL : public idSoundVoice_Base
+class SbSoundVoice_OpenAL : public idSoundVoice_Base
 {
 public:
-	idSoundVoice_OpenAL();
-	~idSoundVoice_OpenAL();
+	SbSoundVoice_OpenAL();
+	~SbSoundVoice_OpenAL();
 
 	void SetPosition(const idVec3 &p)
 	{
-		idSoundVoice_Base::SetPosition(p);
+		SbSoundVoice_Base::SetPosition(p);
 
 		alSource3f(openalSource, AL_POSITION, -p.y, p.z, -p.x);
 	}
 
 	void SetGain(float gain)
 	{
-		idSoundVoice_Base::SetGain(gain);
+		SbSoundVoice_Base::SetGain(gain);
 
 		alSourcef(openalSource, AL_GAIN, (gain) < (1.0f) ? (gain) : (1.0f));
 	}
 
 	void SetPitch(float p)
 	{
-		idSoundVoice_Base::SetPitch(p);
+		SbSoundVoice_Base::SetPitch(p);
 
 		alSourcef(openalSource, AL_PITCH, p);
 	}
 
-	void Create(const idSoundSample *leadinSample, const idSoundSample *loopingSample);
+	void Create(const SbSoundSample *leadinSample, const SbSoundSample *loopingSample);
 
 	// Start playing at a particular point in the buffer.  Does an Update() too
 	void Start(int offsetMS, int ssFlags);
@@ -157,7 +157,7 @@ private:
 idSoundVoice
 ================================================
 */
-class idSoundVoice : public SbSoundVoice_OpenAL
+class SbSoundVoice : public SbSoundVoice_OpenAL
 {
 };
 

@@ -111,7 +111,7 @@ static void FreeBuffer(void *p)
 idSoundSample_OpenAL::idSoundSample_OpenAL
 ========================
 */
-idSoundSample_OpenAL::idSoundSample_OpenAL()
+SbSoundSample_OpenAL::SbSoundSample_OpenAL()
 {
 	timestamp = FILE_NOT_FOUND_TIMESTAMP;
 	loaded = false;
@@ -135,7 +135,7 @@ idSoundSample_OpenAL::idSoundSample_OpenAL()
 idSoundSample_OpenAL::~idSoundSample_OpenAL
 ========================
 */
-idSoundSample_OpenAL::~idSoundSample_OpenAL()
+SbSoundSample_OpenAL::~SbSoundSample_OpenAL()
 {
 	FreeData();
 }
@@ -169,9 +169,9 @@ void idSoundSample_OpenAL::WriteGeneratedSample(idFile *fileOut)
 idSoundSample_OpenAL::WriteAllSamples
 ========================
 */
-void idSoundSample_OpenAL::WriteAllSamples(const idStr &sampleName)
+void SbSoundSample_OpenAL::WriteAllSamples(const idStr &sampleName)
 {
-	idSoundSample_OpenAL *samplePC = new idSoundSample_OpenAL();
+	SbSoundSample_OpenAL *samplePC = new SbSoundSample_OpenAL();
 	{
 		idStrStatic<MAX_OSPATH> inName = sampleName;
 		inName.Append(".msadpcm");
@@ -197,10 +197,10 @@ void idSoundSample_OpenAL::WriteAllSamples(const idStr &sampleName)
 idSoundSample_OpenAL::LoadGeneratedSound
 ========================
 */
-bool idSoundSample_OpenAL::LoadGeneratedSample(const idStr &filename)
+bool SbSoundSample_OpenAL::LoadGeneratedSample(const idStr &filename)
 {
 #if 1
-	idFileLocal fileIn(fileSystem->OpenFileReadMemory(filename));
+	SbFileLocal fileIn(fileSystem->OpenFileReadMemory(filename));
 	if(fileIn != nullptr)
 	{
 		uint32 magic;
@@ -237,7 +237,7 @@ bool idSoundSample_OpenAL::LoadGeneratedSample(const idStr &filename)
 idSoundSample_OpenAL::Load
 ========================
 */
-void idSoundSample_OpenAL::LoadResource()
+void SbSoundSample_OpenAL::LoadResource()
 {
 	FreeData();
 
@@ -322,7 +322,7 @@ void idSoundSample_OpenAL::LoadResource()
 	return;
 }
 
-void idSoundSample_OpenAL::CreateOpenALBuffer()
+void SbSoundSample_OpenAL::CreateOpenALBuffer()
 {
 	// build OpenAL buffer
 	CheckALErrors();
@@ -410,7 +410,7 @@ void idSoundSample_OpenAL::CreateOpenALBuffer()
 idSoundSample_OpenAL::LoadWav
 ========================
 */
-bool idSoundSample_OpenAL::LoadWav(const idStr &filename)
+bool SbSoundSample_OpenAL::LoadWav(const idStr &filename)
 {
 	// load the wave
 	SbWaveFile wave;
@@ -573,7 +573,7 @@ bool idSoundSample_OpenAL::LoadWav(const idStr &filename)
 idSoundSample_OpenAL::MakeDefault
 ========================
 */
-void idSoundSample_OpenAL::MakeDefault()
+void SbSoundSample_OpenAL::MakeDefault()
 {
 	FreeData();
 
@@ -641,7 +641,7 @@ idSoundSample_OpenAL::FreeData
 Called before deleting the object and at the start of LoadResource()
 ========================
 */
-void idSoundSample_OpenAL::FreeData()
+void SbSoundSample_OpenAL::FreeData()
 {
 	if(buffers.Num() > 0)
 	{
@@ -682,10 +682,10 @@ void idSoundSample_OpenAL::FreeData()
 idSoundSample_OpenAL::LoadAmplitude
 ========================
 */
-bool idSoundSample_OpenAL::LoadAmplitude(const idStr &name)
+bool SbSoundSample_OpenAL::LoadAmplitude(const idStr &name)
 {
 	amplitude.Clear();
-	idFileLocal f(fileSystem->OpenFileRead(name));
+	SbFileLocal f(fileSystem->OpenFileRead(name));
 	if(f == nullptr)
 	{
 		return false;
@@ -700,7 +700,7 @@ bool idSoundSample_OpenAL::LoadAmplitude(const idStr &name)
 idSoundSample_OpenAL::GetAmplitude
 ========================
 */
-float idSoundSample_OpenAL::GetAmplitude(int timeMS) const
+float SbSoundSample_OpenAL::GetAmplitude(int timeMS) const
 {
 	if(timeMS < 0 || timeMS > LengthInMsec())
 	{
@@ -719,7 +719,7 @@ float idSoundSample_OpenAL::GetAmplitude(int timeMS) const
 }
 
 #if 0  //defined(AL_SOFT_buffer_samples)
-const char* idSoundSample_OpenAL::OpenALSoftChannelsName( ALenum chans ) const
+const char* SbSoundSample_OpenAL::OpenALSoftChannelsName( ALenum chans ) const
 {
 	switch( chans )
 	{
@@ -742,7 +742,7 @@ const char* idSoundSample_OpenAL::OpenALSoftChannelsName( ALenum chans ) const
 	return "Unknown Channels";
 }
 
-const char* idSoundSample_OpenAL::OpenALSoftTypeName( ALenum type ) const
+const char* SbSoundSample_OpenAL::OpenALSoftTypeName( ALenum type ) const
 {
 	switch( type )
 	{
@@ -767,7 +767,7 @@ const char* idSoundSample_OpenAL::OpenALSoftTypeName( ALenum type ) const
 	return "Unknown Type";
 }
 
-ALsizei idSoundSample_OpenAL::FramesToBytes( ALsizei size, ALenum channels, ALenum type ) const
+ALsizei SbSoundSample_OpenAL::FramesToBytes( ALsizei size, ALenum channels, ALenum type ) const
 {
 	switch( channels )
 	{
@@ -825,12 +825,12 @@ ALsizei idSoundSample_OpenAL::FramesToBytes( ALsizei size, ALenum channels, ALen
 	return size;
 }
 
-ALsizei idSoundSample_OpenAL::BytesToFrames( ALsizei size, ALenum channels, ALenum type ) const
+ALsizei SbSoundSample_OpenAL::BytesToFrames( ALsizei size, ALenum channels, ALenum type ) const
 {
 	return size / FramesToBytes( 1, channels, type );
 }
 
-ALenum idSoundSample_OpenAL::GetOpenALSoftFormat( ALenum channels, ALenum type ) const
+ALenum SbSoundSample_OpenAL::GetOpenALSoftFormat( ALenum channels, ALenum type ) const
 {
 	ALenum format = AL_NONE;
 	
@@ -990,7 +990,7 @@ ALenum idSoundSample_OpenAL::GetOpenALSoftFormat( ALenum channels, ALenum type )
 }
 #endif // #if defined(AL_SOFT_buffer_samples)
 
-ALenum idSoundSample_OpenAL::GetOpenALBufferFormat() const
+ALenum SbSoundSample_OpenAL::GetOpenALBufferFormat() const
 {
 	ALenum alFormat;
 
@@ -1016,7 +1016,7 @@ ALenum idSoundSample_OpenAL::GetOpenALBufferFormat() const
 	return alFormat;
 }
 
-int32 idSoundSample_OpenAL::MS_ADPCM_nibble(MS_ADPCM_decodeState_t *state, int8 nybble)
+int32 SbSoundSample_OpenAL::MS_ADPCM_nibble(MS_ADPCM_decodeState_t *state, int8 nybble)
 {
 	const int32 max_audioval = ((1 << (16 - 1)) - 1);
 	const int32 min_audioval = -(1 << (16 - 1));
@@ -1063,7 +1063,7 @@ int32 idSoundSample_OpenAL::MS_ADPCM_nibble(MS_ADPCM_decodeState_t *state, int8 
 	return (new_sample);
 }
 
-int idSoundSample_OpenAL::MS_ADPCM_decode(uint8 **audio_buf, uint32 *audio_len)
+int SbSoundSample_OpenAL::MS_ADPCM_decode(uint8 **audio_buf, uint32 *audio_len)
 {
 	static MS_ADPCM_decodeState_t states[2];
 	MS_ADPCM_decodeState_t *state[2];

@@ -105,7 +105,7 @@ public:
 
 	bool IsCompressed() const
 	{
-		return (format.basic.formatTag != idWaveFile::FORMAT_PCM);
+		return (format.basic.formatTag != SbWaveFile::FORMAT_PCM);
 	}
 
 	bool IsDefault() const

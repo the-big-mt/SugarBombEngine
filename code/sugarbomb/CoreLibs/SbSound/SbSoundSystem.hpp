@@ -151,10 +151,10 @@ public:
 	int SoundTime() const override;
 
 	// may return NULL if there are no more voices left
-	idSoundVoice *AllocateVoice(const idSoundSample *leadinSample, const idSoundSample *loopingSample) override;
-	void FreeVoice(idSoundVoice *) override;
+	SbSoundVoice *AllocateVoice(const SbSoundSample *leadinSample, const SbSoundSample *loopingSample);
+	void FreeVoice(SbSoundVoice *);
 
-	idSoundSample *LoadSample(const char *name) override;
+	SbSoundSample *LoadSample(const char *name);
 
 	virtual void Preload(idPreloadManifest &preload) override;
 

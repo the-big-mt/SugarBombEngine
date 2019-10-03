@@ -357,7 +357,7 @@ void SbSoundWorldLocal::Update(float afTimeStep)
 	// An idSoundChannel is a channel on an emitter, which may have an explicit channel assignment or SND_CHANNEL_ANY
 	// A hardware channel is a channel from the sound file itself (IE: left, right, LFE)
 	// We only allow MAX_HARDWARE_CHANNELS channels, which may wind up being a smaller number of idSoundChannels
-	idStaticList<idActiveChannel, MAX_HARDWARE_VOICES> activeEmitterChannels;
+	idStaticList<SbActiveChannel, MAX_HARDWARE_VOICES> activeEmitterChannels;
 	int maxEmitterChannels = s_maxEmitterChannels.GetInteger() + 1; // +1 to leave room for insert-before-sort
 	if(maxEmitterChannels > MAX_HARDWARE_VOICES)
 		maxEmitterChannels = MAX_HARDWARE_VOICES;
@@ -436,7 +436,7 @@ void SbSoundWorldLocal::Update(float afTimeStep)
 			};
 
 			// We want to insert the sound at this point.
-			activeEmitterChannels.Insert(idActiveChannel(channel, sortKey), insertIndex);
+			activeEmitterChannels.Insert(SbActiveChannel(channel, sortKey), insertIndex);
 			activeHardwareChannels += sampleChannels;
 
 			// If we are over our voice limit or at our channel limit, mute sounds until it fits.
@@ -516,7 +516,7 @@ void SbSoundWorldLocal::Update(float afTimeStep)
 	{
 		for(int e = 0; e < emitters.Num(); e++)
 		{
-			idSoundEmitterLocal *emitter = emitters[e];
+			SbSoundEmitterLocal *emitter = emitters[e];
 			bool audible = false;
 			float maxGain = 0.0f;
 			for(int c = 0; c < emitter->channels.Num(); c++)
@@ -1164,7 +1164,7 @@ void SbSoundWorldLocal::ReadFromSaveGame(idFile *savefile)
 	// Start at 1 because the local sound emitter is not saved
 	for(int e = 1; e < numEmitters; e++)
 	{
-		SbSoundEmitterLocal *emitter = (idSoundEmitterLocal *)AllocSoundEmitter();
+		SbSoundEmitterLocal *emitter = (SbSoundEmitterLocal *)AllocSoundEmitter();
 		assert(emitter == emitters[e]);
 		assert(emitter->index == e);
 		assert(emitter->soundWorld == this);

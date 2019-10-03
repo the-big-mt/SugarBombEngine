@@ -85,7 +85,7 @@ public:
 	}
 
 	// callback function
-	void OnBufferStart(idSoundSample_XAudio2 *sample, int bufferNumber);
+	void OnBufferStart(SbSoundSample_XAudio2 *sample, int bufferNumber);
 
 private:
 	friend class SbSoundHardware_XAudio2;

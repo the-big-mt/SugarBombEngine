@@ -107,7 +107,7 @@ idSoundHardware_OpenAL::idSoundHardware_OpenAL(sbe::ISoundSystem *apSoundSystem,
 	lastResetTime = 0;
 }
 
-void idSoundHardware_OpenAL::PrintDeviceList( const char* list )
+void SbSoundHardware_OpenAL::PrintDeviceList( const char* list )
 {
 	if( !list || *list == '\0' )
 	{
@@ -124,7 +124,7 @@ void idSoundHardware_OpenAL::PrintDeviceList( const char* list )
 	}
 }
 
-void idSoundHardware_OpenAL::PrintALCInfo( ALCdevice* device )
+void SbSoundHardware_OpenAL::PrintALCInfo( ALCdevice* device )
 {
 	ALCint major, minor;
 	
@@ -160,7 +160,7 @@ void idSoundHardware_OpenAL::PrintALCInfo( ALCdevice* device )
 	}
 }
 
-void idSoundHardware_OpenAL::PrintALInfo()
+void SbSoundHardware_OpenAL::PrintALInfo()
 {
 	idLib::Printf( "OpenAL vendor string: %s\n", alGetString( AL_VENDOR ) );
 	idLib::Printf( "OpenAL renderer string: %s\n", alGetString( AL_RENDERER ) );
@@ -170,7 +170,7 @@ void idSoundHardware_OpenAL::PrintALInfo()
 	CheckALErrors();
 }
 
-//void idSoundHardware_OpenAL::listDevices_f( const idCmdArgs& args )
+//void SbSoundHardware_OpenAL::listDevices_f( const idCmdArgs& args )
 void listDevices_f( const idCmdArgs& args )
 {
 	idLib::Printf( "Available playback devices:\n" );
@@ -207,7 +207,7 @@ void listDevices_f( const idCmdArgs& args )
 idSoundHardware_OpenAL::Init
 ========================
 */
-void idSoundHardware_OpenAL::Init()
+void SbSoundHardware_OpenAL::Init()
 {
 	mpCmdSystem->AddCommand( "listDevices", listDevices_f, 0, "Lists the connected sound devices", nullptr );
 	
@@ -308,7 +308,7 @@ void idSoundHardware_OpenAL::Init()
 idSoundHardware_OpenAL::Shutdown
 ========================
 */
-void idSoundHardware_OpenAL::Shutdown()
+void SbSoundHardware_OpenAL::Shutdown()
 {
 	for( int i = 0; i < voices.Num(); i++ )
 	{
@@ -345,7 +345,7 @@ void idSoundHardware_OpenAL::Shutdown()
 idSoundHardware_OpenAL::AllocateVoice
 ========================
 */
-idSoundVoice* idSoundHardware_OpenAL::AllocateVoice( const idSoundSample* leadinSample, const idSoundSample* loopingSample )
+SbSoundVoice* SbSoundHardware_OpenAL::AllocateVoice( const SbSoundSample* leadinSample, const SbSoundSample* loopingSample )
 {
 	if( leadinSample == nullptr )
 	{
@@ -390,7 +390,7 @@ idSoundVoice* idSoundHardware_OpenAL::AllocateVoice( const idSoundSample* leadin
 idSoundHardware_OpenAL::FreeVoice
 ========================
 */
-void idSoundHardware_OpenAL::FreeVoice( idSoundVoice* voice )
+void SbSoundHardware_OpenAL::FreeVoice( SbSoundVoice* voice )
 {
 	voice->Stop();
 	
@@ -404,7 +404,7 @@ void idSoundHardware_OpenAL::FreeVoice( idSoundVoice* voice )
 idSoundHardware_OpenAL::Update
 ========================
 */
-void idSoundHardware_OpenAL::Update()
+void SbSoundHardware_OpenAL::Update()
 {
 	if( openalDevice == nullptr )
 	{

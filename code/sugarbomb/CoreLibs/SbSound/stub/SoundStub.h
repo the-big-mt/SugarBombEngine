@@ -268,7 +268,7 @@ public:
 		return NULL;
 	}
 	
-	idSoundVoice* 	AllocateVoice( const idSoundSample* leadinSample, const idSoundSample* loopingSample )
+	SbSoundVoice* 	AllocateVoice( const SbSoundSample* leadinSample, const SbSoundSample* loopingSample )
 	{
 		return NULL;
 	}

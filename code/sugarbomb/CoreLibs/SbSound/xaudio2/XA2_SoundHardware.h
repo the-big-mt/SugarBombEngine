@@ -99,8 +99,8 @@ public:
 
 	void Update();
 
-	idSoundVoice *AllocateVoice(const idSoundSample *leadinSample, const idSoundSample *loopingSample);
-	void FreeVoice(idSoundVoice *voice);
+	SbSoundVoice *AllocateVoice(const SbSoundSample *leadinSample, const SbSoundSample *loopingSample);
+	void FreeVoice(SbSoundVoice *voice);
 
 	// video playback needs this
 	IXAudio2 *GetIXAudio2() const
@@ -137,9 +137,9 @@ private:
 	int vuMeterPeakTimes[8];
 
 	// Can't stop and start a voice on the same frame, so we have to double this to handle the worst case scenario of stopping all voices and starting a full new set
-	idStaticList<idSoundVoice_XAudio2, MAX_HARDWARE_VOICES * 2> voices;
-	idStaticList<idSoundVoice_XAudio2 *, MAX_HARDWARE_VOICES * 2> zombieVoices;
-	idStaticList<idSoundVoice_XAudio2 *, MAX_HARDWARE_VOICES * 2> freeVoices;
+	idStaticList<SbSoundVoice_XAudio2, MAX_HARDWARE_VOICES * 2> voices;
+	idStaticList<SbSoundVoice_XAudio2 *, MAX_HARDWARE_VOICES * 2> zombieVoices;
+	idStaticList<SbSoundVoice_XAudio2 *, MAX_HARDWARE_VOICES * 2> freeVoices;
 };
 
 /*
@@ -147,7 +147,7 @@ private:
 idSoundHardware
 ================================================
 */
-class idSoundHardware : public idSoundHardware_XAudio2
+class idSoundHardware : public SbSoundHardware_XAudio2
 {
 };
 

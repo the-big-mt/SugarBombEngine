@@ -175,7 +175,7 @@ std::vector<AudioDevice> EnumerateAudioDevices( _Out_opt_ AudioDevice* defaultDe
 idSoundHardware_XAudio2::idSoundHardware_XAudio2
 ========================
 */
-idSoundHardware_XAudio2::idSoundHardware_XAudio2()
+SbSoundHardware_XAudio2::SbSoundHardware_XAudio2()
 {
 	pXAudio2 = nullptr;
 	pMasterVoice = nullptr;
@@ -348,7 +348,7 @@ void listDevices_f( const idCmdArgs& args )
 idSoundHardware_XAudio2::Init
 ========================
 */
-void idSoundHardware_XAudio2::Init()
+void SbSoundHardware_XAudio2::Init()
 {
 
 	cmdSystem->AddCommand( "listDevices", listDevices_f, 0, "Lists the connected sound devices", nullptr );
@@ -524,7 +524,7 @@ void idSoundHardware_XAudio2::Init()
 	
 #endif // #if (_WIN32_WINNT < 0x0602 /*_WIN32_WINNT_WIN8*/)
 	
-	idSoundVoice::InitSurround( outputChannels, channelMask );
+	SbSoundVoice::InitSurround( outputChannels, channelMask );
 	
 #if defined(USE_DOOMCLASSIC)
 	// ---------------------
@@ -605,7 +605,7 @@ void idSoundHardware_XAudio2::Init()
 idSoundHardware_XAudio2::Shutdown
 ========================
 */
-void idSoundHardware_XAudio2::Shutdown()
+void SbSoundHardware_XAudio2::Shutdown()
 {
 	for( int i = 0; i < voices.Num(); i++ )
 	{
@@ -665,7 +665,7 @@ void idSoundHardware_XAudio2::Shutdown()
 idSoundHardware_XAudio2::AllocateVoice
 ========================
 */
-idSoundVoice* idSoundHardware_XAudio2::AllocateVoice( const idSoundSample* leadinSample, const idSoundSample* loopingSample )
+SbSoundVoice* SbSoundHardware_XAudio2::AllocateVoice( const SbSoundSample* leadinSample, const SbSoundSample* loopingSample )
 {
 	if( leadinSample == nullptr )
 	{
@@ -682,7 +682,7 @@ idSoundVoice* idSoundHardware_XAudio2::AllocateVoice( const idSoundSample* leadi
 	
 	// Try to find a free voice that matches the format
 	// But fallback to the last free voice if none match the format
-	idSoundVoice* voice = nullptr;
+	SbSoundVoice* voice = nullptr;
 	for( int i = 0; i < freeVoices.Num(); i++ )
 	{
 		if( freeVoices[i]->IsPlaying() )
@@ -710,7 +710,7 @@ idSoundVoice* idSoundHardware_XAudio2::AllocateVoice( const idSoundSample* leadi
 idSoundHardware_XAudio2::FreeVoice
 ========================
 */
-void idSoundHardware_XAudio2::FreeVoice( idSoundVoice* voice )
+void SbSoundHardware_XAudio2::FreeVoice( SbSoundVoice* voice )
 {
 	voice->Stop();
 	
@@ -724,7 +724,7 @@ void idSoundHardware_XAudio2::FreeVoice( idSoundVoice* voice )
 idSoundHardware_XAudio2::Update
 ========================
 */
-void idSoundHardware_XAudio2::Update()
+void SbSoundHardware_XAudio2::Update()
 {
 	if( pXAudio2 == nullptr )
 	{
