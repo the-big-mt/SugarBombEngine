@@ -63,8 +63,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include "../idlib/sys/sys_types.h"
 #include "CollisionModel_local.h"
 
-//namespace BFG
-//{
+namespace sbe::SbCollision
+{
 
 /*
 ===============================================================================
@@ -1958,4 +1958,4 @@ void SbCollisionModelManagerLocal::Rotation(trace_t *results, const idVec3 &star
 #endif
 }
 
-//} // namespace BFG
+}; // namespace sbe::SbCollision

@@ -67,8 +67,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "renderer/Material.h" // for idMaterial, etc
 
-//namespace BFG
-//{
+namespace sbe::SbCollision
+{
 
 //class idMapEntity;
 
@@ -775,4 +775,4 @@ bool SbCollisionModelManagerLocal::LoadCollisionModelFile(const char *name, unsi
 	return true;
 }
 
-//} // namespace BFG
+}; // namespace sbe::SbCollision

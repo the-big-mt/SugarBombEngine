@@ -50,8 +50,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include "../idlib/math/Vector.h"
 #include "CollisionModel_local.h"
 
-//namespace BFG
-//{
+namespace sbe::SbCollision
+{
 
 /*
 ===============================================================================
@@ -307,4 +307,4 @@ void SbCollisionModelManagerLocal::TraceThroughModel(cm_traceWork_t *tw)
 	}
 }
 
-//} // namespace BFG
+}; // namespace sbe::SbCollision

@@ -69,6 +69,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #define CMODEL_BINARYFILE_EXT "bcmodel"
 
+namespace sbe::SbCollision
+{
+
 SbCollisionModelManagerLocal collisionModelManagerLocal(nullptr, nullptr, nullptr, nullptr); // TODO
 sbe::ICollisionModelManager *collisionModelManager = &collisionModelManagerLocal;
 
@@ -4774,3 +4777,4 @@ bool SbCollisionModelManagerLocal::TrmFromModel(const char *modelName, idTraceMo
 
 	return TrmFromModel(models[handle], trm);
 }
+}; // namespace sbe::SbCollision

@@ -66,8 +66,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "renderer/IRenderWorld.hpp"
 
-//namespace BFG
-//{
+namespace sbe::SbCollision
+{
 
 /*
 ===============================================================================
@@ -1254,4 +1254,4 @@ void SbCollisionModelManagerLocal::Translation(trace_t *results, const idVec3 &s
 #endif
 }
 
-//} // namespace BFG
+}; // namespace sbe::SbCollision
