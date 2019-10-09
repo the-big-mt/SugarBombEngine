@@ -93,7 +93,7 @@ int CM_GetNodeContents(cm_node_t *node);
 idCollisionModelManagerLocal::WriteNodes
 ================
 */
-void idCollisionModelManagerLocal::WriteNodes(idFile *fp, cm_node_t *node)
+void SbCollisionModelManagerLocal::WriteNodes(idFile *fp, cm_node_t *node)
 {
 	fp->WriteFloatString("\t( %d %f )\n", node->planeType, node->planeDist);
 	if(node->planeType != -1)
@@ -108,7 +108,7 @@ void idCollisionModelManagerLocal::WriteNodes(idFile *fp, cm_node_t *node)
 idCollisionModelManagerLocal::CountPolygonMemory
 ================
 */
-int idCollisionModelManagerLocal::CountPolygonMemory(cm_node_t *node) const
+int SbCollisionModelManagerLocal::CountPolygonMemory(cm_node_t *node) const
 {
 	cm_polygonRef_t *pref;
 	cm_polygon_t *p;
@@ -139,7 +139,7 @@ int idCollisionModelManagerLocal::CountPolygonMemory(cm_node_t *node) const
 idCollisionModelManagerLocal::WritePolygons
 ================
 */
-void idCollisionModelManagerLocal::WritePolygons(idFile *fp, cm_node_t *node)
+void SbCollisionModelManagerLocal::WritePolygons(idFile *fp, cm_node_t *node)
 {
 	cm_polygonRef_t *pref;
 	cm_polygon_t *p;
@@ -175,7 +175,7 @@ void idCollisionModelManagerLocal::WritePolygons(idFile *fp, cm_node_t *node)
 idCollisionModelManagerLocal::CountBrushMemory
 ================
 */
-int idCollisionModelManagerLocal::CountBrushMemory(cm_node_t *node) const
+int SbCollisionModelManagerLocal::CountBrushMemory(cm_node_t *node) const
 {
 	cm_brushRef_t *bref;
 	cm_brush_t *b;
@@ -206,7 +206,7 @@ int idCollisionModelManagerLocal::CountBrushMemory(cm_node_t *node) const
 idCollisionModelManagerLocal::WriteBrushes
 ================
 */
-void idCollisionModelManagerLocal::WriteBrushes(idFile *fp, cm_node_t *node)
+void SbCollisionModelManagerLocal::WriteBrushes(idFile *fp, cm_node_t *node)
 {
 	cm_brushRef_t *bref;
 	cm_brush_t *b;
@@ -240,7 +240,7 @@ void idCollisionModelManagerLocal::WriteBrushes(idFile *fp, cm_node_t *node)
 idCollisionModelManagerLocal::WriteCollisionModel
 ================
 */
-void idCollisionModelManagerLocal::WriteCollisionModel(idFile *fp, cm_model_t *model)
+void SbCollisionModelManagerLocal::WriteCollisionModel(idFile *fp, cm_model_t *model)
 {
 	int i, polygonMemory, brushMemory;
 
@@ -286,7 +286,7 @@ void idCollisionModelManagerLocal::WriteCollisionModel(idFile *fp, cm_model_t *m
 idCollisionModelManagerLocal::WriteCollisionModelsToFile
 ================
 */
-void idCollisionModelManagerLocal::WriteCollisionModelsToFile(const char *filename, int firstModel, int lastModel, unsigned int mapFileCRC)
+void SbCollisionModelManagerLocal::WriteCollisionModelsToFile(const char *filename, int firstModel, int lastModel, unsigned int mapFileCRC)
 {
 	int i;
 	idFile *fp;
@@ -322,7 +322,7 @@ void idCollisionModelManagerLocal::WriteCollisionModelsToFile(const char *filena
 idCollisionModelManagerLocal::WriteCollisionModelForMapEntity
 ================
 */
-bool idCollisionModelManagerLocal::WriteCollisionModelForMapEntity(const idMapEntity *mapEnt, const char *filename, const bool testTraceModel)
+bool SbCollisionModelManagerLocal::WriteCollisionModelForMapEntity(const idMapEntity *mapEnt, const char *filename, const bool testTraceModel)
 {
 	idFile *fp;
 	idStr name;
@@ -378,7 +378,7 @@ Loading of collision model file
 idCollisionModelManagerLocal::ParseVertices
 ================
 */
-void idCollisionModelManagerLocal::ParseVertices(idLexer *src, cm_model_t *model)
+void SbCollisionModelManagerLocal::ParseVertices(idLexer *src, cm_model_t *model)
 {
 	int i;
 
@@ -401,7 +401,7 @@ void idCollisionModelManagerLocal::ParseVertices(idLexer *src, cm_model_t *model
 idCollisionModelManagerLocal::ParseEdges
 ================
 */
-void idCollisionModelManagerLocal::ParseEdges(idLexer *src, cm_model_t *model)
+void SbCollisionModelManagerLocal::ParseEdges(idLexer *src, cm_model_t *model)
 {
 	int i;
 
@@ -431,7 +431,7 @@ void idCollisionModelManagerLocal::ParseEdges(idLexer *src, cm_model_t *model)
 idCollisionModelManagerLocal::ParseNodes
 ================
 */
-cm_node_t *idCollisionModelManagerLocal::ParseNodes(idLexer *src, cm_model_t *model, cm_node_t *parent)
+cm_node_t *SbCollisionModelManagerLocal::ParseNodes(idLexer *src, cm_model_t *model, cm_node_t *parent)
 {
 	cm_node_t *node;
 
@@ -457,7 +457,7 @@ cm_node_t *idCollisionModelManagerLocal::ParseNodes(idLexer *src, cm_model_t *mo
 idCollisionModelManagerLocal::ParsePolygons
 ================
 */
-void idCollisionModelManagerLocal::ParsePolygons(idLexer *src, cm_model_t *model)
+void SbCollisionModelManagerLocal::ParsePolygons(idLexer *src, cm_model_t *model)
 {
 	cm_polygon_t *p;
 	int i, numEdges;
@@ -504,7 +504,7 @@ void idCollisionModelManagerLocal::ParsePolygons(idLexer *src, cm_model_t *model
 idCollisionModelManagerLocal::ParseBrushes
 ================
 */
-void idCollisionModelManagerLocal::ParseBrushes(idLexer *src, cm_model_t *model)
+void SbCollisionModelManagerLocal::ParseBrushes(idLexer *src, cm_model_t *model)
 {
 	cm_brush_t *b;
 	int i, numPlanes;
@@ -557,7 +557,7 @@ void idCollisionModelManagerLocal::ParseBrushes(idLexer *src, cm_model_t *model)
 idCollisionModelManagerLocal::ParseCollisionModel
 ================
 */
-cm_model_t *idCollisionModelManagerLocal::ParseCollisionModel(idLexer *src)
+cm_model_t *SbCollisionModelManagerLocal::ParseCollisionModel(idLexer *src)
 {
 	cm_model_t *model;
 	idToken token;
@@ -636,7 +636,7 @@ cm_model_t *idCollisionModelManagerLocal::ParseCollisionModel(idLexer *src)
 idCollisionModelManagerLocal::LoadCollisionModelFile
 ================
 */
-bool idCollisionModelManagerLocal::LoadCollisionModelFile(const char *name, unsigned int mapFileCRC)
+bool SbCollisionModelManagerLocal::LoadCollisionModelFile(const char *name, unsigned int mapFileCRC)
 {
 	idToken token;
 	idLexer *src;

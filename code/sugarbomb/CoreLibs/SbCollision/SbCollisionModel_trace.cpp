@@ -66,7 +66,7 @@ Trace through the spatial subdivision
 idCollisionModelManagerLocal::TraceTrmThroughNode
 ================
 */
-void idCollisionModelManagerLocal::TraceTrmThroughNode(cm_traceWork_t *tw, cm_node_t *node)
+void SbCollisionModelManagerLocal::TraceTrmThroughNode(cm_traceWork_t *tw, cm_node_t *node)
 {
 	cm_polygonRef_t *pref;
 	cm_brushRef_t *bref;
@@ -82,7 +82,7 @@ void idCollisionModelManagerLocal::TraceTrmThroughNode(cm_traceWork_t *tw, cm_no
 		// test if any of the trm vertices is inside a brush
 		for(bref = node->brushes; bref; bref = bref->next)
 		{
-			if(idCollisionModelManagerLocal::TestTrmVertsInBrush(tw, bref->b))
+			if(SbCollisionModelManagerLocal::TestTrmVertsInBrush(tw, bref->b))
 			{
 				return;
 			}
@@ -95,7 +95,7 @@ void idCollisionModelManagerLocal::TraceTrmThroughNode(cm_traceWork_t *tw, cm_no
 		// test if the trm is stuck in any polygons
 		for(pref = node->polygons; pref; pref = pref->next)
 		{
-			if(idCollisionModelManagerLocal::TestTrmInPolygon(tw, pref->p))
+			if(SbCollisionModelManagerLocal::TestTrmInPolygon(tw, pref->p))
 			{
 				return;
 			}
@@ -106,7 +106,7 @@ void idCollisionModelManagerLocal::TraceTrmThroughNode(cm_traceWork_t *tw, cm_no
 		// rotate through all polygons in this leaf
 		for(pref = node->polygons; pref; pref = pref->next)
 		{
-			if(idCollisionModelManagerLocal::RotateTrmThroughPolygon(tw, pref->p))
+			if(SbCollisionModelManagerLocal::RotateTrmThroughPolygon(tw, pref->p))
 			{
 				return;
 			}
@@ -117,7 +117,7 @@ void idCollisionModelManagerLocal::TraceTrmThroughNode(cm_traceWork_t *tw, cm_no
 		// trace through all polygons in this leaf
 		for(pref = node->polygons; pref; pref = pref->next)
 		{
-			if(idCollisionModelManagerLocal::TranslateTrmThroughPolygon(tw, pref->p))
+			if(SbCollisionModelManagerLocal::TranslateTrmThroughPolygon(tw, pref->p))
 			{
 				return;
 			}
@@ -132,7 +132,7 @@ idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r
 */
 //#define NO_SPATIAL_SUBDIVISION
 
-void idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(cm_traceWork_t *tw, cm_node_t *node, float p1f, float p2f, idVec3 &p1, idVec3 &p2)
+void SbCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(cm_traceWork_t *tw, cm_node_t *node, float p1f, float p2f, idVec3 &p1, idVec3 &p2)
 {
 	float t1, t2, offset;
 	float frac, frac2;
@@ -160,7 +160,7 @@ void idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(cm_traceWork_t *tw
 	if(node->polygons || (tw->positionTest && node->brushes))
 	{
 		// trace through node with collision data
-		idCollisionModelManagerLocal::TraceTrmThroughNode(tw, node);
+		SbCollisionModelManagerLocal::TraceTrmThroughNode(tw, node);
 	}
 	// if already stuck in solid
 	if(tw->positionTest && tw->trace.fraction == 0.0f)
@@ -173,8 +173,8 @@ void idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(cm_traceWork_t *tw
 		return;
 	}
 #ifdef NO_SPATIAL_SUBDIVISION
-	idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, node->children[0], p1f, p2f, p1, p2);
-	idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, node->children[1], p1f, p2f, p1, p2);
+	SbCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, node->children[0], p1f, p2f, p1, p2);
+	SbCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, node->children[1], p1f, p2f, p1, p2);
 	return;
 #endif
 	// distance from plane for trace start and end
@@ -185,13 +185,13 @@ void idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(cm_traceWork_t *tw
 	// see which sides we need to consider
 	if(t1 >= offset && t2 >= offset)
 	{
-		idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, node->children[0], p1f, p2f, p1, p2);
+		SbCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, node->children[0], p1f, p2f, p1, p2);
 		return;
 	}
 
 	if(t1 < -offset && t2 < -offset)
 	{
-		idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, node->children[1], p1f, p2f, p1, p2);
+		SbCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, node->children[1], p1f, p2f, p1, p2);
 		return;
 	}
 
@@ -232,7 +232,7 @@ void idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(cm_traceWork_t *tw
 	mid[1] = p1[1] + frac * (p2[1] - p1[1]);
 	mid[2] = p1[2] + frac * (p2[2] - p1[2]);
 
-	idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, node->children[side], p1f, midf, p1, mid);
+	SbCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, node->children[side], p1f, midf, p1, mid);
 
 	// go past the node
 	if(frac2 < 0.0f)
@@ -250,7 +250,7 @@ void idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(cm_traceWork_t *tw
 	mid[1] = p1[1] + frac2 * (p2[1] - p1[1]);
 	mid[2] = p1[2] + frac2 * (p2[2] - p1[2]);
 
-	idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, node->children[side ^ 1], midf, p2f, mid, p2);
+	SbCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, node->children[side ^ 1], midf, p2f, mid, p2);
 }
 
 /*
@@ -258,7 +258,7 @@ void idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(cm_traceWork_t *tw
 idCollisionModelManagerLocal::TraceThroughModel
 ================
 */
-void idCollisionModelManagerLocal::TraceThroughModel(cm_traceWork_t *tw)
+void SbCollisionModelManagerLocal::TraceThroughModel(cm_traceWork_t *tw)
 {
 	float d;
 	int i, numSteps;
@@ -268,7 +268,7 @@ void idCollisionModelManagerLocal::TraceThroughModel(cm_traceWork_t *tw)
 	if(!tw->rotation)
 	{
 		// trace through spatial subdivision and then through leafs
-		idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, tw->model->node, 0, 1, tw->start, tw->end);
+		SbCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, tw->model->node, 0, 1, tw->start, tw->end);
 	}
 	else
 	{
@@ -289,7 +289,7 @@ void idCollisionModelManagerLocal::TraceThroughModel(cm_traceWork_t *tw)
 				rot.Set(tw->origin, tw->axis, tw->angle * ((float)(i + 1) / numSteps));
 				end = start * rot;
 				// trace through spatial subdivision and then through leafs
-				idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, tw->model->node, 0, 1, start, end);
+				SbCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, tw->model->node, 0, 1, start, end);
 				// no need to continue if something was hit already
 				if(tw->trace.fraction < 1.0f)
 				{
@@ -303,7 +303,7 @@ void idCollisionModelManagerLocal::TraceThroughModel(cm_traceWork_t *tw)
 			start = tw->start;
 		}
 		// last step of the approximation
-		idCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, tw->model->node, 0, 1, start, tw->end);
+		SbCollisionModelManagerLocal::TraceThroughAxialBSPTree_r(tw, tw->model->node, 0, 1, start, tw->end);
 	}
 }
 
