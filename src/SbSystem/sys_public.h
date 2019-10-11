@@ -64,18 +64,6 @@ enum fpuPrecision_t
 	FPU_PRECISION_DOUBLE_EXTENDED		= 2
 };
 
-
-enum joystickAxis_t
-{
-	AXIS_LEFT_X,
-	AXIS_LEFT_Y,
-	AXIS_RIGHT_X,
-	AXIS_RIGHT_Y,
-	AXIS_LEFT_TRIG,
-	AXIS_RIGHT_TRIG,
-	MAX_JOYSTICK_AXIS
-};
-
 enum sys_mEvents
 {
 	M_ACTION1,
@@ -249,35 +237,6 @@ struct idSys : public ISys
 	
 	/// Same as Printf, with a more usable API - Printf pipes to this
 	virtual void				VPrintf( const char* fmt, va_list arg ) = 0;
-};
-
-/*
-================================================
-idJoystick is managed by each platform's local Sys implementation, and
-provides full *Joy Pad* support (the most common device, these days).
-================================================
-*/
-class idJoystick
-{
-public:
-	virtual			~idJoystick() { }
-	
-	virtual bool	Init()
-	{
-		return false;
-	}
-	virtual void	Shutdown() { }
-	virtual void	Deactivate() { }
-	virtual void	SetRumble( int deviceNum, int rumbleLow, int rumbleHigh ) { }
-	virtual int		PollInputEvents( int inputDeviceNum )
-	{
-		return 0;
-	}
-	virtual int		ReturnInputEvent( const int n, int& action, int& value )
-	{
-		return 0;
-	}
-	virtual void	EndInputEvents() { }
 };
 
 #include "sys/ISys.hpp"
