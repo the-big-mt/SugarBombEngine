@@ -53,6 +53,32 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 void			Sys_Quit();
 
+// guaranteed to be thread-safe
+void			Sys_DebugPrintf( VERIFY_FORMAT_STRING const char* fmt, ... );
+void			Sys_DebugVPrintf( const char* fmt, va_list arg );
+
+// for accurate performance testing
+double			Sys_GetClockTicks();
+double			Sys_ClockTicksPerSecond();
+
+// returns a selection of the CPUID_* flags
+cpuid_t			Sys_GetProcessorId();
+const char* 	Sys_GetProcessorString();
+
+// returns the FPU state as a string
+const char* 	Sys_FPU_GetState();
+
+// returns true if the FPU stack is empty
+bool			Sys_FPU_StackIsEmpty();
+
+// sets Flush-To-Zero mode (only available when CPUID_FTZ is set)
+void			Sys_FPU_SetFTZ( bool enable );
+
+// sets Denormals-Are-Zero mode (only available when CPUID_DAZ is set)
+void			Sys_FPU_SetDAZ( bool enable );
+
+// enables the given FPU exceptions
+void			Sys_FPU_EnableExceptions( int exceptions );
 
 // DLL loading, the path should be a fully qualified OS path to the DLL file to be loaded
 
@@ -64,12 +90,47 @@ void			Sys_DLL_Unload( intptr_t dllHandle );
 
 bool			Sys_AlreadyRunning();
 
+void			Sys_Launch( const char* path, idCmdArgs& args,  void* launchData, unsigned int launchDataSize );
+
+// Execute the specified process and wait until it's done, calling workFn every waitMS milliseconds.
+// If showOutput == true, std IO from the executed process will be output to the console.
+// Note that the return value is not an indication of the exit code of the process, but is false
+// only if the process could not be created at all. If you wish to check the exit code of the
+// spawned process, check the value returned in exitCode.
+typedef bool ( *execProcessWorkFunction_t )();
+typedef void ( *execOutputFunction_t )( const char* text );
+bool Sys_Exec(	const char* appPath, const char* workingPath, const char* args,
+				execProcessWorkFunction_t workFn, execOutputFunction_t outputFn, const int waitMS,
+				unsigned int& exitCode );
 
 // empties the FPU stack
 void			Sys_FPU_ClearStack();
 
+enum fpuRounding_t
+{
+	FPU_ROUNDING_TO_NEAREST				= 0,
+	FPU_ROUNDING_DOWN					= 1,
+	FPU_ROUNDING_UP						= 2,
+	FPU_ROUNDING_TO_ZERO				= 3
+};
+
 // sets the FPU rounding mode
 void			Sys_FPU_SetRounding( int rounding );
+
+// will go to the various text consoles
+// NOT thread safe - never use in the async paths
+void			Sys_Printf( VERIFY_FORMAT_STRING const char* msg, ... );
+
+// DG: Sys_ReLaunch() doesn't need any options (and the old way is painful for POSIX systems)
+void			Sys_ReLaunch();
+// DG end
+
+//typedef unsigned long address_t; // DG: this isn't even used
+
+const char* 	Sys_GetCmdLine();
+
+// know early if we are performing a fatal error shutdown so the error message doesn't get lost
+void			Sys_SetFatalError( const char* error );
 
 /*
 ==============================================================
