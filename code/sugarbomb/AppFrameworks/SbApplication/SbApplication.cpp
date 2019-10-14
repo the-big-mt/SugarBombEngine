@@ -325,8 +325,8 @@ void SbApplication::InitSystemModule()
 	
 	sysImport.version					= sbe::SYS_API_VERSION;
 	//sysImport.common					= ::common;
-	sysImport.cmdSystem				= mpCmdSystem.get();
-	sysImport.cvarSystem				= mpCVarSystem.get();
+	sysImport.cmdSystem				= mpCmdSystem;
+	sysImport.cvarSystem				= mpCVarSystem;
 	
 	sysExport = *GetSysAPI( &sysImport );
 	
