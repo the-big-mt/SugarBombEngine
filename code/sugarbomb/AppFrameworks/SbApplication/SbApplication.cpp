@@ -51,6 +51,12 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/CmdArgs.h"
 #include "idlib/math/SIMD.h"
 
+#ifdef _WIN32
+//#	include <windows.h>
+#else
+//#	include <dlfcn.h>
+#endif
+
 extern sbe::idCmdSystem *cmdSystem;
 extern sbe::idCVarSystem *cvarSystem;
 
