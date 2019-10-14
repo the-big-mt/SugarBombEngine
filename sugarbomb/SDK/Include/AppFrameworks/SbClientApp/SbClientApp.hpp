@@ -7,6 +7,6 @@
 class SbClientApp : public SbApplication
 {
 public:
-	SbClientApp();
+	SbClientApp(int argc, char **argv);
 	virtual ~SbClientApp() = default;
 };

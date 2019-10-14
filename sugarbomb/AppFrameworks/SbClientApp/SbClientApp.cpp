@@ -2,6 +2,6 @@
 
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
 
-SbClientApp::SbClientApp() : SbApplication(0, nullptr)
+SbClientApp::SbClientApp(int argc, char **argv) : SbApplication(argc, argv)
 {
 };
