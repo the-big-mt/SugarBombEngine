@@ -26,5 +26,6 @@ if(MINGW)
 	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/mingw-hacks)
 endif()
 
-add_subdirectory(code)
-add_subdirectory(src)
+add_subdirectory(sugarbomb)
+#add_subdirectory(code)
+#add_subdirectory(src)
