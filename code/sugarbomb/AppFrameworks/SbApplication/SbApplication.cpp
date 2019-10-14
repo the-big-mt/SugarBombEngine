@@ -156,7 +156,7 @@ bool SbApplication::Init()
 	
 	InitSystemModule();
 	
-	if( Sys_AlreadyRunning() )
+	if( mpSys->AlreadyRunning() )
 		mpSys->Quit();
 	
 	// initialize processor specific SIMD implementation
