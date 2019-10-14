@@ -348,7 +348,7 @@ void SbApplication::InitSystemModule()
 	mpSys = sysExport.sys;
 	mpFileSystem = sysExport.fileSystem;
 	
-#endif
+#endif // SBE_SINGLE_BINARY
 	
 	// initialize the system object
 	// get architecture info
