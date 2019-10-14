@@ -27,5 +27,6 @@ if(MINGW)
 endif()
 
 add_subdirectory(sugarbomb)
+add_subdirectory(f3goaty)
 #add_subdirectory(code)
 #add_subdirectory(src)
