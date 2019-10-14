@@ -6,7 +6,7 @@
 #	include <windows.h>
 #endif
 
-#include "AppFrameworks/SbApplication/SbClientApp.hpp"
+#include "AppFrameworks/SbClientApp/SbClientApp.hpp"
 
 int main(int argc, char **argv)
 {
