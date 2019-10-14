@@ -305,11 +305,6 @@ void SbApplication::InitSystemModule()
 	
 	strncpy(dllPath, "./SbSystem", sbe::MAX_OSPATH);
 	
-	if( !dllPath[ 0 ] )
-	{
-		mpSys->FatalError( "couldn't find system dynamic library" );
-		return;
-	}
 	mpSys->DPrintf( "Loading system DLL: '%s'\n", dllPath );
 	sysDLL = DLL_Load( dllPath );
 	if( !sysDLL )
