@@ -139,6 +139,8 @@ bool SbApplication::Init()
 	mpCmdSystem = cmdSystem;
 	mpCVarSystem = cvarSystem;
 	
+	// override cvars from command line
+	StartupVariable( nullptr );
 	
 	// init console command system
 	mpCmdSystem->Init();
