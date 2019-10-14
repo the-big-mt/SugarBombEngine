@@ -324,7 +324,6 @@ void SbApplication::InitSystemModule()
 	}
 	
 	sysImport.version					= sbe::SYS_API_VERSION;
-	//sysImport.common					= ::common;
 	sysImport.cmdSystem				= mpCmdSystem;
 	sysImport.cvarSystem				= mpCVarSystem;
 	
