@@ -106,7 +106,7 @@ void SbClientApp::InitRenderSystem()
 	sbe::renderExport_t	renderExport;
 	sbe::GetRenderAPI_t	GetRenderAPI;
 	
-	mpFileSystem->FindDLL( "SbGLRenderer", dllPath, true );
+	mpFileSystem->FindDLL( "SbGLRenderer", dllPath/*, true*/ );
 	
 	if( !dllPath[ 0 ] )
 	{
@@ -200,7 +200,7 @@ void SbClientApp::InitInputSystem()
 	sbe::inputExport_t	inputExport;
 	sbe::GetInputAPI_t	GetInputAPI;
 	
-	mpFileSystem->FindDLL( "SbInput", dllPath, true );
+	mpFileSystem->FindDLL( "SbInput", dllPath/*, true*/ );
 	
 	if( !dllPath[ 0 ] )
 	{
