@@ -40,7 +40,6 @@ Suite 120, Rockville, Maryland 20850 USA.
 #pragma once
 
 //#include <memory>
-
 #include <cstdint>
 
 namespace google_breakpad
@@ -54,7 +53,7 @@ struct ISystem;
 struct IFileSystem;
 struct idCmdSystem;
 struct idCVarSystem;
-struct idFile;
+struct IFile;
 };
 
 //class idCmdSystemLocal;
@@ -107,7 +106,7 @@ private:
 	void *DLL_GetProcAddress(intptr_t ahDLLHandle, const char *asProcName);
 	void DLL_Unload(intptr_t ahDLLHandle);
 	
-	sbe::idFile *logFile{nullptr};
+	sbe::IFile *logFile{nullptr};
 	
 #ifdef USE_BREAKPAD
 #	ifdef _WIN32
