@@ -1,0 +1,2 @@
+add_subdirectory(GameApp)
+add_subdirectory(SbGame)
