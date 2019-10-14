@@ -133,7 +133,6 @@ void SbClientApp::InitRenderSystem()
 	
 	renderImport.version					= sbe::RENDER_API_VERSION;
 	renderImport.sys						= mpSys;
-	renderImport.common					= ::common;
 	renderImport.cmdSystem				= mpCmdSystem.get();
 	renderImport.cvarSystem				= mpCVarSystem.get();
 	renderImport.fileSystem				= mpFileSystem;
@@ -228,7 +227,6 @@ void SbClientApp::InitInputSystem()
 	
 	inputImport.version					= sbe::INPUT_API_VERSION;
 	inputImport.sys						= mpSys;
-	//inputImport.common					= ::common;
 	inputImport.cmdSystem				= mpCmdSystem.get();
 	inputImport.cvarSystem				= mpCVarSystem.get();
 	//inputImport.fileSystem				= mpFileSystem;
