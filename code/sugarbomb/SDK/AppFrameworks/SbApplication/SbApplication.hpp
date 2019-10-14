@@ -13,7 +13,7 @@ class ExceptionHandler;
 
 namespace sbe
 {
-struct ISys;
+struct ISystem;
 struct IFileSystem;
 struct idCmdSystem;
 struct idCVarSystem;
@@ -49,7 +49,7 @@ protected:
 	sbe::idCmdSystem *mpCmdSystem{nullptr};
 	sbe::idCVarSystem *mpCVarSystem{nullptr};
 	
-	sbe::ISys *mpSys{nullptr};
+	sbe::ISystem *mpSys{nullptr};
 	sbe::IFileSystem *mpFileSystem{nullptr};
 	
 	bool mbRunning{false};
