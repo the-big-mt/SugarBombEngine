@@ -131,7 +131,7 @@ void SbApplication::Stop()
 	mbRunning = false;
 };
 
-void SbApplication::Init()
+bool SbApplication::Init()
 {
 	//mpCmdSystem = std::make_unique<idCmdSystemLocal>();
 	//mpCVarSystem = std::make_unique<idCVarSystemLocal>();
