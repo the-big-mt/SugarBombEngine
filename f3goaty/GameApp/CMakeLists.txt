@@ -9,3 +9,7 @@ target_sources(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME} SBE-clientapp SBE-application)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+	OUTPUT_NAME "F3GOATY"
+)
