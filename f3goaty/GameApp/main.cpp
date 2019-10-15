@@ -6,11 +6,11 @@
 #	include <windows.h>
 #endif
 
-#include "AppFrameworks/SbClientApp/SbClientApp.hpp"
+#include "GameApp.hpp"
 
 int main(int argc, char **argv)
 {
-	SbClientApp App(argc, argv);
+	f3goaty::CGameApp App(argc, argv);
 	App.Run();
 	return EXIT_SUCCESS;
 };
