@@ -3,6 +3,10 @@ project(SugarBombEngine)
 
 option(SBE_SINGLE_BINARY "Build everything as a single binary" OFF)
 
+# We want shared libraries (and modules) without any prefix in name
+set(CMAKE_SHARED_LIBRARY_PREFIX "")
+set(CMAKE_SHARED_MODULE_PREFIX "")
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
