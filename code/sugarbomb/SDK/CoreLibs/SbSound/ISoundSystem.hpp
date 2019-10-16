@@ -114,45 +114,7 @@ struct idSoundSystem : public ISoundSystem
 	virtual					~idSoundSystem() = default;
 };
 
-/*
-===============================================================================
 
-	Sound API.
-
-===============================================================================
-*/
-
-const int SOUND_API_VERSION		= 1;
-
-struct ISys;
-struct idCommon;
-struct idCmdSystem;
-struct idCVarSystem;
-struct IFileSystem;
-struct idDeclManager;
-
-struct soundImport_t
 {
-	int							version;				// API version
-	ISys* 						sys;					// non-portable system services
-	idCommon* 					common;					// common
-	idCmdSystem* 				cmdSystem;				// console command system
-	idCVarSystem* 				cvarSystem;				// console variable system
-	IFileSystem* 				fileSystem;				// file system
-	//idRenderSystem* 			renderSystem;			// render system
-	//idRenderModelManager* 		renderModelManager;		// render model manager
-	//idUserInterfaceManager* 	uiManager;				// user interface manager
-	idDeclManager* 				declManager;			// declaration manager
-	//idAASFileManager* 			AASFileManager;			// AAS file manager
-	//idCollisionModelManager* 	collisionModelManager;	// collision model manager
-};
-
-struct soundExport_t
-{
-	int							version;				// API version
-	ISoundSystem* 				soundSystem;			// sound system
-};
-
-extern "C" using GetSoundAPI_t = soundExport_t *(*)( soundImport_t* import );
 
 }; // namespace sbe
