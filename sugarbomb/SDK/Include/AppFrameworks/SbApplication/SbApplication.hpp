@@ -42,12 +42,9 @@ protected:
 private:
 	void Init();
 	
-	void LoadSystemModule();
-	void UnloadSystemModule();
+	sbe::ISystem *CreateSystem();
 	
 	void RunFrame();
 	
 	bool mbInitialized{false};
-	
-	int mnSystemLib{-1};
 };

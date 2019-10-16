@@ -24,10 +24,9 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 /// @file
 
 #include <cassert>
-#include <stdexcept>
 
 #include "AppFrameworks/SbApplication/SbApplication.hpp"
-#include "SbLibraryLoader.hpp"
+#include "SbSystemExternal.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
@@ -40,7 +39,7 @@ SbApplication::~SbApplication()
 {
 	mpSystem->Shutdown();
 	
-	UnloadSystemModule();
+	// TODO: delete mpSystem; mpSystem = nullptr;
 };
 
 void SbApplication::Run()
@@ -55,35 +54,20 @@ void SbApplication::Run()
 
 void SbApplication::Init()
 {
-	LoadSystemModule();
+	mpSystem = CreateSystem();
 	
 	mpSystem->Init();
 	
 	mbInitialized = true;
 };
 
-void SbApplication::LoadSystemModule()
+sbe::ISystem *SbApplication::CreateSystem()
 {
-	mnSystemLib = sbe::SbLibraryLoader::Load("SbSystem");
-	
-	if(!mnSystemLib)
-		throw std::runtime_error("Failed to load the system module!");
-	
-	using fnGetSystemAPI = sbe::ISystem *(*)();
-	fnGetSystemAPI pfnGetSystemAPI{sbe::SbLibraryLoader::GetSymbol<fnGetSystemAPI>(mnSystemLib, "GetSystemAPI")};
-	
-	if(!pfnGetSystemAPI)
-		throw std::runtime_error("");
-	
-	mpSystem = pfnGetSystemAPI();
-	
-	if(!mpSystem)
-		throw std::runtime_error("");
-};
-
-void SbApplication::UnloadSystemModule()
-{
-	sbe::SbLibraryLoader::Unload(mnSystemLib);
+#ifndef SBE_SINGLE_BINARY
+	return new sbe::SbSystemExternal();
+#else
+	return new sbe::SbSystem::SbSystem();
+#endif
 };
 
 void SbApplication::RunFrame()
