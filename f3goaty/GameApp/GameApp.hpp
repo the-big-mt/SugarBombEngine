@@ -6,6 +6,7 @@
 
 namespace sbe
 {
+struct ISoundSystem;
 struct IGameFramework;
 };
 
@@ -18,11 +19,16 @@ public:
 	CGameApp(int argc, char **argv);
 	~CGameApp();
 private:
+	void LoadSoundModule();
+	void UnloadSoundModule();
+	
 	void LoadFrameworkModule();
 	void UnloadFrameworkModule();
 	
+	sbe::ISoundSystem *mpSoundSystem{nullptr};
 	sbe::IGameFramework *mpFramework{nullptr};
 	
+	int mnSoundLib{-1};
 	int mnFrameworkLib{-1};
 };
 
