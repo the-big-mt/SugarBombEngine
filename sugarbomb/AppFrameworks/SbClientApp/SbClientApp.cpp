@@ -26,6 +26,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include <stdexcept>
 
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
+#include "SbRenderSystemExternal.hpp"
+#include "SbInputSystemExternal.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
@@ -35,11 +37,11 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 SbClientApp::SbClientApp(int argc, char **argv) : SbApplication(argc, argv)
 {
-	LoadRenderSystemModule();
+	mpRenderSystem = CreateRenderSystem();
 	
 	mpRenderSystem->Init();
 	
-	LoadInputSystemModule();
+	mpInputSystem = CreateInputSystem();
 	
 	mpInputSystem->Init();
 };
@@ -48,57 +50,27 @@ SbClientApp::~SbClientApp()
 {
 	mpInputSystem->Shutdown();
 	
-	UnloadInputSystemModule();
+	// TODO: delete mpInputSystem; mpInputSystem = nullptr;
 	
 	mpRenderSystem->Shutdown();
 	
-	UnloadRenderSystemModule();
+	// TODO: delete mpRenderSystem; mpRenderSystem = nullptr;
 };
 
-void SbClientApp::LoadRenderSystemModule()
+sbe::IRenderSystem *SbClientApp::CreateRenderSystem()
 {
-	mnRenderSystemLib = mpSystem->LoadLib("SbGLCoreRenderer");
-	
-	if(!mnRenderSystemLib)
-		throw std::runtime_error("Failed to load the renderer module!");
-	
-	using fnGetRenderSystemAPI = sbe::IRenderSystem *(*)();
-	fnGetRenderSystemAPI pfnGetRenderSystemAPI{mpSystem->GetLibSymbol<fnGetRenderSystemAPI>(mnRenderSystemLib, "GetRenderSystemAPI")};
-	
-	if(!pfnGetRenderSystemAPI)
-		throw std::runtime_error("");
-	
-	mpRenderSystem = pfnGetRenderSystemAPI();
-	
-	if(!mpRenderSystem)
-		throw std::runtime_error("");
+#ifndef SBE_SINGLE_BINARY
+	return new sbe::SbRenderSystemExternal(*mpSystem);
+#else
+	return new sbe::SbRenderer::SbRenderSystem();
+#endif
 };
 
-void SbClientApp::UnloadRenderSystemModule()
+sbe::IInputSystem *SbClientApp::CreateInputSystem()
 {
-	mpSystem->FreeLib(mnRenderSystemLib);
-};
-
-void SbClientApp::LoadInputSystemModule()
-{
-	mnInputSystemLib = mpSystem->LoadLib("SbInput");
-	
-	if(!mnInputSystemLib)
-		throw std::runtime_error("Failed to load the input module!");
-	
-	using fnGetInputSystemAPI = sbe::IInputSystem *(*)();
-	fnGetInputSystemAPI pfnGetInputSystemAPI{mpSystem->GetLibSymbol<fnGetInputSystemAPI>(mnInputSystemLib, "GetInputSystemAPI")};
-	
-	if(!pfnGetInputSystemAPI)
-		throw std::runtime_error("");
-	
-	mpInputSystem = pfnGetInputSystemAPI();
-	
-	if(!mpInputSystem)
-		throw std::runtime_error("");
-};
-
-void SbClientApp::UnloadInputSystemModule()
-{
-	mpSystem->FreeLib(mnInputSystemLib);
+#ifndef SBE_SINGLE_BINARY
+	return new sbe::SbInputSystemExternal(*mpSystem);
+#else
+	return new sbe::SbInput::SbInputSystem();
+#endif
 };
