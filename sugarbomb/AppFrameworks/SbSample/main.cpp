@@ -69,7 +69,7 @@ sbe::IInputSystem *SbClientApp::CreateInputSystem()
 
 int main(int argc, char **argv)
 {
-	SbClientApp App(argc, argv);
+	SbClientApp App(CreateRenderSystem(), CreateInputSystem(), CreateSystem(), argc, argv);
 	App.Run();
 	return EXIT_SUCCESS;
 };
