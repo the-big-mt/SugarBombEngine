@@ -43,31 +43,6 @@ SbSystemExternal::~SbSystemExternal()
 	UnloadModule();
 };
 
-void SbSystemExternal::Init()
-{
-	mpSystem->Init();
-};
-
-void SbSystemExternal::Shutdown()
-{
-	mpSystem->Shutdown();
-};
-
-int SbSystemExternal::LoadLib(const char *asPath)
-{
-	return mpSystem->LoadLib(asPath);
-};
-
-void SbSystemExternal::FreeLib(int anHandle)
-{
-	return mpSystem->FreeLib(anHandle);
-};
-
-void *SbSystemExternal::GetLibSymbol(int anHandle, const char *asSymbol) const
-{
-	return mpSystem->GetLibSymbol(anHandle, asSymbol);
-};
-
 void SbSystemExternal::LoadModule()
 {
 	mnSystemLib = SbLibraryLoader::Load("SbSystem");
