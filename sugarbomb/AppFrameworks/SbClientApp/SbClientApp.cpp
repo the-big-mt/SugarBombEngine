@@ -35,7 +35,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "AppFrameworks/UtilityLibs/SbInput/IInputSystem.hpp"
 
-SbClientApp::SbClientApp(int argc, char **argv) : SbApplication(argc, argv)
+SbClientApp::SbClientApp(ISystem *apSystem, int argc, char **argv) : SbApplication(apSystem, argc, argv)
 {
 	mpRenderSystem = CreateRenderSystem();
 	

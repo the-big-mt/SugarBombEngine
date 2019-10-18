@@ -29,6 +29,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 namespace sbe
 {
+struct ISystem;
 struct IRenderSystem;
 struct IInputSystem;
 };
@@ -36,7 +37,7 @@ struct IInputSystem;
 class SbClientApp : public SbApplication
 {
 public:
-	SbClientApp(int argc, char **argv);
+	SbClientApp(ISystem *apSystem, int argc, char **argv);
 	virtual ~SbClientApp();
 private:
 	sbe::IRenderSystem *CreateRenderSystem();
