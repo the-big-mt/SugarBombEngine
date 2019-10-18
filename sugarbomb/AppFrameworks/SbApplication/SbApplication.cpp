@@ -61,16 +61,6 @@ void SbApplication::Init()
 	mbInitialized = true;
 };
 
-sbe::ISystem *SbApplication::CreateSystem()
-{
-#ifndef SBE_SINGLE_BINARY
-	static sbe::SbSystemExternal SbSystemModule();
-	return SbSystemModule.GetSystem();
-#else
-	return new sbe::SbSystem::SbSystem();
-#endif
-};
-
 void SbApplication::RunFrame()
 {
 };

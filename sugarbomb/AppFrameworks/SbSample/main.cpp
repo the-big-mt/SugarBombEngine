@@ -31,6 +31,18 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
 
+//sbe::ISystem *CreateSystem();
+
+sbe::ISystem *CreateSystem()
+{
+#ifndef SBE_SINGLE_BINARY
+	static sbe::SbSystemExternal SbSystemModule();
+	return SbSystemModule.GetSystem();
+#else
+	return new sbe::SbSystem::SbSystem();
+#endif
+};
+
 int main(int argc, char **argv)
 {
 	SbClientApp App(argc, argv);

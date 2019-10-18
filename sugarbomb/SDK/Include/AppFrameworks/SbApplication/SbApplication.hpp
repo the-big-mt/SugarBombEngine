@@ -42,8 +42,6 @@ protected:
 private:
 	void Init();
 	
-	sbe::ISystem *CreateSystem();
-	
 	void RunFrame();
 	
 	bool mbInitialized{false};
