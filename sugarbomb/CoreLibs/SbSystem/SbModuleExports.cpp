@@ -23,7 +23,10 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+#include "CoreLibs/SbSystem/SbModuleAPI.hpp"
+
 #include "SbSystem.hpp"
+#include "SbFileSystem.hpp"
 
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]
@@ -33,8 +36,19 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #define C_EXPORT extern "C" EXPORT
 
-C_EXPORT sbe::ISystem *GetSystemAPI()
+C_EXPORT sbe::sysExport_t *GetSystemAPI(sbe::sysImport_t *apModuleImports)
 {
-	static sbe::SbSystem::SbSystem System;
-	return &System;
+	if(apModuleImports->version == sbe::SYS_API_VERSION)
+	{
+		static sbe::SbSystem::SbSystem System;
+		static sbe::SbSystem::SbFileSystem FileSystem;
+		
+		static sbe::sysExport_t ModuleExports;
+		
+		ModuleExports.version = sbe::SYS_API_VERSION;
+		ModuleExports.sys = &System;
+		ModuleExports.fileSystem = &FileSystem;
+		
+		return &ModuleExports;
+	};
 };
