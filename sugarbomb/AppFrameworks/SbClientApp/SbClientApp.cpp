@@ -35,42 +35,15 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "AppFrameworks/UtilityLibs/SbInput/IInputSystem.hpp"
 
-SbClientApp::SbClientApp(ISystem *apSystem, int argc, char **argv) : SbApplication(apSystem, argc, argv)
+SbClientApp::SbClientApp(sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem, sbe::ISystem *apSystem, int argc, char **argv)
+	: SbApplication(apSystem, argc, argv), mpRenderSystem(apRenderSystem), mpInputSystem(apInputSystem)
 {
-	mpRenderSystem = CreateRenderSystem();
-	
 	mpRenderSystem->Init();
-	
-	mpInputSystem = CreateInputSystem();
-	
 	mpInputSystem->Init();
 };
 
 SbClientApp::~SbClientApp()
 {
 	mpInputSystem->Shutdown();
-	
-	// TODO: delete mpInputSystem; mpInputSystem = nullptr;
-	
 	mpRenderSystem->Shutdown();
-	
-	// TODO: delete mpRenderSystem; mpRenderSystem = nullptr;
-};
-
-sbe::IRenderSystem *SbClientApp::CreateRenderSystem()
-{
-#ifndef SBE_SINGLE_BINARY
-	return new sbe::SbRenderSystemExternal(*mpSystem);
-#else
-	return new sbe::SbRenderer::SbRenderSystem();
-#endif
-};
-
-sbe::IInputSystem *SbClientApp::CreateInputSystem()
-{
-#ifndef SBE_SINGLE_BINARY
-	return new sbe::SbInputSystemExternal(*mpSystem);
-#else
-	return new sbe::SbInput::SbInputSystem();
-#endif
 };

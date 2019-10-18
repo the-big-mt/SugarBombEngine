@@ -37,12 +37,9 @@ struct IInputSystem;
 class SbClientApp : public SbApplication
 {
 public:
-	SbClientApp(ISystem *apSystem, int argc, char **argv);
+	SbClientApp(sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem, sbe::ISystem *apSystem, int argc, char **argv);
 	virtual ~SbClientApp();
 private:
-	sbe::IRenderSystem *CreateRenderSystem();
-	sbe::IInputSystem *CreateInputSystem();
-	
 	sbe::IRenderSystem *mpRenderSystem{nullptr};
 	sbe::IInputSystem *mpInputSystem{nullptr};
 };

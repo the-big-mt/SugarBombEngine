@@ -33,6 +33,12 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //sbe::ISystem *CreateSystem();
 
+//sbe::IRenderSystem *CreateRenderSystem();
+//sbe::IInputSystem *CreateInputSystem();
+
+// TODO: delete mpInputSystem; mpInputSystem = nullptr;
+// TODO: delete mpRenderSystem; mpRenderSystem = nullptr;
+
 sbe::ISystem *CreateSystem()
 {
 #ifndef SBE_SINGLE_BINARY
@@ -40,6 +46,24 @@ sbe::ISystem *CreateSystem()
 	return SbSystemModule.GetSystem();
 #else
 	return new sbe::SbSystem::SbSystem();
+#endif
+};
+
+sbe::IRenderSystem *SbClientApp::CreateRenderSystem()
+{
+#ifndef SBE_SINGLE_BINARY
+	return new sbe::SbRenderSystemExternal(*mpSystem);
+#else
+	return new sbe::SbRenderer::SbRenderSystem();
+#endif
+};
+
+sbe::IInputSystem *SbClientApp::CreateInputSystem()
+{
+#ifndef SBE_SINGLE_BINARY
+	return new sbe::SbInputSystemExternal(*mpSystem);
+#else
+	return new sbe::SbInput::SbInputSystem();
 #endif
 };
 
