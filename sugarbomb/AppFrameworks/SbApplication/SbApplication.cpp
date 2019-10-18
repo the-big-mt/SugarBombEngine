@@ -26,7 +26,6 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include <cassert>
 
 #include "AppFrameworks/SbApplication/SbApplication.hpp"
-#include "SbSystemExternal.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
