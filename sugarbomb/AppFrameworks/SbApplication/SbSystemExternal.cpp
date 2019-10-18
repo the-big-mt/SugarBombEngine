@@ -75,13 +75,19 @@ void SbSystemExternal::LoadModule()
 	if(!mnSystemLib)
 		throw std::runtime_error("Failed to load the system module!");
 	
-	using fnGetSystemAPI = ISystem *(*)();
-	fnGetSystemAPI pfnGetSystemAPI{SbLibraryLoader::GetSymbol<fnGetSystemAPI>(mnSystemLib, "GetSystemAPI")};
+	GetSystemAPI_t pfnGetSystemAPI{SbLibraryLoader::GetSymbol<GetSystemAPI_t>(mnSystemLib, "GetSystemAPI")};
 	
 	if(!pfnGetSystemAPI)
 		throw std::runtime_error("");
 	
-	mpSystem = pfnGetSystemAPI();
+	sysImport_t ModuleImports{};
+	ModuleExports.version = SYS_API_VERSION;
+	auto ModuleExports{pfnGetSystemAPI(&sysImport_t)};
+	
+	if(!ModuleExports)
+		throw std::runtime_error("");
+	
+	mpSystem = ModuleExports->sys;
 	
 	if(!mpSystem)
 		throw std::runtime_error("");
