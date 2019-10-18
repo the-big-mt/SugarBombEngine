@@ -53,8 +53,6 @@ void SbApplication::Run()
 
 void SbApplication::Init()
 {
-	mpSystem = CreateSystem();
-	
 	mpSystem->Init();
 	
 	mbInitialized = true;
