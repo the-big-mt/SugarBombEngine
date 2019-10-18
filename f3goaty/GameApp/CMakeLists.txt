@@ -11,6 +11,8 @@ target_sources(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} SBE-clientapp SBE-application)
 
 if(NOT SBE_SINGLE_BINARY)
+	target_link_libraries(${PROJECT_NAME} SBE-libraryloader)
+
 	if(UNIX)
 		target_link_libraries(${PROJECT_NAME} -ldl)
 	endif()
