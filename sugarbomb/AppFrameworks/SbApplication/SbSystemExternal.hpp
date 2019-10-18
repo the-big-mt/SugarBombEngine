@@ -29,6 +29,7 @@ namespace sbe
 {
 
 struct ISystem;
+struct IFileSystem;
 
 class SbSystemExternal final
 {
@@ -37,10 +38,12 @@ public:
 	~SbSystemExternal();
 	
 	ISystem *GetSystem() const {return mpSystem;}
+	IFileSystem *GetFileSystem() const {return mpFileSystem;}
 private:
 	void LoadModule();
 	
 	ISystem *mpSystem{nullptr};
+	IFileSystem *mpFileSystem{nullptr};
 	
 	int mnSystemLib{-1};
 };

@@ -29,6 +29,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include "SbLibraryLoader.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
+#include "CoreLibs/SbSystem/IFileSystem.hpp"
+#include "CoreLibs/SbSystem/SbModuleAPI.hpp"
 
 namespace sbe
 {
