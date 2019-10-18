@@ -36,6 +36,7 @@ public:
 	SbSystemExternal();
 	~SbSystemExternal();
 	
+	ISystem *GetSystem() const {return mpSystem;}
 private:
 	void LoadModule();
 	
