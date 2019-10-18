@@ -38,7 +38,6 @@ public:
 	
 private:
 	void LoadModule();
-	void UnloadModule();
 	
 	ISystem *mpSystem{nullptr};
 	

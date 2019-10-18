@@ -40,7 +40,7 @@ SbSystemExternal::SbSystemExternal()
 
 SbSystemExternal::~SbSystemExternal()
 {
-	UnloadModule();
+	SbLibraryLoader::Unload(mnSystemLib);
 };
 
 void SbSystemExternal::LoadModule()
@@ -66,11 +66,11 @@ void SbSystemExternal::LoadModule()
 	
 	if(!mpSystem)
 		throw std::runtime_error("");
-};
-
-void SbSystemExternal::UnloadModule()
-{
-	SbLibraryLoader::Unload(mnSystemLib);
+	
+	mpFileSystem = ModuleExports->fileSystem;
+	
+	if(!mpFileSystem)
+		throw std::runtime_error("");
 };
 
 }; // namespace sbe
