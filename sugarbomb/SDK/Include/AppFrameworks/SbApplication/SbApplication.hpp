@@ -33,7 +33,7 @@ struct ISystem;
 class SbApplication
 {
 public:
-	SbApplication(ISystem *apSystem, int argc, char **argv);
+	SbApplication(sbe::ISystem *apSystem, int argc, char **argv);
 	virtual ~SbApplication();
 	
 	void Run();
