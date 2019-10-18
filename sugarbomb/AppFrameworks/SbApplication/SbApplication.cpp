@@ -64,7 +64,8 @@ void SbApplication::Init()
 sbe::ISystem *SbApplication::CreateSystem()
 {
 #ifndef SBE_SINGLE_BINARY
-	return new sbe::SbSystemExternal();
+	static sbe::SbSystemExternal SbSystemModule();
+	return SbSystemModule.GetSystem();
 #else
 	return new sbe::SbSystem::SbSystem();
 #endif
