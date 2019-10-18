@@ -30,7 +30,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
-SbApplication::SbApplication(int argc, char **argv)
+SbApplication::SbApplication(ISystem *apSystem, int argc, char **argv)
 {
 	Init();
 };
