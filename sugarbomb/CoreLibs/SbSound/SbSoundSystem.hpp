@@ -1,3 +1,4 @@
+	void Init() override;
 /*
 *******************************************************************************
 
@@ -30,11 +31,15 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe::SbSound
 {
 
+struct SbSoundHardware;
+
 class SbSoundSystem : public ISoundSystem
 {
 public:
-	void Init() override;
 	void Shutdown() override;
+	
+private:
+	//SbSoundHardware &mHardware;
 };
 
 }; // namespace sbe::SbSound
