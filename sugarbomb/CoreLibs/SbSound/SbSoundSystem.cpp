@@ -1,4 +1,3 @@
-void SbSoundSystem::Init()
 /*
 *******************************************************************************
 
@@ -43,6 +42,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe::SbSound
 {
 
+void SbSoundSystem::Init(bool abUseCompression, int anMaxSamples)
 {
 	mHardware.Init();
 };

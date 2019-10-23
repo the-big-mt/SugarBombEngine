@@ -1,4 +1,3 @@
-	void Init() override;
 /*
 *******************************************************************************
 
@@ -36,6 +35,7 @@ struct SbSoundHardware;
 class SbSoundSystem : public ISoundSystem
 {
 public:
+	void Init(bool abUseCompression, int anMaxSamples) override;
 	void Shutdown() override;
 	
 private:
