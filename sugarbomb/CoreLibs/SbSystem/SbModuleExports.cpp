@@ -23,6 +23,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #include "CoreLibs/SbSystem/SbModuleAPI.hpp"
 
 #include "SbSystem.hpp"
@@ -35,6 +37,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define C_EXPORT extern "C" EXPORT
+
+//*****************************************************************************
 
 C_EXPORT sbe::sysExport_t *GetSystemAPI(sbe::sysImport_t *apModuleImports)
 {
