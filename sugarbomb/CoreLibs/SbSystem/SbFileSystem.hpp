@@ -39,6 +39,9 @@ class SbFileSystem : public IFileSystem
 public:
 	void Init() override;
 	void Shutdown() override;
+	
+	IFile *OpenFile(const char *asPath) override;
+	void CloseFile(IFile *apFile) override;
 };
 
 }; // namespace sbe::SbSystem

@@ -40,4 +40,15 @@ void SbFileSystem::Shutdown()
 {
 };
 
+IFile *SbFileSystem::OpenFile(const char *asPath)
+{
+	return nullptr;
+};
+
+void SbFileSystem::CloseFile(IFile *apFile)
+{
+	if(!apFile)
+		return;
+};
+
 }; // namespace sbe::SbSystem
