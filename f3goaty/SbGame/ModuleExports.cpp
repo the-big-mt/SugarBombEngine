@@ -24,6 +24,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 /// @file
 
 #include "Game.hpp"
+#include "SbGame/SbModuleAPI.hpp"
 
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]
@@ -33,8 +34,19 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #define C_EXPORT extern "C" EXPORT
 
-C_EXPORT sbe::IGame *GetGameAPI()
+C_EXPORT sbe::gameExport_t *GetGameAPI(gameImport_t *apModuleImports)
 {
-	static f3goaty::CGame Game;
-	return &Game;
+	if(apModuleImports->version == sbe::GAME_API_VERSION)
+	{
+		static f3goaty::CGame Game;
+		
+		static sbe::gameExport_t ModuleExports;
+		
+		ModuleExports.version = sbe::GAME_API_VERSION;
+		ModuleExports.game = &Game;
+		
+		return &ModuleExports;
+	};
+	
+	return nullptr;
 };
