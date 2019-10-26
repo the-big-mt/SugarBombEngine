@@ -25,6 +25,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbInputSystem.hpp"
 
+#include "AppFrameworks/UtilityLibs/SbInput/SbModuleAPI.hpp"
+
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]
 #else
@@ -33,8 +35,19 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #define C_EXPORT extern "C" EXPORT
 
-C_EXPORT sbe::IInputSystem *GetInputSystemAPI()
+C_EXPORT sbe::inputExport_t *GetInputSystemAPI(sbe::inputImport_t *apModuleExports)
 {
-	static sbe::SbInput::SbInputSystem InputSystem;
-	return &InputSystem;
+	if(apModuleExports->version == sbe::INPUT_API_VERSION)
+	{
+		static sbe::SbInput::SbInputSystem InputSystem(apModuleExports->sys);
+		
+		static inputExport_t ModuleExports;
+		
+		ModuleExports.version = sbe::INPUT_API_VERSION;
+		ModuleExports.inputSystem = &InputSystem;
+		
+		return &ModuleExports;
+	};
+	
+	return nullptr;
 };
