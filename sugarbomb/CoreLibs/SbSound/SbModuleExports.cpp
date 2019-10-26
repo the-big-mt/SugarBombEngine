@@ -25,6 +25,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 //*****************************************************************************
 
 #include "SbSoundSystem.hpp"
+#include "SbSoundHardwareStub.hpp"
+#include "CoreLibs/SbSound/SbModuleAPI.hpp"
 
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]
@@ -36,8 +38,20 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-C_EXPORT sbe::ISoundSystem *GetSoundSystemAPI()
+C_EXPORT sbe::soundExport_t *GetSoundSystemAPI(sbe::soundImport_t *apModuleImports)
 {
-	static sbe::SbSound::SbSoundSystem SoundSystem;
-	return &SoundSystem;
+	if(apModuleImports->version == sbe::SOUND_API_VERSION)
+	{
+		static sbe::SbSoundHardwareStub SoundHardware;
+		static sbe::SbSound::SbSoundSystem SoundSystem(apModuleImports->sys, SoundHardware);
+		
+		static sbe::soundExport_t ModuleExports;
+		
+		ModuleExports.version = sbe::SOUND_API_VERSION;
+		ModuleExports.soundSystem = &SoundSystem;
+		
+		return &ModuleExports;
+	};
+	
+	return nullptr;
 };
