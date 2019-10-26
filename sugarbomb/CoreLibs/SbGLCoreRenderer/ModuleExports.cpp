@@ -24,6 +24,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 /// @file
 
 #include "SbRenderSystem.hpp"
+#include "CoreLibs/SbRenderer/SbModuleAPI.hpp"
 
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]
@@ -33,8 +34,19 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #define C_EXPORT extern "C" EXPORT
 
-C_EXPORT sbe::IRenderSystem *GetRenderSystemAPI()
+C_EXPORT sbe::renderExport_t *GetRenderSystemAPI(sbe::renderImport_t *apModuleImports)
 {
-	static sbe::SbRenderer::SbRenderSystem RenderSystem;
-	return &RenderSystem;
+	if(apModuleImports->version == sbe::RENDER_API_VERSION)
+	{
+		static sbe::SbRenderer::SbRenderSystem RenderSystem(apModuleImports->sys);
+		
+		static sbe::renderExport_t ModuleExports;
+		
+		ModuleExports.version = sbe::RENDER_API_VERSION;
+		ModuleExports.renderSystem = &RenderSystem;
+		
+		return &ModuleExports;
+	};
+	
+	return nullptr;
 };
