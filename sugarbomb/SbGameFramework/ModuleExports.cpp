@@ -21,6 +21,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************
 */
 
+//*****************************************************************************
+
 #include "SbGameFramework.hpp"
 
 #ifdef _WIN32
@@ -30,6 +32,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define C_EXPORT extern "C" EXPORT
+
+//*****************************************************************************
 
 C_EXPORT sbe::IGameFramework *GetGameFrameworkAPI(sbe::ISystem *apSystem)
 {
