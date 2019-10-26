@@ -36,8 +36,12 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 /// @file
 
+//*****************************************************************************
+
 #include "SbSoundSystem.hpp"
 #include "SbSoundHardware.hpp"
+
+//*****************************************************************************
 
 namespace sbe::SbSound
 {

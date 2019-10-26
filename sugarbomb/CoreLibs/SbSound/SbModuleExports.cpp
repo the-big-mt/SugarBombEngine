@@ -22,6 +22,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /// @file
+//*****************************************************************************
 
 #include "SbSoundSystem.hpp"
 
@@ -32,6 +33,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define C_EXPORT extern "C" EXPORT
+
+//*****************************************************************************
 
 C_EXPORT sbe::ISoundSystem *GetSoundSystemAPI()
 {

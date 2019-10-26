@@ -23,9 +23,13 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #pragma once
 
 #include "CoreLibs/SbSound/ISoundSystem.hpp"
+
+//*****************************************************************************
 
 namespace sbe::SbSound
 {
