@@ -32,6 +32,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
+struct IFile;
+
 struct IFileSystem
 {
 	///
@@ -39,6 +41,12 @@ struct IFileSystem
 	
 	///
 	virtual void Shutdown() = 0;
+	
+	///
+	virtual IFile *OpenFile(const char *asPath) = 0;
+	
+	///
+	virtual void CloseFile(IFile *apFile) = 0;
 };
 
 }; // namespace sbe
