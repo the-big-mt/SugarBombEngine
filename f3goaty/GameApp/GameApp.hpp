@@ -19,13 +19,8 @@ public:
 	CGameApp(int argc, char **argv);
 	~CGameApp();
 private:
-	void LoadSoundModule();
-	void UnloadSoundModule();
-	
 	sbe::ISoundSystem *mpSoundSystem{nullptr};
 	sbe::IGameFramework *mpFramework{nullptr};
-	
-	int mnSoundLib{-1};
 };
 
 }; // namespace f3goaty
