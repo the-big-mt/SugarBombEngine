@@ -22,14 +22,10 @@ private:
 	void LoadSoundModule();
 	void UnloadSoundModule();
 	
-	void LoadFrameworkModule();
-	void UnloadFrameworkModule();
-	
 	sbe::ISoundSystem *mpSoundSystem{nullptr};
 	sbe::IGameFramework *mpFramework{nullptr};
 	
 	int mnSoundLib{-1};
-	int mnFrameworkLib{-1};
 };
 
 }; // namespace f3goaty
