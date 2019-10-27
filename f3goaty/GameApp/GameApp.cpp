@@ -27,10 +27,4 @@ CGameApp::~CGameApp()
 	mpSoundSystem->Shutdown();
 };
 
-{
-};
-
-{
-};
-
 }; // namespace f3goaty
