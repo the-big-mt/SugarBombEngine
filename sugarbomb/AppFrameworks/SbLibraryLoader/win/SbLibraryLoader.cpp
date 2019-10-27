@@ -23,9 +23,13 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #include <windows.h>
 
 #include "SbLibraryLoader.hpp"
+
+//*****************************************************************************
 
 namespace sbe
 {
