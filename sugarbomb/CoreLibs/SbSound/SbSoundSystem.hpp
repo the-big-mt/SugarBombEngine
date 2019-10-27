@@ -42,8 +42,15 @@ public:
 	void Init(bool abUseCompression, int anMaxSamples) override;
 	void Shutdown() override;
 	
+	ISoundWorld *AllocWorld() override;
+	void FreeWorld(ISoundWorld *apWorld) override;
+	
+	void SetPlayingWorld(ISoundWorld *apWorld) override;
+	ISoundWorld *GetPlayingWorld() const override;
 private:
 	//SbSoundHardware &mHardware;
+	
+	ISoundWorld *mpActiveWorld{nullptr};
 };
 
 }; // namespace sbe::SbSound

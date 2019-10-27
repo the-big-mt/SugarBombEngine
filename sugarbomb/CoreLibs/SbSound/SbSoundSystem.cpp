@@ -39,6 +39,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //*****************************************************************************
 
 #include "SbSoundSystem.hpp"
+#include "SbSoundWorld.hpp"
 #include "SbSoundHardware.hpp"
 
 //*****************************************************************************
@@ -55,4 +56,30 @@ void SbSoundSystem::Shutdown()
 {
 	mHardware.Shutdown();
 };
+
+ISoundWorld *SbSoundSystem::AllocWorld()
+{
+	return new SbSoundWorld();
+};
+
+void SbSoundSystem::FreeWorld(ISoundWorld *apWorld)
+{
+	if(apWorld)
+	{
+		delete apWorld;
+		apWorld = nullptr;
+	};
+};
+
+void SbSoundSystem::SetPlayingWorld(ISoundWorld *apWorld)
+{
+	if(apWorld)
+		mpActiveWorld = apWorld;
+};
+
+ISoundWorld *SbSoundSystem::GetPlayingWorld() const
+{
+	return mpActiveWorld;
+};
+
 }; // namespace sbe::SbSound
