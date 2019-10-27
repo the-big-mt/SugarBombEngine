@@ -39,6 +39,19 @@ struct ISoundSystem
 	
 	///
 	virtual void Shutdown() = 0;
+	
+	/// The renderWorld is used for visualization and light amplitude sampling
+	virtual ISoundWorld *AllocWorld(/*IRenderWorld *rw*/) = 0;
+	
+	///
+	virtual void FreeWorld(ISoundWorld *apWorld) = 0;
+	
+	/// Specifying nullptr will cause silence to be played
+	virtual void SetPlayingWorld(ISoundWorld *apWorld) = 0;
+	
+	/// Some tools, like the sound dialog, may be used in both the game and the editor
+	/// This can return nullptr, so check!
+	virtual ISoundWorld *GetPlayingWorld() const = 0;
 };
 
 }; // namespace sbe
