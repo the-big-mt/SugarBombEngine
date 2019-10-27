@@ -23,9 +23,13 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #pragma once
 
 #include "AppFrameworks/UtilityLibs/SbInput/IInputSystem.hpp"
+
+//*****************************************************************************
 
 namespace sbe::SbInput
 {
