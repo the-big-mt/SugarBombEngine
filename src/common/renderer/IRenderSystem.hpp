@@ -262,8 +262,7 @@ struct idRenderSystem : public IRenderSystem
 
 const int RENDERER_API_VERSION		= 1;
 
-struct ISys;
-struct idCommon;
+struct ISystem;
 struct idCmdSystem;
 struct idCVarSystem;
 struct IFileSystem;
@@ -273,8 +272,7 @@ struct idDeclManager;
 struct rendererImport_t
 {
 	int							version;				// API version
-	ISys* 						sys;					// non-portable system services
-	idCommon* 					common;					// common
+	ISystem* 					sys;					// non-portable system services
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
 	IFileSystem* 				fileSystem;				// file system
