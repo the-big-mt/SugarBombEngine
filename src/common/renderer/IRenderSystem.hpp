@@ -85,7 +85,7 @@ typedef enum
 	AUTORENDER_HELLICON,
 	AUTORENDER_DIALOGICON,
 	AUTORENDER_MAX
-} autoRenderIconType_t ;
+} autoRenderIconType_t;
 
 enum stereoDepthType_t
 {
