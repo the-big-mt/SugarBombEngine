@@ -278,7 +278,7 @@ struct rendererImport_t
 	IFileSystem* 				fileSystem;				// file system
 	ISoundSystem* 				soundSystem;			// sound system
 	idDeclManager*				declManager;			// declaration manager
-	idUserInterfaceManager* 	uiManager;				// user interface manager
+	//idUserInterfaceManager* 	uiManager;				// user interface manager
 };
 
 struct rendererExport_t
