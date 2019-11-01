@@ -52,6 +52,9 @@ struct ISystem
 	///
 	template<typename T>
 	T GetLibSymbol(int anHandle, const char *asSymbol) const {return reinterpret_cast<T>(GetLibSymbol(anHandle, asSymbol));}
+	
+	///
+	virtual void Printf(const char *asMsg, ...) = 0;
 };
 
 }; // namespace sbe
