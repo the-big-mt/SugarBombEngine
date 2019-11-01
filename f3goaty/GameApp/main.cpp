@@ -30,6 +30,32 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #include "GameApp.hpp"
+#include "SbSoundSystemExternal.hpp"
+#include "SbGameFrameworkExternal.hpp"
+
+//sbe::ISoundSystem *CreateSoundSystem();
+//sbe::IGameFramework *CreateGameFramework();
+
+// TODO: delete mpSoundSystem; mpSoundSystem = nullptr;
+// TODO: delete mpFramework; mpFramework = nullptr;
+
+sbe::ISoundSystem *CGameApp::CreateSoundSystem()
+{
+#ifndef SBE_SINGLE_BINARY
+	return new sbe::SbSoundSystemExternal(*mpSystem);
+#else
+	return new sbe::SbSound::SbSound();
+#endif
+};
+
+sbe::IGameFramework *CGameApp::CreateGameFramework()
+{
+#ifndef SBE_SINGLE_BINARY
+	return new sbe::SbGameFrameworkExternal(*mpSystem);
+#else
+	return new sbe::SbGameFramework::SbGameFramework();
+#endif
+};
 
 int main(int argc, char **argv)
 {
