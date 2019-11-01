@@ -39,7 +39,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-C_EXPORT sbe::gameExport_t *GetGameAPI(gameImport_t *apModuleImports)
+C_EXPORT sbe::gameExport_t *GetGameAPI(sbe::gameImport_t *apModuleImports)
 {
 	if(apModuleImports->version == sbe::GAME_API_VERSION)
 	{
