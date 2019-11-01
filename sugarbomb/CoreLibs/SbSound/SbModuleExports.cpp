@@ -25,7 +25,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 //*****************************************************************************
 
 #include "SbSoundSystem.hpp"
-#include "SbSoundHardwareStub.hpp"
+#include "stub/SbSoundHardwareStub.hpp"
 #include "CoreLibs/SbSound/SbModuleAPI.hpp"
 
 #ifdef _WIN32
