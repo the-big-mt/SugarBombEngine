@@ -55,12 +55,14 @@ namespace sbe
 
 const int FRAMEWORK_API_VERSION		= 1;
 
+struct IGameFramework;
 struct ISystem;
 struct idCmdSystem;
 struct idCVarSystem;
 struct IFileSystem;
 struct ISoundSystem;
 struct idDeclManager;
+struct IRenderSystem;
 
 struct frameworkImport_t
 {
