@@ -23,11 +23,15 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #pragma once
 
 #include <functional>
 
 #include "SbGameFramework/IGameFramework.hpp"
+
+//*****************************************************************************
 
 namespace sbe
 {
