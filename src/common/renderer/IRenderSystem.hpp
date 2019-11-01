@@ -37,6 +37,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 /// @file
+/// @brief idRenderSystem is responsible for managing the screen, which can have multiple idRenderWorld and 2D drawing done on it
 
 #pragma once
 
@@ -45,14 +46,6 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 namespace sbe
 {
-/*
-===============================================================================
-
-	idRenderSystem is responsible for managing the screen, which can have
-	multiple idRenderWorld and 2D drawing done on it.
-
-===============================================================================
-*/
 
 struct emptyCommand_t;
 struct idRenderWorld;
