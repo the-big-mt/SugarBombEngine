@@ -15,4 +15,15 @@ if(NOT SBE_SINGLE_BINARY)
 		target_link_libraries(${PROJECT_NAME} -ldl)
 	endif()
 endif()
+
+if(SBE_SYSTEM_HARD_LINKED)
+	target_link_libraries(${PROJECT_NAME} SBE-system)
+endif()
+
+if(SBE_RENDERER_HARD_LINKED)
+	target_link_libraries(${PROJECT_NAME} SBE-renderer)
+endif()
+
+if(SBE_INPUT_HARD_LINKED)
+	target_link_libraries(${PROJECT_NAME} SBE-input)
 endif()
