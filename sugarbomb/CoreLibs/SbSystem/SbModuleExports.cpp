@@ -56,4 +56,6 @@ C_EXPORT sbe::sysExport_t *GetSystemAPI(sbe::sysImport_t *apModuleImports)
 		
 		return &ModuleExports;
 	};
+	
+	return nullptr;
 };
