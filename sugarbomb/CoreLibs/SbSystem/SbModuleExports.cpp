@@ -22,6 +22,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /// @file
+/// @brief SbSystem module exports
 
 //*****************************************************************************
 
