@@ -23,33 +23,49 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
-#pragma once
+//*****************************************************************************
 
-#include <functional>
+#include "SbGameExternal.hpp"
 
-#include "SbGameFramework/IGameFramework.hpp"
+#include "CoreLibs/SbSystem/ISystem.hpp"
 
-namespace sbe
+//*****************************************************************************
+
+namespace sbe::SbGameFramework
 {
 
-struct ISystem;
-struct IGame;
-
-namespace SbGameFramework
+SbGameExternal::SbGameExternal(ISystem &aSystem) : mSystem(aSystem)
 {
-
-class SbGameFramework : public IGameFramework
-{
-public:
-	SbGameFramework(ISystem &aSystem);
-	
-	void Init() override;
-	void Shutdown() override;
-private:
-	std::reference_wrapper<ISystem> mSystem;
-	
-	IGame *mpGame{nullptr};
-	
+	LoadModule();
 };
 
-};}; // namespace sbe::SbGameFramework
+SbGameExternal::~SbGameExternal()
+{
+	UnloadModule();
+};
+
+void SbGameExternal::LoadModule()
+{
+	mnGameLib = mSystem.LoadLib("SbGame");
+	
+	if(!mnGameLib)
+		return;
+	
+	using fnGetGameAPI = IGame *(*)();
+	fnGetGameAPI pfnGetGameAPI{mSystem.GetLibSymbol<fnGetGameAPI>(mnGameLib, "GetGameAPI")};
+	
+	if(!pfnGetGameAPI)
+		return;
+	
+	mpGame = pfnGetGameAPI();
+	
+	if(!mpGame)
+		return;
+};
+
+void SbGameExternal::UnloadModule()
+{
+	mSystem.FreeLib(mnGameLib);
+};
+
+}; // namespace sbe::SbGameFramework

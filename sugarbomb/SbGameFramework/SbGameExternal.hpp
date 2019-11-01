@@ -23,11 +23,13 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #pragma once
 
-#include <functional>
+#include "SbGame/IGame.hpp"
 
-#include "SbGameFramework/IGameFramework.hpp"
+//*****************************************************************************
 
 namespace sbe
 {
@@ -38,18 +40,22 @@ struct IGame;
 namespace SbGameFramework
 {
 
-class SbGameFramework : public IGameFramework
+class SbGameExternal
 {
 public:
-	SbGameFramework(ISystem &aSystem);
+	SbGameExternal(ISystem &aSystem);
+	~SbGameExternal();
 	
-	void Init() override;
-	void Shutdown() override;
+	IGame *GetGame() const {return mpGame;}
 private:
-	std::reference_wrapper<ISystem> mSystem;
+	void LoadModule();
+	void UnloadModule();
+	
+	ISystem &mSystem;
 	
 	IGame *mpGame{nullptr};
 	
+	int mnGameLib{-1};
 };
 
 };}; // namespace sbe::SbGameFramework
