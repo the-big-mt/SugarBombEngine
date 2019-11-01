@@ -42,7 +42,7 @@ C_EXPORT sbe::soundExport_t *GetSoundSystemAPI(sbe::soundImport_t *apModuleImpor
 {
 	if(apModuleImports->version == sbe::SOUND_API_VERSION)
 	{
-		static sbe::SbSoundHardwareStub SoundHardware;
+		static sbe::SbSound::SbSoundHardwareStub SoundHardware;
 		static sbe::SbSound::SbSoundSystem SoundSystem(apModuleImports->sys, SoundHardware);
 		
 		static sbe::soundExport_t ModuleExports;
