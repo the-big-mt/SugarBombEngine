@@ -45,6 +45,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
+struct ISoundWorld;
+
 struct ISoundSystem
 {
 	///
