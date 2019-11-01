@@ -23,6 +23,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #include <stdexcept>
 
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
@@ -34,6 +36,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include "CoreLibs/SbRenderer/IRenderSystem.hpp"
 
 #include "AppFrameworks/UtilityLibs/SbInput/IInputSystem.hpp"
+
+//*****************************************************************************
 
 SbClientApp::SbClientApp(sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem, sbe::ISystem *apSystem, int argc, char **argv)
 	: SbApplication(apSystem, argc, argv), mpRenderSystem(apRenderSystem), mpInputSystem(apInputSystem)
