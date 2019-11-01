@@ -56,6 +56,7 @@ namespace sbe
 constexpr auto INPUT_API_VERSION{1};
 
 struct ISystem;
+struct IInputSystem;
 struct idCmdSystem;
 struct idCVarSystem;
 
