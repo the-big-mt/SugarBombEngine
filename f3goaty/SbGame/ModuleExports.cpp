@@ -22,6 +22,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /// @file
+/// @brief SbGame module exports
+
 //*****************************************************************************
 
 #include "Game.hpp"
