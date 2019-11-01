@@ -28,8 +28,6 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include <stdexcept>
 
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
-#include "SbRenderSystemExternal.hpp"
-#include "SbInputSystemExternal.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
