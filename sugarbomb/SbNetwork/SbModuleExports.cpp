@@ -49,7 +49,7 @@ C_EXPORT sbe::netExport_t *GetNetworkAPI(sbe::netImport_t *apModuleImports)
 		static sbe::netExport_t ModuleExports;
 		
 		ModuleExports.version = sbe::NET_API_VERSION;
-		ModuleExports.net = &NetworkSystem;
+		ModuleExports.networkSystem = &NetworkSystem;
 		
 		return &ModuleExports;
 	};
