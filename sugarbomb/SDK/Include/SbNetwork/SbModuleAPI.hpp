@@ -63,7 +63,7 @@ struct netImport_t
 struct netExport_t
 {
 	int version{NET_API_VERSION}; ///< API version
-	INetworkSystem *sys{nullptr};
+	INetworkSystem *networkSystem{nullptr};
 };
 
 extern "C" using GetNetworkAPI_t = netExport_t *(*)(netImport_t *import);
