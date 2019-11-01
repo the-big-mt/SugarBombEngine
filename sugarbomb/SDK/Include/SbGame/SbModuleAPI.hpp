@@ -55,6 +55,8 @@ namespace sbe
 
 constexpr auto GAME_API_VERSION{8};
 
+struct IGame;
+struct IGameEdit;
 struct ISystem;
 struct IGameFramework;
 struct idCmdSystem;
