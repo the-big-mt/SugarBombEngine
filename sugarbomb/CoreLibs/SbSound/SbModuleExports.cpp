@@ -22,6 +22,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /// @file
+/// @file SbSound module exports
+
 //*****************************************************************************
 
 #include "SbSoundSystem.hpp"
