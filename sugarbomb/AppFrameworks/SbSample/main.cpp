@@ -23,6 +23,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #include <cstdlib>
 
 #ifdef _WIN32
@@ -31,8 +33,9 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
 
-//sbe::ISystem *CreateSystem();
+//*****************************************************************************
 
+//sbe::ISystem *CreateSystem();
 //sbe::IRenderSystem *CreateRenderSystem();
 //sbe::IInputSystem *CreateInputSystem();
 
