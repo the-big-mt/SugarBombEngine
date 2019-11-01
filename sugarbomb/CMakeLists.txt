@@ -47,4 +47,6 @@ endif()
 add_subdirectory(AppFrameworks)
 add_subdirectory(CoreLibs)
 
+add_subdirectory(SbNetwork)
+
 add_subdirectory(SbGameFramework)
