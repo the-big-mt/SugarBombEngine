@@ -26,7 +26,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include <stdexcept>
 
 #include "SbSystemExternal.hpp"
-#include "SbLibraryLoader.hpp"
+#include "AppFrameworks/SbLibraryLoader/SbLibraryLoader.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 #include "CoreLibs/SbSystem/IFileSystem.hpp"
