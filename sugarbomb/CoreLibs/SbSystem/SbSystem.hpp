@@ -43,6 +43,8 @@ public:
 	int LoadLib(const char *asPath) override;
 	void FreeLib(int anHandle) override;
 	void *GetLibSymbol(int anHandle, const char *asSymbol) const override;
+	
+	void Printf(const char *asMsg, ...) override;
 };
 
 }; // sbe::SbSystem

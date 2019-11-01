@@ -40,4 +40,8 @@ void SbSystem::Shutdown()
 {
 };
 
+void SbSystem::Printf(const char *asMsg, ...)
+{
+};
+
 }; // sbe::SbSystem
