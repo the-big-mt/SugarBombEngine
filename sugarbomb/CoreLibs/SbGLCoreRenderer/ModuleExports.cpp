@@ -22,6 +22,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /// @file
+//*****************************************************************************
 
 #include "SbRenderSystem.hpp"
 #include "CoreLibs/SbRenderer/SbModuleAPI.hpp"
@@ -33,6 +34,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define C_EXPORT extern "C" EXPORT
+
+//*****************************************************************************
 
 C_EXPORT sbe::renderExport_t *GetRenderSystemAPI(sbe::renderImport_t *apModuleImports)
 {
