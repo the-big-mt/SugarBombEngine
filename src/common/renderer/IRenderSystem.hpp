@@ -295,6 +295,6 @@ struct rendererExport_t
 	IRenderModelManager* 		renderModelManager;		// render model manager
 };
 
-extern "C" using GetRenderAPI_t = renderExport_t *(*)( renderImport_t* import );
+extern "C" using GetRendererAPI_t = rendererExport_t *(*)( rendererImport_t* import );
 
 }; // namespace sbe
