@@ -23,11 +23,15 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #include <cassert>
 
 #include "AppFrameworks/SbApplication/SbApplication.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
+
+//*****************************************************************************
 
 SbApplication::SbApplication(sbe::ISystem *apSystem, int argc, char **argv)
 {
