@@ -42,6 +42,9 @@ public:
 	
 	void Run();
 protected:
+	virtual bool PreFrame(){return true;}
+	virtual void PostFrame(){}
+	
 	sbe::ISystem *mpSystem{nullptr};
 private:
 	void Init();

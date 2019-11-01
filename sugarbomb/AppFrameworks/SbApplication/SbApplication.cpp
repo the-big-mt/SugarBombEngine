@@ -49,9 +49,10 @@ void SbApplication::Run()
 {
 	assert(mbInitialized);
 
-	while(true)
+	while(PreFrame())
 	{
 		RunFrame();
+		PostFrame();
 	};
 };
 
