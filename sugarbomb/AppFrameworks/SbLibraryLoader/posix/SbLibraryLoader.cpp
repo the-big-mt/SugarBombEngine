@@ -27,7 +27,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include <dlfcn.h>
 
-#include "SbLibraryLoader.hpp"
+#include "AppFrameworks/SbLibraryLoader/SbLibraryLoader.hpp"
 
 //*****************************************************************************
 
