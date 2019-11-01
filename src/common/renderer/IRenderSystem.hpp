@@ -291,8 +291,8 @@ struct rendererImport_t
 struct rendererExport_t
 {
 	int							version;				// API version
-	idRenderSystem* 			renderSystem;			// render system
-	idRenderModelManager* 		renderModelManager;		// render model manager
+	IRenderSystem* 			renderSystem;			// render system
+	IRenderModelManager* 		renderModelManager;		// render model manager
 };
 
 extern "C" using GetRenderAPI_t = renderExport_t *(*)( renderImport_t* import );
