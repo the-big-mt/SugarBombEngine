@@ -46,9 +46,9 @@ SbInputSystemExternal::~SbInputSystemExternal()
 
 void SbInputSystemExternal::LoadModule()
 {
-	mnInputSystemLib = mSystem.LoadLib("SbInput");
+	mnInputLib = mSystem.LoadLib("SbInput");
 	
-	if(!mnInputSystemLib)
+	if(!mnInputLib)
 		throw std::runtime_error("Failed to load the input module!");
 	
 	using fnGetInputSystemAPI = IInputSystem *(*)();
@@ -65,7 +65,7 @@ void SbInputSystemExternal::LoadModule()
 
 void SbInputSystemExternal::UnloadModule()
 {
-	mSystem.FreeLib(mnInputSystemLib);
+	mSystem.FreeLib(mnInputLib);
 };
 
 }; // namespace sbe
