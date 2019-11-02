@@ -23,7 +23,11 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #include "SbRenderSystem.hpp"
+
+//*****************************************************************************
 
 namespace sbe::SbRenderer
 {
