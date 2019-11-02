@@ -30,6 +30,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
 #include "AppFrameworks/UtilityLibs/SbInput/IInputSystem.hpp"
+#include "AppFrameworks/UtilityLibs/SbInput/SbModuleAPI.hpp"
 
 namespace sbe
 {
@@ -51,13 +52,19 @@ void SbInputSystemExternal::LoadModule()
 	if(!mnInputLib)
 		throw std::runtime_error("Failed to load the input module!");
 	
-	using fnGetInputSystemAPI = IInputSystem *(*)();
-	fnGetInputSystemAPI pfnGetInputSystemAPI{mSystem.GetLibSymbol<fnGetInputSystemAPI>(mnInputSystemLib, "GetInputSystemAPI")};
+	GetInputAPI_t pfnGetInputAPI{mSystem.GetLibSymbol<GetInputAPI_t>(mnInputLib, "GetInputAPI")};
 	
-	if(!pfnGetInputSystemAPI)
+	if(!pfnGetInputAPI)
 		throw std::runtime_error("");
 	
-	mpInputSystem = pfnGetInputSystemAPI();
+	inputImport_t ModuleImports{};
+	ModuleImports.version = INPUT_API_VERSION;
+	auto ModuleExports{pfnGetInputAPI(&ModuleImports)};
+	
+	if(!ModuleExports)
+		throw std::runtime_error("");
+	
+	mpInputSystem = ModuleExports->inputSystem;
 	
 	if(!mpInputSystem)
 		throw std::runtime_error("");
