@@ -29,6 +29,9 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
+#include "SbGame/IGame.hpp"
+#include "SbGame/SbModuleAPI.hpp"
+
 //*****************************************************************************
 
 namespace sbe::SbGameFramework
@@ -51,13 +54,19 @@ void SbGameExternal::LoadModule()
 	if(!mnGameLib)
 		return;
 	
-	using fnGetGameAPI = IGame *(*)();
-	fnGetGameAPI pfnGetGameAPI{mSystem.GetLibSymbol<fnGetGameAPI>(mnGameLib, "GetGameAPI")};
+	GetGameAPI_t pfnGetGameAPI{mSystem.GetLibSymbol<GetGameAPI_t>(mnGameLib, "GetGameAPI")};
 	
 	if(!pfnGetGameAPI)
 		return;
 	
-	mpGame = pfnGetGameAPI();
+	gameImport_t ModuleImports{};
+	ModuleImports.version = GAME_API_VERSION;
+	auto ModuleExports{pfnGetGameAPI(&ModuleImports)};
+	
+	if(!ModuleExports)
+		return;
+	
+	mpGame = ModuleExports->game;
 	
 	if(!mpGame)
 		return;
