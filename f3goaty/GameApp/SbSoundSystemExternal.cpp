@@ -29,6 +29,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
+#include "CoreLibs/SbSound/ISoundSystem.hpp"
 namespace sbe
 {
 
@@ -40,16 +41,6 @@ SbSoundSystemExternal::SbSoundSystemExternal(ISystem &aSystem) : mSystem(aSystem
 SbSoundSystemExternal::~SbSoundSystemExternal()
 {
 	UnloadModule();
-};
-
-void SbSoundSystemExternal::Init(bool abUseCompression, int anMaxSamples)
-{
-	mpSoundSystem->Init(abUseCompression, anMaxSamples);
-};
-
-void SbSoundSystemExternal::Shutdown()
-{
-	mpSoundSystem->Shutdown();
 };
 
 void SbSoundSystemExternal::LoadModule()

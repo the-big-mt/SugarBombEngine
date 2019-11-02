@@ -25,21 +25,18 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "CoreLibs/SbSound/ISoundSystem.hpp"
-
 namespace sbe
 {
 
 struct ISystem;
+struct ISoundSystem;
 
-class SbSoundSystemExternal final : public ISoundSystem
+class SbSoundSystemExternal final
 {
 public:
 	SbSoundSystemExternal(ISystem &aSystem);
 	~SbSoundSystemExternal();
 	
-	void Init(bool abUseCompression, int anMaxSamples) override;
-	void Shutdown() override;
 private:
 	void LoadModule();
 	void UnloadModule();
