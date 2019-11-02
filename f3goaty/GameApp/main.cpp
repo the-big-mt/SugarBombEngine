@@ -30,6 +30,9 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #include "GameApp.hpp"
+#include "SbSystemExternal.hpp"
+#include "SbRenderSystemExternal.hpp"
+#include "SbInputSystemExternal.hpp"
 #include "SbSoundSystemExternal.hpp"
 #include "SbGameFrameworkExternal.hpp"
 
