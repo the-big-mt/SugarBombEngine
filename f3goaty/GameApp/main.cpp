@@ -39,9 +39,17 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 // TODO: delete mpSoundSystem; mpSoundSystem = nullptr;
 // TODO: delete mpFramework; mpFramework = nullptr;
 
+sbe::ISystem *CreateSystem()
 sbe::ISoundSystem *CGameApp::CreateSoundSystem()
 {
 #ifndef SBE_SINGLE_BINARY
+	static sbe::SbSystemExternal SbSystemModule;
+	return SbSystemModule.GetSystem();
+#else
+	return new sbe::SbSystem::SbSystem();
+#endif
+};
+
 	return new sbe::SbSoundSystemExternal(*mpSystem);
 sbe::IRenderSystem *CreateRenderSystem(sbe::ISystem &aSystem)
 {
