@@ -40,7 +40,6 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-C_EXPORT sbe::gameFrameworkExport_t *GetGameFrameworkAPI(gameFrameworkImport_t *apModuleImports)
 sbe::IGame *CreateGame(sbe::ISystem &aSystem)
 {
 #ifndef SBE_SINGLE_BINARY
@@ -51,6 +50,7 @@ sbe::IGame *CreateGame(sbe::ISystem &aSystem)
 #endif
 };
 
+C_EXPORT sbe::gameFrameworkExport_t *GetGameFrameworkAPI(sbe::gameFrameworkImport_t *apModuleImports)
 {
 	if(apModuleImports->version == sbe::GAMEFRAMEWORK_API_VERSION)
 	{
