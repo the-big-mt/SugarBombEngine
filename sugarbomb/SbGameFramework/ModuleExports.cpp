@@ -28,6 +28,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbGameFramework.hpp"
 #include "SbGameFramework/SbModuleAPI.hpp"
+#include "SbGameExternal.hpp"
 
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]
@@ -40,9 +41,20 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 //*****************************************************************************
 
 C_EXPORT sbe::gameFrameworkExport_t *GetGameFrameworkAPI(gameFrameworkImport_t *apModuleImports)
+sbe::IGame *CreateGame(sbe::ISystem &aSystem)
+{
+#ifndef SBE_SINGLE_BINARY
+	static sbe::SbGameFramework::SbGameExternal SbGameModule(aSystem);
+	return SbGameModule.GetGame();
+#else
+	return new sbe::SbGame::SbGame();
+#endif
+};
+
 {
 	if(apModuleImports->version == sbe::GAMEFRAMEWORK_API_VERSION)
 	{
+		static sbe::IGame *pGame = CreateGame(*apModuleImports->sys);
 		static sbe::SbGameFramework::SbGameFramework GameFramework(*apModuleImports->sys);
 		
 		static sbe::gameFrameworkExport_t ModuleExports;
