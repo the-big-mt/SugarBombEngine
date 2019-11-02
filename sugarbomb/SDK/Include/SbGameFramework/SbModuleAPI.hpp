@@ -53,7 +53,7 @@ namespace sbe
 ===============================================================================
 */
 
-const int FRAMEWORK_API_VERSION		= 1;
+const int GAMEFRAMEWORK_API_VERSION		= 1;
 
 struct IGameFramework;
 struct ISystem;
@@ -64,7 +64,7 @@ struct ISoundSystem;
 struct idDeclManager;
 struct IRenderSystem;
 
-struct frameworkImport_t
+struct gameFrameworkImport_t
 {
 	int							version;				// API version
 	ISystem* 					sys;					// non-portable system services
@@ -77,12 +77,12 @@ struct frameworkImport_t
 	IRenderSystem*				renderSystem;			// render system
 };
 
-struct frameworkExport_t
+struct gameFrameworkExport_t
 {
 	int							version;				// API version
-	IGameFramework* 			framework;			// game framework
+	IGameFramework* 			gameFramework;			// game framework
 };
 
-extern "C" using GetFrameworkAPI_t = frameworkExport_t *(*)( frameworkImport_t* import );
+extern "C" using GetGameFrameworkAPI_t = gameFrameworkExport_t *(*)( gameFrameworkImport_t* import );
 
 }; // namespace sbe
