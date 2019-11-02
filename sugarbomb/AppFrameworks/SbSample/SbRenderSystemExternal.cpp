@@ -46,9 +46,9 @@ SbRenderSystemExternal::~SbRenderSystemExternal()
 
 void SbRenderSystemExternal::LoadModule()
 {
-	mnRenderSystemLib = mSystem.LoadLib("SbGLCoreRenderer");
+	mnRenderLib = mSystem.LoadLib("SbGLCoreRenderer");
 	
-	if(!mnRenderSystemLib)
+	if(!mnRenderLib)
 		throw std::runtime_error("Failed to load the renderer module!");
 	
 	using fnGetRenderSystemAPI = IRenderSystem *(*)();
@@ -65,7 +65,7 @@ void SbRenderSystemExternal::LoadModule()
 
 void SbRenderSystemExternal::UnloadModule()
 {
-	mSystem.FreeLib(mnRenderSystemLib);
+	mSystem.FreeLib(mnRenderLib);
 };
 
 }; // namespace sbe
