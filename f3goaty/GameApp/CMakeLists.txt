@@ -19,6 +19,35 @@ if(NOT SBE_SINGLE_BINARY)
 		target_link_libraries(${PROJECT_NAME} -ldl)
 	endif()
 endif()
+
+if(SBE_SYSTEM_HARD_LINKED)
+	target_link_libraries(${PROJECT_NAME} SBE-system)
+endif()
+
+if(SBE_RENDERER_HARD_LINKED)
+	target_link_libraries(${PROJECT_NAME} SBE-renderer)
+endif()
+
+if(SBE_INPUT_HARD_LINKED)
+	target_link_libraries(${PROJECT_NAME} SBE-input)
+endif()
+
+if(SBE_SOUND_HARD_LINKED)
+	target_link_libraries(${PROJECT_NAME} SBE-sound)
+endif()
+
+if(SBE_NETWORK_HARD_LINKED)
+	target_link_libraries(${PROJECT_NAME} SBE-network)
+endif()
+
+if(SBE_GAMEFRAMEWORK_HARD_LINKED)
+	target_link_libraries(${PROJECT_NAME} SBE-gameframework)
+endif()
+
+if(SBE_GAME_HARD_LINKED)
+	target_link_libraries(${PROJECT_NAME} F3GOATY-game)
+endif()
+
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	OUTPUT_NAME "F3GOATY"
 )
