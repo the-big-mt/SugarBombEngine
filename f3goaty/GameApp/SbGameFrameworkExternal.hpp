@@ -37,6 +37,7 @@ public:
 	SbGameFrameworkExternal(ISystem &aSystem);
 	~SbGameFrameworkExternal();
 	
+	IGameFramework *GetGameFramework() const {return mpFramework;}
 private:
 	void LoadModule();
 	void UnloadModule();
