@@ -44,16 +44,6 @@ SbRenderSystemExternal::~SbRenderSystemExternal()
 	UnloadModule();
 };
 
-void SbRenderSystemExternal::Init()
-{
-	mpRenderSystem->Init();
-};
-
-void SbRenderSystemExternal::Shutdown()
-{
-	mpRenderSystem->Shutdown();
-};
-
 void SbRenderSystemExternal::LoadModule()
 {
 	mnRenderSystemLib = mSystem.LoadLib("SbGLCoreRenderer");

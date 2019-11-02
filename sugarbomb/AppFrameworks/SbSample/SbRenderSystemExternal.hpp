@@ -25,21 +25,18 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "CoreLibs/SbRenderer/IRenderSystem.hpp"
-
 namespace sbe
 {
 
 struct ISystem;
+struct IRenderSystem;
 
-class SbRenderSystemExternal final : public IRenderSystem
+class SbRenderSystemExternal final
 {
 public:
 	SbRenderSystemExternal(ISystem &aSystem);
 	~SbRenderSystemExternal();
 	
-	void Init() override;
-	void Shutdown() override;
 private:
 	void LoadModule();
 	void UnloadModule();
