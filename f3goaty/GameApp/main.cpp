@@ -43,6 +43,26 @@ sbe::ISoundSystem *CGameApp::CreateSoundSystem()
 {
 #ifndef SBE_SINGLE_BINARY
 	return new sbe::SbSoundSystemExternal(*mpSystem);
+sbe::IRenderSystem *CreateRenderSystem(sbe::ISystem &aSystem)
+{
+#ifndef SBE_SINGLE_BINARY
+	static sbe::SbRenderSystemExternal SbRenderModule(aSystem);
+	return SbRenderModule.GetRenderSystem();
+#else
+	return new sbe::SbRenderer::SbRenderSystem();
+#endif
+};
+
+sbe::IInputSystem *CreateInputSystem(sbe::ISystem &aSystem)
+{
+#ifndef SBE_SINGLE_BINARY
+	static sbe::SbInputSystemExternal SbInputModule(aSystem);
+	return SbInputModule.GetInputSystem();
+#else
+	return new sbe::SbInput::SbInputSystem();
+#endif
+};
+
 #else
 	return new sbe::SbSound::SbSound();
 #endif
