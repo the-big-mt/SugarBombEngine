@@ -39,7 +39,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-C_EXPORT sbe::renderExport_t *GetRenderSystemAPI(sbe::renderImport_t *apModuleImports)
+C_EXPORT sbe::rendererExport_t *GetRendererAPI(sbe::rendererImport_t *apModuleImports)
 {
 	if(apModuleImports->version == sbe::RENDER_API_VERSION)
 	{
