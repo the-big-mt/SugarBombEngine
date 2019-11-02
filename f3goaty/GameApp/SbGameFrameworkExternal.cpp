@@ -30,6 +30,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
 #include "SbGameFramework/IGameFramework.hpp"
+#include "SbGameFramework/SbModuleAPI.hpp"
 
 namespace sbe
 {
@@ -50,14 +51,21 @@ void SbGameFrameworkExternal::LoadModule()
 	
 	if(!mnFrameworkLib)
 		throw std::runtime_error("Failed to load the game framework module!");
-	
-	using fnGetGameFrameworkAPI = IGameFramework *(*)(ISystem *apSystem);
-	fnGetGameFrameworkAPI pfnGetGameFrameworkAPI{mSystem.GetLibSymbol<fnGetGameFrameworkAPI>(mnFrameworkLib, "GetGameFrameworkAPI")};
+
+	GetGameFrameworkAPI_t pfnGetGameFrameworkAPI{mSystem.GetLibSymbol<GetGameFrameworkAPI_t>(mnFrameworkLib, "GetGameFrameworkAPI")};
 	
 	if(!pfnGetGameFrameworkAPI)
 		throw std::runtime_error("No \"GetGameFrameworkAPI\" exported symbol found inside the game framework module! Did you forget to export it?");
 	
-	mpFramework = pfnGetGameFrameworkAPI(std::addressof(mSystem));
+	gameFrameworkImport_t ModuleImports{};
+	ModuleImports.version = GAMEFRAMEWORK_API_VERSION;
+	ModuleImports.sys = std::addressof(mSystem);
+	auto ModuleExports{pfnGetGameFrameworkAPI(&ModuleImports)};
+	
+	if(!ModuleExports)
+		throw std::runtime_error("");
+	
+	mpFramework = ModuleExports->gameFramework;
 	
 	if(!mpFramework)
 		throw std::runtime_error("Couldn't get a valid pointer to the game framework interface!");
