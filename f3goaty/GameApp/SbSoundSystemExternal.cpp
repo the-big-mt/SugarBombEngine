@@ -24,12 +24,15 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 /// @file
 
 #include <stdexcept>
+#include <functional>
 
 #include "SbSoundSystemExternal.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
 #include "CoreLibs/SbSound/ISoundSystem.hpp"
+#include "CoreLibs/SbSound/SbModuleAPI.hpp"
+
 namespace sbe
 {
 
@@ -50,13 +53,20 @@ void SbSoundSystemExternal::LoadModule()
 	if(!mnSoundLib)
 		throw std::runtime_error("Failed to load the sound module!");
 	
-	using fnGetSoundSystemAPI = ISoundSystem *(*)();
-	fnGetSoundSystemAPI pfnGetSoundSystemAPI{mSystem.GetLibSymbol<fnGetSoundSystemAPI>(mnSoundLib, "GetSoundSystemAPI")};
+	GetSoundAPI_t pfnGetSoundAPI{mSystem.GetLibSymbol<GetSoundAPI_t>(mnSoundLib, "GetSoundAPI")};
 	
-	if(!pfnGetSoundSystemAPI)
-		throw std::runtime_error("No \"GetSoundSystemAPI\" exported symbol found inside the sound module! Did you forget to export it?");
+	if(!pfnGetSoundAPI)
+		throw std::runtime_error("No \"GetSoundAPI\" exported symbol found inside the sound module! Did you forget to export it?");
 	
-	mpSoundSystem = pfnGetSoundSystemAPI();
+	soundImport_t ModuleImports{};
+	ModuleImports.version = SOUND_API_VERSION;
+	ModuleImports.sys = std::addressof(mSystem);
+	auto ModuleExports{pfnGetSoundAPI(&ModuleImports)};
+	
+	if(!ModuleExports)
+		throw std::runtime_error("");
+	
+	mpSoundSystem = ModuleExports->soundSystem;
 	
 	if(!mpSoundSystem)
 		throw std::runtime_error("Couldn't get a valid pointer to the sound system interface!");
