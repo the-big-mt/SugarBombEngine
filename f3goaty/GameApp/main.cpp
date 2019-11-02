@@ -79,10 +79,11 @@ sbe::ISoundSystem *CreateSoundSystem(sbe::ISystem &aSystem)
 #endif
 };
 
-sbe::IGameFramework *CGameApp::CreateGameFramework()
+sbe::IGameFramework *CreateGameFramework(sbe::ISystem &aSystem)
 {
 #ifndef SBE_SINGLE_BINARY
-	return new sbe::SbGameFrameworkExternal(*mpSystem);
+	static sbe::SbGameFrameworkExternal SbGameFrameworkModule(aSystem);
+	return SbGameFrameworkModule.GetGameFramework();
 #else
 	return new sbe::SbGameFramework::SbGameFramework();
 #endif
