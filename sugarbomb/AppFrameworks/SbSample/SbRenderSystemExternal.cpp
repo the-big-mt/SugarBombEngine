@@ -30,6 +30,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
 #include "CoreLibs/SbRenderer/IRenderSystem.hpp"
+#include "CoreLibs/SbRenderer/SbModuleAPI.hpp"
 
 namespace sbe
 {
@@ -51,13 +52,19 @@ void SbRenderSystemExternal::LoadModule()
 	if(!mnRenderLib)
 		throw std::runtime_error("Failed to load the renderer module!");
 	
-	using fnGetRenderSystemAPI = IRenderSystem *(*)();
-	fnGetRenderSystemAPI pfnGetRenderSystemAPI{mSystem.GetLibSymbol<fnGetRenderSystemAPI>(mnRenderSystemLib, "GetRenderSystemAPI")};
+	GetRendererAPI_t pfnGetRendererAPI{mSystem.GetLibSymbol<GetRendererAPI_t>(mnRenderLib, "GetRendererAPI")};
 	
-	if(!pfnGetRenderSystemAPI)
+	if(!pfnGetRendererAPI)
 		throw std::runtime_error("");
 	
-	mpRenderSystem = pfnGetRenderSystemAPI();
+	rendererImport_t ModuleImports{};
+	ModuleImports.version = RENDERER_API_VERSION;
+	auto ModuleExports{pfnGetRendererAPI(&ModuleImports)};
+	
+	if(!ModuleExports)
+		throw std::runtime_error("");
+	
+	mpRenderSystem = ModuleExports->renderSystem;
 	
 	if(!mpRenderSystem)
 		throw std::runtime_error("");
