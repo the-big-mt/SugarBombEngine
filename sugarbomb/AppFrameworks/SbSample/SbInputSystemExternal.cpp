@@ -44,16 +44,6 @@ SbInputSystemExternal::~SbInputSystemExternal()
 	UnloadModule();
 };
 
-void SbInputSystemExternal::Init()
-{
-	mpInputSystem->Init();
-};
-
-void SbInputSystemExternal::Shutdown()
-{
-	mpInputSystem->Shutdown();
-};
-
 void SbInputSystemExternal::LoadModule()
 {
 	mnInputSystemLib = mSystem.LoadLib("SbInput");

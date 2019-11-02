@@ -25,21 +25,18 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "AppFrameworks/UtilityLibs/SbInput/IInputSystem.hpp"
-
 namespace sbe
 {
 
 struct ISystem;
+struct IInputSystem;
 
-class SbInputSystemExternal final : public IInputSystem
+class SbInputSystemExternal final
 {
 public:
 	SbInputSystemExternal(ISystem &aSystem);
 	~SbInputSystemExternal();
 	
-	void Init() override;
-	void Shutdown() override;
 private:
 	void LoadModule();
 	void UnloadModule();
