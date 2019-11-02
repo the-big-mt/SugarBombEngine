@@ -50,7 +50,7 @@ struct ISoundWorld;
 struct ISoundSystem
 {
 	/// All non-hardware initialization
-	virtual void Init() = 0;
+	virtual void Init(bool abUseCompression = true, int anMaxSamples = 5) = 0;
 	
 	/// Shutdown routine
 	virtual void Shutdown() = 0;
