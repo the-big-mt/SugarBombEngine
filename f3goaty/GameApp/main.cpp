@@ -91,7 +91,12 @@ sbe::IGameFramework *CreateGameFramework(sbe::ISystem &aSystem)
 
 int main(int argc, char **argv)
 {
-	f3goaty::CGameApp App(argc, argv);
+	sbe::ISystem *pSystem = CreateSystem();
+	sbe::IGameFramework *pGameFramework = CreateGameFramework(*pSystem);
+	sbe::ISoundSystem *pSoundSystem = CreateSoundSystem(*pSystem);
+	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(*pSystem);
+	sbe::IInputSystem *pInputSystem = CreateInputSystem(*pSystem);
+	f3goaty::CGameApp App(pGameFramework, pSoundSystem, pRenderSystem, pInputSystem, pSystem, argc, argv);
 	App.Run();
 	return EXIT_SUCCESS;
 };
