@@ -37,6 +37,7 @@ public:
 	SbSoundSystemExternal(ISystem &aSystem);
 	~SbSoundSystemExternal();
 	
+	ISoundSystem *GetSoundSystem() const {return mpSoundSystem;}
 private:
 	void LoadModule();
 	void UnloadModule();
