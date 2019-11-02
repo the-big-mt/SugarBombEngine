@@ -40,7 +40,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-C_EXPORT sbe::soundExport_t *GetSoundSystemAPI(sbe::soundImport_t *apModuleImports)
+C_EXPORT sbe::soundExport_t *GetSoundAPI(sbe::soundImport_t *apModuleImports)
 {
 	if(apModuleImports->version == sbe::SOUND_API_VERSION)
 	{
