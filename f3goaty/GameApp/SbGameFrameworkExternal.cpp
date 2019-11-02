@@ -44,16 +44,6 @@ SbGameFrameworkExternal::~SbGameFrameworkExternal()
 	UnloadModule();
 };
 
-void SbGameFrameworkExternal::Init()
-{
-	mpFramework->Init();
-};
-
-void SbGameFrameworkExternal::Shutdown()
-{
-	mpFramework->Shutdown();
-};
-
 void SbGameFrameworkExternal::LoadModule()
 {
 	mnFrameworkLib = mSystem.LoadLib("SbGameFramework");

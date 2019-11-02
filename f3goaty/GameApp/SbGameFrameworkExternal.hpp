@@ -25,21 +25,18 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "SbGameFramework/IGameFramework.hpp"
-
 namespace sbe
 {
 
 struct ISystem;
+struct IGameFramework;
 
-class SbGameFrameworkExternal final : public IGameFramework
+class SbGameFrameworkExternal final
 {
 public:
 	SbGameFrameworkExternal(ISystem &aSystem);
 	~SbGameFrameworkExternal();
 	
-	void Init() override;
-	void Shutdown() override;
 private:
 	void LoadModule();
 	void UnloadModule();
