@@ -55,7 +55,7 @@ C_EXPORT sbe::gameFrameworkExport_t *GetGameFrameworkAPI(sbe::gameFrameworkImpor
 	if(apModuleImports->version == sbe::GAMEFRAMEWORK_API_VERSION)
 	{
 		static sbe::IGame *pGame = CreateGame(*apModuleImports->sys);
-		static sbe::SbGameFramework::SbGameFramework GameFramework(*apModuleImports->sys);
+		static sbe::SbGameFramework::SbGameFramework GameFramework(*pGame, *apModuleImports->sys);
 		
 		static sbe::gameFrameworkExport_t ModuleExports;
 		

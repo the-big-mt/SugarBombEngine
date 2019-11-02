@@ -45,15 +45,14 @@ namespace SbGameFramework
 class SbGameFramework : public IGameFramework
 {
 public:
-	SbGameFramework(ISystem &aSystem);
+	SbGameFramework(IGame &aGame, ISystem &aSystem);
 	
 	void Init() override;
 	void Shutdown() override;
 private:
 	std::reference_wrapper<ISystem> mSystem;
 	
-	IGame *mpGame{nullptr};
-	
+	IGame &mGame;
 };
 
 };}; // namespace sbe::SbGameFramework

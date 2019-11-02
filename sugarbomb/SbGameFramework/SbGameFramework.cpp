@@ -36,16 +36,16 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe::SbGameFramework
 {
 
-SbGameFramework::SbGameFramework(ISystem &aSystem) : mSystem(aSystem){}
+SbGameFramework::SbGameFramework(IGame &aGame, ISystem &aSystem) : mGame(aGame), mSystem(aSystem){}
 
 void SbGameFramework::Init()
 {
-	mpGame->Init();
+	mGame.Init();
 };
 
 void SbGameFramework::Shutdown()
 {
-	mpGame->Shutdown();
+	mGame.Shutdown();
 };
 
 }; // namespace sbe::SbGameFramework
