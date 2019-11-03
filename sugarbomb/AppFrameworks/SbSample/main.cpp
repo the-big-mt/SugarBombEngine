@@ -61,10 +61,11 @@ sbe::IRenderSystem *SbClientApp::CreateRenderSystem()
 #endif
 };
 
-sbe::IInputSystem *SbClientApp::CreateInputSystem()
+sbe::IInputSystem *CreateInputSystem(sbe::ISystem &aSystem)
 {
 #ifndef SBE_SINGLE_BINARY
-	return new sbe::SbInputSystemExternal(*mpSystem);
+	static sbe::SbInputSystemExternal SbInputModule(aSystem);
+	return SbInputModule.GetInputSystem();
 #else
 	return new sbe::SbInput::SbInputSystem();
 #endif
