@@ -40,7 +40,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-C_EXPORT sbe::inputExport_t *GetInputSystemAPI(sbe::inputImport_t *apModuleExports)
+C_EXPORT sbe::inputExport_t *GetInputAPI(sbe::inputImport_t *apModuleExports)
 {
 	if(apModuleExports->version == sbe::INPUT_API_VERSION)
 	{
