@@ -44,6 +44,8 @@ struct SbSoundHardware;
 class SbSoundSystem : public ISoundSystem
 {
 public:
+	SbSoundSystem(ISystem &aSystem, SbSoundHardware &aHardware);
+	
 	void Init(bool abUseCompression, int anMaxSamples) override;
 	void Shutdown() override;
 	

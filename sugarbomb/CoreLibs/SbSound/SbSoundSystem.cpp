@@ -42,10 +42,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "SbSoundWorld.hpp"
 #include "SbSoundHardware.hpp"
 
+#include "CoreLibs/SbSystem/ISystem.hpp"
+
 //*****************************************************************************
 
 namespace sbe::SbSound
 {
+
+SbSoundSystem::SbSoundSystem(ISystem &aSystem, SbSoundHardware &aHardware)
+	: mSystem(aSystem), mHardware(aHardware){}
 
 void SbSoundSystem::Init(bool abUseCompression, int anMaxSamples)
 {
