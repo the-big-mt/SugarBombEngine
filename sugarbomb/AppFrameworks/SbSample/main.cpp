@@ -31,6 +31,10 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #	include <windows.h>
 #endif
 
+#include "SbSystemExternal.hpp"
+#include "SbRenderSystemExternal.hpp"
+#include "SbInputSystemExternal.hpp"
+
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
 
 //*****************************************************************************
