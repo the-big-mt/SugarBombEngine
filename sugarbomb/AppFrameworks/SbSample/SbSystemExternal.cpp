@@ -58,8 +58,8 @@ void SbSystemExternal::LoadModule()
 		throw std::runtime_error("");
 	
 	sysImport_t ModuleImports{};
-	ModuleExports.version = SYS_API_VERSION;
-	auto ModuleExports{pfnGetSystemAPI(&sysImport_t)};
+	ModuleImports.version = SYS_API_VERSION;
+	auto ModuleExports{pfnGetSystemAPI(&ModuleImports)};
 	
 	if(!ModuleExports)
 		throw std::runtime_error("");
