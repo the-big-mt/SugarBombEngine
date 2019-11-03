@@ -41,13 +41,13 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 C_EXPORT sbe::rendererExport_t *GetRendererAPI(sbe::rendererImport_t *apModuleImports)
 {
-	if(apModuleImports->version == sbe::RENDER_API_VERSION)
+	if(apModuleImports->version == sbe::RENDERER_API_VERSION)
 	{
 		static sbe::SbRenderer::SbRenderSystem RenderSystem(apModuleImports->sys);
 		
-		static sbe::renderExport_t ModuleExports;
+		static sbe::rendererExport_t ModuleExports;
 		
-		ModuleExports.version = sbe::RENDER_API_VERSION;
+		ModuleExports.version = sbe::RENDERER_API_VERSION;
 		ModuleExports.renderSystem = &RenderSystem;
 		
 		return &ModuleExports;
