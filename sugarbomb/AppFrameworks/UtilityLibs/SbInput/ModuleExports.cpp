@@ -44,7 +44,7 @@ C_EXPORT sbe::inputExport_t *GetInputAPI(sbe::inputImport_t *apModuleExports)
 {
 	if(apModuleExports->version == sbe::INPUT_API_VERSION)
 	{
-		static sbe::SbInput::SbInputSystem InputSystem(apModuleExports->sys);
+		static sbe::SbInput::SbInputSystem InputSystem; //(apModuleExports->sys);
 		
 		static inputExport_t ModuleExports;
 		
