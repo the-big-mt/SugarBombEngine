@@ -44,7 +44,7 @@ void SbSoundHardwareStub::Update()
 {
 };
 
-SbSoundVoice *SbSoundHardwareStub::AllocVoice(const SbSoundSample *apLeadinSample, const SbSoundSample *apLoopingSample)
+SbSoundVoice *SbSoundHardwareStub::AllocateVoice(const SbSoundSample *apLeadinSample, const SbSoundSample *apLoopingSample)
 {
 	return nullptr;
 };
