@@ -78,7 +78,10 @@ sbe::IInputSystem *CreateInputSystem(sbe::ISystem &aSystem)
 
 int main(int argc, char **argv)
 {
-	SbClientApp App(CreateRenderSystem(), CreateInputSystem(), CreateSystem(), argc, argv);
+	sbe::ISystem *pSystem = CreateSystem();
+	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(*pSystem);
+	sbe::IInputSystem *pInputSystem = CreateInputSystem(*pSystem);
+	SbClientApp App(pRenderSystem, pInputSystem, pSystem, argc, argv);
 	App.Run();
 	return EXIT_SUCCESS;
 };
