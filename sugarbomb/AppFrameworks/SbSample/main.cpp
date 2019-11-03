@@ -45,7 +45,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 sbe::ISystem *CreateSystem()
 {
 #ifndef SBE_SINGLE_BINARY
-	static sbe::SbSystemExternal SbSystemModule();
+	static sbe::SbSystemExternal SbSystemModule;
 	return SbSystemModule.GetSystem();
 #else
 	return new sbe::SbSystem::SbSystem();
