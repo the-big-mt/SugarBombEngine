@@ -37,6 +37,7 @@ public:
 	SbInputSystemExternal(ISystem &aSystem);
 	~SbInputSystemExternal();
 	
+	IInputSystem *GetInputSystem() const {return mpInputSystem;}
 private:
 	void LoadModule();
 	void UnloadModule();
