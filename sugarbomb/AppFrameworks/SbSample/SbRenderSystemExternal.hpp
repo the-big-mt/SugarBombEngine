@@ -37,6 +37,7 @@ public:
 	SbRenderSystemExternal(ISystem &aSystem);
 	~SbRenderSystemExternal();
 	
+	IRenderSystem *GetRenderSystem() const {return mpRenderSystem;}
 private:
 	void LoadModule();
 	void UnloadModule();
