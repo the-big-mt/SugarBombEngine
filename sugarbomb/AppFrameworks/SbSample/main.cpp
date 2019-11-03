@@ -52,10 +52,11 @@ sbe::ISystem *CreateSystem()
 #endif
 };
 
-sbe::IRenderSystem *SbClientApp::CreateRenderSystem()
+sbe::IRenderSystem *CreateRenderSystem(sbe::ISystem &aSystem)
 {
 #ifndef SBE_SINGLE_BINARY
-	return new sbe::SbRenderSystemExternal(*mpSystem);
+	static sbe::SbRenderSystemExternal SbRenderModule(aSystem);
+	return SbRenderModule.GetRenderSystem();
 #else
 	return new sbe::SbRenderer::SbRenderSystem();
 #endif
