@@ -31,7 +31,12 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-namespace sbe::SbSound
+namespace sbe
+{
+
+struct ISystem;
+
+namespace SbSound
 {
 
 struct SbSoundHardware;
@@ -48,9 +53,10 @@ public:
 	void SetPlayingWorld(ISoundWorld *apWorld) override;
 	ISoundWorld *GetPlayingWorld() const override;
 private:
+	ISystem &mSystem;
 	//SbSoundHardware &mHardware;
 	
 	ISoundWorld *mpActiveWorld{nullptr};
 };
 
-}; // namespace sbe::SbSound
+};}; // namespace sbe::SbSound
