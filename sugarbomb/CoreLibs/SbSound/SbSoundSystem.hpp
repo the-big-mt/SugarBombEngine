@@ -54,7 +54,7 @@ public:
 	ISoundWorld *GetPlayingWorld() const override;
 private:
 	ISystem &mSystem;
-	//SbSoundHardware &mHardware;
+	SbSoundHardware &mHardware;
 	
 	ISoundWorld *mpActiveWorld{nullptr};
 };
