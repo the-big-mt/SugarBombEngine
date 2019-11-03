@@ -33,7 +33,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-SbApplication::SbApplication(sbe::ISystem *apSystem, int argc, char **argv)
+SbApplication::SbApplication(sbe::ISystem *apSystem, int argc, char **argv) : mpSystem(apSystem)
 {
 	Init();
 };
