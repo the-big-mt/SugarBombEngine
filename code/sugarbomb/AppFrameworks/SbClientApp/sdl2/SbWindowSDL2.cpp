@@ -33,7 +33,11 @@ If you have questions concerning this license or the applicable additional terms
 
 /// @file
 
+//*****************************************************************************
+
 #include "SbWindowSDL2.hpp"
+
+//*****************************************************************************
 
 SbWindowSDL2::SbWindowSDL2(const WindowParams &params /*int anWidth, int anHeight, const char *asTitle, bool abFullScreen*/)
 {

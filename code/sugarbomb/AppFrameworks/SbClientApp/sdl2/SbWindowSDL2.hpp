@@ -24,9 +24,13 @@ along with Doom 3 Source Code.  If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #pragma once
 
 #include "IWindow.hpp"
+
+//*****************************************************************************
 
 using SDL_Window = struct SDL_Window;
 
