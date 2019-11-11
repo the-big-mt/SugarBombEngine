@@ -39,6 +39,9 @@ If you have questions concerning this license or the applicable additional terms
 
 //*****************************************************************************
 
+namespace sbe
+{
+
 SbWindowSDL2::SbWindowSDL2(const WindowParams &params /*int anWidth, int anHeight, const char *asTitle, bool abFullScreen*/)
 {
 	// DG: make window resizable
@@ -77,3 +80,4 @@ SbWindowSDL2::SbWindowSDL2(const WindowParams &params /*int anWidth, int anHeigh
 							   parms.width, parms.height, flags );
 	// DG end
 };
+}; // namespace sbe

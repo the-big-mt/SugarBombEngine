@@ -34,6 +34,9 @@ along with Doom 3 Source Code.  If not, see <http://www.gnu.org/licenses/>.
 
 using SDL_Window = struct SDL_Window;
 
+namespace sbe
+{
+
 class SbWindowSDL2 : public IWindow
 {
 public:
@@ -41,3 +44,4 @@ public:
 private:
 	SDL_Window *mpWindow{nullptr};
 };
+}; // namespace sbe
