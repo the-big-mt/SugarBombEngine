@@ -46,7 +46,7 @@ SbWindowSDL2::SbWindowSDL2(const WindowParams &params /*int anWidth, int anHeigh
 	: mSystem(aSystem)
 {
 	// DG: make window resizable
-	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
+	Uint32 flags = /*SDL_WINDOW_OPENGL |*/ SDL_WINDOW_RESIZABLE;
 	// DG end
 	
 	if( abFullScreen )
