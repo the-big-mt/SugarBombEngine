@@ -58,7 +58,7 @@ SbWindowSDL2::SbWindowSDL2(const WindowParams &params /*int anWidth, int anHeigh
 	{
 		if( parms.fullScreen > SDL_GetNumVideoDisplays() )
 		{
-			common->Warning( "Couldn't set display to num %i because we only have %i displays",
+			mpSystem->Warning( "Couldn't set display to num %i because we only have %i displays",
 							 parms.fullScreen, SDL_GetNumVideoDisplays() );
 		}
 		else
