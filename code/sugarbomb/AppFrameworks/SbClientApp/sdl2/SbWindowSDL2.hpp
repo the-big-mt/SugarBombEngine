@@ -2,7 +2,7 @@
 ===========================================================================
 
 Doom 3 GPL Source Code
-Copyright (C) 2019 BlackPhrase
+Copyright (C) 2019 SugarBombEngine Developers
 
 This file is part of the Doom 3 GPL Source Code ("Doom 3 Source Code").
 
