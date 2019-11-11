@@ -43,6 +43,7 @@ namespace sbe
 {
 
 SbWindowSDL2::SbWindowSDL2(const WindowParams &params /*int anWidth, int anHeight, const char *asTitle, bool abFullScreen*/)
+	: mSystem(aSystem)
 {
 	// DG: make window resizable
 	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;

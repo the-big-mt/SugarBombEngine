@@ -37,11 +37,16 @@ using SDL_Window = struct SDL_Window;
 namespace sbe
 {
 
+struct ISystem;
+
 class SbWindowSDL2 : public IWindow
 {
 public:
 	SbWindowSDL2(const WindowCreationPrefs &params /*int anWidth, int anHeight, const char *asTitle, bool abFullScreen*/);
 private:
+	ISystem &mSystem;
+	
 	SDL_Window *mpWindow{nullptr};
 };
+
 }; // namespace sbe
