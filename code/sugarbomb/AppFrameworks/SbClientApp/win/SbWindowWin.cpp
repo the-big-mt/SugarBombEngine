@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "SbWindowWin.hpp"
 
+namespace sbe
+{
+
 /*
 =======================
 GLW_CreateWindow
@@ -100,3 +103,4 @@ bool SbWindowWin::IsVisible() const
 {
 	return (::IsWindowVisible(mhWnd) != 0);
 };
+}; // namespace sbe
