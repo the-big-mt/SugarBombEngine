@@ -6,6 +6,9 @@
 
 //*****************************************************************************
 
+namespace sbe
+{
+
 class SbWindowWin : public IWindow
 {
 public:
@@ -19,3 +22,5 @@ private:
 	
 	HWND mhWnd{nullptr};
 };
+
+}; // namespace sbe
