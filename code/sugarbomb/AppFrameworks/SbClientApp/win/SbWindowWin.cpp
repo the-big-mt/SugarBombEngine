@@ -43,7 +43,8 @@ Responsible for creating the Win32 window.
 If fullscreen, it won't have a border
 =======================
 */
-SbWindowWin::SbWindowWin(int anWidth, int anHeight, const char *asTitle, bool abFullScreen)
+SbWindowWin::SbWindowWin(ISystem &aSystem, int anWidth, int anHeight, const char *asTitle, bool abFullScreen)
+	: mSystem(aSystem)
 {
 	// create our window class if we haven't already
 	CreateWindowClass();
