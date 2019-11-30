@@ -45,6 +45,9 @@ If fullscreen, it won't have a border
 */
 SbWindowWin::SbWindowWin(int anWidth, int anHeight, const char *asTitle, bool abFullScreen)
 {
+	// create our window class if we haven't already
+	CreateWindowClass();
+	
 	int stylebits{WINDOW_STYLE | WS_SYSMENU};
 	int exstyle{0};
 	
@@ -103,4 +106,37 @@ bool SbWindowWin::IsVisible() const
 {
 	return (::IsWindowVisible(mhWnd) != 0);
 };
+
+void SbWindowWin::CreateWindowClass()
+{
+	WNDCLASS wc{};
+	
+	//
+	// register the window class if necessary
+	//
+	//if( win32.windowClassRegistered )
+		//return;
+	
+	memset(&wc, 0, sizeof(wc));
+	
+	wc.style         = 0;
+	wc.lpfnWndProc   = ( WNDPROC ) MainWndProc;
+	wc.cbClsExtra    = 0;
+	wc.cbWndExtra    = 0;
+	wc.hInstance     = win32.hInstance;
+	wc.hIcon         = LoadIcon( win32.hInstance, MAKEINTRESOURCE( IDI_ICON1 ) );
+	wc.hCursor       = nullptr;
+	wc.hbrBackground = ( struct HBRUSH__* )COLOR_GRAYTEXT;
+	wc.lpszMenuName  = 0;
+	wc.lpszClassName = WIN32_WINDOW_CLASS_NAME;
+	
+	if( !RegisterClass( &wc ) )
+	{
+		common->FatalError( "GLW_CreateWindow: could not register window class" );
+	}
+	common->Printf( "...registered window class\n" );
+	
+	//win32.windowClassRegistered = true;
+};
+
 }; // namespace sbe
