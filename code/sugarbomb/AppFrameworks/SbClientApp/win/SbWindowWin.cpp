@@ -61,7 +61,7 @@ SbWindowWin::SbWindowWin(int anWidth, int anHeight, const char *asTitle, bool ab
 					 
 	if(!mhWnd)
 	{
-		mpSys->Printf("^3GLW_CreateWindow() - Couldn't create window^0\n");
+		mSystem.Printf("^3GLW_CreateWindow() - Couldn't create window^0\n");
 		throw std::runtime_error("Couldn't create window!");
 	};
 	
@@ -69,7 +69,7 @@ SbWindowWin::SbWindowWin(int anWidth, int anHeight, const char *asTitle, bool ab
 	
 	ShowWindow(mhWnd, SW_SHOW);
 	UpdateWindow(mhWnd);
-	mpSys->Printf("...created window @ %d,%d (%dx%d)\n", x, y, w, h);
+	mSystem.Printf("...created window @ %d,%d (%dx%d)\n", x, y, w, h);
 	
 	SetForegroundWindow(mhWnd);
 	SetFocus(mhWnd);
@@ -80,7 +80,7 @@ SbWindowWin::~SbWindowWin()
 	// destroy window
 	if(mhWnd)
 	{
-		mpSys->Printf("...destroying window\n");
+		mSystem.Printf("...destroying window\n");
 		ShowWindow(mhWnd, SW_HIDE);
 		DestroyWindow(mhWnd);
 		mhWnd = nullptr;
