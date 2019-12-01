@@ -30,7 +30,13 @@ If you have questions concerning this license or the applicable additional terms
 
 /// @file
 
+#include <stdexcept>
+
+#include <windows.h>
+
 #include "SbWindowWin.hpp"
+
+#include "CoreLibs/SbSystem/ISystem.hpp"
 
 namespace sbe
 {
