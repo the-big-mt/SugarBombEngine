@@ -26,6 +26,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 //*****************************************************************************
 
 #include <stdexcept>
+#include "IWindow.hpp"
 
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
 
@@ -40,6 +41,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 SbClientApp::SbClientApp(sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem, sbe::ISystem *apSystem, int argc, char **argv)
 	: SbApplication(apSystem, argc, argv), mpRenderSystem(apRenderSystem), mpInputSystem(apInputSystem)
 {
+	mpWindow = CreateMainWindow("SugarBombEngine Test", 1280, 600, false);
+	
 	mpRenderSystem->Init();
 	mpInputSystem->Init();
 };
@@ -48,4 +51,7 @@ SbClientApp::~SbClientApp()
 {
 	mpInputSystem->Shutdown();
 	mpRenderSystem->Shutdown();
+	
+	delete mpWindow;
+	mpWindow = nullptr;
 };
