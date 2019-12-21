@@ -59,6 +59,14 @@ void SbApplication::Run()
 	};
 };
 
+void SbApplication::Stop()
+{
+	assert(mbInitialized);
+	assert(!mbWantClose);
+	
+	mbWantClose = true;
+};
+
 void SbApplication::Init()
 {
 	mpSystem->Init();
