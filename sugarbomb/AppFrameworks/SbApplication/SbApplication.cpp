@@ -49,10 +49,13 @@ void SbApplication::Run()
 {
 	assert(mbInitialized);
 
-	while(PreFrame())
+	while(!CloseRequested())
 	{
-		RunFrame();
-		PostFrame();
+		if(PreFrame())
+		{
+			RunFrame();
+			PostFrame();
+		};
 	};
 };
 
