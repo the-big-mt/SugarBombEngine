@@ -50,6 +50,8 @@ public:
 	
 	void Init() override;
 	void Shutdown() override;
+	
+	void Frame() override;
 private:
 	std::reference_wrapper<ISystem> mSystem;
 	

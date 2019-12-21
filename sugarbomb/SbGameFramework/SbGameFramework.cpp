@@ -35,6 +35,18 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
+namespace sbe
+{
+class idUserCmdMgr
+{
+};
+
+struct gameReturn_t
+{
+	int stub;
+};
+};
+
 namespace sbe::SbGameFramework
 {
 
@@ -51,6 +63,16 @@ void SbGameFramework::Shutdown()
 {
 	mGame.Shutdown();
 	mNetworkSystem.Shutdown();
+};
+
+void SbGameFramework::Frame()
+{
+	idUserCmdMgr UserCmdMgrStub;
+	gameReturn_t GameReturnStub;
+	
+	mGame.RunFrame(UserCmdMgrStub, GameReturnStub);
+	mGame.ClientRunFrame(UserCmdMgrStub, false, GameReturnStub);
+	mGame.Draw(0);
 };
 
 }; // namespace sbe::SbGameFramework
