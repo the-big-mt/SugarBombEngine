@@ -1,6 +1,7 @@
 /*
 *******************************************************************************
 
+Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2019 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
@@ -18,6 +19,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
+In addition, SugarBombEngine is using id Tech 4 (BFG) pieces and thus
+subject to certain additional terms (all header and source files which 
+contains such pieces has this additional part appended to the license 
+header). You should have received a copy of these additional terms 
+stated in a separate file (LICENSE-idTech4) which accompanied the 
+SugarBombEngine source code. If not, please request a copy in 
+writing from id Software at the address below.
+
+If you have questions concerning this license or the applicable additional
+terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc.,
+Suite 120, Rockville, Maryland 20850 USA.
+
 *******************************************************************************
 */
 
@@ -32,6 +45,9 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
+class idUserCmdMgr;
+struct gameReturn_t;
+
 struct IGame
 {
 	///
@@ -39,6 +55,15 @@ struct IGame
 	
 	///
 	virtual void Shutdown() = 0;
+	
+	/// Runs a game frame, may return a session command for level changing, etc
+	virtual void RunFrame(idUserCmdMgr &aCmdMgr, gameReturn_t &aGameReturn) = 0;
+	
+	/// Runs prediction on entities at the client
+	virtual void ClientRunFrame(idUserCmdMgr &aCmdMgr, bool abLastPredictFrame, gameReturn_t &aGameReturn) = 0;
+	
+	/// Makes rendering and sound system calls to display for a given clientNum
+	virtual bool Draw(int anClientNum) = 0;
 };
 
 }; // namespace sbe
