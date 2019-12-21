@@ -29,6 +29,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include "SbGameFramework.hpp"
 #include "SbGameFramework/SbModuleAPI.hpp"
 #include "SbGameExternal.hpp"
+#include "SbNetworkExternal.hpp"
 
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]
@@ -50,12 +51,23 @@ sbe::IGame *CreateGame(sbe::ISystem &aSystem)
 #endif
 };
 
+sbe::INetworkSystem *CreateNetworkSystem(sbe::ISystem &aSystem)
+{
+#ifndef SBE_SINGLE_BINARY
+	static sbe::SbGameFramework::SbNetworkExternal SbNetworkModule(aSystem);
+	return SbNetworkModule.GetNetworkSystem();
+#else
+	return new sbe::SbNetwork::SbNetworkSystem();
+#endif
+};
+
 C_EXPORT sbe::gameFrameworkExport_t *GetGameFrameworkAPI(sbe::gameFrameworkImport_t *apModuleImports)
 {
 	if(apModuleImports->version == sbe::GAMEFRAMEWORK_API_VERSION)
 	{
 		static sbe::IGame *pGame = CreateGame(*apModuleImports->sys);
-		static sbe::SbGameFramework::SbGameFramework GameFramework(*pGame, *apModuleImports->sys);
+		static sbe::INetworkSystem *pNetworkSystem = CreateNetworkSystem(*apModuleImports->sys);
+		static sbe::SbGameFramework::SbGameFramework GameFramework(*pNetworkSystem, *pGame, *apModuleImports->sys);
 		
 		static sbe::gameFrameworkExport_t ModuleExports;
 		
