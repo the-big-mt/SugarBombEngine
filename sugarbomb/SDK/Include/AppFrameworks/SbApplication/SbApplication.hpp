@@ -42,6 +42,10 @@ public:
 	
 	void Run();
 protected:
+	void Stop();
+	
+	bool CloseRequested() const {return mbWantClose;}
+	
 	virtual bool PreFrame(){return true;}
 	virtual void RunFrame(){}
 	virtual void PostFrame(){}
@@ -51,4 +55,5 @@ private:
 	void Init();
 	
 	bool mbInitialized{false};
+	bool mbWantClose{false};
 };
