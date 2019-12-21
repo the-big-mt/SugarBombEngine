@@ -31,21 +31,26 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbGame/IGame.hpp"
 
+#include "SbNetwork/INetworkSystem.hpp"
+
 //*****************************************************************************
 
 namespace sbe::SbGameFramework
 {
 
-SbGameFramework::SbGameFramework(IGame &aGame, ISystem &aSystem) : mGame(aGame), mSystem(aSystem){}
+SbGameFramework::SbGameFramework(INetworkSystem &aNetworkSystem, IGame &aGame, ISystem &aSystem)
+	: mNetworkSystem(aNetworkSystem), mGame(aGame), mSystem(aSystem){}
 
 void SbGameFramework::Init()
 {
+	mNetworkSystem.Init();
 	mGame.Init();
 };
 
 void SbGameFramework::Shutdown()
 {
 	mGame.Shutdown();
+	mNetworkSystem.Shutdown();
 };
 
 }; // namespace sbe::SbGameFramework

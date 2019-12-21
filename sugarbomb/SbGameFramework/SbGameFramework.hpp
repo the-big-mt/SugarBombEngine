@@ -38,6 +38,7 @@ namespace sbe
 
 struct ISystem;
 struct IGame;
+struct INetworkSystem;
 
 namespace SbGameFramework
 {
@@ -45,7 +46,7 @@ namespace SbGameFramework
 class SbGameFramework : public IGameFramework
 {
 public:
-	SbGameFramework(IGame &aGame, ISystem &aSystem);
+	SbGameFramework(INetworkSystem &aNetworkSystem, IGame &aGame, ISystem &aSystem);
 	
 	void Init() override;
 	void Shutdown() override;
@@ -53,6 +54,7 @@ private:
 	std::reference_wrapper<ISystem> mSystem;
 	
 	IGame &mGame;
+	INetworkSystem &mNetworkSystem;
 };
 
 };}; // namespace sbe::SbGameFramework
