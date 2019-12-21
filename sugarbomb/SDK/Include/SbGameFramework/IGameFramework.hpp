@@ -39,6 +39,9 @@ struct IGameFramework
 	
 	///
 	virtual void Shutdown() = 0;
+	
+	///
+	virtual void Frame() = 0;
 };
 
 }; // namespace sbe
