@@ -51,4 +51,10 @@ CGameApp::~CGameApp()
 	mpSoundSystem->Shutdown();
 };
 
+void CGameApp::RunFrame()
+{
+	mpSoundSystem->Update(1.0f/60.0f); // TODO
+	mpFramework->Frame();
+};
+
 }; // namespace f3goaty

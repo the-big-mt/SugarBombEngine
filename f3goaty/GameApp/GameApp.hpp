@@ -44,6 +44,8 @@ public:
 			 sbe::ISystem *apSystem, int argc, char **argv);
 	~CGameApp();
 private:
+	void RunFrame() override;
+private:
 	sbe::ISoundSystem *mpSoundSystem{nullptr};
 	sbe::IGameFramework *mpFramework{nullptr};
 };
