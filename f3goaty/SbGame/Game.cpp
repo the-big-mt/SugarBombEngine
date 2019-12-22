@@ -39,4 +39,17 @@ void CGame::Shutdown()
 {
 };
 
+void CGame::RunFrame(sbe::idUserCmdMgr &aCmdMgr, sbe::gameReturn_t &aGameReturn)
+{
+};
+
+void CGame::ClientRunFrame(sbe::idUserCmdMgr &aCmdMgr, bool abLastPredictFrame, sbe::gameReturn_t &aGameReturn)
+{
+};
+
+bool CGame::Draw(int anClientNum)
+{
+	return false;
+};
+
 }; // namespace f3goaty

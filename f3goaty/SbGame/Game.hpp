@@ -35,6 +35,11 @@ class CGame : public sbe::IGame
 public:
 	void Init() override;
 	void Shutdown() override;
+	
+	void RunFrame(sbe::idUserCmdMgr &aCmdMgr, sbe::gameReturn_t &aGameReturn) override;
+	void ClientRunFrame(sbe::idUserCmdMgr &aCmdMgr, bool abLastPredictFrame, sbe::gameReturn_t &aGameReturn) override;
+	
+	bool Draw(int anClientNum) override;
 };
 
 }; // namespace f3goaty
