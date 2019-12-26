@@ -36,6 +36,7 @@ namespace sbe
 struct ISystem;
 struct IRenderSystem;
 struct IInputSystem;
+struct IWindow;
 };
 
 class SbClientApp : public SbApplication
@@ -44,6 +45,9 @@ public:
 	SbClientApp(sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem, sbe::ISystem *apSystem, int argc, char **argv);
 	virtual ~SbClientApp();
 private:
+	sbe::IWindow *CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen); // TODO: make title use wide string
+private:
+	sbe::IWindow *mpWindow{nullptr};
 	sbe::IRenderSystem *mpRenderSystem{nullptr};
 	sbe::IInputSystem *mpInputSystem{nullptr};
 };
