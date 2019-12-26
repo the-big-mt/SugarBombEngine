@@ -46,6 +46,8 @@ public:
 	virtual ~SbClientApp();
 private:
 	sbe::IWindow *CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen); // TODO: make title use wide string
+	
+	bool PreFrame() override;
 private:
 	sbe::IWindow *mpWindow{nullptr};
 	sbe::IRenderSystem *mpRenderSystem{nullptr};
