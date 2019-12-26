@@ -55,6 +55,9 @@ struct ISoundSystem
 	/// Shutdown routine
 	virtual void Shutdown() = 0;
 	
+	/// Sends the current playing sound world information to the sound hardware
+	virtual void Update(float afTimeStep) = 0; // TODO: was Render
+	
 	/// The renderWorld is used for visualization and light amplitude sampling
 	virtual ISoundWorld *AllocWorld(/*IRenderWorld *rw*/) = 0;
 	
