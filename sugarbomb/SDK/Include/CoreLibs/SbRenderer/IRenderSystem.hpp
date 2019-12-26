@@ -1,6 +1,7 @@
 /*
 *******************************************************************************
 
+Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2019 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
@@ -18,6 +19,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
+In addition, SugarBombEngine is using id Tech 4 (BFG) pieces and thus
+subject to certain additional terms (all header and source files which 
+contains such pieces has this additional part appended to the license 
+header). You should have received a copy of these additional terms 
+stated in a separate file (LICENSE-idTech4) which accompanied the 
+SugarBombEngine source code. If not, please request a copy in 
+writing from id Software at the address below.
+
+If you have questions concerning this license or the applicable additional
+terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc.,
+Suite 120, Rockville, Maryland 20850 USA.
+
 *******************************************************************************
 */
 
@@ -32,6 +45,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
+struct IRenderWorld;
+
 struct IRenderSystem
 {
 	///
@@ -39,6 +54,12 @@ struct IRenderSystem
 	
 	///
 	virtual void Shutdown() = 0;
+	
+	/// Allocate a render world to be used for drawing
+	virtual IRenderWorld *AllocWorld() = 0;
+	
+	///
+	virtual void FreeWorld(IRenderWorld *apWorld) = 0;
 };
 
 }; // namespace sbe
