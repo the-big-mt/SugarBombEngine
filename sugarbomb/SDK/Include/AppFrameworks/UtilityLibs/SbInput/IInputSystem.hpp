@@ -39,6 +39,9 @@ struct IInputSystem
 	
 	///
 	virtual void Shutdown() = 0;
+	
+	///
+	//virtual void Update() = 0;
 };
 
 }; // namespace sbe
