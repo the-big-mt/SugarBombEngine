@@ -27,15 +27,16 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include <cstdlib>
 
-#ifdef _WIN32
-#	include <windows.h>
-#endif
-
 #include "SbSystemExternal.hpp"
 #include "SbRenderSystemExternal.hpp"
 #include "SbInputSystemExternal.hpp"
 
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
+
+
+#ifdef _WIN32
+#	include <windows.h>
+#endif
 
 //*****************************************************************************
 
