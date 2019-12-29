@@ -51,6 +51,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
+constexpr auto WINDOW_STYLE{WS_OVERLAPPED|WS_BORDER|WS_CAPTION|WS_VISIBLE | WS_THICKFRAME};
+
 LONG WINAPI MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch(uMsg)
@@ -71,23 +73,30 @@ Responsible for creating the Win32 window.
 If fullscreen, it won't have a border
 =======================
 */
-SbWindowWin::SbWindowWin(ISystem &aSystem, int anWidth, int anHeight, const char *asTitle, bool abFullScreen)
+//ahInstance = win32.hInstance
+//asWindowName = GAME_NAME
+//asClassName = WIN32_WINDOW_CLASS_NAME
+//abFullScreen = parms.fullScreen
+SbWindowWin::SbWindowWin(LPCTSTR asWindowName, const char *asClassName, HINSTANCE ahInstance, ISystem &aSystem, int anWidth, int anHeight, bool abFullScreen)
 	: mSystem(aSystem)
 {
 	// create our window class if we haven't already
-	CreateWindowClass();
+	CreateWindowClass(ahInstance, asClassName);
 	
 	int stylebits{WINDOW_STYLE | WS_SYSMENU};
 	int exstyle{0};
 	
-	if(parms.fullScreen != 0)
+	if(abFullScreen)
 	{
 		stylebits = WS_POPUP | WS_VISIBLE | WS_SYSMENU;
 		exstyle = WS_EX_TOPMOST;
 	};
 	
-	mhWnd = CreateWindowEx(exstyle, WIN32_WINDOW_CLASS_NAME, GAME_NAME, stylebits, x, y, w, h, nullptr, nullptr, win32.hInstance, nullptr);
-					 
+	int x = 0;
+	int y = 0;
+	
+	mhWnd = CreateWindowEx(exstyle, asClassName, asWindowName, stylebits, x, y, anWidth, anHeight, nullptr, nullptr, ahInstance, nullptr);
+	
 	if(!mhWnd)
 	{
 		mSystem.Printf("^3GLW_CreateWindow() - Couldn't create window^0\n");
@@ -98,7 +107,7 @@ SbWindowWin::SbWindowWin(ISystem &aSystem, int anWidth, int anHeight, const char
 	
 	ShowWindow(mhWnd, SW_SHOW);
 	UpdateWindow(mhWnd);
-	mSystem.Printf("...created window @ %d,%d (%dx%d)\n", x, y, w, h);
+	mSystem.Printf("...created window @ %d,%d (%dx%d)\n", x, y, anWidth, anHeight);
 	
 	SetForegroundWindow(mhWnd);
 	SetFocus(mhWnd);
@@ -136,7 +145,7 @@ bool SbWindowWin::IsVisible() const
 	return (::IsWindowVisible(mhWnd) != 0);
 };
 
-void SbWindowWin::CreateWindowClass()
+void SbWindowWin::CreateWindowClass(HINSTANCE ahInstance, const char *asClassName)
 {
 	WNDCLASS wc{};
 	
@@ -152,18 +161,17 @@ void SbWindowWin::CreateWindowClass()
 	wc.lpfnWndProc   = ( WNDPROC ) MainWndProc;
 	wc.cbClsExtra    = 0;
 	wc.cbWndExtra    = 0;
-	wc.hInstance     = win32.hInstance;
-	wc.hIcon         = LoadIcon( win32.hInstance, MAKEINTRESOURCE( IDI_ICON1 ) );
+	wc.hInstance     = ahInstance;
+	wc.hIcon         = LoadIcon( ahInstance, IDI_APPLICATION); // MAKEINTRESOURCE( IDI_ICON1 ) ); // TODO
 	wc.hCursor       = nullptr;
 	wc.hbrBackground = ( struct HBRUSH__* )COLOR_GRAYTEXT;
 	wc.lpszMenuName  = 0;
-	wc.lpszClassName = WIN32_WINDOW_CLASS_NAME;
+	wc.lpszClassName = asClassName;
 	
 	if( !RegisterClass( &wc ) )
-	{
-		common->FatalError( "GLW_CreateWindow: could not register window class" );
-	}
-	common->Printf( "...registered window class\n" );
+		mSystem.FatalError( "GLW_CreateWindow: could not register window class" );
+
+	mSystem.Printf( "...registered window class\n" );
 	
 	//win32.windowClassRegistered = true;
 };
