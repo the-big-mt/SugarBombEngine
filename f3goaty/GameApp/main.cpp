@@ -25,6 +25,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include <cstdlib>
 
+#include "iniparser.h"
 
 #include "GameApp.hpp"
 #include "SbSystemExternal.hpp"
@@ -101,6 +102,21 @@ int main(int argc, char **argv)
 	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(*pSystem);
 	sbe::IInputSystem *pInputSystem = CreateInputSystem(*pSystem);
 	f3goaty::CGameApp App(pGameFramework, pSoundSystem, pRenderSystem, pInputSystem, pSystem, argc, argv);
+	dictionary *pDict = iniparser_load("FalloutPrefs.ini"); // Fallout_default
+	
+	const char *sWindowTitle{"F3GOATY"};
+	int nWindowWidth{1280};
+	int nWindowHeight{600};
+	bool bWindowFullScreen{false};
+	
+	if(pDict != nullptr)
+	{
+		nWindowWidth = iniparser_getint(pDict, "Display:iSize W", 1280);
+		nWindowHeight = iniparser_getint(pDict, "Display:iSize H", 600);
+		bWindowFullScreen = iniparser_getboolean(pDict, "Display:bFull Screen", false);
+	};
+	
+	f3goaty::CGameApp App(sWindowTitle, nWindowWidth, nWindowHeight, bWindowFullScreen, pGameFramework, pSoundSystem, pRenderSystem, pInputSystem, pSystem, argc, argv);
 	App.Run();
 	return EXIT_SUCCESS;
 };
