@@ -25,6 +25,10 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
+#include <cstdio> // TODO: temp
+#include <cstdlib> // TODO: temp
+#include <cstdarg>
+
 #include "SbSystem.hpp"
 
 //*****************************************************************************
@@ -42,6 +46,18 @@ void SbSystem::Shutdown()
 
 void SbSystem::Printf(const char *asMsg, ...)
 {
+	va_list lstArgs{};
+	char sFmtMsg[1024]{}; // TODO: fix magic
+	
+	va_start(lstArgs, asMsg);
+	vsprintf(sFmtMsg, asMsg, lstArgs);
+	va_end(lstArgs);
+	
+	//for(auto It : mvOutputHandlers)
+		//It->Print(sFmtMsg);
+	
+	// TODO: temp
+	printf(sFmtMsg);
 };
 
 }; // sbe::SbSystem
