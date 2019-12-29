@@ -101,7 +101,6 @@ int main(int argc, char **argv)
 	sbe::ISoundSystem *pSoundSystem = CreateSoundSystem(*pSystem);
 	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(*pSystem);
 	sbe::IInputSystem *pInputSystem = CreateInputSystem(*pSystem);
-	f3goaty::CGameApp App(pGameFramework, pSoundSystem, pRenderSystem, pInputSystem, pSystem, argc, argv);
 	dictionary *pDict = iniparser_load("FalloutPrefs.ini"); // Fallout_default
 	
 	const char *sWindowTitle{"F3GOATY"};
