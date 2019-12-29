@@ -51,6 +51,18 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
+LONG WINAPI MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch(uMsg)
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 1;
+	};
+	
+	return DefWindowProc(hWnd, uMsg, wParam, lParam);
+};
+
 /*
 =======================
 GLW_CreateWindow
