@@ -4,13 +4,17 @@ project(F3GOATY-gameapp)
 
 add_executable(${PROJECT_NAME})
 
+target_include_directories(${PROJECT_NAME}
+	PRIVATE ${SBE_INIPARSER_PATH}/src
+)
+
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} PROJECT_SOURCES)
 
 target_sources(${PROJECT_NAME}
 	PRIVATE ${PROJECT_SOURCES}
 )
 
-target_link_libraries(${PROJECT_NAME} SBE-clientapp SBE-application)
+target_link_libraries(${PROJECT_NAME} SBE-clientapp SBE-application SBE-external-iniparser)
 
 if(NOT SBE_SINGLE_BINARY)
 	target_link_libraries(${PROJECT_NAME} SBE-libraryloader)
