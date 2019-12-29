@@ -38,10 +38,11 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-SbClientApp::SbClientApp(sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem, sbe::ISystem *apSystem, int argc, char **argv)
+SbClientApp::SbClientApp(const char *asWindowTitle, int anWindowWidth, int anWindowHeight, bool abWindowFullScreen,
+	sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem, sbe::ISystem *apSystem, int argc, char **argv)
 	: SbApplication(apSystem, argc, argv), mpRenderSystem(apRenderSystem), mpInputSystem(apInputSystem)
 {
-	mpWindow = CreateMainWindow("SugarBombEngine Test", 1280, 600, false);
+	mpWindow = CreateMainWindow(asWindowTitle, anWindowWidth, anWindowHeight, abWindowFullScreen);
 	
 	mpRenderSystem->Init();
 	mpInputSystem->Init();
