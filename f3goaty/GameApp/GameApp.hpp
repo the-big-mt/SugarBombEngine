@@ -39,7 +39,7 @@ namespace f3goaty
 class CGameApp final : public SbClientApp
 {
 public:
-	CGameApp(sbe::IGameFramework *apGameFramework, sbe::ISoundSystem *apSoundSystem,
+	CGameApp(const char *asWindowTitle, int anWindowWidth, int anWindowHeight, bool abWindowFullScreen, sbe::IGameFramework *apGameFramework, sbe::ISoundSystem *apSoundSystem,
 			 sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem,
 			 sbe::ISystem *apSystem, int argc, char **argv);
 	~CGameApp();
