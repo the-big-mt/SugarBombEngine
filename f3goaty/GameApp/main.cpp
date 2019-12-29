@@ -25,9 +25,6 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include <cstdlib>
 
-#ifdef _WIN32
-#	include <windows.h>
-#endif
 
 #include "GameApp.hpp"
 #include "SbSystemExternal.hpp"
@@ -35,6 +32,10 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include "SbInputSystemExternal.hpp"
 #include "SbSoundSystemExternal.hpp"
 #include "SbGameFrameworkExternal.hpp"
+
+#ifdef _WIN32
+#	include <windows.h>
+#endif
 
 //sbe::ISoundSystem *CreateSoundSystem();
 //sbe::IGameFramework *CreateGameFramework();
