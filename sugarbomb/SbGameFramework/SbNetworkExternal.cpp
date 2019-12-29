@@ -53,7 +53,7 @@ void SbNetworkExternal::LoadModule()
 {
 	mnNetworkLib = mSystem.LoadLib("SbNetwork");
 	
-	if(mnNetworkLib)
+	if(!mnNetworkLib)
 		return;
 	
 	GetNetworkAPI_t pfnGetNetworkAPI{mSystem.GetLibSymbol<GetNetworkAPI_t>(mnNetworkLib, "GetNetworkAPI")};
