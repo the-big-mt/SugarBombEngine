@@ -38,6 +38,21 @@ void SbRenderSystem::Init()
 
 void SbRenderSystem::Shutdown()
 {
+
+IRenderWorld *SbRenderSystem::AllocWorld()
+{
+	return new SbRenderWorld();
+};
+
+void SbRenderSystem::FreeWorld(IRenderWorld *apWorld)
+{
+	if(apWorld)
+	{
+		delete apWorld;
+		apWorld = nullptr;
+	};
+};
+
 };
 
 void SbRenderSystem::BeginLevelLoad()

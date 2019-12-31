@@ -36,6 +36,9 @@ public:
 	void Init() override;
 	void Shutdown() override;
 	
+	IRenderWorld *AllocWorld() override;
+	void FreeWorld(IRenderWorld *apWorld) override;
+	
 	void BeginLevelLoad() override;
 	void EndLevelLoad() override;
 };
