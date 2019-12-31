@@ -42,7 +42,7 @@ If you have questions concerning this license or the applicable additional terms
 namespace sbe
 {
 
-SbWindowSDL2::SbWindowSDL2(const WindowParams &params /*int anWidth, int anHeight, const char *asTitle, bool abFullScreen*/)
+SbWindowSDL2::SbWindowSDL2(ISystem &aSystem, const IWindow::Props &params /*int anWidth, int anHeight, const char *asTitle, bool abFullScreen*/)
 	: mSystem(aSystem)
 {
 	if(SDL_Init(SDL_INIT_VIDEO) != 0)
