@@ -81,4 +81,16 @@ SbWindowSDL2::SbWindowSDL2(const WindowParams &params /*int anWidth, int anHeigh
 							   parms.width, parms.height, flags );
 	// DG end
 };
+
+SbWindowSDL2::~SbWindowSDL2()
+{
+	if(mpWindow)
+    {
+        SDL_DestroyWindow(mpWindow);
+        mpWindow = nullptr;
+    };
+
+    SDL_Quit();
+};
+
 }; // namespace sbe
