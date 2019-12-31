@@ -52,7 +52,7 @@ SbWindowSDL2::SbWindowSDL2(ISystem &aSystem, const IWindow::Props &params /*int 
 	Uint32 flags = /*SDL_WINDOW_OPENGL |*/ SDL_WINDOW_RESIZABLE;
 	// DG end
 	
-	if( abFullScreen )
+	if(abFullScreen)
 		flags |= SDL_WINDOW_FULLSCREEN;
 
 	// DG: set display num for fullscreen
@@ -78,7 +78,7 @@ SbWindowSDL2::SbWindowSDL2(ISystem &aSystem, const IWindow::Props &params /*int 
 	 * the mouse cursor.
 	 */
 	
-	window = SDL_CreateWindow( GAME_NAME,
+	mpWindow = SDL_CreateWindow( GAME_NAME,
 							   windowPos,
 							   windowPos,
 							   parms.width, parms.height, flags );
