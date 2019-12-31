@@ -55,6 +55,9 @@ SbWindowSDL2::SbWindowSDL2(ISystem &aSystem, const IWindow::Props &params /*int 
 	if(abFullScreen)
 		flags |= SDL_WINDOW_FULLSCREEN;
 
+	if(!windowBorder)
+        flags |= SDL_WINDOW_BORDERLESS;
+
 	// DG: set display num for fullscreen
 	int windowPos = SDL_WINDOWPOS_UNDEFINED;
 	if( parms.fullScreen > 0 )
