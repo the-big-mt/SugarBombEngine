@@ -54,6 +54,9 @@ public:
 	
 	void SetPlayingWorld(ISoundWorld *apWorld) override;
 	ISoundWorld *GetPlayingWorld() const override;
+	
+	void BeginLevelLoad() override;
+	void EndLevelLoad() override;
 private:
 	ISystem &mSystem;
 	SbSoundHardware &mHardware;

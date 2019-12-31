@@ -87,4 +87,12 @@ ISoundWorld *SbSoundSystem::GetPlayingWorld() const
 	return mpActiveWorld;
 };
 
+void SbSoundSystem::BeginLevelLoad()
+{
+};
+
+void SbSoundSystem::EndLevelLoad()
+{
+};
+
 }; // namespace sbe::SbSound
