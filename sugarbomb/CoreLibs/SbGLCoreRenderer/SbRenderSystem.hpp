@@ -35,6 +35,9 @@ class SbRenderSystem : public IRenderSystem
 public:
 	void Init() override;
 	void Shutdown() override;
+	
+	void BeginLevelLoad() override;
+	void EndLevelLoad() override;
 };
 
 }; // namespace sbe::SbRenderer

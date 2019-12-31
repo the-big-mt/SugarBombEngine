@@ -40,4 +40,12 @@ void SbRenderSystem::Shutdown()
 {
 };
 
+void SbRenderSystem::BeginLevelLoad()
+{
+};
+
+void SbRenderSystem::EndLevelLoad()
+{
+};
+
 }; // namespace sbe::SbRenderer
