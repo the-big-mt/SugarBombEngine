@@ -70,6 +70,12 @@ struct ISoundSystem
 	/// Some tools, like the sound dialog, may be used in both the game and the editor
 	/// This can return nullptr, so check!
 	virtual ISoundWorld *GetPlayingWorld() const = 0;
+	
+	///
+	virtual void BeginLevelLoad() = 0;
+	
+	///
+	virtual void EndLevelLoad() = 0;
 };
 
 }; // namespace sbe
