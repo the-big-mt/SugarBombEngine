@@ -60,6 +60,12 @@ struct IRenderSystem
 	
 	///
 	virtual void FreeWorld(IRenderWorld *apWorld) = 0;
+	
+	///
+	virtual void BeginLevelLoad() = 0;
+	
+	///
+	virtual void EndLevelLoad() = 0;
 };
 
 }; // namespace sbe
