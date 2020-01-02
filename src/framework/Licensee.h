@@ -46,8 +46,8 @@ If you have questions concerning this license or the applicable additional terms
 
 // RB end
 
-#define ENGINE_VERSION					"SugarBombEngine v0.1.0"	// printed in console
-#define ENGINE_VERSION_CODENAME			"Clues in the Darkness"
+#define ENGINE_VERSION					"SugarBombEngine v0.2"	// printed in console
+#define ENGINE_VERSION_CODENAME			"No Rest For These Bones"
 
 #define	BASE_GAMEDIR					"Data"
 
