@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(SugarBombEngine)
 
 option(SBE_SINGLE_BINARY "Build everything as a single binary" OFF)
+option(SBE_USE_SDL "Use SDL2 for crossplatform support" OFF)
 
 # We want shared libraries (and modules) without any prefix in name
 set(CMAKE_SHARED_LIBRARY_PREFIX "")
