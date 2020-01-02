@@ -53,6 +53,8 @@ public:
 	
 	void Frame() override;
 private:
+	void CreateMainMenu();
+private:
 	std::reference_wrapper<ISystem> mSystem;
 	
 	IGame &mGame;

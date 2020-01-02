@@ -57,6 +57,8 @@ void SbGameFramework::Init()
 {
 	mNetworkSystem.Init();
 	mGame.Init();
+	
+	CreateMainMenu();
 };
 
 void SbGameFramework::Shutdown()
@@ -73,6 +75,35 @@ void SbGameFramework::Frame()
 	mGame.RunFrame(UserCmdMgrStub, GameReturnStub);
 	mGame.ClientRunFrame(UserCmdMgrStub, false, GameReturnStub);
 	mGame.Draw(0);
+};
+
+/*
+========================
+idCommonLocal::CreateMainMenu
+========================
+*/
+void SbGameFramework::CreateMainMenu()
+{
+	//if(mpGame != nullptr) // TODO
+	{
+		// note which media we are going to need to load
+		//declManager->BeginLevelLoad(); // TODO
+		mpRenderSystem->BeginLevelLoad();
+		mpSoundSystem->BeginLevelLoad();
+		//uiManager->BeginLevelLoad(); // TODO
+		
+		// create main inside an "empty" game level load - so assets get
+		// purged automagically when we transition to a "real" map
+		mGame.Shell_CreateMenu(false);
+		mGame.Shell_Show(true);
+		mGame.Shell_SyncWithSession();
+		
+		// load
+		mpRenderSystem->EndLevelLoad();
+		mpSoundSystem->EndLevelLoad();
+		//declManager->EndLevelLoad(); // TODO
+		//uiManager->EndLevelLoad(""); // TODO
+	};
 };
 
 }; // namespace sbe::SbGameFramework
