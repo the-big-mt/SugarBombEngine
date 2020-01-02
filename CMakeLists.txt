@@ -22,6 +22,12 @@ set(SBE_LIBS_PATH
 	"Path to engine dependencies"
 )
 
+set(SBE_SDL_PATH
+	${CMAKE_SOURCE_DIR}/../SDL2
+	CACHE PATH
+	"Path to SDL2"
+)
+
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/libs
 	${SBE_LIBS_PATH}
