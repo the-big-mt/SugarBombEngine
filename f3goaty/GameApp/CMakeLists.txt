@@ -52,6 +52,14 @@ if(SBE_GAME_HARD_LINKED)
 	target_link_libraries(${PROJECT_NAME} F3GOATY-game)
 endif()
 
+if(SBE_USE_SDL)
+	target_link_directories(${PROJECT_NAME}
+		PRIVATE ${SBE_SDL_PATH}/lib
+	)
+	
+	target_link_libraries(${PROJECT_NAME} SDL2)
+endif()
+
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	OUTPUT_NAME "F3GOATY"
 )
