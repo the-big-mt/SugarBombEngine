@@ -64,6 +64,18 @@ struct IGame
 	
 	/// Makes rendering and sound system calls to display for a given clientNum
 	virtual bool Draw(int anClientNum) = 0;
+	
+	///
+	virtual void Shell_CreateMenu(bool abInGame) = 0;
+	
+	///
+	virtual void Shell_Cleanup() = 0;
+	
+	///
+	virtual void Shell_Show(bool abShow) = 0;
+	
+	///
+	virtual void Shell_SyncWithSession() = 0;
 };
 
 }; // namespace sbe
