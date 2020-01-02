@@ -27,7 +27,13 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 //*****************************************************************************
 
 #include "SbSoundSystem.hpp"
-#include "stub/SbSoundHardwareStub.hpp"
+
+#ifdef SBE_USE_OPENAL
+#	include "openal/SbSoundHardwareOpenAL.hpp"
+#else
+#	include "stub/SbSoundHardwareStub.hpp"
+#endif
+
 #include "CoreLibs/SbSound/SbModuleAPI.hpp"
 
 #ifdef _WIN32
@@ -44,7 +50,11 @@ C_EXPORT sbe::soundExport_t *GetSoundAPI(sbe::soundImport_t *apModuleImports)
 {
 	if(apModuleImports->version == sbe::SOUND_API_VERSION)
 	{
+#ifdef SBE_USE_OPENAL
+		static sbe::SbSound::SbSoundHardwareOpenAL SoundHardware(*apModuleImports->sys);
+#else
 		static sbe::SbSound::SbSoundHardwareStub SoundHardware;
+#endif
 		static sbe::SbSound::SbSoundSystem SoundSystem(*apModuleImports->sys, SoundHardware);
 		
 		static sbe::soundExport_t ModuleExports;
