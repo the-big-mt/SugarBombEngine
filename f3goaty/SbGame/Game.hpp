@@ -40,6 +40,11 @@ public:
 	void ClientRunFrame(sbe::idUserCmdMgr &aCmdMgr, bool abLastPredictFrame, sbe::gameReturn_t &aGameReturn) override;
 	
 	bool Draw(int anClientNum) override;
+	
+	void Shell_CreateMenu(bool abInGame) override;
+	void Shell_Cleanup() override;
+	void Shell_Show(bool abShow) override;
+	void Shell_SyncWithSession() override;
 };
 
 }; // namespace f3goaty

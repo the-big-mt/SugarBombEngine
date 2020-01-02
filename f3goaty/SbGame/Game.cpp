@@ -52,4 +52,20 @@ bool CGame::Draw(int anClientNum)
 	return false;
 };
 
+void CGame::Shell_CreateMenu(bool abInGame)
+{
+};
+
+void CGame::Shell_Cleanup()
+{
+};
+
+void CGame::Shell_Show(bool abShow)
+{
+};
+
+void CGame::Shell_SyncWithSession()
+{
+};
+
 }; // namespace f3goaty
