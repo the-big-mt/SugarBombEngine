@@ -32,6 +32,20 @@ endif()
 
 add_library(${PROJECT_NAME} ${LIB_TYPE} ${PROJECT_SOURCES})
 
+if(SBE_USE_OPENAL)
+	target_compile_definitions(${PROJECT_NAME}
+		PRIVATE SBE_USE_OPENAL
+	)
+	
+	target_include_directories(${PROJECT_NAME}
+		PRIVATE ${SBE_LIBS_PATH}/openal-soft/include
+	)
+
+	target_link_directories(${PROJECT_NAME}
+		PRIVATE ${SBE_LIBS_PATH}/openal-soft/libs/win32
+	)
+endif()
+
 if(NOT SBE_SINGLE_BINARY)
 	set_target_properties(${PROJECT_NAME} PROPERTIES
 		OUTPUT_NAME "SbSound"
