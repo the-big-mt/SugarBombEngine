@@ -1,5 +1,7 @@
 project(SBE-sound)
 
+option(SBE_USE_OPENAL "Use OpenAL for sound module backend" OFF)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 file(GLOB PROJECT_SOURCES
