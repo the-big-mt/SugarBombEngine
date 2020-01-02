@@ -43,6 +43,7 @@ class SbWindowSDL2 : public IWindow
 {
 public:
 	SbWindowSDL2(ISystem &aSystem, const IWindow::Props &params /*int anWidth, int anHeight, const char *asTitle, bool abFullScreen*/);
+	~SbWindowSDL2();
 private:
 	ISystem &mSystem;
 	

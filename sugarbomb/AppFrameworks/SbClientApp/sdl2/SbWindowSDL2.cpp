@@ -35,13 +35,20 @@ If you have questions concerning this license or the applicable additional terms
 
 //*****************************************************************************
 
+#include <stdexcept>
+
+#include <SDL2/SDL.h>
+
 #include "SbWindowSDL2.hpp"
+
+#include "CoreLibs/SbSystem/ISystem.hpp"
 
 //*****************************************************************************
 
 namespace sbe
 {
 
+//params.msTitle = GAME_NAME
 SbWindowSDL2::SbWindowSDL2(ISystem &aSystem, const IWindow::Props &params /*int anWidth, int anHeight, const char *asTitle, bool abFullScreen*/)
 	: mSystem(aSystem)
 {
@@ -52,39 +59,39 @@ SbWindowSDL2::SbWindowSDL2(ISystem &aSystem, const IWindow::Props &params /*int 
 	Uint32 flags = /*SDL_WINDOW_OPENGL |*/ SDL_WINDOW_RESIZABLE;
 	// DG end
 	
-	if(abFullScreen)
+	if(params.mbFullScreen)
 		flags |= SDL_WINDOW_FULLSCREEN;
 
-	if(!windowBorder)
-        flags |= SDL_WINDOW_BORDERLESS;
+	//if(!windowBorder)
+		//flags |= SDL_WINDOW_BORDERLESS;
 
 	// DG: set display num for fullscreen
 	int windowPos = SDL_WINDOWPOS_UNDEFINED;
-	if( parms.fullScreen > 0 )
+	if( params.mbFullScreen > 0 )
 	{
-		if( parms.fullScreen > SDL_GetNumVideoDisplays() )
+		if( params.mbFullScreen > SDL_GetNumVideoDisplays() )
 		{
-			mpSystem->Warning( "Couldn't set display to num %i because we only have %i displays",
-							 parms.fullScreen, SDL_GetNumVideoDisplays() );
+			mSystem.Warning( "Couldn't set display to num %i because we only have %i displays",
+							 params.mbFullScreen, SDL_GetNumVideoDisplays() );
 		}
 		else
 		{
-			// -1 because SDL starts counting displays at 0, while parms.fullScreen starts at 1
-			windowPos = SDL_WINDOWPOS_UNDEFINED_DISPLAY( ( parms.fullScreen - 1 ) );
+			// -1 because SDL starts counting displays at 0, while params.mbFullScreen starts at 1
+			windowPos = SDL_WINDOWPOS_UNDEFINED_DISPLAY( ( params.mbFullScreen - 1 ) );
 		};
 	};
 	
-	// TODO: if parms.fullScreen == -1 there should be a borderless window spanning multiple displays
+	// TODO: if params.mbFullScreen == -1 there should be a borderless window spanning multiple displays
 	/*
-	 * NOTE that this implicitly handles parms.fullScreen == -2 (from r_fullscreen -2) meaning
+	 * NOTE that this implicitly handles params.mbFullScreen == -2 (from r_fullscreen -2) meaning
 	 * "do fullscreen, but I don't care on what monitor", at least on my box it's the monitor with
 	 * the mouse cursor.
 	 */
 	
-	mpWindow = SDL_CreateWindow( GAME_NAME,
+	mpWindow = SDL_CreateWindow( params.msTitle,
 							   windowPos,
 							   windowPos,
-							   parms.width, parms.height, flags );
+							   params.mnWidth, params.mnHeight, flags );
 	// DG end
 };
 
