@@ -63,6 +63,10 @@ void SbGameFramework::Init()
 
 void SbGameFramework::Shutdown()
 {
+	
+	printf("CleanupShell();\n");
+	CleanupShell();
+	
 	mGame.Shutdown();
 	mNetworkSystem.Shutdown();
 };
@@ -104,6 +108,16 @@ void SbGameFramework::CreateMainMenu()
 		//declManager->EndLevelLoad(); // TODO
 		//uiManager->EndLevelLoad(""); // TODO
 	};
+};
+
+/*
+=================
+idCommonLocal::CleanupShell
+=================
+*/
+void SbGameFramework::CleanupShell()
+{
+	mGame.Shell_Cleanup();
 };
 
 }; // namespace sbe::SbGameFramework

@@ -54,6 +54,8 @@ public:
 	void Frame() override;
 private:
 	void CreateMainMenu();
+	
+	void CleanupShell();
 private:
 	std::reference_wrapper<ISystem> mSystem;
 	
