@@ -52,4 +52,8 @@ if(NOT SBE_SINGLE_BINARY)
 	)
 	
 	#target_link_libraries(${PROJECT_NAME} SBE-idlib)
+	
+	if(SBE_USE_OPENAL)
+		target_link_libraries(${PROJECT_NAME} -lOpenAL32)
+	endif()
 endif()
