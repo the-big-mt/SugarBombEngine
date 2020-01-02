@@ -45,6 +45,8 @@ public:
 	void *GetLibSymbol(int anHandle, const char *asSymbol) const override;
 	
 	void Printf(const char *asMsg, ...) override;
+	
+	void FatalError(const char *asMsg) override;
 };
 
 }; // sbe::SbSystem
