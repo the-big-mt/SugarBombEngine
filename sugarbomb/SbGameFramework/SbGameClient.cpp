@@ -28,4 +28,14 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe::SbGameFramework
 {
 
+void SbGameClient::SendMsg(const char *asMsg)
+{
+	// TODO
+};
+
+void SbGameClient::Disconnect(const char *asReason)
+{
+	// TODO
+};
+
 }; // namespace sbe::SbGameFramework
