@@ -9,7 +9,10 @@ struct IWindow
 {
 	struct Props
 	{
-		const char *asTitle{""};
+		Props(const char *asTitle, int anWidth, int anHeight, bool abFullScreen)
+			: msTitle(asTitle), mnWidth(anWidth), mnHeight(anHeight), mbFullScreen(abFullScreen){}
+		
+		const char *msTitle{""};
 
 		int mnPosX{-1};
 		int mnPosY{-1};
