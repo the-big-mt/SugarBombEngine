@@ -26,6 +26,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 //*****************************************************************************
 
 #include "SbRenderSystem.hpp"
+#include "SbRenderWorld.hpp"
+
 
 //*****************************************************************************
 
