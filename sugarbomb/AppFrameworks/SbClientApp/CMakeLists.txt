@@ -22,6 +22,12 @@ list(APPEND PROJECT_SOURCES ${PROJECT_SOURCES_PLATFORM})
 
 add_library(${PROJECT_NAME} STATIC ${PROJECT_SOURCES})
 
+if(SBE_USE_SDL)
+	target_include_directories(${PROJECT_NAME}
+		PRIVATE ${SBE_SDL_PATH}/include
+	)
+endif()
+
 target_include_directories(${PROJECT_NAME}
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
 )
