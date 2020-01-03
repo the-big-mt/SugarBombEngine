@@ -27,6 +27,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include <string>
+
 #include "AppFrameworks/SbApplication/SbApplication.hpp"
 
 //*****************************************************************************
