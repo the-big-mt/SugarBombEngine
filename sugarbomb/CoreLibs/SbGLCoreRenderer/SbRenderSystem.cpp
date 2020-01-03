@@ -36,10 +36,12 @@ namespace sbe::SbRenderer
 
 void SbRenderSystem::Init()
 {
+	InitOpenGL();
 };
 
 void SbRenderSystem::Shutdown()
 {
+	ShutdownOpenGL();
 };
 
 IRenderWorld *SbRenderSystem::AllocWorld()
@@ -56,6 +58,14 @@ void SbRenderSystem::FreeWorld(IRenderWorld *apWorld)
 	};
 };
 
+void SbRenderSystem::InitOpenGL()
+{
+	//GLimp_Init(); // TODO
+};
+
+void SbRenderSystem::ShutdownOpenGL()
+{
+	//GLimp_Shutdown(); // TODO
 };
 
 void SbRenderSystem::BeginLevelLoad()

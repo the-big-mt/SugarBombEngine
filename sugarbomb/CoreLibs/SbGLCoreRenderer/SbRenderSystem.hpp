@@ -41,6 +41,9 @@ public:
 	
 	void BeginLevelLoad() override;
 	void EndLevelLoad() override;
+private:
+	void InitOpenGL();
+	void ShutdownOpenGL();
 };
 
 }; // namespace sbe::SbRenderer
