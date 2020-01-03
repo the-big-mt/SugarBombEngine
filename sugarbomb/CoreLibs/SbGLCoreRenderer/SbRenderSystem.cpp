@@ -40,6 +40,7 @@ void SbRenderSystem::Init()
 
 void SbRenderSystem::Shutdown()
 {
+};
 
 IRenderWorld *SbRenderSystem::AllocWorld()
 {
