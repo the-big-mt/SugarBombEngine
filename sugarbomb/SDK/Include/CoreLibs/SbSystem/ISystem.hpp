@@ -57,6 +57,9 @@ struct ISystem
 	virtual void Printf(const char *asMsg, ...) = 0;
 	
 	///
+	virtual void Warning(const char *asMsg, ...) = 0;
+	
+	///
 	virtual void FatalError(const char *asMsg, ...) = 0;
 };
 
