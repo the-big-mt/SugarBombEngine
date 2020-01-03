@@ -24,9 +24,13 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 /// @file
 /// @brief game server - a type of server which treat net clients/connections as players
 
+//*****************************************************************************
+
 #pragma once
 
 #include <vector>
+
+//*****************************************************************************
 
 namespace sbe::SbGameFramework
 {
