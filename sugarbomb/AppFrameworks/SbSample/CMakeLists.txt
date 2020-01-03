@@ -29,3 +29,11 @@ endif()
 if(SBE_INPUT_HARD_LINKED)
 	target_link_libraries(${PROJECT_NAME} SBE-input)
 endif()
+
+if(SBE_USE_SDL)
+	target_link_directories(${PROJECT_NAME}
+		PRIVATE ${SBE_SDL_PATH}/lib
+	)
+	
+	target_link_libraries(${PROJECT_NAME} SDL2)
+endif()
