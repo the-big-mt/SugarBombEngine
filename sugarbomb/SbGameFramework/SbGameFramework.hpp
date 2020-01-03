@@ -39,6 +39,8 @@ namespace sbe
 struct ISystem;
 struct IGame;
 struct INetworkSystem;
+struct IRenderSystem;
+struct ISoundSystem;
 
 namespace SbGameFramework
 {
@@ -46,7 +48,7 @@ namespace SbGameFramework
 class SbGameFramework : public IGameFramework
 {
 public:
-	SbGameFramework(INetworkSystem &aNetworkSystem, IGame &aGame, ISystem &aSystem);
+	SbGameFramework(IRenderSystem *apRenderSystem, ISoundSystem *apSoundSystem, INetworkSystem &aNetworkSystem, IGame &aGame, ISystem &aSystem);
 	
 	void Init() override;
 	void Shutdown() override;
@@ -61,6 +63,10 @@ private:
 	
 	IGame &mGame;
 	INetworkSystem &mNetworkSystem;
+	
+	IRenderSystem *mpRenderSystem{nullptr};
+	ISoundSystem *mpSoundSystem{nullptr};
+	
 };
 
 };}; // namespace sbe::SbGameFramework

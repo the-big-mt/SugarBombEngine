@@ -33,6 +33,10 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbNetwork/INetworkSystem.hpp"
 
+#include "CoreLibs/SbRenderer/IRenderSystem.hpp"
+
+#include "CoreLibs/SbSound/ISoundSystem.hpp"
+
 //*****************************************************************************
 
 namespace sbe
@@ -50,8 +54,8 @@ struct gameReturn_t
 namespace sbe::SbGameFramework
 {
 
-SbGameFramework::SbGameFramework(INetworkSystem &aNetworkSystem, IGame &aGame, ISystem &aSystem)
-	: mNetworkSystem(aNetworkSystem), mGame(aGame), mSystem(aSystem){}
+SbGameFramework::SbGameFramework(IRenderSystem *apRenderSystem, ISoundSystem *apSoundSystem, INetworkSystem &aNetworkSystem, IGame &aGame, ISystem &aSystem)
+	: mpRenderSystem(apRenderSystem), mpSoundSystem(apSoundSystem), mNetworkSystem(aNetworkSystem), mGame(aGame), mSystem(aSystem){}
 
 void SbGameFramework::Init()
 {
