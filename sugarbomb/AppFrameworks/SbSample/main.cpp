@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -82,7 +82,13 @@ int main(int argc, char **argv)
 	sbe::ISystem *pSystem = CreateSystem();
 	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(*pSystem);
 	sbe::IInputSystem *pInputSystem = CreateInputSystem(*pSystem);
-	SbClientApp App(pRenderSystem, pInputSystem, pSystem, argc, argv);
+	
+	const char *sWindowTitle{"SugarBombEngine Sample App"};
+	int nWindowWidth{1280};
+	int nWindowHeight{600};
+	bool bWindowFullScreen{false};
+	
+	SbClientApp App(sWindowTitle, nWindowWidth, nWindowHeight, bWindowFullScreen, pRenderSystem, pInputSystem, pSystem, argc, argv);
 	App.Run();
 	return EXIT_SUCCESS;
 };
