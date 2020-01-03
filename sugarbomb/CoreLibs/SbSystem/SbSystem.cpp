@@ -60,7 +60,7 @@ void SbSystem::Printf(const char *asMsg, ...)
 	printf(sFmtMsg);
 };
 
-void SbSystem::FatalError(const char *asMsg)
+void SbSystem::FatalError(const char *asMsg, ...)
 {
 	Shutdown();
 	exit(EXIT_FAILURE);

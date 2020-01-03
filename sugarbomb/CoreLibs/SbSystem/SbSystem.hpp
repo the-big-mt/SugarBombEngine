@@ -46,7 +46,7 @@ public:
 	
 	void Printf(const char *asMsg, ...) override;
 	
-	void FatalError(const char *asMsg) override;
+	void FatalError(const char *asMsg, ...) override;
 };
 
 }; // sbe::SbSystem
