@@ -65,9 +65,10 @@ C_EXPORT sbe::gameFrameworkExport_t *GetGameFrameworkAPI(sbe::gameFrameworkImpor
 {
 	if(apModuleImports->version == sbe::GAMEFRAMEWORK_API_VERSION)
 	{
+		static sbe::ISystem &System = *apModuleImports->sys;
 		static sbe::IGame *pGame = CreateGame(*apModuleImports->sys);
 		static sbe::INetworkSystem *pNetworkSystem = CreateNetworkSystem(*apModuleImports->sys);
-		static sbe::SbGameFramework::SbGameFramework GameFramework(*pNetworkSystem, *pGame, *apModuleImports->sys);
+		static sbe::SbGameFramework::SbGameFramework GameFramework(apModuleImports->renderSystem, apModuleImports->soundSystem, *pNetworkSystem, *pGame, System);
 		
 		static sbe::gameFrameworkExport_t ModuleExports;
 		
