@@ -73,7 +73,3 @@ void SbApplication::Init()
 	
 	mbInitialized = true;
 };
-
-void SbApplication::RunFrame()
-{
-};
