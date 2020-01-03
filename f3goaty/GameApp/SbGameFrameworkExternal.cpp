@@ -35,9 +35,9 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
-SbGameFrameworkExternal::SbGameFrameworkExternal(ISystem &aSystem) : mSystem(aSystem)
+SbGameFrameworkExternal::SbGameFrameworkExternal(ISystem &aSystem, IRenderSystem *apRenderSystem, ISoundSystem *apSoundSystem) : mSystem(aSystem)
 {
-	LoadModule();
+	LoadModule(apRenderSystem, apSoundSystem);
 };
 
 SbGameFrameworkExternal::~SbGameFrameworkExternal()
@@ -45,7 +45,7 @@ SbGameFrameworkExternal::~SbGameFrameworkExternal()
 	UnloadModule();
 };
 
-void SbGameFrameworkExternal::LoadModule()
+void SbGameFrameworkExternal::LoadModule(IRenderSystem *apRenderSystem, ISoundSystem *apSoundSystem)
 {
 	mnFrameworkLib = mSystem.LoadLib("SbGameFramework");
 	
@@ -60,6 +60,8 @@ void SbGameFrameworkExternal::LoadModule()
 	gameFrameworkImport_t ModuleImports{};
 	ModuleImports.version = GAMEFRAMEWORK_API_VERSION;
 	ModuleImports.sys = std::addressof(mSystem);
+	ModuleImports.renderSystem = apRenderSystem;
+	ModuleImports.soundSystem = apSoundSystem;
 	auto ModuleExports{pfnGetGameFrameworkAPI(&ModuleImports)};
 	
 	if(!ModuleExports)

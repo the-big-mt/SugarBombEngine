@@ -84,10 +84,10 @@ sbe::ISoundSystem *CreateSoundSystem(sbe::ISystem &aSystem)
 #endif
 };
 
-sbe::IGameFramework *CreateGameFramework(sbe::ISystem &aSystem)
+sbe::IGameFramework *CreateGameFramework(sbe::ISystem &aSystem, sbe::IRenderSystem *apRenderSystem, sbe::ISoundSystem *apSoundSystem)
 {
 #ifndef SBE_SINGLE_BINARY
-	static sbe::SbGameFrameworkExternal SbGameFrameworkModule(aSystem);
+	static sbe::SbGameFrameworkExternal SbGameFrameworkModule(aSystem, apRenderSystem, apSoundSystem);
 	return SbGameFrameworkModule.GetGameFramework();
 #else
 	return new sbe::SbGameFramework::SbGameFramework();
@@ -97,10 +97,11 @@ sbe::IGameFramework *CreateGameFramework(sbe::ISystem &aSystem)
 int main(int argc, char **argv)
 {
 	sbe::ISystem *pSystem = CreateSystem();
-	sbe::IGameFramework *pGameFramework = CreateGameFramework(*pSystem);
 	sbe::ISoundSystem *pSoundSystem = CreateSoundSystem(*pSystem);
 	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(*pSystem);
 	sbe::IInputSystem *pInputSystem = CreateInputSystem(*pSystem);
+	sbe::IGameFramework *pGameFramework = CreateGameFramework(*pSystem, pRenderSystem, pSoundSystem);
+	
 	dictionary *pDict = iniparser_load("FalloutPrefs.ini"); // Fallout_default
 	
 	const char *sWindowTitle{"F3GOATY"};

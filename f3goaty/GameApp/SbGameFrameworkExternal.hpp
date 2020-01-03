@@ -30,16 +30,18 @@ namespace sbe
 
 struct ISystem;
 struct IGameFramework;
+struct IRenderSystem;
+struct ISoundSystem;
 
 class SbGameFrameworkExternal final
 {
 public:
-	SbGameFrameworkExternal(ISystem &aSystem);
+	SbGameFrameworkExternal(ISystem &aSystem, IRenderSystem *apRenderSystem, ISoundSystem *apSoundSystem);
 	~SbGameFrameworkExternal();
 	
 	IGameFramework *GetGameFramework() const {return mpFramework;}
 private:
-	void LoadModule();
+	void LoadModule(IRenderSystem *apRenderSystem, ISoundSystem *apSoundSystem);
 	void UnloadModule();
 	
 	ISystem &mSystem;
