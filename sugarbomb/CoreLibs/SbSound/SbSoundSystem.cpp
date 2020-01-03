@@ -62,6 +62,16 @@ void SbSoundSystem::Shutdown()
 	mHardware.Shutdown();
 };
 
+/*
+========================
+idSoundSystemLocal::Render
+========================
+*/
+void SbSoundSystem::Update(float afTimeStep)
+{
+	mHardware.Update();
+};
+
 ISoundWorld *SbSoundSystem::AllocWorld()
 {
 	return new SbSoundWorld();

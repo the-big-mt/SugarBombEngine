@@ -49,6 +49,8 @@ public:
 	void Init(bool abUseCompression, int anMaxSamples) override;
 	void Shutdown() override;
 	
+	void Update(float afTimeStep) override;
+	
 	ISoundWorld *AllocWorld() override;
 	void FreeWorld(ISoundWorld *apWorld) override;
 	
