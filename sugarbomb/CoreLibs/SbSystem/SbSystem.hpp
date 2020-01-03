@@ -46,6 +46,8 @@ public:
 	
 	void Printf(const char *asMsg, ...) override;
 	
+	void Warning(const char *asMsg, ...) override;
+	
 	void FatalError(const char *asMsg, ...) override;
 };
 

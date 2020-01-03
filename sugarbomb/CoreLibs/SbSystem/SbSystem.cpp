@@ -60,6 +60,11 @@ void SbSystem::Printf(const char *asMsg, ...)
 	printf(sFmtMsg);
 };
 
+void SbSystem::Warning(const char *asMsg, ...)
+{
+	// TODO
+};
+
 void SbSystem::FatalError(const char *asMsg, ...)
 {
 	Shutdown();
