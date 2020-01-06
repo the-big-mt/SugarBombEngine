@@ -80,13 +80,13 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "CompanyName", "id Software LLC, a ZeniMax Media company"
-            VALUE "FileDescription", "DOOM 3: BFG Edition"
+            VALUE "CompanyName", "SugarBombEngine developers"
+            VALUE "FileDescription", "F3: BFG Edition"
             VALUE "FileVersion", "1.0.0.1"
-            VALUE "InternalName", "Doom3BFG"
-            VALUE "LegalCopyright", "© 1993-2012 id Software LLC, a ZeniMax Media company"
+            VALUE "InternalName", "F3GOATY"
+            VALUE "LegalCopyright", "© 2018-2020 SugarBombEngine developers"
             VALUE "OriginalFilename", "Doom3BFG"
-            VALUE "ProductName", "DOOM® 3: BFG Edition™"
+            VALUE "ProductName", "F3: BFG Edition"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
