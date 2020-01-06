@@ -14,6 +14,12 @@ target_sources(${PROJECT_NAME}
 	PRIVATE ${PROJECT_SOURCES}
 )
 
+if(WIN32)
+	target_sources(${PROJECT_NAME}
+		PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/rc/doom.rc #TODO: app.rc
+	)
+endif()
+
 target_link_libraries(${PROJECT_NAME} SBE-clientapp SBE-application SBE-external-iniparser)
 
 if(NOT SBE_SINGLE_BINARY)
