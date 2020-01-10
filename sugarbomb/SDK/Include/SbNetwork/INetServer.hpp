@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -33,11 +33,11 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
-struct INetConn;
+struct INetPeer;
 
 struct INetServer
 {
-	INetConn *GetClient(uint32_t anIndex) const = 0;
+	virtual INetPeer *GetClient(uint32_t anIndex) const = 0;
 };
 
 }; // namespace sbe
