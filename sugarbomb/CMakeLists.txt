@@ -49,4 +49,6 @@ add_subdirectory(CoreLibs)
 
 add_subdirectory(SbNetwork)
 
+add_subdirectory(SbPhysics)
+
 add_subdirectory(SbGameFramework)
