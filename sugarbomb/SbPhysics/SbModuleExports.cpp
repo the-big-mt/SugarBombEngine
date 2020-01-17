@@ -47,7 +47,7 @@ C_EXPORT sbe::physicsExport_t *GetPhysicsAPI(sbe::physicsImport_t *apModuleImpor
 	if(apModuleImports->version == sbe::PHYSICS_API_VERSION)
 	{
 		static sbe::ISystem &System = *apModuleImports->sys;
-		static sbe::SbPhysics::SbPhysicsSystem PhysicsSystem(System);
+		static sbe::SbPhysics::SbPhysicsSystemBullet PhysicsSystem(System);
 		
 		static sbe::physicsExport_t ModuleExports;
 		
