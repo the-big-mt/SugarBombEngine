@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -37,6 +37,7 @@ struct ISystem;
 class SbApplication
 {
 public:
+	static int Main(int argc, char **argv);
 	SbApplication(sbe::ISystem *apSystem, int argc, char **argv);
 	virtual ~SbApplication();
 	
