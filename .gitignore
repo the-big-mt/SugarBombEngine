@@ -1,0 +1,13 @@
+*.depend
+*.layout
+*.a
+*.def
+*.exe
+*.dll
+*.workspace
+obj
+.objs
+
+merge
+*.tmp
+pages
