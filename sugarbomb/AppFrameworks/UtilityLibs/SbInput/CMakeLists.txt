@@ -26,6 +26,10 @@ endif()
 
 add_library(${PROJECT_NAME} ${LIB_TYPE} ${PROJECT_SOURCES})
 
+if(WIN32)
+	target_link_libraries(${PROJECT_NAME} XInput1_3)
+endif()
+
 if(NOT SBE_SINGLE_BINARY)
 	set_target_properties(${PROJECT_NAME} PROPERTIES
 		OUTPUT_NAME "SbInput"
