@@ -29,7 +29,11 @@ target_sources(${PROJECT_NAME}
 	PRIVATE ${PROJECT_SOURCES_PLATFORM}
 )
 
+if(WIN32)
 if(NOT SBE_SINGLE_BINARY)
+	target_link_libraries(${PROJECT_NAME} ws2_32) # Link against the Windows sockets 2.0 library
+endif()
+
 	set_target_properties(${PROJECT_NAME} PROPERTIES
 		OUTPUT_NAME "SbNetwork"
 	)
