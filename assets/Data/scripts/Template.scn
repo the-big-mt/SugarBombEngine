@@ -1,0 +1,28 @@
+scn TemplateScript
+; scn = ScriptName
+
+; This is a template script
+Begin
+	set Something.FromSomewhere to 1
+	set ICantSupportIncrement to 1
+	set Something.FromSomewhere to Something.FromSomewhere + ICantSupportIncrement
+End
+
+begin onActivate
+	if playerSleep > 0
+		player.DoSomething
+		DamageObject 1
+	endif
+end
+
+short active
+
+; GenericActivateOnLoad
+begin onLoad
+	set active to active + 1
+	if active > 1
+		disable
+		markfordelete
+	endif
+	activate
+end
