@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -57,12 +57,12 @@ void SbNetworkWin::Init()
 	int r = WSAStartup( MAKEWORD( 1, 1 ), &winsockdata );
 	if( r )
 	{
-		idLib::Printf( "WARNING: Winsock initialization failed, returned %d\n", r ); // TODO
+		mSystem.Printf( "WARNING: Winsock initialization failed, returned %d\n", r );
 		return;
 	};
 	
 	winsockInitialized = true;
-	idLib::Printf( "Winsock Initialized\n" ); // TODO
+	mSystem.Printf( "Winsock Initialized\n" );
 	
 	PIP_ADAPTER_INFO pAdapterInfo;
 	PIP_ADAPTER_INFO pAdapter = nullptr;
@@ -76,7 +76,7 @@ void SbNetworkWin::Init()
 	pAdapterInfo = ( IP_ADAPTER_INFO* )malloc( sizeof( IP_ADAPTER_INFO ) );
 	if( !pAdapterInfo )
 	{
-		idLib::FatalError( "Sys_InitNetworking: Couldn't malloc( %d )", sizeof( IP_ADAPTER_INFO ) ); // TODO
+		mSystem.FatalError( "Sys_InitNetworking: Couldn't malloc( %d )", sizeof( IP_ADAPTER_INFO ) );
 	}
 	ulOutBufLen = sizeof( IP_ADAPTER_INFO );
 	
@@ -88,21 +88,21 @@ void SbNetworkWin::Init()
 		pAdapterInfo = ( IP_ADAPTER_INFO* )malloc( ulOutBufLen );
 		if( !pAdapterInfo )
 		{
-			idLib::FatalError( "Sys_InitNetworking: Couldn't malloc( %ld )", ulOutBufLen ); // TODO
+			mSystem.FatalError( "Sys_InitNetworking: Couldn't malloc( %ld )", ulOutBufLen );
 		}
 	}
 	
 	if( ( dwRetVal = GetAdaptersInfo( pAdapterInfo, &ulOutBufLen ) ) != NO_ERROR )
 	{
 		// happens if you have no network connection
-		idLib::Printf( "Sys_InitNetworking: GetAdaptersInfo failed (%ld).\n", dwRetVal ); // TODO
+		mSystem.Printf( "Sys_InitNetworking: GetAdaptersInfo failed (%ld).\n", dwRetVal );
 	}
 	else
 	{
 		pAdapter = pAdapterInfo;
 		while( pAdapter )
 		{
-			idLib::Printf( "Found interface: %s %s - ", pAdapter->AdapterName, pAdapter->Description ); // TODO
+			mSystem.Printf( "Found interface: %s %s - ", pAdapter->AdapterName, pAdapter->Description );
 			pIPAddrString = &pAdapter->IpAddressList;
 			while( pIPAddrString )
 			{
@@ -116,18 +116,18 @@ void SbNetworkWin::Init()
 				//skip null netmasks
 				if( !ip_m )
 				{
-					idLib::Printf( "%s nullptr netmask - skipped\n", pIPAddrString->IpAddress.String ); // TODO
+					mSystem.Printf( "%s nullptr netmask - skipped\n", pIPAddrString->IpAddress.String );
 					pIPAddrString = pIPAddrString->Next;
 					continue;
 				}
-				idLib::Printf( "%s/%s\n", pIPAddrString->IpAddress.String, pIPAddrString->IpMask.String ); // TODO
+				mSystem.Printf( "%s/%s\n", pIPAddrString->IpAddress.String, pIPAddrString->IpMask.String );
 				netint[num_interfaces].ip = ip_a;
 				netint[num_interfaces].mask = ip_m;
 				idStr::Copynz( netint[num_interfaces].addr, pIPAddrString->IpAddress.String, sizeof( netint[num_interfaces].addr ) );
 				num_interfaces++;
 				if( num_interfaces >= MAX_INTERFACES )
 				{
-					idLib::Printf( "Sys_InitNetworking: MAX_INTERFACES(%d) hit.\n", MAX_INTERFACES ); // TODO
+					mSystem.Printf( "Sys_InitNetworking: MAX_INTERFACES(%d) hit.\n", MAX_INTERFACES );
 					free( pAdapterInfo );
 					return;
 				}
