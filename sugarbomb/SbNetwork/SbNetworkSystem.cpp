@@ -24,16 +24,21 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 /// @file
 
 #include "SbNetworkSystem.hpp"
+#include "SbNetworkImpl.hpp"
 
 namespace sbe::SbNetwork
 {
 
+SbNetworkSystem::SbNetworkSystem(SbNetworkImpl &aImpl) : mImpl(aImpl){}
+
 void SbNetworkSystem::Init()
 {
+	mImpl.Init();
 };
 
 void SbNetworkSystem::Shutdown()
 {
+	mImpl.Shutdown();
 };
 
 }; // sbe::SbNetwork

@@ -30,11 +30,17 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe::SbNetwork
 {
 
+struct SbNetworkImpl;
+
 class SbNetworkSystem : public INetworkSystem
 {
 public:
+	SbNetworkSystem(SbNetworkImpl &aImpl);
+	
 	void Init() override;
 	void Shutdown() override;
+private:
+	SbNetworkImpl &mImpl;
 };
 
 }; // sbe::SbNetwork
