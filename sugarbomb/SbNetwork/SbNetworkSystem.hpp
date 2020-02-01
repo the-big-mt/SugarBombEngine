@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -27,7 +27,12 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbNetwork/INetworkSystem.hpp"
 
-namespace sbe::SbNetwork
+namespace sbe
+{
+
+struct ISystem;
+
+namespace SbNetwork
 {
 
 struct SbNetworkImpl;
@@ -43,4 +48,4 @@ private:
 	SbNetworkImpl &mImpl;
 };
 
-}; // sbe::SbNetwork
+};}; // sbe::SbNetwork
