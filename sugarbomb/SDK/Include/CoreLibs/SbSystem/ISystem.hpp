@@ -32,6 +32,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
+struct SbSystemDesc;
+
 struct ISystem
 {
 	///
@@ -61,6 +63,9 @@ struct ISystem
 	
 	///
 	virtual void FatalError(const char *asMsg, ...) = 0;
+	
+	///
+	virtual const SbSystemDesc &GetDesc() const = 0;
 };
 
 }; // namespace sbe
