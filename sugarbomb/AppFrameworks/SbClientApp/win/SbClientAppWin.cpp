@@ -23,9 +23,13 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
 
 #include "SbWindowWin.hpp"
+
+//*****************************************************************************
 
 sbe::IWindow *SbClientApp::CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen)
 {
