@@ -52,6 +52,8 @@ struct IWindow
 		bool mbFullScreen{false};
 		bool mbBorder{false};
 	};
+	
+	virtual const Props &GetProps() const = 0;
 };
 
 }; // namespace sbe
