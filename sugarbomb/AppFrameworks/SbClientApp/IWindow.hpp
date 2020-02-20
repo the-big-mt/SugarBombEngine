@@ -39,6 +39,7 @@ struct IWindow
 		Props(const char *asTitle, int anPosX, int anPosY, int anWidth, int anHeight, bool abFullScreen, bool abBorder)
 			: msTitle(asTitle), mnPosX(anPosX), mnPosY(anPosY), mnWidth(anWidth), mnHeight(anHeight), mbFullScreen(abFullScreen), mbBorder(abBorder){}
 		
+		void *mpHandle{nullptr};
 		
 		const char *msTitle{""};
 
