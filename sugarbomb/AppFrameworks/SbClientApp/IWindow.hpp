@@ -36,8 +36,9 @@ struct IWindow
 {
 	struct Props
 	{
-		Props(const char *asTitle, int anWidth, int anHeight, bool abFullScreen)
-			: msTitle(asTitle), mnWidth(anWidth), mnHeight(anHeight), mbFullScreen(abFullScreen){}
+		Props(const char *asTitle, int anPosX, int anPosY, int anWidth, int anHeight, bool abFullScreen, bool abBorder)
+			: msTitle(asTitle), mnPosX(anPosX), mnPosY(anPosY), mnWidth(anWidth), mnHeight(anHeight), mbFullScreen(abFullScreen), mbBorder(abBorder){}
+		
 		
 		const char *msTitle{""};
 
