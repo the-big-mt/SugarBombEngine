@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -364,7 +365,7 @@ void idWeapon::Save( idSaveGame* savefile ) const
 	savefile->WriteString( meleeDefName );
 	savefile->WriteInt( brassDelay );
 	savefile->WriteString( icon );
-	savefile->WriteString( pdaIcon );
+	savefile->WriteString( pipBoyIcon );
 	savefile->WriteString( displayName );
 	savefile->WriteString( itemDesc );
 	

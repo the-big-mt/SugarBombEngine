@@ -269,7 +269,7 @@ public:
 	// GUIs
 	const char* 			Icon() const;
 	void					UpdateGUI();
-	const char* 			PdaIcon() const;
+	const char* 			PipBoyIcon() const;
 	const char* 			DisplayName() const;
 	const char* 			Description() const;
 	
@@ -453,7 +453,7 @@ private:
 	idDict					brassDict;
 	int						brassDelay;
 	idStr					icon;
-	idStr					pdaIcon;
+	idStr					pipBoyIcon;
 	idStr					displayName;
 	idStr					itemDesc;
 	
