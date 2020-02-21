@@ -26,6 +26,9 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+/// @file
+
+#pragma once
 
 #include "Entity.h"
 #include "gamesys/Class.h"
