@@ -15,17 +15,12 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
+find_package(SDL2)
 
 set(SBE_LIBS_PATH
 	${CMAKE_SOURCE_DIR}/../SBE-libs
 	CACHE PATH
 	"Path to engine dependencies"
-)
-
-set(SBE_SDL_PATH
-	${CMAKE_SOURCE_DIR}/../SDL2
-	CACHE PATH
-	"Path to SDL2"
 )
 
 include_directories(
