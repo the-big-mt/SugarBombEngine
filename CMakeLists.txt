@@ -41,6 +41,11 @@ if(MINGW)
 	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/mingw-hacks)
 endif()
 
+configure_file(
+	SbVersion.hpp.in
+	${CMAKE_CURRENT_SOURCE_DIR}/sugarbomb/SDK/Include/CoreLibs/SbSystem/SbVersion.hpp
+)
+
 add_subdirectory(libs)
 
 add_subdirectory(sugarbomb)
