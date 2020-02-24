@@ -15,6 +15,8 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
+find_package(ImGui)
+find_package(GLEW)
 find_package(SDL2)
 
 set(SBE_LIBS_PATH
