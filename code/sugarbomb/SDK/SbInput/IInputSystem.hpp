@@ -76,34 +76,6 @@ void			Sys_EndJoystickInputEvents();
 // when in windowed mode
 void			Sys_GrabMouseCursor( bool grabIt );
 
-/*
-================================================
-idJoystick is managed by each platform's local Sys implementation, and
-provides full *Joy Pad* support (the most common device, these days).
-================================================
-*/
-struct idJoystick
-{
-	virtual			~idJoystick() { }
-	
-	virtual bool	Init()
-	{
-		return false;
-	}
-	virtual void	Shutdown() { }
-	virtual void	Deactivate() { }
-	virtual void	SetRumble( int deviceNum, int rumbleLow, int rumbleHigh ) { }
-	virtual int		PollInputEvents( int inputDeviceNum )
-	{
-		return 0;
-	}
-	virtual int		ReturnInputEvent( const int n, int& action, int& value )
-	{
-		return 0;
-	}
-	virtual void	EndInputEvents() { }
-};
-
 struct IInputSystem
 {
 	///
