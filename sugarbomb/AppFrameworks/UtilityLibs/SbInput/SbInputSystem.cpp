@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -26,18 +26,36 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 //*****************************************************************************
 
 #include "SbInputSystem.hpp"
+#include "SbInputImpl.hpp"
+
+#include "CoreLibs/SbSystem/ISystem.hpp"
 
 //*****************************************************************************
 
 namespace sbe::SbInput
 {
 
-void SbInputSystem::Init()
+SbInputSystem::SbInputSystem(ISystem &aSystem, SbInputImpl &aImpl) : mSystem(aSystem), mImpl(aImpl){}
+
+void SbInputSystem::Init(const IWindow &aOwnerWindow)
 {
+	mSystem.Printf("Input System Initialization\n");
+	
+	mImpl.Init(aOwnerWindow);
+	
+	AttachToWindow(aOwnerWindow);
+	
+	mSystem.Printf("Input System Initialized\n");
 };
 
 void SbInputSystem::Shutdown()
 {
+	mSystem.Printf("Input System Shutdown\n");
+};
+
+void SbInputSystem::Update()
+{
+	mImpl.Update();
 };
 
 }; // namespace sbe::SbInput
