@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -45,7 +45,7 @@ class SbClientApp : public SbApplication
 {
 public:
 	SbClientApp(const char *asWindowTitle, int anWindowWidth, int anWindowHeight, bool abWindowFullScreen,
-	sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem, sbe::ISystem *apSystem, int argc, char **argv);
+	IRenderSystem &aRenderSystem, IInputSystem &aInputSystem, ISystem &aSystem, int argc, char **argv);
 	virtual ~SbClientApp();
 private:
 	IWindow *CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen); // TODO: make title use wide string
@@ -53,8 +53,9 @@ private:
 	bool PreFrame() override;
 private:
 	sbe::IWindow *mpWindow{nullptr};
-	sbe::IRenderSystem *mpRenderSystem{nullptr};
-	sbe::IInputSystem *mpInputSystem{nullptr};
+
+	IRenderSystem &mRenderSystem;
+	IInputSystem &mInputSystem;
 };
 
 }; // namespace sbe
