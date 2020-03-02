@@ -35,11 +35,11 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 namespace sbe
 {
+
 struct ISystem;
 struct IRenderSystem;
 struct IInputSystem;
 struct IWindow;
-};
 
 class SbClientApp : public SbApplication
 {
@@ -48,11 +48,13 @@ public:
 	sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem, sbe::ISystem *apSystem, int argc, char **argv);
 	virtual ~SbClientApp();
 private:
-	sbe::IWindow *CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen); // TODO: make title use wide string
-	
+	IWindow *CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen); // TODO: make title use wide string
+
 	bool PreFrame() override;
 private:
 	sbe::IWindow *mpWindow{nullptr};
 	sbe::IRenderSystem *mpRenderSystem{nullptr};
 	sbe::IInputSystem *mpInputSystem{nullptr};
 };
+
+}; // namespace sbe
