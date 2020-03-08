@@ -36,12 +36,12 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 #pragma hdrstop
-#include "precompiled.h"
-//#include "../idlib/math/VecX.h"
 
+#include "precompiled.h"
 //#include <cstdint>
 
-//#include "../idlib/Str.h"
+#include "idlib/math/VecX.h"
+//#include "idlib/Str.h"
 
 //namespace BFG
 //{

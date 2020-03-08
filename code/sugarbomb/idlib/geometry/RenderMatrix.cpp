@@ -35,6 +35,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+
+#include "idlib/geometry/RenderMatrix.h"
 #include "idlib/ParallelJobList_JobHeaders.h"
 #include "idlib/math/Math.h"
 #include "idlib/math/Vector.h"
@@ -43,7 +45,6 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/math/Plane.h"
 #include "idlib/bv/Sphere.h"
 #include "idlib/bv/Bounds.h"
-#include "idlib/geometry/RenderMatrix.h"
 
 //namespace BFG
 //{

@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 //#include <cstddef>
 
-//#include "../framework/CmdSystem.h"  // for idCommandLink, etc
+//#include "framework/CmdSystem.h"  // for idCommandLink, etc
 
 //namespace BFG
 //{

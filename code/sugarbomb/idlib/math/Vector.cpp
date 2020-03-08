@@ -38,11 +38,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "precompiled.h"
 //#include <cmath>
 
-//#include "../idlib/Str.h"
-//#include "../idlib/math/Angles.h"
-//#include "../idlib/math/Math.h"
-//#include "../idlib/math/Matrix.h"
-//#include "../idlib/math/Vector.h"
+#include "idlib/math/Vector.h"
+//#include "idlib/Str.h"
+//#include "idlib/math/Angles.h"
+//#include "idlib/math/Math.h"
+//#include "idlib/math/Matrix.h"
 
 //namespace BFG
 //{

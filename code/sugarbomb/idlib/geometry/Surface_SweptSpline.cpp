@@ -35,10 +35,12 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 #pragma hdrstop
-#include "precompiled.h"
-/*
-#include "../idlib/geometry/Surface_SweptSpline.h"
 
+#include "precompiled.h"
+
+#include "idlib/geometry/Surface_SweptSpline.h"
+
+/*
 #include "../idlib/math/Curve.h"
 #include "../idlib/math/Math.h"
 #include "../idlib/math/Matrix.h"

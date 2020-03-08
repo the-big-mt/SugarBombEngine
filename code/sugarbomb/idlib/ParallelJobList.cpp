@@ -35,7 +35,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 #pragma hdrstop
 #include "precompiled.h"
-#include "ParallelJobList.h"
+
+#include "idlib/ParallelJobList.h"
 
 #include "framework/CVar.hpp"
 

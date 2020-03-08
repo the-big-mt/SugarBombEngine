@@ -35,10 +35,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 #pragma hdrstop
-#include "precompiled.h"
-/*
-#include "../idlib/geometry/Surface_Patch.h"
 
+#include "precompiled.h"
+
+#include "idlib/geometry/Surface_Patch.h"
+/*
 #include "../framework/Common.h"
 #include "../idlib/Lib.h"
 #include "../idlib/math/Math.h"

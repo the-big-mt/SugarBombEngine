@@ -35,15 +35,17 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 #pragma hdrstop
+
 #include "precompiled.h"
+
+#include "idlib/math/Quat.h"
 /*
-#include "../idlib/Str.h"
-#include "../idlib/math/Angles.h"
-#include "../idlib/math/Math.h"
-#include "../idlib/math/Matrix.h"
-#include "../idlib/math/Quat.h"
-#include "../idlib/math/Rotation.h"
-#include "../idlib/math/Vector.h"
+#include "idlib/Str.h"
+#include "idlib/math/Angles.h"
+#include "idlib/math/Math.h"
+#include "idlib/math/Matrix.h"
+#include "idlib/math/Rotation.h"
+#include "idlib/math/Vector.h"
 
 namespace BFG
 {

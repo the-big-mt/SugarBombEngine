@@ -35,15 +35,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 #pragma hdrstop
-#include "precompiled.h"
-//#include "../idlib/containers/HashIndex.h"
 
+#include "precompiled.h"
 //#include <cstdlib>
 //#include <cstring>
 
-//#include "../idlib/math/Math.h"
-//#include "Heap.h"
-//#include "sys/sys_assert.h"
+#include "idlib/containers/HashIndex.h"
+//#include "idlib/math/Math.h"
+//#include "idlib/Heap.h"
+//#include "idlib/sys/sys_assert.h"
 
 //namespace BFG
 //{

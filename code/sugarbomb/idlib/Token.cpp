@@ -31,9 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 //#include <cstddef>
 
-//#include "../idlib/Token.h"
-//#include "../idlib/math/Math.h"
-//#include "sys/sys_assert.h"
+#include "idlib/Token.h"
+//#include "idlib/math/Math.h"
+//#include "idlib/sys/sys_assert.h"
 
 //namespace BFG
 //{

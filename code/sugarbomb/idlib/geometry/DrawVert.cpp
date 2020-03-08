@@ -35,10 +35,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 #pragma hdrstop
-#include "precompiled.h"
-//#include "../idlib/geometry/DrawVert.h"
 
-//#include "../idlib/math/Vector.h"
+#include "precompiled.h"
+
+#include "idlib/geometry/DrawVert.h"
+//#include "idlib/math/Vector.h"
 
 //namespace BFG
 //{
