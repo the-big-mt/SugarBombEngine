@@ -28,7 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+//*****************************************************************************
+
 #pragma hdrstop
+
 #include "precompiled.h"
 
 //===============================================================
@@ -38,6 +41,8 @@ If you have questions concerning this license or the applicable additional terms
 //===============================================================
 #include <cstdlib>
 #undef new
+
+//*****************************************************************************
 
 /*
 ==================

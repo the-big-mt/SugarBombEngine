@@ -34,6 +34,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+//*****************************************************************************
+
 #pragma hdrstop
 
 #include "precompiled.h"
@@ -49,6 +51,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "geometry/DrawVert.h"
 #include "sys/sys_assert.h"
 */
+
+//*****************************************************************************
 
 //namespace BFG
 //{

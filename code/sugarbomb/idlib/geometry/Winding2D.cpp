@@ -34,11 +34,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+//*****************************************************************************
+
 #pragma hdrstop
+
 #include "precompiled.h"
 //#include <cstring>
 
 //#include "../framework/Common.h"
+
 //#include "../idlib/Lib.h"
 #include "idlib/geometry/Winding2D.h"
 /*
@@ -49,6 +53,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "containers/Sort.h"
 #include "sys/sys_assert.h"
 #include "sys/sys_types.h"
+
+//*****************************************************************************
 
 namespace BFG
 {

@@ -34,8 +34,12 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+//*****************************************************************************
+
 #include "precompiled.h"
+
 #pragma hdrstop
+
 //#include <cstdarg>
 //#include <cstdio>
 //#include <cstring>
@@ -53,6 +57,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include "../idlib/Token.h"
 //#include "sys/sys_assert.h"
 //#include "sys/sys_defines.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

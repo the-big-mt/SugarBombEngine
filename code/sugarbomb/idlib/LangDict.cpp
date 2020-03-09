@@ -25,10 +25,16 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+
+//*****************************************************************************
+
 #pragma hdrstop
+
 #include "precompiled.h"
 
 #include "framework/CVar.hpp"
+
+//*****************************************************************************
 
 // This is the default language dict that the entire system uses, but you can instantiate your own idLangDict classes to manipulate a language dictionary in a tool
 idLangDict	idLocalization::languageDict;

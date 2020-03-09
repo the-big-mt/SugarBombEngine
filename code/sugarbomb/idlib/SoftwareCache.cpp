@@ -27,6 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+//*****************************************************************************
+
 // RB: missing __analysis_assume
 #if defined(__MINGW32__)
 #include <sal.h>
@@ -40,6 +42,8 @@ If you have questions concerning this license or the applicable additional terms
 #else // POSIX for raise()
 #include <csignal>
 #endif
+
+//*****************************************************************************
 
 //namespace BFG
 //{

@@ -26,7 +26,10 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+//*****************************************************************************
+
 #include "precompiled.h"
+
 #pragma hdrstop
 
 #include "idlib/Timer.h"
@@ -38,6 +41,8 @@ If you have questions concerning this license or the applicable additional terms
 //#include "idlib/sys/sys_assert.h"
 
 //#include "CoreLibs/SbSystem/ISystem.hpp"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

@@ -25,11 +25,18 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+
+//*****************************************************************************
+
 #pragma hdrstop
+
 #include "precompiled.h"
+
 //#include <cstddef>
 
 //#include "framework/CmdSystem.h"  // for idCommandLink, etc
+
+//*****************************************************************************
 
 //namespace BFG
 //{

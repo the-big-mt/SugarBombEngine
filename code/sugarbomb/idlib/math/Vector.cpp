@@ -34,7 +34,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+//*****************************************************************************
+
 #pragma hdrstop
+
 #include "precompiled.h"
 //#include <cmath>
 
@@ -43,6 +46,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include "idlib/math/Angles.h"
 //#include "idlib/math/Math.h"
 //#include "idlib/math/Matrix.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

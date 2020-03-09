@@ -35,6 +35,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
+
+//*****************************************************************************
+
 #pragma hdrstop
 #include "../../precompiled.h"
 
@@ -49,6 +52,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifdef __FreeBSD__
 #include <pthread_np.h> // for pthread_set_name_np
 #endif
+
+//*****************************************************************************
 
 //namespace BFG
 //{

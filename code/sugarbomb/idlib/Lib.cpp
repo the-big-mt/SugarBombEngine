@@ -26,7 +26,10 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+//*****************************************************************************
+
 #include "precompiled.h"
+
 #pragma hdrstop
 
 //#if defined( MACOS_X )
@@ -52,6 +55,8 @@ If you have questions concerning this license or the applicable additional terms
 //#include "../idlib/sys/sys_assert.h"             // for assert
 //#include "../idlib/sys/sys_threading.h"          // for idSysThreadLocalStorage, etc
 //#include "../idlib/sys/sys_types.h"              // for byte, dword
+
+//*****************************************************************************
 
 //namespace BFG
 //{
