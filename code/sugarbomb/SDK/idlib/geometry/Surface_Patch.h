@@ -36,9 +36,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __SURFACE_PATCH_H__
 #define __SURFACE_PATCH_H__
+//*****************************************************************************
+
 
 //#include "../idlib/geometry/Surface.h"
 //#include "../framework/Common.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

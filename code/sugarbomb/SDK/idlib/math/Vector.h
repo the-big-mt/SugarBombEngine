@@ -36,6 +36,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __MATH_VECTOR_H__
 #define __MATH_VECTOR_H__
+//*****************************************************************************
+
 
 #include <cstring> // for memcpy
 
@@ -43,6 +45,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/math/Math.h"
 #include "idlib/sys/sys_defines.h"
 #include "idlib/sys/sys_assert.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

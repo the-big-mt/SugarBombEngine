@@ -36,10 +36,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __SURFACE_H__
 #define __SURFACE_H__
+//*****************************************************************************
+
 
 //#include "../idlib/containers/List.h"
 //#include "../idlib/geometry/DrawVert.h"
 //#include "../idlib/math/Plane.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

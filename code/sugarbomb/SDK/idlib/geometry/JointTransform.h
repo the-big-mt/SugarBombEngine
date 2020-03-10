@@ -36,12 +36,16 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __JOINTTRANSFORM_H__
 #define __JOINTTRANSFORM_H__
+//*****************************************************************************
+
 
 //#include "../idlib/math/Matrix.h"
 //#include "../idlib/math/Vector.h"
 //#include "../idlib/math/Quat.h"
 
 //#include "../idlib/containers/Queue.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

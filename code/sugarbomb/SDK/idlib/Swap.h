@@ -36,10 +36,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef __SWAP_H__
 #define __SWAP_H__
 
+//*****************************************************************************
+
+
 //#include "../idlib/bv/Bounds.h"         // for idBounds
 //#include "../idlib/math/Quat.h"         // for idQuat
 //#include "../idlib/geometry/DrawVert.h"          // for idDrawVert
 //#include "../idlib/math/Angles.h"       // for idAngles
+
+//*****************************************************************************
 
 //namespace BFG
 //{

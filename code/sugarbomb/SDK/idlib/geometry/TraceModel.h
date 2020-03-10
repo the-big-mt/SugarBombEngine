@@ -36,10 +36,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __TRACEMODEL_H__
 #define __TRACEMODEL_H__
+//*****************************************************************************
+
 
 //#include "../idlib/geometry/Winding.h"
 //#include "../idlib/math/Vector.h"
 //#include "../idlib/bv/Bounds.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

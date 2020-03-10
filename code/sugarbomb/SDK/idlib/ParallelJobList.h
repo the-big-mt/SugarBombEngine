@@ -35,6 +35,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 #ifndef __PARALLELJOBLIST_H__
 #define __PARALLELJOBLIST_H__
+//*****************************************************************************
+
 
 /*
 #include <cstdio>                      // for NULL
@@ -46,6 +48,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #undef AddJob
 #endif
 */
+
+//*****************************************************************************
 
 //namespace BFG
 //{

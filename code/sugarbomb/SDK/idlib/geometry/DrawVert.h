@@ -37,9 +37,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __DRAWVERT_H__
 #define __DRAWVERT_H__
+//*****************************************************************************
+
 
 //#include "../idlib/geometry/JointTransform.h"  // for idJointMat, etc
 //#include "../idlib/math/Vector.h"       // for idVec4, idVec3
+
+//*****************************************************************************
 
 //namespace BFG
 //{

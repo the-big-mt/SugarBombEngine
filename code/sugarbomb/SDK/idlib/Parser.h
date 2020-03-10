@@ -37,9 +37,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __PARSER_H__
 #define __PARSER_H__
+//*****************************************************************************
+
 
 //#include "../idlib/Token.h"
 //#include "../idlib/Lexer.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

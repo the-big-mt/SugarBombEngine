@@ -36,9 +36,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __STRLIST_H__
 #define __STRLIST_H__
+//*****************************************************************************
+
 
 //#include "../idlib/containers/List.h"
 //#include "../idlib/Str.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

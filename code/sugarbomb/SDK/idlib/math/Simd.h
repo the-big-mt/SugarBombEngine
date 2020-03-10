@@ -36,9 +36,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __MATH_SIMD_H__
 #define __MATH_SIMD_H__
+//*****************************************************************************
+
 
 //#include "sys/ISys.hpp"
 //#include "idlib/geometry/DrawVert.h"  // for idDrawVert
+
+//*****************************************************************************
 
 //namespace BFG
 //{

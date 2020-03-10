@@ -36,9 +36,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef __LANGDICT_H__
 #define __LANGDICT_H__
 
+//*****************************************************************************
+
+
 //#include "../idlib/containers/List.h"
 //#include "../idlib/containers/HashIndex.h"
 //#include "../idlib/Str.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

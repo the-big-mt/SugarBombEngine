@@ -36,6 +36,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __LIST_H__
 #define __LIST_H__
+//*****************************************************************************
+
 
 #include <new>
 
@@ -43,6 +45,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "idlib/sys/sys_assert.h"
 #include "idlib/containers/Sort.h"
 #include "idlib/Heap.h" // for memTag_t
+
+//*****************************************************************************
 
 //namespace BFG
 //{

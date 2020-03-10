@@ -36,10 +36,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __HASHTABLE_H__
 #define __HASHTABLE_H__
+//*****************************************************************************
+
+#pragma once
 
 //#include "../idlib/math/Math.h"
 //#include "../idlib/Str.h"
 //#include "../idlib/Heap.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

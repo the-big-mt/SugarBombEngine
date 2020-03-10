@@ -36,6 +36,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef SYS_TYPES_H
 #define SYS_TYPES_H
 
+//*****************************************************************************
+
+
 #include "sys_assert.h"
 #include "sys_defines.h"
 
@@ -43,6 +46,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#undef uint64
 //#endif
 
+//*****************************************************************************
 //namespace BFG
 //{
 

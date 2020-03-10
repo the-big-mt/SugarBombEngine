@@ -37,6 +37,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __DICT_H__
 #define __DICT_H__
+//*****************************************************************************
+
 
 //#include "../idlib/containers/StrPool.h"
 //#include "../idlib/math/Angles.h"
@@ -44,6 +46,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include "../idlib/math/Random.h"       // for idRandom
 //#include "../idlib/Str.h"
 //#include "../idlib/Parser.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

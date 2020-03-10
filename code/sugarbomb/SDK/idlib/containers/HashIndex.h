@@ -36,10 +36,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __HASHINDEX_H__
 #define __HASHINDEX_H__
+//*****************************************************************************
+
 
 //#include "../idlib/Heap.h"
 //#include "../idlib/Str.h"
 #include "idlib/math/Vector.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

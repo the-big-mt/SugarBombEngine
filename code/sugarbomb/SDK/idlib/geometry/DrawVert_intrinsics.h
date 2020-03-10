@@ -36,10 +36,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __DRAWVERT_INTRINSICS_H__
 #define __DRAWVERT_INTRINSICS_H__
+//*****************************************************************************
+
 
 //#include "../idlib/sys/sys_types.h"
 //#include "../idlib/math/Vector.h"       // for idVec3, idVec
 //#include "../idlib/geometry/DrawVert.h"  // for halfFloat_t
+
+//*****************************************************************************
 
 //namespace BFG
 //{

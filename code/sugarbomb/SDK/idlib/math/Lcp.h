@@ -36,6 +36,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef __MATH_LCP_H__
 #define __MATH_LCP_H__
 
+//*****************************************************************************
+
+
+//*****************************************************************************
+
 /*
 ================================================
 The *LCP* class, idLCP, is a Box-Constrained Mixed Linear Complementarity Problem solver.

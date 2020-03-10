@@ -37,10 +37,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef __RENDERMATRIX_H__
 #define __RENDERMATRIX_H__
 
+//*****************************************************************************
+
+
 //#include "../idlib/math/Vector.h"
 //#include "../idlib/math/Plane.h"
 //#include "../idlib/bv/Bounds.h"
 //#include "../idlib/bv/Box.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

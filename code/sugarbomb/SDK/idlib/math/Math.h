@@ -36,12 +36,16 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __MATH_MATH_H__
 #define __MATH_MATH_H__
+//*****************************************************************************
+
 
 #include <cmath>
 
 #include "idlib/sys/sys_types.h"
 #include "idlib/sys/sys_defines.h"
 #include "idlib/sys/sys_assert.h"
+
+//*****************************************************************************
 
 /*
 ===============================================================================

@@ -36,7 +36,12 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef __SYS_ASSERT_H__
 #define __SYS_ASSERT_H__
 
+//*****************************************************************************
+
+
 //#include <cstdint> // for uintptr_t
+
+//*****************************************************************************
 
 //namespace BFG
 //{

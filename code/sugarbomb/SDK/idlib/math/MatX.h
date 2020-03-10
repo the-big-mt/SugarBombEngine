@@ -36,6 +36,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __MATH_MATX_H__
 #define __MATH_MATX_H__
+//*****************************************************************************
+
 
 /*
 ===============================================================================
@@ -58,6 +60,8 @@ NOTE: due to the temporary memory pool idMatX cannot be used by multiple threads
 #if defined(USE_INTRINSICS)
 #define MATX_SIMD
 #endif
+
+//*****************************************************************************
 
 class idMatX
 {

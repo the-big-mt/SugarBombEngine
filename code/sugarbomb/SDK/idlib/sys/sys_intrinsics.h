@@ -37,6 +37,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef __SYS_INTRIINSICS_H__
 #define __SYS_INTRIINSICS_H__
 
+//*****************************************************************************
+
+
 //#include <cmath>                       // for sqrtf
 
 //#include "../idlib/sys/sys_defines.h"
@@ -47,6 +50,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #if defined(USE_INTRINSICS)
 #include <emmintrin.h>
 #endif
+
+//*****************************************************************************
 
 //namespace BFG
 //{

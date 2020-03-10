@@ -37,6 +37,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __STR_H__
 #define __STR_H__
+//*****************************************************************************
+
 
 #include <cstdio>
 #include <cstdarg>
@@ -46,6 +48,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "sys/sys_defines.h"
 #include "sys/sys_assert.h"
 #include "containers/Sort.h"
+
+//*****************************************************************************
 
 /*
 ===============================================================================

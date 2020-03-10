@@ -36,6 +36,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __MATH_QUAT_H__
 #define __MATH_QUAT_H__
+//*****************************************************************************
+
 
 /*
 ===============================================================================
@@ -46,6 +48,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 #include "../containers/Array.h"	// for idTupleSize
+
+//*****************************************************************************
 
 class idVec3;
 class idAngles;

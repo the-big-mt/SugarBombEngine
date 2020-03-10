@@ -36,12 +36,16 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __LIB_H__
 #define __LIB_H__
+//*****************************************************************************
+
 
 #include <cstddef>
 //#include <cstring>
 
 //#include "sys/sys_threading.h"
 //#include "sys/sys_types.h"              // for byte, dword
+
+//*****************************************************************************
 
 //namespace BFG
 //{

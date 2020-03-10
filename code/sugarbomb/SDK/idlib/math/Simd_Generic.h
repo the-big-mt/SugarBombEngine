@@ -36,8 +36,12 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __MATH_SIMD_GENERIC_H__
 #define __MATH_SIMD_GENERIC_H__
+//*****************************************************************************
+
 
 //#include "../idlib/math/Simd.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

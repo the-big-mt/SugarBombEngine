@@ -36,9 +36,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __WINDING2D_H__
 #define __WINDING2D_H__
+//*****************************************************************************
+
 
 //#include "../idlib/math/Vector.h"
 //#include "../idlib/math/Plane.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

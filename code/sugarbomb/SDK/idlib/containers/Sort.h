@@ -36,8 +36,13 @@ Suite 120, Rockville, Maryland 20850 USA.
 #ifndef __SORT_H__
 #define __SORT_H__
 
+//*****************************************************************************
+
+
 #include "idlib/sys/sys_defines.h"
 #include "idlib/sys/sys_types.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

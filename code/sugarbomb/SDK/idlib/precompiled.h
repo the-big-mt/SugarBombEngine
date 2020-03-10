@@ -36,6 +36,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #ifndef __PRECOMPILED_H__
 #define __PRECOMPILED_H__
+//*****************************************************************************
+
 
 // RB: required for SWF extensions
 #include "rapidjson/document.h"
@@ -84,4 +86,5 @@ Suite 120, Rockville, Maryland 20850 USA.
 #undef min
 #undef max
 
+//*****************************************************************************
 #endif /* !__PRECOMPILED_H__ */
