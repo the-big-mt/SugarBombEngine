@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __STATICLIST_H__
-#define __STATICLIST_H__
 //*****************************************************************************
 
+#pragma once
 
 #include "List.h"
 
@@ -730,5 +729,3 @@ ID_INLINE void idStaticList<type, size>::Resize( int newsize )
 }
 
 //} // namespace BFG
-
-#endif /* !__STATICLIST_H__ */

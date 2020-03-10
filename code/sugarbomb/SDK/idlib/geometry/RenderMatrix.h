@@ -34,11 +34,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __RENDERMATRIX_H__
-#define __RENDERMATRIX_H__
+
 
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/math/Vector.h"
 //#include "../idlib/math/Plane.h"
@@ -583,5 +583,3 @@ ID_INLINE bool idRenderMatrix::CullExtrudedBoundsToMVP( const idRenderMatrix& mv
 }
 
 //} // namespace BFG
-
-#endif // !__RENDERMATRIX_H__

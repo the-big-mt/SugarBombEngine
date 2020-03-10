@@ -35,10 +35,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __MAPFILE_H__
-#define __MAPFILE_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "idlib/geometry/Surface_Patch.h"
 //#include "idlib/math/Plane.h"
@@ -525,5 +524,3 @@ ID_INLINE idMapFile::idMapFile()
 }
 
 //} // namespace BFG
-
-#endif /* !__MAPFILE_H__ */

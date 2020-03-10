@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __TOKEN_H__
-#define __TOKEN_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/Str.h"
 
@@ -198,5 +197,3 @@ ID_INLINE void idToken::AppendDirty( const char a )
 }
 
 //} // namespace BFG
-
-#endif /* !__TOKEN_H__ */

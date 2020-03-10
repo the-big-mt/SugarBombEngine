@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __WINDING_H__
-#define __WINDING_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/math/Vector.h"
 //#include "../idlib/bv/Bounds.h"
@@ -468,5 +467,3 @@ ID_INLINE void idFixedWinding::Clear()
 }
 
 //} // namespace BFG
-
-#endif	/* !__WINDING_H__ */

@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __CMDARGS_H__
-#define __CMDARGS_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/Lib.h"
 
@@ -104,5 +103,3 @@ private:
 };
 
 //} // namespace BFG
-
-#endif /* !__CMDARGS_H__ */

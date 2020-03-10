@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __TIMER_H__
-#define __TIMER_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../sys/sys_public.h"
 //#include "../idlib/containers/StrList.h"
@@ -256,5 +255,3 @@ private:
 };
 
 //} // namespace BFG
-
-#endif /* !__TIMER_H__ */

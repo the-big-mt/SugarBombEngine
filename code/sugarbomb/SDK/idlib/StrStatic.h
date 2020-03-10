@@ -33,11 +33,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef	__STRSTATIC_H__
-#define	__STRSTATIC_H__
+
 
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/Str.h"
 
@@ -155,5 +155,3 @@ private:
 };
 
 //} // namespace BFG
-
-#endif	// __STRSTATIC_H__ 

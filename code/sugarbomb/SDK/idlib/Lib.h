@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __LIB_H__
-#define __LIB_H__
 //*****************************************************************************
 
+#pragma once
 
 #include <cstddef>
 //#include <cstring>
@@ -354,5 +353,3 @@ public:
 #include "SoftwareCache.h"
 
 //} // namespace BFG
-
-#endif	/* !__LIB_H__ */

@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __MATH_POLYNOMIAL_H__
-#define __MATH_POLYNOMIAL_H__
 //*****************************************************************************
 
+#pragma once
 
 //*****************************************************************************
 
@@ -778,5 +777,3 @@ ID_INLINE void idPolynomial::Resize( int d, bool keep )
 	}
 	degree = d;
 }
-
-#endif /* !__MATH_POLYNOMIAL_H__ */

@@ -34,11 +34,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __SYS_THREADING_H__
-#define __SYS_THREADING_H__
+
 
 //*****************************************************************************
 
+#pragma once
 
 #include "sys_includes.h"
 
@@ -257,5 +257,3 @@ enum
 	CRITICAL_SECTION_TWO,
 	CRITICAL_SECTION_THREE
 };
-
-#endif	// !__SYS_THREADING_H__

@@ -34,8 +34,6 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __SURFACE_PATCH_H__
-#define __SURFACE_PATCH_H__
 //*****************************************************************************
 
 
@@ -169,5 +167,3 @@ ID_INLINE int idSurface_Patch::GetHeight() const
 }
 
 //} // namespace BFG
-
-#endif /* !__SURFACE_PATCH_H__ */

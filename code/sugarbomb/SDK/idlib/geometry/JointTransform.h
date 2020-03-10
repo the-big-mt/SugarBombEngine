@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __JOINTTRANSFORM_H__
-#define __JOINTTRANSFORM_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/math/Matrix.h"
 //#include "../idlib/math/Vector.h"
@@ -614,5 +613,3 @@ ID_INLINE void idJointMat::InverseMultiply( idJointMat& result, const idJointMat
 }
 
 //} // namespace BFG
-
-#endif /* !__JOINTTRANSFORM_H__ */

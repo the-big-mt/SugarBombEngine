@@ -34,11 +34,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __THREAD_H__
-#define __THREAD_H__
+
 
 //*****************************************************************************
 
+#pragma once
 
 #include "idlib/containers/List.h" // for idList
 #include "idlib/Str.h" // for idStr
@@ -583,5 +583,3 @@ ID_INLINE bool idSysThreadSynchronizer::Synchronize( unsigned int threadNum, int
 }
 
 //} // namespace BFG
-
-#endif // !__THREAD_H__

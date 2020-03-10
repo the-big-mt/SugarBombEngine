@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __DRAWVERT_INTRINSICS_H__
-#define __DRAWVERT_INTRINSICS_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/sys/sys_types.h"
 //#include "../idlib/math/Vector.h"       // for idVec3, idVec
@@ -223,5 +222,3 @@ ID_INLINE_EXTERN idVec3 Scalar_LoadSkinnedDrawVertPosition( const idDrawVert& ve
 }
 
 //} // namespace BFG
-
-#endif /* !__DRAWVERT_INTRINSICS_H__ */

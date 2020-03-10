@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __HIERARCHY_H__
-#define __HIERARCHY_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/Lib.h"
 
@@ -429,5 +428,3 @@ type* idHierarchy<type>::GetNextLeaf() const
 }
 
 //} // namespace BFG
-
-#endif /* !__HIERARCHY_H__ */

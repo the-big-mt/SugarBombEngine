@@ -33,10 +33,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __MATH_VECTORI_H__
-#define __MATH_VECTORI_H__
+
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/sys/sys_defines.h"
 //#include "../idlib/sys/sys_assert.h"
@@ -299,5 +299,3 @@ public:
 };
 
 //} // namespace BFG
-
-#endif // __MATH_VECTORI_H__

@@ -33,11 +33,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __CALLBACK_H__
-#define __CALLBACK_H__
+
 
 //*****************************************************************************
 
+#pragma once
 
 //*****************************************************************************
 
@@ -202,6 +202,3 @@ ID_INLINE_EXTERN idCallbackBindMemArg1<T, A1> MakeCallback( T* t, void ( T::*f )
 }
 
 //} // namespace BFG
-
-#endif // __CALLBACK_H__
-

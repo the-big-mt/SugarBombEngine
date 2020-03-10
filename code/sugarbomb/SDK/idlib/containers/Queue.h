@@ -33,11 +33,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __QUEUE_H__
-#define __QUEUE_H__
+
 
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/Heap.h"
 
@@ -259,5 +259,3 @@ void idQueue<type, nodePtr>::Test()
 }
 
 //} // namespace BFG
-
-#endif // !__QUEUE_H__

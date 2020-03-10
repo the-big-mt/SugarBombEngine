@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __TRACEMODEL_H__
-#define __TRACEMODEL_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/geometry/Winding.h"
 //#include "../idlib/math/Vector.h"
@@ -215,5 +214,3 @@ ID_INLINE bool idTraceModel::operator!=( const idTraceModel& trm ) const
 }
 
 //} // namespace BFG
-
-#endif /* !__TRACEMODEL_H__ */

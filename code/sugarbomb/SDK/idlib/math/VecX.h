@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __MATH_VECX_H__
-#define __MATH_VECX_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/Heap.h"
 //#include "../idlib/math/Vector.h"
@@ -922,5 +921,3 @@ ID_INLINE void idVecX::AddScaleAdd( const float scale, const idVecX& v0, const i
 }
 
 //} // namespace BFG
-
-#endif // !__MATH_VECTORX_H__

@@ -35,10 +35,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __PARSER_H__
-#define __PARSER_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/Token.h"
 //#include "../idlib/Lexer.h"
@@ -324,5 +323,3 @@ ID_INLINE const int idParser::GetLineNum() const
 }
 
 //} // namespace BFG
-
-#endif /* !__PARSER_H__ */

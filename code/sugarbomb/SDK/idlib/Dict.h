@@ -35,10 +35,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __DICT_H__
-#define __DICT_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/containers/StrPool.h"
 //#include "../idlib/math/Angles.h"
@@ -434,5 +433,3 @@ ID_INLINE const idKeyValue* idDict::GetKeyVal( int index ) const
 }
 
 //} // namespace BFG
-
-#endif /* !__DICT_H__ */

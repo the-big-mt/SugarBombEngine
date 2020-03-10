@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __LINKLIST_H__
-#define __LINKLIST_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include <cstring>
 
@@ -386,5 +385,3 @@ void idLinkList<type>::SetOwner( type* object )
 }
 
 //} // namespace BFG
-
-#endif /* !__LINKLIST_H__ */

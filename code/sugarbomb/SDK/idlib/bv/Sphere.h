@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __BV_SPHERE_H__
-#define __BV_SPHERE_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/math/Vector.h"
 //#include "../idlib/math/Plane.h"
@@ -332,5 +331,3 @@ ID_INLINE void idSphere::AxisProjection( const idVec3& dir, float& min, float& m
 }
 
 //} // namespace BFG
-
-#endif /* !__BV_SPHERE_H__ */

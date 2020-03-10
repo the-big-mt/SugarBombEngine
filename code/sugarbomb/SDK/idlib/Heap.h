@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __HEAP_H__
-#define __HEAP_H__
 //*****************************************************************************
 
+#pragma once
 
 #include <cmath>
 
@@ -1356,5 +1355,3 @@ void idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _tag_>::CheckMemory(
 		}
 	}
 }
-
-#endif /* !__HEAP_H__ */

@@ -33,10 +33,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __PARALLELJOBLIST_H__
-#define __PARALLELJOBLIST_H__
+
 //*****************************************************************************
 
+#pragma once
 
 /*
 #include <cstdio>                      // for NULL
@@ -211,5 +211,3 @@ public:
 #define REGISTER_PARALLEL_JOB( function, name )		static idParallelJobRegistration register_##function( (jobRun_t) function, name )
 
 //} // namespace BFG
-
-#endif // !__PARALLELJOBLIST_H__

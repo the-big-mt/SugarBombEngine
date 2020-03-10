@@ -33,11 +33,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __SWAP_H__
-#define __SWAP_H__
+
 
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/bv/Bounds.h"         // for idBounds
 //#include "../idlib/math/Quat.h"         // for idQuat
@@ -270,5 +270,3 @@ private:
 #define BIG16(v) ((((uint16)(v)) >> 8) | ((uint16)(v) << 8))
 
 //} // namespace BFG
-
-#endif // !__SWAP_H__

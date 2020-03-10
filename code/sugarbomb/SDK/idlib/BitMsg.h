@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __BITMSG_H__
-#define __BITMSG_H__
 //*****************************************************************************
 
+#pragma once
 
 //*****************************************************************************
 
@@ -1187,5 +1186,3 @@ _arrayType_ ReadDeltaFloatArray( const idBitMsg& message, const _arrayType_ & ol
 	
 	return result;
 }
-
-#endif /* !__BITMSG_H__ */

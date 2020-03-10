@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __SURFACE_H__
-#define __SURFACE_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/containers/List.h"
 //#include "../idlib/geometry/DrawVert.h"
@@ -269,5 +268,3 @@ ID_INLINE void idSurface::RotateSelf( const idMat3& rotation )
 }
 
 //} // namespace BFG
-
-#endif /* !__SURFACE_H__ */

@@ -34,11 +34,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __SYS_INTRIINSICS_H__
-#define __SYS_INTRIINSICS_H__
+
 
 //*****************************************************************************
 
+#pragma once
 
 //#include <cmath>                       // for sqrtf
 
@@ -328,5 +328,3 @@ ID_FORCE_INLINE_EXTERN __m128 _mm_div16_ps( __m128 x, __m128 y )
 #endif // #if defined(USE_INTRINSICS)
 
 //} // namespace BFG
-
-#endif	// !__SYS_INTRIINSICS_H__

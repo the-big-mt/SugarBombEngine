@@ -33,8 +33,6 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef SYS_FILESYSTEM_H
-#define SYS_FILESYSTEM_H
 
 #include "idlib/containers/List.h" // for idList
 
@@ -42,6 +40,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //namespace BFG
 //{
 
+#pragma once
 void			Sys_Mkdir( const char* path );
 bool			Sys_Rmdir( const char* path );
 bool			Sys_IsFileWritable( const char* path );
@@ -68,4 +67,3 @@ const char* 	Sys_LaunchPath();
 
 //} // namespace BFG
 
-#endif // SYS_FILESYSTEM_H

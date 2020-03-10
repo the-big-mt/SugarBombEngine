@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __BV_BOX_H__
-#define __BV_BOX_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/math/Vector.h"
 //#include "../idlib/bv/Bounds.h"
@@ -350,5 +349,3 @@ ID_INLINE void idBox::AxisProjection( const idMat3& ax, idBounds& bounds ) const
 }
 
 //} // namespace BFG
-
-#endif /* !__BV_BOX_H__ */

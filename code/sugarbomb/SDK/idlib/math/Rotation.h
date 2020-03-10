@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __MATH_ROTATION_H__
-#define __MATH_ROTATION_H__
 //*****************************************************************************
 
+#pragma once
 
 //*****************************************************************************
 
@@ -244,5 +243,3 @@ ID_INLINE void idRotation::RotatePoint( idVec3& point ) const
 	}
 	point = ( ( point - origin ) * axis + origin );
 }
-
-#endif /* !__MATH_ROTATION_H__ */

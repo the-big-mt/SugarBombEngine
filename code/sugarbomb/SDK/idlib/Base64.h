@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __BASE64_H__
-#define __BASE64_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/Str.h"
 //#include "../idlib/Heap.h"
@@ -138,5 +137,3 @@ ID_INLINE void idBase64::operator=( const idStr& s )
 }
 
 //} // namespace BFG
-
-#endif /* !__BASE64_H__ */

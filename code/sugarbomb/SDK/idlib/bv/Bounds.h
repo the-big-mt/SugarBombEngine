@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __BV_BOUNDS_H__
-#define __BV_BOUNDS_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/math/Vector.h"
 //#include "../idlib/math/Rotation.h"
@@ -507,5 +506,3 @@ ID_INLINE float* idBounds::ToFloatPtr()
 }
 
 //} // namespace BFG
-
-#endif /* !__BV_BOUNDS_H__ */

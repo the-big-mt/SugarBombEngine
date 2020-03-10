@@ -34,8 +34,6 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __HASHTABLE_H__
-#define __HASHTABLE_H__
 //*****************************************************************************
 
 #pragma once
@@ -1033,5 +1031,3 @@ int idHashTable<Type>::GetSpread() const
 #endif
 
 //} // namespace BFG
-
-#endif /* !__HASHTABLE_H__ */

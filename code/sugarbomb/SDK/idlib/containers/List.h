@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __LIST_H__
-#define __LIST_H__
 //*****************************************************************************
 
+#pragma once
 
 #include <new>
 
@@ -1171,5 +1170,3 @@ _type_* FindFromGenericPtr( idList<_type_, _tag_>& list, const _compare_type_ & 
 }
 
 //} // namespace BFG
-
-#endif /* !__LIST_H__ */

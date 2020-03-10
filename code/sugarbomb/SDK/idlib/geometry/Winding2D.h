@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __WINDING2D_H__
-#define __WINDING2D_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/math/Vector.h"
 //#include "../idlib/math/Plane.h"
@@ -200,5 +199,3 @@ ID_INLINE bool idWinding2D::Plane2DIntersection( const idVec3& plane1, const idV
 }
 
 //} // namespace BFG
-
-#endif /* !__WINDING2D_H__ */

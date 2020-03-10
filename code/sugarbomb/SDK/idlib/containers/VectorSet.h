@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __VECTORSET_H__
-#define __VECTORSET_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/containers/List.h"
 //#include "../idlib/containers/HashIndex.h"
@@ -333,5 +332,3 @@ ID_INLINE int idVectorSubset<type, dimension>::FindVector( const type* vectorLis
 }
 
 //} // namespace BFG
-
-#endif /* !__VECTORSET_H__ */

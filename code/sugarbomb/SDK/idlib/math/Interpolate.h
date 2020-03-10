@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __MATH_INTERPOLATE_H__
-#define __MATH_INTERPOLATE_H__
 //*****************************************************************************
 
+#pragma once
 
 //*****************************************************************************
 
@@ -563,5 +562,3 @@ ID_INLINE type idInterpolateAccelDecelSine<type>::GetCurrentSpeed( int time ) co
 	SetPhase( time );
 	return extrapolate.GetCurrentSpeed( time );
 }
-
-#endif /* !__MATH_INTERPOLATE_H__ */

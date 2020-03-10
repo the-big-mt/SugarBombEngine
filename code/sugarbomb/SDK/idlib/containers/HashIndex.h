@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __HASHINDEX_H__
-#define __HASHINDEX_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/Heap.h"
 //#include "../idlib/Str.h"
@@ -501,5 +500,3 @@ ID_INLINE int idHashIndex::GenerateKey( const int n ) const
 }
 
 //} // namespace BFG
-
-#endif /* !__HASHINDEX_H__ */

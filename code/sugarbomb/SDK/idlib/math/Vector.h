@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __MATH_VECTOR_H__
-#define __MATH_VECTOR_H__
 //*****************************************************************************
 
+#pragma once
 
 #include <cstring> // for memcpy
 

@@ -33,11 +33,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __SYS_ASSERT_H__
-#define __SYS_ASSERT_H__
+
 
 //*****************************************************************************
 
+#pragma once
 
 //#include <cstdint> // for uintptr_t
 
@@ -167,5 +167,3 @@ template<int x> struct compile_time_assert_test {};
 #endif // DEBUGAI
 
 //} // namespace BFG
-
-#endif	// !__SYS_ASSERT_H__

@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __PLANESET_H__
-#define __PLANESET_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/containers/List.h"
 //#include "../idlib/containers/HashIndex.h"
@@ -109,5 +108,3 @@ ID_INLINE int idPlaneSet::FindPlane( const idPlane& plane, const float normalEps
 }
 
 //} // namespace BFG
-
-#endif /* !__PLANESET_H__ */

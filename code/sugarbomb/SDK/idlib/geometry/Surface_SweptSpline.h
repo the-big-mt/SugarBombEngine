@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __SURFACE_SWEPTSPLINE_H__
-#define __SURFACE_SWEPTSPLINE_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/geometry/Surface.h"
 //#include "../idlib/math/Curve.h"
@@ -113,5 +112,3 @@ ID_INLINE void idSurface_SweptSpline::Clear()
 }
 
 //} // namespace BFG
-
-#endif /* !__SURFACE_SWEPTSPLINE_H__ */

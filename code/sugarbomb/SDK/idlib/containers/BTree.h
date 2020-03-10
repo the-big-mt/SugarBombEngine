@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __BTREE_H__
-#define __BTREE_H__
 //*****************************************************************************
 
+#pragma once
 
 //*****************************************************************************
 
@@ -708,5 +707,3 @@ ID_INLINE void idBTree<objType, keyType, maxChildrenPerNode>::CheckTree() const
 }
 
 //} // namespace BFG
-
-#endif /* !__BTREE_H__ */

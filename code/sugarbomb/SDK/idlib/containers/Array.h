@@ -33,11 +33,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __ARRAY_H__
-#define __ARRAY_H__
+
 
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/sys/sys_assert.h"
 
@@ -160,5 +160,3 @@ struct idTupleSize< idArray< _type_, _num_ > >
 };
 
 //} // namespace BFG
-
-#endif // !__ARRAY_H__

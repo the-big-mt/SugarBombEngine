@@ -33,11 +33,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
-#ifndef __SOFTWARECACHE_H__
-#define __SOFTWARECACHE_H__
+
 
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/sys/sys_types.h"              // for uint32
 //#include "../idlib/sys/sys_intrinsics.h"         // for CACHE_LINE_SIZE, ::Prefetch, etc
@@ -620,5 +620,3 @@ private:
 };
 
 //} // namespace BFG
-
-#endif // !__SOFTWARECACHE_H__

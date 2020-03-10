@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __LEXER_H__
-#define __LEXER_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/Token.h"
 
@@ -339,5 +338,3 @@ ID_INLINE int idLexer::GetFlags()
 }
 
 //} // namespace BFG
-
-#endif /* !__LEXER_H__ */

@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __MATH_MATH_H__
-#define __MATH_MATH_H__
 //*****************************************************************************
 
+#pragma once
 
 #include <cmath>
 
@@ -1608,6 +1607,3 @@ inline float idMath::LerpToWithScale( const float cur, const float dest, const f
 	}
 	return cur + ( dest - cur ) * scale;
 }
-
-
-#endif /* !__MATH_MATH_H__ */

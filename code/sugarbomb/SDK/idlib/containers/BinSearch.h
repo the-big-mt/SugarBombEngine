@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __BINSEARCH_H__
-#define __BINSEARCH_H__
 //*****************************************************************************
 
+#pragma once
 
 //*****************************************************************************
 
@@ -167,5 +166,3 @@ ID_INLINE int idBinSearch_GreaterEqual( const type* array, const int arraySize, 
 }
 
 //} // namespace BFG
-
-#endif /* !__BINSEARCH_H__ */

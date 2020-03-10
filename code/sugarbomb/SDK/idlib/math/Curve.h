@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __MATH_CURVE_H__
-#define __MATH_CURVE_H__
 //*****************************************************************************
 
+#pragma once
 
 //*****************************************************************************
 
@@ -2891,5 +2890,3 @@ ID_INLINE float idCurve_NURBS<type>::WeightForIndex( const int index ) const
 	}
 	return weights[index];
 }
-
-#endif /* !__MATH_CURVE_H__ */

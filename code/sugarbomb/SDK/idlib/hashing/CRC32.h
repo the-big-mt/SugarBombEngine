@@ -1,7 +1,6 @@
-#ifndef __CRC32_H__
-#define __CRC32_H__
 //*****************************************************************************
 
+#pragma once
 
 //*****************************************************************************
 
@@ -25,5 +24,3 @@ unsigned int CRC32_BlockChecksum( const void* data, int length );
 // RB end
 
 //} // namespace BFG
-
-#endif /* !__CRC32_H__ */

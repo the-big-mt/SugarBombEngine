@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __STRPOOL_H__
-#define __STRPOOL_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/containers/List.h"
 //#include "../idlib/containers/HashIndex.h"
@@ -314,5 +313,3 @@ ID_INLINE size_t idStrPool::Size() const
 }
 
 //} // namespace BFG
-
-#endif /* !__STRPOOL_H__ */

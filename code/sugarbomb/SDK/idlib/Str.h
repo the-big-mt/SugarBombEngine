@@ -35,10 +35,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __STR_H__
-#define __STR_H__
 //*****************************************************************************
 
+#pragma once
 
 #include <cstdio>
 #include <cstdarg>
@@ -1443,5 +1442,3 @@ ID_INLINE void idStr::CopyRange( const char* text, int start, int end )
 }
 
 //} // namespace BFG
-
-#endif /* !__STR_H__ */

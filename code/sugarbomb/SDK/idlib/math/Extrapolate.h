@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __MATH_EXTRAPOLATE_H__
-#define __MATH_EXTRAPOLATE_H__
 //*****************************************************************************
 
+#pragma once
 
 //*****************************************************************************
 
@@ -294,5 +293,3 @@ ID_INLINE type idExtrapolate<type>::GetCurrentSpeed( int time ) const
 		}
 	}
 }
-
-#endif /* !__MATH_EXTRAPOLATE_H__ */

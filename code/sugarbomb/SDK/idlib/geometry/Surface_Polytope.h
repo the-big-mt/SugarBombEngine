@@ -34,10 +34,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#ifndef __SURFACE_POLYTOPE_H__
-#define __SURFACE_POLYTOPE_H__
 //*****************************************************************************
 
+#pragma once
 
 //#include "../idlib/bv/Bounds.h"         // for idBounds
 //#include "../idlib/geometry/Surface.h"
@@ -89,5 +88,3 @@ ID_INLINE idSurface_Polytope::idSurface_Polytope()
 }
 
 //} // namespace BFG
-
-#endif /* !__SURFACE_POLYTOPE_H__ */
