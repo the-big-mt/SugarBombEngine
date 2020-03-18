@@ -3,7 +3,7 @@
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012 Robert Beckebans
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -40,7 +40,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
-struct netadr_t
+struct SbNetAdr
 {
 	enum class Type : int
 	{
@@ -58,7 +58,7 @@ struct netadr_t
 	
 	bool IsLANAddress() const; // TODO: IsLocal?
 	
-	bool CompareBase(const netadr_t &other) const;
+	bool CompareBase(const SbNetAdr &other) const;
 };
 
 /*
@@ -66,7 +66,7 @@ struct netadr_t
 Sys_NetAdrToString
 ========================
 */
-const char *netadr_t::ToString() const
+const char *SbNetAdr::ToString() const
 {
 	// DG: FIXME: those static buffers look fishy - I would feel better if they were
 	//            at least thread-local - so /maybe/ use ID_TLS here?
@@ -94,7 +94,7 @@ const char *netadr_t::ToString() const
 Sys_IsLANAddress
 ========================
 */
-bool netadr_t::IsLANAddress() const
+bool SbNetAdr::IsLANAddress() const
 {
 	if( type == NA_LOOPBACK )
 		return true;
@@ -131,7 +131,7 @@ Sys_CompareNetAdrBase
 Compares without the port.
 ========================
 */
-bool netadr_t::CompareBase( const netadr_t &b ) const
+bool SbNetAdr::CompareBase( const SbNetAdr &b ) const
 {
 	if( type != b.type )
 		return false;
