@@ -40,6 +40,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
+namespace sbe
+{
+
 struct SbNetAdr
 {
 	enum class Type : int
@@ -160,3 +163,5 @@ bool SbNetAdr::CompareBase( const SbNetAdr &b ) const
 	//idLib::Printf( "Sys_CompareNetAdrBase: bad address type\n" ); // TODO
 	return false;
 };
+
+}; // namespace sbe
