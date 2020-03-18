@@ -78,13 +78,13 @@ const char *SbNetAdr::ToString() const
 	
 	index = ( index + 1 ) & 3;
 	if( type == NA_IP || type == NA_LOOPBACK )
-		idStr::snPrintf( s, 64, "%i.%i.%i.%i:%i", ip[0], ip[1], ip[2], ip[3], port );
+		; //idStr::snPrintf( s, 64, "%i.%i.%i.%i:%i", ip[0], ip[1], ip[2], ip[3], port ); // TODO
 	else if( type == NA_BROADCAST )
-		idStr::snPrintf( s, 64, "BROADCAST" );
+		; //idStr::snPrintf( s, 64, "BROADCAST" );  // TODO
 	else if( type == NA_BAD )
-		idStr::snPrintf( s, 64, "BAD_IP" );
+		; //idStr::snPrintf( s, 64, "BAD_IP" );  // TODO
 	else
-		idStr::snPrintf( s, 64, "WTF_UNKNOWN_IP_TYPE_%i", type );
+		; //idStr::snPrintf( s, 64, "WTF_UNKNOWN_IP_TYPE_%i", type ); // TODO
 
 	return s;
 };
@@ -107,6 +107,8 @@ bool SbNetAdr::IsLANAddress() const
 	// However, I don't expect most people to have such setups at home and the code
 	// would get a lot more complex and less portable.
 	// Furthermore, this function isn't even used currently
+	// TODO: should this even be here?
+	/*
 	if( num_interfaces )
 	{
 		int i;
@@ -121,6 +123,8 @@ bool SbNetAdr::IsLANAddress() const
 			if( ( netint[i].ip & netint[i].mask ) == ( ip & netint[i].mask ) )
 				return true;
 	};
+	*/
+	
 	return false;
 };
 
@@ -153,6 +157,6 @@ bool SbNetAdr::CompareBase( const SbNetAdr &b ) const
 		return false;
 	};
 	
-	idLib::Printf( "Sys_CompareNetAdrBase: bad address type\n" );
+	//idLib::Printf( "Sys_CompareNetAdrBase: bad address type\n" ); // TODO
 	return false;
 };
