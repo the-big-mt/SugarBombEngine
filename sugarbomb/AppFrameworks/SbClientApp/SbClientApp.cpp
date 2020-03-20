@@ -52,6 +52,20 @@ SbClientApp::~SbClientApp()
 {
 	mInputSystem.Shutdown();
 	mRenderSystem.Shutdown();
+};
+
+void CGameApp::PostFrame()
+{
+	RenderFrame();
+};
+
+void CGameApp::RenderFrame()
+{
+	if(PreRender())
+	{
+		Render();
+		PostRender();
+	};
 	
 	delete mpWindow;
 	mpWindow = nullptr;
