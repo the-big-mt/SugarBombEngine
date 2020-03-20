@@ -39,8 +39,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 //*****************************************************************************
 
 SbClientApp::SbClientApp(const char *asWindowTitle, int anWindowWidth, int anWindowHeight, bool abWindowFullScreen,
-	sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem, sbe::ISystem *apSystem, int argc, char **argv)
-	: SbApplication(apSystem, argc, argv), mpRenderSystem(apRenderSystem), mpInputSystem(apInputSystem)
+	sbe::IRenderSystem &aRenderSystem, sbe::IInputSystem &aInputSystem, sbe::ISystem &aSystem, int argc, char **argv)
+	: SbApplication(aSystem, argc, argv), mRenderSystem(aRenderSystem), mInputSystem(aInputSystem)
 {
 	mpWindow = CreateMainWindow(asWindowTitle, anWindowWidth, anWindowHeight, abWindowFullScreen);
 	
@@ -50,8 +50,8 @@ SbClientApp::SbClientApp(const char *asWindowTitle, int anWindowWidth, int anWin
 
 SbClientApp::~SbClientApp()
 {
-	mpInputSystem->Shutdown();
-	mpRenderSystem->Shutdown();
+	mInputSystem.Shutdown();
+	mRenderSystem.Shutdown();
 	
 	delete mpWindow;
 	mpWindow = nullptr;

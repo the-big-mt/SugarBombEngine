@@ -36,7 +36,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 sbe::IWindow *SbClientApp::CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen)
 {
 	sbe::IWindow::Props WinProps(asTitle.c_str(), anWidth, anHeight, abFullScreen);
-	return new sbe::SbWindowSDL2(*mpSystem, WinProps);
+	return new sbe::SbWindowSDL2(mSystem, WinProps);
 };
 
 bool SbClientApp::PreFrame()

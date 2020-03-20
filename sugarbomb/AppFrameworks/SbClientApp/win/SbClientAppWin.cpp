@@ -33,7 +33,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 sbe::IWindow *SbClientApp::CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen)
 {
-	return new sbe::SbWindowWin(asTitle.c_str(), "SugarBombEngine", 0, *mpSystem, anWidth, anHeight, abFullScreen); // TODO: de-hardcode
+	return new sbe::SbWindowWin(asTitle.c_str(), "SugarBombEngine", 0, mSystem, anWidth, anHeight, abFullScreen); // TODO: de-hardcode
 };
 
 bool SbClientApp::PreFrame()
