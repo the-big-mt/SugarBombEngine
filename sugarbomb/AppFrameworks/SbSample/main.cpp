@@ -33,11 +33,6 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
 
-
-#ifdef _WIN32
-#	include <windows.h>
-#endif
-
 //*****************************************************************************
 
 //sbe::ISystem *CreateSystem();
@@ -77,7 +72,7 @@ sbe::IInputSystem *CreateInputSystem(sbe::ISystem &aSystem)
 #endif
 };
 
-int main(int argc, char **argv)
+int SbApplication::Main(int argc, char **argv)
 {
 	sbe::ISystem *pSystem = CreateSystem();
 	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(*pSystem);
@@ -92,10 +87,3 @@ int main(int argc, char **argv)
 	App.Run();
 	return EXIT_SUCCESS;
 };
-
-#ifdef _WIN32
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
-	return main(__argc, __argv);
-};
-#endif
