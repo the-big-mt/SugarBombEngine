@@ -74,16 +74,16 @@ sbe::IInputSystem *CreateInputSystem(sbe::ISystem &aSystem)
 
 int SbApplication::Main(int argc, char **argv)
 {
-	sbe::ISystem *pSystem = CreateSystem();
 	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(*pSystem);
-	sbe::IInputSystem *pInputSystem = CreateInputSystem(*pSystem);
+	sbe::ISystem &System = *CreateSystem();
+	sbe::IInputSystem &InputSystem = *CreateInputSystem(System);
 	
 	const char *sWindowTitle{"SugarBombEngine Sample App"};
 	int nWindowWidth{1280};
 	int nWindowHeight{600};
 	bool bWindowFullScreen{false};
 	
-	SbClientApp App(sWindowTitle, nWindowWidth, nWindowHeight, bWindowFullScreen, pRenderSystem, pInputSystem, pSystem, argc, argv);
+	SbClientApp App(sWindowTitle, nWindowWidth, nWindowHeight, bWindowFullScreen, RenderSystem, InputSystem, System, argc, argv);
 	App.Run();
 	return EXIT_SUCCESS;
 };
