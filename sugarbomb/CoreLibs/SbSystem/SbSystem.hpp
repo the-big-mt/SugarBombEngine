@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -48,7 +48,9 @@ public:
 	
 	void Warning(const char *asMsg, ...) override;
 	
+	void Error(const char *asMsg, ...) override;
 	void FatalError(const char *asMsg, ...) override;
+	
 };
 
 }; // sbe::SbSystem
