@@ -44,8 +44,8 @@ SbClientApp::SbClientApp(const char *asWindowTitle, int anWindowWidth, int anWin
 {
 	mpWindow = CreateMainWindow(asWindowTitle, anWindowWidth, anWindowHeight, abWindowFullScreen);
 	
-	mpRenderSystem->Init();
-	mpInputSystem->Init();
+	mRenderSystem.Init(mpWindow.get());
+	mInputSystem.Init(mpWindow.get());
 };
 
 SbClientApp::~SbClientApp()
