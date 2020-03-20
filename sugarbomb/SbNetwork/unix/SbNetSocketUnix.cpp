@@ -22,39 +22,42 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /// @file
+/// @brief Berkeley sockets wrapper
 
 //*****************************************************************************
 
-#include "SbNetPeer.hpp"
+#include "SbNetSocket.hpp"
+
+#include <sys/socket.h>
 
 //*****************************************************************************
 
 namespace sbe::SbNetwork
 {
 
-SbNetPeer::~SbNetPeer()
+ssize_t SbNetSocket::SendDataTo(const void *apDataBuffer, size_t anBufferLen, const SbNetAdr &aDestAdr /*, int anFlags*/)
 {
-	close(mnSocket);
+	return sendto(mnHandle, apDataBuffer, anBufferLen, 0);
 };
 
-ssize_t SbNetPeer::SendDataTo(const void *apDataBuffer, size_t anBufferLen, const netadr_t &aDestAdr /*, int anFlags*/)
+ssize_t SbNetSocket::ReceiveDataFrom(void *apDataBuffer, size_t anBufferLen, SbNetAdr &aSrcAdr /*, int anFlags*/)
 {
-	return sendto(mnSocket, apDataBuffer, anBufferLen, 0);
+	return recvfrom(mnHandle, apDataBuffer, anBufferLen, 0);
 };
 
-ssize_t SbNetPeer::ReceiveDataFrom(void *apDataBuffer, size_t anBufferLen, netadr_t &aSrcAdr /*, int anFlags*/)
+ssize_t SbNetSocket::SendData(const void *apDataBuffer, size_t anBufferLen /*, int anFlags*/)
 {
-	return recvfrom(mnSocket, apDataBuffer, anBufferLen, 0);
+	return send(mnHandle, apDataBuffer, anBufferLen, 0);
 };
 
-ssize_t SbNetPeer::SendData(const void *apDataBuffer, size_t anBufferLen /*, int anFlags*/)
+ssize_t SbNetSocket::ReceiveData(void *apDataBuffer, size_t anBufferLen /*, int anFlags*/)
 {
-	return send(mnSocket, apDataBuffer, anBufferLen, 0);
+	return recv(mnHandle, apDataBuffer, anBufferLen, 0);
 };
 
-ssize_t SbNetPeer::ReceiveData(void *apDataBuffer, size_t anBufferLen /*, int anFlags*/)
+void SbNetSocket::Close()
 {
-	return recv(mnSocket, apDataBuffer, anBufferLen, 0);
+	close(mnHandle);
 };
 
 }; // namespace sbe::SbNetwork
