@@ -23,6 +23,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #include <stdexcept>
 
 #include "SbInputSystemExternal.hpp"
@@ -31,6 +33,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "AppFrameworks/UtilityLibs/SbInput/IInputSystem.hpp"
 #include "AppFrameworks/UtilityLibs/SbInput/SbModuleAPI.hpp"
+
+//*****************************************************************************
 
 namespace sbe
 {

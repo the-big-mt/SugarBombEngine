@@ -23,6 +23,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #include <stdexcept>
 
 #include "SbRenderSystemExternal.hpp"
@@ -31,6 +33,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "CoreLibs/SbRenderer/IRenderSystem.hpp"
 #include "CoreLibs/SbRenderer/SbModuleAPI.hpp"
+
+//*****************************************************************************
 
 namespace sbe
 {
