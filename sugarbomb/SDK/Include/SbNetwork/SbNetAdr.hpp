@@ -63,7 +63,7 @@ struct SbNetAdr
 	
 	const char *ToString() const;
 	
-	bool IsLANAddress() const; // TODO: IsLocal?
+	bool IsLocal() const;
 	
 	bool CompareBase(const SbNetAdr &other) const;
 };
@@ -101,7 +101,7 @@ const char *SbNetAdr::ToString() const
 Sys_IsLANAddress
 ========================
 */
-bool SbNetAdr::IsLANAddress() const
+bool SbNetAdr::IsLocal() const
 {
 	if( type == NA_LOOPBACK )
 		return true;
