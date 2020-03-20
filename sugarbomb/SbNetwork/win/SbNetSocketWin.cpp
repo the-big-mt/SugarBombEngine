@@ -22,39 +22,40 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /// @file
+/// @brief Windows Sockets 2 wrapper
 
 //*****************************************************************************
 
-#include "SbNetPeer.hpp"
+#include "SbNetSocket.hpp"
 
 //*****************************************************************************
 
 namespace sbe::SbNetwork
 {
 
-SbNetPeer::~SbNetPeer()
+ssize_t SbNetSocket::SendDataTo(const void *apDataBuffer, size_t anBufferLen, const SbNetAdr &aDestAdr /*, int anFlags*/)
 {
-	closesocket(mnSocket);
+	return sendto(mnHandle, reinterpret_cast<const char*>(apDataBuffer), anBufferLen, 0);
 };
 
-ssize_t SbNetPeer::SendDataTo(const void *apDataBuffer, size_t anBufferLen, const netadr_t &aDestAdr /*, int anFlags*/)
+ssize_t SbNetSocket::ReceiveDataFrom(void *apDataBuffer, size_t anBufferLen, SbNetAdr &aSrcAdr /*, int anFlags*/)
 {
-	return sendto(mnSocket, reinterpret_cast<const char*>(apDataBuffer), anBufferLen, 0);
+	return recvfrom(mnHandle, reinterpret_cast<char*>(apDataBuffer), anBufferLen, 0);
 };
 
-ssize_t SbNetPeer::ReceiveDataFrom(void *apDataBuffer, size_t anBufferLen, netadr_t &aSrcAdr /*, int anFlags*/)
+ssize_t SbNetSocket::SendData(const void *apDataBuffer, size_t anBufferLen /*, int anFlags*/)
 {
-	return recvfrom(mnSocket, reinterpret_cast<char*>(apDataBuffer), anBufferLen, 0);
+	return send(mnHandle, reinterpret_cast<const char*>(apDataBuffer), anBufferLen, 0);
 };
 
-ssize_t SbNetPeer::SendData(const void *apDataBuffer, size_t anBufferLen /*, int anFlags*/)
+ssize_t SbNetSocket::ReceiveData(void *apDataBuffer, size_t anBufferLen /*, int anFlags*/)
 {
-	return send(mnSocket, reinterpret_cast<const char*>(apDataBuffer), anBufferLen, 0);
+	return recv(mnHandle, reinterpret_cast<char*>(apDataBuffer), anBufferLen, 0);
 };
 
-ssize_t SbNetPeer::ReceiveData(void *apDataBuffer, size_t anBufferLen /*, int anFlags*/)
+void SbNetSocket::Close()
 {
-	return recv(mnSocket, reinterpret_cast<char*>(apDataBuffer), anBufferLen, 0);
+	closesocket(mnHandle);
 };
 
 }; // namespace sbe::SbNetwork
