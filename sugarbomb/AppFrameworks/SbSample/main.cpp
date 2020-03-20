@@ -52,10 +52,10 @@ sbe::ISystem *CreateSystem()
 #endif
 };
 
-sbe::IRenderSystem *CreateRenderSystem(sbe::ISystem &aSystem)
+sbe::IRenderSystem *CreateRenderSystem(const char *asModuleName, sbe::ISystem &aSystem)
 {
 #ifndef SBE_SINGLE_BINARY
-	static sbe::SbRenderSystemExternal SbRenderModule(aSystem);
+	static sbe::SbRenderSystemExternal SbRenderModule(asModuleName, aSystem);
 	return SbRenderModule.GetRenderSystem();
 #else
 	return new sbe::SbRenderer::SbRenderSystem();
@@ -74,8 +74,11 @@ sbe::IInputSystem *CreateInputSystem(sbe::ISystem &aSystem)
 
 int SbApplication::Main(int argc, char **argv)
 {
-	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(*pSystem);
+	// Render module name to load
+	const char *sRenderModuleName{"SbGLCoreRenderer"};
+	
 	sbe::ISystem &System = *CreateSystem();
+	sbe::IRenderSystem &RenderSystem = *CreateRenderSystem(sRenderModuleName, System);
 	sbe::IInputSystem &InputSystem = *CreateInputSystem(System);
 	
 	const char *sWindowTitle{"SugarBombEngine Sample App"};
