@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -34,12 +34,12 @@ struct IRenderSystem;
 class SbRenderSystemExternal final
 {
 public:
-	SbRenderSystemExternal(ISystem &aSystem);
+	SbRenderSystemExternal(const char *asModuleName, ISystem &aSystem);
 	~SbRenderSystemExternal();
 	
 	IRenderSystem *GetRenderSystem() const {return mpRenderSystem;}
 private:
-	void LoadModule();
+	void LoadModule(const char *asModuleName);
 	void UnloadModule();
 	
 	ISystem &mSystem;
