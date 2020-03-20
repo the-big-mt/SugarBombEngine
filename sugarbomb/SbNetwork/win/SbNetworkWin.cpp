@@ -73,11 +73,10 @@ void SbNetworkWin::Init()
 	num_interfaces = 0;
 	foundloopback = false;
 	
-	pAdapterInfo = ( IP_ADAPTER_INFO* )malloc( sizeof( IP_ADAPTER_INFO ) );
+	pAdapterInfo = reinterpret_cast<IP_ADAPTER_INFO*>(malloc( sizeof( IP_ADAPTER_INFO ) ));
 	if( !pAdapterInfo )
-	{
 		mSystem.FatalError( "Sys_InitNetworking: Couldn't malloc( %d )", sizeof( IP_ADAPTER_INFO ) );
-	}
+
 	ulOutBufLen = sizeof( IP_ADAPTER_INFO );
 	
 	// Make an initial call to GetAdaptersInfo to get
@@ -85,12 +84,10 @@ void SbNetworkWin::Init()
 	if( GetAdaptersInfo( pAdapterInfo, &ulOutBufLen ) == ERROR_BUFFER_OVERFLOW )
 	{
 		free( pAdapterInfo );
-		pAdapterInfo = ( IP_ADAPTER_INFO* )malloc( ulOutBufLen );
+		pAdapterInfo = reinterpret_cast<IP_ADAPTER_INFO*>(malloc( ulOutBufLen ));
 		if( !pAdapterInfo )
-		{
 			mSystem.FatalError( "Sys_InitNetworking: Couldn't malloc( %ld )", ulOutBufLen );
-		}
-	}
+	};
 	
 	if( ( dwRetVal = GetAdaptersInfo( pAdapterInfo, &ulOutBufLen ) ) != NO_ERROR )
 	{
@@ -108,9 +105,8 @@ void SbNetworkWin::Init()
 			{
 				unsigned long ip_a, ip_m;
 				if( !idStr::Icmp( "127.0.0.1", pIPAddrString->IpAddress.String ) )
-				{
 					foundloopback = true;
-				}
+
 				ip_a = ntohl( inet_addr( pIPAddrString->IpAddress.String ) );
 				ip_m = ntohl( inet_addr( pIPAddrString->IpMask.String ) );
 				//skip null netmasks
@@ -119,7 +115,7 @@ void SbNetworkWin::Init()
 					mSystem.Printf( "%s nullptr netmask - skipped\n", pIPAddrString->IpAddress.String );
 					pIPAddrString = pIPAddrString->Next;
 					continue;
-				}
+				};
 				mSystem.Printf( "%s/%s\n", pIPAddrString->IpAddress.String, pIPAddrString->IpMask.String );
 				netint[num_interfaces].ip = ip_a;
 				netint[num_interfaces].mask = ip_m;
@@ -130,9 +126,9 @@ void SbNetworkWin::Init()
 					mSystem.Printf( "Sys_InitNetworking: MAX_INTERFACES(%d) hit.\n", MAX_INTERFACES );
 					free( pAdapterInfo );
 					return;
-				}
+				};
 				pIPAddrString = pIPAddrString->Next;
-			}
+			};
 			pAdapter = pAdapter->Next;
 		};
 	};
