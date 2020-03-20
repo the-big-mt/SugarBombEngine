@@ -24,7 +24,7 @@ add_library(${PROJECT_NAME} STATIC ${PROJECT_SOURCES})
 
 if(SBE_USE_SDL)
 	target_include_directories(${PROJECT_NAME}
-		PRIVATE ${SBE_SDL_PATH}/include
+		PRIVATE ${SDL2_INCLUDE_DIR}
 	)
 endif()
 
