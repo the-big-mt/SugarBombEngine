@@ -33,16 +33,14 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-SbApplication::SbApplication(sbe::ISystem *apSystem, int argc, char **argv) : mpSystem(apSystem)
+SbApplication::SbApplication(sbe::ISystem &aSystem, int argc, char **argv) : mSystem(aSystem)
 {
 	Init();
 };
 
 SbApplication::~SbApplication()
 {
-	mpSystem->Shutdown();
-	
-	// TODO: delete mpSystem; mpSystem = nullptr;
+	mSystem.Shutdown();
 };
 
 void SbApplication::Run()
@@ -69,7 +67,8 @@ void SbApplication::Stop()
 
 void SbApplication::Init()
 {
-	mpSystem->Init();
+	mSystem.Init();
+	
 	
 	mbInitialized = true;
 };
