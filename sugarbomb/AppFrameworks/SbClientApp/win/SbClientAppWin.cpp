@@ -50,5 +50,7 @@ bool SbClientApp::PreFrame()
 		return false;
 	};
 	
+	mInputSystem.Update(); // TODO: should this be here?
+	
 	return true;
 };
