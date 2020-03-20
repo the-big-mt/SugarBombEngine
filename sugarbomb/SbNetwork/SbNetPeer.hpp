@@ -27,6 +27,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbNetwork/INetPeer.hpp"
 
+#include "SbNetSocket.hpp"
+
 //*****************************************************************************
 
 namespace sbe::SbNetwork
@@ -35,10 +37,18 @@ namespace sbe::SbNetwork
 class SbNetPeer : public INetPeer
 {
 public:
-	size_t SendData(const void *apData) override;
-	size_t ReceiveData(void *apBuffer, int anSize) override;
+	SbNetPeer(SbNetSocket &aSocket);
+	//~SbNetPeer();
 	
-	bool IsLocal() const override;
+	ssize_t SendDataTo(const void *apDataBuffer, size_t anBufferLen, const SbNetAdr &aDestAdr /*, int anFlags*/) override;
+	ssize_t ReceiveDataFrom(void *apDataBuffer, size_t anBufferLen, SbNetAdr &aSrcAdr /*, int anFlags*/) override;
+	
+	ssize_t SendData(const void *apDataBuffer, size_t anBufferLen /*, int anFlags*/) override;
+	ssize_t ReceiveData(void *apDataBuffer, size_t anBufferLen /*, int anFlags*/) override;
+	
+	bool IsLocal() const override {return mSocket.GetAdr().IsLocal();}
+private:
+	SbNetSocket &mSocket;
 };
 
 }; // namespace sbe::SbNetwork
