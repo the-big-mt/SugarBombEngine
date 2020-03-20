@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -32,16 +32,21 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
+struct IWindow;
+
 struct IInputSystem
 {
-	///
-	virtual void Init() = 0;
-	
-	///
+	virtual void Init(const IWindow &aOwnerWindow) = 0;
+
 	virtual void Shutdown() = 0;
+
+	virtual void Update() = 0;
 	
 	///
-	//virtual void Update() = 0;
+	
+	///
+	
+	///
 };
 
 }; // namespace sbe
