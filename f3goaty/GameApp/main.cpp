@@ -94,7 +94,7 @@ sbe::IGameFramework *CreateGameFramework(sbe::ISystem &aSystem, sbe::IRenderSyst
 #endif
 };
 
-int main(int argc, char **argv)
+int SbApplication::Main(int argc, char **argv)
 {
 	sbe::ISystem *pSystem = CreateSystem();
 	sbe::ISoundSystem *pSoundSystem = CreateSoundSystem(*pSystem);
@@ -120,10 +120,3 @@ int main(int argc, char **argv)
 	App.Run();
 	return EXIT_SUCCESS;
 };
-
-#ifdef _WIN32
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
-	return main(__argc, __argv);
-};
-#endif

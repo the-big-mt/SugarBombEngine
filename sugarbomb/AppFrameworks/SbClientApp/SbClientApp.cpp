@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -39,19 +39,33 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 //*****************************************************************************
 
 SbClientApp::SbClientApp(const char *asWindowTitle, int anWindowWidth, int anWindowHeight, bool abWindowFullScreen,
-	sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem, sbe::ISystem *apSystem, int argc, char **argv)
-	: SbApplication(apSystem, argc, argv), mpRenderSystem(apRenderSystem), mpInputSystem(apInputSystem)
+	sbe::IRenderSystem &aRenderSystem, sbe::IInputSystem &aInputSystem, sbe::ISystem &aSystem, int argc, char **argv)
+	: SbApplication(aSystem, argc, argv), mRenderSystem(aRenderSystem), mInputSystem(aInputSystem)
 {
 	mpWindow = CreateMainWindow(asWindowTitle, anWindowWidth, anWindowHeight, abWindowFullScreen);
 	
-	mpRenderSystem->Init();
-	mpInputSystem->Init();
+	mRenderSystem.Init(mpWindow.get());
+	mInputSystem.Init(mpWindow.get());
 };
 
 SbClientApp::~SbClientApp()
 {
-	mpInputSystem->Shutdown();
-	mpRenderSystem->Shutdown();
+	mInputSystem.Shutdown();
+	mRenderSystem.Shutdown();
+};
+
+void CGameApp::PostFrame()
+{
+	RenderFrame();
+};
+
+void CGameApp::RenderFrame()
+{
+	if(PreRender())
+	{
+		Render();
+		PostRender();
+	};
 	
 	delete mpWindow;
 	mpWindow = nullptr;

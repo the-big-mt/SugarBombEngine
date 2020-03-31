@@ -32,7 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 /*
 ===============================================================================
 
-	Basic DOOM multiplayer
+	Basic Fallout multiplayer
 
 ===============================================================================
 */

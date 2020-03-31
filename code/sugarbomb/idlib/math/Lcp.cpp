@@ -34,10 +34,16 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
+
+//*****************************************************************************
+
 #pragma hdrstop
+
 #include "precompiled.h"
 
 #include "framework/CVar.hpp"
+
+//*****************************************************************************
 
 // this file is full of intentional case fall throughs
 //lint -e616

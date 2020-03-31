@@ -34,11 +34,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#pragma hdrstop
-#include "precompiled.h"
-/*
-#include "../idlib/geometry/Surface_Patch.h"
+//*****************************************************************************
 
+#pragma hdrstop
+
+#include "precompiled.h"
+
+#include "idlib/geometry/Surface_Patch.h"
+/*
 #include "../framework/Common.h"
 #include "../idlib/Lib.h"
 #include "../idlib/math/Math.h"
@@ -48,6 +51,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "geometry/DrawVert.h"
 #include "sys/sys_assert.h"
 */
+
+//*****************************************************************************
 
 //namespace BFG
 //{

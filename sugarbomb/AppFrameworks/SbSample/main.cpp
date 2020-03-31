@@ -33,11 +33,6 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
 
-
-#ifdef _WIN32
-#	include <windows.h>
-#endif
-
 //*****************************************************************************
 
 //sbe::ISystem *CreateSystem();
@@ -57,10 +52,10 @@ sbe::ISystem *CreateSystem()
 #endif
 };
 
-sbe::IRenderSystem *CreateRenderSystem(sbe::ISystem &aSystem)
+sbe::IRenderSystem *CreateRenderSystem(const char *asModuleName, sbe::ISystem &aSystem)
 {
 #ifndef SBE_SINGLE_BINARY
-	static sbe::SbRenderSystemExternal SbRenderModule(aSystem);
+	static sbe::SbRenderSystemExternal SbRenderModule(asModuleName, aSystem);
 	return SbRenderModule.GetRenderSystem();
 #else
 	return new sbe::SbRenderer::SbRenderSystem();
@@ -77,25 +72,21 @@ sbe::IInputSystem *CreateInputSystem(sbe::ISystem &aSystem)
 #endif
 };
 
-int main(int argc, char **argv)
+int SbApplication::Main(int argc, char **argv)
 {
-	sbe::ISystem *pSystem = CreateSystem();
-	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(*pSystem);
-	sbe::IInputSystem *pInputSystem = CreateInputSystem(*pSystem);
+	// Render module name to load
+	const char *sRenderModuleName{"SbGLCoreRenderer"};
+	
+	sbe::ISystem &System = *CreateSystem();
+	sbe::IRenderSystem &RenderSystem = *CreateRenderSystem(sRenderModuleName, System);
+	sbe::IInputSystem &InputSystem = *CreateInputSystem(System);
 	
 	const char *sWindowTitle{"SugarBombEngine Sample App"};
 	int nWindowWidth{1280};
 	int nWindowHeight{600};
 	bool bWindowFullScreen{false};
 	
-	SbClientApp App(sWindowTitle, nWindowWidth, nWindowHeight, bWindowFullScreen, pRenderSystem, pInputSystem, pSystem, argc, argv);
+	SbClientApp App(sWindowTitle, nWindowWidth, nWindowHeight, bWindowFullScreen, RenderSystem, InputSystem, System, argc, argv);
 	App.Run();
 	return EXIT_SUCCESS;
 };
-
-#ifdef _WIN32
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
-	return main(__argc, __argv);
-};
-#endif

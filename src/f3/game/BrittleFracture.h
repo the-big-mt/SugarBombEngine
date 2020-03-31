@@ -115,7 +115,7 @@ public:
 	virtual bool				ClientReceiveEvent( int event, int time, const idBitMsg& msg );
 	
 private:
-	// setttings
+	// settings
 	const idMaterial* 			material;
 	const idMaterial* 			decalMaterial;
 	float						decalSize;

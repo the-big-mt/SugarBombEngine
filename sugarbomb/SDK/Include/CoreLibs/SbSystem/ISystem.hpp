@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -32,6 +32,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
+struct SbSystemDesc;
+
 struct ISystem
 {
 	///
@@ -58,9 +60,15 @@ struct ISystem
 	
 	///
 	virtual void Warning(const char *asMsg, ...) = 0;
+
+	///
+	virtual void Error(const char *asMsg, ...) = 0;
 	
 	///
 	virtual void FatalError(const char *asMsg, ...) = 0;
+	
+	///
+	virtual const SbSystemDesc &GetDesc() const = 0;
 };
 
 }; // namespace sbe

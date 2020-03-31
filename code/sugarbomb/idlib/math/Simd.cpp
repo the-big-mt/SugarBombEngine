@@ -27,7 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+//*****************************************************************************
+
 #pragma hdrstop
+
 #include "precompiled.h"
 
 #ifdef __APPLE__
@@ -36,6 +39,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "idlib/math/Simd_Generic.h"
 #include "idlib/math/Simd_SSE.h"
+
+//*****************************************************************************
 
 idSIMDProcessor*		processor = nullptr;			// pointer to SIMD processor
 idSIMDProcessor* 	generic = nullptr;				// pointer to generic SIMD implementation

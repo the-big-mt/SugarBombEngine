@@ -33,12 +33,20 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
+
+//*****************************************************************************
+
 #pragma hdrstop
+
 #include "precompiled.h"
+
 //#include "../idlib/sys/sys_threading.h"
 //#include "../idlib/sys/sys_assert.h"
 //#include "../idlib/Thread.h"
+
 //#include "../framework/Common.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

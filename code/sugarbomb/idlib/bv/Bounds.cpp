@@ -34,17 +34,22 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#pragma hdrstop
-#include "precompiled.h"
-//#include "../idlib/bv/Bounds.h"
+//*****************************************************************************
 
-//#include "../idlib/math/Math.h"
-//#include "../idlib/math/Matrix.h"
-//#include "../idlib/math/Plane.h"
-//#include "../idlib/math/Rotation.h"
-//#include "../idlib/math/Simd.h"
-//#include "../idlib/math/Vector.h"
-//#include "sys/sys_types.h"
+#pragma hdrstop
+
+#include "precompiled.h"
+
+#include "idlib/bv/Bounds.h"
+//#include "idlib/math/Math.h"
+//#include "idlib/math/Matrix.h"
+//#include "idlib/math/Plane.h"
+//#include "idlib/math/Rotation.h"
+//#include "idlib/math/Simd.h"
+//#include "idlib/math/Vector.h"
+//#include "idlib/sys/sys_types.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

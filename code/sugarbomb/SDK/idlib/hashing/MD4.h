@@ -1,5 +1,8 @@
-#ifndef __MD4_H__
-#define __MD4_H__
+//*****************************************************************************
+
+#pragma once
+
+//*****************************************************************************
 
 //namespace BFG
 //{
@@ -18,5 +21,3 @@ unsigned int MD4_BlockChecksum( const void* data, int length );
 // RB end
 
 //} // namespace BFG
-
-#endif /* !__MD4_H__ */

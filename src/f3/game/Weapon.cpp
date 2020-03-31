@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -364,7 +365,7 @@ void idWeapon::Save( idSaveGame* savefile ) const
 	savefile->WriteString( meleeDefName );
 	savefile->WriteInt( brassDelay );
 	savefile->WriteString( icon );
-	savefile->WriteString( pdaIcon );
+	savefile->WriteString( pipBoyIcon );
 	savefile->WriteString( displayName );
 	savefile->WriteString( itemDesc );
 	
@@ -560,7 +561,7 @@ void idWeapon::Restore( idRestoreGame* savefile )
 	savefile->ReadString( meleeDefName );
 	savefile->ReadInt( brassDelay );
 	savefile->ReadString( icon );
-	savefile->ReadString( pdaIcon );
+	savefile->ReadString( pipBoyIcon );
 	savefile->ReadString( displayName );
 	savefile->ReadString( itemDesc );
 	
@@ -829,7 +830,7 @@ void idWeapon::Clear()
 	nextStrikeFx = 0;
 	
 	icon			= "";
-	pdaIcon			= "";
+	pipBoyIcon			= "";
 	displayName		= "";
 	itemDesc		= "";
 	
@@ -1031,7 +1032,7 @@ void idWeapon::GetWeaponDef( const char* objectname, int ammoinclip )
 	lowAmmo				= weaponDef->dict.GetInt( "lowAmmo" );
 	
 	icon				= weaponDef->dict.GetString( "icon" );
-	pdaIcon				= weaponDef->dict.GetString( "pdaIcon" );
+	pipBoyIcon				= weaponDef->dict.GetString( "pipBoyIcon" );
 	displayName			= weaponDef->dict.GetString( "display_name" );
 	itemDesc			= weaponDef->dict.GetString( "inv_desc" );
 	
@@ -1416,9 +1417,9 @@ const char* idWeapon::Icon() const
 idWeapon::PdaIcon
 ================
 */
-const char* idWeapon::PdaIcon() const
+const char* idWeapon::pipBoyIcon() const
 {
-	return pdaIcon;
+	return pipBoyIcon;
 }
 
 /*
@@ -2513,7 +2514,7 @@ bool idWeapon::GetMuzzlePositionWithHacks( idVec3& origin, idMat3& axis )
 {
 	// I couldn't find a simple enum to identify the weapons that need
 	// workaround hacks...
-	const idStr& weaponIconName = pdaIcon;
+	const idStr& weaponIconName = pipBoyIcon;
 	
 	origin = playerViewOrigin;
 	axis = playerViewAxis;

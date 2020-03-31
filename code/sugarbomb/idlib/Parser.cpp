@@ -35,7 +35,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+//*****************************************************************************
+
 #include "precompiled.h"
+
 #pragma hdrstop
 
 //#define DEBUG_EVAL
@@ -43,6 +46,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #define DEFINEHASHSIZE				2048
 
 #define TOKEN_FL_RECURSIVE_DEFINE	1
+
+//*****************************************************************************
 
 define_t* idParser::globaldefines;
 

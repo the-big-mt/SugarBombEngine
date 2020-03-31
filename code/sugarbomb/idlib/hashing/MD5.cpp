@@ -34,11 +34,17 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+//*****************************************************************************
+
 #pragma hdrstop
+
 //#include <cstddef>
 //#include <cstring>
 #include "precompiled.h"
-//#include "../idlib/hashing/MD5.h"
+
+#include "idlib/hashing/MD5.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

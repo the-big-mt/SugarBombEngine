@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -31,14 +31,28 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-namespace sbe::SbInput
+namespace sbe
 {
+
+struct ISystem;
+
+namespace SbInput
+{
+
+struct SbInputImpl;
 
 class SbInputSystem : public IInputSystem
 {
 public:
-	void Init() override;
+	SbInputSystem(ISystem &aSystem, SbInputImpl &aImpl);
+	
+	void Init(const IWindow &aOwnerWindow) override;
 	void Shutdown() override;
+	
+	void Update() override;
+private:
+	ISystem &mSystem;
+	SbInputImpl &mImpl;
 };
 
-}; // namespace sbe::SbInput
+};}; // namespace sbe::SbInput

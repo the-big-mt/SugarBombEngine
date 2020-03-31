@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -23,6 +23,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #include <stdexcept>
 
 #include "SbRenderSystemExternal.hpp"
@@ -32,12 +34,14 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include "CoreLibs/SbRenderer/IRenderSystem.hpp"
 #include "CoreLibs/SbRenderer/SbModuleAPI.hpp"
 
+//*****************************************************************************
+
 namespace sbe
 {
 
-SbRenderSystemExternal::SbRenderSystemExternal(ISystem &aSystem) : mSystem(aSystem)
+SbRenderSystemExternal::SbRenderSystemExternal(const char *asModuleName, ISystem &aSystem) : mSystem(aSystem)
 {
-	LoadModule();
+	LoadModule(asModuleName);
 };
 
 SbRenderSystemExternal::~SbRenderSystemExternal()
@@ -45,9 +49,9 @@ SbRenderSystemExternal::~SbRenderSystemExternal()
 	UnloadModule();
 };
 
-void SbRenderSystemExternal::LoadModule()
+void SbRenderSystemExternal::LoadModule(const char *asModuleName)
 {
-	mnRenderLib = mSystem.LoadLib("SbGLCoreRenderer");
+	mnRenderLib = mSystem.LoadLib(asModuleName);
 	
 	if(!mnRenderLib)
 		throw std::runtime_error("Failed to load the renderer module!");

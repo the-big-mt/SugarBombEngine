@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -34,31 +34,35 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
-float SbAbs(float afValue);
-
-float SbSin(float afRadians);
-float SbCos(float afRadians);
-
-float SbASin(float afValue);
-float SbACos(float afValue);
-float SbATan(float afValue);
-
-template<typename T>
-T SbMin(T aTA, T aTB)
+class SbMath
 {
-	return std::min(aTA, aTB);
-};
+public:
+	static float Abs(float afValue);
 
-template<typename T>
-T SbMax(T aTA, T aTB)
-{
-	return std::max(aTA, aTB);
-};
+	static float Sin(float afRadians);
+	static float Cos(float afRadians);
 
-template<typename T>
-T SbClamp(T aTValue, T aTMin, T aTMax)
-{
-	return std::clamp(aTValue, aTMin, aTMax);
+	static float ASin(float afValue);
+	static float ACos(float afValue);
+	static float ATan(float afValue);
+
+	template<typename T>
+	static T Min(T aTA, T aTB)
+	{
+		return std::min(aTA, aTB);
+	};
+
+	template<typename T>
+	static T Max(T aTA, T aTB)
+	{
+		return std::max(aTA, aTB);
+	};
+
+	template<typename T>
+	static T Clamp(T aTValue, T aTMin, T aTMax)
+	{
+		return std::clamp(aTValue, aTMin, aTMax);
+	};
 };
 
 }; // namespace sbe

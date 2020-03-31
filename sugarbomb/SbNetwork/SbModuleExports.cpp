@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -44,7 +44,9 @@ C_EXPORT sbe::netExport_t *GetNetworkAPI(sbe::netImport_t *apModuleImports)
 {
 	if(apModuleImports->version == sbe::NET_API_VERSION)
 	{
-		static sbe::SbNetwork::SbNetworkSystem NetworkSystem;
+		static sbe::ISystem &System = *apModuleImports->sys;
+		static sbe::SbNetwork::SbNetworkNull NetworkNull;
+		static sbe::SbNetwork::SbNetworkSystem NetworkSystem(System, NetworkNull);
 		
 		static sbe::netExport_t ModuleExports;
 		

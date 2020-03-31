@@ -34,11 +34,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#pragma hdrstop
-#include "precompiled.h"
-/*
-#include "../idlib/geometry/Surface_SweptSpline.h"
+//*****************************************************************************
 
+#pragma hdrstop
+
+#include "precompiled.h"
+
+#include "idlib/geometry/Surface_SweptSpline.h"
+
+/*
 #include "../idlib/math/Curve.h"
 #include "../idlib/math/Math.h"
 #include "../idlib/math/Matrix.h"
@@ -48,6 +52,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "geometry/DrawVert.h"
 #include "geometry/Surface.h"
 #include "sys/sys_types.h"
+
+//*****************************************************************************
 
 namespace BFG
 {

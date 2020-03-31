@@ -32,19 +32,26 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe::SbNetwork
 {
 
-size_t SbNetPeer::SendData(const void *apData)
+SbNetPeer::SbNetPeer(SbNetSocket &aSocket) : mSocket(aSocket){}
+
+ssize_t SbNetPeer::SendDataTo(const void *apDataBuffer, size_t anBufferLen, const SbNetAdr &aDestAdr /*, int anFlags*/)
 {
-	return 0;
+	return mSocket.SendDataTo(apDataBuffer, anBufferLen, aDestAdr /*, 0*/);
 };
 
-size_t SbNetPeer::ReceiveData(void *apBuffer, int anSize)
+ssize_t SbNetPeer::ReceiveDataFrom(void *apDataBuffer, size_t anBufferLen, SbNetAdr &aSrcAdr /*, int anFlags*/)
 {
-	return 0;
+	return mSocket.ReceiveDataFrom(apDataBuffer, anBufferLen, aSrcAdr /*, 0*/);
 };
 
-bool SbNetPeer::IsLocal() const
+ssize_t SbNetPeer::SendData(const void *apDataBuffer, size_t anBufferLen /*, int anFlags*/)
 {
-	return false;
+	return mSocket.SendData(apDataBuffer, anBufferLen /*, 0*/);
+};
+
+ssize_t SbNetPeer::ReceiveData(void *apDataBuffer, size_t anBufferLen /*, int anFlags*/)
+{
+	return mSocket.ReceiveData(apDataBuffer, anBufferLen /*, 0*/);
 };
 
 }; // namespace sbe::SbNetwork

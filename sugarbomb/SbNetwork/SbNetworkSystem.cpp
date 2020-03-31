@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -24,16 +24,22 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 /// @file
 
 #include "SbNetworkSystem.hpp"
+#include "SbNetworkImpl.hpp"
 
+#include "CoreLibs/SbSystem/ISystem.hpp"
 namespace sbe::SbNetwork
 {
 
+SbNetworkSystem::SbNetworkSystem(ISystem &aSystem, SbNetworkImpl &aImpl) : mSystem(aSystem), mImpl(aImpl){}
+
 void SbNetworkSystem::Init()
 {
+	mImpl.Init();
 };
 
 void SbNetworkSystem::Shutdown()
 {
+	mImpl.Shutdown();
 };
 
 }; // sbe::SbNetwork

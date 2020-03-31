@@ -27,7 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+//*****************************************************************************
+
 #include "precompiled.h"
+
 #pragma hdrstop
 
 //#include <cctype>                      // for toupper, isdigit
@@ -54,6 +57,8 @@ If you have questions concerning this license or the applicable additional terms
 //#include "LangDict.h"
 //#include "sys/sys_assert.h"
 //#include "sys/sys_types.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

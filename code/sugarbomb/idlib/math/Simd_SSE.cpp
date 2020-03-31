@@ -27,8 +27,12 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+//*****************************************************************************
+
 #pragma hdrstop
+
 #include "precompiled.h"
+
 #include "idlib/math/Simd_Generic.h"
 #include "idlib/math/Simd_SSE.h"
 
@@ -45,6 +49,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef M_PI // DG: this is already defined in math.h
 #define M_PI	3.14159265358979323846f
 #endif
+
+//*****************************************************************************
 
 /*
 ============

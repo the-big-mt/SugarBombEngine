@@ -34,13 +34,18 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
-#pragma hdrstop
-#include "precompiled.h"
-//#include "../idlib/geometry/JointTransform.h"
+//*****************************************************************************
 
-//#include "../idlib/math/Math.h"
-//#include "../idlib/math/Quat.h"
-//#include "../idlib/math/Vector.h"
+#pragma hdrstop
+
+#include "precompiled.h"
+
+#include "idlib/geometry/JointTransform.h"
+//#include "idlib/math/Math.h"
+//#include "idlib/math/Quat.h"
+//#include "idlib/math/Vector.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(SugarBombEngine)
+project(SugarBombEngine VERSION 0.2.5.8)
 
 option(SBE_SINGLE_BINARY "Build everything as a single binary" OFF)
 option(SBE_USE_SDL "Use SDL2 for crossplatform support" OFF)
@@ -15,17 +15,14 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
+find_package(ImGui)
+find_package(GLEW)
+find_package(SDL2)
 
 set(SBE_LIBS_PATH
 	${CMAKE_SOURCE_DIR}/../SBE-libs
 	CACHE PATH
 	"Path to engine dependencies"
-)
-
-set(SBE_SDL_PATH
-	${CMAKE_SOURCE_DIR}/../SDL2
-	CACHE PATH
-	"Path to SDL2"
 )
 
 include_directories(
@@ -40,6 +37,11 @@ include_directories(
 if(MINGW)
 	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/mingw-hacks)
 endif()
+
+configure_file(
+	SbVersion.hpp.in
+	${CMAKE_CURRENT_SOURCE_DIR}/sugarbomb/SDK/Include/CoreLibs/SbSystem/SbVersion.hpp
+)
 
 add_subdirectory(libs)
 

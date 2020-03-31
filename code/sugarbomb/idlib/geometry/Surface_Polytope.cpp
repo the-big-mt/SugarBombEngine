@@ -34,13 +34,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+//*****************************************************************************
+
 #pragma hdrstop
-//#include "../idlib/geometry/Surface_Polytope.h"
 
 //#include <cstdlib>
 //#include <cstring>
 #include "precompiled.h"
 
+#include "idlib/geometry/Surface_Polytope.h"
 /*
 #include "../idlib/bv/Bounds.h"
 #include "../idlib/math/Math.h"
@@ -59,6 +61,8 @@ namespace BFG
 */
 
 #define POLYTOPE_VERTEX_EPSILON		0.1f
+
+//*****************************************************************************
 
 /*
 ====================

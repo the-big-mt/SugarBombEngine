@@ -34,17 +34,22 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+//*****************************************************************************
+
 #include "precompiled.h"
+
 #pragma hdrstop
+
 //#include <cstddef>
 //#include <cstdio>
 //#include <cstdlib>
 //#include <cstring>
 
-//#include "../framework/../framework/CmdSystem.h"
-//#include "../framework/Common.h"
-//#include "../framework/File.h"
-//#include "../framework/FileSystem.h"
+//#include "framework/CmdSystem.h"
+//#include "framework/Common.h"
+
+//#include "framework/File.h"
+//#include "framework/FileSystem.h"
 //#include "../framework/FileSystem.h"    // for fileSystem, idFileSystem
 //#include "../framework/Serializer.h"  // for idSerializer
 //#include "../idlib/Dict.h"
@@ -66,6 +71,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 //#include "containers/List.h"
 //#include "sys/sys_assert.h"
 //#include "sys/sys_defines.h"
+
+//*****************************************************************************
 
 //namespace BFG
 //{

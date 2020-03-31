@@ -65,6 +65,11 @@ void SbSystem::Warning(const char *asMsg, ...)
 	// TODO
 };
 
+void SbSystem::Error(const char *asMsg, ...)
+{
+	// TODO
+};
+
 void SbSystem::FatalError(const char *asMsg, ...)
 {
 	Shutdown();
