@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -36,17 +36,17 @@ class SbLibraryLoader
 {
 public:
 	///
-	static int Load(const char *asPath);
+	static intptr_t Load(const char *asPath);
 	
 	///
-	static void Unload(int anHandle);
+	static void Unload(intptr_t anHandle);
 	
 	///
-	static void *GetSymbol(int anHandle, const char *asSymbol);
+	static void *GetSymbol(intptr_t anHandle, const char *asSymbol);
 	
 	///
 	template<typename T>
-	inline static T GetSymbol(int anHandle, const char *asSymbol){return reinterpret_cast<T>(GetSymbol(anHandle, asSymbol));}
+	inline static T GetSymbol(intptr_t anHandle, const char *asSymbol){return reinterpret_cast<T>(GetSymbol(anHandle, asSymbol));}
 };
 
 }; // namespace sbe

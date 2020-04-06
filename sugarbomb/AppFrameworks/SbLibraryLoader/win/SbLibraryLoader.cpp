@@ -1,7 +1,8 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2012-2014 Robert Beckebans
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -34,17 +35,19 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
-int SbLibraryLoader::Load(const char *asPath)
+// RB: 64 bit fixes, changed int to intptr_t
+
+intptr_t SbLibraryLoader::Load(const char *asPath)
 {
-	return reinterpret_cast<int>(LoadLibrary(asPath));
+	return reinterpret_cast<intptr_t>(LoadLibrary(asPath));
 };
 
-void SbLibraryLoader::Unload(int anHandle)
+void SbLibraryLoader::Unload(intptr_t anHandle)
 {
 	FreeLibrary(reinterpret_cast<HMODULE>(anHandle));
 };
 
-void *SbLibraryLoader::GetSymbol(int anHandle, const char *asSymbol)
+void *SbLibraryLoader::GetSymbol(intptr_t anHandle, const char *asSymbol)
 {
 	return reinterpret_cast<void *>(GetProcAddress(reinterpret_cast<HMODULE>(anHandle), asSymbol));
 };
