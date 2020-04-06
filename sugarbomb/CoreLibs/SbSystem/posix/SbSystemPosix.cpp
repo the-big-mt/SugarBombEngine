@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -23,26 +23,9 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
-#include <dlfcn.h>
-
 #include "SbSystem.hpp"
 
 namespace sbe::SbSystem
 {
-
-int SbSystem::LoadLib(const char *asPath)
-{
-	return dlopen(asPath, RTLD_NOW);
-};
-
-void SbSystem::FreeLib(int anHandle)
-{
-	dlclose(anHandle);
-};
-
-void *SbSystem::GetLibSymbol(int anHandle, const char *asSymbol) const
-{
-	return dlsym(anHandle, asSymbol);
-};
 
 }; // namespace sbe::SbSystem

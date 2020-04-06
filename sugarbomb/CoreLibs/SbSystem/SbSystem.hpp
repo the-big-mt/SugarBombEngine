@@ -40,9 +40,9 @@ public:
 	void Init() override;
 	void Shutdown() override;
 	
-	int LoadLib(const char *asPath) override;
-	void FreeLib(int anHandle) override;
-	void *GetLibSymbol(int anHandle, const char *asSymbol) const override;
+	intptr_t LoadLib(const char *asPath) override;
+	void FreeLib(intptr_t anHandle) override;
+	void *GetLibSymbol(intptr_t anHandle, const char *asSymbol) const override;
 	
 	void Printf(const char *asMsg, ...) override;
 	

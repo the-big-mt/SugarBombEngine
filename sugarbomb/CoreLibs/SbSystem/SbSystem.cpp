@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -31,6 +31,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbSystem.hpp"
 
+#include "AppFrameworks/SbLibraryLoader/SbLibraryLoader.hpp"
+
 //*****************************************************************************
 
 namespace sbe::SbSystem
@@ -42,6 +44,21 @@ void SbSystem::Init()
 
 void SbSystem::Shutdown()
 {
+};
+
+intptr_t SbSystem::LoadLib(const char *asPath)
+{
+	return SbLibraryLoader::Load(asPath);
+};
+
+void SbSystem::FreeLib(intptr_t anHandle)
+{
+	SbLibraryLoader::Free(anHandle);
+};
+
+void *SbSystem::GetLibSymbol(intptr_t anHandle, const char *asSymbol) const
+{
+	return SbLibraryLoader::GetSymbol(anHandle, asSymbol);
 };
 
 void SbSystem::Printf(const char *asMsg, ...)

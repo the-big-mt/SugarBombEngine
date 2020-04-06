@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -29,20 +29,5 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 namespace sbe::SbSystem
 {
-
-int SbSystem::LoadLib(const char *asPath)
-{
-	return reinterpret_cast<int>(LoadLibrary(asPath));
-};
-
-void SbSystem::FreeLib(int anHandle)
-{
-	FreeLibrary(reinterpret_cast<HMODULE>(anHandle));
-};
-
-void *SbSystem::GetLibSymbol(int anHandle, const char *asSymbol) const
-{
-	return reinterpret_cast<void *>(GetProcAddress(reinterpret_cast<HMODULE>(anHandle), asSymbol));
-};
 
 }; // namespace sbe::SbSystem
