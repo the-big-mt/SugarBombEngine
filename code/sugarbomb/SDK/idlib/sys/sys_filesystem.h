@@ -34,6 +34,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+/// @file
 #include "idlib/containers/List.h" // for idList
 
 //*****************************************************************************
@@ -66,4 +67,3 @@ const char* 	Sys_CWD();
 const char* 	Sys_LaunchPath();
 
 //} // namespace BFG
-
