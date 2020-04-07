@@ -118,7 +118,7 @@ idList<_type_,_tag_>::idList( int )
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE idList<_type_, _tag_>::idList( int newgranularity )
+ID_INLINE SbList<_type_, _tag_>::SbList( int newgranularity )
 {
 	assert( newgranularity > 0 );
 	
@@ -134,7 +134,7 @@ idList<_type_,_tag_>::idList( const idList< _type_, _tag_ > &other )
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE idList<_type_, _tag_>::idList( const idList& other )
+ID_INLINE SbList<_type_, _tag_>::SbList( const SbList& other )
 {
 	list = NULL;
 	*this = other;
@@ -146,7 +146,7 @@ idList<_type_,_tag_>::~idList< _type_, _tag_ >
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE idList<_type_, _tag_>::~idList()
+ID_INLINE SbList<_type_, _tag_>::~SbList()
 {
 	Clear();
 }
@@ -159,7 +159,7 @@ Frees up the memory allocated by the list.  Assumes that _type_ automatically ha
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE void idList<_type_, _tag_>::Clear()
+ID_INLINE void SbList<_type_, _tag_>::Clear()
 {
 	if( list )
 	{
@@ -184,7 +184,7 @@ list to NULL.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE void idList<_type_, _tag_>::DeleteContents( bool clear )
+ID_INLINE void SbList<_type_, _tag_>::DeleteContents( bool clear )
 {
 	int i;
 	
@@ -212,7 +212,7 @@ return total memory allocated for the list in bytes, but doesn't take into accou
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE size_t idList<_type_, _tag_>::Allocated() const
+ID_INLINE size_t SbList<_type_, _tag_>::Allocated() const
 {
 	return size * sizeof( _type_ );
 }
@@ -225,9 +225,9 @@ return total size of list in bytes, but doesn't take into account additional mem
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE size_t idList<_type_, _tag_>::Size() const
+ID_INLINE size_t SbList<_type_, _tag_>::Size() const
 {
-	return sizeof( idList< _type_, _tag_ > ) + Allocated();
+	return sizeof( SbList< _type_, _tag_ > ) + Allocated();
 }
 
 /*
@@ -236,7 +236,7 @@ idList<_type_,_tag_>::MemoryUsed
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE size_t idList<_type_, _tag_>::MemoryUsed() const
+ID_INLINE size_t SbList<_type_, _tag_>::MemoryUsed() const
 {
 	return num * sizeof( *list );
 }
@@ -250,7 +250,7 @@ Note that this is NOT an indication of the memory allocated.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE int idList<_type_, _tag_>::Num() const
+ID_INLINE int SbList<_type_, _tag_>::Num() const
 {
 	return num;
 }
@@ -263,7 +263,7 @@ Returns the number of elements currently allocated for.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE int idList<_type_, _tag_>::NumAllocated() const
+ID_INLINE int SbList<_type_, _tag_>::NumAllocated() const
 {
 	return size;
 }
@@ -274,7 +274,7 @@ idList<_type_,_tag_>::SetNum
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE void idList<_type_, _tag_>::SetNum( int newnum )
+ID_INLINE void SbList<_type_, _tag_>::SetNum( int newnum )
 {
 	assert( newnum >= 0 );
 	if( newnum > size )
@@ -292,7 +292,7 @@ Sets the base size of the array and resizes the array to match.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE void idList<_type_, _tag_>::SetGranularity( int newgranularity )
+ID_INLINE void SbList<_type_, _tag_>::SetGranularity( int newgranularity )
 {
 	int newsize;
 	
@@ -319,7 +319,7 @@ Get the current granularity.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE int idList<_type_, _tag_>::GetGranularity() const
+ID_INLINE int SbList<_type_, _tag_>::GetGranularity() const
 {
 	return granularity;
 }
@@ -332,7 +332,7 @@ Resizes the array to exactly the number of elements it contains or frees up memo
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE void idList<_type_, _tag_>::Condense()
+ID_INLINE void SbList<_type_, _tag_>::Condense()
 {
 	if( list )
 	{
@@ -356,7 +356,7 @@ Contents are copied using their = operator so that data is correnctly instantiat
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE void idList<_type_, _tag_>::Resize( int newsize )
+ID_INLINE void SbList<_type_, _tag_>::Resize( int newsize )
 {
 	assert( newsize >= 0 );
 	
@@ -390,7 +390,7 @@ Contents are copied using their = operator so that data is correnctly instantiat
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE void idList<_type_, _tag_>::Resize( int newsize, int newgranularity )
+ID_INLINE void SbList<_type_, _tag_>::Resize( int newsize, int newgranularity )
 {
 	assert( newsize >= 0 );
 	
@@ -420,7 +420,7 @@ Makes sure the list has at least the given number of elements.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE void idList<_type_, _tag_>::AssureSize( int newSize )
+ID_INLINE void SbList<_type_, _tag_>::AssureSize( int newSize )
 {
 	int newNum = newSize;
 	
@@ -448,7 +448,7 @@ Makes sure the list has at least the given number of elements and initialize any
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE void idList<_type_, _tag_>::AssureSize( int newSize, const _type_ &initValue )
+ID_INLINE void SbList<_type_, _tag_>::AssureSize( int newSize, const _type_ &initValue )
 {
 	int newNum = newSize;
 	
@@ -485,7 +485,7 @@ on non-pointer lists will cause a compiler error.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE void idList<_type_, _tag_>::AssureSizeAlloc( int newSize, new_t* allocator )
+ID_INLINE void SbList<_type_, _tag_>::AssureSizeAlloc( int newSize, new_t* allocator )
 {
 	int newNum = newSize;
 	
@@ -519,7 +519,7 @@ Copies the contents and size attributes of another list.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE idList<_type_, _tag_>& idList<_type_, _tag_>::operator=( const idList<_type_, _tag_>& other )
+ID_INLINE SbList<_type_, _tag_>& SbList<_type_, _tag_>::operator=( const SbList<_type_, _tag_>& other )
 {
 	int	i;
 	
@@ -551,7 +551,7 @@ Release builds do no range checking.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE const _type_& idList<_type_, _tag_>::operator[]( int index ) const
+ID_INLINE const _type_& SbList<_type_, _tag_>::operator[]( int index ) const
 {
 	assert( index >= 0 );
 	assert( index < num );
@@ -568,7 +568,7 @@ Release builds do no range checking.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE _type_& idList<_type_, _tag_>::operator[]( int index )
+ID_INLINE _type_& SbList<_type_, _tag_>::operator[]( int index )
 {
 	assert( index >= 0 );
 	assert( index < num );
@@ -588,7 +588,7 @@ FIXME: Create an iterator template for this kind of thing.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE _type_* idList<_type_, _tag_>::Ptr()
+ID_INLINE _type_* SbList<_type_, _tag_>::Ptr()
 {
 	return list;
 }
@@ -605,7 +605,7 @@ FIXME: Create an iterator template for this kind of thing.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-const ID_INLINE _type_* idList<_type_, _tag_>::Ptr() const
+const ID_INLINE _type_* SbList<_type_, _tag_>::Ptr() const
 {
 	return list;
 }
@@ -618,7 +618,7 @@ Returns a reference to a new data element at the end of the list.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE _type_& idList<_type_, _tag_>::Alloc()
+ID_INLINE _type_& SbList<_type_, _tag_>::Alloc()
 {
 	if( !list )
 	{
@@ -643,7 +643,7 @@ Returns the index of the new element.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE int idList<_type_, _tag_>::Append( _type_ const& obj )
+ID_INLINE int SbList<_type_, _tag_>::Append( _type_ const& obj )
 {
 	if( !list )
 	{
@@ -680,7 +680,7 @@ Returns the index of the new element.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE int idList<_type_, _tag_>::Insert( _type_ const& obj, int index )
+ID_INLINE int SbList<_type_, _tag_>::Insert( _type_ const& obj, int index )
 {
 	if( !list )
 	{
@@ -726,7 +726,7 @@ Returns the size of the new combined list
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE int idList<_type_, _tag_>::Append( const idList< _type_, _tag_ >& other )
+ID_INLINE int SbList<_type_, _tag_>::Append( const SbList< _type_, _tag_ >& other )
 {
 	if( !list )
 	{
@@ -754,7 +754,7 @@ Adds the data to the list if it doesn't already exist.  Returns the index of the
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE int idList<_type_, _tag_>::AddUnique( _type_ const& obj )
+ID_INLINE int SbList<_type_, _tag_>::AddUnique( _type_ const& obj )
 {
 	int index;
 	
@@ -775,7 +775,7 @@ Searches for the specified data in the list and returns it's index.  Returns -1 
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE int idList<_type_, _tag_>::FindIndex( _type_ const& obj ) const
+ID_INLINE int SbList<_type_, _tag_>::FindIndex( _type_ const& obj ) const
 {
 	int i;
 	
@@ -799,7 +799,7 @@ Searches for the specified data in the list and returns it's address. Returns NU
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE _type_* idList<_type_, _tag_>::Find( _type_ const& obj ) const
+ID_INLINE _type_* SbList<_type_, _tag_>::Find( _type_ const& obj ) const
 {
 	int i;
 	
@@ -823,7 +823,7 @@ on non-pointer lists will cause a compiler error.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE int idList<_type_, _tag_>::FindNull() const
+ID_INLINE int SbList<_type_, _tag_>::FindNull() const
 {
 	int i;
 	
@@ -850,7 +850,7 @@ but remains silent in release builds.
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE int idList<_type_, _tag_>::IndexOf( _type_ const* objptr ) const
+ID_INLINE int SbList<_type_, _tag_>::IndexOf( _type_ const* objptr ) const
 {
 	int index;
 	
@@ -872,7 +872,7 @@ Note that the element is not destroyed, so any memory used by it may not be free
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE bool idList<_type_, _tag_>::RemoveIndex( int index )
+ID_INLINE bool SbList<_type_, _tag_>::RemoveIndex( int index )
 {
 	int i;
 	
@@ -909,7 +909,7 @@ NOTE:	The element is not destroyed, so any memory used by it may not be freed un
 ========================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE bool idList<_type_, _tag_>::RemoveIndexFast( int index )
+ID_INLINE bool SbList<_type_, _tag_>::RemoveIndexFast( int index )
 {
 
 	if( ( index < 0 ) || ( index >= num ) )
@@ -936,7 +936,7 @@ the element is not destroyed, so any memory used by it may not be freed until th
 ================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE bool idList<_type_, _tag_>::Remove( _type_ const& obj )
+ID_INLINE bool SbList<_type_, _tag_>::Remove( _type_ const& obj )
 {
 	int index;
 	
@@ -958,7 +958,7 @@ ID_INLINE bool idList<_type_, _tag_>::Remove( _type_ const& obj )
 //================
 //*/
 //template< typename _type_, memTag_t _tag_ >
-//ID_INLINE void idList<_type_,_tag_>::Sort( cmp_t *compare ) {
+//ID_INLINE void SbList<_type_,_tag_>::Sort( cmp_t *compare ) {
 //	if ( !list ) {
 //		return;
 //	}
@@ -979,7 +979,7 @@ Note:	The data is merely moved around the list, so any pointers to data within t
 ========================
 */
 template< typename _type_, memTag_t _tag_ >
-ID_INLINE void idList<_type_, _tag_>::SortWithTemplate( const idSort<_type_>& sort )
+ID_INLINE void SbList<_type_, _tag_>::SortWithTemplate( const idSort<_type_>& sort )
 {
 	if( list == NULL )
 	{
@@ -996,7 +996,7 @@ ID_INLINE void idList<_type_, _tag_>::SortWithTemplate( const idSort<_type_>& so
 //================
 //*/
 //template< typename _type_, memTag_t _tag_ >
-//ID_INLINE void idList<_type_,_tag_>::SortSubSection( int startIndex, int endIndex, cmp_t *compare ) {
+//ID_INLINE void SbList<_type_,_tag_>::SortSubSection( int startIndex, int endIndex, cmp_t *compare ) {
 //	if ( !list ) {
 //		return;
 //	}

@@ -62,16 +62,16 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 template< typename _type_, memTag_t _tag_ = TAG_IDLIB_LIST >
-class idList
+class SbList
 {
 public:
 
 	typedef int		cmp_t( const _type_*, const _type_* );
 	typedef _type_	new_t();
 	
-	idList( int newgranularity = 16 );
-	idList( const idList& other );
-	~idList();
+	SbList( int newgranularity = 16 );
+	SbList( const SbList& other );
+	~SbList();
 	
 	void			Clear();											// clear the list
 	int				Num() const;										// returns number of elements in list
@@ -83,7 +83,7 @@ public:
 	size_t			Size() const;										// returns total size of allocated memory including size of list _type_
 	size_t			MemoryUsed() const;									// returns size of the used elements in the list
 	
-	idList<_type_, _tag_>& 		operator=( const idList<_type_, _tag_>& other );
+	SbList<_type_, _tag_>& 		operator=( const SbList<_type_, _tag_>& other );
 	const _type_& 	operator[]( int index ) const;
 	_type_& 		operator[]( int index );
 	
@@ -99,7 +99,7 @@ public:
 	const _type_* 	Ptr() const;										// returns a pointer to the list
 	_type_& 		Alloc();											// returns reference to a new data element at the end of the list
 	int				Append( const _type_ & obj );						// append element
-	int				Append( const idList& other );						// append list
+	int				Append( const SbList& other );						// append list
 	int				AddUnique( const _type_ & obj );					// add unique element
 	int				Insert( const _type_ & obj, int index = 0 );		// insert the element at the given index
 	int				FindIndex( const _type_ & obj ) const;				// find the index for the given element
@@ -113,23 +113,23 @@ public:
 //	void			Sort( cmp_t *compare = ( cmp_t * )&idListSortCompare<_type_, _tag_> );
 	void			SortWithTemplate( const idSort<_type_>& sort = idSort_QuickDefault<_type_>() );
 //	void			SortSubSection( int startIndex, int endIndex, cmp_t *compare = ( cmp_t * )&idListSortCompare<_type_> );
-	void			Swap( idList& other );								// swap the contents of the lists
+	void			Swap( SbList& other );								// swap the contents of the lists
 	void			DeleteContents( bool clear = true );				// delete the contents of the list
 	
 	//------------------------
-	// auto-cast to other idList types with a different memory tag
+	// auto-cast to other SbList types with a different memory tag
 	//------------------------
 	
 	template< memTag_t _t_ >
-	operator idList<_type_, _t_>& ()
+	operator SbList<_type_, _t_>& ()
 	{
-		return *reinterpret_cast<idList<_type_, _t_> *>( this );
+		return *reinterpret_cast<SbList<_type_, _t_> *>( this );
 	}
 	
 	template< memTag_t _t_>
-	operator const idList<_type_, _t_>& () const
+	operator const SbList<_type_, _t_>& () const
 	{
-		return *reinterpret_cast<const idList<_type_, _t_> *>( this );
+		return *reinterpret_cast<const SbList<_type_, _t_> *>( this );
 	}
 	
 	//------------------------
@@ -166,7 +166,7 @@ If your _type_ is a ptr, use the FindFromGenericPtr function instead.
 ========================
 */
 template< typename _type_, memTag_t _tag_, typename _compare_type_ >
-_type_* FindFromGeneric( idList<_type_, _tag_>& list, const _compare_type_ & other )
+_type_* FindFromGeneric( SbList<_type_, _tag_>& list, const _compare_type_ & other )
 {
 	for( int i = 0; i < list.Num(); i++ )
 	{
@@ -184,7 +184,7 @@ FindFromGenericPtr
 ========================
 */
 template< typename _type_, memTag_t _tag_, typename _compare_type_ >
-_type_* FindFromGenericPtr( idList<_type_, _tag_>& list, const _compare_type_ & other )
+_type_* FindFromGenericPtr( SbList<_type_, _tag_>& list, const _compare_type_ & other )
 {
 	for( int i = 0; i < list.Num(); i++ )
 	{
