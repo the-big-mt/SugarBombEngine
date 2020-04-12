@@ -63,12 +63,9 @@ idCommandLink* CommandLinks( idCommandLink* cl )
 {
 	static idCommandLink* commandLinks = nullptr;
 	if( cl != nullptr )
-	{
 		commandLinks = cl;
-	}
 	return commandLinks;
-}
-
+};
 
 idCommandLink* commandLinks = nullptr;
 
@@ -81,6 +78,6 @@ idCommandLink::idCommandLink( const char* cmdName, cmdFunction_t function,
 	function_ = function;
 	description_ = description;
 	argCompletion_ = argCompletion;
-}
+};
 
 //} // namespace sbe

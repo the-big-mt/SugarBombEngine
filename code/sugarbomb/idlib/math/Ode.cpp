@@ -405,4 +405,3 @@ float idODE_RK4Adaptive::Evaluate( const float* state, float* newState, float t0
 	}
 	return delta;
 }
-

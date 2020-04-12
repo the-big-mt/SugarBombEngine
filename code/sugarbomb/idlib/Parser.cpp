@@ -3873,4 +3873,3 @@ bool idParser::EndOfFile()
 	}
 	return true;
 }
-
