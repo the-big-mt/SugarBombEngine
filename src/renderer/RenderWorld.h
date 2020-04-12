@@ -38,7 +38,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/math/Vector.h"
 #include "idlib/math/Matrix.h"
 
-//namespace BFG
+//namespace sbe
 //{
 
 struct idRenderModel;
@@ -264,6 +264,6 @@ typedef struct modelTrace_s
 	int						jointNumber;		// md5 joint nearest to the hit triangle
 } modelTrace_t;
 
-//} // namespace BFG
+//} // namespace sbe
 
 #endif /* !__RENDERWORLD_H__ */

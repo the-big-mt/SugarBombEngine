@@ -37,7 +37,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "framework/CVar.hpp"
 
-//namespace BFG
+//namespace sbe
 //{
 
 idCVar binaryLoadRenderModels( "binaryLoadRenderModels", "1", 0, "enable binary load/write of render models" );
@@ -898,4 +898,4 @@ void idRenderModelManagerLocal::PrintMemInfo( MemInfo_t* mi )
 	fileSystem->CloseFile( f );
 }
 
-//} // namespace BFG
+//} // namespace sbe
