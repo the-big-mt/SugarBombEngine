@@ -58,7 +58,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idCVarSystem;
@@ -714,4 +714,4 @@ void BreakOnListDefault()
 {
 }
 
-//} // namespace BFG
+//} // namespace sbe

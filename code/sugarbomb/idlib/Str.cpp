@@ -60,7 +60,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 #ifdef USE_STRING_DATA_ALLOCATOR
@@ -2590,4 +2590,4 @@ CONSOLE_COMMAND( testStrId, "prints a localized string", 0 )
 	idLib::Printf( "%s = %s\n", args.Argv( 1 ), str.GetLocalizedString() );
 }
 
-//} // namespace BFG
+//} // namespace sbe

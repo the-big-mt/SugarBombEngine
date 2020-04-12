@@ -47,7 +47,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -113,4 +113,4 @@ idJointQuat idJointMat::ToJointQuat() const
 	return jq;
 }
 
-//} // namespace BFG
+//} // namespace sbe

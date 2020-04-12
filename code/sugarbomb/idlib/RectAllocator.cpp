@@ -48,7 +48,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -212,4 +212,4 @@ void RectAllocator( const idList<idVec2i>& inputSizes, idList<idVec2i>& outputPo
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

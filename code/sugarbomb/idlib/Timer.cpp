@@ -44,7 +44,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 double idTimer::base = -1.0;
@@ -195,4 +195,4 @@ void idTimerReport::PrintReport()
 	idLib::sys->Printf( "Total time for report %s was %5.2f\n\n", reportName.c_str(), total * 0.001f );
 }
 
-//} // namespace BFG
+//} // namespace sbe

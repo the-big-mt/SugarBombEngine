@@ -45,7 +45,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -98,4 +98,4 @@ int idShadowVertSkinned::CreateShadowCache( idShadowVertSkinned* vertexCache, co
 	return numVerts * 2;
 }
 
-//} // namespace BFG
+//} // namespace sbe

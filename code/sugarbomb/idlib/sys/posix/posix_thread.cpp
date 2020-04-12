@@ -55,7 +55,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 // DG: Note: On Linux you need at least (e)glibc 2.12 to be able to set the threadname
@@ -633,4 +633,4 @@ void* Sys_InterlockedCompareExchangePointer( void*& ptr, void* comparand, void* 
 	return __sync_val_compare_and_swap( &ptr, comparand, exchange );
 }
 
-//} // namespace BFG
+//} // namespace sbe

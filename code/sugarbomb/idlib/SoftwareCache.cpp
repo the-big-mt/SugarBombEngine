@@ -45,7 +45,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -80,4 +80,4 @@ bool SpursEmulationAssertFailed( const char* filename, int line, const char* exp
 	return true;
 }
 
-//} // namespace BFG
+//} // namespace sbe

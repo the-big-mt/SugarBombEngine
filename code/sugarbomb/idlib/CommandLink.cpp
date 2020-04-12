@@ -38,7 +38,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -73,4 +73,4 @@ idCommandLink::idCommandLink( const char* cmdName, cmdFunction_t function,
 	argCompletion_ = argCompletion;
 }
 
-//} // namespace BFG
+//} // namespace sbe

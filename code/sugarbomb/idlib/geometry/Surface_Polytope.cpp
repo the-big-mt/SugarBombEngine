@@ -56,7 +56,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include "geometry/Winding.h"
 #include "sys/sys_defines.h"
 
-namespace BFG
+namespace sbe
 {
 */
 
@@ -393,4 +393,4 @@ int idSurface_Polytope::SplitPolytope( const idPlane& plane, const float epsilon
 	return side;
 }
 
-//} // namespace BFG
+//} // namespace sbe

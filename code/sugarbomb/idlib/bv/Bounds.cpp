@@ -51,7 +51,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 idBounds bounds_zero( vec3_zero, vec3_zero );
@@ -509,4 +509,4 @@ void idBounds::ToPoints( idVec3 points[8] ) const
 	}
 }
 
-//} // namespace BFG
+//} // namespace sbe

@@ -74,7 +74,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idCmdArgs;
@@ -1147,4 +1147,4 @@ void idDict::ListValues_f( const idCmdArgs& args )
 	//idLib::sys->Printf( "%5d values\n", valueStrings.Num() );
 }
 
-//} // namespace BFG
+//} // namespace sbe

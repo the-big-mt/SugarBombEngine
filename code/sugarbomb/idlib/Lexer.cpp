@@ -60,7 +60,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 #define PUNCTABLE
@@ -2341,4 +2341,4 @@ bool idLexer::HadError() const
 	return hadError;
 }
 
-//} // namespace BFG
+//} // namespace sbe

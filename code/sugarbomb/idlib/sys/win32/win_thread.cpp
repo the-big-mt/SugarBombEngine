@@ -48,7 +48,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -428,4 +428,4 @@ void* Sys_InterlockedCompareExchangePointer( void*& ptr, void* comparand, void* 
 	return InterlockedCompareExchangePointer( & ptr, exchange, comparand );
 }
 
-//} // namespace BFG
+//} // namespace sbe

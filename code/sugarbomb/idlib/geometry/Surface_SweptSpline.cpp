@@ -55,7 +55,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-namespace BFG
+namespace sbe
 {
 */
 
@@ -266,4 +266,4 @@ void idSurface_SweptSpline::Tessellate( const int splineSubdivisions, const int 
 	GenerateEdgeIndexes();
 }
 
-//} // namespace BFG
+//} // namespace sbe

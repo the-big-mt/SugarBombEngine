@@ -51,7 +51,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-namespace BFG
+namespace sbe
 {
 */
 
@@ -363,4 +363,4 @@ idQuat Slerp( const idQuat& from, const idQuat& to, const float t )
 	return idQuat().Slerp( from, to, t );
 }
 
-//} // namespace BFG
+//} // namespace sbe

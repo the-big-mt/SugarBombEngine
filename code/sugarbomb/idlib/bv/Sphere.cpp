@@ -48,7 +48,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 idSphere sphere_zero( vec3_zero, 0.0f );
@@ -190,4 +190,4 @@ void idSphere::FromPoints( const idVec3* points, const int numPoints )
 	radius = idMath::Sqrt( radiusSqr );
 }
 
-//} // namespace BFG
+//} // namespace sbe

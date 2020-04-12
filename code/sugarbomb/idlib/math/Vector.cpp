@@ -49,7 +49,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 idVec2 vec2_origin( 0.0f, 0.0f );
@@ -474,4 +474,4 @@ const char* idVec6::ToString( int precision ) const
 	return idStr::FloatArrayToString( ToFloatPtr(), GetDimension(), precision );
 }
 
-//} // namespace BFG
+//} // namespace sbe

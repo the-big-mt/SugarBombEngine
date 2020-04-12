@@ -46,7 +46,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -338,4 +338,4 @@ unsigned int MD5_BlockChecksum( const void* data, size_t length )
 	return val;
 }
 
-//} // namespace BFG
+//} // namespace sbe

@@ -56,7 +56,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-namespace BFG
+namespace sbe
 {
 */
 
@@ -931,4 +931,4 @@ bool idWinding2D::RayIntersection( const idVec2& start, const idVec2& dir, float
 	return true;
 }
 
-//} // namespace BFG
+//} // namespace sbe

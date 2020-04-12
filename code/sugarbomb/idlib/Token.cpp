@@ -40,7 +40,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -224,4 +224,4 @@ void idToken::ClearTokenWhiteSpace()
 	linesCrossed = 0;
 }
 
-//} // namespace BFG
+//} // namespace sbe

@@ -49,7 +49,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 int idHashIndex::INVALID_INDEX[1] = { -1 };
@@ -195,4 +195,4 @@ int idHashIndex::GetSpread() const
 	return 100 - ( error * 100 / totalItems );
 }
 
-//} // namespace BFG
+//} // namespace sbe

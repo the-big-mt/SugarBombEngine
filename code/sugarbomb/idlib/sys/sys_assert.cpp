@@ -54,7 +54,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -143,4 +143,4 @@ bool AssertFailed( const char* file, int line, const char* expression )
 	return true;
 }
 
-//} // namespace BFG
+//} // namespace sbe

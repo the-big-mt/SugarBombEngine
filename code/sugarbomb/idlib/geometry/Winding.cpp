@@ -58,7 +58,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-namespace BFG
+namespace sbe
 {
 */
 
@@ -1978,4 +1978,4 @@ int idFixedWinding::Split( idFixedWinding* back, const idPlane& plane, const flo
 	return SIDE_CROSS;
 }
 
-//} // namespace BFG
+//} // namespace sbe

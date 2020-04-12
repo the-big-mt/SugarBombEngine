@@ -115,4 +115,4 @@ char* Mem_CopyString( const char* in )
 	return out;
 }
 
-//} // namespace BFG
+//} // namespace sbe

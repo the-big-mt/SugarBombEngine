@@ -54,7 +54,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -852,4 +852,4 @@ void idSurface_Patch::Subdivide( float maxHorizontalError, float maxVerticalErro
 	GenerateIndexes();
 }
 
-//} // namespace BFG
+//} // namespace sbe

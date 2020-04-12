@@ -51,7 +51,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 //class idRotation;
@@ -947,4 +947,4 @@ int idBox::GetParallelProjectionSilhouetteVerts( const idVec3& projectionDir, id
 	return index[0];
 }
 
-//} // namespace BFG
+//} // namespace sbe

@@ -49,7 +49,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 // FIXME:	it would be nice if all render matrices were 16-byte aligned
@@ -4691,4 +4691,4 @@ frustumCull_t idRenderMatrix::CullFrustumCornersToPlane( const frustumCorners_t&
 #endif
 }
 
-//} // namespace BFG
+//} // namespace sbe
