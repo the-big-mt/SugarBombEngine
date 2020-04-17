@@ -36,11 +36,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 /// @file
 
+//*****************************************************************************
+
 #pragma once
 
 #include "ICVarSystem.hpp"
 
 #include "idlib/sys/sys_assert.h"
+
+//*****************************************************************************
 
 extern idCVarSystem *cvarSystem;
 

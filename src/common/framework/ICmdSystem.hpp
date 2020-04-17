@@ -34,6 +34,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+//*****************************************************************************
+
 #pragma once
 
 #include "idlib/sys/sys_types.h"
@@ -82,6 +84,8 @@ created using the CONSOLE_COMMAND_SHIP macro.
 	void name ## _f( const idCmdArgs &args ); \
 	idCommandLink name ## _v( #name, name ## _f, comment, completion  ); \
 	void name ## _f( const idCmdArgs &args )
+
+//*****************************************************************************
 
 namespace sbe
 {
