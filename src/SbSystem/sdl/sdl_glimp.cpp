@@ -6,6 +6,7 @@ Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012 dhewg (dhewm3)
 Copyright (C) 2012-2014 Robert Beckebans
 Copyright (C) 2013 Daniel Gibson
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 GPL Source Code ("Doom 3 Source Code").
 
