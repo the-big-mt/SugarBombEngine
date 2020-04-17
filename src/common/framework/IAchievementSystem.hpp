@@ -40,6 +40,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
+namespace sbe
+{
+
 class idLocalUser;
 
 /*
@@ -137,3 +140,4 @@ protected:
 	
 	idStaticList< idLocalUser*, MAX_LOCAL_PLAYERS > users;
 };
+}; // namespace sbe

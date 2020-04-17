@@ -46,6 +46,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
+namespace sbe
+{
+
 extern idCVarSystem *cvarSystem;
 
 /*
@@ -265,3 +268,4 @@ ID_INLINE void idCVar::RegisterStaticVars()
 		staticVars = ( idCVar* )UINTPTR_MAX;
 	}
 }
+}; // namespace sbe

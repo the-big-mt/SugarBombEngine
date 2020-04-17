@@ -218,3 +218,4 @@ public:
 	static void			ArgCompletion_SaveGame( const idCmdArgs& args, void( *callback )( const char* s ) );
 	static void			ArgCompletion_DemoName( const idCmdArgs& args, void( *callback )( const char* s ) );
 };}; // namespace sbe
+}; // namespace sbe
