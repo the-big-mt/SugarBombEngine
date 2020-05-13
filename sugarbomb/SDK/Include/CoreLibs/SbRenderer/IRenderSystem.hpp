@@ -67,6 +67,43 @@ struct IRenderSystem
 	
 	///
 	virtual void EndLevelLoad() = 0;
+	
+	enum class Stereo3DMode : int
+	{
+		Off,
+		
+		/// half-resolution, non-square pixel views
+		SideBySideCompressed,
+		TopAndBottomCompressed,
+		
+		/// two full resolution views side by side, as for a dual cable display
+		SideBySide,
+		
+		Interlaced,
+		
+		/// OpenGL quad buffer
+		QuadBuffer,
+		
+		/// two full resolution views stacked with a 30 pixel guard band
+		/// On the PC this can be configured as a custom video timing, but
+		/// it definitely isn't a consumer level task.  The quad_buffer
+		/// support can handle 720P-3D with apropriate driver support.
+		HDMI720
+	};
+
+	///
+	virtual void EnableStereoScopicRendering(const Stereo3DMode mode) /*const*/ = 0;
+	
+	/// GetWidth() / GetHeight() return the size of a single eye
+	/// view, which may be replicated twice in a stereo display
+	virtual Stereo3DMode GetStereo3DMode() const = 0;
+	virtual Stereo3DMode GetStereoScopicRenderingMode() const = 0;
+	
+	///
+	virtual bool IsStereoScopicRenderingSupported() const = 0;
+	
+	///
+	virtual bool HasQuadBufferSupport() const = 0;
 };
 
 }; // namespace sbe
