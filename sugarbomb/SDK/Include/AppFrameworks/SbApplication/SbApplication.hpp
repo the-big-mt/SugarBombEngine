@@ -22,6 +22,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /// @file
+/// @brief general application framework
 
 //*****************************************************************************
 
@@ -37,19 +38,39 @@ struct ISystem;
 class SbApplication
 {
 public:
+	/**
+	 * Application's platform-independent entry point
+	 *
+	 * @param argc - number of the app's launch command-line arguments
+	 * @param argv - array of strings containing all the command-line arguments
+	 * @return either EXIT_SUCCESS or EXIT_FAILURE dependiing on the app's execution result
+	 */
 	static int Main(int argc, char **argv);
 public:
 	SbApplication(ISystem &aSystem, int argc, char **argv);
 	virtual ~SbApplication();
-	
+
+	/// This method first initializes the app and runs it
 	void Run();
 protected:
+	/// Call this method if you want to stop the app's execution and close it
 	void Stop();
-	
+
+	/// @return true if the app wants stop its execution and be closed
 	bool CloseRequested() const {return mbWantClose;}
-	
+
+	/**
+	 * This method is getting called before the start of each frame,
+	 * override it if you want to prevent the frame execution under some conditions
+	 *
+	 * @return true if the frame is allowed to be executed, false otherwise
+	 */
 	virtual bool PreFrame(){return true;}
+
+	/// This method should contain stuff that needs to be executed each frame
 	virtual void RunFrame(){}
+
+	/// This method can be used to do things at the end of each frame
 	virtual void PostFrame(){}
 
 	ISystem &mSystem;
