@@ -31,8 +31,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 namespace sbe
 {
+
 struct ISystem;
-};
 
 class SbApplication
 {
@@ -58,3 +58,5 @@ private:
 	bool mbInitialized{false};
 	bool mbWantClose{false};
 };
+
+}; // namespace sbe
