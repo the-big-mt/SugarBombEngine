@@ -38,7 +38,8 @@ class SbApplication
 {
 public:
 	static int Main(int argc, char **argv);
-	SbApplication(sbe::ISystem *apSystem, int argc, char **argv);
+public:
+	SbApplication(ISystem &aSystem, int argc, char **argv);
 	virtual ~SbApplication();
 	
 	void Run();
@@ -50,8 +51,8 @@ protected:
 	virtual bool PreFrame(){return true;}
 	virtual void RunFrame(){}
 	virtual void PostFrame(){}
-	
-	sbe::ISystem *mpSystem{nullptr};
+
+	ISystem &mSystem;
 private:
 	void Init();
 	
