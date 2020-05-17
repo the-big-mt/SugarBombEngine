@@ -41,8 +41,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 #pragma once
 
 #include "idlib/sys/sys_types.h"
-#include "idlib/CmdArgs.h"
-#include "idlib/Str.h"
+#include "CoreLibs/SbMain/SbCmdArgs.hpp"
+#include "CoreLibs/SbMain/SbString.hpp"
 
 /*
 ================================================
