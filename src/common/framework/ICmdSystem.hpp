@@ -172,33 +172,33 @@ struct SbCmdSystem
 	// Remove all commands with one of the flags set.
 	virtual void		RemoveFlaggedCommands( int flags ) = 0;
 	
-	// Command and argument completion using callback for each valid string.
+	/// Command and argument completion using callback for each valid string
 	virtual void		CommandCompletion( void( *callback )( const char* s ) ) = 0;
 	virtual void		ArgCompletion( const char* cmdString, void( *callback )( const char* s ) ) = 0;
 	
 	virtual void		ExecuteCommandText( const char* text ) = 0;
 	virtual void		AppendCommandText( const char* text ) = 0;
 	
-	// Adds command text to the command buffer, does not add a final \n
+	/// Adds command text to the command buffer, does not add a final \n
 	virtual void		BufferCommandText( cmdExecution_t exec, const char* text ) = 0;
-	// Pulls off \n \r or ; terminated lines of text from the command buffer and
-	// executes the commands. Stops when the buffer is empty.
-	// Normally called once per frame, but may be explicitly invoked.
+	/// Pulls off \n \r or ; terminated lines of text from the command buffer and
+	/// executes the commands. Stops when the buffer is empty.
+	/// Normally called once per frame, but may be explicitly invoked
 	virtual void		ExecuteCommandBuffer() = 0;
 	
-	// Base for path/file auto-completion.
+	/// Base for path/file auto-completion.
 	virtual void		ArgCompletion_FolderExtension( const idCmdArgs& args, void( *callback )( const char* s ), const char* folder, bool stripFolder, ... ) = 0;
-	// Base for decl name auto-completion.
 	virtual void		ArgCompletion_DeclName( const idCmdArgs& args, void( *callback )( const char* s ), int type ) = 0;
+	/// Base for decl name auto-completion.
 	
-	// Adds to the command buffer in tokenized form ( CMD_EXEC_NOW or CMD_EXEC_APPEND only )
+	/// Adds to the command buffer in tokenized form ( CMD_EXEC_NOW or CMD_EXEC_APPEND only )
 	virtual void		BufferCommandArgs( cmdExecution_t exec, const idCmdArgs& args ) = 0;
 	
-	// Setup a reloadEngine to happen on next command run, and give a command to execute after reload
+	/// Setup a reloadEngine to happen on next command run, and give a command to execute after reload
 	virtual void		SetupReloadEngine( const idCmdArgs& args ) = 0;
 	virtual bool		PostReloadEngine() = 0;
 	
-	// Default argument completion functions.
+	/// Default argument completion functions
 	static void			ArgCompletion_Boolean( const idCmdArgs& args, void( *callback )( const char* s ) );
 	template<int min, int max>
 	static void			ArgCompletion_Integer( const idCmdArgs& args, void( *callback )( const char* s ) );
