@@ -160,11 +160,8 @@ typedef enum
 	CMD_EXEC_APPEND						// add to end of the command buffer (normal case)
 } cmdExecution_t;
 
-class idCmdSystem
+struct SbCmdSystem
 {
-public:
-	virtual				~idCmdSystem() {}
-	
 	virtual void		Init() = 0;
 	virtual void		Shutdown() = 0;
 	
@@ -220,4 +217,10 @@ public:
 	static void			ArgCompletion_SaveGame( const idCmdArgs& args, void( *callback )( const char* s ) );
 	static void			ArgCompletion_DemoName( const idCmdArgs& args, void( *callback )( const char* s ) );
 };}; // namespace sbe
+
+struct idCmdSystem : public SbCmdSystem
+{
+	virtual ~idCmdSystem() = default;
+};
+
 }; // namespace sbe
