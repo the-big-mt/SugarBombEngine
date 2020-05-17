@@ -109,21 +109,21 @@ static idCommandLink sys_dumpMemory( "sys_dumpMemory", Sys_DumpMemory_f, "Walks 
 ================================================
 */
 
-class idCommandLink
+class SbCommandLink
 {
 public:
-	idCommandLink( const char* cmdName, cmdFunction_t function,
-				   const char* description, argCompletion_t argCompletion = NULL );
-	idCommandLink* 	next;
+	SbCommandLink( const char* cmdName, cmdFunction_t function,
+				   const char* description, argCompletion_t argCompletion = nullptr );
 	const char* 	cmdName_;
 	cmdFunction_t	function_;
 	const char* 	description_;
 	argCompletion_t argCompletion_;
+	SbCommandLink* 	next{nullptr};
 };
 
 // The command system will create commands for all the static definitions
 // when it initializes.
-idCommandLink* CommandLinks( idCommandLink* cl = NULL );
+SbCommandLink* CommandLinks( SbCommandLink* cl = nullptr );
 
 /*
 ===============================================================================
