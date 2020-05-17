@@ -134,10 +134,8 @@ struct idCmdArgs;
 struct idFile;
 struct idDict;
 
-struct idCVarSystem
+struct SbCVarSystem
 {
-	virtual					~idCVarSystem() {}
-	
 	virtual void			Init() = 0;
 	virtual void			Shutdown() = 0;
 	virtual bool			IsInitialized() const = 0;
@@ -186,6 +184,11 @@ struct idCVarSystem
 	/// Moves CVars to and from dictionaries
 	virtual void			MoveCVarsToDict( int flags, idDict& dict, bool onlyModified = false ) const = 0;
 	virtual void			SetCVarsFromDict( const idDict& dict ) = 0;
+};
+
+struct idCVarSystem : public SbCVarSystem
+{
+	virtual ~idCVarSystem() = default;
 };
 
 }; // namespace sbe
