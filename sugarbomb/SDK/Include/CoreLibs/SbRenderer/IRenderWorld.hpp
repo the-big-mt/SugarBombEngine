@@ -2,7 +2,8 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2008-2018 OpenMW contributors
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -47,6 +48,26 @@ namespace sbe
 
 struct IRenderWorld
 {
+	///
+	virtual void SetSunDirection(const osg::Vec3f &direction) = 0;
+	
+	///
+	virtual void SetSunColour(const osg::Vec4f &diffuse, const osg::Vec4f &specular) = 0;
+
+	///
+	virtual void ConfigureAmbient(const ESM::Cell *cell) = 0;
+	
+	///
+	virtual void ConfigureFog(const ESM::Cell *cell) = 0;
+	
+	///
+	virtual void ConfigureFog(float fogDepth, float underwaterFog, float dlFactor, float dlOffset, const osg::Vec4f &colour) = 0;
+	
+	///
+	virtual void AddCell(const MWWorld::CellStore *store) = 0;
+	
+	///
+	virtual void RemoveCell(const MWWorld::CellStore *store) = 0;
 };
 
 }; // namespace sbe
