@@ -97,6 +97,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
+struct SbCmdArgs;
+struct SbDict;
+
 typedef enum
 {
 	CVAR_ALL				= -1,		///< all flags
@@ -130,9 +133,7 @@ typedef enum
 */
 
 struct idCVar;
-struct idCmdArgs;
 struct idFile;
-struct idDict;
 
 struct SbCVarSystem
 {
@@ -161,7 +162,7 @@ struct SbCVarSystem
 	
 	/// Called by the command system when argv(0) doesn't match a known command
 	/// Returns true if argv(0) is a variable reference and prints or changes the CVar
-	virtual bool			Command( const idCmdArgs& args ) = 0;
+	virtual bool			Command( const SbCmdArgs& args ) = 0;
 	
 	/// Command and argument completion using callback for each valid string
 	virtual void			CommandCompletion( void( *callback )( const char* s ) ) = 0;
@@ -182,8 +183,8 @@ struct SbCVarSystem
 	virtual void			WriteFlaggedVariables( int flags, const char* setCmd, idFile* f ) const = 0;
 	
 	/// Moves CVars to and from dictionaries
-	virtual void			MoveCVarsToDict( int flags, idDict& dict, bool onlyModified = false ) const = 0;
-	virtual void			SetCVarsFromDict( const idDict& dict ) = 0;
+	virtual void			MoveCVarsToDict( int flags, SbDict& dict, bool onlyModified = false ) const = 0;
+	virtual void			SetCVarsFromDict( const SbDict& dict ) = 0;
 };
 
 struct idCVarSystem : public SbCVarSystem
