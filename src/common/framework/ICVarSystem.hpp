@@ -142,48 +142,48 @@ struct idCVarSystem
 	virtual void			Shutdown() = 0;
 	virtual bool			IsInitialized() const = 0;
 	
-	// Registers a CVar.
+	/// Registers a CVar
 	virtual void			Register( idCVar* cvar ) = 0;
 	
-	// Finds the CVar with the given name.
-	// Returns nullptr if there is no CVar with the given name.
+	/// Finds the CVar with the given name
+	/// Returns nullptr if there is no CVar with the given name
 	virtual idCVar* 		Find( const char* name ) = 0;
 	
-	// Sets the value of a CVar by name.
+	/// Sets the value of a CVar by name
 	virtual void			SetCVarString( const char* name, const char* value, int flags = 0 ) = 0;
 	virtual void			SetCVarBool( const char* name, const bool value, int flags = 0 ) = 0;
 	virtual void			SetCVarInteger( const char* name, const int value, int flags = 0 ) = 0;
 	virtual void			SetCVarFloat( const char* name, const float value, int flags = 0 ) = 0;
 	
-	// Gets the value of a CVar by name.
+	/// Gets the value of a CVar by name
 	virtual const char* 	GetCVarString( const char* name ) const = 0;
 	virtual bool			GetCVarBool( const char* name ) const = 0;
 	virtual int				GetCVarInteger( const char* name ) const = 0;
 	virtual float			GetCVarFloat( const char* name ) const = 0;
 	
-	// Called by the command system when argv(0) doesn't match a known command.
-	// Returns true if argv(0) is a variable reference and prints or changes the CVar.
+	/// Called by the command system when argv(0) doesn't match a known command
+	/// Returns true if argv(0) is a variable reference and prints or changes the CVar
 	virtual bool			Command( const idCmdArgs& args ) = 0;
 	
-	// Command and argument completion using callback for each valid string.
+	/// Command and argument completion using callback for each valid string
 	virtual void			CommandCompletion( void( *callback )( const char* s ) ) = 0;
 	virtual void			ArgCompletion( const char* cmdString, void( *callback )( const char* s ) ) = 0;
 	
-	// Sets/gets/clears modified flags that tell what kind of CVars have changed.
+	/// Sets/gets/clears modified flags that tell what kind of CVars have changed
 	virtual void			SetModifiedFlags( int flags ) = 0;
 	virtual int				GetModifiedFlags() const = 0;
 	virtual void			ClearModifiedFlags( int flags ) = 0;
 	
-	// Resets variables with one of the given flags set.
+	/// Resets variables with one of the given flags set
 	virtual void			ResetFlaggedVariables( int flags ) = 0;
 	
-	// Removes auto-completion from the flagged variables.
+	/// Removes auto-completion from the flagged variables
 	virtual void			RemoveFlaggedAutoCompletion( int flags ) = 0;
 	
-	// Writes variables with one of the given flags set to the given file.
+	/// Writes variables with one of the given flags set to the given file
 	virtual void			WriteFlaggedVariables( int flags, const char* setCmd, idFile* f ) const = 0;
 	
-	// Moves CVars to and from dictionaries.
+	/// Moves CVars to and from dictionaries
 	virtual void			MoveCVarsToDict( int flags, idDict& dict, bool onlyModified = false ) const = 0;
 	virtual void			SetCVarsFromDict( const idDict& dict ) = 0;
 };
