@@ -221,7 +221,8 @@ No texture is ever used that does not have a corresponding idImage.
 ====================================================================
 */
 
-static const int	MAX_TEXTURE_LEVELS = 14;
+static const int	MAX_TEXTURE_LEVELS = 14; // TODO: unused?
+
 
 // How is this texture used?  Determines the storage and color format
 typedef enum
