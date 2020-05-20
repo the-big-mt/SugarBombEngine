@@ -50,7 +50,7 @@ idCVar postLoadExportModels( "postLoadExportModels", "0", CVAR_BOOL | CVAR_RENDE
 class idRenderModelManagerLocal : public idRenderModelManager
 {
 public:
-	idRenderModelManagerLocal();
+	idRenderModelManagerLocal(sbe::ISys *apSys, sbe::IFileSystem *apFileSystem);
 	virtual					~idRenderModelManagerLocal() {}
 	
 	virtual void			Init();
@@ -85,10 +85,13 @@ private:
 	static void				ListModels_f( const idCmdArgs& args );
 	static void				ReloadModels_f( const idCmdArgs& args );
 	static void				TouchModel_f( const idCmdArgs& args );
+private:
+	sbe::ISys *mpSys{nullptr};
+	sbe::IFileSystem *mpFileSystem{nullptr};
 };
 
 
-idRenderModelManagerLocal	localModelManager;
+idRenderModelManagerLocal	localModelManager(nullptr, nullptr); // TODO
 idRenderModelManager* 		renderModelManager = &localModelManager;
 
 /*
@@ -96,7 +99,8 @@ idRenderModelManager* 		renderModelManager = &localModelManager;
 idRenderModelManagerLocal::idRenderModelManagerLocal
 ==============
 */
-idRenderModelManagerLocal::idRenderModelManagerLocal()
+idRenderModelManagerLocal::idRenderModelManagerLocal(sbe::ISys *apSys, sbe::IFileSystem *apFileSystem)
+	: mpSys(apSys), mpFileSystem(apFileSystem)
 {
 	defaultModel = nullptr;
 	beamModel = nullptr;
@@ -448,7 +452,7 @@ idRenderModel* idRenderModelManagerLocal::GetModel( const char* _modelName, bool
 	
 	if( cvarSystem->GetCVarBool( "fs_buildgame" ) )
 	{
-		fileSystem->AddModelPreload( model->Name() );
+		mpFileSystem->AddModelPreload( model->Name() );
 	}
 	
 	// RB begin
@@ -848,7 +852,7 @@ void idRenderModelManagerLocal::PrintMemInfo( MemInfo_t* mi )
 	int* sortIndex;
 	idFile* f;
 	
-	f = fileSystem->OpenFileWrite( mi->filebase + "_models.txt" );
+	f = mpFileSystem->OpenFileWrite( mi->filebase + "_models.txt" );
 	if( !f )
 	{
 		return;
@@ -895,7 +899,7 @@ void idRenderModelManagerLocal::PrintMemInfo( MemInfo_t* mi )
 	mi->modelAssetsTotal = totalMem;
 	
 	f->Printf( "\nTotal model bytes allocated: %s\n", idStr::FormatNumber( totalMem ).c_str() );
-	fileSystem->CloseFile( f );
+	mpFileSystem->CloseFile( f );
 }
 
 //} // namespace sbe
