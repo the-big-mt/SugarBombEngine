@@ -76,7 +76,8 @@ public:
 	//---------------------------
 private:
 	void		AdvanceSurf();
-	void		EmitSurfaces( float modelMatrix[16], float modelViewMatrix[16], bool depthHack, bool allowFullScreenStereoDepth, bool linkAsEntity );
+	void		EmitSurfaces( float modelMatrix[16], float modelViewMatrix[16],
+							bool depthHack, bool allowFullScreenStereoDepth, bool linkAsEntity );
 	
 	guiModelSurface_t* 			surf;
 	
