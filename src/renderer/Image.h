@@ -528,7 +528,7 @@ private:
 	
 #if defined( ID_USE_AMD_ALLOCATOR )
 	VmaAllocation		allocation;
-	static idList< VmaAllocation >		allocationGarbage[ NUM_FRAME_DATA ];
+	static idList< VmaAllocation >		allocationGarbage[ NUM_FRAME_DATA ]; // TODO: NUM_FRAME_DATA?
 #else
 	vulkanAllocation_t	allocation;
 	static idList< vulkanAllocation_t > allocationGarbage[ NUM_FRAME_DATA ];
