@@ -559,12 +559,7 @@ void	R_WritePNG( const char* filename, const byte* data, int bytesPerPixel, int 
 class idImageManager
 {
 public:
-
-	idImageManager()
-	{
-		insideLevelLoad = false;
-		preloadingMapImages = false;
-	}
+	idImageManager(idCommon *apCommon, idCmdSystem *apCmdSystem, idFileSystem *apFileSystem, idDeclManager *apDeclManager);
 	
 	void				Init();
 	void				Shutdown();
