@@ -67,7 +67,7 @@ enum textureType_t
 The internal *Texture Format Types*, ::textureFormat_t, are:
 ================================================
 */
-enum textureFormat_t
+enum textureFormat_t : int
 {
 	FMT_NONE,
 	
@@ -141,7 +141,7 @@ enum textureSamples_t
 DXT5 color formats
 ================================================
 */
-enum textureColor_t
+enum textureColor_t : int
 {
 	CFM_DEFAULT,			// RGBA
 	CFM_NORMAL_DXT5,		// XY format and use the fast DXT5 compressor
