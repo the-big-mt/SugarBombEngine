@@ -150,17 +150,6 @@ Sys_FPU_EnableExceptions
 
 /*
 ===============
-Sys_FPE_handler
-===============
-*/
-void Sys_FPE_handler( int signum, siginfo_t* info, void* context )
-{
-	assert( signum == SIGFPE );
-	Sys_Printf( "FPE\n" );
-}
-
-/*
-===============
 Sys_GetClockticks
 ===============
 */
@@ -541,24 +530,6 @@ Sys_SetPhysicalWorkMemory
 void Sys_SetPhysicalWorkMemory( int minBytes, int maxBytes )
 {
 	common->DPrintf( "TODO: Sys_SetPhysicalWorkMemory\n" );
-}
-
-/*
-===============
-Posix_EarlyInit
-===============
-*/
-void Posix_EarlyInit()
-{
-	//memset( &asyncThread, 0, sizeof( asyncThread ) );
-	
-	exit_spawn[0] = '\0';
-	Posix_InitSigs();
-	
-	// set the base time
-	Sys_Milliseconds();
-	
-	//Posix_InitPThreads();
 }
 
 /*
