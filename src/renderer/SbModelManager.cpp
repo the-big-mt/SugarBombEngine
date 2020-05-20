@@ -381,7 +381,6 @@ idRenderModel* idRenderModelManagerLocal::GetModel( const char* _modelName, bool
 	
 	if( model != nullptr )
 	{
-	
 		generatedFileName = "generated/rendermodels/";
 		generatedFileName.AppendPath( canonical );
 		generatedFileName.SetFileExtension( va( "b%s", extension.c_str() ) );
@@ -405,7 +404,7 @@ idRenderModel* idRenderModelManagerLocal::GetModel( const char* _modelName, bool
 				if( !model->IsDefaultModel() )
 				{
 					idFileLocal outputFile( fileSystem->OpenFileWrite( generatedFileName, "fs_basepath" ) );
-					idLib::Printf( "Writing %s\n", generatedFileName.c_str() );
+					idLib::Printf( "Writing %s\n", generatedFileName.c_str() ); // TODO
 					model->WriteBinaryModel( outputFile );
 				}
 				// RB end
@@ -418,7 +417,6 @@ idRenderModel* idRenderModelManagerLocal::GetModel( const char* _modelName, bool
 	// Not one of the known formats
 	if( model == nullptr )
 	{
-	
 		if( extension.Length() )
 		{
 			mpSys->Warning( "unknown model type '%s'", canonical.c_str() );
@@ -472,7 +470,7 @@ idRenderModel* idRenderModelManagerLocal::GetModel( const char* _modelName, bool
 		//if( timeStamp == FILE_NOT_FOUND_TIMESTAMP )
 		{
 			idFileLocal objFile( fileSystem->OpenFileWrite( exportedFileName, "fs_basepath" ) );
-			idLib::Printf( "Writing %s\n", exportedFileName.c_str() );
+			idLib::Printf( "Writing %s\n", exportedFileName.c_str() ); // TODO
 			
 			exportedFileName.SetFileExtension( ".mtl" );
 			idFileLocal mtlFile( fileSystem->OpenFileWrite( exportedFileName, "fs_basepath" ) );
