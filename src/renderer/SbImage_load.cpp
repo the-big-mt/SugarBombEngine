@@ -606,6 +606,53 @@ void idImage::Print() const
 			break;
 	}
 	
+/*
+	switch (pixelFormat) {
+	case pixelFormat_t::None:
+		common->Printf( "            " );
+		break;
+	case pixelFormat_t::RGBA:
+		common->Printf( "RGBA        " );
+		break;
+	case pixelFormat_t::BGRA:
+		common->Printf( "BGRA        " );
+		break;
+	case pixelFormat_t::RGB:
+		common->Printf( "RGB         " );
+		break;
+	case pixelFormat_t::BGR:
+		common->Printf( "BGR         " );
+		break;
+	case pixelFormat_t::DXT1_RGB:
+		common->Printf( "DXT1 (RGB)  " );
+		break;
+	case pixelFormat_t::DXT1_RGBA:
+		common->Printf( "DXT1 (RGBA) " );
+		break;
+	case pixelFormat_t::DXT3_RGBA:
+		common->Printf( "DXT3 (RGBA) " );
+		break;
+	case pixelFormat_t::DXT5_RGBA:
+		common->Printf( "DXT5 (RGBA) " );
+		break;
+	case pixelFormat_t::DXT5_RxGB:
+		common->Printf( "DXT5 (RxGB) " );
+		break;
+	case pixelFormat_t::RGTC:
+		common->Printf( "RGTC        " );
+		break;
+	case pixelFormat_t::DEPTH_24_STENCIL_8:
+		common->Printf( "Depth24_8   " );
+		break;
+	case pixelFormat_t::DEPTH_24:
+		common->Printf( "Depth24     " );
+		break;
+	default:
+		common->Printf( "<BAD FORMAT:%i>", static_cast<int>(pixelFormat) );
+		break;
+	}
+*/
+	
 	switch( repeat )
 	{
 		case TR_REPEAT:
