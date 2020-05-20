@@ -31,7 +31,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "renderer/IModelManager.hpp"
 
+//namespace sbe
+//{
 
 // this will be statically pointed at a private implementation
 extern	idRenderModelManager*	renderModelManager;
 
+//} // namespace sbe
