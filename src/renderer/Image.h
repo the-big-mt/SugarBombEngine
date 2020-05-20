@@ -263,7 +263,7 @@ enum imageFileType_t
 
 #include "BinaryImage.h"
 
-#define	MAX_IMAGE_NAME	256
+#define	MAX_IMAGE_NAME	256 // TODO: unused?
 
 class idImage
 {
