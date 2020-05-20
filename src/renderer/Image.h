@@ -223,6 +223,61 @@ No texture is ever used that does not have a corresponding idImage.
 
 static const int	MAX_TEXTURE_LEVELS = 14; // TODO: unused?
 
+// BP: Begin DDS Format support (taken from fhDoom (original D3 fork))
+
+// surface description flags
+const unsigned long DDSF_CAPS           = 0x00000001l;
+const unsigned long DDSF_HEIGHT         = 0x00000002l;
+const unsigned long DDSF_WIDTH          = 0x00000004l;
+const unsigned long DDSF_PITCH          = 0x00000008l;
+const unsigned long DDSF_PIXELFORMAT    = 0x00001000l;
+const unsigned long DDSF_MIPMAPCOUNT    = 0x00020000l;
+const unsigned long DDSF_LINEARSIZE     = 0x00080000l;
+const unsigned long DDSF_DEPTH          = 0x00800000l;
+
+// pixel format flags
+const unsigned long DDSF_ALPHAPIXELS    = 0x00000001l;
+const unsigned long DDSF_FOURCC         = 0x00000004l;
+const unsigned long DDSF_RGB            = 0x00000040l;
+const unsigned long DDSF_RGBA           = 0x00000041l;
+
+// our extended flags
+const unsigned long DDSF_ID_INDEXCOLOR	= 0x10000000l;
+const unsigned long DDSF_ID_MONOCHROME	= 0x20000000l;
+
+// dwCaps1 flags
+const unsigned long DDSF_COMPLEX         = 0x00000008l;
+const unsigned long DDSF_TEXTURE         = 0x00001000l;
+const unsigned long DDSF_MIPMAP          = 0x00400000l;
+
+#define DDS_MAKEFOURCC(a, b, c, d) ((a) | ((b) << 8) | ((c) << 16) | ((d) << 24))
+
+typedef struct {
+    unsigned long dwSize;
+    unsigned long dwFlags;
+    unsigned long dwFourCC;
+    unsigned long dwRGBBitCount;
+    unsigned long dwRBitMask;
+    unsigned long dwGBitMask;
+    unsigned long dwBBitMask;
+    unsigned long dwABitMask;
+} ddsFilePixelFormat_t;
+
+typedef struct
+{
+    unsigned long dwSize;
+    unsigned long dwFlags;
+    unsigned long dwHeight;
+    unsigned long dwWidth;
+    unsigned long dwPitchOrLinearSize;
+    unsigned long dwDepth;
+    unsigned long dwMipMapCount;
+    unsigned long dwReserved1[11];
+    ddsFilePixelFormat_t ddspf;
+    unsigned long dwCaps1;
+    unsigned long dwCaps2;
+    unsigned long dwReserved2[3];
+} ddsFileHeader_t;
 
 #ifdef None
 #undef None
@@ -244,6 +299,8 @@ enum class pixelFormat_t {
 	DEPTH_24_STENCIL_8,
 	DEPTH_24
 };
+
+// BP: end of restored DDS support
 
 // How is this texture used?  Determines the storage and color format
 typedef enum
