@@ -224,6 +224,27 @@ No texture is ever used that does not have a corresponding idImage.
 static const int	MAX_TEXTURE_LEVELS = 14; // TODO: unused?
 
 
+#ifdef None
+#undef None
+#endif
+
+enum class pixelFormat_t {
+	None,
+	RGBA,
+	RGBA_32F,
+	BGRA,
+	RGB,
+	BGR,
+	DXT1_RGB,
+	DXT1_RGBA,
+	DXT3_RGBA,
+	DXT5_RGBA,
+	DXT5_RxGB,
+	RGTC,
+	DEPTH_24_STENCIL_8,
+	DEPTH_24
+};
+
 // How is this texture used?  Determines the storage and color format
 typedef enum
 {
