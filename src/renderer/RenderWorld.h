@@ -40,9 +40,10 @@ If you have questions concerning this license or the applicable additional terms
 //namespace sbe
 //{
 
-struct idRenderModel;
-struct idSoundEmitter;
-struct idUserInterface;
+struct IRenderModel;
+struct ISoundEmitter;
+struct IUserInterface;
+
 class idJointMat;
 class idDeclSkin;
 
