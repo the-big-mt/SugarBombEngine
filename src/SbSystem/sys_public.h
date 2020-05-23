@@ -243,9 +243,6 @@ struct idSys : public ISys
 
 extern idSys* 				sys;
 
-bool Sys_LoadOpenAL();
-void Sys_FreeOpenAL();
-
 //} // namespace BFG
 
 #endif /* !__SYS_PUBLIC__ */
