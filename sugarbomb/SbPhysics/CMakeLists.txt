@@ -29,4 +29,6 @@ if(NOT SBE_PHYSICS_HARD_LINKED)
 	)
 	
 	#target_link_libraries(${PROJECT_NAME} SBE-main)
+	
+	target_link_libraries(${PROJECT_NAME} ${BULLET_LIBRARIES})
 endif()
