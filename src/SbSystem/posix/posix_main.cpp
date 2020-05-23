@@ -4,7 +4,7 @@
 Doom 3 GPL Source Code
 Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012 Robert Beckebans
-Copyright (C) 2019 BlackPhrase
+Copyright (C) 2019-2020 BlackPhrase
 
 This file is part of the Doom 3 GPL Source Code (?Doom 3 Source Code?).
 
@@ -506,10 +506,6 @@ void Sys_FlushCacheMemory( void* base, int bytes )
 bool Sys_FPU_StackIsEmpty()
 {
 	return true;
-}
-
-void Sys_FPU_ClearStack()
-{
 }
 
 const char* Sys_FPU_GetState()

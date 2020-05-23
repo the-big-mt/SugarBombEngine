@@ -165,9 +165,6 @@ void			Sys_Error( const char* error, ... );
 int				Sys_Milliseconds();
 uint64			Sys_Microseconds();
 
-// empties the FPU stack
-void			Sys_FPU_ClearStack();
-
 // sets the FPU precision
 void			Sys_FPU_SetPrecision( int precision );
 

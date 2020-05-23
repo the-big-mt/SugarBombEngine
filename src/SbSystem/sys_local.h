@@ -103,9 +103,6 @@ bool Sys_Exec(	const char* appPath, const char* workingPath, const char* args,
 				execProcessWorkFunction_t workFn, execOutputFunction_t outputFn, const int waitMS,
 				unsigned int& exitCode );
 
-// empties the FPU stack
-void			Sys_FPU_ClearStack();
-
 enum fpuRounding_t
 {
 	FPU_ROUNDING_TO_NEAREST				= 0,
