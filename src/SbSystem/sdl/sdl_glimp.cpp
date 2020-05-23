@@ -279,31 +279,6 @@ bool GLimp_Init( glimpParms_t parms )
 		break;
 	}
 	
-	if( !window )
-	{
-		common->Printf( "No usable GL mode found: %s", SDL_GetError() );
-		return false;
-	}
-	
-#ifdef __APPLE__
-	glewExperimental = GL_TRUE;
-#endif
-	
-	GLenum glewResult = glewInit();
-	if( GLEW_OK != glewResult )
-	{
-		// glewInit failed, something is seriously wrong
-		common->Printf( "^3GLimp_Init() - GLEW could not load OpenGL subsystem: %s", glewGetErrorString( glewResult ) );
-	}
-	else
-	{
-		common->Printf( "Using GLEW %s\n", glewGetString( GLEW_VERSION ) );
-	}
-	
-	// DG: disable cursor, we have two cursors in menu (because mouse isn't grabbed in menu)
-	SDL_ShowCursor( SDL_DISABLE );
-	// DG end
-	
 	return true;
 }
 /*
@@ -463,34 +438,6 @@ void GLimp_Shutdown()
 		window = nullptr;
 	}
 }
-
-/*
-===================
-GLimp_SwapBuffers
-===================
-*/
-void GLimp_SwapBuffers()
-{
-	SDL_GL_SwapWindow( window );
-}
-
-/*
-=================
-GLimp_SetGamma
-=================
-*/
-void GLimp_SetGamma( unsigned short red[256], unsigned short green[256], unsigned short blue[256] )
-{
-	if( !window )
-	{
-		common->Warning( "GLimp_SetGamma called without window" );
-		return;
-	}
-	
-	if( SDL_SetWindowGammaRamp( window, red, green, blue ) )
-		common->Warning( "Couldn't set gamma ramp: %s", SDL_GetError() );
-}
-
 /*
 ===================
 GLimp_ExtensionPointer
