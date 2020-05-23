@@ -1,6 +1,7 @@
 /*
 *******************************************************************************
 
+Copyright (C) 2008-2018 OpenMW contributors
 Copyright (C) 2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
@@ -27,11 +28,30 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbPhysicsWorldBullet.hpp"
 
+#include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
+#include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
+#include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
+
 //*****************************************************************************
 
 namespace sbe::SbPhysics
 {
 
+SbPhysicsWorldBullet::SbPhysicsWorldBullet()
+{
+	mpCollisionConfiguration = new btDefaultCollisionConfiguration();
+	mpDispatcher = new btCollisionDispatcher(mpCollisionConfiguration);
+	mpBroadphase = new btDbvtBroadphase();
 
+	mpCollisionWorld = new btCollisionWorld(mpDispatcher, mpBroadphase, mpCollisionConfiguration);
+};
+
+SbPhysicsWorldBullet::~SbPhysicsWorldBullet()
+{
+	delete mpCollisionWorld;
+	delete mpBroadphase;
+	delete mpDispatcher;
+	delete mpCollisionConfiguration;
+};
 
 }; // namespace sbe::SbPhysics

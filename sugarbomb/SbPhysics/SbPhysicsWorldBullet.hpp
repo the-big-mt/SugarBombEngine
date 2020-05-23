@@ -1,6 +1,7 @@
 /*
 *******************************************************************************
 
+Copyright (C) 2008-2018 OpenMW contributors
 Copyright (C) 2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
@@ -31,9 +32,23 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
+class btDefaultCollisionConfiguration;
+class btCollisionDispatcher;
+class btBroadphaseInterface;
+class btCollisionWorld;
+
 namespace sbe::SbPhysics
 {
 
 class SbPhysicsWorldBullet final : public SbPhysicsWorld
+public:
+	SbPhysicsWorldBullet();
+	~SbPhysicsWorldBullet();
+private:
+	btDefaultCollisionConfiguration *mpCollisionConfiguration{nullptr};
+	btCollisionDispatcher *mpDispatcher{nullptr};
+	btBroadphaseInterface *mpBroadphase{nullptr};
+	btCollisionWorld *mpCollisionWorld{nullptr};
+};
 
 }; // namespace sbe::SbPhysics
