@@ -122,8 +122,6 @@ void			Sys_Printf( VERIFY_FORMAT_STRING const char* msg, ... );
 void			Sys_ReLaunch();
 // DG end
 
-//typedef unsigned long address_t; // DG: this isn't even used
-
 const char* 	Sys_GetCmdLine();
 
 // know early if we are performing a fatal error shutdown so the error message doesn't get lost
