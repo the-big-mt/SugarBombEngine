@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "SbClientApp.hpp"
 #include "win_local.hpp"
 
-#ifdef USE_BREAKPAD
+#ifdef SBE_USE_BREAKPAD
 #include "client/windows/handler/exception_handler.h"
 #endif
 
@@ -245,7 +245,7 @@ SbClientApp::~SbClientApp()
 
 void SbClientApp::Init()
 {
-#ifdef USE_BREAKPAD
+#ifdef SBE_USE_BREAKPAD
     mpHandler =
         new google_breakpad::ExceptionHandler(
                                               L"%TMP%\\", // FIXME: provide base path here, dir must exist
