@@ -231,18 +231,6 @@ static bool GLW_GetWindowDimensions( const glimpParms_t parms, int& x, int& y, i
 	return true;
 }
 
-SbClientApp::~SbClientApp()
-{
-	// destroy window
-	if( mhWnd )
-	{
-		common->Printf( "...destroying window\n" );
-		ShowWindow( mhWnd, SW_HIDE );
-		DestroyWindow( mhWnd );
-		mhWnd = nullptr;
-	};
-};
-
 void SbClientApp::Init()
 {
 #ifdef SBE_USE_BREAKPAD
