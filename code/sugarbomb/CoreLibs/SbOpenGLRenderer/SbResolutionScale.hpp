@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __RESOLUTIONSCALE_H__
-#define __RESOLUTIONSCALE_H__
+
+#pragma once
 
 //namespace sbe
 //{
@@ -70,4 +70,3 @@ extern idResolutionScale resolutionScale;
 
 
 //} // namespace sbe
-#endif // __RESOLUTIONSCALE_H__

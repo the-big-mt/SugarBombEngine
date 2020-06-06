@@ -29,8 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __RENDERER_H__
-#define __RENDERER_H__
+#pragma once
 
 #include "renderer/IRenderSystem.hpp"
 
@@ -185,5 +184,3 @@ void R_LightProjectionMatrix(const idVec3 &origin, const idPlane &rearPlane, idV
 void R_ScreenshotFilename(int &lastNumber, const char *base, idStr &fileName);
 
 //} // namespace sbe
-
-#endif /* !__RENDERER_H__ */

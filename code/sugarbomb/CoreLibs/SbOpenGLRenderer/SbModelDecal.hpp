@@ -29,8 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __MODELDECAL_H__
-#define __MODELDECAL_H__
+#pragma once
 
 #include "idlib/bv/Bounds.h"
 #include "idlib/geometry/DrawVert.h"
@@ -174,5 +173,3 @@ private:
 };
 
 //} // namespace sbe
-
-#endif /* !__MODELDECAL_H__ */

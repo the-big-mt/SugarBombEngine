@@ -29,8 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __RENDERER_BACKEND_H__
-#define __RENDERER_BACKEND_H__
+#pragma once
 
 #include "RenderCommon.h"
 #include "ScreenRect.h"
@@ -531,5 +530,3 @@ public:
 
 #endif // !defined( USE_VULKAN )
 };
-
-#endif

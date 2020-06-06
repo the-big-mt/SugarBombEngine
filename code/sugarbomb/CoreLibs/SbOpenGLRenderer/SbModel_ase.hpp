@@ -27,8 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __MODEL_ASE_H__
-#define __MODEL_ASE_H__
+#pragma once
 
 //#include "idlib/Heap.h"
 #include "idlib/containers/List.h"
@@ -107,5 +106,3 @@ aseModel_t *ASE_Load(const char *fileName, idCommon *apCommon, idFileSystem *fil
 void ASE_Free(aseModel_t *ase);
 
 //} // namespace sbe
-
-#endif /* !__MODEL_ASE_H__ */

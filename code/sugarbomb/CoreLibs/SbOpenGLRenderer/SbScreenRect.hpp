@@ -27,8 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __SCREENRECT_H__
-#define __SCREENRECT_H__
+#pragma once
 
 //namespace sbe
 //{
@@ -87,4 +86,3 @@ void R_ShowColoredScreenRect(const idScreenRect &rect, int colorIndex);
 
 
 //} // namespace sbe
-#endif /* !__SCREENRECT_H__ */

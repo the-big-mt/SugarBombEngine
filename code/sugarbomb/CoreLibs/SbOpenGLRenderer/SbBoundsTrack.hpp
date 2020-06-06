@@ -27,8 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __BOUNDSTRACK_H__
-#define __BOUNDSTRACK_H__
+#pragma once
 
 //namespace sbe
 //{
@@ -74,5 +73,3 @@ private:
 };
 
 //} // namespace sbe
-
-#endif // __BOUNDSTRACK_H__

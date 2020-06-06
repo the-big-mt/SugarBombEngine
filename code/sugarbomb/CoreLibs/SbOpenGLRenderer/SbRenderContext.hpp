@@ -27,8 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __RENDERCONTEXT_H__
-#define __RENDERCONTEXT_H__
+#pragma once
 
 #include "idlib/sys/sys_types.h" // <cstdint>
 
@@ -119,4 +118,3 @@ extern idRenderContext rRenderContext;
 
 
 //} // namespace sbe
-#endif // !__RENDERCONTEXT_H__

@@ -27,8 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __MODEL_MD3_H__
-#define __MODEL_MD3_H__
+#pragma once
 
 #include "idlib/math/Vector.h"
 
@@ -160,5 +159,3 @@ typedef struct md3Header_s
 } md3Header_t;
 
 //} // namespace sbe
-
-#endif /* !__MODEL_MD3_H__ */

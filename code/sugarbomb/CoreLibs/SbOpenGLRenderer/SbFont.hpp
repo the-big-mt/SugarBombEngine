@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __FONT_H__
-#define __FONT_H__
+
+#pragma once
 
 #include "idlib/Str.h"
 #include "idlib/sys/sys_types.h"
@@ -124,5 +124,3 @@ private:
 };
 
 //} // namespace sbe
-
-#endif // __FONT_H__

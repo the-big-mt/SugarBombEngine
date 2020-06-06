@@ -29,8 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __MODELOVERLAY_H__
-#define __MODELOVERLAY_H__
+#pragma once
 
 #include "idlib/geometry/DrawVert.h"
 #include "idlib/math/Plane.h"
@@ -138,5 +137,3 @@ private:
 };
 
 //} // namespace sbe
-
-#endif /* !__MODELOVERLAY_H__ */

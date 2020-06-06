@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __RENDERLOG_H__
-#define __RENDERLOG_H__
+
+#pragma once
 
 #include <cassert>
 
@@ -219,4 +219,3 @@ extern idRenderLog renderLog;
 
 
 //} // namespace sbe
-#endif // !__RENDERLOG_H__

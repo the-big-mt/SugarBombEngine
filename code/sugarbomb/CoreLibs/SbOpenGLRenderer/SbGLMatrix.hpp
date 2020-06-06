@@ -28,8 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __GLMATRIX_H__
-#define __GLMATRIX_H__
+#pragma once
 
 //namespace sbe
 //{
@@ -79,5 +78,3 @@ void R_MatrixFullInverse(idCommon *apCommon, const float in[16], float r[16]);
 // RB end
 
 //} // namespace sbe
-
-#endif /* !__GLMATRIX_H__ */

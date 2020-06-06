@@ -27,8 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __MODEL_MA_H__
-#define __MODEL_MA_H__
+#pragma once
 
 //#include "idlib/Heap.h"
 #include "idlib/containers/HashTable.h"
@@ -162,5 +161,3 @@ maModel_t *MA_Load(const char *fileName, idCommon *apCommon, idFileSystem *apFil
 void MA_Free(maModel_t *ma);
 
 //} // namespace sbe
-
-#endif /* !__MODEL_MA_H__ */

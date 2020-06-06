@@ -27,8 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __MODEL_LOCAL_H__
-#define __MODEL_LOCAL_H__
+#pragma once
 
 #include "Model.h"
 
@@ -570,5 +569,3 @@ public:
 };
 
 //} // namespace sbe
-
-#endif /* !__MODEL_LOCAL_H__ */

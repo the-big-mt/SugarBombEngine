@@ -27,8 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __RENDERPROGS_H__
-#define __RENDERPROGS_H__
+
 
 //#include <GL/glew.h>  // TODO
 
@@ -740,4 +739,3 @@ extern idRenderProgManager renderProgManager;
 
 
 //} // namespace sbe
-#endif // __RENDERPROGS_H__

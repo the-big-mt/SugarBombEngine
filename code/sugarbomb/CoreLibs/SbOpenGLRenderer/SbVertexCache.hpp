@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __VERTEXCACHE2_H__
-#define __VERTEXCACHE2_H__
+
+#pragma once
 
 #include "idlib/Lib.h"
 #include "idlib/Thread.h"
@@ -199,4 +199,4 @@ void CopyBuffer(byte *dst, const byte *src, int numBytes);
 extern idVertexCache vertexCache;
 
 
-#endif // __VERTEXCACHE2_H__//} // namespace sbe
+//} // namespace sbe

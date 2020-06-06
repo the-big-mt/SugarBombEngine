@@ -42,8 +42,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----------------------------------------------------------------------
 */
 
-#ifndef __MODEL_COLLADAHELPER_H__
-#define __MODEL_COLLADAHELPER_H__
+#pragma once
 
 #include <cstddef> // size_t
 #include <cstdint>
@@ -604,5 +603,3 @@ struct ChannelEntry
 };
 
 } // end of namespace Collada
-
-#endif // __MODEL_COLLADAHELPER_H__

@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __RENDERWORLDLOCAL_H__
-#define __RENDERWORLDLOCAL_H__
+
+#pragma once
 
 #include "RenderWorld.h"
 #include "RenderCommon.h" // areaReference_t
@@ -329,5 +329,3 @@ void R_ListRenderLightDefs_f(const idCmdArgs &args);
 void R_ListRenderEntityDefs_f(const idCmdArgs &args);
 
 //} // namespace sbe
-
-#endif /* !__RENDERWORLDLOCAL_H__ */

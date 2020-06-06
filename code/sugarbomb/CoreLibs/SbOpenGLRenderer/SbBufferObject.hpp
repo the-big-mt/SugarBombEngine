@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __BUFFEROBJECT_H__
-#define __BUFFEROBJECT_H__
+
+#pragma once
 
 //#include "idlib/geometry/DrawVert.h"  // for idDrawVert
 #include "idlib/sys/sys_defines.h"
@@ -291,5 +291,4 @@ private:
 	DISALLOW_COPY_AND_ASSIGN(idJointBuffer);
 };
 
-
-#endif // !__BUFFEROBJECT_H__//} // namespace sbe
+//} // namespace sbe

@@ -27,8 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __FRAMEBUFFER_H__
-#define __FRAMEBUFFER_H__
+#pragma once
 
 #include <cstdint>
 
@@ -153,5 +152,4 @@ struct globalFramebuffers_t
 };
 extern globalFramebuffers_t globalFramebuffers;
 
-
-#endif // __FRAMEBUFFER_H__//} // namespace sbe
+//} // namespace sbe

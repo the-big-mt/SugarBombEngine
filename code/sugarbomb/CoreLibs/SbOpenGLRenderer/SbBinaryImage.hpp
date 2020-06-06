@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __BINARYIMAGE_H__
-#define __BINARYIMAGE_H__
+
+#pragma once
 
 #include <cstring> // memcpy
 
@@ -149,5 +149,3 @@ private:
 };
 
 //} // namespace sbe
-
-#endif // __BINARYIMAGE_H__

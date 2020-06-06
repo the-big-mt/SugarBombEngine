@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __BINARYIMAGEDATA_H__
-#define __BINARYIMAGEDATA_H__
+
+#pragma once
 
 //#include "idlib/sys/sys_defines.h" // TODO: ID_TIME_T should actually be defined here instead of precompiled header
 
@@ -73,5 +73,4 @@ struct bimageFile_t
 };
 #pragma pack(pop)
 
-
-#endif // __BINARYIMAGEDATA_H__//} // namespace sbe
+//} // namespace sbe
