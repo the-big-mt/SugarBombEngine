@@ -34,7 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "DXTCodec_local.h"
 #include "DXTCodec.h"
 
-#if defined(USE_INTRINSICS)
+#if defined(SBE_USE_INTRINSICS)
 
 //#define TEST_COMPRESSION
 #ifdef TEST_COMPRESSION
@@ -1635,4 +1635,4 @@ void idDxtEncoder::CompressNormalMapDXT5Fast_SSE2( const byte* inBuf, byte* outB
 #endif
 }
 
-#endif // #if defined(USE_INTRINSICS)
+#endif // #if defined(SBE_USE_INTRINSICS)

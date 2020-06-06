@@ -54,7 +54,7 @@ static void R_TracePointCullStatic(byte *cullBits, byte &totalOr, const float ra
 	assert_16_byte_aligned(cullBits);
 	assert_16_byte_aligned(verts);
 
-#if defined(USE_INTRINSICS)
+#if defined(SBE_USE_INTRINSICS)
 	idODSStreamedArray<idDrawVert, 16, SBT_DOUBLE, 4> vertsODS(verts, numVerts);
 
 	const __m128 vector_float_radius = _mm_splat_ps(_mm_load_ss(&radius), 0);
@@ -237,7 +237,7 @@ static void R_TracePointCullSkinned(byte *cullBits, byte &totalOr, const float r
 	assert_16_byte_aligned(cullBits);
 	assert_16_byte_aligned(verts);
 
-#if defined(USE_INTRINSICS)
+#if defined(SBE_USE_INTRINSICS)
 	idODSStreamedArray<idDrawVert, 16, SBT_DOUBLE, 4> vertsODS(verts, numVerts);
 
 	const __m128 vector_float_radius = _mm_splat_ps(_mm_load_ss(&radius), 0);
