@@ -267,10 +267,10 @@ void idBoundsTrack::Test()
 
 	int intersectedIndexes2[MAX_BOUNDS_TRACK_INDEXES];
 	const int numHits2 = FindBoundsIntersectionsSimSIMD(shortTestBounds, boundsList, maxIndex, intersectedIndexes2);
-	idLib::Printf("%i intersections\n", numHits1);
+	idLib::Printf("%i intersections\n", numHits1); // TODO
 	if(numHits1 != numHits2)
 	{
-		idLib::Printf("different results\n");
+		idLib::Printf("different results\n"); // TODO
 	}
 	else
 	{
@@ -278,7 +278,7 @@ void idBoundsTrack::Test()
 		{
 			if(intersectedIndexes1[i] != intersectedIndexes2[i])
 			{
-				idLib::Printf("different results\n");
+				idLib::Printf("different results\n"); // TODO
 				break;
 			}
 		}
@@ -295,7 +295,7 @@ void idBoundsTrack::Test()
 		FindBoundsIntersectionsSimSIMD(shortTestBounds, boundsList, maxIndex, intersectedIndexes2);
 	}
 	const int64 stop = Sys_Microseconds();
-	idLib::Printf("%lli microseconds for 40 itterations\n", stop - start);
+	idLib::Printf("%lli microseconds for 40 itterations\n", stop - start); // TODO
 }
 
 class interactionPair_t

@@ -478,7 +478,7 @@ void idMD5Mesh::ParseMesh(idLexer &parser, int numJoints, const idJointMat *join
 		{
 			if(deformInfo->verts[i].color[j] >= numJoints)
 			{
-				idLib::FatalError("Bad joint index");
+				idLib::FatalError("Bad joint index"); // TODO
 			}
 		}
 	}

@@ -426,7 +426,7 @@ void idImage::SetTexParameters()
 			return;
 		// RB end
 		default:
-			idLib::FatalError( "%s: bad texture type %d", GetName(), opts.textureType );
+			idLib::FatalError( "%s: bad texture type %d", GetName(), opts.textureType ); // TODO
 			return;
 	}
 	
@@ -730,7 +730,7 @@ void idImage::AllocImage()
 			dataType = GL_UNSIGNED_SHORT;
 			break;
 		default:
-			idLib::Error( "Unhandled image format %d in %s\n", opts.format, GetName() );
+			idLib::Error( "Unhandled image format %d in %s\n", opts.format, GetName() ); // TODO
 	}
 	
 	// if we don't have a rendering context, just return after we

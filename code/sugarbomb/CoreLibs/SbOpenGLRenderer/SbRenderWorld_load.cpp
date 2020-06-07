@@ -930,7 +930,7 @@ bool idRenderWorldLocal::InitFromMap(const char *name)
 				}
 				else
 				{
-					idLib::Error("Binary proc file failed, unexpected type %s\n", type.c_str());
+					idLib::Error("Binary proc file failed, unexpected type %s\n", type.c_str()); // TODO
 				}
 			}
 		}

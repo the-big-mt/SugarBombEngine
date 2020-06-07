@@ -138,7 +138,7 @@ void idRenderBackend::DrawElementsWithCounters( const drawSurf_t* surf )
 		const uint64 frameNum = ( int )( vbHandle >> VERTCACHE_FRAME_SHIFT ) & VERTCACHE_FRAME_MASK;
 		if( frameNum != ( ( vertexCache.currentFrame - 1 ) & VERTCACHE_FRAME_MASK ) )
 		{
-			idLib::Warning( "RB_DrawElementsWithCounters, vertexBuffer == nullptr" );
+			idLib::Warning( "RB_DrawElementsWithCounters, vertexBuffer == nullptr" ); // TODO
 			return;
 		}
 		vertexBuffer = &vertexCache.frameData[vertexCache.drawListNum].vertexBuffer;
@@ -157,7 +157,7 @@ void idRenderBackend::DrawElementsWithCounters( const drawSurf_t* surf )
 		const uint64 frameNum = ( int )( ibHandle >> VERTCACHE_FRAME_SHIFT ) & VERTCACHE_FRAME_MASK;
 		if( frameNum != ( ( vertexCache.currentFrame - 1 ) & VERTCACHE_FRAME_MASK ) )
 		{
-			idLib::Warning( "RB_DrawElementsWithCounters, indexBuffer == nullptr" );
+			idLib::Warning( "RB_DrawElementsWithCounters, indexBuffer == nullptr" ); // TODO
 			return;
 		}
 		indexBuffer = &vertexCache.frameData[vertexCache.drawListNum].indexBuffer;
@@ -197,7 +197,7 @@ void idRenderBackend::DrawElementsWithCounters( const drawSurf_t* surf )
 		idJointBuffer jointBuffer;
 		if( !vertexCache.GetJointBuffer( surf->jointCache, &jointBuffer ) )
 		{
-			idLib::Warning( "RB_DrawElementsWithCounters, jointBuffer == nullptr" );
+			idLib::Warning( "RB_DrawElementsWithCounters, jointBuffer == nullptr" ); // TODO
 			return;
 		}
 		assert( ( jointBuffer.GetOffset() & ( glConfig.uniformBufferOffsetAlignment - 1 ) ) == 0 );
@@ -972,7 +972,7 @@ void idRenderBackend::CheckCVars()
 	// filtering
 	if( r_maxAnisotropicFiltering.IsModified() || r_useTrilinearFiltering.IsModified() || r_lodBias.IsModified() )
 	{
-		idLib::Printf( "Updating texture filter parameters.\n" );
+		idLib::Printf( "Updating texture filter parameters.\n" ); // TODO
 		r_maxAnisotropicFiltering.ClearModified();
 		r_useTrilinearFiltering.ClearModified();
 		r_lodBias.ClearModified();

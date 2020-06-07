@@ -393,7 +393,7 @@ idDrawVert *idGuiModel::AllocTris(int vertCount, const triIndex_t *tempIndexes, 
 		if(warningFrame != tr.frameCount)
 		{
 			warningFrame = tr.frameCount;
-			idLib::Warning("idGuiModel::AllocTris: MAX_INDEXES exceeded");
+			idLib::Warning("idGuiModel::AllocTris: MAX_INDEXES exceeded"); // TODO
 		}
 		return nullptr;
 	}
@@ -403,7 +403,7 @@ idDrawVert *idGuiModel::AllocTris(int vertCount, const triIndex_t *tempIndexes, 
 		if(warningFrame != tr.frameCount)
 		{
 			warningFrame = tr.frameCount;
-			idLib::Warning("idGuiModel::AllocTris: MAX_VERTS exceeded");
+			idLib::Warning("idGuiModel::AllocTris: MAX_VERTS exceeded"); // TODO
 		}
 		return nullptr;
 	}

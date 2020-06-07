@@ -195,7 +195,7 @@ void *R_FrameAlloc(int bytes, frameAllocType_t type)
 	int end = frameData->frameMemoryAllocated.Add(bytes);
 	if(end > MAX_FRAME_MEMORY)
 	{
-		idLib::Error("R_FrameAlloc ran out of memory. bytes = %d, end = %d, highWaterAllocated = %d\n", bytes, end, frameData->highWaterAllocated);
+		idLib::Error("R_FrameAlloc ran out of memory. bytes = %d, end = %d, highWaterAllocated = %d\n", bytes, end, frameData->highWaterAllocated); // TODO
 	}
 
 	byte *ptr = frameData->frameMemory + end - bytes;

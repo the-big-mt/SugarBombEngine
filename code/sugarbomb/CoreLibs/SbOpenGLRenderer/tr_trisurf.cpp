@@ -1497,7 +1497,7 @@ void R_BuildDominantTris(srfTriangles_t *tri)
 	indexSort_t *ind = (indexSort_t *)R_StaticAlloc(numIndexes * sizeof(indexSort_t));
 	if(ind == nullptr)
 	{
-		idLib::Error("Couldn't allocate index sort array");
+		idLib::Error("Couldn't allocate index sort array"); // TODO
 		return;
 	}
 

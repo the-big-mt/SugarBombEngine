@@ -114,7 +114,7 @@ public:
 	{
 		if(staticData.vertexMemUsed.GetValue() + bytes > STATIC_VERTEX_MEMORY)
 		{
-			idLib::FatalError("AllocStaticVertex failed, increase STATIC_VERTEX_MEMORY");
+			idLib::FatalError("AllocStaticVertex failed, increase STATIC_VERTEX_MEMORY"); // TODO
 		}
 		return ActuallyAlloc(staticData, data, bytes, CACHE_VERTEX);
 	}
@@ -122,7 +122,7 @@ public:
 	{
 		if(staticData.indexMemUsed.GetValue() + bytes > STATIC_INDEX_MEMORY)
 		{
-			idLib::FatalError("AllocStaticIndex failed, increase STATIC_INDEX_MEMORY");
+			idLib::FatalError("AllocStaticIndex failed, increase STATIC_INDEX_MEMORY"); // TODO
 		}
 		return ActuallyAlloc(staticData, data, bytes, CACHE_INDEX);
 	}

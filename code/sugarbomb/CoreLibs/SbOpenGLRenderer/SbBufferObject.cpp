@@ -182,7 +182,7 @@ bool idVertexBuffer::AllocBufferObject(const void *data, int allocSize)
 
 	if(allocSize <= 0)
 	{
-		idLib::Error("idVertexBuffer::AllocBufferObject: allocSize = %i", allocSize);
+		idLib::Error("idVertexBuffer::AllocBufferObject: allocSize = %i", allocSize); // TODO
 	}
 
 	size = allocSize;
@@ -198,7 +198,7 @@ bool idVertexBuffer::AllocBufferObject(const void *data, int allocSize)
 	glGenBuffers(1, &bufferObject);
 	if(bufferObject == 0xFFFF)
 	{
-		idLib::FatalError("idVertexBuffer::AllocBufferObject: failed");
+		idLib::FatalError("idVertexBuffer::AllocBufferObject: failed"); // TODO
 	}
 	glBindBuffer(GL_ARRAY_BUFFER, bufferObject);
 
@@ -209,13 +209,13 @@ bool idVertexBuffer::AllocBufferObject(const void *data, int allocSize)
 	GLenum err = glGetError();
 	if(err == GL_OUT_OF_MEMORY)
 	{
-		idLib::Warning("idVertexBuffer::AllocBufferObject: allocation failed");
+		idLib::Warning("idVertexBuffer::AllocBufferObject: allocation failed"); // TODO
 		allocationFailed = true;
 	}
 
 	if(r_showBuffers.GetBool())
 	{
-		idLib::Printf("vertex buffer alloc %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize());
+		idLib::Printf("vertex buffer alloc %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize()); // TODO
 	}
 
 	// copy the data
@@ -253,7 +253,7 @@ void idVertexBuffer::FreeBufferObject()
 
 	if(r_showBuffers.GetBool())
 	{
-		idLib::Printf("vertex buffer free %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize());
+		idLib::Printf("vertex buffer free %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize()); // TODO
 	}
 
 	// RB: 64 bit fixes, changed GLuint to GLintptrARB
@@ -318,7 +318,7 @@ void idVertexBuffer::Update(const void *data, int updateSize) const
 
 	if(updateSize > size)
 	{
-		idLib::FatalError("idVertexBuffer::Update: size overrun, %i > %i\n", updateSize, GetSize());
+		idLib::FatalError("idVertexBuffer::Update: size overrun, %i > %i\n", updateSize, GetSize()); // TODO
 	}
 
 	int numBytes = (updateSize + 15) & ~15;
@@ -389,7 +389,7 @@ void *idVertexBuffer::MapBuffer(bufferMapType_t mapType) const
 
 	if(buffer == nullptr)
 	{
-		idLib::FatalError("idVertexBuffer::MapBuffer: failed");
+		idLib::FatalError("idVertexBuffer::MapBuffer: failed"); // TODO
 	}
 	return buffer;
 }
@@ -411,7 +411,7 @@ void idVertexBuffer::UnmapBuffer() const
 	glBindBuffer(GL_ARRAY_BUFFER, bufferObject);
 	if(!glUnmapBuffer(GL_ARRAY_BUFFER))
 	{
-		idLib::Printf("idVertexBuffer::UnmapBuffer failed\n");
+		idLib::Printf("idVertexBuffer::UnmapBuffer failed\n"); // TODO
 	}
 
 	SetUnmapped();
@@ -472,7 +472,7 @@ bool idIndexBuffer::AllocBufferObject(const void *data, int allocSize)
 
 	if(allocSize <= 0)
 	{
-		idLib::Error("idIndexBuffer::AllocBufferObject: allocSize = %i", allocSize);
+		idLib::Error("idIndexBuffer::AllocBufferObject: allocSize = %i", allocSize); // TODO
 	}
 
 	size = allocSize;
@@ -489,7 +489,7 @@ bool idIndexBuffer::AllocBufferObject(const void *data, int allocSize)
 	if(bufferObject == 0xFFFF)
 	{
 		GLenum error = glGetError();
-		idLib::FatalError("idIndexBuffer::AllocBufferObject: failed - GL_Error %d", error);
+		idLib::FatalError("idIndexBuffer::AllocBufferObject: failed - GL_Error %d", error); // TODO
 	}
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferObject);
 
@@ -500,13 +500,13 @@ bool idIndexBuffer::AllocBufferObject(const void *data, int allocSize)
 	GLenum err = glGetError();
 	if(err == GL_OUT_OF_MEMORY)
 	{
-		idLib::Warning("idIndexBuffer:AllocBufferObject: allocation failed");
+		idLib::Warning("idIndexBuffer:AllocBufferObject: allocation failed"); // TODO
 		allocationFailed = true;
 	}
 
 	if(r_showBuffers.GetBool())
 	{
-		idLib::Printf("index buffer alloc %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize());
+		idLib::Printf("index buffer alloc %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize()); // TODO
 	}
 
 	// copy the data
@@ -544,7 +544,7 @@ void idIndexBuffer::FreeBufferObject()
 
 	if(r_showBuffers.GetBool())
 	{
-		idLib::Printf("index buffer free %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize());
+		idLib::Printf("index buffer free %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize()); // TODO
 	}
 
 	// RB: 64 bit fixes, changed GLuint to GLintptrARB
@@ -609,7 +609,7 @@ void idIndexBuffer::Update(const void *data, int updateSize) const
 
 	if(updateSize > size)
 	{
-		idLib::FatalError("idIndexBuffer::Update: size overrun, %i > %i\n", updateSize, GetSize());
+		idLib::FatalError("idIndexBuffer::Update: size overrun, %i > %i\n", updateSize, GetSize()); // TODO
 	}
 
 	int numBytes = (updateSize + 15) & ~15;
@@ -675,7 +675,7 @@ void *idIndexBuffer::MapBuffer(bufferMapType_t mapType) const
 
 	if(buffer == nullptr)
 	{
-		idLib::FatalError("idIndexBuffer::MapBuffer: failed");
+		idLib::FatalError("idIndexBuffer::MapBuffer: failed"); // TODO
 	}
 	return buffer;
 }
@@ -697,7 +697,7 @@ void idIndexBuffer::UnmapBuffer() const
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferObject);
 	if(!glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER))
 	{
-		idLib::Printf("idIndexBuffer::UnmapBuffer failed\n");
+		idLib::Printf("idIndexBuffer::UnmapBuffer failed\n"); // TODO
 	}
 
 	SetUnmapped();
@@ -758,7 +758,7 @@ bool idJointBuffer::AllocBufferObject(const float *joints, int numAllocJoints)
 
 	if(numAllocJoints <= 0)
 	{
-		idLib::Error("idJointBuffer::AllocBufferObject: joints = %i", numAllocJoints);
+		idLib::Error("idJointBuffer::AllocBufferObject: joints = %i", numAllocJoints); // TODO
 	}
 
 	numJoints = numAllocJoints;
@@ -776,7 +776,7 @@ bool idJointBuffer::AllocBufferObject(const float *joints, int numAllocJoints)
 
 	if(r_showBuffers.GetBool())
 	{
-		idLib::Printf("joint buffer alloc %p, api %p (%i joints)\n", this, GetAPIObject(), GetNumJoints());
+		idLib::Printf("joint buffer alloc %p, api %p (%i joints)\n", this, GetAPIObject(), GetNumJoints()); // TODO
 	}
 
 	// copy the data
@@ -814,7 +814,7 @@ void idJointBuffer::FreeBufferObject()
 
 	if(r_showBuffers.GetBool())
 	{
-		idLib::Printf("joint buffer free %p, api %p (%i joints)\n", this, GetAPIObject(), GetNumJoints());
+		idLib::Printf("joint buffer free %p, api %p (%i joints)\n", this, GetAPIObject(), GetNumJoints()); // TODO
 	}
 
 	// RB: 64 bit fixes, changed GLuint to GLintptrARB
@@ -882,7 +882,7 @@ void idJointBuffer::Update(const float *joints, int numUpdateJoints) const
 
 	if(numUpdateJoints > numJoints)
 	{
-		idLib::FatalError("idJointBuffer::Update: size overrun, %i > %i\n", numUpdateJoints, numJoints);
+		idLib::FatalError("idJointBuffer::Update: size overrun, %i > %i\n", numUpdateJoints, numJoints); // TODO
 	}
 
 	const int numBytes = numUpdateJoints * 3 * 4 * sizeof(float);
@@ -928,7 +928,7 @@ float *idJointBuffer::MapBuffer(bufferMapType_t mapType) const
 
 	if(buffer == nullptr)
 	{
-		idLib::FatalError("idJointBuffer::MapBuffer: failed");
+		idLib::FatalError("idJointBuffer::MapBuffer: failed"); // TODO
 	}
 	return (float *)buffer;
 }
@@ -949,7 +949,7 @@ void idJointBuffer::UnmapBuffer() const
 
 	if(!glUnmapBuffer(GL_UNIFORM_BUFFER))
 	{
-		idLib::Printf("idJointBuffer::UnmapBuffer failed\n");
+		idLib::Printf("idJointBuffer::UnmapBuffer failed\n"); // TODO
 	}
 
 	SetUnmapped();

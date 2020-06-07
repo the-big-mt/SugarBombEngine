@@ -507,7 +507,7 @@ void R_DeriveLightData(idRenderLightLocal *light)
 	idRenderMatrix inverseLightMatrix;
 	if(!idRenderMatrix::Inverse(lightMatrix, inverseLightMatrix))
 	{
-		idLib::Warning("lightMatrix invert failed");
+		idLib::Warning("lightMatrix invert failed"); // TODO
 	}
 
 	// 'baseLightProject' goes from global space -> light local space -> light projective space
@@ -517,7 +517,7 @@ void R_DeriveLightData(idRenderLightLocal *light)
 	// the light model and calculate global bounds.
 	if(!idRenderMatrix::Inverse(light->baseLightProject, light->inverseBaseLightProject))
 	{
-		idLib::Warning("baseLightProject invert failed");
+		idLib::Warning("baseLightProject invert failed"); // TODO
 	}
 
 	// calculate the global light bounds by inverse projecting the zero to one cube with the 'inverseBaseLightProject'
