@@ -59,10 +59,10 @@ bool IsWriteCombined(void *base)
 		DWORD error = GetLastError();
 		error = error;
 		return false;
-	}
+	};
 	bool isWriteCombined = ((info.AllocationProtect & PAGE_WRITECOMBINE) != 0);
 	return isWriteCombined;
-}
+};
 #endif
 // RB end
 
@@ -83,7 +83,7 @@ void UnbindBufferObjects()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}
+};
 
 #if defined(SBE_USE_INTRINSICS)
 
@@ -111,22 +111,20 @@ void CopyBuffer(byte *dst, const byte *src, int numBytes)
 		_mm_stream_si128((__m128i *)&dst[i + 5 * 16], d5);
 		_mm_stream_si128((__m128i *)&dst[i + 6 * 16], d6);
 		_mm_stream_si128((__m128i *)&dst[i + 7 * 16], d7);
-	}
+	};
 	for(; i + 16 <= numBytes; i += 16)
 	{
 		__m128i d = _mm_load_si128((__m128i *)&src[i]);
 		_mm_stream_si128((__m128i *)&dst[i], d);
-	}
+	};
 	for(; i + 4 <= numBytes; i += 4)
-	{
 		*(uint32 *)&dst[i] = *(const uint32 *)&src[i];
-	}
+
 	for(; i < numBytes; i++)
-	{
 		dst[i] = src[i];
-	}
+
 	_mm_sfence();
-}
+};
 
 #else
 
@@ -135,7 +133,7 @@ void CopyBuffer(byte *dst, const byte *src, int numBytes)
 	assert_16_byte_aligned(dst);
 	assert_16_byte_aligned(src);
 	memcpy(dst, src, numBytes);
-}
+};
 
 #endif
 
@@ -158,7 +156,7 @@ SbVertexBuffer::SbVertexBuffer()
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
 	apiObject = nullptr;
 	SetUnmapped();
-}
+};
 
 /*
 ========================
@@ -168,7 +166,7 @@ idVertexBuffer::~idVertexBuffer
 SbVertexBuffer::~SbVertexBuffer()
 {
 	FreeBufferObject();
-}
+};
 
 /*
 ========================
@@ -181,9 +179,7 @@ bool SbVertexBuffer::AllocBufferObject(const void *data, int allocSize)
 	assert_16_byte_aligned(data);
 
 	if(allocSize <= 0)
-	{
 		idLib::Error("idVertexBuffer::AllocBufferObject: allocSize = %i", allocSize); // TODO
-	}
 
 	size = allocSize;
 
@@ -197,9 +193,8 @@ bool SbVertexBuffer::AllocBufferObject(const void *data, int allocSize)
 	GLuint bufferObject = 0xFFFF;
 	glGenBuffers(1, &bufferObject);
 	if(bufferObject == 0xFFFF)
-	{
 		idLib::FatalError("idVertexBuffer::AllocBufferObject: failed"); // TODO
-	}
+
 	glBindBuffer(GL_ARRAY_BUFFER, bufferObject);
 
 	// these are rewritten every frame
@@ -211,21 +206,17 @@ bool SbVertexBuffer::AllocBufferObject(const void *data, int allocSize)
 	{
 		idLib::Warning("idVertexBuffer::AllocBufferObject: allocation failed"); // TODO
 		allocationFailed = true;
-	}
+	};
 
 	if(r_showBuffers.GetBool())
-	{
 		idLib::Printf("vertex buffer alloc %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize()); // TODO
-	}
 
 	// copy the data
 	if(data != nullptr)
-	{
 		Update(data, allocSize);
-	}
 
 	return !allocationFailed;
-}
+};
 
 /*
 ========================
@@ -235,26 +226,20 @@ idVertexBuffer::FreeBufferObject
 void SbVertexBuffer::FreeBufferObject()
 {
 	if(IsMapped())
-	{
 		UnmapBuffer();
-	}
 
 	// if this is a sub-allocation inside a larger buffer, don't actually free anything.
 	if(OwnsBuffer() == false)
 	{
 		ClearWithoutFreeing();
 		return;
-	}
+	};
 
 	if(apiObject == nullptr)
-	{
 		return;
-	}
 
 	if(r_showBuffers.GetBool())
-	{
 		idLib::Printf("vertex buffer free %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize()); // TODO
-	}
 
 	// RB: 64 bit fixes, changed GLuint to GLintptrARB
 	GLintptr bufferObject = reinterpret_cast<GLintptr>(apiObject);
@@ -262,7 +247,7 @@ void SbVertexBuffer::FreeBufferObject()
 	// RB end
 
 	ClearWithoutFreeing();
-}
+};
 
 /*
 ========================
@@ -281,7 +266,7 @@ void SbVertexBuffer::Reference(const SbVertexBuffer &other)
 	offsetInOtherBuffer = other.GetOffset(); // this strips the OWNS_BUFFER_FLAG
 	apiObject = other.apiObject;
 	assert(OwnsBuffer() == false);
-}
+};
 
 /*
 ========================
@@ -302,7 +287,7 @@ void SbVertexBuffer::Reference(const SbVertexBuffer &other, int refOffset, int r
 	offsetInOtherBuffer = other.GetOffset() + refOffset;
 	apiObject = other.apiObject;
 	assert(OwnsBuffer() == false);
-}
+};
 
 /*
 ========================
@@ -317,9 +302,7 @@ void SbVertexBuffer::Update(const void *data, int updateSize) const
 	assert((GetOffset() & 15) == 0);
 
 	if(updateSize > size)
-	{
 		idLib::FatalError("idVertexBuffer::Update: size overrun, %i > %i\n", updateSize, GetSize()); // TODO
-	}
 
 	int numBytes = (updateSize + 15) & ~15;
 
@@ -334,7 +317,7 @@ void SbVertexBuffer::Update(const void *data, int updateSize) const
 		CopyBuffer( (byte *)buffer + GetOffset(), (byte *)data, numBytes );
 		UnmapBuffer();
 	*/
-}
+};
 
 /*
 ========================
@@ -362,9 +345,7 @@ void *SbVertexBuffer::MapBuffer(bufferMapType_t mapType) const
 		buffer = glMapBufferRange(GL_ARRAY_BUFFER, 0, GetAllocedSize(), GL_MAP_READ_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
 #endif
 		if(buffer != nullptr)
-		{
 			buffer = (byte *)buffer + GetOffset();
-		}
 	}
 	else if(mapType == BM_WRITE)
 	{
@@ -375,24 +356,20 @@ void *SbVertexBuffer::MapBuffer(bufferMapType_t mapType) const
 		buffer = glMapBufferRange(GL_ARRAY_BUFFER, 0, GetAllocedSize(), GL_MAP_WRITE_BIT /*| GL_MAP_INVALIDATE_RANGE_BIT*/ | GL_MAP_UNSYNCHRONIZED_BIT);
 #endif
 		if(buffer != nullptr)
-		{
 			buffer = (byte *)buffer + GetOffset();
-		}
+
 		// assert( IsWriteCombined( buffer ) ); // commented out because it spams the console
 	}
 	else
-	{
 		assert(false);
-	}
 
 	SetMapped();
 
 	if(buffer == nullptr)
-	{
 		idLib::FatalError("idVertexBuffer::MapBuffer: failed"); // TODO
-	}
+
 	return buffer;
-}
+};
 
 /*
 ========================
@@ -410,12 +387,10 @@ void SbVertexBuffer::UnmapBuffer() const
 
 	glBindBuffer(GL_ARRAY_BUFFER, bufferObject);
 	if(!glUnmapBuffer(GL_ARRAY_BUFFER))
-	{
 		idLib::Printf("idVertexBuffer::UnmapBuffer failed\n"); // TODO
-	}
 
 	SetUnmapped();
-}
+};
 
 /*
 ========================
@@ -427,7 +402,7 @@ void SbVertexBuffer::ClearWithoutFreeing()
 	size = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
 	apiObject = nullptr;
-}
+};
 
 /*
 ================================================================================================
@@ -448,7 +423,7 @@ SbIndexBuffer::SbIndexBuffer()
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
 	apiObject = nullptr;
 	SetUnmapped();
-}
+};
 
 /*
 ========================
@@ -458,7 +433,7 @@ idIndexBuffer::~idIndexBuffer
 SbIndexBuffer::~SbIndexBuffer()
 {
 	FreeBufferObject();
-}
+};
 
 /*
 ========================
@@ -471,9 +446,7 @@ bool SbIndexBuffer::AllocBufferObject(const void *data, int allocSize)
 	assert_16_byte_aligned(data);
 
 	if(allocSize <= 0)
-	{
 		idLib::Error("idIndexBuffer::AllocBufferObject: allocSize = %i", allocSize); // TODO
-	}
 
 	size = allocSize;
 
@@ -490,7 +463,7 @@ bool SbIndexBuffer::AllocBufferObject(const void *data, int allocSize)
 	{
 		GLenum error = glGetError();
 		idLib::FatalError("idIndexBuffer::AllocBufferObject: failed - GL_Error %d", error); // TODO
-	}
+	};
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferObject);
 
 	// these are rewritten every frame
@@ -502,21 +475,17 @@ bool SbIndexBuffer::AllocBufferObject(const void *data, int allocSize)
 	{
 		idLib::Warning("idIndexBuffer:AllocBufferObject: allocation failed"); // TODO
 		allocationFailed = true;
-	}
+	};
 
 	if(r_showBuffers.GetBool())
-	{
 		idLib::Printf("index buffer alloc %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize()); // TODO
-	}
 
 	// copy the data
 	if(data != nullptr)
-	{
 		Update(data, allocSize);
-	}
 
 	return !allocationFailed;
-}
+};
 
 /*
 ========================
@@ -526,26 +495,20 @@ idIndexBuffer::FreeBufferObject
 void SbIndexBuffer::FreeBufferObject()
 {
 	if(IsMapped())
-	{
 		UnmapBuffer();
-	}
 
 	// if this is a sub-allocation inside a larger buffer, don't actually free anything.
 	if(OwnsBuffer() == false)
 	{
 		ClearWithoutFreeing();
 		return;
-	}
+	};
 
 	if(apiObject == nullptr)
-	{
 		return;
-	}
 
 	if(r_showBuffers.GetBool())
-	{
 		idLib::Printf("index buffer free %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize()); // TODO
-	}
 
 	// RB: 64 bit fixes, changed GLuint to GLintptrARB
 	GLintptr bufferObject = reinterpret_cast<GLintptr>(apiObject);
@@ -553,7 +516,7 @@ void SbIndexBuffer::FreeBufferObject()
 	// RB end
 
 	ClearWithoutFreeing();
-}
+};
 
 /*
 ========================
@@ -572,7 +535,7 @@ void SbIndexBuffer::Reference(const SbIndexBuffer &other)
 	offsetInOtherBuffer = other.GetOffset(); // this strips the OWNS_BUFFER_FLAG
 	apiObject = other.apiObject;
 	assert(OwnsBuffer() == false);
-}
+};
 
 /*
 ========================
@@ -593,7 +556,7 @@ void SbIndexBuffer::Reference(const SbIndexBuffer &other, int refOffset, int ref
 	offsetInOtherBuffer = other.GetOffset() + refOffset;
 	apiObject = other.apiObject;
 	assert(OwnsBuffer() == false);
-}
+};
 
 /*
 ========================
@@ -608,9 +571,7 @@ void SbIndexBuffer::Update(const void *data, int updateSize) const
 	assert((GetOffset() & 15) == 0);
 
 	if(updateSize > size)
-	{
 		idLib::FatalError("idIndexBuffer::Update: size overrun, %i > %i\n", updateSize, GetSize()); // TODO
-	}
 
 	int numBytes = (updateSize + 15) & ~15;
 
@@ -625,7 +586,7 @@ void SbIndexBuffer::Update(const void *data, int updateSize) const
 		CopyBuffer( (byte *)buffer + GetOffset(), (byte *)data, numBytes );
 		UnmapBuffer();
 	*/
-}
+};
 
 /*
 ========================
@@ -650,9 +611,7 @@ void *SbIndexBuffer::MapBuffer(bufferMapType_t mapType) const
 		//buffer = glMapBufferARB( GL_ELEMENT_ARRAY_BUFFER_ARB, GL_READ_ONLY_ARB );
 		buffer = glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER, 0, GetAllocedSize(), GL_MAP_READ_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
 		if(buffer != nullptr)
-		{
 			buffer = (byte *)buffer + GetOffset();
-		}
 	}
 	else if(mapType == BM_WRITE)
 	{
@@ -661,24 +620,20 @@ void *SbIndexBuffer::MapBuffer(bufferMapType_t mapType) const
 		// RB: removed GL_MAP_INVALIDATE_RANGE_BIT as it breaks with an optimization in the Nvidia WHQL drivers >= 344.11
 		buffer = glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER, 0, GetAllocedSize(), GL_MAP_WRITE_BIT /*| GL_MAP_INVALIDATE_RANGE_BIT*/ | GL_MAP_UNSYNCHRONIZED_BIT);
 		if(buffer != nullptr)
-		{
 			buffer = (byte *)buffer + GetOffset();
-		}
+
 		// assert( IsWriteCombined( buffer ) ); // commented out because it spams the console
 	}
 	else
-	{
 		assert(false);
-	}
 
 	SetMapped();
 
 	if(buffer == nullptr)
-	{
 		idLib::FatalError("idIndexBuffer::MapBuffer: failed"); // TODO
-	}
+
 	return buffer;
-}
+};
 
 /*
 ========================
@@ -696,12 +651,10 @@ void SbIndexBuffer::UnmapBuffer() const
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferObject);
 	if(!glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER))
-	{
 		idLib::Printf("idIndexBuffer::UnmapBuffer failed\n"); // TODO
-	}
 
 	SetUnmapped();
-}
+};
 
 /*
 ========================
@@ -713,7 +666,7 @@ void SbIndexBuffer::ClearWithoutFreeing()
 	size = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
 	apiObject = nullptr;
-}
+};
 
 /*
 ================================================================================================
@@ -734,7 +687,7 @@ SbJointBuffer::SbJointBuffer()
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
 	apiObject = nullptr;
 	SetUnmapped();
-}
+};
 
 /*
 ========================
@@ -744,7 +697,7 @@ idJointBuffer::~idJointBuffer
 SbJointBuffer::~SbJointBuffer()
 {
 	FreeBufferObject();
-}
+};
 
 /*
 ========================
@@ -757,9 +710,7 @@ bool SbJointBuffer::AllocBufferObject(const float *joints, int numAllocJoints)
 	assert_16_byte_aligned(joints);
 
 	if(numAllocJoints <= 0)
-	{
 		idLib::Error("idJointBuffer::AllocBufferObject: joints = %i", numAllocJoints); // TODO
-	}
 
 	numJoints = numAllocJoints;
 
@@ -775,18 +726,14 @@ bool SbJointBuffer::AllocBufferObject(const float *joints, int numAllocJoints)
 	apiObject = reinterpret_cast<void *>(buffer);
 
 	if(r_showBuffers.GetBool())
-	{
 		idLib::Printf("joint buffer alloc %p, api %p (%i joints)\n", this, GetAPIObject(), GetNumJoints()); // TODO
-	}
 
 	// copy the data
 	if(joints != nullptr)
-	{
 		Update(joints, numAllocJoints);
-	}
 
 	return !allocationFailed;
-}
+};
 
 /*
 ========================
@@ -796,26 +743,20 @@ idJointBuffer::FreeBufferObject
 void SbJointBuffer::FreeBufferObject()
 {
 	if(IsMapped())
-	{
 		UnmapBuffer();
-	}
 
 	// if this is a sub-allocation inside a larger buffer, don't actually free anything.
 	if(OwnsBuffer() == false)
 	{
 		ClearWithoutFreeing();
 		return;
-	}
+	};
 
 	if(apiObject == nullptr)
-	{
 		return;
-	}
 
 	if(r_showBuffers.GetBool())
-	{
 		idLib::Printf("joint buffer free %p, api %p (%i joints)\n", this, GetAPIObject(), GetNumJoints()); // TODO
-	}
 
 	// RB: 64 bit fixes, changed GLuint to GLintptrARB
 	GLintptr buffer = reinterpret_cast<GLintptr>(apiObject);
@@ -825,7 +766,7 @@ void SbJointBuffer::FreeBufferObject()
 	// RB end
 
 	ClearWithoutFreeing();
-}
+};
 
 /*
 ========================
@@ -844,7 +785,7 @@ void SbJointBuffer::Reference(const SbJointBuffer &other)
 	offsetInOtherBuffer = other.GetOffset(); // this strips the OWNS_BUFFER_FLAG
 	apiObject = other.apiObject;
 	assert(OwnsBuffer() == false);
-}
+};
 
 /*
 ========================
@@ -866,7 +807,7 @@ void SbJointBuffer::Reference(const SbJointBuffer &other, int jointRefOffset, in
 	offsetInOtherBuffer = other.GetOffset() + jointRefOffset;
 	apiObject = other.apiObject;
 	assert(OwnsBuffer() == false);
-}
+};
 
 /*
 ========================
@@ -881,9 +822,7 @@ void SbJointBuffer::Update(const float *joints, int numUpdateJoints) const
 	assert((GetOffset() & 15) == 0);
 
 	if(numUpdateJoints > numJoints)
-	{
 		idLib::FatalError("idJointBuffer::Update: size overrun, %i > %i\n", numUpdateJoints, numJoints); // TODO
-	}
 
 	const int numBytes = numUpdateJoints * 3 * 4 * sizeof(float);
 
@@ -892,7 +831,7 @@ void SbJointBuffer::Update(const float *joints, int numUpdateJoints) const
 	// RB end
 
 	glBufferSubData(GL_UNIFORM_BUFFER, GetOffset(), (GLsizeiptr)numBytes, joints);
-}
+};
 
 /*
 ========================
@@ -920,18 +859,15 @@ float *SbJointBuffer::MapBuffer(bufferMapType_t mapType) const
 	// RB: removed GL_MAP_INVALIDATE_RANGE_BIT as it breaks with an optimization in the Nvidia WHQL drivers >= 344.11
 	buffer = glMapBufferRange(GL_UNIFORM_BUFFER, 0, GetAllocedSize(), GL_MAP_WRITE_BIT /*| GL_MAP_INVALIDATE_RANGE_BIT*/ | GL_MAP_UNSYNCHRONIZED_BIT);
 	if(buffer != nullptr)
-	{
 		buffer = (byte *)buffer + GetOffset();
-	}
 
 	SetMapped();
 
 	if(buffer == nullptr)
-	{
 		idLib::FatalError("idJointBuffer::MapBuffer: failed"); // TODO
-	}
+
 	return (float *)buffer;
-}
+};
 
 /*
 ========================
@@ -948,12 +884,10 @@ void SbJointBuffer::UnmapBuffer() const
 	// RB end
 
 	if(!glUnmapBuffer(GL_UNIFORM_BUFFER))
-	{
 		idLib::Printf("idJointBuffer::UnmapBuffer failed\n"); // TODO
-	}
 
 	SetUnmapped();
-}
+};
 
 /*
 ========================
@@ -965,7 +899,7 @@ void SbJointBuffer::ClearWithoutFreeing()
 	numJoints = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
 	apiObject = nullptr;
-}
+};
 
 /*
 ========================
@@ -980,6 +914,6 @@ void SbJointBuffer::Swap(SbJointBuffer &other)
 	SwapValues(other.numJoints, numJoints);
 	SwapValues(other.offsetInOtherBuffer, offsetInOtherBuffer);
 	SwapValues(other.apiObject, apiObject);
-}
+};
 
 //} // namespace sbe
