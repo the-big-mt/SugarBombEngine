@@ -39,67 +39,6 @@ static const int initialBaseTicksPerSec = initialHz * initialBaseTicks;
 static const int LOAD_TIP_CHANGE_INTERVAL = 12000;
 static const int LOAD_TIP_COUNT = 26;
 
-class idGameThread : public idSysThread
-{
-public:
-	idGameThread() :
-		gameTime(),
-		drawTime(),
-		threadTime(),
-		threadGameTime(),
-		threadRenderTime(),
-		userCmdMgr( NULL ),
-		ret(),
-		numGameFrames(),
-		isClient()
-	{}
-	
-	// the gameReturn_t is from the previous frame, the
-	// new frame will be running in parallel on exit
-	gameReturn_t	RunGameAndDraw( int numGameFrames, idUserCmdMgr& userCmdMgr_, bool isClient_, int startGameFrame );
-	
-	// Accessors to the stored frame/thread time information
-	void			SetThreadTotalTime( const int inTime )
-	{
-		threadTime = inTime;
-	}
-	int				GetThreadTotalTime() const
-	{
-		return threadTime;
-	}
-	
-	void			SetThreadGameTime( const int time )
-	{
-		threadGameTime = time;
-	}
-	int				GetThreadGameTime() const
-	{
-		return threadGameTime;
-	}
-	
-	void			SetThreadRenderTime( const int time )
-	{
-		threadRenderTime = time;
-	}
-	int				GetThreadRenderTime() const
-	{
-		return threadRenderTime;
-	}
-	
-private:
-	virtual int	Run();
-	
-	int				gameTime;
-	int				drawTime;
-	int				threadTime;					// total time : game time + foreground render time
-	int				threadGameTime;				// game time only
-	int				threadRenderTime;			// render fg time only
-	idUserCmdMgr* 	userCmdMgr;
-	gameReturn_t	ret;
-	int				numGameFrames;
-	bool			isClient;
-};
-
 enum errorParm_t
 {
 	ERP_NONE,
