@@ -152,7 +152,7 @@ void CopyBuffer(byte *dst, const byte *src, int numBytes)
 idVertexBuffer::idVertexBuffer
 ========================
 */
-idVertexBuffer::idVertexBuffer()
+SbVertexBuffer::SbVertexBuffer()
 {
 	size = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
@@ -165,7 +165,7 @@ idVertexBuffer::idVertexBuffer()
 idVertexBuffer::~idVertexBuffer
 ========================
 */
-idVertexBuffer::~idVertexBuffer()
+SbVertexBuffer::~SbVertexBuffer()
 {
 	FreeBufferObject();
 }
@@ -175,7 +175,7 @@ idVertexBuffer::~idVertexBuffer()
 idVertexBuffer::AllocBufferObject
 ========================
 */
-bool idVertexBuffer::AllocBufferObject(const void *data, int allocSize)
+bool SbVertexBuffer::AllocBufferObject(const void *data, int allocSize)
 {
 	assert(apiObject == nullptr);
 	assert_16_byte_aligned(data);
@@ -232,7 +232,7 @@ bool idVertexBuffer::AllocBufferObject(const void *data, int allocSize)
 idVertexBuffer::FreeBufferObject
 ========================
 */
-void idVertexBuffer::FreeBufferObject()
+void SbVertexBuffer::FreeBufferObject()
 {
 	if(IsMapped())
 	{
@@ -269,7 +269,7 @@ void idVertexBuffer::FreeBufferObject()
 idVertexBuffer::Reference
 ========================
 */
-void idVertexBuffer::Reference(const idVertexBuffer &other)
+void SbVertexBuffer::Reference(const SbVertexBuffer &other)
 {
 	assert(IsMapped() == false);
 	//assert( other.IsMapped() == false );	// this happens when building idTriangles while at the same time setting up idDrawVerts
@@ -288,7 +288,7 @@ void idVertexBuffer::Reference(const idVertexBuffer &other)
 idVertexBuffer::Reference
 ========================
 */
-void idVertexBuffer::Reference(const idVertexBuffer &other, int refOffset, int refSize)
+void SbVertexBuffer::Reference(const SbVertexBuffer &other, int refOffset, int refSize)
 {
 	assert(IsMapped() == false);
 	//assert( other.IsMapped() == false );	// this happens when building idTriangles while at the same time setting up idDrawVerts
@@ -309,7 +309,7 @@ void idVertexBuffer::Reference(const idVertexBuffer &other, int refOffset, int r
 idVertexBuffer::Update
 ========================
 */
-void idVertexBuffer::Update(const void *data, int updateSize) const
+void SbVertexBuffer::Update(const void *data, int updateSize) const
 {
 	assert(apiObject != nullptr);
 	assert(IsMapped() == false);
@@ -341,7 +341,7 @@ void idVertexBuffer::Update(const void *data, int updateSize) const
 idVertexBuffer::MapBuffer
 ========================
 */
-void *idVertexBuffer::MapBuffer(bufferMapType_t mapType) const
+void *SbVertexBuffer::MapBuffer(bufferMapType_t mapType) const
 {
 	assert(apiObject != nullptr);
 	assert(IsMapped() == false);
@@ -399,7 +399,7 @@ void *idVertexBuffer::MapBuffer(bufferMapType_t mapType) const
 idVertexBuffer::UnmapBuffer
 ========================
 */
-void idVertexBuffer::UnmapBuffer() const
+void SbVertexBuffer::UnmapBuffer() const
 {
 	assert(apiObject != nullptr);
 	assert(IsMapped());
@@ -422,7 +422,7 @@ void idVertexBuffer::UnmapBuffer() const
 idVertexBuffer::ClearWithoutFreeing
 ========================
 */
-void idVertexBuffer::ClearWithoutFreeing()
+void SbVertexBuffer::ClearWithoutFreeing()
 {
 	size = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;

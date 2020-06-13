@@ -61,19 +61,19 @@ void UnbindBufferObjects();
 idVertexBuffer
 ================================================
 */
-class idVertexBuffer
+class SbVertexBuffer
 {
 public:
-	idVertexBuffer();
-	~idVertexBuffer();
+	SbVertexBuffer();
+	~SbVertexBuffer();
 
 	// Allocate or free the buffer.
 	bool AllocBufferObject(const void *data, int allocSize);
 	void FreeBufferObject();
 
 	// Make this buffer a reference to another buffer.
-	void Reference(const idVertexBuffer &other);
-	void Reference(const idVertexBuffer &other, int refOffset, int refSize);
+	void Reference(const SbVertexBuffer &other);
+	void Reference(const SbVertexBuffer &other, int refOffset, int refSize);
 
 	// Copies data to the buffer. 'size' may be less than the originally allocated size.
 	void Update(const void *data, int updateSize) const;
