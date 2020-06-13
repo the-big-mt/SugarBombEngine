@@ -219,19 +219,19 @@ is limited to GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT, which is 256 on current nvidia
 so joint offsets, which are multiples of 48 bytes, must be in multiples of 16 = 768 bytes.
 ================================================
 */
-class idJointBuffer
+class SbJointBuffer
 {
 public:
-	idJointBuffer();
-	~idJointBuffer();
+	SbJointBuffer();
+	~SbJointBuffer();
 
 	// Allocate or free the buffer.
 	bool AllocBufferObject(const float *joints, int numAllocJoints);
 	void FreeBufferObject();
 
 	// Make this buffer a reference to another buffer.
-	void Reference(const idJointBuffer &other);
-	void Reference(const idJointBuffer &other, int jointRefOffset, int numRefJoints);
+	void Reference(const SbJointBuffer &other);
+	void Reference(const SbJointBuffer &other, int jointRefOffset, int numRefJoints);
 
 	// Copies data to the buffer. 'numJoints' may be less than the originally allocated size.
 	void Update(const float *joints, int numUpdateJoints) const;
@@ -286,7 +286,7 @@ private:
 		return ((offsetInOtherBuffer & OWNS_BUFFER_FLAG) != 0);
 	}
 
-	DISALLOW_COPY_AND_ASSIGN(idJointBuffer);
+	DISALLOW_COPY_AND_ASSIGN(SbJointBuffer);
 };
 
 //} // namespace sbe

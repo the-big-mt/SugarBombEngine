@@ -728,7 +728,7 @@ void SbIndexBuffer::ClearWithoutFreeing()
 idJointBuffer::idJointBuffer
 ========================
 */
-idJointBuffer::idJointBuffer()
+SbJointBuffer::SbJointBuffer()
 {
 	numJoints = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
@@ -741,7 +741,7 @@ idJointBuffer::idJointBuffer()
 idJointBuffer::~idJointBuffer
 ========================
 */
-idJointBuffer::~idJointBuffer()
+SbJointBuffer::~SbJointBuffer()
 {
 	FreeBufferObject();
 }
@@ -751,7 +751,7 @@ idJointBuffer::~idJointBuffer()
 idJointBuffer::AllocBufferObject
 ========================
 */
-bool idJointBuffer::AllocBufferObject(const float *joints, int numAllocJoints)
+bool SbJointBuffer::AllocBufferObject(const float *joints, int numAllocJoints)
 {
 	assert(apiObject == nullptr);
 	assert_16_byte_aligned(joints);
@@ -793,7 +793,7 @@ bool idJointBuffer::AllocBufferObject(const float *joints, int numAllocJoints)
 idJointBuffer::FreeBufferObject
 ========================
 */
-void idJointBuffer::FreeBufferObject()
+void SbJointBuffer::FreeBufferObject()
 {
 	if(IsMapped())
 	{
@@ -832,7 +832,7 @@ void idJointBuffer::FreeBufferObject()
 idJointBuffer::Reference
 ========================
 */
-void idJointBuffer::Reference(const idJointBuffer &other)
+void SbJointBuffer::Reference(const SbJointBuffer &other)
 {
 	assert(IsMapped() == false);
 	assert(other.IsMapped() == false);
@@ -851,7 +851,7 @@ void idJointBuffer::Reference(const idJointBuffer &other)
 idJointBuffer::Reference
 ========================
 */
-void idJointBuffer::Reference(const idJointBuffer &other, int jointRefOffset, int numRefJoints)
+void SbJointBuffer::Reference(const SbJointBuffer &other, int jointRefOffset, int numRefJoints)
 {
 	assert(IsMapped() == false);
 	assert(other.IsMapped() == false);
@@ -873,7 +873,7 @@ void idJointBuffer::Reference(const idJointBuffer &other, int jointRefOffset, in
 idJointBuffer::Update
 ========================
 */
-void idJointBuffer::Update(const float *joints, int numUpdateJoints) const
+void SbJointBuffer::Update(const float *joints, int numUpdateJoints) const
 {
 	assert(apiObject != nullptr);
 	assert(IsMapped() == false);
@@ -899,7 +899,7 @@ void idJointBuffer::Update(const float *joints, int numUpdateJoints) const
 idJointBuffer::MapBuffer
 ========================
 */
-float *idJointBuffer::MapBuffer(bufferMapType_t mapType) const
+float *SbJointBuffer::MapBuffer(bufferMapType_t mapType) const
 {
 	assert(IsMapped() == false);
 	assert(mapType == BM_WRITE);
@@ -938,7 +938,7 @@ float *idJointBuffer::MapBuffer(bufferMapType_t mapType) const
 idJointBuffer::UnmapBuffer
 ========================
 */
-void idJointBuffer::UnmapBuffer() const
+void SbJointBuffer::UnmapBuffer() const
 {
 	assert(apiObject != nullptr);
 	assert(IsMapped());
@@ -960,7 +960,7 @@ void idJointBuffer::UnmapBuffer() const
 idJointBuffer::ClearWithoutFreeing
 ========================
 */
-void idJointBuffer::ClearWithoutFreeing()
+void SbJointBuffer::ClearWithoutFreeing()
 {
 	numJoints = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
@@ -972,7 +972,7 @@ void idJointBuffer::ClearWithoutFreeing()
 idJointBuffer::Swap
 ========================
 */
-void idJointBuffer::Swap(idJointBuffer &other)
+void SbJointBuffer::Swap(SbJointBuffer &other)
 {
 	// Make sure the ownership of the buffer is not transferred to an unintended place.
 	assert(other.OwnsBuffer() == OwnsBuffer());
