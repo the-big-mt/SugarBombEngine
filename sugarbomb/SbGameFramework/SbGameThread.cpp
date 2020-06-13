@@ -44,7 +44,7 @@ Run in a background thread for performance, but can also
 be called directly in the foreground thread for comparison.
 ===============
 */
-int idGameThread::Run()
+int SbGameThread::Run()
 {
 	commonLocal.frameTiming.startGameTime = Sys_Microseconds();
 	
@@ -127,7 +127,7 @@ idGameThread::RunGameAndDraw
 
 ===============
 */
-gameReturn_t idGameThread::RunGameAndDraw( int numGameFrames_, idUserCmdMgr& userCmdMgr_, bool isClient_, int startGameFrame )
+gameReturn_t SbGameThread::RunGameAndDraw( int numGameFrames_, idUserCmdMgr& userCmdMgr_, bool isClient_, int startGameFrame )
 {
 	// this should always immediately return
 	this->WaitForThread();

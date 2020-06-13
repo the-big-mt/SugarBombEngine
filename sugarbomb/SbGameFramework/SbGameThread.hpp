@@ -37,10 +37,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe::SbGameFramework
 {
 
-class idGameThread : public idSysThread
+class SbGameThread : public idSysThread
 {
 public:
-	idGameThread() :
+	SbGameThread() :
 		gameTime(),
 		drawTime(),
 		threadTime(),
