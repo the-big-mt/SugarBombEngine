@@ -130,7 +130,7 @@ private:
 		return ((offsetInOtherBuffer & OWNS_BUFFER_FLAG) != 0);
 	}
 
-	DISALLOW_COPY_AND_ASSIGN(idVertexBuffer);
+	DISALLOW_COPY_AND_ASSIGN(SbVertexBuffer);
 };
 
 /*
