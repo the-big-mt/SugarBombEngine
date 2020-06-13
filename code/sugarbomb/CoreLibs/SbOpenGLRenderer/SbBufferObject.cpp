@@ -150,7 +150,7 @@ void CopyBuffer(byte *dst, const byte *src, int numBytes)
 idVertexBuffer::idVertexBuffer
 ========================
 */
-SbVertexBuffer::SbVertexBuffer()
+SbVertexBuffer::SbVertexBuffer(ISystem &aSystem) : mSystem(aSystem)
 {
 	size = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
@@ -417,7 +417,7 @@ void SbVertexBuffer::ClearWithoutFreeing()
 idIndexBuffer::idIndexBuffer
 ========================
 */
-SbIndexBuffer::SbIndexBuffer()
+SbIndexBuffer::SbIndexBuffer(ISystem &aSystem) : mSystem(aSystem)
 {
 	size = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
@@ -681,7 +681,7 @@ void SbIndexBuffer::ClearWithoutFreeing()
 idJointBuffer::idJointBuffer
 ========================
 */
-SbJointBuffer::SbJointBuffer()
+SbJointBuffer::SbJointBuffer(ISystem &aSystem) : mSystem(aSystem)
 {
 	numJoints = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;

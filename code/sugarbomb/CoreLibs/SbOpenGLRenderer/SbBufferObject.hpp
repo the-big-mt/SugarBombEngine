@@ -43,6 +43,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 ================================================================================================
 */
 
+struct ISystem;
+
 class idIndexBuffer;
 class idDrawVert;
 
@@ -64,7 +66,7 @@ idVertexBuffer
 class SbVertexBuffer
 {
 public:
-	SbVertexBuffer();
+	SbVertexBuffer(ISystem &aSystem);
 	~SbVertexBuffer();
 
 	// Allocate or free the buffer.
@@ -95,7 +97,6 @@ private:
 	// sizeof() confuses typeinfo...
 	static const int MAPPED_FLAG = 1 << (4 /* sizeof( int ) */ * 8 - 1);
 	static const int OWNS_BUFFER_FLAG = 1 << (4 /* sizeof( int ) */ * 8 - 1);
-
 private:
 	void ClearWithoutFreeing();
 	void SetMapped() const {const_cast<int &>(size) |= MAPPED_FLAG;}
@@ -103,6 +104,8 @@ private:
 	bool OwnsBuffer() const {return ((offsetInOtherBuffer & OWNS_BUFFER_FLAG) != 0);}
 
 	DISALLOW_COPY_AND_ASSIGN(SbVertexBuffer);
+private:
+	ISystem &mSystem;
 };
 
 /*
@@ -113,7 +116,7 @@ idIndexBuffer
 class SbIndexBuffer
 {
 public:
-	SbIndexBuffer();
+	SbIndexBuffer(ISystem &aSystem);
 	~SbIndexBuffer();
 
 	// Allocate or free the buffer.
@@ -151,6 +154,8 @@ private:
 	bool OwnsBuffer() const {return ((offsetInOtherBuffer & OWNS_BUFFER_FLAG) != 0);}
 
 	DISALLOW_COPY_AND_ASSIGN(SbIndexBuffer);
+private:
+	ISystem &mSystem;
 };
 
 /*
@@ -165,7 +170,7 @@ so joint offsets, which are multiples of 48 bytes, must be in multiples of 16 = 
 class SbJointBuffer
 {
 public:
-	SbJointBuffer();
+	SbJointBuffer(ISystem &aSystem);
 	~SbJointBuffer();
 
 	// Allocate or free the buffer.
@@ -205,6 +210,8 @@ private:
 	bool OwnsBuffer() const {return ((offsetInOtherBuffer & OWNS_BUFFER_FLAG) != 0);}
 
 	DISALLOW_COPY_AND_ASSIGN(SbJointBuffer);
+private:
+	ISystem &mSystem;
 };
 
 //} // namespace sbe
