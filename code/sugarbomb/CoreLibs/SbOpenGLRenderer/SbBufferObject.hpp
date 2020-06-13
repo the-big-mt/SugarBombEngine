@@ -138,19 +138,19 @@ private:
 idIndexBuffer
 ================================================
 */
-class idIndexBuffer
+class SbIndexBuffer
 {
 public:
-	idIndexBuffer();
-	~idIndexBuffer();
+	SbIndexBuffer();
+	~SbIndexBuffer();
 
 	// Allocate or free the buffer.
 	bool AllocBufferObject(const void *data, int allocSize);
 	void FreeBufferObject();
 
 	// Make this buffer a reference to another buffer.
-	void Reference(const idIndexBuffer &other);
-	void Reference(const idIndexBuffer &other, int refOffset, int refSize);
+	void Reference(const SbIndexBuffer &other);
+	void Reference(const SbIndexBuffer &other, int refOffset, int refSize);
 
 	// Copies data to the buffer. 'size' may be less than the originally allocated size.
 	void Update(const void *data, int updateSize) const;
@@ -207,7 +207,7 @@ private:
 		return ((offsetInOtherBuffer & OWNS_BUFFER_FLAG) != 0);
 	}
 
-	DISALLOW_COPY_AND_ASSIGN(idIndexBuffer);
+	DISALLOW_COPY_AND_ASSIGN(SbIndexBuffer);
 };
 
 /*

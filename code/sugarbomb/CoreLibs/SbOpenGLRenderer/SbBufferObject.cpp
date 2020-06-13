@@ -442,7 +442,7 @@ void SbVertexBuffer::ClearWithoutFreeing()
 idIndexBuffer::idIndexBuffer
 ========================
 */
-idIndexBuffer::idIndexBuffer()
+SbIndexBuffer::SbIndexBuffer()
 {
 	size = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
@@ -455,7 +455,7 @@ idIndexBuffer::idIndexBuffer()
 idIndexBuffer::~idIndexBuffer
 ========================
 */
-idIndexBuffer::~idIndexBuffer()
+SbIndexBuffer::~SbIndexBuffer()
 {
 	FreeBufferObject();
 }
@@ -465,7 +465,7 @@ idIndexBuffer::~idIndexBuffer()
 idIndexBuffer::AllocBufferObject
 ========================
 */
-bool idIndexBuffer::AllocBufferObject(const void *data, int allocSize)
+bool SbIndexBuffer::AllocBufferObject(const void *data, int allocSize)
 {
 	assert(apiObject == nullptr);
 	assert_16_byte_aligned(data);
@@ -523,7 +523,7 @@ bool idIndexBuffer::AllocBufferObject(const void *data, int allocSize)
 idIndexBuffer::FreeBufferObject
 ========================
 */
-void idIndexBuffer::FreeBufferObject()
+void SbIndexBuffer::FreeBufferObject()
 {
 	if(IsMapped())
 	{
@@ -560,7 +560,7 @@ void idIndexBuffer::FreeBufferObject()
 idIndexBuffer::Reference
 ========================
 */
-void idIndexBuffer::Reference(const idIndexBuffer &other)
+void SbIndexBuffer::Reference(const SbIndexBuffer &other)
 {
 	assert(IsMapped() == false);
 	//assert( other.IsMapped() == false );	// this happens when building idTriangles while at the same time setting up triIndex_t
@@ -579,7 +579,7 @@ void idIndexBuffer::Reference(const idIndexBuffer &other)
 idIndexBuffer::Reference
 ========================
 */
-void idIndexBuffer::Reference(const idIndexBuffer &other, int refOffset, int refSize)
+void SbIndexBuffer::Reference(const SbIndexBuffer &other, int refOffset, int refSize)
 {
 	assert(IsMapped() == false);
 	//assert( other.IsMapped() == false );	// this happens when building idTriangles while at the same time setting up triIndex_t
@@ -600,7 +600,7 @@ void idIndexBuffer::Reference(const idIndexBuffer &other, int refOffset, int ref
 idIndexBuffer::Update
 ========================
 */
-void idIndexBuffer::Update(const void *data, int updateSize) const
+void SbIndexBuffer::Update(const void *data, int updateSize) const
 {
 	assert(apiObject != nullptr);
 	assert(IsMapped() == false);
@@ -632,7 +632,7 @@ void idIndexBuffer::Update(const void *data, int updateSize) const
 idIndexBuffer::MapBuffer
 ========================
 */
-void *idIndexBuffer::MapBuffer(bufferMapType_t mapType) const
+void *SbIndexBuffer::MapBuffer(bufferMapType_t mapType) const
 {
 	assert(apiObject != nullptr);
 	assert(IsMapped() == false);
@@ -685,7 +685,7 @@ void *idIndexBuffer::MapBuffer(bufferMapType_t mapType) const
 idIndexBuffer::UnmapBuffer
 ========================
 */
-void idIndexBuffer::UnmapBuffer() const
+void SbIndexBuffer::UnmapBuffer() const
 {
 	assert(apiObject != nullptr);
 	assert(IsMapped());
@@ -708,7 +708,7 @@ void idIndexBuffer::UnmapBuffer() const
 idIndexBuffer::ClearWithoutFreeing
 ========================
 */
-void idIndexBuffer::ClearWithoutFreeing()
+void SbIndexBuffer::ClearWithoutFreeing()
 {
 	size = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
