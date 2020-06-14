@@ -38,11 +38,11 @@ namespace sbe::SbMain
 
 //===============================================================
 //
-//	idVec5 - 5D vector
+//	SbVec5 - 5D vector
 //
 //===============================================================
 
-class idVec5
+class SbVec5
 {
 public:
 	float			x;
@@ -51,13 +51,13 @@ public:
 	float			s;
 	float			t;
 	
-	idVec5();
-	explicit idVec5( const idVec3& xyz, const idVec2& st );
-	explicit idVec5( const float x, const float y, const float z, const float s, const float t );
+	SbVec5();
+	explicit SbVec5( const SbVec3& xyz, const SbVec2& st );
+	explicit SbVec5( const float x, const float y, const float z, const float s, const float t );
 	
 	float			operator[]( int index ) const;
 	float& 			operator[]( int index );
-	idVec5& 		operator=( const idVec3& a );
+	SbVec5& 		operator=( const SbVec3& a );
 	
 	int				GetDimension() const;
 	
@@ -67,10 +67,10 @@ public:
 	float* 			ToFloatPtr();
 	const char* 	ToString( int precision = 2 ) const;
 	
-	void			Lerp( const idVec5& v1, const idVec5& v2, const float l );
+	void			Lerp( const SbVec5& v1, const SbVec5& v2, const float l );
 };
 
-extern idVec5 vec5_origin;
+extern SbVec5 vec5_origin;
 #define vec5_zero vec5_origin
 
 #include "SbVec5.inl"

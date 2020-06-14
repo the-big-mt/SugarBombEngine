@@ -33,11 +33,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-ID_INLINE idVec5::idVec5()
+ID_INLINE SbVec5::SbVec5()
 {
 }
 
-ID_INLINE idVec5::idVec5( const idVec3& xyz, const idVec2& st )
+ID_INLINE SbVec5::SbVec5( const SbVec3& xyz, const SbVec2& st )
 {
 	x = xyz.x;
 	y = xyz.y;
@@ -46,7 +46,7 @@ ID_INLINE idVec5::idVec5( const idVec3& xyz, const idVec2& st )
 	t = st[1];
 }
 
-ID_INLINE idVec5::idVec5( const float x, const float y, const float z, const float s, const float t )
+ID_INLINE SbVec5::SbVec5( const float x, const float y, const float z, const float s, const float t )
 {
 	this->x = x;
 	this->y = y;
@@ -55,17 +55,17 @@ ID_INLINE idVec5::idVec5( const float x, const float y, const float z, const flo
 	this->t = t;
 }
 
-ID_INLINE float idVec5::operator[]( int index ) const
+ID_INLINE float SbVec5::operator[]( int index ) const
 {
 	return ( &x )[ index ];
 }
 
-ID_INLINE float& idVec5::operator[]( int index )
+ID_INLINE float& SbVec5::operator[]( int index )
 {
 	return ( &x )[ index ];
 }
 
-ID_INLINE idVec5& idVec5::operator=( const idVec3& a )
+ID_INLINE SbVec5& SbVec5::operator=( const SbVec3& a )
 {
 	x = a.x;
 	y = a.y;
@@ -74,7 +74,7 @@ ID_INLINE idVec5& idVec5::operator=( const idVec3& a )
 	return *this;
 }
 
-ID_INLINE int idVec5::GetDimension() const
+ID_INLINE int SbVec5::GetDimension() const
 {
 	return 5;
 }
@@ -89,12 +89,12 @@ ID_INLINE SbVec3& SbVec5::ToVec3()
 	return *reinterpret_cast<SbVec3*>( this );
 }
 
-ID_INLINE const float* idVec5::ToFloatPtr() const
+ID_INLINE const float* SbVec5::ToFloatPtr() const
 {
 	return &x;
 }
 
-ID_INLINE float* idVec5::ToFloatPtr()
+ID_INLINE float* SbVec5::ToFloatPtr()
 {
 	return &x;
 }
