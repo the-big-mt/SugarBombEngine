@@ -61,8 +61,8 @@ public:
 	
 	int				GetDimension() const;
 	
-	const idVec3& 	ToVec3() const;
-	idVec3& 		ToVec3();
+	const SbVec3& 	ToVec3() const;
+	SbVec3& 		ToVec3();
 	const float* 	ToFloatPtr() const;
 	float* 			ToFloatPtr();
 	const char* 	ToString( int precision = 2 ) const;

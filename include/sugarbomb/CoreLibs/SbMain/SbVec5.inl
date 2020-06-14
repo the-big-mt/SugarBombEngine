@@ -79,14 +79,14 @@ ID_INLINE int idVec5::GetDimension() const
 	return 5;
 }
 
-ID_INLINE const idVec3& idVec5::ToVec3() const
+ID_INLINE const SbVec3& SbVec5::ToVec3() const
 {
-	return *reinterpret_cast<const idVec3*>( this );
+	return *reinterpret_cast<const SbVec3*>( this );
 }
 
-ID_INLINE idVec3& idVec5::ToVec3()
+ID_INLINE SbVec3& SbVec5::ToVec3()
 {
-	return *reinterpret_cast<idVec3*>( this );
+	return *reinterpret_cast<SbVec3*>( this );
 }
 
 ID_INLINE const float* idVec5::ToFloatPtr() const

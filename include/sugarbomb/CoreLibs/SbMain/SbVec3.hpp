@@ -38,61 +38,61 @@ namespace sbe::SbMain
 
 //===============================================================
 //
-//	idVec3 - 3D vector
+//	SbVec3 - 3D vector
 //
 //===============================================================
 
-class idVec3
+class SbVec3
 {
 public:
 	float			x;
 	float			y;
 	float			z;
 	
-	idVec3();
-	explicit idVec3( const float xyz )
+	SbVec3();
+	explicit SbVec3( const float xyz )
 	{
 		Set( xyz, xyz, xyz );
 	}
-	explicit idVec3( const float x, const float y, const float z );
+	explicit SbVec3( const float x, const float y, const float z );
 	
 	void 			Set( const float x, const float y, const float z );
 	void			Zero();
 	
 	float			operator[]( const int index ) const;
 	float& 			operator[]( const int index );
-	idVec3			operator-() const;
-	idVec3& 		operator=( const idVec3& a );		// required because of a msvc 6 & 7 bug
-	float			operator*( const idVec3& a ) const;
-	idVec3			operator*( const float a ) const;
-	idVec3			operator/( const float a ) const;
-	idVec3			operator+( const idVec3& a ) const;
-	idVec3			operator-( const idVec3& a ) const;
-	idVec3& 		operator+=( const idVec3& a );
-	idVec3& 		operator-=( const idVec3& a );
-	idVec3& 		operator/=( const idVec3& a );
-	idVec3& 		operator/=( const float a );
-	idVec3& 		operator*=( const float a );
+	SbVec3			operator-() const;
+	SbVec3& 		operator=( const SbVec3& a );		// required because of a msvc 6 & 7 bug
+	float			operator*( const SbVec3& a ) const;
+	SbVec3			operator*( const float a ) const;
+	SbVec3			operator/( const float a ) const;
+	SbVec3			operator+( const SbVec3& a ) const;
+	SbVec3			operator-( const SbVec3& a ) const;
+	SbVec3& 		operator+=( const SbVec3& a );
+	SbVec3& 		operator-=( const SbVec3& a );
+	SbVec3& 		operator/=( const SbVec3& a );
+	SbVec3& 		operator/=( const float a );
+	SbVec3& 		operator*=( const float a );
 	
-	friend idVec3	operator*( const float a, const idVec3 b );
+	friend SbVec3	operator*( const float a, const SbVec3 b );
 	
-	bool			Compare( const idVec3& a ) const;							// exact compare, no epsilon
-	bool			Compare( const idVec3& a, const float epsilon ) const;		// compare with epsilon
-	bool			operator==(	const idVec3& a ) const;						// exact compare, no epsilon
-	bool			operator!=(	const idVec3& a ) const;						// exact compare, no epsilon
+	bool			Compare( const SbVec3& a ) const;							// exact compare, no epsilon
+	bool			Compare( const SbVec3& a, const float epsilon ) const;		// compare with epsilon
+	bool			operator==(	const SbVec3& a ) const;						// exact compare, no epsilon
+	bool			operator!=(	const SbVec3& a ) const;						// exact compare, no epsilon
 	
 	bool			FixDegenerateNormal();	// fix degenerate axial cases
 	bool			FixDenormals();			// change tiny numbers to zero
 	
-	idVec3			Cross( const idVec3& a ) const;
-	idVec3& 		Cross( const idVec3& a, const idVec3& b );
+	SbVec3			Cross( const SbVec3& a ) const;
+	SbVec3& 		Cross( const SbVec3& a, const SbVec3& b );
 	float			Length() const;
 	float			LengthSqr() const;
 	float			LengthFast() const;
 	float			Normalize();				// returns length
 	float			NormalizeFast();			// returns length
-	idVec3			Truncate( float length ) const;		// cap length
-	void			Clamp( const idVec3& min, const idVec3& max );
+	SbVec3			Truncate( float length ) const;		// cap length
+	void			Clamp( const SbVec3& min, const SbVec3& max );
 	void			Snap();					// snap to closest integer value
 	void			SnapInt();				// snap towards integer (floor)
 	
@@ -109,18 +109,18 @@ public:
 	float* 			ToFloatPtr();
 	const char* 	ToString( int precision = 2 ) const;
 	
-	void			NormalVectors( idVec3& left, idVec3& down ) const;	// vector should be normalized
-	void			OrthogonalBasis( idVec3& left, idVec3& up ) const;
+	void			NormalVectors( SbVec3& left, SbVec3& down ) const;	// vector should be normalized
+	void			OrthogonalBasis( SbVec3& left, SbVec3& up ) const;
 	
-	void			ProjectOntoPlane( const idVec3& normal, const float overBounce = 1.0f );
-	bool			ProjectAlongPlane( const idVec3& normal, const float epsilon, const float overBounce = 1.0f );
+	void			ProjectOntoPlane( const SbVec3& normal, const float overBounce = 1.0f );
+	bool			ProjectAlongPlane( const SbVec3& normal, const float epsilon, const float overBounce = 1.0f );
 	void			ProjectSelfOntoSphere( const float radius );
 	
-	void			Lerp( const idVec3& v1, const idVec3& v2, const float l );
-	void			SLerp( const idVec3& v1, const idVec3& v2, const float l );
+	void			Lerp( const SbVec3& v1, const SbVec3& v2, const float l );
+	void			SLerp( const SbVec3& v1, const SbVec3& v2, const float l );
 };
 
-extern idVec3 vec3_origin;
+extern SbVec3 vec3_origin;
 #define vec3_zero vec3_origin
 
 #include "SbVec3.inl"

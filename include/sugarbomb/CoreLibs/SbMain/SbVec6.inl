@@ -260,14 +260,14 @@ ID_INLINE int idVec6::GetDimension() const
 	return 6;
 }
 
-ID_INLINE const idVec3& idVec6::SubVec3( int index ) const
+ID_INLINE const SbVec3& SbVec6::SubVec3( int index ) const
 {
-	return *reinterpret_cast<const idVec3*>( p + index * 3 );
+	return *reinterpret_cast<const SbVec3*>( p + index * 3 );
 }
 
-ID_INLINE idVec3& idVec6::SubVec3( int index )
+ID_INLINE SbVec3& SbVec6::SubVec3( int index )
 {
-	return *reinterpret_cast<idVec3*>( p + index * 3 );
+	return *reinterpret_cast<SbVec3*>( p + index * 3 );
 }
 
 ID_INLINE const float* idVec6::ToFloatPtr() const

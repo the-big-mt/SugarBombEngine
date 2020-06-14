@@ -79,8 +79,8 @@ public:
 	
 	int				GetDimension() const;
 	
-	const idVec3& 	SubVec3( int index ) const;
-	idVec3& 		SubVec3( int index );
+	const SbVec3& 	SubVec3( int index ) const;
+	SbVec3& 		SubVec3( int index );
 	const float* 	ToFloatPtr() const;
 	float* 			ToFloatPtr();
 	const char* 	ToString( int precision = 2 ) const;

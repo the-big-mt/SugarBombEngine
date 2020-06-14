@@ -95,8 +95,8 @@ public:
 	
 	const SbVec2& 	ToVec2() const;
 	SbVec2& 		ToVec2();
-	const idVec3& 	ToVec3() const;
-	idVec3& 		ToVec3();
+	const SbVec3& 	ToVec3() const;
+	SbVec3& 		ToVec3();
 	const float* 	ToFloatPtr() const;
 	float* 			ToFloatPtr();
 	const char* 	ToString( int precision = 2 ) const;

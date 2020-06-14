@@ -239,14 +239,14 @@ ID_INLINE SbVec2& SbVec4::ToVec2()
 	return *reinterpret_cast<SbVec2*>( this );
 }
 
-ID_INLINE const idVec3& idVec4::ToVec3() const
+ID_INLINE const SbVec3& SbVec4::ToVec3() const
 {
-	return *reinterpret_cast<const idVec3*>( this );
+	return *reinterpret_cast<const SbVec3*>( this );
 }
 
-ID_INLINE idVec3& idVec4::ToVec3()
+ID_INLINE SbVec3& SbVec4::ToVec3()
 {
-	return *reinterpret_cast<idVec3*>( this );
+	return *reinterpret_cast<SbVec3*>( this );
 }
 
 ID_INLINE const float* idVec4::ToFloatPtr() const
