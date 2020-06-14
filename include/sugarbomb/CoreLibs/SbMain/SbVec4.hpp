@@ -38,11 +38,11 @@ namespace sbe::SbMain
 
 //===============================================================
 //
-//	idVec4 - 4D vector
+//	SbVec4 - 4D vector
 //
 //===============================================================
 
-class idVec4
+class SbVec4
 {
 public:
 	float			x;
@@ -50,12 +50,12 @@ public:
 	float			z;
 	float			w;
 	
-	idVec4() { }
-	explicit idVec4( const float x )
+	SbVec4() { }
+	explicit SbVec4( const float x )
 	{
 		Set( x, x, x, x );
 	}
-	explicit idVec4( const float x, const float y, const float z, const float w )
+	explicit SbVec4( const float x, const float y, const float z, const float w )
 	{
 		Set( x, y, z, w );
 	}
@@ -65,26 +65,26 @@ public:
 	
 	float			operator[]( const int index ) const;
 	float& 			operator[]( const int index );
-	idVec4			operator-() const;
-	float			operator*( const idVec4& a ) const;
-	idVec4			operator*( const float a ) const;
-	idVec4			operator/( const float a ) const;
-	idVec4			operator+( const idVec4& a ) const;
-	idVec4			operator-( const idVec4& a ) const;
-	idVec4& 		operator+=( const idVec4& a );
-	idVec4& 		operator-=( const idVec4& a );
-	idVec4& 		operator/=( const idVec4& a );
-	idVec4& 		operator/=( const float a );
-	idVec4& 		operator*=( const float a );
+	SbVec4			operator-() const;
+	float			operator*( const SbVec4& a ) const;
+	SbVec4			operator*( const float a ) const;
+	SbVec4			operator/( const float a ) const;
+	SbVec4			operator+( const SbVec4& a ) const;
+	SbVec4			operator-( const SbVec4& a ) const;
+	SbVec4& 		operator+=( const SbVec4& a );
+	SbVec4& 		operator-=( const SbVec4& a );
+	SbVec4& 		operator/=( const SbVec4& a );
+	SbVec4& 		operator/=( const float a );
+	SbVec4& 		operator*=( const float a );
 	
-	friend idVec4	operator*( const float a, const idVec4 b );
+	friend SbVec4	operator*( const float a, const SbVec4 b );
 	
-	idVec4			Multiply( const idVec4& a ) const;
+	SbVec4			Multiply( const SbVec4& a ) const;
 	
-	bool			Compare( const idVec4& a ) const;							// exact compare, no epsilon
-	bool			Compare( const idVec4& a, const float epsilon ) const;		// compare with epsilon
-	bool			operator==(	const idVec4& a ) const;						// exact compare, no epsilon
-	bool			operator!=(	const idVec4& a ) const;						// exact compare, no epsilon
+	bool			Compare( const SbVec4& a ) const;							// exact compare, no epsilon
+	bool			Compare( const SbVec4& a, const float epsilon ) const;		// compare with epsilon
+	bool			operator==(	const SbVec4& a ) const;						// exact compare, no epsilon
+	bool			operator!=(	const SbVec4& a ) const;						// exact compare, no epsilon
 	
 	float			Length() const;
 	float			LengthSqr() const;
@@ -101,10 +101,10 @@ public:
 	float* 			ToFloatPtr();
 	const char* 	ToString( int precision = 2 ) const;
 	
-	void			Lerp( const idVec4& v1, const idVec4& v2, const float l );
+	void			Lerp( const SbVec4& v1, const SbVec4& v2, const float l );
 };
 
-extern idVec4 vec4_origin;
+extern SbVec4 vec4_origin;
 #define vec4_zero vec4_origin
 
 #include "SbVec4.inl"
