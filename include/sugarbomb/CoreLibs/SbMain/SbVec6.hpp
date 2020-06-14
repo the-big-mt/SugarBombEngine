@@ -38,39 +38,39 @@ namespace sbe::SbMain
 
 //===============================================================
 //
-//	idVec6 - 6D vector
+//	SbVec6 - 6D vector
 //
 //===============================================================
 
-class idVec6
+class SbVec6
 {
 public:
-	idVec6();
-	explicit idVec6( const float* a );
-	explicit idVec6( const float a1, const float a2, const float a3, const float a4, const float a5, const float a6 );
+	SbVec6();
+	explicit SbVec6( const float* a );
+	explicit SbVec6( const float a1, const float a2, const float a3, const float a4, const float a5, const float a6 );
 	
 	void 			Set( const float a1, const float a2, const float a3, const float a4, const float a5, const float a6 );
 	void			Zero();
 	
 	float			operator[]( const int index ) const;
 	float& 			operator[]( const int index );
-	idVec6			operator-() const;
-	idVec6			operator*( const float a ) const;
-	idVec6			operator/( const float a ) const;
-	float			operator*( const idVec6& a ) const;
-	idVec6			operator-( const idVec6& a ) const;
-	idVec6			operator+( const idVec6& a ) const;
-	idVec6& 		operator*=( const float a );
-	idVec6& 		operator/=( const float a );
-	idVec6& 		operator+=( const idVec6& a );
-	idVec6& 		operator-=( const idVec6& a );
+	SbVec6			operator-() const;
+	SbVec6			operator*( const float a ) const;
+	SbVec6			operator/( const float a ) const;
+	float			operator*( const SbVec6& a ) const;
+	SbVec6			operator-( const SbVec6& a ) const;
+	SbVec6			operator+( const SbVec6& a ) const;
+	SbVec6& 		operator*=( const float a );
+	SbVec6& 		operator/=( const float a );
+	SbVec6& 		operator+=( const SbVec6& a );
+	SbVec6& 		operator-=( const SbVec6& a );
 	
-	friend idVec6	operator*( const float a, const idVec6 b );
+	friend SbVec6	operator*( const float a, const SbVec6 b );
 	
-	bool			Compare( const idVec6& a ) const;							// exact compare, no epsilon
-	bool			Compare( const idVec6& a, const float epsilon ) const;		// compare with epsilon
-	bool			operator==(	const idVec6& a ) const;						// exact compare, no epsilon
-	bool			operator!=(	const idVec6& a ) const;						// exact compare, no epsilon
+	bool			Compare( const SbVec6& a ) const;							// exact compare, no epsilon
+	bool			Compare( const SbVec6& a, const float epsilon ) const;		// compare with epsilon
+	bool			operator==(	const SbVec6& a ) const;						// exact compare, no epsilon
+	bool			operator!=(	const SbVec6& a ) const;						// exact compare, no epsilon
 	
 	float			Length() const;
 	float			LengthSqr() const;
@@ -89,9 +89,9 @@ private:
 	float			p[6];
 };
 
-extern idVec6 vec6_origin;
+extern SbVec6 vec6_origin;
 #define vec6_zero vec6_origin
-extern idVec6 vec6_infinity;
+extern SbVec6 vec6_infinity;
 
 #include "SbVec6.inl"
 
