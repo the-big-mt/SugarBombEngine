@@ -93,8 +93,8 @@ public:
 	
 	int				GetDimension() const;
 	
-	const idVec2& 	ToVec2() const;
-	idVec2& 		ToVec2();
+	const SbVec2& 	ToVec2() const;
+	SbVec2& 		ToVec2();
 	const idVec3& 	ToVec3() const;
 	idVec3& 		ToVec3();
 	const float* 	ToFloatPtr() const;

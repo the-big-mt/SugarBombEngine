@@ -229,14 +229,14 @@ ID_INLINE int idVec4::GetDimension() const
 	return 4;
 }
 
-ID_INLINE const idVec2& idVec4::ToVec2() const
+ID_INLINE const SbVec2& SbVec4::ToVec2() const
 {
-	return *reinterpret_cast<const idVec2*>( this );
+	return *reinterpret_cast<const SbVec2*>( this );
 }
 
-ID_INLINE idVec2& idVec4::ToVec2()
+ID_INLINE SbVec2& SbVec4::ToVec2()
 {
-	return *reinterpret_cast<idVec2*>( this );
+	return *reinterpret_cast<SbVec2*>( this );
 }
 
 ID_INLINE const idVec3& idVec4::ToVec3() const

@@ -103,8 +103,8 @@ public:
 	idAngles		ToAngles() const;
 	idPolar3		ToPolar() const;
 	idMat3			ToMat3() const;		// vector should be normalized
-	const idVec2& 	ToVec2() const;
-	idVec2& 		ToVec2();
+	const SbVec2& 	ToVec2() const;
+	SbVec2& 		ToVec2();
 	const float* 	ToFloatPtr() const;
 	float* 			ToFloatPtr();
 	const char* 	ToString( int precision = 2 ) const;

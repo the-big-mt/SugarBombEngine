@@ -38,52 +38,52 @@ namespace sbe::SbMain
 
 //===============================================================
 //
-//	idVec2 - 2D vector
+//	SbVec2 - 2D vector
 //
 //===============================================================
 
-class idVec2
+class SbVec2
 {
 public:
 	float			x;
 	float			y;
 	
-	idVec2();
-	explicit idVec2( const float x, const float y );
+	SbVec2();
+	explicit SbVec2( const float x, const float y );
 	
 	void 			Set( const float x, const float y );
 	void			Zero();
 	
 	float			operator[]( int index ) const;
 	float& 			operator[]( int index );
-	idVec2			operator-() const;
-	float			operator*( const idVec2& a ) const;
-	idVec2			operator*( const float a ) const;
-	idVec2			operator/( const float a ) const;
-	idVec2			operator+( const idVec2& a ) const;
-	idVec2			operator-( const idVec2& a ) const;
-	idVec2& 		operator+=( const idVec2& a );
-	idVec2& 		operator-=( const idVec2& a );
-	idVec2& 		operator/=( const idVec2& a );
-	idVec2& 		operator/=( const float a );
-	idVec2& 		operator*=( const float a );
+	SbVec2			operator-() const;
+	float			operator*( const SbVec2& a ) const;
+	SbVec2			operator*( const float a ) const;
+	SbVec2			operator/( const float a ) const;
+	SbVec2			operator+( const SbVec2& a ) const;
+	SbVec2			operator-( const SbVec2& a ) const;
+	SbVec2& 		operator+=( const SbVec2& a );
+	SbVec2& 		operator-=( const SbVec2& a );
+	SbVec2& 		operator/=( const SbVec2& a );
+	SbVec2& 		operator/=( const float a );
+	SbVec2& 		operator*=( const float a );
 	
-	friend idVec2	operator*( const float a, const idVec2 b );
+	friend SbVec2	operator*( const float a, const SbVec2 b );
 	
-	idVec2			Scale( const idVec2& a ) const;
+	SbVec2			Scale( const SbVec2& a ) const;
 	
-	bool			Compare( const idVec2& a ) const;							// exact compare, no epsilon
-	bool			Compare( const idVec2& a, const float epsilon ) const;		// compare with epsilon
-	bool			operator==(	const idVec2& a ) const;						// exact compare, no epsilon
-	bool			operator!=(	const idVec2& a ) const;						// exact compare, no epsilon
+	bool			Compare( const SbVec2& a ) const;							// exact compare, no epsilon
+	bool			Compare( const SbVec2& a, const float epsilon ) const;		// compare with epsilon
+	bool			operator==(	const SbVec2& a ) const;						// exact compare, no epsilon
+	bool			operator!=(	const SbVec2& a ) const;						// exact compare, no epsilon
 	
 	float			Length() const;
 	float			LengthFast() const;
 	float			LengthSqr() const;
 	float			Normalize();			// returns length
 	float			NormalizeFast();		// returns length
-	idVec2			Truncate( float length ) const;	// cap length
-	void			Clamp( const idVec2& min, const idVec2& max );
+	SbVec2			Truncate( float length ) const;	// cap length
+	void			Clamp( const SbVec2& min, const SbVec2& max );
 	void			Snap();				// snap to closest integer value
 	void			SnapInt();			// snap towards integer (floor)
 	
@@ -93,10 +93,10 @@ public:
 	float* 			ToFloatPtr();
 	const char* 	ToString( int precision = 2 ) const;
 	
-	void			Lerp( const idVec2& v1, const idVec2& v2, const float l );
+	void			Lerp( const SbVec2& v1, const SbVec2& v2, const float l );
 };
 
-extern idVec2 vec2_origin;
+extern SbVec2 vec2_origin;
 #define vec2_zero vec2_origin
 
 #include "SbVec2.inl"
