@@ -34,7 +34,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe::SbSystem
 {
 
-class SbSystem : public ISystem
+class SbSystemCommon : public ISystem
 {
 public:
 	void Init() override;

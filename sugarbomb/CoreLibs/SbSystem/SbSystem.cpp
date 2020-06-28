@@ -29,7 +29,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include <cstdlib> // TODO: temp
 #include <cstdarg>
 
-#include "SbSystem.hpp"
+#include "SbSystemCommon.hpp"
 
 #include "AppFrameworks/SbLibraryLoader/SbLibraryLoader.hpp"
 
@@ -42,26 +42,26 @@ void SbSystem::Init()
 {
 };
 
-void SbSystem::Shutdown()
+void SbSystemCommon::Shutdown()
 {
 };
 
-intptr_t SbSystem::LoadLib(const char *asPath)
+intptr_t SbSystemCommon::LoadLib(const char *asPath)
 {
 	return SbLibraryLoader::Load(asPath);
 };
 
-void SbSystem::FreeLib(intptr_t anHandle)
+void SbSystemCommon::FreeLib(intptr_t anHandle)
 {
 	SbLibraryLoader::Free(anHandle);
 };
 
-void *SbSystem::GetLibSymbol(intptr_t anHandle, const char *asSymbol) const
+void *SbSystemCommon::GetLibSymbol(intptr_t anHandle, const char *asSymbol) const
 {
 	return SbLibraryLoader::GetSymbol(anHandle, asSymbol);
 };
 
-void SbSystem::Printf(const char *asMsg, ...)
+void SbSystemCommon::Printf(const char *asMsg, ...)
 {
 	va_list lstArgs{};
 	char sFmtMsg[1024]{}; // TODO: fix magic
@@ -77,7 +77,7 @@ void SbSystem::Printf(const char *asMsg, ...)
 	printf(sFmtMsg);
 };
 
-void SbSystem::Warning(const char *asMsg, ...)
+void SbSystemCommon::Warning(const char *asMsg, ...)
 {
 	// TODO
 };
