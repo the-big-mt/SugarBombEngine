@@ -34,7 +34,7 @@ namespace sbe
 
 struct SbSystemDesc;
 
-struct ISystem
+struct SbSystem
 {
 	///
 	virtual void Init() = 0;
