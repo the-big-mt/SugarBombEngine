@@ -1,6 +1,7 @@
 /*
 *******************************************************************************
 
+Copyright (C) 2012 Robert Beckebans
 Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
@@ -27,6 +28,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include <cstdint>
+
 //*****************************************************************************
 
 namespace sbe
@@ -38,26 +41,27 @@ struct SbSystem
 {
 	///
 	virtual void Init() = 0;
-	
+
 	///
 	virtual void Shutdown() = 0;
 	
 	///
-	virtual int LoadLib(const char *asPath) = 0;
-	
 	///
-	virtual void FreeLib(int anHandle) = 0;
-	
+	virtual intptr_t LoadLib(const char *asPath) = 0;
+
 	///
-	virtual void *GetLibSymbol(int anHandle, const char *asSymbol) const = 0;
-	
+	virtual void FreeLib(intptr_t anHandle) = 0;
+
+	///
+	virtual void *GetLibSymbol(intptr_t anHandle, const char *asSymbol) const = 0;
+
 	///
 	template<typename T>
-	T GetLibSymbol(int anHandle, const char *asSymbol) const {return reinterpret_cast<T>(GetLibSymbol(anHandle, asSymbol));}
-	
+	T GetLibSymbol(intptr_t anHandle, const char *asSymbol) const {return reinterpret_cast<T>(GetLibSymbol(anHandle, asSymbol));}
+
 	///
 	virtual void Printf(const char *asMsg, ...) = 0;
-	
+
 	///
 	virtual void Warning(const char *asMsg, ...) = 0;
 
@@ -66,7 +70,7 @@ struct SbSystem
 	
 	///
 	virtual void FatalError(const char *asMsg, ...) = 0;
-	
+
 	///
 	virtual const SbSystemDesc &GetDesc() const = 0;
 };
