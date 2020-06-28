@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 2012-2014 Robert Beckebans
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -23,26 +23,52 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #pragma once
 
+#ifdef _WIN32
+#	include <windows.h>
+#else
+#	include <dlfcn.h>
+#endif
+
 //*****************************************************************************
 
 namespace sbe
 {
 
-class SbLibraryLoader
+// RB: 64 bit fixes, changed int to intptr_t
+
+#ifdef _WIN32
+intptr_t SbSystem::LoadLib(const char *asPath)
 {
-public:
-	///
-	static intptr_t Load(const char *asPath);
-	
-	///
-	static void Unload(intptr_t anHandle);
-	
-	///
-	static void *GetSymbol(intptr_t anHandle, const char *asSymbol);
-	
-	///
-	template<typename T>
-	inline static T GetSymbol(intptr_t anHandle, const char *asSymbol){return reinterpret_cast<T>(GetSymbol(anHandle, asSymbol));}
+	return reinterpret_cast<intptr_t>(dlopen(asPath, RTLD_NOW));
 };
+
+void SbSystem::FreeLib(intptr_t anHandle)
+{
+	dlclose(reinterpret_cast<void*>(anHandle));
+};
+
+void *SbSystem::GetLibSymbol(intptr_t anHandle, const char *asSymbol)
+{
+	return dlsym(reinterpret_cast<void *>(anHandle), asSymbol);
+};
+#else
+intptr_t SbSystem::LoadLib(const char *asPath)
+{
+	return reinterpret_cast<intptr_t>(LoadLibrary(asPath));
+};
+
+void SbSystem::FreeLib(intptr_t anHandle)
+{
+	if(!anHandle)
+		return;
+	
+	FreeLibrary(reinterpret_cast<HMODULE>(anHandle));
+};
+
+void *SbSystem::GetLibSymbol(intptr_t anHandle, const char *asSymbol)
+{
+	return reinterpret_cast<void *>(GetProcAddress(reinterpret_cast<HMODULE>(anHandle), asSymbol));
+};
+#endif
 
 }; // namespace sbe

@@ -39,25 +39,29 @@ struct SbSystemDesc;
 
 struct SbSystem
 {
+	// INLINE METHODS
+	
+	///
+	inline intptr_t LoadLib(const char *asPath);
+
+	///
+	inline void FreeLib(intptr_t anHandle);
+
+	///
+	inline void *GetLibSymbol(intptr_t anHandle, const char *asSymbol) const;
+
+	///
+	template<typename T>
+	inline T GetLibSymbol(intptr_t anHandle, const char *asSymbol) const {return reinterpret_cast<T>(GetLibSymbol(anHandle, asSymbol));}
+
+	// VIRTUAL METHODS
+	
 	///
 	virtual void Init() = 0;
 
 	///
 	virtual void Shutdown() = 0;
 	
-	///
-	///
-	virtual intptr_t LoadLib(const char *asPath) = 0;
-
-	///
-	virtual void FreeLib(intptr_t anHandle) = 0;
-
-	///
-	virtual void *GetLibSymbol(intptr_t anHandle, const char *asSymbol) const = 0;
-
-	///
-	template<typename T>
-	T GetLibSymbol(intptr_t anHandle, const char *asSymbol) const {return reinterpret_cast<T>(GetLibSymbol(anHandle, asSymbol));}
 
 	///
 	virtual void Printf(const char *asMsg, ...) = 0;
@@ -74,5 +78,7 @@ struct SbSystem
 	///
 	virtual const SbSystemDesc &GetDesc() const = 0;
 };
+
+#include "SbSystem.inl"
 
 }; // namespace sbe
