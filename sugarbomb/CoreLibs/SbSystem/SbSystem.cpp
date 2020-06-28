@@ -46,21 +46,6 @@ void SbSystemCommon::Shutdown()
 {
 };
 
-intptr_t SbSystemCommon::LoadLib(const char *asPath)
-{
-	return SbLibraryLoader::Load(asPath);
-};
-
-void SbSystemCommon::FreeLib(intptr_t anHandle)
-{
-	SbLibraryLoader::Free(anHandle);
-};
-
-void *SbSystemCommon::GetLibSymbol(intptr_t anHandle, const char *asSymbol) const
-{
-	return SbLibraryLoader::GetSymbol(anHandle, asSymbol);
-};
-
 void SbSystemCommon::Printf(const char *asMsg, ...)
 {
 	va_list lstArgs{};
