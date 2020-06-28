@@ -39,6 +39,9 @@ intptr_t SbLibraryLoader::Load(const char *asPath)
 
 void SbLibraryLoader::Unload(intptr_t anHandle)
 {
+	if(!anHandle)
+		return;
+	
 	FreeLibrary(reinterpret_cast<HMODULE>(anHandle));
 };
 
