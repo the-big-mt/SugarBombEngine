@@ -65,8 +65,6 @@ void SbInputImplSDL2::Init()
 	int numJoysticks, i;
 	
 	kbd_polls.SetGranularity( 64 );
-	mouse_polls.SetGranularity( 64 );
-	
 	memset( buttonStates, 0, sizeof( buttonStates ) );
 	
 	in_keyboard.SetModified();
@@ -100,7 +98,6 @@ Sys_ShutdownInput
 void SbInputImplSDL2::Shutdown()
 {
 	kbd_polls.Clear();
-	mouse_polls.Clear();
 	joystick_polls.Clear();
 	
 	memset( buttonStates, 0, sizeof( buttonStates ) );
@@ -179,31 +176,6 @@ void SbInputImplSDL2::GrabMouseCursor(bool grabIt)
 	};
 	
 	GLimp_GrabInput( flags );
-};
-
-/*
-================
-Sys_PollMouseInputEvents
-================
-*/
-int SbInputImplSDL2::PollMouseInputEvents(int mouseEvents[MAX_MOUSE_EVENTS][2])
-{
-	int numEvents = mouse_polls.Num();
-	
-	if( numEvents > MAX_MOUSE_EVENTS )
-		numEvents = MAX_MOUSE_EVENTS;
-	
-	for( int i = 0; i < numEvents; i++ )
-	{
-		const mouse_poll_t& mp = mouse_polls[i];
-		
-		mouseEvents[i][0] = mp.action;
-		mouseEvents[i][1] = mp.value;
-	};
-	
-	mouse_polls.SetNum( 0 );
-	
-	return numEvents;
 };
 
 //=====================================================================================
