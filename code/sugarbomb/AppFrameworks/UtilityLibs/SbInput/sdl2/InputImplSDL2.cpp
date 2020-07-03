@@ -64,7 +64,6 @@ void SbInputImplSDL2::Init()
 {
 	int numJoysticks, i;
 	
-	kbd_polls.SetGranularity( 64 );
 	memset( buttonStates, 0, sizeof( buttonStates ) );
 	
 	in_keyboard.SetModified();
@@ -97,7 +96,6 @@ Sys_ShutdownInput
 */
 void SbInputImplSDL2::Shutdown()
 {
-	kbd_polls.Clear();
 	joystick_polls.Clear();
 	
 	memset( buttonStates, 0, sizeof( buttonStates ) );
@@ -122,41 +120,6 @@ const char *SbInputImplSDL2::GetKeyName(keyNum_t keynum)
 		return ret;
 
 	return nullptr;
-};
-
-/*
-================
-Sys_PollKeyboardInputEvents
-================
-*/
-int SbInputImplSDL2::PollKeyboardInputEvents()
-{
-	return kbd_polls.Num();
-};
-
-/*
-================
-Sys_ReturnKeyboardInputEvent
-================
-*/
-int SbInputImplSDL2::ReturnKeyboardInputEvent( const int n, int& key, bool& state )
-{
-	if( n >= kbd_polls.Num() )
-		return 0;
-		
-	key = kbd_polls[n].key;
-	state = kbd_polls[n].state;
-	return 1;
-};
-
-/*
-================
-Sys_EndKeyboardInputEvents
-================
-*/
-void SbInputImplSDL2::EndKeyboardInputEvents()
-{
-	kbd_polls.SetNum( 0 );
 };
 
 /*
