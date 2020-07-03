@@ -33,7 +33,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
-struct ISystem;
+struct SbSystem;
 
 class SbApplication
 {
@@ -47,7 +47,7 @@ public:
 	 */
 	static int Main(int argc, char **argv);
 public:
-	SbApplication(ISystem &aSystem, int argc, char **argv);
+	SbApplication(SbSystem &aSystem, int argc, char **argv);
 	virtual ~SbApplication();
 
 	/// This method first initializes the app and runs it
@@ -73,7 +73,7 @@ protected:
 	/// This method can be used to do things at the end of each frame
 	virtual void PostFrame(){}
 
-	ISystem &mSystem;
+	SbSystem &mSystem;
 private:
 	void Init();
 	
