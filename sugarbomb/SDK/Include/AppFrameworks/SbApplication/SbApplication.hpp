@@ -51,7 +51,7 @@ public:
 	virtual ~SbApplication();
 
 	/// This method first initializes the app and runs it
-	void Run();
+	virtual void Run() = 0;
 protected:
 	/// Call this method if you want to stop the app's execution and close it
 	void Stop();
