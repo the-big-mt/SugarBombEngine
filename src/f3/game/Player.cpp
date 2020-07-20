@@ -151,7 +151,7 @@ END_CLASS
 
 const int MAX_RESPAWN_TIME = 10000;
 const int RAGDOLL_DEATH_TIME = 3000;
-const int MAX_PDAS = 64;
+const int MAX_PDAS = 1;
 const int MAX_PDA_ITEMS = 128;
 const int STEPUP_TIME = 200;
 const int MAX_INVENTORY_ITEMS = 20;
