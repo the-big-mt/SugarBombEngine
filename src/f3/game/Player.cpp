@@ -258,7 +258,6 @@ idPlayer::idPlayer():
 	previousWeapon			= -1;
 	weaponSwitchTime		=  0;
 	weaponEnabled			= true;
-	weapon_soulcube			= -1;
 	weapon_pipboy			= -1;
 	weapon_fists			= -1;
 	harvest_lock			= false;
@@ -9378,40 +9377,10 @@ idPlayer::AddAIKill
 */
 void idPlayer::AddAIKill()
 {
-	int max_souls;
-	int ammo_souls;
-	
 	if( ( weapon_soulcube < 0 ) || ( inventory.weapons & ( 1 << weapon_soulcube ) ) == 0 )
 	{
 		return;
 	}
-	
-	ammo_souls = idWeapon::GetAmmoNumForName( "ammo_souls" );
-	max_souls = inventory.MaxAmmoForAmmoClass( this, "ammo_souls" );
-	const int currentSoulAmmo = inventory.GetInventoryAmmoForType( ammo_souls );
-	if( currentSoulAmmo < max_souls )
-	{
-		inventory.SetInventoryAmmoForType( ammo_souls, currentSoulAmmo + 1 );
-		if( inventory.GetInventoryAmmoForType( ammo_souls ) >= max_souls )
-		{
-		
-			if( hud )
-			{
-				hud->UpdateSoulCube( true );
-			}
-			StartSound( "snd_soulcube_ready", SND_CHANNEL_ANY, 0, false, nullptr );
-		}
-	}
-}
-
-/*
-=============
-idPlayer::SetSoulCubeProjectile
-=============
-*/
-void idPlayer::SetSoulCubeProjectile( idProjectile* projectile )
-{
-	soulCubeProjectile = projectile;
 }
 
 /*

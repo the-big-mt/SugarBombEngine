@@ -2531,11 +2531,6 @@ bool idWeapon::GetMuzzlePositionWithHacks( idVec3& origin, idMat3& axis )
 		return false;
 	}
 	
-	if( weaponIconName == "guis/assets/hud/icons/soul_cube.tga" )
-	{
-		return false;
-	}
-	
 	if( barrelJointView != INVALID_JOINT )
 	{
 		GetGlobalJointTransform( true, barrelJointView, origin, axis );
