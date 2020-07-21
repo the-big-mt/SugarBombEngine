@@ -96,11 +96,11 @@ sbe::IGameFramework *CreateGameFramework(sbe::ISystem &aSystem, sbe::IRenderSyst
 
 int SbApplication::Main(int argc, char **argv)
 {
-	sbe::ISystem *pSystem = CreateSystem();
-	sbe::ISoundSystem *pSoundSystem = CreateSoundSystem(*pSystem);
-	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(*pSystem);
-	sbe::IInputSystem *pInputSystem = CreateInputSystem(*pSystem);
-	sbe::IGameFramework *pGameFramework = CreateGameFramework(*pSystem, pRenderSystem, pSoundSystem);
+	sbe::ISystem &System = *CreateSystem();
+	sbe::ISoundSystem *pSoundSystem = CreateSoundSystem(System);
+	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(System);
+	sbe::IInputSystem *pInputSystem = CreateInputSystem(System);
+	sbe::IGameFramework *pGameFramework = CreateGameFramework(System, pRenderSystem, pSoundSystem);
 	
 	dictionary *pDict = iniparser_load("FalloutPrefs.ini"); // Fallout_default
 	
