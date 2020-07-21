@@ -114,6 +114,7 @@ int SbApplication::Main(int argc, char **argv)
 		nWindowWidth = iniparser_getint(pDict, "Display:iSize W", 1280);
 		nWindowHeight = iniparser_getint(pDict, "Display:iSize H", 600);
 		bWindowFullScreen = iniparser_getboolean(pDict, "Display:bFull Screen", false);
+		bWindowBorder = iniparser_getboolean(pDict, "Display:bBorder", true);
 	};
 	
 	f3goaty::CGameApp App(sWindowTitle, nWindowWidth, nWindowHeight, bWindowFullScreen, pGameFramework, pSoundSystem, pRenderSystem, pInputSystem, pSystem, argc, argv);
