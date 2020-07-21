@@ -46,7 +46,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 sbe::ISystem *CreateSystem()
 {
-#ifndef SBE_SINGLE_BINARY
+#ifndef SBE_SYSTEM_HARD_LINKED
 	static sbe::SbSystemExternal SbSystemModule;
 	return SbSystemModule.GetSystem();
 #else
@@ -56,7 +56,7 @@ sbe::ISystem *CreateSystem()
 
 sbe::IRenderSystem *CreateRenderSystem(sbe::ISystem &aSystem)
 {
-#ifndef SBE_SINGLE_BINARY
+#ifndef SBE_RENDER_HARD_LINKED
 	static sbe::SbRenderSystemExternal SbRenderModule(aSystem);
 	return SbRenderModule.GetRenderSystem();
 #else
@@ -66,7 +66,7 @@ sbe::IRenderSystem *CreateRenderSystem(sbe::ISystem &aSystem)
 
 sbe::IInputSystem *CreateInputSystem(sbe::ISystem &aSystem)
 {
-#ifndef SBE_SINGLE_BINARY
+#ifndef SBE_INPUT_HARD_LINKED
 	static sbe::SbInputSystemExternal SbInputModule(aSystem);
 	return SbInputModule.GetInputSystem();
 #else
@@ -76,7 +76,7 @@ sbe::IInputSystem *CreateInputSystem(sbe::ISystem &aSystem)
 
 sbe::ISoundSystem *CreateSoundSystem(sbe::ISystem &aSystem)
 {
-#ifndef SBE_SINGLE_BINARY
+#ifndef SBE_SOUND_HARD_LINKED
 	static sbe::SbSoundSystemExternal SbSoundModule(aSystem);
 	return SbSoundModule.GetSoundSystem();
 #else
@@ -86,7 +86,7 @@ sbe::ISoundSystem *CreateSoundSystem(sbe::ISystem &aSystem)
 
 sbe::IGameFramework *CreateGameFramework(sbe::ISystem &aSystem, sbe::IRenderSystem *apRenderSystem, sbe::ISoundSystem *apSoundSystem)
 {
-#ifndef SBE_SINGLE_BINARY
+#ifndef SBE_GAMEFRAMEWORK_HARD_LINKED
 	static sbe::SbGameFrameworkExternal SbGameFrameworkModule(aSystem, apRenderSystem, apSoundSystem);
 	return SbGameFrameworkModule.GetGameFramework();
 #else
