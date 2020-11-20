@@ -111,6 +111,16 @@ sbe::IGameFramework *CreateGameFramework(sbe::ISystem &aSystem, sbe::IRenderSyst
 #endif
 };
 
+sbe::IGame *CreateGame(sbe::ISystem &aSystem)
+{
+#ifndef SBE_GAME_HARD_LINKED
+	static sbe::SbGameExternal SbGameModule(aSystem);
+	return SbGameModule.GetGame();
+#else
+	return new sbe::SbGame::SbGame();
+#endif
+};
+
 int SbApplication::Main(int argc, char **argv)
 {
 	sbe::ISystem &System = *CreateSystem();
@@ -120,6 +130,7 @@ int SbApplication::Main(int argc, char **argv)
 	sbe::INetworkSystem *pNetworkSystem = CreateNetworkSystem(System);
 	sbe::IPhysicsSystem *pPhysicsSystem = CreatePhysicsSystem(System);
 	sbe::IGameFramework *pGameFramework = CreateGameFramework(System, pRenderSystem, pSoundSystem, pNetworkSystem, pPhysicsSystem);
+	sbe::IGame &Game = CreateGame(System);
 	
 	dictionary *pDict = iniparser_load("FalloutPrefs.ini"); // Fallout_default
 	
