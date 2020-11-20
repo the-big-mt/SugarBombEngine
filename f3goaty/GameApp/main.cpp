@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -81,6 +81,26 @@ sbe::ISoundSystem *CreateSoundSystem(sbe::ISystem &aSystem)
 #endif
 };
 
+sbe::INetworkSystem *CreateNetworkSystem(sbe::ISystem &aSystem)
+{
+#ifndef SBE_NETWORK_HARD_LINKED
+	static sbe::SbNetworkSystemExternal SbNetworkModule(aSystem);
+	return SbNetworkModule.GetNetworkSystem();
+#else
+	return new sbe::SbNetwork::SbNetworkSystem(aSystem);
+#endif
+};
+
+sbe::IPhysicsSystem *CreatePhysicsSystem(sbe::ISystem &aSystem)
+{
+#ifndef SBE_PHYSICS_HARD_LINKED
+	static sbe::SbPhysicsSystemExternal SbPhysicsModule(aSystem);
+	return SbPhysicsModule.GetPhysicsSystem();
+#else
+	return new sbe::SbPhysics::SbPhysicsSystem(aSystem);
+#endif
+};
+
 sbe::IGameFramework *CreateGameFramework(sbe::ISystem &aSystem, sbe::IRenderSystem *apRenderSystem, sbe::ISoundSystem *apSoundSystem)
 {
 #ifndef SBE_GAMEFRAMEWORK_HARD_LINKED
@@ -97,7 +117,9 @@ int SbApplication::Main(int argc, char **argv)
 	sbe::ISoundSystem *pSoundSystem = CreateSoundSystem(System);
 	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(System);
 	sbe::IInputSystem *pInputSystem = CreateInputSystem(System);
-	sbe::IGameFramework *pGameFramework = CreateGameFramework(System, pRenderSystem, pSoundSystem);
+	sbe::INetworkSystem *pNetworkSystem = CreateNetworkSystem(System);
+	sbe::IPhysicsSystem *pPhysicsSystem = CreatePhysicsSystem(System);
+	sbe::IGameFramework *pGameFramework = CreateGameFramework(System, pRenderSystem, pSoundSystem, pNetworkSystem, pPhysicsSystem);
 	
 	dictionary *pDict = iniparser_load("FalloutPrefs.ini"); // Fallout_default
 	
