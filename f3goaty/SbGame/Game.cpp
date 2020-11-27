@@ -32,11 +32,34 @@ namespace f3goaty
 
 void CGame::Init()
 {
-	printf("Hello Game!\n");
+	mSystem.Printf("Hello Game!\n");
+	
+	Clear();
+	
+	InitConsoleCommands();
 };
 
 void CGame::Shutdown()
 {
+	Shell_Cleanup();
+	
+	MapShutdown();
+	
+	ShutdownConsoleCommands();
+	
+	// free memory allocated by class objects
+	Clear();
+
+#ifdef GAME_DLL
+	// remove auto-completion function pointers pointing into this DLL
+	cvarSystem->RemoveFlaggedAutoCompletion( CVAR_GAME );
+	
+	// enable leak test
+	Mem_EnableLeakTest( "game" );
+	
+	// shutdown idLib
+	idLib::ShutDown();
+#endif
 };
 
 void CGame::RunFrame(sbe::idUserCmdMgr &aCmdMgr, sbe::gameReturn_t &aGameReturn)
@@ -65,6 +88,53 @@ void CGame::Shell_Show(bool abShow)
 };
 
 void CGame::Shell_SyncWithSession()
+
+/*
+===================
+idGameLocal::LoadMap
+
+Initializes all map variables common to both save games and spawned games.
+===================
+*/
+void CGame::LoadMap(const char *asMapName, int anRandSeed)
+{
+	// clear the sound system
+	mpGameSoundWorld->ClearAllSoundEmitters();
+};
+
+int CGame::GetNextClientNum(int anCurrent) const
+{
+};
+
+idPlayer *CGame::GetClientByNum(int anCurrent) const
+{
+};
+
+idPlayer *CGame::GetLocalPlayer() const
+{
+};
+
+// PRIVATE METHODS START
+
+void CGame::Clear()
+{
+};
+
+void CGame::SpawnMapEntities()
+{
+};
+
+void CGame::MapPopulate()
+{
+	// parse the key/value pairs and spawn entities
+	SpawnMapEntities();
+};
+
+void CGame::MapClear(bool abClearClients)
+{
+};
+
+void CGame::SpawnPlayer(int anClient)
 {
 };
 

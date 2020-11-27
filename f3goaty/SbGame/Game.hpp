@@ -45,6 +45,42 @@ public:
 	void Shell_Cleanup() override;
 	void Shell_Show(bool abShow) override;
 	void Shell_SyncWithSession() override;
+	
+	// ---------------------- End of IGame Interface -------------------
+
+private: // TODO: these are private for now, make them public if they're called from outside
+	// Initializes all map variables common to both save games and spawned games
+	void LoadMap(const char *asMapName, int anRandSeed);
+	
+	int GetNextClientNum(int anCurrent) const;
+	idPlayer *GetClientByNum(int anCurrent) const;
+	
+	idPlayer *GetLocalPlayer() const;
+	
+	/// Used to allow entities to know if they're being spawned during the initial spawn
+	gameState_t GetGameState() const {return meState;}
+	
+	bool CheatsOk(bool abRequirePlayer = true);
+private:
+	void Clear();
+	
+	// spawn entities from the map file
+	void SpawnMapEntities();
+	
+	// commons used by init, shutdown, and restart
+	void MapPopulate();
+	void MapClear(bool abClearClients);
+	
+	void SpawnPlayer(int anClient);
+private:
+	sbe::ISystem &mSystem;
+	sbe::IRenderSystem &mRenderSystem;
+	sbe::ISoundSystem &mSoundSystem;
+	
+	IRenderWorld *mpGameRenderWorld{nullptr}; ///< All drawing is done to this world
+	ISoundWorld *mpGameSoundWorld{nullptr}; ///< All audio goes to this world
+	
+	gameState_t meState{0};
 };
 
 }; // namespace f3goaty
