@@ -23,6 +23,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #include <cstdlib>
 
 #include "iniparser.h"
@@ -33,7 +35,9 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include "SbInputSystemExternal.hpp"
 #include "SbSoundSystemExternal.hpp"
 #include "SbGameFrameworkExternal.hpp"
+#include "SbGameExternal.hpp"
 
+//*****************************************************************************
 
 //sbe::ISoundSystem *CreateSoundSystem();
 //sbe::IGameFramework *CreateGameFramework();
@@ -57,7 +61,7 @@ sbe::IRenderSystem *CreateRenderSystem(sbe::ISystem &aSystem)
 	static sbe::SbRenderSystemExternal SbRenderModule(aSystem);
 	return SbRenderModule.GetRenderSystem();
 #else
-	return new sbe::SbRenderer::SbRenderSystem();
+	return new sbe::SbRenderer::SbRenderSystem(aSystem);
 #endif
 };
 
@@ -67,7 +71,7 @@ sbe::IInputSystem *CreateInputSystem(sbe::ISystem &aSystem)
 	static sbe::SbInputSystemExternal SbInputModule(aSystem);
 	return SbInputModule.GetInputSystem();
 #else
-	return new sbe::SbInput::SbInputSystem();
+	return new sbe::SbInput::SbInputSystem(aSystem);
 #endif
 };
 
@@ -77,7 +81,7 @@ sbe::ISoundSystem *CreateSoundSystem(sbe::ISystem &aSystem)
 	static sbe::SbSoundSystemExternal SbSoundModule(aSystem);
 	return SbSoundModule.GetSoundSystem();
 #else
-	return new sbe::SbSound::SbSound();
+	return new sbe::SbSound::SbSoundSystem(aSystem);
 #endif
 };
 
@@ -121,7 +125,7 @@ sbe::IGame *CreateGame(sbe::ISystem &aSystem)
 #endif
 };
 
-int SbApplication::Main(int argc, char **argv)
+int sbe::SbApplication::Main(int argc, char **argv)
 {
 	sbe::ISystem &System = *CreateSystem();
 	sbe::ISoundSystem *pSoundSystem = CreateSoundSystem(System);
