@@ -39,10 +39,16 @@ public:
 	~CGameApp();
 private:
 	void RunFrame() override;
+	
+	void SetMaxUPS(int anUPS); // TODO: SetFrameRate?
+	
+	float GetTimeStep() const {return 1.0f / mnUPS;} // TODO
 private:
 	sbe::ISoundSystem *mpSoundSystem{nullptr};
 	//sbe::IGameFramework *mpFramework{nullptr};
 	sbe::IGame *mpGame{nullptr};
+	
+	int mnUPS{0};
 };
 
 }; // namespace f3goaty
