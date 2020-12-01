@@ -49,7 +49,7 @@ CGameApp::~CGameApp()
 
 void CGameApp::RunFrame()
 {
-	mpFramework->Frame();
+	mpFramework->Frame(GetTimeStep());
 };
 
 }; // namespace f3goaty

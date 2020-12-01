@@ -22,15 +22,11 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #include <cstdlib>
 
-#include "iniparser.h"
-
 #include "GameApp.hpp"
-#include "SbGameFrameworkExternal.hpp"
 #include "SbGameExternal.hpp"
+#include "SbGameFrameworkExternal.hpp"
 
 //*****************************************************************************
-
-//sbe::IGameFramework *CreateGameFramework();
 
 // TODO: delete mpFramework; mpFramework = nullptr;
 
