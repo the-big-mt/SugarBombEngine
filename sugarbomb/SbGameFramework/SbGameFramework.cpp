@@ -50,6 +50,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "CoreLibs/SbSound/ISoundSystem.hpp"
 
+#include "SbRenderSystemExternal.hpp"
+#include "SbInputSystemExternal.hpp"
+#include "SbSoundSystemExternal.hpp"
 //*****************************************************************************
 
 namespace sbe
@@ -72,7 +75,20 @@ SbGameFramework::SbGameFramework(IRenderSystem *apRenderSystem, ISoundSystem *ap
 
 void SbGameFramework::Init()
 {
+	mSoundSystem = *CreateSoundSystem(mSystem);
+	mRenderSystem = *CreateRenderSystem(mSystem);
+	mInputSystem = *CreateInputSystem(mSystem);
+	mNetworkSystem = *CreateNetworkSystem(mSystem);
+	mPhysicsSystem = *CreatePhysicsSystem(mSystem);
+	
+	sbe::IWindow::Props WinProps(.msTitle = sWindowTitle, .mnWidth = nWindowWidth, .mnHeight = nWindowHeight, .mbFullScreen = bWindowFullScreen);
+	
+	mSoundSystem.Init();
+	mRenderSystem.Init(WinProps);
+	mInputSystem.Init();
 	mNetworkSystem.Init();
+	mPhysicsSystem.Init();
+	
 	mGame.Init();
 	
 	CreateMainMenu();
@@ -85,11 +101,17 @@ void SbGameFramework::Shutdown()
 	CleanupShell();
 	
 	mGame.Shutdown();
+	
+	mPhysicsSystem.Shutdown();
 	mNetworkSystem.Shutdown();
+	mSoundSystem.Shutdown();
+	
 };
 
 void SbGameFramework::Frame()
 {
+	mpSoundSystem->Update(GetTimeStep());
+	
 	idUserCmdMgr UserCmdMgrStub;
 	gameReturn_t GameReturnStub;
 	
@@ -135,6 +157,57 @@ idCommonLocal::CleanupShell
 void SbGameFramework::CleanupShell()
 {
 	mGame.Shell_Cleanup();
+};
+
+
+IRenderSystem *SbGameFramework::CreateRenderSystem(ISystem &aSystem)
+{
+#ifndef SBE_RENDER_HARD_LINKED
+	static SbRenderSystemExternal SbRenderModule(aSystem);
+	return SbRenderModule.GetRenderSystem();
+#else
+	return new SbRenderer::SbRenderSystem(aSystem);
+#endif
+};
+
+IInputSystem *SbGameFramework::CreateInputSystem(ISystem &aSystem)
+{
+#ifndef SBE_INPUT_HARD_LINKED
+	static SbInputSystemExternal SbInputModule(aSystem);
+	return SbInputModule.GetInputSystem();
+#else
+	return new SbInput::SbInputSystem(aSystem);
+#endif
+};
+
+ISoundSystem *SbGameFramework::CreateSoundSystem(ISystem &aSystem)
+{
+#ifndef SBE_SOUND_HARD_LINKED
+	static SbSoundSystemExternal SbSoundModule(aSystem);
+	return SbSoundModule.GetSoundSystem();
+#else
+	return new SbSound::SbSoundSystem(aSystem);
+#endif
+};
+
+INetworkSystem *SbGameFramework::CreateNetworkSystem(ISystem &aSystem)
+{
+#ifndef SBE_NETWORK_HARD_LINKED
+	static SbNetworkSystemExternal SbNetworkModule(aSystem);
+	return SbNetworkModule.GetNetworkSystem();
+#else
+	return new SbNetwork::SbNetworkSystem(aSystem);
+#endif
+};
+
+IPhysicsSystem *SbGameFramework::CreatePhysicsSystem(ISystem &aSystem)
+{
+#ifndef SBE_PHYSICS_HARD_LINKED
+	static SbPhysicsSystemExternal SbPhysicsModule(aSystem);
+	return SbPhysicsModule.GetPhysicsSystem();
+#else
+	return new SbPhysics::SbPhysicsSystem(aSystem);
+#endif
 };
 
 }; // namespace sbe::SbGameFramework

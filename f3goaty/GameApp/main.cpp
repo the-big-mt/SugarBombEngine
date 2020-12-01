@@ -31,18 +31,13 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "GameApp.hpp"
 #include "SbSystemExternal.hpp"
-#include "SbRenderSystemExternal.hpp"
-#include "SbInputSystemExternal.hpp"
-#include "SbSoundSystemExternal.hpp"
 #include "SbGameFrameworkExternal.hpp"
 #include "SbGameExternal.hpp"
 
 //*****************************************************************************
 
-//sbe::ISoundSystem *CreateSoundSystem();
 //sbe::IGameFramework *CreateGameFramework();
 
-// TODO: delete mpSoundSystem; mpSoundSystem = nullptr;
 // TODO: delete mpFramework; mpFramework = nullptr;
 
 sbe::ISystem *CreateSystem()
@@ -55,60 +50,10 @@ sbe::ISystem *CreateSystem()
 #endif
 };
 
-sbe::IRenderSystem *CreateRenderSystem(sbe::ISystem &aSystem)
-{
-#ifndef SBE_RENDER_HARD_LINKED
-	static sbe::SbRenderSystemExternal SbRenderModule(aSystem);
-	return SbRenderModule.GetRenderSystem();
-#else
-	return new sbe::SbRenderer::SbRenderSystem(aSystem);
-#endif
-};
-
-sbe::IInputSystem *CreateInputSystem(sbe::ISystem &aSystem)
-{
-#ifndef SBE_INPUT_HARD_LINKED
-	static sbe::SbInputSystemExternal SbInputModule(aSystem);
-	return SbInputModule.GetInputSystem();
-#else
-	return new sbe::SbInput::SbInputSystem(aSystem);
-#endif
-};
-
-sbe::ISoundSystem *CreateSoundSystem(sbe::ISystem &aSystem)
-{
-#ifndef SBE_SOUND_HARD_LINKED
-	static sbe::SbSoundSystemExternal SbSoundModule(aSystem);
-	return SbSoundModule.GetSoundSystem();
-#else
-	return new sbe::SbSound::SbSoundSystem(aSystem);
-#endif
-};
-
-sbe::INetworkSystem *CreateNetworkSystem(sbe::ISystem &aSystem)
-{
-#ifndef SBE_NETWORK_HARD_LINKED
-	static sbe::SbNetworkSystemExternal SbNetworkModule(aSystem);
-	return SbNetworkModule.GetNetworkSystem();
-#else
-	return new sbe::SbNetwork::SbNetworkSystem(aSystem);
-#endif
-};
-
-sbe::IPhysicsSystem *CreatePhysicsSystem(sbe::ISystem &aSystem)
-{
-#ifndef SBE_PHYSICS_HARD_LINKED
-	static sbe::SbPhysicsSystemExternal SbPhysicsModule(aSystem);
-	return SbPhysicsModule.GetPhysicsSystem();
-#else
-	return new sbe::SbPhysics::SbPhysicsSystem(aSystem);
-#endif
-};
-
-sbe::IGameFramework *CreateGameFramework(sbe::ISystem &aSystem, sbe::IRenderSystem *apRenderSystem, sbe::ISoundSystem *apSoundSystem)
+sbe::IGameFramework *CreateGameFramework()
 {
 #ifndef SBE_GAMEFRAMEWORK_HARD_LINKED
-	static sbe::SbGameFrameworkExternal SbGameFrameworkModule(aSystem, apRenderSystem, apSoundSystem);
+	static sbe::SbGameFrameworkExternal SbGameFrameworkModule();
 	return SbGameFrameworkModule.GetGameFramework();
 #else
 	return new sbe::SbGameFramework::SbGameFramework();
@@ -128,14 +73,8 @@ sbe::IGame *CreateGame(sbe::ISystem &aSystem)
 int sbe::SbApplication::Main(int argc, char **argv)
 {
 	sbe::ISystem &System = *CreateSystem();
-	sbe::ISoundSystem *pSoundSystem = CreateSoundSystem(System);
-	sbe::IRenderSystem *pRenderSystem = CreateRenderSystem(System);
-	sbe::IInputSystem *pInputSystem = CreateInputSystem(System);
-	sbe::INetworkSystem *pNetworkSystem = CreateNetworkSystem(System);
-	sbe::IPhysicsSystem *pPhysicsSystem = CreatePhysicsSystem(System);
-	sbe::IGameFramework *pGameFramework = CreateGameFramework(System, pRenderSystem, pSoundSystem, pNetworkSystem, pPhysicsSystem);
 	sbe::IGame &Game = CreateGame(System);
-	
+	sbe::IGameFramework &GameFramework = CreateGameFramework();
 	
 	f3goaty::CGameApp App(sWindowTitle, nWindowWidth, nWindowHeight, bWindowFullScreen, pGameFramework, pSoundSystem, pRenderSystem, pInputSystem, pSystem, argc, argv);
 	App.Run();
