@@ -23,6 +23,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #include <functional>
 
 #include "SbGameFrameworkExternal.hpp"
@@ -31,6 +33,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbGameFramework/IGameFramework.hpp"
 #include "SbGameFramework/SbModuleAPI.hpp"
+
+//*****************************************************************************
 
 namespace sbe
 {
