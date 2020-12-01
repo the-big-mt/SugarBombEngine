@@ -136,20 +136,6 @@ int sbe::SbApplication::Main(int argc, char **argv)
 	sbe::IGameFramework *pGameFramework = CreateGameFramework(System, pRenderSystem, pSoundSystem, pNetworkSystem, pPhysicsSystem);
 	sbe::IGame &Game = CreateGame(System);
 	
-	dictionary *pDict = iniparser_load("FalloutPrefs.ini"); // Fallout_default
-	
-	const char *sWindowTitle{"F3GOATY"};
-	int nWindowWidth{1280};
-	int nWindowHeight{600};
-	bool bWindowFullScreen{false};
-	
-	if(pDict != nullptr)
-	{
-		nWindowWidth = iniparser_getint(pDict, "Display:iSize W", 1280);
-		nWindowHeight = iniparser_getint(pDict, "Display:iSize H", 600);
-		bWindowFullScreen = iniparser_getboolean(pDict, "Display:bFull Screen", false);
-		bWindowBorder = iniparser_getboolean(pDict, "Display:bBorder", true);
-	};
 	
 	f3goaty::CGameApp App(sWindowTitle, nWindowWidth, nWindowHeight, bWindowFullScreen, pGameFramework, pSoundSystem, pRenderSystem, pInputSystem, pSystem, argc, argv);
 	App.Run();

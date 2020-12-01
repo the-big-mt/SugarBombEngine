@@ -23,6 +23,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+#include <iniparser.h>
 #include <cstdio>
 
 #include "Game.hpp"
@@ -32,6 +33,21 @@ namespace f3goaty
 
 void CGame::Init()
 {
+	auto pDict{iniparser_load("FalloutPrefs.ini")}; // Fallout_default
+	
+	const char *sWindowTitle{"F3GOATY"};
+	int nWindowWidth{1280};
+	int nWindowHeight{600};
+	bool bWindowFullScreen{false};
+	
+	if(pDict != nullptr)
+	{
+		nWindowWidth = iniparser_getint(pDict, "Display:iSize W", 1280);
+		nWindowHeight = iniparser_getint(pDict, "Display:iSize H", 600);
+		bWindowFullScreen = iniparser_getboolean(pDict, "Display:bFull Screen", false);
+		bWindowBorder = iniparser_getboolean(pDict, "Display:bBorder", true);
+	};
+	
 	mSystem.Printf("Hello Game!\n");
 	
 	Clear();
