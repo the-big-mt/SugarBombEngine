@@ -21,6 +21,8 @@ You should have received a copy of the GNU General Public License along with Sug
 
 //*****************************************************************************
 
+#include <functional>
+
 #include "Game.hpp"
 #include "SbGame/SbModuleAPI.hpp"
 
@@ -38,12 +40,12 @@ C_EXPORT sbe::gameExport_t *GetGameAPI(sbe::gameImport_t *apModuleImports)
 {
 	if(apModuleImports->version == sbe::GAME_API_VERSION)
 	{
-		static f3goaty::CGame Game;
+		static f3goaty::CGame Game();
 		
 		static sbe::gameExport_t ModuleExports;
 		
 		ModuleExports.version = sbe::GAME_API_VERSION;
-		ModuleExports.game = &Game;
+		ModuleExports.game = std::addressof(Game);
 		
 		return &ModuleExports;
 	};
