@@ -23,6 +23,13 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #include "SbGame/IGame.hpp"
 
+namespace sbe
+{
+struct ISystem;
+struct IRenderWorld;
+struct ISoundWorld;
+};
+
 namespace f3goaty
 {
 

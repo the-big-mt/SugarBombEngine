@@ -23,6 +23,10 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #include "Game.hpp"
 
+//#include "CoreLibs/SbSystem/ISystem.hpp"
+
+//#include "CoreLibs/SbSound/ISoundWorld.hpp"
+
 namespace f3goaty
 {
 
@@ -47,6 +51,8 @@ void CGame::Init()
 		bWindowFullScreen = iniparser_getboolean(pDict, "Display:bFull Screen", false);
 		bWindowBorder = iniparser_getboolean(pDict, "Display:bBorder", true);
 	};
+	
+	//sbe::IGameFramework *pGameFramework = CreateGameFramework(System);
 	
 	mSystem.Printf("Hello Game!\n");
 	
