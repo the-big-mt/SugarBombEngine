@@ -24,6 +24,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 /// @file
 
 #include <stdexcept>
+#include <functional>
 
 #include "SbRenderSystemExternal.hpp"
 
@@ -59,6 +60,7 @@ void SbRenderSystemExternal::LoadModule()
 	
 	rendererImport_t ModuleImports{};
 	ModuleImports.version = RENDERER_API_VERSION;
+	ModuleImports.sys = std::addressof(mSystem);
 	auto ModuleExports{pfnGetRendererAPI(&ModuleImports)};
 	
 	if(!ModuleExports)

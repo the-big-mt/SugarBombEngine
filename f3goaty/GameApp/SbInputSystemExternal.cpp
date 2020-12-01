@@ -24,6 +24,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 /// @file
 
 #include <stdexcept>
+#include <functional>
 
 #include "SbInputSystemExternal.hpp"
 
@@ -59,6 +60,7 @@ void SbInputSystemExternal::LoadModule()
 	
 	inputImport_t ModuleImports{};
 	ModuleImports.version = INPUT_API_VERSION;
+	ModuleImports.sys = std::addressof(mSystem);
 	auto ModuleExports{pfnGetInputAPI(&ModuleImports)};
 	
 	if(!ModuleExports)
