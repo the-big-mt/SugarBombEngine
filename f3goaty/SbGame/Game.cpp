@@ -20,12 +20,16 @@ You should have received a copy of the GNU General Public License along with Sug
 /// @file
 
 #include <iniparser.h>
-#include <cstdio>
 
 #include "Game.hpp"
 
 namespace f3goaty
 {
+
+CGame::CGame()
+{
+	Clear();
+};
 
 void CGame::Init()
 {
@@ -76,15 +80,24 @@ void CGame::Shutdown()
 
 void CGame::RunFrame(sbe::idUserCmdMgr &aCmdMgr, sbe::gameReturn_t &aGameReturn)
 {
+	if(mpGameRenderWorld == nullptr)
+		return;
 };
 
 void CGame::ClientRunFrame(sbe::idUserCmdMgr &aCmdMgr, bool abLastPredictFrame, sbe::gameReturn_t &aGameReturn)
 {
 };
 
-bool CGame::Draw(int anClientNum)
+bool CGame::Draw(int anClient)
 {
-	return false;
+	if(anClient == -1)
+		return false;
+
+	return true;
+};
+
+void CGame::MapShutdown()
+{
 };
 
 void CGame::Shell_CreateMenu(bool abInGame)
@@ -100,6 +113,14 @@ void CGame::Shell_Show(bool abShow)
 };
 
 void CGame::Shell_SyncWithSession()
+{
+	if(mpShellHandler == nullptr)
+		return;
+	
+	switch(mpSession->GetState())
+	{
+	};
+};
 
 /*
 ===================

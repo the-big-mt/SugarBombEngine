@@ -26,9 +26,15 @@ You should have received a copy of the GNU General Public License along with Sug
 namespace f3goaty
 {
 
+class idPlayer;
+
 class CGame : public sbe::IGame
 {
 public:
+	CGame();
+	
+	// ---------------------- Public IGame Interface -------------------
+	
 	void Init() override;
 	void Shutdown() override;
 	
@@ -36,6 +42,8 @@ public:
 	void ClientRunFrame(sbe::idUserCmdMgr &aCmdMgr, bool abLastPredictFrame, sbe::gameReturn_t &aGameReturn) override;
 	
 	bool Draw(int anClientNum) override;
+	
+	void MapShutdown() override;
 	
 	void Shell_CreateMenu(bool abInGame) override;
 	void Shell_Cleanup() override;
