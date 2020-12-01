@@ -46,7 +46,7 @@ private:
 	
 	ISoundSystem *mpSoundSystem{nullptr};
 	
-	int mnSoundLib{-1};
+	int mnSoundLib{0};
 };
 
 }; // namespace sbe
