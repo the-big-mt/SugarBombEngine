@@ -24,7 +24,6 @@ You should have received a copy of the GNU General Public License along with Sug
 
 namespace sbe
 {
-struct ISoundSystem;
 struct IGameFramework;
 struct IGame;
 };
@@ -44,7 +43,6 @@ private:
 	
 	float GetTimeStep() const {return 1.0f / mnUPS;} // TODO
 private:
-	sbe::ISoundSystem *mpSoundSystem{nullptr};
 	//sbe::IGameFramework *mpFramework{nullptr};
 	sbe::IGame *mpGame{nullptr};
 	
