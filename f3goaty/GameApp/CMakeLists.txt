@@ -60,6 +60,9 @@ if(SBE_USE_SDL)
 	target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY})
 endif()
 
+if(ANDROID)
+	# TODO: the app should be compiled as a dll in this case
+	target_link_libraries(${PROJECT_NAME} EGL android log)
 endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
