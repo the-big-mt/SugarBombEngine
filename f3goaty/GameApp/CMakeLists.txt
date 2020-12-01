@@ -23,8 +23,6 @@ endif()
 target_link_libraries(${PROJECT_NAME} SBE-clientapp SBE-application SBE-external-iniparser)
 
 if(NOT SBE_SINGLE_BINARY)
-	target_link_libraries(${PROJECT_NAME} SBE-libraryloader)
-
 	if(UNIX)
 		target_link_libraries(${PROJECT_NAME} -ldl)
 	endif()
