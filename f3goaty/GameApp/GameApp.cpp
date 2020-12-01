@@ -25,12 +25,9 @@ You should have received a copy of the GNU General Public License along with Sug
 namespace f3goaty
 {
 
-CGameApp::CGameApp(const sbe::IWindow::Props &aWinProps,
-				sbe::IGameFramework *apGameFramework, sbe::ISoundSystem *apSoundSystem,
-				sbe::IRenderSystem *apRenderSystem, sbe::IInputSystem *apInputSystem,
-				sbe::ISystem *apSystem, int argc, char **argv)
-	: SbClientApp(aWinProps, *apRenderSystem, *apInputSystem, *apSystem, argc, argv),
-	mpSoundSystem(apSoundSystem), mpFramework(apGameFramework)
+CGameApp::CGameApp(sbe::IGameFramework *apGameFramework, int argc, char **argv)
+	: SbClientApp(argc, argv),
+	mpFramework(apGameFramework)
 {
 	mpFramework->Init();
 	//if(!mpFramework->Init())

@@ -55,7 +55,7 @@ int sbe::SbApplication::Main(int argc, char **argv)
 	sbe::IGame &Game = CreateGame();
 	sbe::IGameFramework &GameFramework = CreateGameFramework();
 	
-	f3goaty::CGameApp App(sWindowTitle, nWindowWidth, nWindowHeight, bWindowFullScreen, pGameFramework, pSoundSystem, pRenderSystem, pInputSystem, pSystem, argc, argv);
+	f3goaty::CGameApp App(/*GameFramework,*/ Game, argc, argv);
 	App.Run();
 	return EXIT_SUCCESS;
 };

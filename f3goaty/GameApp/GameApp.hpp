@@ -26,7 +26,7 @@ namespace sbe
 {
 struct ISoundSystem;
 struct IGameFramework;
-struct IWindow;
+struct IGame;
 };
 
 namespace f3goaty
@@ -35,15 +35,14 @@ namespace f3goaty
 class CGameApp final : public SbClientApp
 {
 public:
-	CGameApp(const IWindow::Props &aWinProps, sbe::IGameFramework *apGameFramework,
-			 sbe::ISoundSystem *apSoundSystem, sbe::IRenderSystem *apRenderSystem,
-			 sbe::IInputSystem *apInputSystem, sbe::ISystem *apSystem, int argc, char **argv);
+	CGameApp(/*sbe::IGameFramework *apGameFramework,*/ sbe::IGame *apGame, int argc, char **argv);
 	~CGameApp();
 private:
 	void RunFrame() override;
 private:
 	sbe::ISoundSystem *mpSoundSystem{nullptr};
-	sbe::IGameFramework *mpFramework{nullptr};
+	//sbe::IGameFramework *mpFramework{nullptr};
+	sbe::IGame *mpGame{nullptr};
 };
 
 }; // namespace f3goaty
