@@ -27,10 +27,6 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbGameFramework/IGameFramework.hpp"
 
-#include "CoreLibs/SbSystem/ISystem.hpp"
-
-#include "CoreLibs/SbSound/ISoundSystem.hpp"
-
 namespace f3goaty
 {
 
@@ -41,7 +37,6 @@ CGameApp::CGameApp(const sbe::IWindow::Props &aWinProps,
 	: SbClientApp(aWinProps, *apRenderSystem, *apInputSystem, *apSystem, argc, argv),
 	mpSoundSystem(apSoundSystem), mpFramework(apGameFramework)
 {
-	mpSoundSystem->Init();
 	mpFramework->Init();
 	//if(!mpFramework->Init())
 		//throw std::runtime_error("Couldn't initialize the game framework!");
@@ -50,12 +45,10 @@ CGameApp::CGameApp(const sbe::IWindow::Props &aWinProps,
 CGameApp::~CGameApp()
 {
 	mpFramework->Shutdown();
-	mpSoundSystem->Shutdown();
 };
 
 void CGameApp::RunFrame()
 {
-	mpSoundSystem->Update(1.0f/60.0f); // TODO
 	mpFramework->Frame();
 };
 

@@ -25,7 +25,6 @@ You should have received a copy of the GNU General Public License along with Sug
 #include "iniparser.h"
 
 #include "GameApp.hpp"
-#include "SbSystemExternal.hpp"
 #include "SbGameFrameworkExternal.hpp"
 #include "SbGameExternal.hpp"
 
@@ -34,16 +33,6 @@ You should have received a copy of the GNU General Public License along with Sug
 //sbe::IGameFramework *CreateGameFramework();
 
 // TODO: delete mpFramework; mpFramework = nullptr;
-
-sbe::ISystem *CreateSystem()
-{
-#ifndef SBE_SYSTEM_HARD_LINKED
-	static sbe::SbSystemExternal SbSystemModule;
-	return SbSystemModule.GetSystem();
-#else
-	return new sbe::SbSystem::SbSystem();
-#endif
-};
 
 sbe::IGameFramework *CreateGameFramework()
 {
@@ -55,10 +44,10 @@ sbe::IGameFramework *CreateGameFramework()
 #endif
 };
 
-sbe::IGame *CreateGame(sbe::ISystem &aSystem)
+sbe::IGame *CreateGame()
 {
 #ifndef SBE_GAME_HARD_LINKED
-	static sbe::SbGameExternal SbGameModule(aSystem);
+	static sbe::SbGameExternal SbGameModule();
 	return SbGameModule.GetGame();
 #else
 	return new sbe::SbGame::SbGame();
@@ -67,8 +56,7 @@ sbe::IGame *CreateGame(sbe::ISystem &aSystem)
 
 int sbe::SbApplication::Main(int argc, char **argv)
 {
-	sbe::ISystem &System = *CreateSystem();
-	sbe::IGame &Game = CreateGame(System);
+	sbe::IGame &Game = CreateGame();
 	sbe::IGameFramework &GameFramework = CreateGameFramework();
 	
 	f3goaty::CGameApp App(sWindowTitle, nWindowWidth, nWindowHeight, bWindowFullScreen, pGameFramework, pSoundSystem, pRenderSystem, pInputSystem, pSystem, argc, argv);

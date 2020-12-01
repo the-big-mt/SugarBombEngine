@@ -50,6 +50,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "CoreLibs/SbSound/ISoundSystem.hpp"
 
+#include "SbSystemExternal.hpp"
 #include "SbRenderSystemExternal.hpp"
 #include "SbInputSystemExternal.hpp"
 #include "SbSoundSystemExternal.hpp"
@@ -75,6 +76,8 @@ SbGameFramework::SbGameFramework(IRenderSystem *apRenderSystem, ISoundSystem *ap
 
 void SbGameFramework::Init()
 {
+	
+	mSystem = *CreateSystem();
 	mSoundSystem = *CreateSoundSystem(mSystem);
 	mRenderSystem = *CreateRenderSystem(mSystem);
 	mInputSystem = *CreateInputSystem(mSystem);
@@ -159,6 +162,15 @@ void SbGameFramework::CleanupShell()
 	mGame.Shell_Cleanup();
 };
 
+ISystem *SbGameFramework::CreateSystem()
+{
+#ifndef SBE_SYSTEM_HARD_LINKED
+	static SbSystemExternal SbSystemModule;
+	return SbSystemModule.GetSystem();
+#else
+	return new SbSystem::SbSystem();
+#endif
+};
 
 IRenderSystem *SbGameFramework::CreateRenderSystem(ISystem &aSystem)
 {

@@ -63,6 +63,7 @@ private:
 	
 	IGame &mGame;
 	INetworkSystem &mNetworkSystem;
+	SbPhysicsSystem &mPhysicsSystem;
 	
 	IRenderSystem *mpRenderSystem{nullptr};
 	ISoundSystem *mpSoundSystem{nullptr};
