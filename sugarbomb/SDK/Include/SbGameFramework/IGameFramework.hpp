@@ -35,13 +35,13 @@ namespace sbe
 struct IGameFramework
 {
 	///
-	virtual void Init() = 0;
+	virtual void Init(const char *asTitle, const char *asShortTitle, bool abHeadless, int argc, char **argv) = 0;
 	
 	///
 	virtual void Shutdown() = 0;
 	
 	///
-	virtual void Frame() = 0;
+	virtual void Frame(float afTimeStep) = 0;
 };
 
 }; // namespace sbe
