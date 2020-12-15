@@ -51,9 +51,6 @@ struct ISystem;
 struct idCmdSystem;
 struct idCVarSystem;
 struct IFileSystem;
-struct ISoundSystem;
-struct idDeclManager;
-struct IRenderSystem;
 
 struct gameFrameworkImport_t
 {
@@ -62,10 +59,6 @@ struct gameFrameworkImport_t
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
 	IFileSystem* 				fileSystem;				// file system
-	ISoundSystem* 				soundSystem;			// sound system
-	idDeclManager*				declManager;			// declaration manager
-	//idUserInterfaceManager* 	uiManager;				// user interface manager
-	IRenderSystem*				renderSystem;			// render system
 };
 
 struct gameFrameworkExport_t
