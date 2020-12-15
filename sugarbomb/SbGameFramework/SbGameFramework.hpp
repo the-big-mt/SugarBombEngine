@@ -50,12 +50,18 @@ class SbGameFramework : public IGameFramework
 public:
 	SbGameFramework(IRenderSystem *apRenderSystem, ISoundSystem *apSoundSystem, INetworkSystem &aNetworkSystem, IGame &aGame, ISystem &aSystem);
 	
-	void Init() override;
+	void Init(const char *asTitle, const char *asShortTitle, bool abHeadless, int argc, char **argv) override;
 	void Shutdown() override;
 	
-	void Frame() override;
+	void Frame(float afTimeStep) override;
+	void Draw();
+	
+	bool IsInitialized() const {return mbInitialized;}
 private:
 	void CreateMainMenu();
+	
+	void StartMenu(bool abPlayIntro);
+	void ExitMenu();
 	
 	void CleanupShell();
 private:
@@ -68,6 +74,7 @@ private:
 	IRenderSystem *mpRenderSystem{nullptr};
 	ISoundSystem *mpSoundSystem{nullptr};
 	
+	bool mbInitialized{false};
 };
 
 };}; // namespace sbe::SbGameFramework

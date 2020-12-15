@@ -99,6 +99,26 @@ void SbGameFramework::Init()
 
 void SbGameFramework::Shutdown()
 {
+	//if( com_shuttingDown) // TODO
+		//return; // TODO
+
+	//com_shuttingDown = true; // TODO
+	
+	// Kill any pending saves...
+	printf( "session->GetSaveGameManager().CancelToTerminate();\n" );
+	//session->GetSaveGameManager().CancelToTerminate(); // TODO
+	
+	// shutdown the script debugger
+	//DebuggerServerShutdown();
+	
+	//if(aviCaptureMode) // TODO
+	{
+		printf("EndAVICapture();\n");
+		//EndAVICapture(); // TODO
+	};
+	
+	printf("Stop();\n");
+	//Stop(); // TODO
 	
 	printf("CleanupShell();\n");
 	CleanupShell();
@@ -111,7 +131,7 @@ void SbGameFramework::Shutdown()
 	
 };
 
-void SbGameFramework::Frame()
+void SbGameFramework::Frame(float afTimeStep)
 {
 	mpSoundSystem->Update(GetTimeStep());
 	
@@ -120,7 +140,21 @@ void SbGameFramework::Frame()
 	
 	mGame.RunFrame(UserCmdMgrStub, GameReturnStub);
 	mGame.ClientRunFrame(UserCmdMgrStub, false, GameReturnStub);
-	mGame.Draw(0);
+};
+
+void SbGameFramework::Draw()
+{
+	if(mGame.Shell_IsActive())
+	{
+		bool bGameDraw{mGame.Draw(0)};
+		if(!bGameDraw)
+		{
+		};
+		mGame.Shell_Render();
+	}
+	else
+	{
+	};
 };
 
 /*
@@ -150,6 +184,42 @@ void SbGameFramework::CreateMainMenu()
 		//declManager->EndLevelLoad(); // TODO
 		//uiManager->EndLevelLoad(""); // TODO
 	};
+};
+
+/*
+==============
+idCommonLocal::StartMainMenu
+==============
+*/
+void SbGameFramework::StartMenu(bool abPlayIntro)
+{
+	if(/*mGame &&*/ mGame.Shell_IsActive())
+		return;
+	
+	//if(readDemo) // TODO
+	{
+		// if we're playing a demo, esc kills it
+		//UnloadMap(); // TODO
+	};
+	
+	//if(mGame)
+	{
+		mGame.Shell_Show(true);
+		mGame.Shell_SyncWithSession();
+	};
+	
+	//console->Close(); // TODO
+};
+
+/*
+===============
+idCommonLocal::ExitMenu
+===============
+*/
+void SbGameFramework::ExitMenu()
+{
+	//if(mGame)
+		mGame.Shell_Show(false);
 };
 
 /*
