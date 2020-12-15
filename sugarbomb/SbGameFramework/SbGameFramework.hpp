@@ -64,6 +64,10 @@ private:
 	void ExitMenu();
 	
 	void CleanupShell();
+	
+	void LoadDefaultConfig();
+	
+	bool LoadPrefsConfig();
 private:
 	std::reference_wrapper<ISystem> mSystem;
 	
