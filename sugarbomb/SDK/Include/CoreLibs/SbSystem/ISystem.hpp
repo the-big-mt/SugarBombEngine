@@ -1,8 +1,8 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2012 Robert Beckebans
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2012-2014 Robert Beckebans
+Copyright (C) 2019-2020, 2022 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -28,8 +28,6 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include <cstdint>
-
 //*****************************************************************************
 
 namespace sbe
@@ -39,23 +37,6 @@ struct SbSystemDesc;
 
 struct SbSystem
 {
-	// INLINE METHODS
-	
-	///
-	inline intptr_t LoadLib(const char *asPath);
-
-	///
-	inline void FreeLib(intptr_t anHandle);
-
-	///
-	inline void *GetLibSymbol(intptr_t anHandle, const char *asSymbol) const;
-
-	///
-	template<typename T>
-	inline T GetLibSymbol(intptr_t anHandle, const char *asSymbol) const {return reinterpret_cast<T>(GetLibSymbol(anHandle, asSymbol));}
-
-	// VIRTUAL METHODS
-	
 	///
 	virtual void Init() = 0;
 
@@ -79,6 +60,6 @@ struct SbSystem
 	virtual const SbSystemDesc &GetDesc() const = 0;
 };
 
-#include "SbSystem.inl"
+//#include "SbSystem.inl"
 
 }; // namespace sbe

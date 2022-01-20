@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 2012-2014 Robert Beckebans
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2022 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -21,54 +21,55 @@ You should have received a copy of the GNU General Public License along with Sug
 
 //*****************************************************************************
 
-#pragma once
-
-#ifdef _WIN32
-#	include <windows.h>
-#else
-#	include <dlfcn.h>
-#endif
-
-//*****************************************************************************
-
-namespace sbe
+SbLibrary::SbLibrary(const char *asName)
 {
+	Load(asName);
+};
+
+SbLibrary::~SbLibrary()
+{
+	Free();
+};
 
 // RB: 64 bit fixes, changed int to intptr_t
 
 #ifdef _WIN32
-intptr_t SbSystem::LoadLib(const char *asPath)
+void SbLibrary::Load(const char *asName)
 {
-	return reinterpret_cast<intptr_t>(dlopen(asPath, RTLD_NOW));
+	if(mnHandle)
+		Free();
+
+	mnHandle = reinterpret_cast<intptr_t>(LoadLibrary(asName));
 };
 
-void SbSystem::FreeLib(intptr_t anHandle)
+void SbLibrary::Free()
 {
-	dlclose(reinterpret_cast<void*>(anHandle));
-};
-
-void *SbSystem::GetLibSymbol(intptr_t anHandle, const char *asSymbol)
-{
-	return dlsym(reinterpret_cast<void *>(anHandle), asSymbol);
-};
-#else
-intptr_t SbSystem::LoadLib(const char *asPath)
-{
-	return reinterpret_cast<intptr_t>(LoadLibrary(asPath));
-};
-
-void SbSystem::FreeLib(intptr_t anHandle)
-{
-	if(!anHandle)
+	if(!mnHandle)
 		return;
-	
-	FreeLibrary(reinterpret_cast<HMODULE>(anHandle));
+
+	FreeLibrary(reinterpret_cast<HMODULE>(mnHandle));
 };
 
-void *SbSystem::GetLibSymbol(intptr_t anHandle, const char *asSymbol)
+void *SbLibrary::GetSymbol(const char *asSymbol)
 {
-	return reinterpret_cast<void *>(GetProcAddress(reinterpret_cast<HMODULE>(anHandle), asSymbol));
+	return reinterpret_cast<void *>(GetProcAddress(reinterpret_cast<HMODULE>(mnHandle), asSymbol));
 };
-#endif
+#else // if not _WIN32
+void SbLibrary::Load(const char *asName)
+{
+	if(mnHandle)
+		Free();
 
-}; // namespace sbe
+	mnHandle = reinterpret_cast<intptr_t>(dlopen(asName, RTLD_NOW));
+};
+
+void SbLibrary::Free()
+{
+	dlclose(reinterpret_cast<void*>(mnHandle));
+};
+
+void *SbLibrary::GetSymbol(const char *asSymbol)
+{
+	return dlsym(reinterpret_cast<void *>(mnHandle), asSymbol);
+};
+#endif // _WIN32
