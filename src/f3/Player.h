@@ -1,34 +1,44 @@
 /*
-===========================================================================
+*******************************************************************************
 
-Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2018-2019 BlackPhrase
+Copyright (C) 2018-2020 SugarBombEngine Developers
 
-This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
+This file is part of F3GOATY
 
-Doom 3 BFG Edition Source Code is free software: you can redistribute it and/or modify
+F3GOATY is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-Doom 3 BFG Edition Source Code is distributed in the hope that it will be useful,
+F3GOATY is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Doom 3 BFG Edition Source Code.  If not, see <http://www.gnu.org/licenses/>.
+along with F3GOATY. If not, see <http://www.gnu.org/licenses/>.
 
-In addition, the Doom 3 BFG Edition Source Code is also subject to certain additional terms. You should have received a copy of these additional terms immediately following the terms and conditions of the GNU General Public License which accompanied the Doom 3 BFG Edition Source Code.  If not, please request a copy in writing from id Software at the address below.
+In addition, F3GOATY is using id Tech 4 (BFG) pieces and thus
+subject to certain additional terms (all header and source files which 
+contains such pieces has this additional part appended to the license 
+header). You should have received a copy of these additional terms 
+stated in a separate file (LICENSE-idTech4) which accompanied the 
+F3GOATY source code. If not, please request a copy in 
+writing from id Software at the address below.
 
-If you have questions concerning this license or the applicable additional terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
+If you have questions concerning this license or the applicable additional
+terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc.,
+Suite 120, Rockville, Maryland 20850 USA.
 
-===========================================================================
+*******************************************************************************
 */
 
-#ifndef __GAME_PLAYER_H__
-#define __GAME_PLAYER_H__
+/// @file
+
+//*****************************************************************************
+
+#pragma once
 
 /*
 #include <cstddef>
@@ -74,8 +84,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #include Inventory.hpp"
 
+//*****************************************************************************
+
 /*
-namespace BFG
+namespace F3GOATY
 {
 
 class idAAS;
@@ -168,8 +180,8 @@ struct idObjectiveInfo
 
 struct idLevelTriggerInfo
 {
-	idStr levelName;
-	idStr triggerName;
+	SbStr levelName;
+	SbStr triggerName;
 };
 
 // powerup modifiers
@@ -190,24 +202,24 @@ enum
 	INFLUENCE_LEVEL3,			// slow player movement
 };
 
-typedef struct
+struct WeaponToggle_t
 {
 	char		name[64];
-	idList<int, TAG_IDLIB_LIST_PLAYER>	toggleList;
+	SbList<int, TAG_IDLIB_LIST_PLAYER>	toggleList;
 	int			lastUsed;
-} WeaponToggle_t;
+};
 
-typedef struct
+struct loggedAccel_t
 {
 	int		time;
-	idVec3	dir;		// scaled larger for running
-} loggedAccel_t;
+	SbVec3	dir;		// scaled larger for running
+};
 
-typedef struct
+struct aasLocation_t
 {
 	int		areaNum;
-	idVec3	pos;
-} aasLocation_t;
+	SbVec3	pos;
+};
 
 class idPlayer : public idActor
 {
@@ -249,8 +261,8 @@ public:
 	float					independentWeaponPitchAngle;	// viewAngles[PITCH} when head tracking is active
 	
 	// For interpolating angles between snapshots
-	idQuat					previousViewQuat;
-	idQuat					nextViewQuat;
+	SbQuat					previousViewQuat;
+	SbQuat					nextViewQuat;
 	
 	int						buttonMask;
 	int						oldButtons;
@@ -365,8 +377,8 @@ public:
 	
 	// the first person view values are always calculated, even
 	// if a third person view is used
-	idVec3					firstPersonViewOrigin;
-	idMat3					firstPersonViewAxis;
+	SbVec3					firstPersonViewOrigin;
+	SbMat3					firstPersonViewAxis;
 	
 	idDragEntity			dragEntity;
 	
@@ -406,9 +418,9 @@ public:
 	virtual void			Restart();
 	void					LinkScriptVariables();
 	void					SetupWeaponEntity();
-	void					SelectInitialSpawnPoint( idVec3& origin, idAngles& angles );
+	void					SelectInitialSpawnPoint( SbVec3& origin, idAngles& angles );
 	void					SpawnFromSpawnSpot();
-	void					SpawnToPoint( const idVec3&	spawn_origin, const idAngles& spawn_angles );
+	void					SpawnToPoint( const SbVec3&	spawn_origin, const idAngles& spawn_angles );
 	void					SetClipModel();	// spectator mode uses a different bbox size
 	
 	void					SavePersistantInfo();
@@ -437,7 +449,7 @@ public:
 	// delta view angles to allow movers to rotate the view of the player
 	void					UpdateDeltaViewAngles( const idAngles& angles );
 	
-	virtual bool			Collide( const trace_t& collision, const idVec3& velocity );
+	virtual bool			Collide( const trace_t& collision, const SbVec3& velocity );
 	
 	virtual void			GetAASLocation( idAAS* aas, idVec3& pos, int& areaNum ) const;
 	virtual void			GetAIAimTargets( const idVec3& lastSightPos, idVec3& headPos, idVec3& chestPos );
@@ -611,8 +623,8 @@ public:
 	
 	virtual bool			ServerReceiveEvent( int event, int time, const idBitMsg& msg );
 	
-	virtual bool			GetPhysicsToVisualTransform( idVec3& origin, idMat3& axis );
-	virtual bool			GetPhysicsToSoundTransform( idVec3& origin, idMat3& axis );
+	virtual bool			GetPhysicsToVisualTransform( SbVec3& origin, SbMat3& axis );
+	virtual bool			GetPhysicsToSoundTransform( SbVec3& origin, SbMat3& axis );
 	
 	virtual bool			ClientReceiveEvent( int event, int time, const idBitMsg& msg );
 	bool					IsRespawning();
@@ -686,7 +698,7 @@ public:
 	{
 		return viewBobAngles;
 	}
-	const idVec3& 			GetViewBob()
+	const SbVec3& 			GetViewBob()
 	{
 		return viewBob;
 	}
@@ -751,7 +763,7 @@ private:
 	
 	idPhysics_Player		physicsObj;			// player physics
 	
-	idList<aasLocation_t, TAG_IDLIB_LIST_PLAYER>	aasLocation;		// for AI tracking the player
+	SbList<aasLocation_t, TAG_IDLIB_LIST_PLAYER>	aasLocation;		// for AI tracking the player
 	
 	int						bobFoot;
 	float					bobFrac;
@@ -765,7 +777,7 @@ private:
 	bool					legsForward;
 	float					oldViewYaw;
 	idAngles				viewBobAngles;
-	idVec3					viewBob;
+	SbVec3					viewBob;
 	int						landChange;
 	int						landTime;
 	
@@ -790,7 +802,7 @@ private:
 	
 	bool					gibDeath;
 	bool					gibsLaunched;
-	idVec3					gibsDir;
+	SbVec3					gibsDir;
 	
 	idInterpolate<float>	zoomFov;
 	idInterpolate<float>	centerView;
@@ -830,11 +842,11 @@ private:
 	bool					objectiveUp;
 	
 	int						lastDamageDef;
-	idVec3					lastDamageDir;
+	SbVec3					lastDamageDir;
 	int						lastDamageLocation;
 	int						smoothedFrame;
 	bool					smoothedOriginUpdated;
-	idVec3					smoothedOrigin;
+	SbVec3					smoothedOrigin;
 	idAngles				smoothedAngles;
 	
 	idHashTable<WeaponToggle_t>	weaponToggles;
@@ -879,11 +891,11 @@ private:
 	void					SpectateFreeFly( bool force );	// ignore the timeout to force when followed spec is no longer valid
 	void					SpectateCycle();
 	idAngles				GunTurningOffset();
-	idVec3					GunAcceleratingOffset();
+	SbVec3					GunAcceleratingOffset();
 	
 	void					UseObjects();
-	void					CrashLand( const idVec3& oldOrigin, const idVec3& oldVelocity );
-	void					BobCycle( const idVec3& pushVelocity );
+	void					CrashLand( const SbVec3& oldOrigin, const SbVec3& oldVelocity );
+	void					BobCycle( const SbVec3& pushVelocity );
 	void					UpdateViewAngles();
 	void					EvaluateControls();
 	void					AdjustSpeed();
@@ -929,7 +941,7 @@ private:
 	void					Event_HideTip();
 	void					Event_LevelTrigger();
 	void					Event_Gibbed();
-	void					Event_ForceOrigin( idVec3& origin, idAngles& angles );
+	void					Event_ForceOrigin( SbVec3& origin, idAngles& angles );
 	void					Event_GiveInventoryItem( const char* name );
 	void					Event_RemoveInventoryItem( const char* name );
 	
@@ -953,39 +965,36 @@ public:
 ID_INLINE bool idPlayer::IsRespawning()
 {
 	return respawning;
-}
+};
 
 ID_INLINE idPhysics* idPlayer::GetPlayerPhysics()
 {
 	return &physicsObj;
-}
+};
 
 ID_INLINE bool idPlayer::IsInTeleport()
 {
-	return ( teleportEntity.GetEntity() != NULL );
-}
+	return ( teleportEntity.GetEntity() != nullptr );
+};
 
 ID_INLINE void idPlayer::SetLeader( bool lead )
 {
 	leader = lead;
-}
+};
 
 ID_INLINE bool idPlayer::IsLeader()
 {
 	return leader;
-}
+};
 
 ID_INLINE bool idPlayer::SelfSmooth()
 {
 	return selfSmooth;
-}
+};
 
 ID_INLINE void idPlayer::SetSelfSmooth( bool b )
 {
 	selfSmooth = b;
-}
+};
 
 extern idCVar g_infiniteAmmo;
-
-#endif /* !__GAME_PLAYER_H__ */
-

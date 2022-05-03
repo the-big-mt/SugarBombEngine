@@ -1,35 +1,46 @@
 /*
-===========================================================================
+*******************************************************************************
 
-Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2014-2016 Robert Beckebans
 Copyright (C) 2014-2016 Kot in Action Creative Artel
+Copyright (C) 2020 SugarBombEngine Developers
 
-This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
+This file is part of F3GOATY
 
-Doom 3 BFG Edition Source Code is free software: you can redistribute it and/or modify
+F3GOATY is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-Doom 3 BFG Edition Source Code is distributed in the hope that it will be useful,
+F3GOATY is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Doom 3 BFG Edition Source Code.  If not, see <http://www.gnu.org/licenses/>.
+along with F3GOATY. If not, see <http://www.gnu.org/licenses/>.
 
-In addition, the Doom 3 BFG Edition Source Code is also subject to certain additional terms. You should have received a copy of these additional terms immediately following the terms and conditions of the GNU General Public License which accompanied the Doom 3 BFG Edition Source Code.  If not, please request a copy in writing from id Software at the address below.
+In addition, F3GOATY is using id Tech 4 (BFG) pieces and thus
+subject to certain additional terms (all header and source files which 
+contains such pieces has this additional part appended to the license 
+header). You should have received a copy of these additional terms 
+stated in a separate file (LICENSE-idTech4) which accompanied the 
+F3GOATY source code. If not, please request a copy in 
+writing from id Software at the address below.
 
-If you have questions concerning this license or the applicable additional terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
+If you have questions concerning this license or the applicable additional
+terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc.,
+Suite 120, Rockville, Maryland 20850 USA.
 
-===========================================================================
+*******************************************************************************
 */
 
-#ifndef __GAME_LOCAL_H__
-#define	__GAME_LOCAL_H__
+/// @file
+
+//*****************************************************************************
+
+#pragma once
 
 /*
 ===============================================================================
@@ -44,6 +55,8 @@ If you have questions concerning this license or the applicable additional terms
 #define private		public
 #define protected	public
 #endif
+
+//*****************************************************************************
 
 extern idRenderWorld* 				gameRenderWorld;
 extern idSoundWorld* 				gameSoundWorld;
@@ -69,7 +82,7 @@ class idEditEntities;
 class idLocationEntity;
 class idMenuHandler_Shell;
 
-const int MAX_CLIENTS			= MAX_PLAYERS;
+const int MAX_CLIENTS			= MAX_PLAYERS; // TODO: 4 for co-op, we REALLY don't need more
 const int MAX_CLIENTS_IN_PVS	= MAX_CLIENTS >> 3;
 const int GENTITYNUM_BITS		= 12;
 const int MAX_GENTITIES			= 1 << GENTITYNUM_BITS;
@@ -101,7 +114,6 @@ void gameError( const char* fmt, ... );
 #include "Leaderboards.h"
 #include "MultiplayerGame.h"
 
-
 class idWeapon;
 
 //============================================================================
@@ -109,7 +121,7 @@ class idWeapon;
 const int MAX_GAME_MESSAGE_SIZE		= 8192;
 const int MAX_ENTITY_STATE_SIZE		= 512;
 const int ENTITY_PVS_SIZE			= ( ( MAX_GENTITIES + 31 ) >> 5 );
-const int NUM_RENDER_PORTAL_BITS	= idMath::BitsForInteger( PS_BLOCK_ALL );
+const int NUM_RENDER_PORTAL_BITS	= SbMath::BitsForInteger( PS_BLOCK_ALL );
 
 const int MAX_EVENT_PARAM_SIZE		= 128;
 
@@ -148,35 +160,35 @@ enum
 	GAME_RELIABLE_MESSAGE_CLIENT_HITSCAN_HIT
 };
 
-typedef enum
+enum gameState_t
 {
 	GAMESTATE_UNINITIALIZED,		// prior to Init being called
 	GAMESTATE_NOMAP,				// no map loaded
 	GAMESTATE_STARTUP,				// inside InitFromNewMap().  spawning map entities.
 	GAMESTATE_ACTIVE,				// normal gameplay
 	GAMESTATE_SHUTDOWN				// inside MapShutdown().  clearing memory.
-} gameState_t;
+};
 
-typedef struct
+struct spawnSpot_t
 {
 	idEntity*	ent;
 	int			dist;
 	int			team;
-} spawnSpot_t;
+};
 
 //============================================================================
 
 class idEventQueue
 {
 public:
-	typedef enum
+	enum outOfOrderBehaviour_t
 	{
 		OUTOFORDER_IGNORE,
 		OUTOFORDER_DROP,
 		OUTOFORDER_SORT
-	} outOfOrderBehaviour_t;
+	};
 	
-	idEventQueue() : start( NULL ), end( NULL ) {}
+	idEventQueue() : start( nullptr ), end( nullptr ) {}
 	
 	entityNetEvent_t* 		Alloc();
 	void					Free( entityNetEvent_t* event );
@@ -291,13 +303,13 @@ public:
 
 	int						previousServerTime;		// time in msec of last frame on the server
 	int						serverTime;				// in msec. ( on the client ) the server time. ( on the server ) the actual game time.
-	idDict					serverInfo;				// all the tunable parameters, like numclients, etc
+	SbDict					serverInfo;				// all the tunable parameters, like numclients, etc
 	int						numClients;				// pulled from serverInfo and verified
-	idArray< lobbyUserID_t, MAX_CLIENTS >	lobbyUserIDs;	// Maps from a client (player) number to a lobby user
-	idDict					persistentPlayerInfo[MAX_CLIENTS];
+	SbArray< lobbyUserID_t, MAX_CLIENTS >	lobbyUserIDs;	// Maps from a client (player) number to a lobby user
+	SbDict					persistentPlayerInfo[MAX_CLIENTS];
 	idEntity* 				entities[MAX_GENTITIES];// index to entities
 	int						spawnIds[MAX_GENTITIES];// for use in idEntityPtr
-	idArray< int, 2 >		firstFreeEntityIndex;	// first free index in the entities array. [0] for replicated entities, [1] for non-replicated
+	SbArray< int, 2 >		firstFreeEntityIndex;	// first free index in the entities array. [0] for replicated entities, [1] for non-replicated
 	int						num_entities;			// current number <= MAX_GENTITIES
 	idHashIndex				entityHash;				// hash table to quickly find entities by name
 	idWorldspawn* 			world;					// world entity
@@ -307,7 +319,7 @@ public:
 	int						numEntitiesToDeactivate;// number of entities that became inactive in current frame
 	bool					sortPushers;			// true if active lists needs to be reordered to place pushers at the front
 	bool					sortTeamMasters;		// true if active lists needs to be reordered to place physics team masters before their slaves
-	idDict					persistentLevelInfo;	// contains args that are kept around between levels
+	SbDict					persistentLevelInfo;	// contains args that are kept around between levels
 	
 	// can be used to automatically effect every material in the world that references globalParms
 	float					globalShaderParms[ MAX_GLOBAL_SHADER_PARMS ];
@@ -324,7 +336,7 @@ public:
 	idTestModel* 			testmodel;				// for development testing of models
 	idEntityFx* 			testFx;					// for development testing of fx
 	
-	idStr					sessionCommand;			// a target_sessionCommand can set this to return something to the session
+	SbStr					sessionCommand;			// a target_sessionCommand can set this to return something to the session
 	
 	idMultiplayerGame		mpGame;					// handles rules for standard dm
 	
@@ -382,7 +394,7 @@ public:
 	void					QuickSlowmoReset();
 	
 	
-	void					Tokenize( idStrList& out, const char* in );
+	void					Tokenize( SbStrList& out, const char* in );
 	
 	// ---------------------- Public idGame Interface -------------------
 	
@@ -390,17 +402,17 @@ public:
 	
 	virtual void			Init();
 	virtual void			Shutdown();
-	virtual void			SetServerInfo( const idDict& serverInfo );
-	virtual const idDict& 	GetServerInfo();
+	virtual void			SetServerInfo( const SbDict& serverInfo );
+	virtual const SbDict& 	GetServerInfo();
 	
-	virtual const idDict& 	GetPersistentPlayerInfo( int clientNum );
-	virtual void			SetPersistentPlayerInfo( int clientNum, const idDict& playerInfo );
+	virtual const SbDict& 	GetPersistentPlayerInfo( int clientNum );
+	virtual void			SetPersistentPlayerInfo( int clientNum, const SbDict& playerInfo );
 	virtual void			InitFromNewMap( const char* mapName, idRenderWorld* renderWorld, idSoundWorld* soundWorld, int gameType, int randSeed );
 	virtual bool			InitFromSaveGame( const char* mapName, idRenderWorld* renderWorld, idSoundWorld* soundWorld, idFile* saveGameFile, idFile* stringTableFile, int saveGameVersion );
 	virtual void			SaveGame( idFile* saveGameFile, idFile* stringTableFile );
 	virtual void			GetSaveGameDetails( idSaveGameDetails& gameDetails );
 	virtual void			MapShutdown();
-	virtual void			CacheDictionaryMedia( const idDict* dict );
+	virtual void			CacheDictionaryMedia( const SbDict* dict );
 	virtual void			Preload( const idPreloadManifest& manifest );
 	virtual void			RunFrame( idUserCmdMgr& cmdMgr, gameReturn_t& gameReturn );
 	void					RunAllUserCmdsForPlayer( idUserCmdMgr& cmdMgr, const int playerNumber );
@@ -426,7 +438,7 @@ public:
 	virtual int				MapPeerToClient( int peer ) const;
 	virtual int				GetLocalClientNum() const;
 	
-	virtual void			GetAimAssistAngles( idAngles& angles );
+	virtual void			GetAimAssistAngles( SbAngles& angles );
 	virtual float			GetAimAssistSensitivity();
 	
 	// ---------------------- Public idGameLocal Interface -------------------
@@ -442,7 +454,7 @@ public:
 	
 	void					LocalMapRestart();
 	void					MapRestart();
-	static void				MapRestart_f( const idCmdArgs& args );
+	static void				MapRestart_f( const SbCmdArgs& args );
 	
 	idMapFile* 				GetLevelMap();
 	const char* 			GetMapName() const;
@@ -457,21 +469,21 @@ public:
 	
 	bool					CheatsOk( bool requirePlayer = true );
 	gameState_t				GameState() const;
-	idEntity* 				SpawnEntityType( const idTypeInfo& classdef, const idDict* args = NULL, bool bIsClientReadSnapshot = false );
-	bool					SpawnEntityDef( const idDict& args, idEntity** ent = NULL, bool setDefaults = true );
+	idEntity* 				SpawnEntityType( const idTypeInfo& classdef, const SbDict* args = nullptr, bool bIsClientReadSnapshot = false );
+	bool					SpawnEntityDef( const SbDict& args, idEntity** ent = nullptr, bool setDefaults = true );
 	int						GetSpawnId( const idEntity* ent ) const;
 	
 	const idDeclEntityDef* 	FindEntityDef( const char* name, bool makeDefault = true ) const;
-	const idDict* 			FindEntityDefDict( const char* name, bool makeDefault = true ) const;
+	const SbDict* 			FindEntityDefDict( const char* name, bool makeDefault = true ) const;
 	
 	void					RegisterEntity( idEntity* ent, int forceSpawnId, const idDict& spawnArgsToCopy );
 	void					UnregisterEntity( idEntity* ent );
-	const idDict& 			GetSpawnArgs() const
+	const SbDict& 			GetSpawnArgs() const
 	{
 		return spawnArgs;
 	}
 	
-	bool					RequirementMet( idEntity* activator, const idStr& requires, int removeItem );
+	bool					RequirementMet( idEntity* activator, const SbStr& requires, int removeItem );
 	
 	void					AlertAI( idEntity* ent );
 	idActor* 				GetAlertEntity();
@@ -490,29 +502,29 @@ public:
 	
 	void					AddEntityToHash( const char* name, idEntity* ent );
 	bool					RemoveEntityFromHash( const char* name, idEntity* ent );
-	int						GetTargets( const idDict& args, idList< idEntityPtr<idEntity> >& list, const char* ref ) const;
+	int						GetTargets( const SbDict& args, SbList< idEntityPtr<idEntity> >& list, const char* ref ) const;
 	
 	// returns the master entity of a trace.  for example, if the trace entity is the player's head, it will return the player.
 	idEntity* 				GetTraceEntity( const trace_t& trace ) const;
 	
-	static void				ArgCompletion_EntityName( const idCmdArgs& args, void( *callback )( const char* s ) );
-	idEntity* 				FindTraceEntity( idVec3 start, idVec3 end, const idTypeInfo& c, const idEntity* skip ) const;
+	static void				ArgCompletion_EntityName( const SbCmdArgs& args, void( *callback )( const char* s ) );
+	idEntity* 				FindTraceEntity( SbVec3 start, SbVec3 end, const idTypeInfo& c, const idEntity* skip ) const;
 	idEntity* 				FindEntity( const char* name ) const;
 	idEntity* 				FindEntityUsingDef( idEntity* from, const char* match ) const;
-	int						EntitiesWithinRadius( const idVec3 org, float radius, idEntity** entityList, int maxCount ) const;
+	int						EntitiesWithinRadius( const SbVec3 org, float radius, idEntity** entityList, int maxCount ) const;
 	
 	void					KillBox( idEntity* ent, bool catch_teleport = false );
-	void					RadiusDamage( const idVec3& origin, idEntity* inflictor, idEntity* attacker, idEntity* ignoreDamage, idEntity* ignorePush, const char* damageDefName, float dmgPower = 1.0f );
-	void					RadiusPush( const idVec3& origin, const float radius, const float push, const idEntity* inflictor, const idEntity* ignore, float inflictorScale, const bool quake );
-	void					RadiusPushClipModel( const idVec3& origin, const float push, const idClipModel* clipModel );
+	void					RadiusDamage( const SbVec3& origin, idEntity* inflictor, idEntity* attacker, idEntity* ignoreDamage, idEntity* ignorePush, const char* damageDefName, float dmgPower = 1.0f );
+	void					RadiusPush( const SbVec3& origin, const float radius, const float push, const idEntity* inflictor, const idEntity* ignore, float inflictorScale, const bool quake );
+	void					RadiusPushClipModel( const SbVec3& origin, const float push, const idClipModel* clipModel );
 	
-	void					ProjectDecal( const idVec3& origin, const idVec3& dir, float depth, bool parallel, float size, const char* material, float angle = 0 );
-	void					BloodSplat( const idVec3& origin, const idVec3& dir, float size, const char* material );
+	void					ProjectDecal( const SbVec3& origin, const SbVec3& dir, float depth, bool parallel, float size, const char* material, float angle = 0 );
+	void					BloodSplat( const SbVec3& origin, const SbVec3& dir, float size, const char* material );
 	
 	void					CallFrameCommand( idEntity* ent, const function_t* frameCommand );
 	void					CallObjectFrameCommand( idEntity* ent, const char* frameCommand );
 	
-	const idVec3& 			GetGravity() const;
+	const SbVec3& 			GetGravity() const;
 	
 	// added the following to assist licensees with merge issues
 	int						GetFrameNum() const
@@ -530,7 +542,7 @@ public:
 	idPlayer* 				GetLocalPlayer() const;
 	
 	void					SpreadLocations();
-	idLocationEntity* 		LocationForPoint( const idVec3& point );	// May return NULL
+	idLocationEntity* 		LocationForPoint( const SbVec3& point );	// May return NULL
 	idEntity* 				SelectInitialSpawnPoint( idPlayer* player );
 	
 	void					SetPortalState( qhandle_t portal, int blockingBits );
@@ -550,11 +562,11 @@ public:
 	int						GetSSEndTime() const
 	{
 		return netInterpolationInfo.ssEndTime;
-	}
+	};
 	int						GetSSStartTime() const
 	{
 		return netInterpolationInfo.ssStartTime;
-	}
+	};
 	
 	virtual void			SetServerGameTimeMs( const int time );
 	virtual int				GetServerGameTimeMs() const;
@@ -567,8 +579,8 @@ public:
 		return usercmdLastClientMilliseconds[ playerIndex ];
 	}
 	
-	void					SetGlobalMaterial( const idMaterial* mat );
-	const idMaterial* 		GetGlobalMaterial();
+	void					SetGlobalMaterial( const SbMaterial* mat );
+	const SbMaterial* 		GetGlobalMaterial();
 	
 	void					SetGibTime( int _time )
 	{
@@ -622,14 +634,14 @@ public:
 	const char* 			GetMapFileName()
 	{
 		return mapFileName.c_str();
-	}
+	};
 	
 	const char* 			GetMPPlayerDefName() const;
 	
 private:
 	const static int		INITIAL_SPAWN_COUNT = 1;
 	
-	idStr					mapFileName;			// name of the map, empty string if no map loaded
+	SbStr					mapFileName;			// name of the map, empty string if no map loaded
 	idMapFile* 				mapFile;				// will be NULL during the game unless in-game editing is used
 	bool					mapCycleLoaded;
 	
@@ -641,21 +653,21 @@ private:
 	idCamera* 				camera;
 	const idMaterial* 		globalMaterial;			// for overriding everything
 	
-	idList<idAAS*>			aasList;				// area system
+	SbList<idAAS*>			aasList;				// area system
 	
 	idMenuHandler_Shell* 	shellHandler;
 	
-	idStrList				aasNames;
+	SbStrList				aasNames;
 	
 	idEntityPtr<idActor>	lastAIAlertEntity;
 	int						lastAIAlertTime;
 	
-	idDict					spawnArgs;				// spawn args used during entity spawning  FIXME: shouldn't be necessary anymore
+	SbDict					spawnArgs;				// spawn args used during entity spawning  FIXME: shouldn't be necessary anymore
 	
 	pvsHandle_t				playerPVS;				// merged pvs of all players
 	pvsHandle_t				playerConnectedAreas;	// all areas connected to any player area
 	
-	idVec3					gravity;				// global gravity vector
+	SbVec3					gravity;				// global gravity vector
 	gameState_t				gamestate;				// keeps track of whether we're spawning, shutting down, or normal gameplay
 	bool					influenceActive;		// true when a phantasm is happening
 	int						nextGibTime;
@@ -663,12 +675,12 @@ private:
 	idEventQueue			eventQueue;
 	idEventQueue			savedEventQueue;
 	
-	idStaticList<spawnSpot_t, MAX_GENTITIES> spawnSpots;
-	idStaticList<idEntity*, MAX_GENTITIES> initialSpots;
+	SbStaticList<spawnSpot_t, MAX_GENTITIES> spawnSpots;
+	SbStaticList<idEntity*, MAX_GENTITIES> initialSpots;
 	int						currentInitialSpot;
 	
-	idStaticList<spawnSpot_t, MAX_GENTITIES> teamSpawnSpots[2];
-	idStaticList<idEntity*, MAX_GENTITIES> teamInitialSpots[2];
+	SbStaticList<spawnSpot_t, MAX_GENTITIES> teamSpawnSpots[2];
+	SbStaticList<idEntity*, MAX_GENTITIES> teamInitialSpots[2];
 	int						teamCurrentInitialSpot[2];
 	
 	struct netInterpolationInfo_t  		// Was in GameTimeManager.h in id5, needed common place to put this.
@@ -689,15 +701,15 @@ private:
 	
 	netInterpolationInfo_t	netInterpolationInfo;
 	
-	idDict					newInfo;
+	SbDict					newInfo;
 	
-	idArray< int, MAX_PLAYERS >	usercmdLastClientMilliseconds;	// The latest client time the server has run.
-	idArray< int, MAX_PLAYERS >	lastCmdRunTimeOnClient;
-	idArray< int, MAX_PLAYERS >	lastCmdRunTimeOnServer;
-	
+	SbArray< int, MAX_PLAYERS >	usercmdLastClientMilliseconds;	// The latest client time the server has run.
+	SbArray< int, MAX_PLAYERS >	lastCmdRunTimeOnClient;
+	SbArray< int, MAX_PLAYERS >	lastCmdRunTimeOnServer;
+
 	void					Clear();
 	// returns true if the entity shouldn't be spawned at all in this game type or difficulty level
-	bool					InhibitEntitySpawn( idDict& spawnArgs );
+	bool					InhibitEntitySpawn( SbDict& spawnArgs );
 	// spawn entities from the map file
 	void					SpawnMapEntities();
 	// commons used by init, shutdown, and restart
@@ -751,41 +763,37 @@ template< class type >
 ID_INLINE idEntityPtr<type>::idEntityPtr()
 {
 	spawnId = 0;
-}
+};
 
 template< class type >
 ID_INLINE void idEntityPtr<type>::Save( idSaveGame* savefile ) const
 {
 	savefile->WriteInt( spawnId );
-}
+};
 
 template< class type >
 ID_INLINE void idEntityPtr<type>::Restore( idRestoreGame* savefile )
 {
 	savefile->ReadInt( spawnId );
-}
+};
 
 template< class type >
 ID_INLINE idEntityPtr<type>& idEntityPtr<type>::operator=( const type* ent )
 {
-	if( ent == NULL )
-	{
+	if( ent == nullptr )
 		spawnId = 0;
-	}
 	else
-	{
 		spawnId = ( gameLocal.spawnIds[ent->entityNumber] << GENTITYNUM_BITS ) | ent->entityNumber;
-	}
+
 	return *this;
-}
+};
 
 template< class type >
 ID_INLINE idEntityPtr< type >& idEntityPtr<type>::operator=( const idEntityPtr& ep )
 {
 	spawnId = ep.spawnId;
 	return *this;
-}
-
+};
 
 template< class type >
 ID_INLINE bool idEntityPtr<type>::SetSpawnId( int id )
@@ -793,22 +801,21 @@ ID_INLINE bool idEntityPtr<type>::SetSpawnId( int id )
 	// the reason for this first check is unclear:
 	// the function returning false may mean the spawnId is already set right, or the entity is missing
 	if( id == spawnId )
-	{
 		return false;
-	}
+
 	if( ( id >> GENTITYNUM_BITS ) == gameLocal.spawnIds[ id & ( ( 1 << GENTITYNUM_BITS ) - 1 ) ] )
 	{
 		spawnId = id;
 		return true;
-	}
+	};
 	return false;
-}
+};
 
 template< class type >
 ID_INLINE bool idEntityPtr<type>::IsValid() const
 {
 	return ( gameLocal.spawnIds[ spawnId & ( ( 1 << GENTITYNUM_BITS ) - 1 ) ] == ( spawnId >> GENTITYNUM_BITS ) );
-}
+};
 
 template< class type >
 ID_INLINE type* idEntityPtr<type>::GetEntity() const
@@ -816,17 +823,16 @@ ID_INLINE type* idEntityPtr<type>::GetEntity() const
 	int entityNum = spawnId & ( ( 1 << GENTITYNUM_BITS ) - 1 );
 	// DG: removed extraneous parenthesis to shut up clang
 	if( gameLocal.spawnIds[ entityNum ] == ( spawnId >> GENTITYNUM_BITS ) )
-	{
 		return static_cast<type*>( gameLocal.entities[ entityNum ] );
-	}
-	return NULL;
-}
+
+	return nullptr;
+};
 
 template< class type >
 ID_INLINE int idEntityPtr<type>::GetEntityNum() const
 {
 	return ( spawnId & ( ( 1 << GENTITYNUM_BITS ) - 1 ) );
-}
+};
 
 //  ===========================================================================
 
@@ -834,7 +840,7 @@ ID_INLINE int idEntityPtr<type>::GetEntityNum() const
 // these defines work for all startsounds from all entity types
 // make sure to change script/doom_defs.script if you add any channels, or change their order
 //
-typedef enum
+enum gameSoundChannel_t
 {
 	SND_CHANNEL_ANY = SCHANNEL_ANY,
 	SND_CHANNEL_VOICE = SCHANNEL_ONE,
@@ -853,7 +859,7 @@ typedef enum
 	// internal use only.  not exposed to script or framecommands.
 	SND_CHANNEL_AMBIENT,
 	SND_CHANNEL_DAMAGE
-} gameSoundChannel_t;
+};
 
 // content masks
 #define	MASK_ALL					(-1)
@@ -932,5 +938,3 @@ const int	CINEMATIC_SKIP_DELAY	= SEC2MS( 2.0f );
 #include "script/Script_Compiler.h"
 #include "script/Script_Interpreter.h"
 #include "script/Script_Thread.h"
-
-#endif	/* !__GAME_LOCAL_H__ */

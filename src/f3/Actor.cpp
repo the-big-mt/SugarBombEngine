@@ -453,7 +453,8 @@ EVENT( EV_SetWaitState,				idActor::Event_SetWaitState )
 EVENT( EV_GetWaitState,				idActor::Event_GetWaitState )
 END_CLASS
 
-const map<unsigned char, pair<const float, const float>> Actor::default_values = {
+const std::map<unsigned char, std::pair<const float, const float>> Actor::default_values =
+{
 	{ActorVal_Energy, {50, 50}},
 	{ActorVal_Responsibility, {50, 50}},
 	{ActorVal_Strength, {5, 5}},
