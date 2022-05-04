@@ -449,22 +449,22 @@ public:
 	
 	virtual bool			Collide( const trace_t& collision, const SbVec3& velocity );
 	
-	virtual void			GetAASLocation( idAAS* aas, idVec3& pos, int& areaNum ) const;
-	virtual void			GetAIAimTargets( const idVec3& lastSightPos, idVec3& headPos, idVec3& chestPos );
+	virtual void			GetAASLocation( idAAS* aas, SbVec3& pos, int& areaNum ) const;
+	virtual void			GetAIAimTargets( const SbVec3& lastSightPos, SbVec3& headPos, SbVec3& chestPos );
 	virtual void			DamageFeedback( idEntity* victim, idEntity* inflictor, int& damage );
 	void					CalcDamagePoints( idEntity* inflictor, idEntity* attacker, const idDict* damageDef,
 			const float damageScale, const int location, int* health, int* armor );
-	virtual	void			Damage( idEntity* inflictor, idEntity* attacker, const idVec3& dir, const char* damageDefName, const float damageScale, const int location );
+	virtual	void			Damage( idEntity* inflictor, idEntity* attacker, const SbVec3& dir, const char* damageDefName, const float damageScale, const int location );
 	
 	// New damage path for instant client feedback.
-	void					ServerDealDamage( int damage, idEntity& inflictor, idEntity& attacker, const idVec3& dir, const char* damageDefName, const int location );     // Actually updates the player's health independent of feedback.
+	void					ServerDealDamage( int damage, idEntity& inflictor, idEntity& attacker, const SbVec3& dir, const char* damageDefName, const int location );     // Actually updates the player's health independent of feedback.
 	int						AdjustDamageAmount( const int inputDamage );
 	
 	// use exitEntityNum to specify a teleport with private camera view and delayed exit
-	virtual void			Teleport( const idVec3& origin, const idAngles& angles, idEntity* destination );
+	virtual void			Teleport( const SbVec3& origin, const idAngles& angles, idEntity* destination );
 	
 	void					Kill( bool delayRespawn, bool nodamage );
-	virtual void			Killed( idEntity* inflictor, idEntity* attacker, int damage, const idVec3& dir, int location );
+	virtual void			Killed( idEntity* inflictor, idEntity* attacker, int damage, const SbVec3& dir, int location );
 	void					StartFxOnBone( const char* fx, const char* bone );
 	
 	renderView_t* 			GetRenderView();
@@ -756,6 +756,8 @@ public:
 	{
 		numProjectileKills = 0;
 	}
+	
+	bool IsInCombat() const; // OpenMW
 private:
 	// Stats & achievements
 	idAchievementManager	achievementManager;
