@@ -3496,6 +3496,29 @@ void idPlayer::CompleteQuest( const char* title )
 	};
 };
 
+void idPlayer::AddXP(int amount)
+{
+	AddActorValue(idActor::Values::XP, amount);
+	
+	if(GetActorValue(idActor::Values::XP) >= mnLevelXP)
+	{
+		AddActorValue(idActor::Values::XP, -mnLevelXP);
+		LevelUp(); // TODO: should be CheckLevelUp instead which called periodically
+	};
+};
+
+void idPlayer::LevelUp()
+{
+	++mnLevel;
+	
+	StartSound("mus_success", SND_CHANNEL_ANY, 0, false, nullptr);
+	
+	if( hud )
+		hud->ShowLevelUp( true );
+	
+	// TODO: check if we can open a stats screen
+};
+
 /*
 ===============
 idPlayer::GiveVideo
