@@ -1034,8 +1034,6 @@ void idPlayer::Save( idSaveGame* savefile ) const
 	savefile->WriteInt( lastHudPowerup );
 	savefile->WriteInt( hudPowerupDuration );
 	
-	
-	
 	savefile->WriteInt( heartRate );
 	
 	savefile->WriteFloat( heartInfo.GetStartTime() );
@@ -1332,8 +1330,6 @@ void idPlayer::Restore( idRestoreGame* savefile )
 	savefile->ReadInt( hudPowerup );
 	savefile->ReadInt( lastHudPowerup );
 	savefile->ReadInt( hudPowerupDuration );
-	
-	
 	
 	savefile->ReadInt( heartRate );
 	
@@ -6130,13 +6126,9 @@ idPlayer::GetPDA
 const idDeclPDA* idPlayer::GetPDA() const
 {
 	if( inventory.pdas.Num() > 0 )
-	{
 		return inventory.pdas[ 0 ];
-	}
-	else
-	{
-		return nullptr;
-	}
+	
+	return nullptr;
 }
 
 
@@ -9425,9 +9417,7 @@ idPlayer::AddAIKill
 void idPlayer::AddAIKill()
 {
 	if( ( weapon_soulcube < 0 ) || ( inventory.weapons & ( 1 << weapon_soulcube ) ) == 0 )
-	{
 		return;
-	}
 }
 
 /*
