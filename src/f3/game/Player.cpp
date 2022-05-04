@@ -3652,11 +3652,8 @@ void idPlayer::GivePDA( const idDeclPDA* pda, const char* securityItem )
 			case GAME_BASE:
 				GetAchievementManager().EventCompletesAchievement( ACHIEVEMENT_PDAS_BASE );
 				break;
-			case GAME_D3XP:
+			case GAME_F3NV:
 				GetAchievementManager().EventCompletesAchievement( ACHIEVEMENT_PDAS_ROE );
-				break;
-			case GAME_D3LE:
-				GetAchievementManager().EventCompletesAchievement( ACHIEVEMENT_PDAS_LE );
 				break;
 		}
 	}
@@ -11313,18 +11310,14 @@ idPlayer::GetExpansionType
 */
 gameExpansionType_t idPlayer::GetExpansionType() const
 {
-	const char* expansion = spawnArgs.GetString( "player_expansion", "d3" );
-	if( idStr::Icmp( expansion, "d3" ) == 0 )
+	const char* expansion = spawnArgs.GetString( "player_expansion", "f3" );
+	if( idStr::Icmp( expansion, "f3" ) == 0 )
 	{
 		return GAME_BASE;
 	}
-	if( idStr::Icmp( expansion, "d3xp" ) == 0 )
+	if( idStr::Icmp( expansion, "f3nv" ) == 0 )
 	{
-		return GAME_D3XP;
-	}
-	if( idStr::Icmp( expansion, "d3le" ) == 0 )
-	{
-		return GAME_D3LE;
+		return GAME_FNV;
 	}
 	return GAME_UNKNOWN;
 }

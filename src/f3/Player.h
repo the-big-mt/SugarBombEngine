@@ -166,8 +166,7 @@ const int ASYNC_PLAYER_INV_CLIP_BITS = -7;								// -7 bits to cover the range 
 enum gameExpansionType_t
 {
 	GAME_BASE,
-	GAME_D3XP,
-	GAME_D3LE,
+	GAME_F3NV,
 	GAME_UNKNOWN
 };
 
@@ -742,7 +741,7 @@ public:
 		return entityNumber == gameLocal.GetLocalClientNum();
 	}
 	
-	gameExpansionType_t		GetExpansionType() const;
+	gameExpansionType_t		GetExpansionType() const; // TODO: why here?
 	
 	void					AddProjectileKills()
 	{
