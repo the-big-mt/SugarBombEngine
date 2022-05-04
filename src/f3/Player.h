@@ -311,7 +311,6 @@ public:
 	bool					objectiveSystemOpen;
 	int						quickSlot[ NUM_QUICK_SLOTS ];
 	
-	int						weapon_soulcube;
 	int						weapon_pipboy;
 	int						weapon_fists;
 	int						weapon_flashlight;
@@ -344,7 +343,6 @@ public:
 	int						controllerShakeTimeGroup;
 	
 	bool					hiddenWeapon;		// if the weapon is hidden ( in noWeapons maps )
-	idEntityPtr<idProjectile> soulCubeProjectile;
 	
 	idAimAssist				aimAssist;
 	
@@ -566,7 +564,6 @@ public:
 	bool					CanShowWeaponViewmodel() const;
 	
 	void					AddAIKill();
-	void					SetSoulCubeProjectile( idProjectile* projectile );
 	
 	void					AdjustHeartRate( int target, float timeInSecs, float delay, bool force );
 	void					SetCurrentHeartRate();
