@@ -861,6 +861,11 @@ private:
 	int						lastHudPowerup;
 	int						hudPowerupDuration;
 	
+	int mnLevelXP{0};
+	int mnTotalXP{0};
+	
+	int mnLevel{0};
+	
 	// mp
 	bool					respawning;				// set to true while in SpawnToPoint for telefrag checks
 	bool					leader;					// for sudden death situations
