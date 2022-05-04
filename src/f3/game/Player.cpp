@@ -3455,6 +3455,53 @@ void idPlayer::CompleteObjective( const char* title )
 
 /*
 ===============
+idPlayer::GiveQuest
+===============
+*/
+void idPlayer::GiveQuest( const char* title, const char* text )
+{
+	f3QuestInfo& info = inventory.questNames.Alloc();
+	info.title = title;
+	info.text = text;
+	
+	StartSound( "snd_questup", SND_CHANNEL_ANY, 0, false, nullptr );
+	
+	if( hud )
+	{
+		hud->SetupQuest( title, text );
+		hud->ShowQuest( false );
+		questUp = true;
+	};
+};
+
+/*
+===============
+idPlayer::CompleteQuest
+===============
+*/
+void idPlayer::CompleteQuest( const char* title )
+{
+	int c = inventory.questNames.Num();
+	for( int i = 0;  i < c; i++ )
+	{
+		if( idStr::Icmp( inventory.questNames[i].title, title ) == 0 )
+		{
+			inventory.questNames.RemoveIndex( i );
+			break;
+		};
+	};
+	
+	StartSound( "snd_questup", SND_CHANNEL_ANY, 0, false, nullptr );
+	
+	if( hud )
+	{
+		hud->SetupQuestComplete( title );
+		hud->ShowQuest( true );
+	};
+};
+
+/*
+===============
 idPlayer::GiveVideo
 ===============
 */

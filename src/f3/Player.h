@@ -533,6 +533,10 @@ public:
 	void					GiveObjective( const char* title, const char* text, const idMaterial* screenshot );
 	void					CompleteObjective( const char* title );
 	
+	// Quests
+	void GiveQuest(const char *title); // TODO: AddQuest?
+	void					CompleteQuest( const char* title, bool failed = false); // const CGameQuest &aQuest?
+	
 	bool					GivePowerUp( int powerup, int time, unsigned int giveFlags );
 	void					ClearPowerUps();
 	bool					PowerUpActive( int powerup ) const;
