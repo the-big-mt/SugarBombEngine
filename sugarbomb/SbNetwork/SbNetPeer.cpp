@@ -26,6 +26,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 //*****************************************************************************
 
 #include "SbNetPeer.hpp"
+//#include "SbNetSocket.hpp"
 
 //*****************************************************************************
 

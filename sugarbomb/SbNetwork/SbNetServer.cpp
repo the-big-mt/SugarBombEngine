@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -25,13 +25,24 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-#include "NetServer.hpp"
+#include "SbNetServer.hpp"
+#include "SbNetPeer.hpp"
+//#include "SbNetSocket.hpp"
 
 //*****************************************************************************
 
 namespace sbe::SbNetwork
 {
 
-SbNetServer::SbNetServer(uint32_t anPort) : mnPort(anPort){}
+SbNetServer::SbNetServer(SbNetSocket &aSocket, uint16_t anPort) : mSocket(aSocket)
+{
+	mSocket.Bind(anPort);
+};
+
+void SbNetServer::BroadcastMsg(const INetMsg &aMsg)
+{
+	for(auto It : mvClients)
+		It->SendMsg(aMsg);
+};
 
 }; // namespace sbe::SbNetwork

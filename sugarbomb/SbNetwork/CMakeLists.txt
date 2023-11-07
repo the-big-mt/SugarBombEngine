@@ -4,13 +4,7 @@ project(SBE-network)
 
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} PROJECT_SOURCES)
 
-if(WIN32)
-	aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/win PROJECT_SOURCES_PLATFORM)
-elseif(UNIX)
-	aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/posix PROJECT_SOURCES_PLATFORM)
-endif()
-
-if(SBE_SINGLE_BINARY)
+if(SBE_NETWORK_HARD_LINKED)
 	set(LIB_TYPE STATIC)
 else()
 	set(LIB_TYPE MODULE)
@@ -26,14 +20,18 @@ target_include_directories(${PROJECT_NAME}
 
 target_sources(${PROJECT_NAME}
 	PRIVATE ${PROJECT_SOURCES}
-	PRIVATE ${PROJECT_SOURCES_PLATFORM}
 )
 
 if(WIN32)
-if(NOT SBE_SINGLE_BINARY)
+	add_subdirectory(win)
+	
 	target_link_libraries(${PROJECT_NAME} ws2_32) # Link against the Windows sockets 2.0 library
+elseif(UNIX)
+	#aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/posix PROJECT_SOURCES_PLATFORM)
+	#add_subdirectory(posix)
 endif()
 
+if(NOT SBE_NETWORK_HARD_LINKED)
 	set_target_properties(${PROJECT_NAME} PROPERTIES
 		OUTPUT_NAME "SbNetwork"
 	)

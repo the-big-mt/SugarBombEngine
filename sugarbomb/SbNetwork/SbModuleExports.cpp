@@ -26,9 +26,12 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
+#include <functional>
+
 #include "SbNetwork/SbModuleAPI.hpp"
 
 #include "SbNetworkSystem.hpp"
+#include "SbNetworkNull.hpp"
 
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]
@@ -44,14 +47,14 @@ C_EXPORT sbe::netExport_t *GetNetworkAPI(sbe::netImport_t *apModuleImports)
 {
 	if(apModuleImports->version == sbe::NET_API_VERSION)
 	{
-		static sbe::ISystem &System = *apModuleImports->sys;
+		static sbe::SbSystem &System = *apModuleImports->sys;
 		static sbe::SbNetwork::SbNetworkNull NetworkNull;
 		static sbe::SbNetwork::SbNetworkSystem NetworkSystem(System, NetworkNull);
 		
 		static sbe::netExport_t ModuleExports;
 		
 		ModuleExports.version = sbe::NET_API_VERSION;
-		ModuleExports.networkSystem = &NetworkSystem;
+		ModuleExports.networkSystem = std::addressof(NetworkSystem);
 		
 		return &ModuleExports;
 	};

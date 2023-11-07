@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -37,7 +37,7 @@ namespace sbe::SbNetwork
 class SbNetConnCommon : public INetConnection
 {
 public:
-	bool IsLocal() const override {return mAdr.meType == netadr_t::Type::Local;}
+	bool IsLocal() const override {return mAdr.IsLocal();} //mAdr.meType == netadr_t::Type::Local
 private:
 	struct Status
 	{

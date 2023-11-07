@@ -27,7 +27,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "SbNetwork/INetConn.hpp"
+#include "SbNetConnCommon.hpp"
 
 //*****************************************************************************
 

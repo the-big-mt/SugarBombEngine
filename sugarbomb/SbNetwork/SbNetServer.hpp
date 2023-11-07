@@ -22,6 +22,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /// @file
+/// @brief a type of net peer which provides a type of "one-to-many" connection model (other peers are connected as clients)
 
 //*****************************************************************************
 
@@ -30,6 +31,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 
 #include "SbNetwork/INetServer.hpp"
+
+#include "SbNetSocket.hpp"
 
 //*****************************************************************************
 
@@ -41,15 +44,17 @@ using tNetPeerVec = std::vector<INetPeer*>;
 class SbNetServer : public INetServer
 {
 public:
-	SbNetServer(uint32_t anPort);
+	SbNetServer(SbNetSocket &aSocket, uint16_t anPort);
 	
 	INetPeer *GetClient(uint32_t anIndex) const override {return mvClients.at(anIndex);}
 	
-	uint32_t GetPort() const {return mnPort;}
+	void BroadcastMsg(const INetMsg &aMsg) override;
+	
+	uint16_t GetPort() const {return mSocket.GetAdr().port;}
 private:
 	tNetPeerVec mvClients;
 	
-	uint32_t mnPort{0};
+	SbNetSocket &mSocket;
 };
 
 }; // namespace sbe::SbNetwork
