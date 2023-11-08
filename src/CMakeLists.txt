@@ -6,7 +6,13 @@ include_directories(
 	${SBE_ROOT}/common/idlib
 )
 
+add_subdirectory(CoreLibs)
+
+add_subdirectory(SbNetwork)
+add_subdirectory(SbPhysics)
+
 #add_subdirectory(framework)
+add_subdirectory(SbGameFramework)
 
 if(SBE_BUILD_TOOLS)
 	add_subdirectory(tools)
