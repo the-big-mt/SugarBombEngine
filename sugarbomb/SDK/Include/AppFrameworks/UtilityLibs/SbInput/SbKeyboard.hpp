@@ -33,6 +33,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
+namespace sbe
+{
+
 struct SbKeyboard
 {
 	// keyboard input polling
@@ -46,3 +49,5 @@ struct SbKeyboard
 	///
 	virtual void EndInputEvents() = 0;
 };
+
+}; // namespace sbe

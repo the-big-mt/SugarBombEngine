@@ -38,9 +38,7 @@ struct IFile;
 struct IFileSystem
 {
 	///
-	virtual void Init() = 0;
-	
-	///
+	virtual void Init(const char *asBasePath = ".", bool abFileLogging = false, bool abUseArchives = false) = 0;
 
 	/// This will shut down the entire vfs
 	virtual void Shutdown() = 0;

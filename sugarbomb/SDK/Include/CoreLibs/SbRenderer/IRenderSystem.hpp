@@ -41,10 +41,13 @@ struct IWindow;
 
 struct IRenderSystem
 {
-	///
+	/// Set up cvars and basic data structures, but don't
+	/// init OpenGL, so it can also be used for dedicated servers
+	// BP: why dedicated servers even need this module for? model caching shouldn't be here anyway...
 	virtual void Init(const IWindow &aWindow) = 0; // TODO: IRender(ing)Surface? // BP: Also might be better having this as pointer instead 
+																				 // for offscreen rendering support (we don't need that atm, though)
 	
-	///
+	/// Only called before quitting
 	virtual void Shutdown() = 0;
 	
 	/// Allocate a render world to be used for drawing
@@ -95,6 +98,9 @@ struct IRenderSystem
 	
 	///
 	virtual bool HasQuadBufferSupport() const = 0;
+	
+	///
+	virtual void SetShowBuffers(const bool abShow) = 0;
 };
 
 }; // namespace sbe

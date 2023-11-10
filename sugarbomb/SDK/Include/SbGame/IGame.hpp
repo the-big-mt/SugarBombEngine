@@ -36,15 +36,24 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
+class SbDict;
 class idUserCmdMgr;
+
+struct SbFile;
+struct SbRenderWorld;
+struct SbSoundWorld;
+
+constexpr auto TIME_GROUP1{0};
+constexpr auto TIME_GROUP2{1};
+
 struct gameReturn_t;
 
-struct IGame
+struct SbGame
 {
-	///
+	/// Initialize the game for the first time
 	virtual void Init() = 0;
 	
-	///
+	/// Shut down the entire game
 	virtual void Shutdown() = 0;
 	
 	/// Runs a game frame, may return a session command for level changing, etc

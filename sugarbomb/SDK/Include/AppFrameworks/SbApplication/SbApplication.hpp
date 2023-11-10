@@ -38,15 +38,16 @@ public:
 	 *
 	 * @param argc - number of the app's launch command-line arguments
 	 * @param argv - array of strings containing all the command-line arguments
-	 * @return either EXIT_SUCCESS or EXIT_FAILURE dependiing on the app's execution result
+	 * @return either EXIT_SUCCESS or EXIT_FAILURE depending on the app's execution result
 	 */
-	static int Main(int argc, char **argv);
+	static int Main(int argc, char **argv); // TODO: -> SbMain free func?
 public:
 	SbApplication(SbSystem &aSystem, int argc, char **argv);
 	virtual ~SbApplication();
 
-	/// This method first initializes the app and runs it
-	virtual void Run() = 0;
+	/// This method first initializes the app and then runs it
+	/// @return execution result
+	virtual int Run() = 0;
 protected:
 	/// Call this method if you want to stop the app's execution and close it
 	void Stop();
@@ -67,11 +68,12 @@ protected:
 
 	/// This method can be used to do things at the end of each frame
 	virtual void PostFrame(){}
-
-	SbSystem &mSystem;
+	SbSystem &mSystem; // TODO: unused?
 private:
 	void Init();
-	
+
+	void ParseCommandLine(int argc, const char * const *argv);
+private:
 	bool mbInitialized{false};
 	bool mbWantClose{false};
 };

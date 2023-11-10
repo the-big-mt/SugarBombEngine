@@ -40,20 +40,24 @@ namespace sbe
 class SbLibrary
 {
 public:
+	SbLibrary();
 	SbLibrary(const char *asPath);
 	~SbLibrary();
+	
+	///
+	void Load(const char *asPath);
+	
+	///
+	void Free(); // TODO: Unload?
 	
 	void *GetSymbol(const char *asSymbol) const;
 
 	///
 	template<typename T>
 	T GetSymbol(const char *asSymbol) const {return reinterpret_cast<T>(GetSymbol(asSymbol));}
-private:
-	///
-	void Load(const char *asPath);
 	
 	///
-	void Free(); // TODO: Unload?
+	operator bool() const {return mnHandle != nullptr;}
 private:
 	intptr_t mnHandle{nullptr};
 };

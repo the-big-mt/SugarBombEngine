@@ -39,7 +39,7 @@ namespace sbe
 constexpr auto NET_API_VERSION{1};
 
 struct INetworkSystem;
-struct ISystem;
+struct SbSystem;
 //struct idCmdSystem;
 //struct idCVarSystem;
 
@@ -48,7 +48,7 @@ struct netImport_t
 	int version{NET_API_VERSION}; ///< API version
 	//idCmdSystem *cmdSystem{nullptr}; ///< console command system
 	//idCVarSystem *cvarSystem{nullptr}; ///< console variable system
-	ISystem *sys{nullptr}; ///< non-portable system services
+	SbSystem *sys{nullptr}; ///< non-portable system services
 };
 
 struct netExport_t

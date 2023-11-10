@@ -17,12 +17,14 @@ You should have received a copy of the GNU General Public License along with Sug
 */
 
 /// @file
+/// @brief client-side application framework
 
 //*****************************************************************************
 
 #pragma once
 
 #include <string>
+#include <memory>
 
 #include "AppFrameworks/SbApplication/SbApplication.hpp"
 
@@ -31,7 +33,7 @@ You should have received a copy of the GNU General Public License along with Sug
 namespace sbe
 {
 
-struct ISystem;
+struct SbSystem;
 struct IRenderSystem;
 struct IInputSystem;
 struct IWindow;
@@ -40,8 +42,10 @@ class SbClientApp : public SbApplication
 {
 public:
 	SbClientApp(const char *asWindowTitle, int anWindowWidth, int anWindowHeight, bool abWindowFullScreen,
-	IRenderSystem &aRenderSystem, IInputSystem &aInputSystem, ISystem &aSystem, int argc, char **argv);
+	IRenderSystem &aRenderSystem, IInputSystem &aInputSystem, SbSystem &aSystem, int argc, char **argv);
 	virtual ~SbClientApp();
+	
+	void Run() override;
 private:
 	IWindow *CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen); // TODO: make title use wide string
 

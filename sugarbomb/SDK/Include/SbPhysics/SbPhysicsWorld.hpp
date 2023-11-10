@@ -34,7 +34,8 @@ namespace sbe
 
 struct SbPhysicsWorld
 {
-	
+	///
+	//virtual void Simulate(float afTime) = 0;
 };
 
 }; // namespace sbe

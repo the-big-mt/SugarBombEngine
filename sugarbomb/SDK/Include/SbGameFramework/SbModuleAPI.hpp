@@ -26,6 +26,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 /// @file
+/// @brief Game Framework Module API Definitions
 
 //*****************************************************************************
 
@@ -36,15 +37,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
-/*
-===============================================================================
-
-	Game framework API.
-
-===============================================================================
-*/
-
-const int GAMEFRAMEWORK_API_VERSION		= 1;
+constexpr int GAMEFRAMEWORK_API_VERSION		= 1;
 
 struct IGameFramework;
 struct ISystem;

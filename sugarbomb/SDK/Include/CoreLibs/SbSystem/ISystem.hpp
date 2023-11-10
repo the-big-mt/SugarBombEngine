@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License along with Sug
 */
 
 /// @file
+/// @brief system module interface
 
 //*****************************************************************************
 
@@ -28,7 +29,7 @@ You should have received a copy of the GNU General Public License along with Sug
 namespace sbe
 {
 
-struct SbSystemDesc;
+struct SbSystemDesc; // TODO: SbSystemProps?
 
 struct SbSystem
 {

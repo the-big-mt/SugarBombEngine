@@ -21,6 +21,8 @@ You should have received a copy of the GNU General Public License along with Sug
 
 //*****************************************************************************
 
+SbLibrary::SbLibrary() = default;
+
 SbLibrary::SbLibrary(const char *asName)
 {
 	Load(asName);

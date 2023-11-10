@@ -46,7 +46,7 @@ namespace sbe
 
 constexpr auto INPUT_API_VERSION{1};
 
-struct ISystem;
+struct SbSystem;
 struct IInputSystem;
 struct idCmdSystem;
 struct idCVarSystem;
@@ -54,7 +54,7 @@ struct idCVarSystem;
 struct inputImport_t
 {
 	int version{-1}; ///< API version
-	ISystem *sys{nullptr}; ///< system
+	SbSystem *sys{nullptr}; ///< system
 	idCmdSystem *cmdSystem{nullptr}; ///< console command system
 	idCVarSystem *cvarSystem{nullptr}; ///< console variable system
 	//IFileSystem *fileSystem{nullptr}; ///< file system

@@ -33,6 +33,9 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
+namespace sbe
+{
+
 struct SbMouse
 {
 	static constexpr auto MAX_MOUSE_EVENTS{256};
@@ -42,3 +45,5 @@ struct SbMouse
 	///
 	virtual int PollInputEvents(int mouseEvents[MAX_MOUSE_EVENTS][2]) = 0;
 };
+
+}; // namespace sbe

@@ -48,33 +48,35 @@ namespace sbe
 /*
 ===============================================================================
 
-	Game API.
+	Game API
 
 ===============================================================================
 */
 
-constexpr auto GAME_API_VERSION{8};
+constexpr auto GAME_API_VERSION{9};
 
-struct IGame;
-struct IGameEdit;
-struct ISystem;
+struct SbGame;
+struct SbGameEdit;
+struct SbGameShell;
+
+struct SbSystem;
 struct IGameFramework;
 struct idCmdSystem;
 struct idCVarSystem;
-struct IFileSystem;
-struct IRenderSystem;
-struct ISoundSystem;
-struct IRenderModelManager;
-struct IUserInterfaceManager;
-struct IDeclManager;
+struct SbFileSystem;
+struct SbRenderSystem;
+struct SbSoundSystem;
+struct SbRenderModelManager;
+struct SbUserInterfaceManager;
+struct SbDeclManager;
 struct idAASFileManager;
-struct ICollisionModelManager;
-struct IInputManager;
-struct IDialogueManager;
+struct SbCollisionModelManager;
+struct SbInputManager;
+struct SbDialogueManager;
 
 struct gameImport_t
 {
-	int							version;				///< API version
+	int version; ///< API version
 	
 	// Tier 1 - Core Engine Functionality
 	
@@ -94,14 +96,15 @@ struct gameImport_t
 	
 	// Tier 2 - Genre-Specific Functionality
 	
-	IDialogueManager *dialogueManager{nullptr};
+	//SbDialogueManager *dialogueManager{nullptr};
 };
 
 struct gameExport_t
 {
-	int							version; ///< API version
-	IGame* 					game{nullptr}; ///< interface to run the game
-	IGameEdit* 				gameEdit{nullptr}; ///< interface for in-game editing
+	int version; ///< API version
+	SbGame *game{nullptr}; ///< Interface to run the game
+	SbGameEdit *gameEdit{nullptr}; ///< Interface for in-game editing
+	SbGameShell *gameShell{nullptr}; ///< Interface to access the game UI
 };
 
 extern "C" using GetGameAPI_t = gameExport_t *(*)( gameImport_t* import );
