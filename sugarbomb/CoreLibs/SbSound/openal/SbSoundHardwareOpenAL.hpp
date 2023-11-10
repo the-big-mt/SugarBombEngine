@@ -42,7 +42,7 @@ struct ISystem;
 namespace SbSound
 {
 
-class SbSoundHardwareOpenAL : public SbSoundHardware
+class SbSoundHardwareOpenAL final : public SbSoundHardware
 {
 public:
 	SbSoundHardwareOpenAL(ISystem &aSystem);

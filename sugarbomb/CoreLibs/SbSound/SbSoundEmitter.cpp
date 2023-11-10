@@ -35,4 +35,8 @@ void SbSoundEmitter::Update()
 {
 };
 
+void SbSoundEmitter::Reset()
+{
+};
+
 }; // namespace sbe::SbSound

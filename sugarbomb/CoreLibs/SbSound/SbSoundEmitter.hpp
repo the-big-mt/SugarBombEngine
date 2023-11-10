@@ -35,6 +35,8 @@ public:
 	void Free(bool abImmediate) override;
 	
 	void Update() override;
+public:
+	void Reset();
 };
 
 }; // namespace sbe::SbSound

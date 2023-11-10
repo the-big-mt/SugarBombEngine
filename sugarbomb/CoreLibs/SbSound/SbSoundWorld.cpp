@@ -27,41 +27,78 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 /// @file
 
+//*****************************************************************************
+
 #include "SbSoundWorld.hpp"
+#include "SbSoundEmitter.hpp"
+//#include "SbSoundChannel.hpp"
+
+#include "CoreLibs/SbSystem/ISystem.hpp"
+
+//*****************************************************************************
 
 namespace sbe::SbSound
 {
+
+SbSoundWorld::SbSoundWorld(ISystem &aSystem) : mSystem(aSystem){}
 
 void SbSoundWorld::ClearAllEmitters()
 {
 };
 
+/*
+========================
+idSoundWorldLocal::StopAllSounds
+
+This is called from the main thread.
+========================
+*/
 void SbSoundWorld::StopAllSounds()
 {
+	for(int i = 0; i < mvEmitters.Num(); ++i)
+		mvEmitters[i]->Reset();
 };
 
+/*
+========================
+idSoundWorldLocal::AllocSoundEmitter
+
+This is called from the main thread.
+========================
+*/
 ISoundEmitter *SbSoundWorld::AllocEmitter()
 {
-	return nullptr;
+	SbSoundEmitter *pEmitter{new SbSoundEmitter()};
+	mvEmitters.push_back(pEmitter);
+	return pEmitter;
 };
 
+/*
+========================
+idSoundWorldLocal::EmitterForIndex
+========================
+*/
 ISoundEmitter *SbSoundWorld::GetEmitterByIndex(int anIndex) const
 {
-	return nullptr;
+	// This is only used by save/load code which assumes index = 0 is invalid
+	// Which is fine since we use index 0 for the local sound emitter anyway
+	if(anIndex <= 0)
+		return nullptr;
+	
+	if(anIndex >= mvEmitters.Num())
+		mSystem.Error("idSoundWorldLocal::EmitterForIndex: %i >= %i", anIndex, mvEmitters.Num());
+
+	return mvEmitters.at(anIndex); // mvEmitters[anIndex]
 };
 
 void SbSoundWorld::Skip(int anTime)
 {
 };
 
-void SbSoundWorld::SetPaused(bool abPaused)
+void SbSoundWorld::Update(float afTimeStep)
 {
-	mbPaused = abPaused;
-};
-
-bool SbSoundWorld::IsPaused() const
-{
-	return mbPaused;
+	for(auto It : mvEmitters)
+		It->Update();
 };
 
 }; // namespace sbe::SbSound

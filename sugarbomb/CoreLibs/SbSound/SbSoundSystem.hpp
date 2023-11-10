@@ -24,6 +24,8 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #include "CoreLibs/SbSound/ISoundSystem.hpp"
 
+#include "CoreLibs/SbMain/SbStaticList.hpp"
+
 //*****************************************************************************
 
 namespace sbe
@@ -35,6 +37,9 @@ namespace SbSound
 {
 
 struct SbSoundHardware;
+struct SbSoundWorld;
+
+using tSoundWorldList = SbStaticList<SbSoundWorld*, 32>;
 
 class SbSoundSystem : public ISoundSystem
 {
@@ -55,10 +60,14 @@ public:
 	void BeginLevelLoad() override;
 	void EndLevelLoad() override;
 private:
+	tSoundWorldList mlstWorlds;
+	
 	ISystem &mSystem;
 	SbSoundHardware &mHardware;
 	
-	ISoundWorld *mpActiveWorld{nullptr};
+	SbSoundWorld *mpActiveWorld{nullptr};
 };
+
+//extern SbSoundSystem gSoundSystemLocal;
 
 };}; // namespace sbe::SbSound

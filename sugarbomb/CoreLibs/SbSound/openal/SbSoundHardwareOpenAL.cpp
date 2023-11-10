@@ -43,6 +43,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 #include <AL/alext.h>
 
 #include "SbSoundHardwareOpenAL.hpp"
+#include "SbSoundVoiceOpenAL.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
@@ -204,7 +205,7 @@ SbSoundVoice *SbSoundHardwareOpenAL::AllocateVoice(const SbSoundSample *apLeadin
 	if(apLeadinSample == nullptr)
 		return nullptr;
 	
-	return nullptr;
+	return new SbSoundVoiceOpenAL();
 };
 
 /*
@@ -219,6 +220,12 @@ void SbSoundHardwareOpenAL::FreeVoice(SbSoundVoice *apVoice)
 	// Stop() is asyncronous, so we won't flush bufferes until the
 	// voice on the zombie channel actually returns !IsPlaying()
 	//zombieVoices.Append( voice ); // TODO
+	
+	if(apVoice)
+	{
+		delete apVoice;
+		apVoice = nullptr;
+	};
 };
 
 }; // namespace sbe::SbSound

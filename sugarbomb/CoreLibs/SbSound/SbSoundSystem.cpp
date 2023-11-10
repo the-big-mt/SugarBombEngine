@@ -29,6 +29,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
+//#pragma hdrstop
+
+//#include "precompiled.h"
+
 #include "SbSoundSystem.hpp"
 #include "SbSoundWorld.hpp"
 #include "SbSoundHardware.hpp"
@@ -40,17 +44,64 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe::SbSound
 {
 
+/*
+*******************************************************************************
+
+idSoundSystemLocal
+
+*******************************************************************************
+*/
+
 SbSoundSystem::SbSoundSystem(ISystem &aSystem, SbSoundHardware &aHardware)
 	: mSystem(aSystem), mHardware(aHardware){}
 
+/*
+========================
+idSoundSystemLocal::Init
+
+Initialize the SoundSystem.
+========================
+*/
 void SbSoundSystem::Init(bool abUseCompression, int anMaxSamples)
 {
-	mHardware.Init();
+	mSystem.Printf( "----- Initializing Sound System ------\n" );
+	
+#ifndef SBE_SINGLE_BINARY
+	// initialize idLib
+	//idLib::Init(); // TODO
+
+	// register static cvars declared in the module
+	//idCVar::RegisterStaticVars();
+#endif
+	
+	//soundTime = Sys_Milliseconds();
+	//random.SetSeed(soundTime);
+	
+	//if(!s_noSound.GetBool())
+	{
+		mHardware.Init();
+		//InitStreamBuffers();
+	};
+	
+	//mpCmdSystem->AddCommand( "testSound", TestSound_f, 0, "tests a sound", idCmdSystem::ArgCompletion_SoundName );
+	//mpCmdSystem->AddCommand( "s_restart", RestartSound_f, 0, "restart sound system" );
+	//mpCmdSystem->AddCommand( "listSamples", ListSamples_f, 0, "lists all loaded sound samples" );
+	
+	mSystem.Printf( "sound system initialized.\n" );
+	mSystem.Printf( "--------------------------------------\n" );
 };
 
+/*
+========================
+idSoundSystemLocal::Shutdown
+========================
+*/
 void SbSoundSystem::Shutdown()
 {
 	mHardware.Shutdown();
+	//FreeStreamBuffers();
+	//samples.DeleteContents(true);
+	//sampleHash.Free();
 };
 
 /*
@@ -60,12 +111,31 @@ idSoundSystemLocal::Render
 */
 void SbSoundSystem::Update(float afTimeStep)
 {
+	//if(s_noSound.GetBool()) // TODO
+		//return; // TODO
+	
+	//if(needsRestart) // TODO
+	{
+		//needsRestart = false; // TODO
+		//Restart(); // TODO
+	};
+	
+	//SCOPED_PROFILE_EVENT( "SoundSystem::Render" ); // TODO
+	
+	if(mpActiveWorld)
+		mpActiveWorld->Update(afTimeStep);
+	
 	mHardware.Update();
+	
+	// The sound system doesn't use game time or anything like that because the sounds are decoded in real time.
+	//soundTime = Sys_Milliseconds(); // TODO
 };
 
 ISoundWorld *SbSoundSystem::AllocWorld()
 {
-	return new SbSoundWorld();
+	auto pWorld{new SbSoundWorld(mSystem)};
+	mlstWorlds.push_back(pWorld);
+	return pWorld;
 };
 
 void SbSoundSystem::FreeWorld(ISoundWorld *apWorld)
@@ -80,7 +150,7 @@ void SbSoundSystem::FreeWorld(ISoundWorld *apWorld)
 void SbSoundSystem::SetPlayingWorld(ISoundWorld *apWorld)
 {
 	if(apWorld)
-		mpActiveWorld = apWorld;
+		mpActiveWorld = dynamic_cast<SbSoundWorld*>(apWorld);
 };
 
 ISoundWorld *SbSoundSystem::GetPlayingWorld() const

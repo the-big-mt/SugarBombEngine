@@ -32,25 +32,4 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe::SbSound
 {
 
-void SbSoundHardwareStub::Init()
-{
-};
-
-void SbSoundHardwareStub::Shutdown()
-{
-};
-
-void SbSoundHardwareStub::Update()
-{
-};
-
-SbSoundVoice *SbSoundHardwareStub::AllocateVoice(const SbSoundSample *apLeadinSample, const SbSoundSample *apLoopingSample)
-{
-	return nullptr;
-};
-
-void SbSoundHardwareStub::FreeVoice(SbSoundVoice *apVoice)
-{
-};
-
 }; // namespace sbe::SbSound

@@ -27,29 +27,77 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 /// @file
 
+//*****************************************************************************
+
 #pragma once
+
+#include <vector>
 
 #include "CoreLibs/SbSound/ISoundWorld.hpp"
 
-namespace sbe::SbSound
+//*****************************************************************************
+
+namespace sbe
 {
+
+struct ISystem;
+
+namespace SbSound
+{
+
+struct SbSoundEmitter;
+using tSoundEmitterVec = std::vector<SbSoundEmitter*>;
+
+class SbSoundChannel;
 
 class SbSoundWorld : public ISoundWorld
 {
 public:
-	void ClearAllEmitters() override;
-	void StopAllSounds() override;
+	SbSoundWorld(ISystem &aSystem);
 	
-	ISoundEmitter *AllocEmitter() override;
+	//------------------------
+	// Functions from ISoundWorld, implemented in SbSoundWorld.cpp
+	//------------------------
 	
-	ISoundEmitter *GetEmitterByIndex(int anIndex) const override;
+	/// Called at map start
+	/*virtual*/ void ClearAllEmitters() override;
 	
-	void Skip(int anTime) override;
+	/// Stop all playing sounds
+	/*virtual*/ void StopAllSounds() override;
 	
-	void SetPaused(bool abPaused) override;
-	bool IsPaused() const override;
+	/// Get a new emitter that can play sounds in this world
+	/*virtual*/ ISoundEmitter *AllocEmitter() override;
+	
+	/// For load games
+	/*virtual*/ ISoundEmitter *GetEmitterByIndex(int anIndex) const override;
+	
+	/*virtual*/ void Skip(int anTime) override;
+	
+	/*virtual*/ void SetPaused(bool abPaused) override {mbPaused = abPaused;}
+	/*virtual*/ bool IsPaused() const override {return mbPaused;}
+	
+	//=======================================
+public:
+	//------------------------
+	// Random stuff that's not exposed outside the sound system
+	//------------------------
+	
+	void Update(float afTimeStep);
+	
+	//void OnReloadSound(const idDecl *decl); // TODO
+	
+	SbSoundChannel *AllocChannel();
+	void FreeChannel(SbSoundChannel *apChannel);
 private:
+	tSoundEmitterVec mvEmitters;
+	
+	// TODO
+	//tSoundChannelVec mvIdleChannels;
+	//tSoundChannelVec mvActiveChannels;
+	
+	ISystem &mSystem;
+	
 	bool mbPaused{false};
 };
 
-}; // namespace sbe::SbSound
+};}; // namespace sbe::SbSound

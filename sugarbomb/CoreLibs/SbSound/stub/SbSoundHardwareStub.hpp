@@ -37,13 +37,13 @@ namespace sbe::SbSound
 class SbSoundHardwareStub : public SbSoundHardware
 {
 public:
-	void Init() override;
-	void Shutdown() override;
+	void Init() override {}
+	void Shutdown() override {}
 	
-	void Update() override;
+	void Update() override {}
 	
-	SbSoundVoice *AllocateVoice(const SbSoundSample *apLeadinSample, const SbSoundSample *apLoopingSample) override;
-	void FreeVoice(SbSoundVoice *apVoice) override;
+	SbSoundVoice *AllocateVoice(const SbSoundSample *apLeadinSample, const SbSoundSample *apLoopingSample) override {return nullptr;}
+	void FreeVoice(SbSoundVoice *apVoice) override {}
 };
 
 }; // namespace sbe::SbSound

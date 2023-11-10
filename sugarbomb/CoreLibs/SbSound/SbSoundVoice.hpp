@@ -56,6 +56,24 @@ struct SbSoundVoice
 	/// Sends new position/volume/pitch information to the hardware
 	virtual bool Update() = 0;
 	
+	///
+	virtual void SetPosition(const SbVec3 &avPos) = 0;
+	
+	///
+	virtual void SetCenterChannel(float afValue) = 0;
+	
+	///
+	virtual void SetGain(float afValue) = 0;
+	
+	///
+	virtual void SetInnerRadius(float afValue) = 0;
+	
+	///
+	virtual void SetPitch(float afValue) = 0;
+	
+	///
+	virtual void SetOcclusion(float afValue) = 0;
+	
 	/// returns the RMS levels of the most recently processed block of audio, SSF_FLICKER must have been passed to Start
 	virtual float GetAmplitude() const = 0;
 	
