@@ -30,6 +30,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include <cstdlib> // TODO: temp
 #include <cstdarg>
 
+#include <chrono>
+
 #include "SbSystemCommon.hpp"
 
 #include "AppFrameworks/SbLibraryLoader/SbLibraryLoader.hpp"
@@ -39,12 +41,20 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe::SbSystem
 {
 
-void SbSystem::Init()
+void SbSystemCommon::Init(const char *asLogFileName)
 {
+	msLogFileName = asLogFileName;
+	
+	Printf("%s\n", __PRETTY_FUNCTION__);
+	
+	PlatformInit();
 };
 
 void SbSystemCommon::Shutdown()
 {
+	// only shut down the log file after all output is done
+	printf("CloseLogFile();\n");
+	CloseLogFile();
 };
 
 void SbSystemCommon::Printf(const char *asMsg, ...)
@@ -64,19 +74,34 @@ void SbSystemCommon::Printf(const char *asMsg, ...)
 };
 
 void SbSystemCommon::Warning(const char *asMsg, ...)
-{
+{	
 	// TODO
 };
 
-void SbSystem::Error(const char *asMsg, ...)
-{
-	// TODO
-};
-
-void SbSystem::FatalError(const char *asMsg, ...)
+void SbSystemCommon::FatalError(const char *asMsg, ...)
 {
 	Shutdown();
 	exit(EXIT_FAILURE);
+};
+
+float SbSystemCommon::GetCurTime() const
+{
+	return std::chrono::seconds(std::chrono::steady_clock::now());
+};
+
+/*
+==================
+idCommonLocal::CloseLogFile
+==================
+*/
+void SbSystemCommon::CloseLogFile()
+{
+	if(mpLogFile)
+	{
+		com_logFile.SetBool(false); // make sure no further VPrintf attempts to open the log file again
+		mpFileSystem->CloseFile(mpLogFile);
+		mpLogFile = nullptr;
+	};
 };
 
 }; // sbe::SbSystem

@@ -40,6 +40,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
+#include "SbSystemDescImpl.hpp"
+
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
 //*****************************************************************************
@@ -47,12 +49,21 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe::SbSystem
 {
 
+/*
+==============================================================
+
+	idSysLocal
+
+==============================================================
+*/
+
 class SbSystemCommon : public ISystem
 {
 public:
 	void Init() override;
 	void Shutdown() override;
 	
+	void ReLaunch() override;
 	
 	void Printf(const char *asMsg, ...) override;
 	
@@ -61,6 +72,25 @@ public:
 	void Error(const char *asMsg, ...) override;
 	void FatalError(const char *asMsg, ...) override;
 	
+	float GetCurTime() const;
+	
+	const SbSystemDesc &GetDesc() const override {return mDesc;}
+	
+	void GetCPUCount(int &anLogicalCPUCores, int &anPhysicalCPUCores, int &anCPUPackages) const override;
+	
+	double GetRealTime() const override;
+private:
+	void PlatformInit();
+	
+	void CloseLogFile();
+	
+	const char *GetCmdLine() const; // TODO: make public
+private:
+	SbSystemDescImpl mDesc{};
+	
+	IFile *mpLogFile{nullptr};
+	
+	const char *msLogFileName{""};
 };
 
-}; // sbe::SbSystem
+}; // namespace sbe::SbSystem

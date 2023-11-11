@@ -21,9 +21,11 @@ You should have received a copy of the GNU General Public License along with Sug
 
 //*****************************************************************************
 
+#include <functional>
+
 #include "CoreLibs/SbSystem/SbModuleAPI.hpp"
 
-#include "SbSystem.hpp"
+#include "SbSystemCommon.hpp"
 #include "SbFileSystem.hpp"
 
 #ifdef _WIN32
@@ -40,16 +42,16 @@ C_EXPORT sbe::sysExport_t *GetSystemAPI(sbe::sysImport_t *apModuleImports)
 {
 	if(apModuleImports->version == sbe::SYS_API_VERSION)
 	{
-		static sbe::SbSystem::SbSystem System;
-		static sbe::SbSystem::SbFileSystem FileSystem;
+		static sbe::SbSystem::SbSystemCommon System;
+		static sbe::SbSystem::SbFileSystem FileSystem(System);
 		
 		static sbe::sysExport_t ModuleExports;
 		
 		ModuleExports.version = sbe::SYS_API_VERSION;
-		ModuleExports.sys = &System;
-		ModuleExports.fileSystem = &FileSystem;
+		ModuleExports.sys = std::addressof(System);
+		ModuleExports.fileSystem = std::addressof(FileSystem);
 		
-		return &ModuleExports;
+		return std::addressof(ModuleExports);
 	};
 	
 	return nullptr;

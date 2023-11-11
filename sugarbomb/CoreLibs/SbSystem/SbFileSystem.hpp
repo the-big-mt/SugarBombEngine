@@ -31,17 +31,26 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-namespace sbe::SbSystem
+namespace sbe
+{
+
+struct ISystem;
+
+namespace SbSystem
 {
 
 class SbFileSystem : public IFileSystem
 {
 public:
-	void Init() override;
+	SbFileSystem(ISystem &aSystem);
+	
+	void Init(const char *asBasePath, bool abFileLogging, bool abUseArchives) override;
 	void Shutdown() override;
 	
 	IFile *OpenFile(const char *asPath) override;
 	void CloseFile(IFile *apFile) override;
+private:
+	ISystem &mSystem;
 };
 
-}; // namespace sbe::SbSystem
+};}; // namespace sbe::SbSystem

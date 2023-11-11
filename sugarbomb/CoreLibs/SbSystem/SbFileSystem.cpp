@@ -26,13 +26,18 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 //*****************************************************************************
 
 #include "SbFileSystem.hpp"
+#include "SbFile.hpp"
+
+#include "CoreLibs/SbSystem/ISystem.hpp"
 
 //*****************************************************************************
 
 namespace sbe::SbSystem
 {
 
-void SbFileSystem::Init()
+SbFileSystem::SbFileSystem(ISystem &aSystem) : mSystem(aSystem){}
+
+void SbFileSystem::Init(const char *asBasePath, bool abFileLogging, bool abUseArchives)
 {
 };
 

@@ -21,7 +21,11 @@ You should have received a copy of the GNU General Public License along with Sug
 
 /// @file
 
+//*****************************************************************************
+
 #include "SbSystem.hpp"
+
+//*****************************************************************************
 
 namespace sbe::SbSystem
 {
@@ -133,6 +137,37 @@ void Posix_EarlyInit()
 void SbSystem::PlatformInit()
 {
 	Posix_EarlyInit();
+};
+
+/*
+========================
+Sys_GetCmdLine
+========================
+*/
+const char *SbSystem::GetCmdLine() const
+{
+	// DG: don't use this, use cmdargv and cmdargc instead!
+	return "TODO Sys_GetCmdLine";
+};
+
+/*
+================
+Sys_Error
+================
+*/
+void SbSystem::Error(const char *asMsg, ...)
+{
+	va_list argptr;
+	
+	Sys_Printf("Sys_Error: ");
+	
+	va_start(argptr, asMsg);
+	Sys_DebugVPrintf(asMsg, argptr);
+	va_end(argptr);
+	
+	Sys_Printf("\n");
+	
+	Posix_Exit(EXIT_FAILURE);
 };
 
 }; // namespace sbe::SbSystem
