@@ -80,19 +80,23 @@ struct gameImport_t
 	
 	// Tier 1 - Core Engine Functionality
 	
-	ISystem* 						sys;					///< non-portable system services
-	IGameFramework* 					common;					///< common
-	idCmdSystem* 				cmdSystem;				///< console command system
-	idCVarSystem* 				cvarSystem;				///< console variable system
-	IFileSystem* 				fileSystem;				///< file system
-	IRenderSystem* 			renderSystem;			///< render system
-	ISoundSystem* 				soundSystem;			///< sound system
-	IRenderModelManager* 		renderModelManager;		///< render model manager
-	IUserInterfaceManager* 	uiManager;				///< user interface manager
-	IDeclManager* 				declManager;			///< declaration manager
-	idAASFileManager* 			AASFileManager;			///< AAS file manager
-	ICollisionModelManager* 	collisionModelManager;	///< collision model manager
-	IInputManager *mpInputManager{nullptr}; ///< input manager
+	SbSystem *sys; ///< non-portable system services
+	//SbGameFramework *common; ///< game framework
+	SbGameMaster *common{nullptr};
+	idCmdSystem *cmdSystem; ///< console command system
+	idCVarSystem *cvarSystem; ///< console variable system
+	SbFileSystem *fileSystem; ///< file system
+	SbRenderSystem *renderSystem; ///< render system
+	//SbRenderWorld *gameRenderWorld{nullptr};
+	SbSoundSystem *soundSystem; ///< sound system
+	//SbSoundManager *soundManager{nullptr};
+	//SbSoundWorld *gameSoundWorld{nullptr};
+	SbRenderModelManager *renderModelManager; ///< render model manager
+	SbUserInterfaceManager *uiManager; ///< user interface manager
+	SbDeclManager *declManager; ///< declaration manager
+	idAASFileManager *AASFileManager; ///< AAS file manager
+	SbCollisionModelManager *collisionModelManager; ///< collision model manager
+	//SbInputManager *mpInputManager{nullptr}; ///< input manager
 	
 	// Tier 2 - Genre-Specific Functionality
 	

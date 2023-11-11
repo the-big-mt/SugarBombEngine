@@ -65,17 +65,148 @@ struct SbGame
 	/// Makes rendering and sound system calls to display for a given clientNum
 	virtual bool Draw(int anClientNum) = 0;
 	
-	///
-	virtual void Shell_CreateMenu(bool abInGame) = 0;
+	/// Sets the serverinfo at map loads and when it changes
+	//virtual void SetServerInfo(const SbDict &aInfo) = 0;
+	
+	/// Gets the serverinfo, common calls this before saving the game
+	//virtual const SbDict &GetServerInfo() const = 0;
+	
+	/// Interpolated server time
+	//virtual void SetServerGameTimeMs(const int anTime) = 0;
+	
+	/// Interpolated server time
+	//virtual int GetServerGameTimeMs() const = 0;
+	
+	//virtual int GetSSEndTime() const = 0;
+	//virtual int GetSSStartTime() const = 0;
+	
+	/// game framework calls this before moving the single player game to a new level
+	//virtual const SbDict &GetPersistentPlayerInfo(int anClientNum) const = 0;
+	
+	/// game framework calls this right before a new level is loaded
+	//virtual void SetPersistentPlayerInfo(int anClientNum, const SbDict &aPlayerInfo) = 0;
+	
+	/// Loads a map and spawns all the entities
+	// TODO: why this is here and not part of the framework?
+	//virtual void InitFromNewMap(const char *asMapName, SbRenderWorld *apRenderWorld, SbSoundWorld *apSoundWorld, int anGameMode, int anRandSeed) = 0;
+	
+	/// Loads a map from a savegame file
+	// TODO: why this is here and not part of the framework?
+	//virtual bool InitFromSaveGame(const char *asMapName, SbRenderWorld *apRenderWorld, SbSoundWorld *apSoundWorld, SbFile *apSaveGameFile, SbFile *apStringTableFile, int anSaveGameVersion) = 0;
+	
+	/// Saves the current game state, game framework may have written some data to the file already
+	//virtual void SaveGame(SbFile *apSaveGameFile, SbFile *apStringTableFile) = 0;
+	
+	/// Pulls the current player location from the game information
+	//virtual void GetSaveGameDetails(idSaveGameDetails &aGameDetails) const = 0;
+	
+	/// Shut down the current map
+	virtual void MapShutdown() = 0;
+	
+	/*
+	/// Caches media referenced from in key/value pairs in the given dictionary
+	virtual void CacheDictionaryMedia(const SbDict *dict) = 0;
+	
+	virtual void Preload(const idPreloadManifest &manifest) = 0;
+	
+	virtual bool HandlePlayerGuiEvent(const sysEvent_t *ev) = 0;
+	
+	/// Writes a snapshot of the server game state
+	virtual void ServerWriteSnapshot(idSnapShot &ss) = 0;
+	
+	/// Processes a reliable message
+	virtual void ProcessReliableMessage(int clientNum, int type, const idBitMsg &msg) = 0;
+	
+	virtual void SetInterpolation(const float fraction, const int serverGameMS, const int ssStartTime, const int ssEndTime) = 0;
+	
+	/// Reads a snapshot and updates the client game state
+	virtual void ClientReadSnapshot(const idSnapShot &ss) = 0;
+	
+	/// Used to manage divergent time-lines
+	virtual int GetTimeGroupTime(int anTimeGroup) const = 0;
+	
+	/// Returns a list of available multiplayer game modes
+	virtual int GetMPGameModes(const char** * gameModes, const char** * gameModesDisplay) const = 0;
+	
+	/// Returns a summary of stats for a given client
+	virtual void GetClientStats(int clientNum, char* data, const int len) const = 0;
 	
 	///
-	virtual void Shell_Cleanup() = 0;
+	virtual bool IsInGame() const = 0;
+	
+	/// Get the player entity number for a network peer
+	virtual int MapPeerToClient(int peer) const = 0;
+	
+	/// Get the player entity number of the local player
+	virtual int GetLocalClientNum() const = 0;
+	
+	/// compute an angle offset to be applied to the given client's aim
+	virtual void GetAimAssistAngles(SbAngles &angles) const = 0;
+	virtual float GetAimAssistSensitivity() const = 0;
+	*/
+	
+	/// Release the mouse when the PDA is open
+	virtual bool ShouldShowCursor() const = 0;
+	//virtual bool IsPDAOpen() const = 0;
+	//virtual bool IsPlayerChatting() const = 0;
+	
+	/// Creates leaderboards for each map/mode defined
+	//virtual void Leaderboards_Init() = 0;
+	//virtual void Leaderboards_Shutdown() = 0;
+	
+	/// MAIN MENU FUNCTIONS
 	
 	///
-	virtual void Shell_Show(bool abShow) = 0;
+	//virtual bool InhibitControls() = 0;
+	
+	//virtual bool SkipCinematicScene() = 0;
+	//virtual bool CheckInCinematic() = 0;
+	
+	/// Demo helper functions
+	//virtual void StartDemoPlayback(SbRenderWorld *apRenderWorld) = 0;
+	
+	//virtual bool ProcessDemoCommand(idDemoFile *apReadDemo) = 0;
+};
+
+struct SbGameShell
+{
+	///
+	//virtual void Init(const char *asFileName, SbSoundWorld *apSoundWorld) = 0;
 	
 	///
-	virtual void Shell_SyncWithSession() = 0;
+	virtual void Cleanup() = 0;
+	
+	///
+	virtual void CreateMenu(bool abInGame) = 0;
+	
+	///
+	//virtual void ClosePause() = 0;
+	
+	///
+	virtual void Show(bool abShow) = 0;
+	
+	///
+	virtual bool IsActive() const = 0;
+	
+	///
+	//virtual bool HandleGuiEvent(const sysEvent_t *apEvent) = 0;
+	
+	///
+	virtual void Render() = 0;
+	
+	///
+	//virtual void ResetMenu() = 0;
+	
+	///
+	virtual void SyncWithSession() = 0;
+	
+	/*
+	virtual void UpdateSavedGames() = 0;
+	virtual void SetCanContinue(bool abValid) = 0;
+	virtual void UpdateClientCountdown(int anCountDown) = 0;
+	virtual void UpdateLeaderboard(const idLeaderboardCallback *apCallback) = 0;
+	virtual void SetGameComplete() = 0;
+	*/
 };
 
 }; // namespace sbe
