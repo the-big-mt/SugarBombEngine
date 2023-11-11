@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -25,32 +25,35 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-#pragma once
+#include "SbFileSystemLocal.hpp"
+#include "SbFile.hpp"
 
-#include "CoreLibs/SbSystem/IFileSystem.hpp"
+#include <CoreLibs/SbSystem/SbSystem.hpp>
 
 //*****************************************************************************
 
-namespace sbe
+namespace sbe::SbSystem
 {
 
-struct ISystem;
+SbFileSystemLocal::SbFileSystemLocal(SbSystem &aSystem) : mSystem(aSystem){}
 
-namespace SbSystem
+void SbFileSystemLocal::Init(const char *asBasePath, bool abFileLogging, bool abUseArchives)
 {
-
-class SbFileSystem : public IFileSystem
-{
-public:
-	SbFileSystem(ISystem &aSystem);
-	
-	void Init(const char *asBasePath, bool abFileLogging, bool abUseArchives) override;
-	void Shutdown() override;
-	
-	IFile *OpenFile(const char *asPath) override;
-	void CloseFile(IFile *apFile) override;
-private:
-	ISystem &mSystem;
 };
 
-};}; // namespace sbe::SbSystem
+void SbFileSystemLocal::Shutdown()
+{
+};
+
+SbFile *SbFileSystemLocal::OpenFile(const char *asPath)
+{
+	return nullptr;
+};
+
+void SbFileSystemLocal::CloseFile(SbFile *apFile)
+{
+	if(!apFile)
+		return;
+};
+
+}; // namespace sbe::SbSystem
