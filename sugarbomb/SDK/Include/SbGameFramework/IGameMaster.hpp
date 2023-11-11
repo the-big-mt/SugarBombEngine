@@ -45,6 +45,20 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
+struct mpMap_t
+{
+	void operator=( const mpMap_t& src )
+	{
+		mapFile = src.mapFile;
+		mapName = src.mapName;
+		supportedModes = src.supportedModes;
+	};
+	
+	idStr			mapFile{""};
+	idStr			mapName{""};
+	uint32			supportedModes{0};
+};
+
 struct IGameMaster
 {
 	///
@@ -65,6 +79,15 @@ struct IGameMaster
 	
 	///
 	virtual bool IsClient() const = 0;
+	
+	///
+	virtual const idStrList &GetModeList() const = 0;
+	
+	///
+	virtual const idStrList &GetModeDisplayList() const = 0;
+	
+	///
+	virtual const idList<mpMap_t> &GetMapList() const = 0;
 };
 
 }; // namespace sbe
