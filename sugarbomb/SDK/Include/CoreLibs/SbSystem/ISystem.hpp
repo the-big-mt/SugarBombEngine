@@ -39,6 +39,11 @@ struct SbSystem
 	///
 	virtual void Shutdown() = 0;
 	
+	///
+	virtual void ReLaunch() = 0; // TODO: Restart?
+
+	///
+	//virtual void Exit(int anExitCode = 0, bool abRestart = false) = 0;
 
 	///
 	virtual void Printf(const char *asMsg, ...) = 0;
@@ -54,6 +59,12 @@ struct SbSystem
 
 	///
 	virtual const SbSystemDesc &GetDesc() const = 0;
+	
+	///
+	virtual void GetCPUCount(int &anLogicalCPUCores, int &anPhysicalCPUCores, int &anCPUPackages) const = 0;
+	
+	///
+	virtual double GetRealTime() const = 0;
 };
 
 //#include "SbSystem.inl"

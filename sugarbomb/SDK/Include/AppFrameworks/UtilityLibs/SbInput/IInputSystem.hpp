@@ -3,7 +3,7 @@
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012(?) Daniel Gibson // TODO
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -42,6 +42,10 @@ namespace sbe
 
 struct IWindow;
 
+struct SbKeyboard;
+struct SbMouse;
+struct SbGamepad;
+
 /*
 // input is tied to windows, so it needs to be started up and shut down whenever
 // the main window is recreated
@@ -56,6 +60,11 @@ void			Sys_GrabMouseCursor( bool grabIt );
 
 struct IInputSystem
 {
+	/**
+	 * Initializes the input system
+	 *
+	 * @param aOwnerWindow - a reference to the window that the input system will attach to
+	 */
 	virtual void Init(const IWindow &aOwnerWindow) = 0;
 
 	/// Shuts down the input system
@@ -65,10 +74,13 @@ struct IInputSystem
 	virtual void Update() = 0;
 	
 	///
+	//virtual SbKeyboard &GetKeyboard() const = 0;
 	
 	///
+	//virtual SbMouse &GetMouse() const = 0;
 	
 	///
+	//virtual SbGamepad &GetGamepad(int anIndex) const = 0;
 	
 	///
 	//virtual void GrabMouseCursor(bool grabIt) = 0; // TODO

@@ -73,11 +73,14 @@ private:
 	void Render(){}
 	void PostRender(){}
 	
+	float GetTimeStep() const {return 1.0f / mnUPS;}
 private:
-	sbe::IWindow *mpWindow{nullptr};
+	std::unique_ptr<IWindow> mpWindow;
 
 	IRenderSystem &mRenderSystem;
 	IInputSystem &mInputSystem;
+	
+	int mnUPS{0};
 };
 
 }; // namespace sbe

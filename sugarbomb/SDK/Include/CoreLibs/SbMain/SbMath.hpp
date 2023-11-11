@@ -37,7 +37,8 @@ namespace sbe
 class SbMath
 {
 public:
-	static float Abs(float afValue);
+	static int Abs(int anValue);
+	static float FAbs(float afValue);
 
 	static float Sin(float afRadians);
 	static float Cos(float afRadians);
@@ -63,6 +64,23 @@ public:
 	{
 		return std::clamp(aTValue, aTMin, aTMax);
 	};
+	
+	template<typename T>
+	static T Deg2Rad(T aDegrees)
+	{
+		return aDegrees * SbMath::M_DEG2RAD;
+	};
+	
+	template<typename T>
+	static T Rad2Deg(T aRadians)
+	{
+		return aRadians * SbMath::M_RAD2DEG;
+	};
 };
+
+//#define DEG2RAD(a) (SbMath::Deg2Rad(a))
+//#define RAD2DEG(a) (SbMath::Rad2Deg(a))
+
+#include "SbMath.inl"
 
 }; // namespace sbe
