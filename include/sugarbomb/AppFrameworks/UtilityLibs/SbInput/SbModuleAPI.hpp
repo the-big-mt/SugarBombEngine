@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -47,7 +47,7 @@ namespace sbe
 constexpr auto INPUT_API_VERSION{1};
 
 struct SbSystem;
-struct IInputSystem;
+struct SbInputSystem;
 struct idCmdSystem;
 struct idCVarSystem;
 
@@ -57,13 +57,13 @@ struct inputImport_t
 	SbSystem *sys{nullptr}; ///< system
 	idCmdSystem *cmdSystem{nullptr}; ///< console command system
 	idCVarSystem *cvarSystem{nullptr}; ///< console variable system
-	//IFileSystem *fileSystem{nullptr}; ///< file system
+	//SbFileSystem *fileSystem{nullptr}; ///< file system
 };
 
 struct inputExport_t
 {
 	int version{-1}; ///< API version
-	IInputSystem *inputSystem{nullptr};
+	SbInputSystem *inputSystem{nullptr};
 };
 
 extern "C" using GetInputAPI_t = inputExport_t *(*)(inputImport_t *import);

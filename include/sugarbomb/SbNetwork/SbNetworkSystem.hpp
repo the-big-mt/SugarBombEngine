@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -22,7 +22,6 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /// @file
-/// @brief virtual file system interface
 
 //*****************************************************************************
 
@@ -33,30 +32,18 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
-struct IFile;
+struct SbNetAdr;
 
-struct IFileSystem
+struct SbNetworkSystem
 {
 	///
-	virtual void Init(const char *asBasePath = ".", bool abFileLogging = false, bool abUseArchives = false) = 0;
-
-	/// This will shut down the entire vfs
+	virtual void Init() = 0;
+	
+	///
 	virtual void Shutdown() = 0;
-
-	/**
-	 * This method will try to open a file located following the specified path
-	 *
-	 * @param asPath - path to the file + file name itself
-	 * @return a valid pointer to a IFile structure or nullptr on failure
-	 */
-	virtual IFile *OpenFile(const char *asPath) = 0;
-
-	/**
-	 * Use this method to close the previously opened file
-	 *
-	 * @param apFile - a valid pointer to the IFile structure
-	 */
-	virtual void CloseFile(IFile *apFile) = 0;
+	
+	///
+	virtual bool StringToNetAdr(const char *asNetAdr, SbNetAdr &aOutNetAdr, bool abDoDNSResolve = false) = 0;
 };
 
 }; // namespace sbe

@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -27,7 +27,7 @@ You should have received a copy of the GNU General Public License along with Sug
 namespace sbe
 {
 
-struct IGameFramework
+struct SbGameFramework
 {
 	///
 	virtual void Init(const char *asTitle, const char *asShortTitle, bool abHeadless, int argc, char **argv) = 0;

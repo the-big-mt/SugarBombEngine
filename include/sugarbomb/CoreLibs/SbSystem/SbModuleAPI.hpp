@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -55,10 +55,10 @@ namespace sbe
 
 constexpr auto SYS_API_VERSION{1};
 
-struct ISystem;
+struct SbSystem;
 //struct idCmdSystem;
 //struct idCVarSystem;
-struct IFileSystem;
+struct SbFileSystem;
 
 struct sysImport_t
 {
@@ -70,8 +70,8 @@ struct sysImport_t
 struct sysExport_t
 {
 	int version{SYS_API_VERSION}; ///< API version
-	ISystem *sys{nullptr}; ///< non-portable system services
-	IFileSystem *fileSystem{nullptr}; ///< file system
+	SbSystem *sys{nullptr}; ///< non-portable system services
+	SbFileSystem *fileSystem{nullptr}; ///< file system
 };
 
 extern "C" using GetSystemAPI_t = sysExport_t *(*)(sysImport_t *import);

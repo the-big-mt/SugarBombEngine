@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2018-2020 SugarBombEngine Developers
+Copyright (C) 2018-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -50,7 +50,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
-struct IFile
+struct SbFile
 {
 	/// Read data from the file to the buffer
 	virtual int Read(void *apBuffer, int anLen) = 0;

@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -38,7 +38,7 @@ namespace sbe
 
 constexpr auto NET_API_VERSION{1};
 
-struct INetworkSystem;
+struct SbNetworkSystem;
 struct SbSystem;
 //struct idCmdSystem;
 //struct idCVarSystem;
@@ -54,7 +54,7 @@ struct netImport_t
 struct netExport_t
 {
 	int version{NET_API_VERSION}; ///< API version
-	INetworkSystem *networkSystem{nullptr};
+	SbNetworkSystem *networkSystem{nullptr};
 };
 
 extern "C" using GetNetworkAPI_t = netExport_t *(*)(netImport_t *import);

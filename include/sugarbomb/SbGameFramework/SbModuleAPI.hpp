@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -37,27 +37,27 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
-constexpr int GAMEFRAMEWORK_API_VERSION		= 1;
+constexpr auto GAMEFRAMEWORK_API_VERSION{1};
 
-struct IGameFramework;
-struct ISystem;
+struct SbGameFramework;
+struct SbSystem;
 struct idCmdSystem;
 struct idCVarSystem;
-struct IFileSystem;
+struct SbFileSystem;
 
 struct gameFrameworkImport_t
 {
 	int							version;				// API version
-	ISystem* 					sys;					// non-portable system services
+	SbSystem* 					sys;					// non-portable system services
 	idCmdSystem* 				cmdSystem;				// console command system
 	idCVarSystem* 				cvarSystem;				// console variable system
-	IFileSystem* 				fileSystem;				// file system
+	SbFileSystem* 				fileSystem;				// file system
 };
 
 struct gameFrameworkExport_t
 {
 	int							version;				// API version
-	IGameFramework* 			gameFramework;			// game framework
+	SbGameFramework* 			gameFramework;			// game framework
 };
 
 extern "C" using GetGameFrameworkAPI_t = gameFrameworkExport_t *(*)( gameFrameworkImport_t* import );

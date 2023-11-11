@@ -40,7 +40,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
-struct IWindow;
+struct SbWindow;
 
 struct SbKeyboard;
 struct SbMouse;
@@ -58,7 +58,7 @@ struct SbGamepad;
 void			Sys_GrabMouseCursor( bool grabIt );
 */
 
-struct IInputSystem
+struct SbInputSystem
 {
 	/**
 	 * Initializes the input system
