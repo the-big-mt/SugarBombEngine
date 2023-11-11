@@ -47,19 +47,21 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
+using byte = unsigned char; // TODO: temp
+
 struct SbNetAdr
 {
 	enum class Type : int
 	{
-		NA_BAD, ///< an address lookup failed
-		NA_LOOPBACK,
-		NA_BROADCAST,
-		NA_IP
+		Bad, ///< an address lookup failed
+		Loopback,
+		Broadcast,
+		IP
 	};
 
-	Type type{Type::NA_BAD};
-	byte ip[4]{};
-	unsigned short port{0};
+	Type type{Type::Bad};
+	byte ip[4]{}; // TODO: uint8_t
+	unsigned short port{0}; // TODO: uint16_t
 	
 	const char *ToString() const;
 	
@@ -84,11 +86,11 @@ const char *SbNetAdr::ToString() const
 	char *s = buf[index];
 	
 	index = ( index + 1 ) & 3;
-	if( type == NA_IP || type == NA_LOOPBACK )
+	if( type == Type::IP || type == Type::Loopback )
 		; //idStr::snPrintf( s, 64, "%i.%i.%i.%i:%i", ip[0], ip[1], ip[2], ip[3], port ); // TODO
-	else if( type == NA_BROADCAST )
+	else if( type == Type::Broadcast )
 		; //idStr::snPrintf( s, 64, "BROADCAST" );  // TODO
-	else if( type == NA_BAD )
+	else if( type == Type::Bad )
 		; //idStr::snPrintf( s, 64, "BAD_IP" );  // TODO
 	else
 		; //idStr::snPrintf( s, 64, "WTF_UNKNOWN_IP_TYPE_%i", type ); // TODO
@@ -103,10 +105,10 @@ Sys_IsLANAddress
 */
 bool SbNetAdr::IsLocal() const
 {
-	if( type == NA_LOOPBACK )
+	if( type == Type::Loopback )
 		return true;
 	
-	if( type != NA_IP )
+	if( type != Type::IP )
 		return false;
 	
 	// NOTE: this function won't work reliably for addresses on the local net
@@ -147,7 +149,7 @@ bool SbNetAdr::CompareBase( const SbNetAdr &b ) const
 	if( type != b.type )
 		return false;
 
-	if( type == NA_LOOPBACK )
+	if( type == Type::Loopback )
 	{
 		// DG: wtf is this comparison about, the comment above says "without the port"
 		if( port == b.port )
@@ -156,7 +158,7 @@ bool SbNetAdr::CompareBase( const SbNetAdr &b ) const
 		return false;
 	};
 	
-	if( type == NA_IP )
+	if( type == Type::IP )
 	{
 		if( ip[0] == b.ip[0] && ip[1] == b.ip[1] && ip[2] == b.ip[2] && ip[3] == b.ip[3] )
 			return true;

@@ -27,24 +27,32 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include <cstddef>
+
 //*****************************************************************************
 
 namespace sbe
 {
 
+struct SbNetAdr;
+struct INetMsg;
+
 struct INetPeer
 {
 	///
-	virtual size_t SendDataTo(const netadr_t &aAdr, const void *apData) = 0;
+	virtual ssize_t SendDataTo(const void *apDataBuffer, size_t anBufferLen, const SbNetAdr &aDestAdr /*, int anFlags*/) = 0;
 	
 	///
-	virtual size_t ReceiveDataFrom(const netadr_t &aAdr, void *apBuffer, int anSize) = 0;
+	virtual ssize_t ReceiveDataFrom(void *apDataBuffer, size_t anBufferLen, SbNetAdr &aSrcAdr /*, int anFlags*/) = 0;
 	
 	///
-	virtual size_t SendData(const void *apData) = 0;
+	virtual ssize_t SendData(const void *apDataBuffer, size_t anBufferLen /*, int anFlags*/) = 0;
 	
 	///
-	virtual size_t ReceiveData(void *apBuffer, int anSize) = 0;
+	virtual ssize_t ReceiveData(void *apDataBuffer, size_t anBufferLen /*, int anFlags*/) = 0;
+	
+	///
+	virtual void SendMsg(const INetMsg &aMsg) = 0;
 	
 	///
 	virtual bool IsLocal() const = 0;

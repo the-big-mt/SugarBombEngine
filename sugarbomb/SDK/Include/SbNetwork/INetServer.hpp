@@ -28,16 +28,37 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include <cstdint> // TODO: temp
+
 //*****************************************************************************
 
 namespace sbe
 {
 
 struct INetPeer;
+struct INetMsg;
 
 struct INetServer
 {
+	/*
+	struct ConnlessPacketHandler
+	{
+		///
+		virtual void Handle(const char *asData) = 0;
+	};
+	
+	///
+	virtual void AddConnlessPacketHandler(ConnlessPacketHandler &aHandler) = 0;
+	*/
+	
+	///
 	virtual INetPeer *GetClient(uint32_t anIndex) const = 0;
+	
+	///
+	virtual void BroadcastMsg(const INetMsg &aMsg) = 0;
+	
+	///
+	virtual uint16_t GetPort() const = 0;
 };
 
 }; // namespace sbe

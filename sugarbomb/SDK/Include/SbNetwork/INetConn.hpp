@@ -38,6 +38,7 @@ struct INetConn
 	///
 	virtual size_t SendData(const void *apData) = 0;
 	
+	///
 	virtual size_t ReceiveData(void *apBuffer, int anSize) = 0;
 	
 	///
