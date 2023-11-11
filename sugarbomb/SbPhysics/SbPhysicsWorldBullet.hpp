@@ -36,6 +36,7 @@ namespace sbe::SbPhysics
 {
 
 class SbPhysicsWorldBullet final : public SbPhysicsWorld
+{
 public:
 	SbPhysicsWorldBullet();
 	~SbPhysicsWorldBullet();
