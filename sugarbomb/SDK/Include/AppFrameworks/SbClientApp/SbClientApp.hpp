@@ -46,10 +46,33 @@ public:
 	virtual ~SbClientApp();
 	
 	void Run() override;
+protected:
+	/**
+	 * This method is getting called before the start of each frame,
+	 * override it if you want to prevent the frame execution under some conditions
+	 *
+	 * @return true if the frame is allowed to be executed, false otherwise
+	 */
+	//virtual bool PreFrame(){return true;}
+
+	/// This method should contain stuff that needs to be executed each frame
+	//virtual void RunFrame(){}
+
+	/// This method can be used to do things at the end of each frame
+	//virtual void PostFrame(){}
 private:
 	IWindow *CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen); // TODO: make title use wide string
 
-	bool PreFrame() override;
+	bool PreFrame();
+	//void RunFrame();
+	void PostFrame();
+	
+	void RenderFrame();
+	
+	bool PreRender(){return true;}
+	void Render(){}
+	void PostRender(){}
+	
 private:
 	sbe::IWindow *mpWindow{nullptr};
 

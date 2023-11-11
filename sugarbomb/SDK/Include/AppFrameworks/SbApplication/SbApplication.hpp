@@ -55,19 +55,12 @@ protected:
 	/// @return true if the app wants stop its execution and be closed
 	bool CloseRequested() const {return mbWantClose;}
 
-	/**
-	 * This method is getting called before the start of each frame,
-	 * override it if you want to prevent the frame execution under some conditions
-	 *
-	 * @return true if the frame is allowed to be executed, false otherwise
-	 */
-	virtual bool PreFrame(){return true;}
+	///
+	//virtual void OnInit(){}
 
-	/// This method should contain stuff that needs to be executed each frame
-	virtual void RunFrame(){}
+	///
+	//virtual void OnShutdown(){}
 
-	/// This method can be used to do things at the end of each frame
-	virtual void PostFrame(){}
 	SbSystem &mSystem; // TODO: unused?
 private:
 	void Init();
