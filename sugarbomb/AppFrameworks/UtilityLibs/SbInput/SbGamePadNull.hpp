@@ -27,9 +27,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 /// @file
 
+//*****************************************************************************
+
 #pragma once
 
-namespace sbe
+#include "SbGamePad.hpp"
+
+//*****************************************************************************
+
+namespace sbe::SbInput
 {
 
 /*
@@ -38,8 +44,9 @@ idJoystick is managed by each platform's local Sys implementation, and
 provides full *Joy Pad* support (the most common device, these days).
 ================================================
 */
-struct SbGamePadNull
+class SbGamePadNull : public SbGamepad
 {
+public:
 	virtual ~SbGamePadNull() = default;
 	
 	virtual bool Init()
@@ -66,4 +73,4 @@ struct SbGamePadNull
 	virtual void EndInputEvents(){}
 };
 
-}; // namespace sbe
+}; // namespace sbe::SbInput

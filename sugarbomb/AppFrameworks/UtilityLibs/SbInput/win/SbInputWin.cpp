@@ -29,12 +29,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-#include <dinput.h>
-#include <XInput.h>
-
 #include "SbInputWin.hpp"
+#include "SbKeyboardDInput8.hpp"
+#include "SbMouseDInput8.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
+
+#include <dinput.h>
+#include <XInput.h>
 
 //*****************************************************************************
 
@@ -43,16 +45,19 @@ namespace sbe::SbInput
 
 SbInputWin::SbInputWin(ISystem &aSystem) : mSystem(aSystem){}
 
+SbInputWin::~SbInputWin(){Shutdown();}
+
 /*
 ===========
 Sys_InitInput
 ===========
 */
-void SbInputWin::Init()
+void SbInputWin::Init(const IWindow &aOwnerWindow)
 {
-	//XInputGetBatteryInformation(); // unused?
-	//XInputGetKeystroke(); // unused?
-	//XInputSetState(i, &GamepadState); // TODO
+	mOwnerWindow = aOwnerWindow;
+	
+	//XInputGetBatteryInformation(); // TODO: unused?
+	//XInputGetKeystroke(); // TODO: unused?
 	
 	mSystem.Printf("\n------- Input Initialization -------\n");
 	
@@ -60,7 +65,7 @@ void SbInputWin::Init()
 	
 	InitDirectInput();
 	
-	//if(SbInputImplWin::in_mouse.GetBool()) // TODO
+	//if(SbInputWin::in_mouse.GetBool()) // TODO
 	{
 		//InitDIMouse(); // TODO
 		// don't grab the mouse on initialization
@@ -73,25 +78,60 @@ void SbInputWin::Init()
 	
 	mSystem.Printf("------------------------------------\n");
 	
-	//SbInputImplWin::in_mouse.ClearModified(); // TODO
+	//SbInputWin::in_mouse.ClearModified(); // TODO
 	
 	//g_Joystick.Init(); // TODO
+	
+	mpKeyboard = CreateKeyboard();
+	mpMouse = CreateMouse();
 };
 
+/*
+==================
+IN_Frame
+
+Called every frame, even if not generating commands
+==================
+*/
 void SbInputWin::Update()
 {
-	XINPUT_STATE GamepadState{};
+	bool shouldGrab = true;
 	
-	for(DWORD i = 0; i < XUSER_MAX_COUNT; ++i)
+	if( !SbInputWin::in_mouse.GetBool() )
+		shouldGrab = false;
+
+	// if fullscreen, we always want the mouse
+	if( !win32.cdsFullscreen )
 	{
-		ZeroMemory(&GamepadState, sizeof(XINPUT_STATE));
+		if( mouseReleased )
+			shouldGrab = false;
+
+		if( win32.movingWindow )
+			shouldGrab = false;
+
+		if( !win32.activeApp )
+			shouldGrab = false;
+	};
+	
+	if( shouldGrab != mouseGrabbed )
+	{
+		if( usercmdGen != nullptr )
+			usercmdGen->Clear();
 		
-		DWORD nResult{XInputGetState(i, &GamepadState)};
-		
-		if(nResult == ERROR_SUCCESS)
-			; // TODO
+		if( mouseGrabbed )
+			mpMouse->Deactivate();
 		else
-			; // TODO
+		{
+			mpMouse->Activate();
+			
+#if 0	// if we can't reacquire, try reinitializing
+			if( !InitDIMouse() )
+			{
+				SbInputWin::in_mouse.SetBool( false );
+				return;
+			};
+#endif
+		};
 	};
 };
 
@@ -112,11 +152,8 @@ void SbInputWin::InitDirectInput()
 {
 	mSystem.Printf("Initializing DirectInput...\n");
 	
-	if(mpDInput != nullptr)
-	{
-		mpDInput->Release(); // if the previous window was destroyed we need to do this
-		mpDInput = nullptr;
-	};
+	// if the previous window was destroyed we need to do this
+	ReleaseDInput();
 	
 	HRESULT hr{DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&mpDInput, nullptr)};
 	
@@ -125,6 +162,45 @@ void SbInputWin::InitDirectInput()
 	// Create the base DirectInput object
 	if(FAILED(hr))
 		mSystem.Printf("DirectInputCreate failed\n");
+};
+
+void SbInputWin::ReleaseDInput()
+{
+	if(mpDInput != nullptr)
+	{
+		mpDInput->Release();
+		mpDInput = nullptr;
+	};
+};
+
+/*
+===========
+Sys_ShutdownInput
+===========
+*/
+void SbInputWin::Shutdown()
+{
+	mpMouse->Deactivate(); // TODO
+	mpKeyboard->Deactivate(); // TODO
+	
+	ReleaseDInput();
+	
+	//DetachFromWindow(); // TODO
+};
+
+SbKeyboard *SbInputWin::CreateKeyboard()
+{
+	return new SbKeyboardDInput8(mOwnerWindow.get().GetProps().mpHandle, mSystem, mpDInput);
+};
+
+SbMouse *SbInputWin::CreateMouse()
+{
+	return new SbMouseDInput8(mOwnerWindow.get().GetProps().mpHandle, mSystem, mpDInput);
+};
+
+SbGamepad *SbInputWin::CreateGamepad()
+{
+	return new SbGamepadXInput(mSystem);
 };
 
 }; // namespace sbe::SbInput

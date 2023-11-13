@@ -46,7 +46,7 @@ namespace sbe::SbInput
 IN_InitDIMouse
 ========================
 */
-SbMouseDInput8::SbMouseDInput8(SbInputWin &aInputImpl, ISystem &aSystem, IDirectInput8 *apDInput) : mSystem(aSystem)
+SbMouseDInput8::SbMouseDInput8(SbInputWin &aInputWin, ISystem &aSystem, IDirectInput8 *apDInput) : mSystem(aSystem)
 {
 	if(apDInput == nullptr)
 		return; //false;
@@ -74,7 +74,7 @@ SbMouseDInput8::SbMouseDInput8(SbInputWin &aInputImpl, ISystem &aSystem, IDirect
 	};
 	
 	// set the cooperativity level.
-	hr = mpDevice->SetCooperativeLevel(mhWnd, DISCL_EXCLUSIVE | DISCL_FOREGROUND);
+	hr = mpDevice->SetCooperativeLevel(aInputWin.GetOwnerWindow(), DISCL_EXCLUSIVE | DISCL_FOREGROUND);
 	
 	if(FAILED(hr))
 	{

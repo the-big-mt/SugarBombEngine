@@ -22,11 +22,13 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #pragma once
 
+#include <functional>
+
+#include <dinput.h>
+
 #include "SbInputImpl.hpp"
 
 //*****************************************************************************
-
-using LPDIRECTINPUT8 = struct IDirectInput8*;
 
 namespace sbe
 {
@@ -40,14 +42,39 @@ class SbInputWin final : public SbInputImpl
 {
 public:
 	SbInputWin(ISystem &aSystem);
+	~SbInputWin();
 	
-	void Init() override;
+	void Init(const IWindow &aOwnerWindow) override;
 	
 	void Update() override;
+	
+	SbKeyboard *CreateKeyboard() override;
+	SbMouse *CreateMouse() override;
+	SbGamepad *CreateGamepad() override;
+	
+	//
+	
+	const IWindow &GetOwnerWindow() const {return mOwnerWindow.get();}
 private:
 	void InitDirectInput();
+	
+	void ReleaseDInput();
+	
+	void Shutdown();
+	
+	/*SbGamepadXInput *GetGamepad(int anDeviceNum) const
+	{
+		if(anDeviceNum < 0 || anDeviceNum >= MAX_GAMEPADS)
+			return nullptr;
+		
+		return mvGamepads[anDeviceNum];
+	};*/
 private:
+	//SbGamepadXInput mvGamepads[XUSER_MAX_COUNT]; // TODO
+	
 	ISystem &mSystem;
+	
+	std::reference_wrapper<const IWindow> mOwnerWindow;
 	
 	LPDIRECTINPUT8 mpDInput{nullptr};
 };

@@ -21,9 +21,20 @@ You should have received a copy of the GNU General Public License along with Sug
 
 //*****************************************************************************
 
+#include <functional>
+
 #include "SbInputSystem.hpp"
+#include "SbGamepad.hpp"
+
+#ifdef SBE_USE_SDL
+#	include "sdl2/SbInputSDL2.hpp"
+#elif defined(_WIN32)
+#	include "win/SbInputWin.hpp"
+#endif
 
 #include "AppFrameworks/UtilityLibs/SbInput/SbModuleAPI.hpp"
+#include "AppFrameworks/UtilityLibs/SbInput/SbKeyboard.hpp"
+#include "AppFrameworks/UtilityLibs/SbInput/SbMouse.hpp"
 
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]
@@ -39,14 +50,20 @@ C_EXPORT sbe::inputExport_t *GetInputAPI(sbe::inputImport_t *apModuleExports)
 {
 	if(apModuleExports->version == sbe::INPUT_API_VERSION)
 	{
-		static sbe::SbInput::SbInputSystem InputSystem; //(apModuleExports->sys);
+		static sbe::ISystem &System = *apModuleExports->sys;
+#ifdef SBE_USE_SDL
+		static sbe::SbInput::SbInputSDL2 Impl(System);
+#elif defined(_WIN32)
+		static sbe::SbInput::SbInputWin Impl(System);
+#endif
+		static sbe::SbInput::SbInputSystem InputSystem(System, Impl);
 		
 		static sbe::inputExport_t ModuleExports;
 		
 		ModuleExports.version = sbe::INPUT_API_VERSION;
-		ModuleExports.inputSystem = &InputSystem;
+		ModuleExports.inputSystem = std::addressof(InputSystem);
 		
-		return &ModuleExports;
+		return std::addressof(ModuleExports);
 	};
 	
 	return nullptr;

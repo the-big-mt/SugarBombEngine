@@ -36,8 +36,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
-struct SbGamePad
+struct SbGamepad
 {
+	// gamepad input polling
+	
 	///
 	virtual bool Init() = 0;
 	
@@ -48,10 +50,10 @@ struct SbGamePad
 	virtual void Deactivate() = 0;
 	
 	///
-	virtual void SetRumble(int rumbleLow, int rumbleHigh) = 0;
+	virtual void SetRumble(/*int anDevice, */ int rumbleLow, int rumbleHigh) = 0;
 	
 	///
-	virtual int PollInputEvents() = 0;
+	virtual int PollInputEvents(/*int anDevice, */) = 0;
 	
 	///
 	virtual int ReturnInputEvent(const int n, int &action, int &value) = 0;

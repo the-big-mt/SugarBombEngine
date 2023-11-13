@@ -22,9 +22,9 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #pragma once
 
-//*****************************************************************************
+#include <dinput.h>
 
-struct IDirectInputDevice8;
+//*****************************************************************************
 
 namespace sbe::SbInput
 {
@@ -34,16 +34,9 @@ constexpr auto DINPUT_BUFFERSIZE{256};
 class SbInputDeviceDInput8
 {
 public:
-	virtual ~SbInputDeviceDInput8()
-	{
-		if(mpDevice)
-		{
-			mpDevice->Release();
-			mpDevice = nullptr;
-		};
-	};
+	virtual ~SbInputDeviceDInput8();
 protected:
-	IDirectInputDevice8 *mpDevice{nullptr};
+	LPDIRECTINPUTDEVICE8 mpDevice{nullptr};
 };
 
 }; // namespace sbe::SbInput

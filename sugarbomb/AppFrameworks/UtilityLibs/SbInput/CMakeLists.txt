@@ -7,9 +7,6 @@ file(GLOB PROJECT_SOURCES
 )
 
 if(WIN32)
-	file(GLOB PROJECT_SOURCES_PLATFORM
-		${CMAKE_CURRENT_SOURCE_DIR}/win/*.cpp
-	)
 else()
 	file(GLOB PROJECT_SOURCES_PLATFORM
 		${CMAKE_CURRENT_SOURCE_DIR}/sdl2/*.cpp
@@ -27,7 +24,9 @@ endif()
 add_library(${PROJECT_NAME} ${LIB_TYPE} ${PROJECT_SOURCES})
 
 if(WIN32)
-	target_link_libraries(${PROJECT_NAME} XInput1_3)
+	add_subdirectory(win)
+	
+	target_link_libraries(${PROJECT_NAME} dxguid dinput8 XInput1_3)
 endif()
 
 if(NOT SBE_SINGLE_BINARY)

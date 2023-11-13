@@ -52,12 +52,14 @@ int SbGamepadXInput::PollInputEvents()
 {
 	ZeroMemory(&mState, sizeof(XINPUT_STATE));
 	
-	DWORD nResult{XInputGetState(mnID, &mState.current)};
+	auto nResult{XInputGetState(mnID, &mState.current)};
 	
 	if(nResult == ERROR_SUCCESS)
 		; // TODO
 	else
 		; // TODO
+	
+	return nResult;
 };
 
 void SbGamepadXInput::SetRumble(int anRumbleLow, int anRumbleHigh)
@@ -70,7 +72,7 @@ void SbGamepadXInput::SetRumble(int anRumbleLow, int anRumbleHigh)
 	vibration.wLeftMotorSpeed = anRumbleLow; // TODO: SbMath::ClampInt(0, 65535, anRumbleLow);
 	vibration.wRightMotorSpeed = anRumbleHigh; // TODO: SbMath::ClampInt(0, 65535, anRumbleHigh);
 	
-	DWORD err{XInputSetState(mnID, &vibration)};
+	auto err{XInputSetState(mnID, &vibration)};
 	if(err != ERROR_SUCCESS)
 		mSystem.Warning("XInputSetState error: 0x%x", err);
 };

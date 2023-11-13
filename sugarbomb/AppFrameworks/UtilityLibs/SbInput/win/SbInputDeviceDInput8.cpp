@@ -20,36 +20,20 @@ You should have received a copy of the GNU General Public License along with Sug
 
 //*****************************************************************************
 
-#pragma once
-
-#include <windef.h>
-
 #include "SbInputDeviceDInput8.hpp"
-
-#include "AppFrameworks/UtilityLibs/SbInput/SbKeyboard.hpp"
 
 //*****************************************************************************
 
-struct IDirectInput8;
-
-namespace sbe
+namespace sbe::SbInput
 {
 
-struct ISystem;
-
-namespace SbInput
+SbInputDeviceDInput8::~SbInputDeviceDInput8()
 {
-
-class SbKeyboardDInput8 final : public SbInputDeviceDInput8, public SbKeyboard
-{
-public:
-	SbKeyboardDInput8(SbInputWin &aInputWin, ISystem &aSystem, IDirectInput8 *apDInput);
-	
-	//void Update();
-	
-	void Deactivate();
-private:
-	ISystem &mSystem;
+	if(mpDevice)
+	{
+		mpDevice->Release();
+		mpDevice = nullptr;
+	};
 };
 
-};}; // namespace sbe::SbInput
+}; // namespace sbe::SbInput

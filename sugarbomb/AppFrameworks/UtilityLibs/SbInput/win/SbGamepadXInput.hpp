@@ -33,6 +33,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include <XInput.h>
 
+#include "SbGamePadNull.hpp"
+
 //*****************************************************************************
 
 namespace sbe
@@ -61,14 +63,17 @@ struct controllerState_t
 	bool valid{false};
 };
 
-class SbGamepadXInput
+class SbGamepadXInput : public SbGamePadNull
 {
 public:
 	SbGamepadXInput(ISystem &aSystem);
 	
-	int PollInputEvents();
+	void Deactivate() override;
 	
-	void SetRumble(int anRumbleLow, int anRumbleHigh);
+	int PollInputEvents() override;
+	void EndInputEvents() override;
+	
+	void SetRumble(int anRumbleLow, int anRumbleHigh) override;
 private:
 	static DWORD mnLastUsedID;
 	

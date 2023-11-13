@@ -22,15 +22,24 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #include "SbInputSystem.hpp"
 #include "SbInputImpl.hpp"
+#include "SbGamepad.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
+
+#include "AppFrameworks/UtilityLibs/SbInput/SbKeyboard.hpp"
+#include "AppFrameworks/UtilityLibs/SbInput/SbMouse.hpp"
 
 //*****************************************************************************
 
 namespace sbe::SbInput
 {
 
-SbInputSystem::SbInputSystem(ISystem &aSystem, SbInputImpl &aImpl) : mSystem(aSystem), mImpl(aImpl){}
+SbInputSystem::SbInputSystem(ISystem &aSystem, SbInputImpl &aImpl)
+	: mSystem(aSystem), mImpl(aImpl)
+{
+	mKeyboard.reset(mImpl.CreateKeyboard());
+	mMouse.reset(mImpl.CreateMouse());
+};
 
 void SbInputSystem::Init(const IWindow &aOwnerWindow)
 {
@@ -51,6 +60,11 @@ void SbInputSystem::Shutdown()
 void SbInputSystem::Update()
 {
 	mImpl.Update();
+};
+
+void SbInputSystem::AttachToWindow(const IWindow &aOwnerWindow)
+{
+	// TODO
 };
 
 }; // namespace sbe::SbInput

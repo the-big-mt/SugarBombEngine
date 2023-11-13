@@ -22,6 +22,9 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #pragma once
 
+#include <vector>
+#include <memory>
+
 #include "AppFrameworks/UtilityLibs/SbInput/IInputSystem.hpp"
 
 //*****************************************************************************
@@ -36,6 +39,8 @@ namespace SbInput
 
 struct SbInputImpl;
 
+using tGamepadVec = std::vector<std::unique_ptr<SbGamepad>>;
+
 class SbInputSystem : public IInputSystem
 {
 public:
@@ -45,7 +50,18 @@ public:
 	void Shutdown() override;
 	
 	void Update() override;
+	
+	SbKeyboard &GetKeyboard() const override {return *mKeyboard.get();}
+	SbMouse &GetMouse() const override {return *mMouse.get();}
+	SbGamepad &GetGamepad(int anIndex) const override {return *mvGamepads.at(anIndex).get();}
 private:
+	void AttachToWindow(const IWindow &aOwnerWindow);
+private:
+	tGamepadVec mvGamepads;
+	
+	std::unique_ptr<SbKeyboard> mKeyboard;
+	std::unique_ptr<SbMouse> mMouse;
+	
 	ISystem &mSystem;
 	SbInputImpl &mImpl;
 };

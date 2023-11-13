@@ -29,6 +29,10 @@ namespace sbe
 
 struct IWindow;
 
+struct SbKeyboard;
+struct SbMouse;
+struct SbGamepad;
+
 namespace SbInput
 {
 
@@ -39,6 +43,15 @@ struct SbInputImpl
 	
 	///
 	virtual void Update() = 0;
+	
+	///
+	virtual SbKeyboard *CreateKeyboard() = 0;
+	
+	///
+	virtual SbMouse *CreateMouse() = 0;
+	
+	///
+	virtual SbGamepad *CreateGamepad() = 0;
 };
 
 };}; // namespace sbe::SbInput

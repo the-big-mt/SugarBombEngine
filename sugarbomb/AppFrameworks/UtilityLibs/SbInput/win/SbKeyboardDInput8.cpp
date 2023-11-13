@@ -105,7 +105,7 @@ SbKeyboardDInput8::SbKeyboardDInput8(SbInputWin &aInputWin, ISystem &aSystem, ID
 	// Set the cooperativity level to let DirectInput know how
 	// this device should interact with the system and with other
 	// DirectInput applications.
-	hr = mpDevice->SetCooperativeLevel(aInputWin.GetOwnerWindow().GetProps().mpHandle, dwCoopFlags);
+	hr = mpDevice->SetCooperativeLevel(aInputWin.GetOwnerWindow(), dwCoopFlags);
 	if(hr == DIERR_UNSUPPORTED && !bForeground && bExclusive)
 	{
 		mSystem.Printf("keyboard: SetCooperativeLevel() returned DIERR_UNSUPPORTED.\nFor security reasons, background exclusive keyboard access is not allowed.\n");

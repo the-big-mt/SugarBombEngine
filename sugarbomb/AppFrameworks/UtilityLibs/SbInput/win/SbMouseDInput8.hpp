@@ -22,7 +22,11 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #pragma once
 
+#include <windef.h>
+
 #include "SbInputDeviceDInput8.hpp"
+
+#include "AppFrameworks/UtilityLibs/SbInput/SbMouse.hpp"
 
 //*****************************************************************************
 
@@ -38,10 +42,10 @@ namespace SbInput
 
 class SbInputWin;
 
-class SbMouseDInput8 final : public SbInputDeviceDInput8
+class SbMouseDInput8 final : public SbInputDeviceDInput8, public SbMouse
 {
 public:
-	SbMouseDInput8(SbInputWin &aInputImpl, ISystem &aSystem, IDirectInput8 *apDInput);
+	SbMouseDInput8(SbInputWin &aInputWin, ISystem &aSystem, IDirectInput8 *apDInput);
 	
 	//void Update();
 	
