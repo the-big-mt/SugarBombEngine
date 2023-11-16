@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -22,16 +22,16 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #pragma once
 
-#include "CoreLibs/SbSound/ISoundSystem.hpp"
+#include <CoreLibs/SbSound/SbSoundSystem.hpp>
 
-#include "CoreLibs/SbMain/SbStaticList.hpp"
+#include <CoreLibs/SbMain/SbStaticList.hpp>
 
 //*****************************************************************************
 
 namespace sbe
 {
 
-struct ISystem;
+struct SbSystem;
 
 namespace SbSound
 {
@@ -41,33 +41,33 @@ struct SbSoundWorld;
 
 using tSoundWorldList = SbStaticList<SbSoundWorld*, 32>;
 
-class SbSoundSystem : public ISoundSystem
+class SbSoundSystemLocal : public SbSoundSystem
 {
 public:
-	SbSoundSystem(ISystem &aSystem, SbSoundHardware &aHardware);
+	SbSoundSystemLocal(SbSystem &aSystem, SbSoundHardware &aHardware);
 	
 	void Init(bool abUseCompression, int anMaxSamples) override;
 	void Shutdown() override;
 	
 	void Update(float afTimeStep) override;
 	
-	ISoundWorld *AllocWorld() override;
-	void FreeWorld(ISoundWorld *apWorld) override;
+	SbSoundWorld *AllocWorld() override;
+	void FreeWorld(SbSoundWorld *apWorld) override;
 	
-	void SetPlayingWorld(ISoundWorld *apWorld) override;
-	ISoundWorld *GetPlayingWorld() const override;
+	void SetPlayingWorld(SbSoundWorld *apWorld) override;
+	SbSoundWorld *GetPlayingWorld() const override;
 	
 	void BeginLevelLoad() override;
 	void EndLevelLoad() override;
 private:
 	tSoundWorldList mlstWorlds;
 	
-	ISystem &mSystem;
+	SbSystem &mSystem;
 	SbSoundHardware &mHardware;
 	
 	SbSoundWorld *mpActiveWorld{nullptr};
 };
 
-//extern SbSoundSystem gSoundSystemLocal;
+//extern SbSoundSystemLocal gSoundSystemLocal;
 
 };}; // namespace sbe::SbSound

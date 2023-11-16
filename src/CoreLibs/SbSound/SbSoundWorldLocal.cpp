@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2018-2020 SugarBombEngine Developers
+Copyright (C) 2018-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -29,20 +29,20 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-#include "SbSoundWorld.hpp"
+#include "SbSoundWorldLocal.hpp"
 #include "SbSoundEmitter.hpp"
 //#include "SbSoundChannel.hpp"
 
-#include "CoreLibs/SbSystem/ISystem.hpp"
+#include <CoreLibs/SbSystem/SbSystem.hpp>
 
 //*****************************************************************************
 
 namespace sbe::SbSound
 {
 
-SbSoundWorld::SbSoundWorld(ISystem &aSystem) : mSystem(aSystem){}
+SbSoundWorldLocal::SbSoundWorldLocal(SbSystem &aSystem) : mSystem(aSystem){}
 
-void SbSoundWorld::ClearAllEmitters()
+void SbSoundWorldLocal::ClearAllEmitters()
 {
 };
 
@@ -53,7 +53,7 @@ idSoundWorldLocal::StopAllSounds
 This is called from the main thread.
 ========================
 */
-void SbSoundWorld::StopAllSounds()
+void SbSoundWorldLocal::StopAllSounds()
 {
 	for(int i = 0; i < mvEmitters.Num(); ++i)
 		mvEmitters[i]->Reset();
@@ -66,9 +66,9 @@ idSoundWorldLocal::AllocSoundEmitter
 This is called from the main thread.
 ========================
 */
-ISoundEmitter *SbSoundWorld::AllocEmitter()
+SbSoundEmitter *SbSoundWorldLocal::AllocEmitter()
 {
-	SbSoundEmitter *pEmitter{new SbSoundEmitter()};
+	auto pEmitter{new SbSoundEmitterLocal()};
 	mvEmitters.push_back(pEmitter);
 	return pEmitter;
 };
@@ -78,7 +78,7 @@ ISoundEmitter *SbSoundWorld::AllocEmitter()
 idSoundWorldLocal::EmitterForIndex
 ========================
 */
-ISoundEmitter *SbSoundWorld::GetEmitterByIndex(int anIndex) const
+SbSoundEmitter *SbSoundWorldLocal::GetEmitterByIndex(int anIndex) const
 {
 	// This is only used by save/load code which assumes index = 0 is invalid
 	// Which is fine since we use index 0 for the local sound emitter anyway
@@ -91,11 +91,11 @@ ISoundEmitter *SbSoundWorld::GetEmitterByIndex(int anIndex) const
 	return mvEmitters.at(anIndex); // mvEmitters[anIndex]
 };
 
-void SbSoundWorld::Skip(int anTime)
+void SbSoundWorldLocal::Skip(int anTime)
 {
 };
 
-void SbSoundWorld::Update(float afTimeStep)
+void SbSoundWorldLocal::Update(float afTimeStep)
 {
 	for(auto It : mvEmitters)
 		It->Update();

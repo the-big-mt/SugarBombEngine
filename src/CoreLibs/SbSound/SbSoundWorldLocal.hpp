@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2018-2020 SugarBombEngine Developers
+Copyright (C) 2018-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -33,14 +33,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include <vector>
 
-#include "CoreLibs/SbSound/ISoundWorld.hpp"
+#include <CoreLibs/SbSound/SbSoundWorld.hpp>
 
 //*****************************************************************************
 
 namespace sbe
 {
 
-struct ISystem;
+struct SbSystem;
 
 namespace SbSound
 {
@@ -50,13 +50,13 @@ using tSoundEmitterVec = std::vector<SbSoundEmitter*>;
 
 class SbSoundChannel;
 
-class SbSoundWorld : public ISoundWorld
+class SbSoundWorldLocal : public SbSoundWorld
 {
 public:
-	SbSoundWorld(ISystem &aSystem);
+	SbSoundWorldLocal(SbSystem &aSystem);
 	
 	//------------------------
-	// Functions from ISoundWorld, implemented in SbSoundWorld.cpp
+	// Functions from SbSoundWorld, implemented in SbSoundWorldLocal.cpp
 	//------------------------
 	
 	/// Called at map start
@@ -66,10 +66,10 @@ public:
 	/*virtual*/ void StopAllSounds() override;
 	
 	/// Get a new emitter that can play sounds in this world
-	/*virtual*/ ISoundEmitter *AllocEmitter() override;
+	/*virtual*/ SbSoundEmitter *AllocEmitter() override;
 	
 	/// For load games
-	/*virtual*/ ISoundEmitter *GetEmitterByIndex(int anIndex) const override;
+	/*virtual*/ SbSoundEmitter *GetEmitterByIndex(int anIndex) const override;
 	
 	/*virtual*/ void Skip(int anTime) override;
 	
@@ -95,7 +95,7 @@ private:
 	//tSoundChannelVec mvIdleChannels;
 	//tSoundChannelVec mvActiveChannels;
 	
-	ISystem &mSystem;
+	SbSystem &mSystem;
 	
 	bool mbPaused{false};
 };

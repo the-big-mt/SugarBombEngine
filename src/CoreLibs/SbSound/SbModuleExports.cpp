@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -21,7 +21,7 @@ You should have received a copy of the GNU General Public License along with Sug
 
 //*****************************************************************************
 
-#include "SbSoundSystem.hpp"
+#include "SbSoundSystemLocal.hpp"
 
 #ifdef SBE_USE_OPENAL
 #	include "openal/SbSoundHardwareOpenAL.hpp"
@@ -29,7 +29,7 @@ You should have received a copy of the GNU General Public License along with Sug
 #	include "stub/SbSoundHardwareStub.hpp"
 #endif
 
-#include "CoreLibs/SbSound/SbModuleAPI.hpp"
+#include <CoreLibs/SbSound/SbModuleAPI.hpp>
 
 #ifdef _WIN32
 #	define EXPORT [[dllexport]]
@@ -50,7 +50,7 @@ C_EXPORT sbe::soundExport_t *GetSoundAPI(sbe::soundImport_t *apModuleImports)
 #else
 		static sbe::SbSound::SbSoundHardwareStub SoundHardware;
 #endif
-		static sbe::SbSound::SbSoundSystem SoundSystem(*apModuleImports->sys, SoundHardware);
+		static sbe::SbSound::SbSoundSystemLocal SoundSystem(*apModuleImports->sys, SoundHardware);
 		
 		static sbe::soundExport_t ModuleExports;
 		

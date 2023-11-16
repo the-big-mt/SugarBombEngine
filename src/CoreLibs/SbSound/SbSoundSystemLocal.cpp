@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2018-2020 SugarBombEngine Developers
+Copyright (C) 2018-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -33,11 +33,11 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //#include "precompiled.h"
 
-#include "SbSoundSystem.hpp"
-#include "SbSoundWorld.hpp"
+#include "SbSoundSystemLocal.hpp"
+#include "SbSoundWorldLocal.hpp"
 #include "SbSoundHardware.hpp"
 
-#include "CoreLibs/SbSystem/ISystem.hpp"
+#include <CoreLibs/SbSystem/SbSystem.hpp>
 
 //*****************************************************************************
 
@@ -52,7 +52,7 @@ idSoundSystemLocal
 *******************************************************************************
 */
 
-SbSoundSystem::SbSoundSystem(ISystem &aSystem, SbSoundHardware &aHardware)
+SbSoundSystemLocal::SbSoundSystemLocal(SbSystem &aSystem, SbSoundHardware &aHardware)
 	: mSystem(aSystem), mHardware(aHardware){}
 
 /*
@@ -62,7 +62,7 @@ idSoundSystemLocal::Init
 Initialize the SoundSystem.
 ========================
 */
-void SbSoundSystem::Init(bool abUseCompression, int anMaxSamples)
+void SbSoundSystemLocal::Init(bool abUseCompression, int anMaxSamples)
 {
 	mSystem.Printf( "----- Initializing Sound System ------\n" );
 	
@@ -96,7 +96,7 @@ void SbSoundSystem::Init(bool abUseCompression, int anMaxSamples)
 idSoundSystemLocal::Shutdown
 ========================
 */
-void SbSoundSystem::Shutdown()
+void SbSoundSystemLocal::Shutdown()
 {
 	mHardware.Shutdown();
 	//FreeStreamBuffers();
@@ -109,7 +109,7 @@ void SbSoundSystem::Shutdown()
 idSoundSystemLocal::Render
 ========================
 */
-void SbSoundSystem::Update(float afTimeStep)
+void SbSoundSystemLocal::Update(float afTimeStep)
 {
 	//if(s_noSound.GetBool()) // TODO
 		//return; // TODO
@@ -131,14 +131,14 @@ void SbSoundSystem::Update(float afTimeStep)
 	//soundTime = Sys_Milliseconds(); // TODO
 };
 
-ISoundWorld *SbSoundSystem::AllocWorld()
+SbSoundWorld *SbSoundSystemLocal::AllocWorld()
 {
-	auto pWorld{new SbSoundWorld(mSystem)};
+	auto pWorld{new SbSoundWorldLocal(mSystem)};
 	mlstWorlds.push_back(pWorld);
 	return pWorld;
 };
 
-void SbSoundSystem::FreeWorld(ISoundWorld *apWorld)
+void SbSoundSystemLocal::FreeWorld(SbSoundWorld *apWorld)
 {
 	if(apWorld)
 	{
@@ -147,22 +147,22 @@ void SbSoundSystem::FreeWorld(ISoundWorld *apWorld)
 	};
 };
 
-void SbSoundSystem::SetPlayingWorld(ISoundWorld *apWorld)
+void SbSoundSystemLocal::SetPlayingWorld(SbSoundWorld *apWorld)
 {
 	if(apWorld)
-		mpActiveWorld = dynamic_cast<SbSoundWorld*>(apWorld);
+		mpActiveWorld = dynamic_cast<SbSoundWorldLocal*>(apWorld);
 };
 
-ISoundWorld *SbSoundSystem::GetPlayingWorld() const
+SbSoundWorld *SbSoundSystemLocal::GetPlayingWorld() const
 {
 	return mpActiveWorld;
 };
 
-void SbSoundSystem::BeginLevelLoad()
+void SbSoundSystemLocal::BeginLevelLoad()
 {
 };
 
-void SbSoundSystem::EndLevelLoad()
+void SbSoundSystemLocal::EndLevelLoad()
 {
 };
 

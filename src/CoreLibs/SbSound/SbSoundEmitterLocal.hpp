@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -20,23 +20,23 @@ You should have received a copy of the GNU General Public License along with Sug
 
 //*****************************************************************************
 
-#include "SbSoundEmitter.hpp"
+#pragma once
+
+#include <CoreLibs/SbSound/SbSoundEmitter.hpp>
 
 //*****************************************************************************
 
 namespace sbe::SbSound
 {
 
-void SbSoundEmitter::Free(bool abImmediate)
+class SbSoundEmitterLocal : public SbSoundEmitter
 {
-};
-
-void SbSoundEmitter::Update()
-{
-};
-
-void SbSoundEmitter::Reset()
-{
+public:
+	void Free(bool abImmediate) override;
+	
+	void Update() override;
+public:
+	void Reset();
 };
 
 }; // namespace sbe::SbSound
