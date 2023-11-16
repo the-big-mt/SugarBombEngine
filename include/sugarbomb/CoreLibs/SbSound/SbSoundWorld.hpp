@@ -2,8 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2008-2018 OpenMW contributors
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -36,6 +35,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 /// @file
+/// @brief sound world interface
 
 //*****************************************************************************
 
@@ -46,28 +46,26 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
-struct IRenderWorld
-{
-	///
-	virtual void SetSunDirection(const osg::Vec3f &direction) = 0;
-	
-	///
-	virtual void SetSunColour(const osg::Vec4f &diffuse, const osg::Vec4f &specular) = 0;
+struct SbSoundEmitter;
 
-	///
-	virtual void ConfigureAmbient(const ESM::Cell *cell) = 0;
+struct SbSoundWorld
+{
+	/// Call at each map start
+	virtual void ClearAllEmitters() = 0;
+	virtual void StopAllSounds() = 0;
 	
-	///
-	virtual void ConfigureFog(const ESM::Cell *cell) = 0;
+	/// Get a new emitter that can play sounds in this world
+	virtual SbSoundEmitter *AllocEmitter() = 0;
 	
-	///
-	virtual void ConfigureFog(float fogDepth, float underwaterFog, float dlFactor, float dlOffset, const osg::Vec4f &colour) = 0;
+	/// For load games, index 0 will return nullptr
+	virtual SbSoundEmitter *GetEmitterByIndex(int anIndex) const = 0;
 	
-	///
-	virtual void AddCell(const MWWorld::CellStore *store) = 0;
+	/// When cinematics are skipped, we need to advance sound time this much
+	virtual void Skip(int anTime) = 0;
 	
-	///
-	virtual void RemoveCell(const MWWorld::CellStore *store) = 0;
+	/// Pause and unpause the sound world
+	virtual void SetPaused(bool abPaused) = 0;
+	virtual bool IsPaused() const = 0;
 };
 
 }; // namespace sbe

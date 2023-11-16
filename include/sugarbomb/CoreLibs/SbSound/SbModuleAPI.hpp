@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -49,6 +49,8 @@ struct idCVarSystem;
 struct IFileSystem;
 struct IDeclManager;
 
+struct SbSoundSystem;
+
 struct soundImport_t
 {
 	int							version;				///< API version
@@ -67,7 +69,7 @@ struct soundImport_t
 struct soundExport_t
 {
 	int							version;				///< API version
-	ISoundSystem* 				soundSystem;			///< sound system
+	SbSoundSystem* 				soundSystem;			///< sound system
 };
 
 extern "C" using GetSoundAPI_t = soundExport_t *(*)( soundImport_t* import );

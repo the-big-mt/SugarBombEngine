@@ -2,7 +2,8 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2018-2019 SugarBombEngine Developers
+Copyright (C) 2008-2018 OpenMW contributors
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -45,37 +46,28 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
-struct ISoundWorld;
-
-struct ISoundSystem
+struct SbRenderWorld
 {
-	/// All non-hardware initialization
-	virtual void Init(bool abUseCompression = true, int anMaxSamples = 5) = 0;
-	
-	/// Shutdown routine
-	virtual void Shutdown() = 0;
-	
-	/// Sends the current playing sound world information to the sound hardware
-	virtual void Update(float afTimeStep) = 0; // TODO: was Render
-	
-	/// The renderWorld is used for visualization and light amplitude sampling
-	virtual ISoundWorld *AllocWorld(/*IRenderWorld *rw*/) = 0;
+	///
+	virtual void SetSunDirection(const osg::Vec3f &direction) = 0;
 	
 	///
-	virtual void FreeWorld(ISoundWorld *apWorld) = 0;
-	
-	/// Specifying nullptr will cause silence to be played
-	virtual void SetPlayingWorld(ISoundWorld *apWorld) = 0;
-	
-	/// Some tools, like the sound dialog, may be used in both the game and the editor
-	/// This can return nullptr, so check!
-	virtual ISoundWorld *GetPlayingWorld() const = 0;
+	virtual void SetSunColour(const osg::Vec4f &diffuse, const osg::Vec4f &specular) = 0;
+
+	///
+	virtual void ConfigureAmbient(const ESM::Cell *cell) = 0;
 	
 	///
-	virtual void BeginLevelLoad() = 0;
+	virtual void ConfigureFog(const ESM::Cell *cell) = 0;
 	
 	///
-	virtual void EndLevelLoad() = 0;
+	virtual void ConfigureFog(float fogDepth, float underwaterFog, float dlFactor, float dlOffset, const osg::Vec4f &colour) = 0;
+	
+	///
+	virtual void AddCell(const MWWorld::CellStore *store) = 0;
+	
+	///
+	virtual void RemoveCell(const MWWorld::CellStore *store) = 0;
 };
 
 }; // namespace sbe

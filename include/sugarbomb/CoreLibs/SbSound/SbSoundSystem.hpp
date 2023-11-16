@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2018-2019, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -35,6 +35,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 */
 
 /// @file
+/// @brief sound system interface
 
 //*****************************************************************************
 
@@ -45,26 +46,37 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
-struct ISoundEmitter;
+struct SbSoundWorld;
 
-struct ISoundWorld
+struct SbSoundSystem
 {
-	/// Call at each map start
-	virtual void ClearAllEmitters() = 0;
-	virtual void StopAllSounds() = 0;
+	/// All non-hardware initialization
+	virtual void Init(bool abUseCompression = true, int anMaxSamples = 5) = 0;
 	
-	/// Get a new emitter that can play sounds in this world
-	virtual ISoundEmitter *AllocEmitter() = 0;
+	/// Shutdown routine
+	virtual void Shutdown() = 0;
 	
-	/// For load games, index 0 will return nullptr
-	virtual ISoundEmitter *GetEmitterByIndex(int anIndex) const = 0;
+	/// Sends the current playing sound world information to the sound hardware
+	virtual void Update(float afTimeStep) = 0; // TODO: was Render
 	
-	/// When cinematics are skipped, we need to advance sound time this much
-	virtual void Skip(int anTime) = 0;
+	/// The renderWorld is used for visualization and light amplitude sampling
+	virtual SbSoundWorld *AllocWorld(/*SbRenderWorld *rw*/) = 0;
 	
-	/// Pause and unpause the sound world
-	virtual void SetPaused(bool abPaused) = 0;
-	virtual bool IsPaused() const = 0;
+	///
+	virtual void FreeWorld(SbSoundWorld *apWorld) = 0;
+	
+	/// Specifying nullptr will cause silence to be played
+	virtual void SetPlayingWorld(SbSoundWorld *apWorld) = 0;
+	
+	/// Some tools, like the sound dialog, may be used in both the game and the editor
+	/// This can return nullptr, so check!
+	virtual SbSoundWorld *GetPlayingWorld() const = 0;
+	
+	///
+	virtual void BeginLevelLoad() = 0;
+	
+	///
+	virtual void EndLevelLoad() = 0;
 };
 
 }; // namespace sbe

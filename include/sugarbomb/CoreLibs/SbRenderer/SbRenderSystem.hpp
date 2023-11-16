@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -36,25 +36,25 @@ Suite 120, Rockville, Maryland 20850 USA.
 namespace sbe
 {
 
-struct IRenderWorld;
-struct IWindow;
+struct SbRenderWorld;
+struct SbWindow;
 
-struct IRenderSystem
+struct SbRenderSystem
 {
 	/// Set up cvars and basic data structures, but don't
 	/// init OpenGL, so it can also be used for dedicated servers
 	// BP: why dedicated servers even need this module for? model caching shouldn't be here anyway...
-	virtual void Init(const IWindow &aWindow) = 0; // TODO: IRender(ing)Surface? // BP: Also might be better having this as pointer instead 
+	virtual void Init(const SbWindow &aWindow) = 0; // TODO: IRender(ing)Surface? // BP: Also might be better having this as pointer instead 
 																				 // for offscreen rendering support (we don't need that atm, though)
 	
 	/// Only called before quitting
 	virtual void Shutdown() = 0;
 	
 	/// Allocate a render world to be used for drawing
-	virtual IRenderWorld *AllocWorld() = 0;
+	virtual SbRenderWorld *AllocWorld() = 0;
 	
 	///
-	virtual void FreeWorld(IRenderWorld *apWorld) = 0;
+	virtual void FreeWorld(SbRenderWorld *apWorld) = 0;
 	
 	///
 	virtual void BeginLevelLoad() = 0;
@@ -66,11 +66,11 @@ struct IRenderSystem
 	{
 		Off,
 		
-		/// half-resolution, non-square pixel views
+		/// Half-resolution, non-square pixel views
 		SideBySideCompressed,
 		TopAndBottomCompressed,
 		
-		/// two full resolution views side by side, as for a dual cable display
+		/// Two full resolution views side by side, as for a dual cable display
 		SideBySide,
 		
 		Interlaced,
@@ -78,7 +78,7 @@ struct IRenderSystem
 		/// OpenGL quad buffer
 		QuadBuffer,
 		
-		/// two full resolution views stacked with a 30 pixel guard band
+		/// Two full resolution views stacked with a 30 pixel guard band
 		/// On the PC this can be configured as a custom video timing, but
 		/// it definitely isn't a consumer level task.  The quad_buffer
 		/// support can handle 720P-3D with apropriate driver support.

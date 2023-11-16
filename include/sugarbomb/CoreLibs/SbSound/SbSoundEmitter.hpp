@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2020 SugarBombEngine Developers
+Copyright (C) 2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -22,6 +22,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /// @file
+/// @brief sound emitter interface
 
 //*****************************************************************************
 
@@ -32,7 +33,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
-struct ISoundEmitter
+struct SbSoundEmitter
 {
 	///
 	virtual void Free(bool abImmediate) = 0;

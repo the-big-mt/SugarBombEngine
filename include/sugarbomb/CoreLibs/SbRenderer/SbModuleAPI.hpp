@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -55,7 +55,7 @@ namespace sbe
 
 const int RENDERER_API_VERSION		= 1;
 
-struct IRenderSystem;
+struct SbRenderSystem;
 struct IRenderModelManager;
 struct ISystem;
 struct idCmdSystem;
@@ -79,7 +79,7 @@ struct rendererImport_t
 struct rendererExport_t
 {
 	int							version;				// API version
-	IRenderSystem* 			renderSystem;			// render system
+	SbRenderSystem* 			renderSystem;			// render system
 	IRenderModelManager* 		renderModelManager;		// render model manager
 };
 
