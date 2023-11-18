@@ -54,6 +54,8 @@ private:
 	
 	HWND mhWnd{nullptr};
 	WNDPROC mWndProc;
+	
+	bool mbWindowClassRegistered{false};
 };
 
 }; // namespace sbe

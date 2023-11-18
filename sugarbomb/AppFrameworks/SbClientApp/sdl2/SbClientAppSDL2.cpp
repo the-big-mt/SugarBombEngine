@@ -33,6 +33,11 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
+extern void ImGui_ImplSDL2_ProcessEvent(SDL_Event *pEvent);
+
+namespace sbe
+{
+
 sbe::IWindow *SbClientApp::CreateMainWindow(const std::string &asTitle, int anWidth, int anHeight, bool abFullScreen)
 {
 	sbe::IWindow::Props WinProps(asTitle.c_str(), anWidth, anHeight, abFullScreen);
@@ -45,6 +50,10 @@ bool SbClientApp::PreFrame()
 	
 	while(SDL_PollEvent(&Event) != 0)
 	{
+#ifdef SBE_USE_SDL
+		ImGui_ImplSDL2_ProcessEvent(&Event);
+#endif
+		
 		if(Event.type == SDL_QUIT)
 			Stop();
 		
@@ -55,3 +64,5 @@ bool SbClientApp::PreFrame()
 
 	return true;
 };
+
+}; // namespace sbe

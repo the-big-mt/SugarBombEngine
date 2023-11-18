@@ -27,18 +27,21 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include <memory>
+
 //*****************************************************************************
 
 namespace sbe
 {
 
-struct ISystem;
+class SbLibrary;
+
 struct IRenderSystem;
 
 class SbRenderSystemExternal final
 {
 public:
-	SbRenderSystemExternal(const char *asModuleName, ISystem &aSystem);
+	SbRenderSystemExternal(const char *asModuleName);
 	~SbRenderSystemExternal();
 	
 	IRenderSystem *GetRenderSystem() const {return mpRenderSystem;}
@@ -46,11 +49,9 @@ private:
 	void LoadModule(const char *asModuleName);
 	void UnloadModule();
 	
-	ISystem &mSystem;
+	std::unique_ptr<SbLibrary> mpRenderLib;
 	
 	IRenderSystem *mpRenderSystem{nullptr};
-	
-	int mnRenderLib{-1};
 };
 
 }; // namespace sbe

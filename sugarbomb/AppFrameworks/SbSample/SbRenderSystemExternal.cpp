@@ -29,7 +29,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbRenderSystemExternal.hpp"
 
-#include "CoreLibs/SbSystem/ISystem.hpp"
+#include "CoreLibs/SbSystem/SbLibrary.hpp"
 
 #include "CoreLibs/SbRenderer/IRenderSystem.hpp"
 #include "CoreLibs/SbRenderer/SbModuleAPI.hpp"
@@ -39,24 +39,21 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe
 {
 
-SbRenderSystemExternal::SbRenderSystemExternal(const char *asModuleName, ISystem &aSystem) : mSystem(aSystem)
+SbRenderSystemExternal::SbRenderSystemExternal(const char *asModuleName)
 {
 	LoadModule(asModuleName);
 };
 
-SbRenderSystemExternal::~SbRenderSystemExternal()
-{
-	UnloadModule();
-};
+SbRenderSystemExternal::~SbRenderSystemExternal() = default;
 
 void SbRenderSystemExternal::LoadModule(const char *asModuleName)
 {
-	mnRenderLib = mSystem.LoadLib(asModuleName);
+	mpRenderLib = std::make_unique<SbLibrary>(asModuleName);
 	
-	if(!mnRenderLib)
+	if(!mpRenderLib)
 		throw std::runtime_error("Failed to load the renderer module!");
 	
-	GetRendererAPI_t pfnGetRendererAPI{mSystem.GetLibSymbol<GetRendererAPI_t>(mnRenderLib, "GetRendererAPI")};
+	auto pfnGetRendererAPI{mpRenderLib->GetSymbol<GetRendererAPI_t>("GetRendererAPI")};
 	
 	if(!pfnGetRendererAPI)
 		throw std::runtime_error("");
@@ -72,11 +69,6 @@ void SbRenderSystemExternal::LoadModule(const char *asModuleName)
 	
 	if(!mpRenderSystem)
 		throw std::runtime_error("");
-};
-
-void SbRenderSystemExternal::UnloadModule()
-{
-	mSystem.FreeLib(mnRenderLib);
 };
 
 }; // namespace sbe

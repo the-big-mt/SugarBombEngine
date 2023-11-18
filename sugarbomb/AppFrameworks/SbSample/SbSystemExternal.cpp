@@ -28,8 +28,8 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 #include <stdexcept>
 
 #include "SbSystemExternal.hpp"
-#include "AppFrameworks/SbLibraryLoader/SbLibraryLoader.hpp"
 
+#include "CoreLibs/SbSystem/SbLibrary.hpp"
 #include "CoreLibs/SbSystem/ISystem.hpp"
 #include "CoreLibs/SbSystem/IFileSystem.hpp"
 #include "CoreLibs/SbSystem/SbModuleAPI.hpp"
@@ -44,19 +44,16 @@ SbSystemExternal::SbSystemExternal()
 	LoadModule();
 };
 
-SbSystemExternal::~SbSystemExternal()
-{
-	SbLibraryLoader::Unload(mnSystemLib);
-};
+SbSystemExternal::~SbSystemExternal() = default;
 
 void SbSystemExternal::LoadModule()
 {
-	mnSystemLib = SbLibraryLoader::Load("SbSystem");
+	mpSystemLib = std::make_unique<SbLibrary>("SbSystem");
 	
-	if(!mnSystemLib)
+	if(!mpSystemLib)
 		throw std::runtime_error("Failed to load the system module!");
 	
-	GetSystemAPI_t pfnGetSystemAPI{SbLibraryLoader::GetSymbol<GetSystemAPI_t>(mnSystemLib, "GetSystemAPI")};
+	auto pfnGetSystemAPI{mpSystemLib->GetSymbol<GetSystemAPI_t>("GetSystemAPI")};
 	
 	if(!pfnGetSystemAPI)
 		throw std::runtime_error("");

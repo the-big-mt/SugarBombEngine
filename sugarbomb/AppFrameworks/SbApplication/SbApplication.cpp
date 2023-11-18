@@ -29,6 +29,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
+//#include "precompiled.h"
 #include <cassert>
 
 #include "AppFrameworks/SbApplication/SbApplication.hpp"
@@ -37,28 +38,20 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-SbApplication::SbApplication(sbe::ISystem &aSystem, int argc, char **argv) : mSystem(aSystem)
+namespace sbe
 {
+
+SbApplication::SbApplication(SbSystem &aSystem, int argc, char **argv) : mSystem(aSystem)
+{
+	ParseCommandLine(argc, argv);
 	Init();
 };
 
 SbApplication::~SbApplication()
 {
+	//OnShutdown();
+	
 	mSystem.Shutdown();
-};
-
-void SbApplication::Run()
-{
-	assert(mbInitialized);
-
-	while(!CloseRequested())
-	{
-		if(PreFrame())
-		{
-			RunFrame();
-			PostFrame();
-		};
-	};
 };
 
 void SbApplication::Stop()
@@ -73,6 +66,14 @@ void SbApplication::Init()
 {
 	mSystem.Init();
 	
+	//OnInit();
 	
 	mbInitialized = true;
 };
+
+void SbApplication::ParseCommandLine(int argc, const char * const *argv)
+{
+	// TODO
+};
+
+}; // namespace sbe

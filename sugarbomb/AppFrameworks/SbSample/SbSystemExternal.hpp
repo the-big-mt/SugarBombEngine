@@ -27,10 +27,14 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include <memory>
+
 //*****************************************************************************
 
 namespace sbe
 {
+
+class SbLibrary;
 
 struct ISystem;
 struct IFileSystem;
@@ -45,11 +49,11 @@ public:
 	IFileSystem *GetFileSystem() const {return mpFileSystem;}
 private:
 	void LoadModule();
+private:
+	std::unique_ptr<SbLibrary> mpSystemLib;
 	
 	ISystem *mpSystem{nullptr};
 	IFileSystem *mpFileSystem{nullptr};
-	
-	int mnSystemLib{-1};
 };
 
 }; // namespace sbe

@@ -21,10 +21,11 @@ You should have received a copy of the GNU General Public License along with Sug
 //*****************************************************************************
 
 #include <stdexcept>
+#include <functional>
 
 #include "SbInputSystemExternal.hpp"
 
-#include "CoreLibs/SbSystem/ISystem.hpp"
+#include "CoreLibs/SbSystem/SbLibrary.hpp"
 
 #include "AppFrameworks/UtilityLibs/SbInput/IInputSystem.hpp"
 #include "AppFrameworks/UtilityLibs/SbInput/SbModuleAPI.hpp"
@@ -34,30 +35,28 @@ You should have received a copy of the GNU General Public License along with Sug
 namespace sbe
 {
 
-SbInputSystemExternal::SbInputSystemExternal(ISystem &aSystem) : mSystem(aSystem)
+SbInputSystemExternal::SbInputSystemExternal()
 {
 	LoadModule();
 };
 
-SbInputSystemExternal::~SbInputSystemExternal()
-{
-	UnloadModule();
-};
+SbInputSystemExternal::~SbInputSystemExternal() = default;
 
 void SbInputSystemExternal::LoadModule()
 {
-	mnInputLib = mSystem.LoadLib("SbInput");
+	mpInputLib = std::make_unique<SbLibrary>("SbInput");
 	
-	if(!mnInputLib)
+	if(!mpInputLib)
 		throw std::runtime_error("Failed to load the input module!");
 	
-	GetInputAPI_t pfnGetInputAPI{mSystem.GetLibSymbol<GetInputAPI_t>(mnInputLib, "GetInputAPI")};
+	auto pfnGetInputAPI{mpInputLib->GetSymbol<GetInputAPI_t>("GetInputAPI")};
 	
 	if(!pfnGetInputAPI)
 		throw std::runtime_error("");
 	
 	inputImport_t ModuleImports{};
 	ModuleImports.version = INPUT_API_VERSION;
+	ModuleImports.sys = std::addressof(mSystem);
 	auto ModuleExports{pfnGetInputAPI(&ModuleImports)};
 	
 	if(!ModuleExports)
@@ -67,11 +66,6 @@ void SbInputSystemExternal::LoadModule()
 	
 	if(!mpInputSystem)
 		throw std::runtime_error("");
-};
-
-void SbInputSystemExternal::UnloadModule()
-{
-	mSystem.FreeLib(mnInputLib);
 };
 
 }; // namespace sbe

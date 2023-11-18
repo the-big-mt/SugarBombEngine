@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019-2020 SugarBombEngine Developers
+Copyright (C) 2019-2020, 2023 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -25,10 +25,11 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-#include <stdexcept>
-#include "IWindow.hpp"
+//#include "precompiled.h"
+#include <cassert>
 
 #include "AppFrameworks/SbClientApp/SbClientApp.hpp"
+#include "AppFrameworks/SbClientApp/SbWindow.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
@@ -38,14 +39,19 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
+namespace sbe
+{
+
 SbClientApp::SbClientApp(const char *asWindowTitle, int anWindowWidth, int anWindowHeight, bool abWindowFullScreen,
-	sbe::IRenderSystem &aRenderSystem, sbe::IInputSystem &aInputSystem, sbe::ISystem &aSystem, int argc, char **argv)
+	IRenderSystem &aRenderSystem, IInputSystem &aInputSystem, SbSystem &aSystem, int argc, char **argv)
 	: SbApplication(aSystem, argc, argv), mRenderSystem(aRenderSystem), mInputSystem(aInputSystem)
 {
-	mpWindow = CreateMainWindow(asWindowTitle, anWindowWidth, anWindowHeight, abWindowFullScreen);
+	mpWindow.reset(CreateMainWindow(asWindowTitle, anWindowWidth, anWindowHeight, abWindowFullScreen));
 	
-	mRenderSystem.Init(mpWindow.get());
-	mInputSystem.Init(mpWindow.get());
+	mRenderSystem.Init(*mpWindow.get());
+	mInputSystem.Init(*mpWindow.get());
+	
+	mnUPS = 60;
 };
 
 SbClientApp::~SbClientApp()
@@ -54,19 +60,60 @@ SbClientApp::~SbClientApp()
 	mRenderSystem.Shutdown();
 };
 
-void CGameApp::PostFrame()
+void SbClientApp::Run()
+{
+	assert(mbInitialized);
+
+	double fOldTime{mSystem.GetRealTime()};
+	double fLagTime{0.0};
+	
+	while(!CloseRequested())
+	{
+		if(PreFrame()) // Update input
+		{
+			assert(mnUPS > 0);
+			
+			double fCurTime{mSystem.GetRealTime()};
+			double fElapsedTime{fCurTime - fOldTime};
+
+			// TODO: what if elapsed time is too big?
+			
+			fLagTime += fElapsedTime;
+			
+			while(fLagTime >= GetTimeStep())
+			{
+				RunFrame(GetTimeStep());
+				fLagTime -= GetTimeStep();
+			};
+			
+			PostFrame(fLagTime / GetTimeStep()); // Render stuff if needed
+			
+			fOldTime = fCurTime;
+			
+			// TODO: sleep?
+		};
+	};
+};
+
+void SbClientApp::PostFrame()
 {
 	RenderFrame();
 };
 
-void CGameApp::RenderFrame()
+void SbClientApp::RenderFrame()
 {
 	if(PreRender())
 	{
 		Render();
 		PostRender();
 	};
-	
-	delete mpWindow;
-	mpWindow = nullptr;
 };
+
+void SbClientApp::SetMaxUPS(int anUPS)
+{
+	assert(anUPS > 0);
+	
+	mnUPS = anUPS;
+};
+
+}; // namespace sbe

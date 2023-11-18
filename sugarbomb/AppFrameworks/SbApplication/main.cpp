@@ -19,11 +19,15 @@ You should have received a copy of the GNU General Public License along with Sug
 
 /// @file
 
+//*****************************************************************************
+
 #include "AppFrameworks/SbApplication/SbApplication.hpp"
 
 #ifdef _WIN32
 #	include <windows.h>
 #endif
+
+//*****************************************************************************
 
 int main(int argc, char **argv)
 {

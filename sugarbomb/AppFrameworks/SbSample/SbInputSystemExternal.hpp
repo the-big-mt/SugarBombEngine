@@ -22,30 +22,30 @@ You should have received a copy of the GNU General Public License along with Sug
 
 #pragma once
 
+#include <memory>
+
 //*****************************************************************************
 
 namespace sbe
 {
 
-struct ISystem;
+class SbLibrary;
+
 struct IInputSystem;
 
 class SbInputSystemExternal final
 {
 public:
-	SbInputSystemExternal(ISystem &aSystem);
+	SbInputSystemExternal();
 	~SbInputSystemExternal();
 	
 	IInputSystem *GetInputSystem() const {return mpInputSystem;}
 private:
 	void LoadModule();
-	void UnloadModule();
 	
-	ISystem &mSystem;
+	std::unique_ptr<SbLibrary> mpInputLib;
 	
 	IInputSystem *mpInputSystem{nullptr};
-	
-	int mnInputLib{-1};
 };
 
 }; // namespace sbe
