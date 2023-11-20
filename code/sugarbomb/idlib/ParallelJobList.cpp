@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -33,6 +33,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
+
+/// @file
 
 //*****************************************************************************
 
@@ -72,7 +74,7 @@ static int numRegisteredJobs;
 const char* GetJobListName( jobListId_t id )
 {
 	return jobNames[id];
-}
+};
 
 /*
 ========================
@@ -86,10 +88,10 @@ static bool IsRegisteredJob( jobRun_t function )
 		if( registeredJobs[i].function == function )
 		{
 			return true;
-		}
-	}
+		};
+	};
 	return false;
-}
+};
 
 /*
 ========================
@@ -101,11 +103,11 @@ void RegisterJob( jobRun_t function, const char* name )
 	if( IsRegisteredJob( function ) )
 	{
 		return;
-	}
+	};
 	registeredJobs[numRegisteredJobs].function = function;
 	registeredJobs[numRegisteredJobs].name = name;
 	numRegisteredJobs++;
-}
+};
 
 /*
 ========================
@@ -119,10 +121,10 @@ const char* GetJobName( jobRun_t function )
 		if( registeredJobs[i].function == function )
 		{
 			return registeredJobs[i].name;
-		}
-	}
+		};
+	};
 	return "unknown";
-}
+};
 
 /*
 ========================
@@ -132,7 +134,7 @@ idParallelJobRegistration::idParallelJobRegistration
 idParallelJobRegistration::idParallelJobRegistration( jobRun_t function, const char* name )
 {
 	RegisterJob( function, name );
-}
+};
 
 int globalSpuLocalStoreActive;
 void* globalSpuLocalStoreStart;
@@ -213,27 +215,27 @@ public:
 	unsigned int			GetNumExecutedJobs() const
 	{
 		return threadStats.numExecutedJobs;
-	}
+	};
 	unsigned int			GetNumSyncs() const
 	{
 		return threadStats.numExecutedSyncs;
-	}
+	};
 	uint64					GetSubmitTimeMicroSec() const
 	{
 		return threadStats.submitTime;
-	}
+	};
 	uint64					GetStartTimeMicroSec() const
 	{
 		return threadStats.startTime;
-	}
+	};
 	uint64					GetFinishTimeMicroSec() const
 	{
 		return threadStats.endTime;
-	}
+	};
 	uint64					GetWaitTimeMicroSec() const
 	{
 		return threadStats.waitTime;
-	}
+	};
 	uint64					GetTotalProcessingTimeMicroSec() const;
 	uint64					GetTotalWastedTimeMicroSec() const;
 	uint64					GetUnitProcessingTimeMicroSec( int unit ) const;
@@ -242,15 +244,15 @@ public:
 	jobListId_t				GetId() const
 	{
 		return listId;
-	}
+	};
 	jobListPriority_t		GetPriority() const
 	{
 		return listPriority;
-	}
+	};
 	int						GetVersion()
 	{
 		return version.GetValue();
-	}
+	};
 	
 	bool					WaitForOtherJobList();
 	
@@ -340,7 +342,7 @@ idParallelJobList_Threads::idParallelJobList_Threads( jobListId_t id, jobListPri
 	
 	memset( &deferredThreadStats, 0, sizeof( threadStats_t ) );
 	memset( &threadStats, 0, sizeof( threadStats_t ) );
-}
+};
 
 /*
 ========================
@@ -350,7 +352,7 @@ idParallelJobList_Threads::~idParallelJobList_Threads
 idParallelJobList_Threads::~idParallelJobList_Threads()
 {
 	Wait();
-}
+};
 
 /*
 ========================
@@ -367,8 +369,8 @@ ID_INLINE void idParallelJobList_Threads::AddJob( jobRun_t function, void* data 
 		for( int i = 0; i < jobList.Num(); i++ )
 		{
 			assert( jobList[i].function != function || jobList[i].data != data );
-		}
-	}
+		};
+	};
 #endif
 	if( 1 )    // JDC: this never worked in tech5!  !jobList.IsFull() ) {
 	{
@@ -391,9 +393,9 @@ ID_INLINE void idParallelJobList_Threads::AddJob( jobRun_t function, void* data 
 				{
 					currentJobCount[ j ]++;
 					break;
-				}
-			}
-		}
+				};
+			};
+		};
 		
 		// print the quantity of each job type
 		for( int i = 0; i < numRegisteredJobs; ++i )
@@ -401,11 +403,11 @@ ID_INLINE void idParallelJobList_Threads::AddJob( jobRun_t function, void* data 
 			if( currentJobCount[ i ] > 0 )
 			{
 				idLib::Printf( "Job: %s, # %d", registeredJobs[ i ].name, currentJobCount[ i ] );
-			}
-		}
+			};
+		};
 		idLib::Error( "Can't add job '%s', too many jobs %d", GetJobName( function ), jobList.Num() );
-	}
-}
+	};
+};
 
 /*
 ========================
@@ -430,7 +432,7 @@ ID_INLINE void idParallelJobList_Threads::InsertSyncPoint( jobSyncType_t syncTyp
 				job.function = Nop;
 				job.data = & JOB_SIGNAL;
 				hasSignal = true;
-			}
+			};
 			break;
 		}
 		case SYNC_SYNCHRONIZE:
@@ -442,11 +444,11 @@ ID_INLINE void idParallelJobList_Threads::InsertSyncPoint( jobSyncType_t syncTyp
 				job.data = & JOB_SYNCHRONIZE;
 				hasSignal = false;
 				numSyncs++;
-			}
+			};
 			break;
-		}
-	}
-}
+		};
+	};
+};
 
 /*
 ========================
@@ -474,7 +476,7 @@ void idParallelJobList_Threads::Submit( idParallelJobList_Threads* waitForJobLis
 	if( jobList.Num() == 0 )
 	{
 		return;
-	}
+	};
 	
 	if( waitForJobList != nullptr )
 	{
@@ -483,7 +485,7 @@ void idParallelJobList_Threads::Submit( idParallelJobList_Threads* waitForJobLis
 	else
 	{
 		waitForGuard = nullptr;
-	}
+	};
 	
 	currentDoneGuard = ( currentDoneGuard + 1 ) & ( NUM_DONE_GUARDS - 1 );
 	doneGuards[currentDoneGuard].SetValue( 1 );
@@ -506,8 +508,8 @@ void idParallelJobList_Threads::Submit( idParallelJobList_Threads* waitForJobLis
 		// run all the jobs right here
 		threadJobListState_t state( GetVersion() );
 		RunJobs( 0, state, false );
-	}
-}
+	};
+};
 
 /*
 ========================
@@ -522,7 +524,7 @@ void idParallelJobList_Threads::Wait()
 		if( !verify( !done && signalJobCount.Num() > 0 ) )
 		{
 			return;
-		}
+		};
 		
 		bool waited = false;
 		uint64 waitStart = Sys_Microseconds();
@@ -531,13 +533,13 @@ void idParallelJobList_Threads::Wait()
 		{
 			Sys_Yield();
 			waited = true;
-		}
+		};
 		version.Increment();
 		while( numThreadsExecuting.GetValue() > 0 )
 		{
 			Sys_Yield();
 			waited = true;
-		}
+		};
 		
 		jobList.SetNum( 0 );
 		signalJobCount.SetNum( 0 );
@@ -546,10 +548,10 @@ void idParallelJobList_Threads::Wait()
 		
 		uint64 waitEnd = Sys_Microseconds();
 		deferredThreadStats.waitTime = waited ? ( waitEnd - waitStart ) : 0;
-	}
+	};
 	memcpy( & threadStats, & deferredThreadStats, sizeof( threadStats ) );
 	done = true;
-}
+};
 
 /*
 ========================
@@ -562,9 +564,9 @@ bool idParallelJobList_Threads::TryWait()
 	{
 		Wait();
 		return true;
-	}
+	};
 	return false;
-}
+};
 
 /*
 ========================
@@ -574,7 +576,7 @@ idParallelJobList_Threads::IsSubmitted
 bool idParallelJobList_Threads::IsSubmitted() const
 {
 	return !done;
-}
+};
 
 /*
 ========================
@@ -587,9 +589,9 @@ uint64 idParallelJobList_Threads::GetTotalProcessingTimeMicroSec() const
 	for( int unit = 0; unit < MAX_THREADS; unit++ )
 	{
 		total += threadStats.threadExecTime[unit];
-	}
+	};
 	return total;
-}
+};
 
 /*
 ========================
@@ -602,9 +604,9 @@ uint64 idParallelJobList_Threads::GetTotalWastedTimeMicroSec() const
 	for( int unit = 0; unit < MAX_THREADS; unit++ )
 	{
 		total += threadStats.threadTotalTime[unit] - threadStats.threadExecTime[unit];
-	}
+	};
 	return total;
-}
+};
 
 /*
 ========================
@@ -616,9 +618,9 @@ uint64 idParallelJobList_Threads::GetUnitProcessingTimeMicroSec( int unit ) cons
 	if( unit < 0 || unit >= MAX_THREADS )
 	{
 		return 0;
-	}
+	};
 	return threadStats.threadExecTime[unit];
-}
+};
 
 /*
 ========================
@@ -630,9 +632,9 @@ uint64 idParallelJobList_Threads::GetUnitWastedTimeMicroSec( int unit ) const
 	if( unit < 0 || unit >= MAX_THREADS )
 	{
 		return 0;
-	}
+	};
 	return threadStats.threadTotalTime[unit] - threadStats.threadExecTime[unit];
-}
+};
 
 #ifndef _DEBUG
 volatile float longJobTime;
@@ -651,14 +653,14 @@ int idParallelJobList_Threads::RunJobsInternal( unsigned int threadNum, threadJo
 	{
 		// trying to run an old version of this list that is already done
 		return RUN_DONE;
-	}
+	};
 	
 	assert( threadNum < MAX_THREADS );
 	
 	if( deferredThreadStats.startTime == 0 )
 	{
 		deferredThreadStats.startTime = Sys_Microseconds();	// first time any thread is running jobs from this list
-	}
+	};
 	
 	int result = RUN_OK;
 	
@@ -681,7 +683,7 @@ int idParallelJobList_Threads::RunJobsInternal( unsigned int threadNum, threadJo
 				{
 					// stalled on a synchronization point
 					return ( result | RUN_STALLED );
-				}
+				};
 			}
 			else if( jobList[state.lastJobIndex].data == & JOB_LIST_DONE )
 			{
@@ -689,9 +691,9 @@ int idParallelJobList_Threads::RunJobsInternal( unsigned int threadNum, threadJo
 				{
 					// stalled on a synchronization point
 					return ( result | RUN_STALLED );
-				}
-			}
-		}
+				};
+			};
+		};
 		
 		// try to lock to fetch a new job
 		if( fetchLock.Increment() == 1 )
@@ -719,7 +721,7 @@ int idParallelJobList_Threads::RunJobsInternal( unsigned int threadNum, threadJo
 						fetchLock.Decrement();
 						// stalled on a synchronization point
 						return ( result | RUN_STALLED );
-					}
+					};
 				}
 				else if( jobList[state.lastJobIndex].data == & JOB_LIST_DONE )
 				{
@@ -731,11 +733,11 @@ int idParallelJobList_Threads::RunJobsInternal( unsigned int threadNum, threadJo
 						fetchLock.Decrement();
 						// stalled on a synchronization point
 						return ( result | RUN_STALLED );
-					}
+					};
 					// decrement the done count
 					doneGuards[currentDoneGuard].Decrement();
-				}
-			}
+				};
+			};
 			// release the fetch lock
 			fetchLock.Decrement();
 		}
@@ -745,13 +747,13 @@ int idParallelJobList_Threads::RunJobsInternal( unsigned int threadNum, threadJo
 			fetchLock.Decrement();
 			// another thread is fetching right now so consider stalled
 			return ( result | RUN_STALLED );
-		}
+		};
 		
 		// if at the end of the job list we're done
 		if( state.nextJobIndex >= jobList.Num() )
 		{
 			return ( result | RUN_DONE );
-		}
+		};
 		
 		// execute the next job
 		{
@@ -775,10 +777,10 @@ int idParallelJobList_Threads::RunJobsInternal( unsigned int threadNum, threadJo
 					const char* jobName = GetJobName( jobList[state.nextJobIndex].function );
 					const char* jobListName = GetJobListName( GetId() );
 					idLib::Printf( "%1.1f milliseconds for a single '%s' job from job list %s on thread %d\n", longJobTime, jobName, jobListName, threadNum );
-				}
-			}
+				};
+			};
 #endif
-		}
+		};
 		
 		result |= RUN_PROGRESS;
 		
@@ -790,14 +792,14 @@ int idParallelJobList_Threads::RunJobsInternal( unsigned int threadNum, threadJo
 			{
 				deferredThreadStats.endTime = Sys_Microseconds();
 				return ( result | RUN_DONE );
-			}
-		}
+			};
+		};
 		
 	}
 	while( ! singleJob );
 	
 	return result;
-}
+};
 
 /*
 ========================
@@ -817,7 +819,7 @@ int idParallelJobList_Threads::RunJobs( unsigned int threadNum, threadJobListSta
 	deferredThreadStats.threadTotalTime[threadNum] += Sys_Microseconds() - start;
 	
 	return result;
-}
+};
 
 /*
 ========================
@@ -831,10 +833,10 @@ bool idParallelJobList_Threads::WaitForOtherJobList()
 		if( waitForGuard->GetValue() > 0 )
 		{
 			return true;
-		}
-	}
+		};
+	};
 	return false;
-}
+};
 
 /*
 ================================================================================================
@@ -854,7 +856,7 @@ idParallelJobList::idParallelJobList( jobListId_t id, jobListPriority_t priority
 	assert( priority > JOBLIST_PRIORITY_NONE );
 	this->jobListThreads = new( TAG_JOBLIST ) idParallelJobList_Threads( id, priority, maxJobs, maxSyncs );
 	this->color = color;
-}
+};
 
 /*
 ========================
@@ -864,7 +866,7 @@ idParallelJobList::~idParallelJobList
 idParallelJobList::~idParallelJobList()
 {
 	delete jobListThreads;
-}
+};
 
 /*
 ========================
@@ -875,7 +877,7 @@ void idParallelJobList::AddJob( jobRun_t function, void* data )
 {
 	assert( IsRegisteredJob( function ) );
 	jobListThreads->AddJob( function, data );
-}
+};
 
 /*
 ========================
@@ -885,7 +887,7 @@ idParallelJobList::AddJobSPURS
 CellSpursJob128* idParallelJobList::AddJobSPURS()
 {
 	return nullptr;
-}
+};
 
 /*
 ========================
@@ -895,7 +897,7 @@ idParallelJobList::InsertSyncPoint
 void idParallelJobList::InsertSyncPoint( jobSyncType_t syncType )
 {
 	jobListThreads->InsertSyncPoint( syncType );
-}
+};
 
 /*
 ========================
@@ -907,8 +909,8 @@ void idParallelJobList::Wait()
 	if( jobListThreads != nullptr )
 	{
 		jobListThreads->Wait();
-	}
-}
+	};
+};
 
 /*
 ========================
@@ -921,9 +923,9 @@ bool idParallelJobList::TryWait()
 	if( jobListThreads != nullptr )
 	{
 		done &= jobListThreads->TryWait();
-	}
+	};
 	return done;
-}
+};
 
 /*
 ========================
@@ -934,7 +936,7 @@ void idParallelJobList::Submit( idParallelJobList* waitForJobList, int paralleli
 {
 	assert( waitForJobList != this );
 	jobListThreads->Submit( ( waitForJobList != nullptr ) ? waitForJobList->jobListThreads : nullptr, parallelism );
-}
+};
 
 /*
 ========================
@@ -944,7 +946,7 @@ idParallelJobList::IsSubmitted
 bool idParallelJobList::IsSubmitted() const
 {
 	return jobListThreads->IsSubmitted();
-}
+};
 
 /*
 ========================
@@ -954,7 +956,7 @@ idParallelJobList::GetNumExecutedJobs
 unsigned int idParallelJobList::GetNumExecutedJobs() const
 {
 	return jobListThreads->GetNumExecutedJobs();
-}
+};
 
 /*
 ========================
@@ -964,7 +966,7 @@ idParallelJobList::GetNumSyncs
 unsigned int idParallelJobList::GetNumSyncs() const
 {
 	return jobListThreads->GetNumSyncs();
-}
+};
 
 /*
 ========================
@@ -974,7 +976,7 @@ idParallelJobList::GetSubmitTimeMicroSec
 uint64 idParallelJobList::GetSubmitTimeMicroSec() const
 {
 	return jobListThreads->GetSubmitTimeMicroSec();
-}
+};
 
 /*
 ========================
@@ -984,7 +986,7 @@ idParallelJobList::GetStartTimeMicroSec
 uint64 idParallelJobList::GetStartTimeMicroSec() const
 {
 	return jobListThreads->GetStartTimeMicroSec();
-}
+};
 
 /*
 ========================
@@ -994,7 +996,7 @@ idParallelJobList::GetFinishTimeMicroSec
 uint64 idParallelJobList::GetFinishTimeMicroSec() const
 {
 	return jobListThreads->GetFinishTimeMicroSec();
-}
+};
 
 /*
 ========================
@@ -1004,7 +1006,7 @@ idParallelJobList::GetWaitTimeMicroSec
 uint64 idParallelJobList::GetWaitTimeMicroSec() const
 {
 	return jobListThreads->GetWaitTimeMicroSec();
-}
+};
 
 /*
 ========================
@@ -1014,7 +1016,7 @@ idParallelJobList::GetTotalProcessingTimeMicroSec
 uint64 idParallelJobList::GetTotalProcessingTimeMicroSec() const
 {
 	return jobListThreads->GetTotalProcessingTimeMicroSec();
-}
+};
 
 /*
 ========================
@@ -1024,7 +1026,7 @@ idParallelJobList::GetTotalWastedTimeMicroSec
 uint64 idParallelJobList::GetTotalWastedTimeMicroSec() const
 {
 	return jobListThreads->GetTotalWastedTimeMicroSec();
-}
+};
 
 /*
 ========================
@@ -1034,7 +1036,7 @@ idParallelJobList::GetUnitProcessingTimeMicroSec
 uint64 idParallelJobList::GetUnitProcessingTimeMicroSec( int unit ) const
 {
 	return jobListThreads->GetUnitProcessingTimeMicroSec( unit );
-}
+};
 
 /*
 ========================
@@ -1044,7 +1046,7 @@ idParallelJobList::GetUnitWastedTimeMicroSec
 uint64 idParallelJobList::GetUnitWastedTimeMicroSec( int unit ) const
 {
 	return jobListThreads->GetUnitWastedTimeMicroSec( unit );
-}
+};
 
 /*
 ========================
@@ -1054,7 +1056,7 @@ idParallelJobList::GetId
 jobListId_t idParallelJobList::GetId() const
 {
 	return jobListThreads->GetId();
-}
+};
 
 /*
 ================================================================================================
@@ -1114,7 +1116,7 @@ idJobThread::~idJobThread
 */
 idJobThread::~idJobThread()
 {
-}
+};
 
 /*
 ========================
@@ -1131,7 +1133,7 @@ void idJobThread::Start( core_t core, unsigned int threadNum )
 	idStr::snPrintf( name, 16, "JLProc_%d", threadNum );
 	StartWorkerThread( name, core, THREAD_NORMAL, JOB_THREAD_STACK_SIZE );
 	// DG end
-}
+};
 
 /*
 ========================
@@ -1146,13 +1148,13 @@ void idJobThread::AddJobList( idParallelJobList_Threads* jobList )
 	while( lastJobList - firstJobList >= MAX_JOBLISTS )
 	{
 		Sys_Yield();
-	}
+	};
 	assert( lastJobList - firstJobList < MAX_JOBLISTS );
 	jobLists[lastJobList & ( MAX_JOBLISTS - 1 )].jobList = jobList;
 	jobLists[lastJobList & ( MAX_JOBLISTS - 1 )].version = jobList->GetVersion();
 	lastJobList++;
 	addJobMutex.Unlock();
-}
+};
 
 /*
 ========================
@@ -1178,11 +1180,11 @@ int idJobThread::Run()
 			threadJobListState[numJobLists].nextJobIndex = -1;
 			numJobLists++;
 			firstJobList++;
-		}
+		};
 		if( numJobLists == 0 )
 		{
 			break;
-		}
+		};
 		
 		int currentJobList = 0;
 		jobListPriority_t priority = JOBLIST_PRIORITY_NONE;
@@ -1195,8 +1197,8 @@ int idJobThread::Run()
 				{
 					priority = threadJobListState[i].jobList->GetPriority();
 					currentJobList = i;
-				}
-			}
+				};
+			};
 		}
 		else
 		{
@@ -1209,9 +1211,9 @@ int idJobThread::Run()
 				{
 					priority = threadJobListState[i].jobList->GetPriority();
 					currentJobList = i;
-				}
-			}
-		}
+				};
+			};
+		};
 		
 		// if the priority is high then try to run through the whole list to reduce the overhead
 		// otherwise run a single job and re-evaluate priorities for the next job
@@ -1226,7 +1228,7 @@ int idJobThread::Run()
 			for( int i = currentJobList; i < numJobLists - 1; i++ )
 			{
 				threadJobListState[i] = threadJobListState[i + 1];
-			}
+			};
 			numJobLists--;
 			lastStalledJobList = -1;
 		}
@@ -1238,17 +1240,17 @@ int idJobThread::Run()
 				if( ( result & idParallelJobList_Threads::RUN_PROGRESS ) == 0 )
 				{
 					Sys_Yield();
-				}
-			}
+				};
+			};
 			lastStalledJobList = currentJobList;
 		}
 		else
 		{
 			lastStalledJobList = -1;
-		}
-	}
+		};
+	};
 	return 0;
-}
+};
 
 /*
 ================================================================================================
@@ -1337,7 +1339,7 @@ SubmitJobList
 void SubmitJobList( idParallelJobList_Threads* jobList, int parallelism )
 {
 	parallelJobManagerLocal.Submit( jobList, parallelism );
-}
+};
 
 /*
 ========================
@@ -1353,11 +1355,11 @@ void idParallelJobManagerLocal::Init()
 	for( int i = 0; i < MAX_JOB_THREADS; i++ )
 	{
 		threads[i].Start( cores[i], i );
-	}
+	};
 	maxThreads = jobs_numThreads.GetInteger();
 	
 	Sys_CPUCount( numPhysicalCpuCores, numLogicalCpuCores, numCpuPackages );
-}
+};
 
 /*
 ========================
@@ -1369,8 +1371,8 @@ void idParallelJobManagerLocal::Shutdown()
 	for( int i = 0; i < MAX_JOB_THREADS; i++ )
 	{
 		threads[i].StopThread();
-	}
-}
+	};
+};
 
 /*
 ========================
@@ -1384,12 +1386,12 @@ idParallelJobList* idParallelJobManagerLocal::AllocJobList( jobListId_t id, jobL
 		if( jobLists[i]->GetId() == id )
 		{
 			// idStudio may cause job lists to be allocated multiple times
-		}
-	}
+		};
+	};
 	idParallelJobList* jobList = new( TAG_JOBLIST ) idParallelJobList( id, priority, maxJobs, maxSyncs, color );
 	jobLists.Append( jobList );
 	return jobList;
-}
+};
 
 /*
 ========================
@@ -1401,18 +1403,18 @@ void idParallelJobManagerLocal::FreeJobList( idParallelJobList* jobList )
 	if( jobList == nullptr )
 	{
 		return;
-	}
+	};
 	// wait for all job threads to finish because job list deletion is not thread safe
 	for( unsigned int i = 0; i < maxThreads; i++ )
 	{
 		threads[i].WaitForThread();
-	}
+	};
 	int index = jobLists.FindIndex( jobList );
 	assert( index >= 0 && jobLists[index] == jobList );
 	jobLists[index]->Wait();
 	delete jobLists[index];
 	jobLists.RemoveIndexFast( index );
-}
+};
 
 /*
 ========================
@@ -1422,7 +1424,7 @@ idParallelJobManagerLocal::GetNumJobLists
 int idParallelJobManagerLocal::GetNumJobLists() const
 {
 	return jobLists.Num();
-}
+};
 
 /*
 ========================
@@ -1432,7 +1434,7 @@ idParallelJobManagerLocal::GetNumFreeJobLists
 int idParallelJobManagerLocal::GetNumFreeJobLists() const
 {
 	return MAX_JOBLISTS - jobLists.Num();
-}
+};
 
 /*
 ========================
@@ -1442,7 +1444,7 @@ idParallelJobManagerLocal::GetJobList
 idParallelJobList* idParallelJobManagerLocal::GetJobList( int index )
 {
 	return jobLists[index];
-}
+};
 
 /*
 ========================
@@ -1452,7 +1454,7 @@ idParallelJobManagerLocal::GetNumProcessingUnits
 int idParallelJobManagerLocal::GetNumProcessingUnits()
 {
 	return maxThreads;
-}
+};
 
 /*
 ========================
@@ -1465,8 +1467,8 @@ void idParallelJobManagerLocal::WaitForAllJobLists()
 	for( int i = 0; i < jobLists.Num(); i++ )
 	{
 		jobLists[i]->Wait();
-	}
-}
+	};
+};
 
 /*
 ========================
@@ -1479,7 +1481,7 @@ void idParallelJobManagerLocal::Submit( idParallelJobList_Threads* jobList, int 
 	{
 		maxThreads = idMath::ClampInt( 0, MAX_JOB_THREADS, jobs_numThreads.GetInteger() );
 		jobs_numThreads.ClearModified();
-	}
+	};
 	
 	// determine the number of threads to use
 	int numThreads = maxThreads;
@@ -1502,18 +1504,18 @@ void idParallelJobManagerLocal::Submit( idParallelJobList_Threads* jobList, int 
 	else
 	{
 		numThreads = parallelism;
-	}
+	};
 	
 	if( numThreads <= 0 )
 	{
 		threadJobListState_t state( jobList->GetVersion() );
 		jobList->RunJobs( 0, state, false );
 		return;
-	}
+	};
 	
 	for( int i = 0; i < numThreads; i++ )
 	{
 		threads[i].AddJobList( jobList );
 		threads[i].SignalWork();
-	}
-}
+	};
+};

@@ -271,7 +271,7 @@ public:
 	void					UpdateGUI();
 	const char* 			PipBoyIcon() const;
 	const char* 			DisplayName() const;
-	const char* 			Description() const;
+	//const char* 			Description() const;
 	
 	virtual void			SetModel( const char* modelname );
 	bool					GetGlobalJointTransform( bool viewModel, const jointHandle_t jointHandle, idVec3& offset, idMat3& axis );
@@ -452,10 +452,12 @@ private:
 	idStr					meleeDefName;
 	idDict					brassDict;
 	int						brassDelay;
+	
+	// gui
 	idStr					icon;
 	idStr					pipBoyIcon;
 	idStr					displayName;
-	idStr					itemDesc;
+	//idStr					itemDesc;
 	
 	// view weapon gui light
 	renderLight_t			guiLight;

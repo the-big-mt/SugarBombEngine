@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -126,7 +127,7 @@ idFont::idFont(const char *n, idFileSystem *apFileSystem, idDeclManager *apDeclM
 		{
 			if(f == this)
 			{
-				idLib::FatalError("Font alias \"%s\" is a circular reference!", n);
+				idLib::FatalError("Font alias \"%s\" is a circular reference!", n); // TODO
 			}
 		}
 		return;
@@ -136,11 +137,11 @@ idFont::idFont(const char *n, idFileSystem *apFileSystem, idDeclManager *apDeclM
 	{
 		if(name.Icmp(DEFAULT_FONT) == 0)
 		{
-			idLib::FatalError("Could not load default font \"%s\"", DEFAULT_FONT);
+			idLib::FatalError("Could not load default font \"%s\"", DEFAULT_FONT); // TODO
 		}
 		else
 		{
-			idLib::Warning("Could not load font %s", n);
+			idLib::Warning("Could not load font %s", n); // TODO
 			alias = renderSystem->RegisterFont(DEFAULT_FONT);
 		}
 	}
@@ -221,7 +222,7 @@ bool idFont::LoadFont()
 	fd->ReadBig(version);
 	if(version != FONT_INFO_MAGIC)
 	{
-		idLib::Warning("Wrong version in %s", GetName());
+		idLib::Warning("Wrong version in %s", GetName()); // TODO
 		delete fd;
 		return false;
 	}

@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 2014-2016 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -26,8 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __FRAMEBUFFER_H__
-#define __FRAMEBUFFER_H__
+#pragma once
 
 #include <cstdint>
 
@@ -152,5 +152,4 @@ struct globalFramebuffers_t
 };
 extern globalFramebuffers_t globalFramebuffers;
 
-
-#endif // __FRAMEBUFFER_H__//} // namespace sbe
+//} // namespace sbe

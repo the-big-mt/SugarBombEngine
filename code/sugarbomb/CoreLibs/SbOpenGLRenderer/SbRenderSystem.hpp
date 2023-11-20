@@ -5,6 +5,7 @@ Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2013-2016 Robert Beckebans
 Copyright (C) 2014-2016 Kot in Action Creative Artel
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -28,8 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __RENDERER_H__
-#define __RENDERER_H__
+#pragma once
 
 #include "renderer/IRenderSystem.hpp"
 
@@ -184,5 +184,3 @@ void R_LightProjectionMatrix(const idVec3 &origin, const idPlane &rearPlane, idV
 void R_ScreenshotFilename(int &lastNumber, const char *base, idStr &fileName);
 
 //} // namespace sbe
-
-#endif /* !__RENDERER_H__ */

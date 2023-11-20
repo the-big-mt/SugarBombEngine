@@ -50,6 +50,10 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #include "CoreLibs/SbSound/ISoundSystem.hpp"
 
+#include "SbSystemExternal.hpp"
+#include "SbRenderSystemExternal.hpp"
+#include "SbInputSystemExternal.hpp"
+#include "SbSoundSystemExternal.hpp"
 //*****************************************************************************
 
 namespace sbe
@@ -72,7 +76,29 @@ SbGameFramework::SbGameFramework(IRenderSystem *apRenderSystem, ISoundSystem *ap
 
 void SbGameFramework::Init()
 {
+	
+	mSystem = *CreateSystem();
+	mSoundSystem = *CreateSoundSystem(mSystem);
+	mRenderSystem = *CreateRenderSystem(mSystem);
+	mInputSystem = *CreateInputSystem(mSystem);
+	mNetworkSystem = *CreateNetworkSystem(mSystem);
+	mPhysicsSystem = *CreatePhysicsSystem(mSystem);
+	
+	
+	
+	
+	
+	if(!LoadPrefsConfig())
+		LoadDefaultConfig();
+	
+	IWindow::Props WinProps(.msTitle = sWindowTitle, .mnWidth = nWindowWidth, .mnHeight = nWindowHeight, .mbFullScreen = bWindowFullScreen);
+	
+	mSoundSystem.Init();
+	mRenderSystem.Init(WinProps);
+	mInputSystem.Init();
 	mNetworkSystem.Init();
+	mPhysicsSystem.Init();
+	
 	mGame.Init();
 	
 	CreateMainMenu();
@@ -80,22 +106,62 @@ void SbGameFramework::Init()
 
 void SbGameFramework::Shutdown()
 {
+	//if( com_shuttingDown) // TODO
+		//return; // TODO
+
+	//com_shuttingDown = true; // TODO
+	
+	// Kill any pending saves...
+	printf( "session->GetSaveGameManager().CancelToTerminate();\n" );
+	//session->GetSaveGameManager().CancelToTerminate(); // TODO
+	
+	// shutdown the script debugger
+	//DebuggerServerShutdown();
+	
+	//if(aviCaptureMode) // TODO
+	{
+		printf("EndAVICapture();\n");
+		//EndAVICapture(); // TODO
+	};
+	
+	printf("Stop();\n");
+	//Stop(); // TODO
 	
 	printf("CleanupShell();\n");
 	CleanupShell();
 	
 	mGame.Shutdown();
+	
+	mPhysicsSystem.Shutdown();
 	mNetworkSystem.Shutdown();
+	mSoundSystem.Shutdown();
+	
 };
 
-void SbGameFramework::Frame()
+void SbGameFramework::Frame(float afTimeStep)
 {
+	mpSoundSystem->Update(GetTimeStep());
+	
 	idUserCmdMgr UserCmdMgrStub;
 	gameReturn_t GameReturnStub;
 	
 	mGame.RunFrame(UserCmdMgrStub, GameReturnStub);
 	mGame.ClientRunFrame(UserCmdMgrStub, false, GameReturnStub);
-	mGame.Draw(0);
+};
+
+void SbGameFramework::Draw()
+{
+	if(mGame.Shell_IsActive())
+	{
+		bool bGameDraw{mGame.Draw(0)};
+		if(!bGameDraw)
+		{
+		};
+		mGame.Shell_Render();
+	}
+	else
+	{
+	};
 };
 
 /*
@@ -128,6 +194,42 @@ void SbGameFramework::CreateMainMenu()
 };
 
 /*
+==============
+idCommonLocal::StartMainMenu
+==============
+*/
+void SbGameFramework::StartMenu(bool abPlayIntro)
+{
+	if(/*mGame &&*/ mGame.Shell_IsActive())
+		return;
+	
+	//if(readDemo) // TODO
+	{
+		// if we're playing a demo, esc kills it
+		//UnloadMap(); // TODO
+	};
+	
+	//if(mGame)
+	{
+		mGame.Shell_Show(true);
+		mGame.Shell_SyncWithSession();
+	};
+	
+	//console->Close(); // TODO
+};
+
+/*
+===============
+idCommonLocal::ExitMenu
+===============
+*/
+void SbGameFramework::ExitMenu()
+{
+	//if(mGame)
+		mGame.Shell_Show(false);
+};
+
+/*
 =================
 idCommonLocal::CleanupShell
 =================
@@ -135,6 +237,103 @@ idCommonLocal::CleanupShell
 void SbGameFramework::CleanupShell()
 {
 	mGame.Shell_Cleanup();
+};
+
+ISystem *SbGameFramework::CreateSystem()
+{
+#ifndef SBE_SYSTEM_HARD_LINKED
+	static SbSystemExternal SbSystemModule;
+	return SbSystemModule.GetSystem();
+#else
+	return new SbSystem::SbSystem();
+#endif
+};
+
+IRenderSystem *SbGameFramework::CreateRenderSystem(ISystem &aSystem)
+{
+#ifndef SBE_RENDER_HARD_LINKED
+	static SbRenderSystemExternal SbRenderModule(aSystem);
+	return SbRenderModule.GetRenderSystem();
+#else
+	return new SbRenderer::SbRenderSystem(aSystem);
+#endif
+};
+
+IInputSystem *SbGameFramework::CreateInputSystem(ISystem &aSystem)
+{
+#ifndef SBE_INPUT_HARD_LINKED
+	static SbInputSystemExternal SbInputModule(aSystem);
+	return SbInputModule.GetInputSystem();
+#else
+	return new SbInput::SbInputSystem(aSystem);
+#endif
+};
+
+ISoundSystem *SbGameFramework::CreateSoundSystem(ISystem &aSystem)
+{
+#ifndef SBE_SOUND_HARD_LINKED
+	static SbSoundSystemExternal SbSoundModule(aSystem);
+	return SbSoundModule.GetSoundSystem();
+#else
+	return new SbSound::SbSoundSystem(aSystem);
+#endif
+};
+
+INetworkSystem *SbGameFramework::CreateNetworkSystem(ISystem &aSystem)
+{
+#ifndef SBE_NETWORK_HARD_LINKED
+	static SbNetworkSystemExternal SbNetworkModule(aSystem);
+	return SbNetworkModule.GetNetworkSystem();
+#else
+	return new SbNetwork::SbNetworkSystem(aSystem);
+#endif
+};
+
+IPhysicsSystem *SbGameFramework::CreatePhysicsSystem(ISystem &aSystem)
+{
+#ifndef SBE_PHYSICS_HARD_LINKED
+	static SbPhysicsSystemExternal SbPhysicsModule(aSystem);
+	return SbPhysicsModule.GetPhysicsSystem();
+#else
+	return new SbPhysics::SbPhysicsSystem(aSystem);
+#endif
+};
+
+void SbGameFramework::LoadDefaultConfig()
+{
+	auto pDict{iniparser_load(std::string(msShortTitle).append("_default.ini").c_str())};
+	
+	int nWindowWidth{1280};
+	int nWindowHeight{600};
+	bool bWindowFullScreen{false};
+	
+	if(pDict != nullptr)
+	{
+		nWindowWidth = iniparser_getint(pDict, "Display:iSize W", 1280);
+		nWindowHeight = iniparser_getint(pDict, "Display:iSize H", 600);
+		bWindowFullScreen = iniparser_getboolean(pDict, "Display:bFull Screen", false);
+		bWindowBorder = iniparser_getboolean(pDict, "Display:bBorder", true);
+	};
+};
+
+bool SbGameFramework::LoadPrefsConfig()
+{
+	auto pDict{iniparser_load(std::string(msShortTitle).append("Prefs.ini").c_str())};
+	
+	int nWindowWidth{1280};
+	int nWindowHeight{600};
+	bool bWindowFullScreen{false};
+	
+	if(pDict != nullptr)
+	{
+		nWindowWidth = iniparser_getint(pDict, "Display:iSize W", 1280);
+		nWindowHeight = iniparser_getint(pDict, "Display:iSize H", 600);
+		bWindowFullScreen = iniparser_getboolean(pDict, "Display:bFull Screen", false);
+		bWindowBorder = iniparser_getboolean(pDict, "Display:bBorder", true);
+		return true;
+	};
+	
+	return false;
 };
 
 }; // namespace sbe::SbGameFramework

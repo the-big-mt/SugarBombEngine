@@ -4,7 +4,7 @@
 Doom 3 GPL Source Code
 Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012 Robert Beckebans
-Copyright (C) 2019 BlackPhrase
+Copyright (C) 2019-2020 BlackPhrase
 
 This file is part of the Doom 3 GPL Source Code (?Doom 3 Source Code?).
 
@@ -147,17 +147,6 @@ Sys_FPU_EnableExceptions
 //void Sys_FPU_EnableExceptions( int exceptions )
 //{
 //}
-
-/*
-===============
-Sys_FPE_handler
-===============
-*/
-void Sys_FPE_handler( int signum, siginfo_t* info, void* context )
-{
-	assert( signum == SIGFPE );
-	Sys_Printf( "FPE\n" );
-}
 
 /*
 ===============
@@ -519,10 +508,6 @@ bool Sys_FPU_StackIsEmpty()
 	return true;
 }
 
-void Sys_FPU_ClearStack()
-{
-}
-
 const char* Sys_FPU_GetState()
 {
 	return "";
@@ -541,24 +526,6 @@ Sys_SetPhysicalWorkMemory
 void Sys_SetPhysicalWorkMemory( int minBytes, int maxBytes )
 {
 	common->DPrintf( "TODO: Sys_SetPhysicalWorkMemory\n" );
-}
-
-/*
-===============
-Posix_EarlyInit
-===============
-*/
-void Posix_EarlyInit()
-{
-	//memset( &asyncThread, 0, sizeof( asyncThread ) );
-	
-	exit_spawn[0] = '\0';
-	Posix_InitSigs();
-	
-	// set the base time
-	Sys_Milliseconds();
-	
-	//Posix_InitPThreads();
 }
 
 /*

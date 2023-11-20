@@ -44,8 +44,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *  @brief Defines the parser helper class for the collada loader
  */
 
-#ifndef __MODEL_COLLADAPARSER_H__
-#define __MODEL_COLLADAPARSER_H__
+#pragma once
 
 #include "irrxml/src/irrXML.h"
 #include "Model_ColladaHelper.h"
@@ -359,5 +358,3 @@ const Type *ColladaParser::ResolveLibraryReference(const idHashTable<Type> &pLib
 
 	return element;
 }
-
-#endif // __MODEL_COLLADAPARSER_H__

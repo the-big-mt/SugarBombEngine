@@ -1,37 +1,48 @@
 /*
-===========================================================================
+*******************************************************************************
 
-Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2018-2019 BlackPhrase
+Copyright (C) 2018-2020 SugarBombEngine Developers
 
-This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
+This file is part of SugarBombEngine
 
-Doom 3 BFG Edition Source Code is free software: you can redistribute it and/or modify
+SugarBombEngine is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-Doom 3 BFG Edition Source Code is distributed in the hope that it will be useful,
+SugarBombEngine is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Doom 3 BFG Edition Source Code.  If not, see <http://www.gnu.org/licenses/>.
+along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
-In addition, the Doom 3 BFG Edition Source Code is also subject to certain additional terms. You should have received a copy of these additional terms immediately following the terms and conditions of the GNU General Public License which accompanied the Doom 3 BFG Edition Source Code.  If not, please request a copy in writing from id Software at the address below.
+In addition, SugarBombEngine is using id Tech 4 (BFG) pieces and thus
+subject to certain additional terms (all header and source files which 
+contains such pieces has this additional part appended to the license 
+header). You should have received a copy of these additional terms 
+stated in a separate file (LICENSE-idTech4) which accompanied the 
+SugarBombEngine source code. If not, please request a copy in 
+writing from id Software at the address below.
 
-If you have questions concerning this license or the applicable additional terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
+If you have questions concerning this license or the applicable additional
+terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc.,
+Suite 120, Rockville, Maryland 20850 USA.
 
-===========================================================================
+*******************************************************************************
 */
+
+/// @file
+
+//*****************************************************************************
 
 #pragma once
 
 #include "idlib/sys/sys_types.h"
-#include "idlib/CmdArgs.h"
-#include "idlib/Str.h"
+#include "CoreLibs/SbMain/SbCmdArgs.hpp"
+#include "CoreLibs/SbMain/SbString.hpp"
 
 /*
 ================================================
@@ -76,6 +87,8 @@ created using the CONSOLE_COMMAND_SHIP macro.
 	idCommandLink name ## _v( #name, name ## _f, comment, completion  ); \
 	void name ## _f( const idCmdArgs &args )
 
+//*****************************************************************************
+
 namespace sbe
 {
 
@@ -96,21 +109,21 @@ static idCommandLink sys_dumpMemory( "sys_dumpMemory", Sys_DumpMemory_f, "Walks 
 ================================================
 */
 
-class idCommandLink
+class SbCommandLink
 {
 public:
-	idCommandLink( const char* cmdName, cmdFunction_t function,
-				   const char* description, argCompletion_t argCompletion = NULL );
-	idCommandLink* 	next;
+	SbCommandLink( const char* cmdName, cmdFunction_t function,
+				   const char* description, argCompletion_t argCompletion = nullptr );
 	const char* 	cmdName_;
 	cmdFunction_t	function_;
 	const char* 	description_;
 	argCompletion_t argCompletion_;
+	SbCommandLink* 	next{nullptr};
 };
 
 // The command system will create commands for all the static definitions
 // when it initializes.
-idCommandLink* CommandLinks( idCommandLink* cl = NULL );
+SbCommandLink* CommandLinks( SbCommandLink* cl = nullptr );
 
 /*
 ===============================================================================
@@ -147,11 +160,8 @@ typedef enum
 	CMD_EXEC_APPEND						// add to end of the command buffer (normal case)
 } cmdExecution_t;
 
-class idCmdSystem
+struct SbCmdSystem
 {
-public:
-	virtual				~idCmdSystem() {}
-	
 	virtual void		Init() = 0;
 	virtual void		Shutdown() = 0;
 	
@@ -162,33 +172,33 @@ public:
 	// Remove all commands with one of the flags set.
 	virtual void		RemoveFlaggedCommands( int flags ) = 0;
 	
-	// Command and argument completion using callback for each valid string.
+	/// Command and argument completion using callback for each valid string
 	virtual void		CommandCompletion( void( *callback )( const char* s ) ) = 0;
 	virtual void		ArgCompletion( const char* cmdString, void( *callback )( const char* s ) ) = 0;
 	
 	virtual void		ExecuteCommandText( const char* text ) = 0;
 	virtual void		AppendCommandText( const char* text ) = 0;
 	
-	// Adds command text to the command buffer, does not add a final \n
+	/// Adds command text to the command buffer, does not add a final \n
 	virtual void		BufferCommandText( cmdExecution_t exec, const char* text ) = 0;
-	// Pulls off \n \r or ; terminated lines of text from the command buffer and
-	// executes the commands. Stops when the buffer is empty.
-	// Normally called once per frame, but may be explicitly invoked.
+	/// Pulls off \n \r or ; terminated lines of text from the command buffer and
+	/// executes the commands. Stops when the buffer is empty.
+	/// Normally called once per frame, but may be explicitly invoked
 	virtual void		ExecuteCommandBuffer() = 0;
 	
-	// Base for path/file auto-completion.
+	/// Base for path/file auto-completion.
 	virtual void		ArgCompletion_FolderExtension( const idCmdArgs& args, void( *callback )( const char* s ), const char* folder, bool stripFolder, ... ) = 0;
-	// Base for decl name auto-completion.
 	virtual void		ArgCompletion_DeclName( const idCmdArgs& args, void( *callback )( const char* s ), int type ) = 0;
+	/// Base for decl name auto-completion.
 	
-	// Adds to the command buffer in tokenized form ( CMD_EXEC_NOW or CMD_EXEC_APPEND only )
+	/// Adds to the command buffer in tokenized form ( CMD_EXEC_NOW or CMD_EXEC_APPEND only )
 	virtual void		BufferCommandArgs( cmdExecution_t exec, const idCmdArgs& args ) = 0;
 	
-	// Setup a reloadEngine to happen on next command run, and give a command to execute after reload
+	/// Setup a reloadEngine to happen on next command run, and give a command to execute after reload
 	virtual void		SetupReloadEngine( const idCmdArgs& args ) = 0;
 	virtual bool		PostReloadEngine() = 0;
 	
-	// Default argument completion functions.
+	/// Default argument completion functions
 	static void			ArgCompletion_Boolean( const idCmdArgs& args, void( *callback )( const char* s ) );
 	template<int min, int max>
 	static void			ArgCompletion_Integer( const idCmdArgs& args, void( *callback )( const char* s ) );
@@ -207,3 +217,10 @@ public:
 	static void			ArgCompletion_SaveGame( const idCmdArgs& args, void( *callback )( const char* s ) );
 	static void			ArgCompletion_DemoName( const idCmdArgs& args, void( *callback )( const char* s ) );
 };}; // namespace sbe
+
+struct idCmdSystem : public SbCmdSystem
+{
+	virtual ~idCmdSystem() = default;
+};
+
+}; // namespace sbe

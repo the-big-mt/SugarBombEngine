@@ -37,41 +37,6 @@ If you have questions concerning this license or the applicable additional terms
 //namespace BFG
 //{
 
-const int siglist[] =
-{
-	SIGHUP,
-	SIGQUIT,
-	SIGILL,
-	SIGTRAP,
-	SIGIOT,
-	SIGBUS,
-	SIGFPE,
-	SIGSEGV,
-	SIGPIPE,
-	SIGABRT,
-	//	SIGTTIN,
-	//	SIGTTOU,
-	-1
-};
-
-const char* signames[] =
-{
-	"SIGHUP",
-	"SIGQUIT",
-	"SIGILL",
-	"SIGTRAP",
-	"SIGIOT",
-	"SIGBUS",
-	"SIGFPE",
-	"SIGSEGV",
-	"SIGPIPE",
-	"SIGABRT",
-	//	"SIGTTIN",
-	//	"SIGTTOUT"
-};
-
-static char fatalError[ 1024 ];
-
 /*
 ================
 Posix_ClearSigs
@@ -128,48 +93,6 @@ static void sig_handler( int signum, siginfo_t* info, void* context )
 	Posix_SetExit( signum );
 	
 	common->Quit();
-}
-
-/*
-================
-Posix_InitSigs
-================
-*/
-void Posix_InitSigs( )
-{
-	struct sigaction action;
-	int i;
-	
-	fatalError[0] = '\0';
-	
-	/* Set up the structure */
-	action.sa_sigaction = sig_handler;
-	sigemptyset( &action.sa_mask );
-	action.sa_flags = SA_SIGINFO | SA_NODEFER;
-	
-	i = 0;
-	while( siglist[ i ] != -1 )
-	{
-		if( siglist[ i ] == SIGFPE )
-		{
-			action.sa_sigaction = Sys_FPE_handler;
-			if( sigaction( siglist[ i ], &action, nullptr ) != 0 )
-			{
-				Sys_Printf( "Failed to set SIGFPE handler: %s\n", strerror( errno ) );
-			}
-			action.sa_sigaction = sig_handler;
-		}
-		else if( sigaction( siglist[ i ], &action, nullptr ) != 0 )
-		{
-			Sys_Printf( "Failed to set %s handler: %s\n", signames[ i ], strerror( errno ) );
-		}
-		i++;
-	}
-	
-	// if the process is backgrounded (running non interactively)
-	// then SIGTTIN or SIGTOU could be emitted, if not caught, turns into a SIGSTP
-	signal( SIGTTIN, SIG_IGN );
-	signal( SIGTTOU, SIG_IGN );
 }
 
 /*

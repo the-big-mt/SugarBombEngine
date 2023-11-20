@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "SbClientApp.hpp"
 #include "win_local.hpp"
 
-#ifdef USE_BREAKPAD
+#ifdef SBE_USE_BREAKPAD
 #include "client/windows/handler/exception_handler.h"
 #endif
 
@@ -231,21 +231,9 @@ static bool GLW_GetWindowDimensions( const glimpParms_t parms, int& x, int& y, i
 	return true;
 }
 
-SbClientApp::~SbClientApp()
-{
-	// destroy window
-	if( mhWnd )
-	{
-		common->Printf( "...destroying window\n" );
-		ShowWindow( mhWnd, SW_HIDE );
-		DestroyWindow( mhWnd );
-		mhWnd = nullptr;
-	};
-};
-
 void SbClientApp::Init()
 {
-#ifdef USE_BREAKPAD
+#ifdef SBE_USE_BREAKPAD
     mpHandler =
         new google_breakpad::ExceptionHandler(
                                               L"%TMP%\\", // FIXME: provide base path here, dir must exist

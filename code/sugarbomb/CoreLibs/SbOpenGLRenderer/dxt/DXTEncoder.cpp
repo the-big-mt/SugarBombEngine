@@ -5,6 +5,7 @@ Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2014-2016 Robert Beckebans
 Copyright (C) 2014-2016 Kot in Action Creative Artel
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -2204,13 +2205,13 @@ void idDxtEncoder::CompressImageDXT1HQ( const byte* inBuf, byte* outBuf, int wid
 				EmitUInt( colorIndices2 );
 			}
 			
-			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) );
+			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) ); // TODO
 		}
 		outData += dstPadding;
 		inBuf += srcPadding;
 	}
 	
-	//idLib::Printf( "\r100%%\n" );
+	//idLib::Printf( "\r100%%\n" ); // TODO
 }
 
 /*
@@ -2308,13 +2309,13 @@ void idDxtEncoder::CompressImageDXT5HQ( const byte* inBuf, byte* outBuf, int wid
 			FindColorIndices( block, scol1, scol2, colorIndices );
 			EmitUInt( colorIndices );
 			
-			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) );
+			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) ); // TODO
 		}
 		outData += dstPadding;
 		inBuf += srcPadding;
 	}
 	
-	//idLib::Printf( "\r100%%\n" );
+	//idLib::Printf( "\r100%%\n" ); // TODO
 }
 
 /*
@@ -2371,13 +2372,13 @@ void idDxtEncoder::CompressImageCTX1HQ( const byte* inBuf, byte* outBuf, int wid
 			FindCTX1Indices( block, col1, col2, colorIndices );
 			EmitUInt( colorIndices );
 			
-			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) );
+			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) ); // TODO
 		}
 		outData += dstPadding;
 		inBuf += srcPadding;
 	}
 	
-	//idLib::Printf( "\r100%%\n" );
+	//idLib::Printf( "\r100%%\n" ); // TODO
 }
 
 /*
@@ -2864,13 +2865,13 @@ void idDxtEncoder::CompressYCoCgDXT5HQ( const byte* inBuf, byte* outBuf, int wid
 			FindColorIndices( block, scol1, scol2, colorIndices );
 			EmitUInt( colorIndices );
 			
-			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) );
+			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) ); // TODO
 		}
 		outData += dstPadding;
 		inBuf += srcPadding;
 	}
 	
-	//idLib::Printf( "\r100%%\n" );
+	//idLib::Printf( "\r100%%\n" ); // TODO
 }
 
 /*
@@ -2965,13 +2966,13 @@ void idDxtEncoder::CompressYCoCgCTX1DXT5AHQ( const byte* inBuf, byte* outBuf, in
 			FindCTX1Indices( block, col1, col2, colorIndices );
 			EmitUInt( colorIndices );
 			
-			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) );
+			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) ); // TODO
 		}
 		outData += dstPadding;
 		inBuf += srcPadding;
 	}
 	
-	//idLib::Printf( "\r100%%\n" );
+	//idLib::Printf( "\r100%%\n" ); // TODO
 }
 
 /*
@@ -3089,13 +3090,13 @@ void idDxtEncoder::CompressNormalMapDXT1HQ( const byte* inBuf, byte* outBuf, int
 			FindColorIndices( block, scol1, scol2, colorIndices );
 			EmitUInt( colorIndices );
 			
-			//idLib::Printf( "\r%3d%%", ( j * width + i * 4 ) * 100 / ( width * height ) );
+			//idLib::Printf( "\r%3d%%", ( j * width + i * 4 ) * 100 / ( width * height ) ); // TODO
 		}
 		outData += dstPadding;
 		inBuf += srcPadding;
 	}
 	
-	//idLib::Printf( "\r100%%\n" );
+	//idLib::Printf( "\r100%%\n" ); // TODO
 }
 
 /*
@@ -3158,13 +3159,13 @@ void idDxtEncoder::CompressNormalMapDXT1RenormalizeHQ( const byte* inBuf, byte* 
 			EmitUShort( scol2 );
 			EmitUInt( colorIndices );
 			
-			////idLib::Printf( "\r%3d%%", ( j * width + i * 4 ) * 100 / ( width * height ) );
+			////idLib::Printf( "\r%3d%%", ( j * width + i * 4 ) * 100 / ( width * height ) ); // TODO
 		}
 		outData += dstPadding;
 		inBuf += srcPadding;
 	}
 	
-	////idLib::Printf( "\r100%%\n" );
+	////idLib::Printf( "\r100%%\n" ); // TODO
 }
 
 #define USE_SCALE		1
@@ -3457,13 +3458,13 @@ void idDxtEncoder::CompressNormalMapDXT5HQ( const byte* inBuf, byte* outBuf, int
 			FindColorIndices( block, scol1, scol2, colorIndices );
 			EmitUInt( colorIndices );
 			
-			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) );
+			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) ); // TODO
 		}
 		outData += dstPadding;
 		inBuf += srcPadding;
 	}
 	
-	//idLib::Printf( "\r100%%\n" );
+	//idLib::Printf( "\r100%%\n" ); // TODO
 }
 
 /*
@@ -3541,14 +3542,14 @@ void idDxtEncoder::CompressNormalMapDXT5RenormalizeHQ( const byte* inBuf, byte* 
 			EmitUShort( scol1 );
 			EmitUInt( colorIndices );
 			
-			////idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) );
+			////idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) ); // TODO
 		}
 		outData += dstPadding;
 		inBuf += srcPadding;
 		
 	}
 	
-	////idLib::Printf( "\r100%%\n" );
+	////idLib::Printf( "\r100%%\n" ); // TODO
 }
 
 /*
@@ -3633,13 +3634,13 @@ void idDxtEncoder::CompressNormalMapDXN2HQ( const byte* inBuf, byte* outBuf, int
 				}
 			}
 			
-			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) );
+			//idLib::Printf( "\r%3d%%", ( j * width + i ) * 100 / ( width * height ) ); // TODO
 		}
 		outData += dstPadding;
 		inBuf += srcPadding;
 	}
 	
-	//idLib::Printf( "\r100%%\n" );
+	//idLib::Printf( "\r100%%\n" ); // TODO
 }
 
 /*

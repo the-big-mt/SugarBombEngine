@@ -367,7 +367,7 @@ void idWeapon::Save( idSaveGame* savefile ) const
 	savefile->WriteString( icon );
 	savefile->WriteString( pipBoyIcon );
 	savefile->WriteString( displayName );
-	savefile->WriteString( itemDesc );
+	//savefile->WriteString( itemDesc );
 	
 	savefile->WriteInt( guiLightHandle );
 	savefile->WriteRenderLight( guiLight );
@@ -563,7 +563,7 @@ void idWeapon::Restore( idRestoreGame* savefile )
 	savefile->ReadString( icon );
 	savefile->ReadString( pipBoyIcon );
 	savefile->ReadString( displayName );
-	savefile->ReadString( itemDesc );
+	//savefile->ReadString( itemDesc );
 	
 	savefile->ReadInt( guiLightHandle );
 	savefile->ReadRenderLight( guiLight );
@@ -832,7 +832,7 @@ void idWeapon::Clear()
 	icon			= "";
 	pipBoyIcon			= "";
 	displayName		= "";
-	itemDesc		= "";
+	//itemDesc		= "";
 	
 	playerViewAxis.Identity();
 	playerViewOrigin.Zero();
@@ -1034,7 +1034,7 @@ void idWeapon::GetWeaponDef( const char* objectname, int ammoinclip )
 	icon				= weaponDef->dict.GetString( "icon" );
 	pipBoyIcon				= weaponDef->dict.GetString( "pipBoyIcon" );
 	displayName			= weaponDef->dict.GetString( "display_name" );
-	itemDesc			= weaponDef->dict.GetString( "inv_desc" );
+	//itemDesc			= weaponDef->dict.GetString( "inv_desc" );
 	
 	silent_fire			= weaponDef->dict.GetBool( "silent_fire" );
 	powerAmmo			= weaponDef->dict.GetBool( "powerAmmo" );
@@ -1437,10 +1437,12 @@ const char* idWeapon::DisplayName() const
 idWeapon::Description
 ================
 */
+/*
 const char* idWeapon::Description() const
 {
 	return idLocalization::GetString( itemDesc );
 }
+*/
 
 /*
 ================
@@ -2525,11 +2527,6 @@ bool idWeapon::GetMuzzlePositionWithHacks( idVec3& origin, idMat3& axis )
 	}
 	
 	if( weaponIconName == "guis/assets/hud/icons/chainsaw_new.tga" )
-	{
-		return false;
-	}
-	
-	if( weaponIconName == "guis/assets/hud/icons/soul_cube.tga" )
 	{
 		return false;
 	}

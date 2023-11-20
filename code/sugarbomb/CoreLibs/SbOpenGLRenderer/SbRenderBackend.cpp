@@ -5,6 +5,7 @@ Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2013-2015 Robert Beckebans
 Copyright (C) 2014 Carl Kenner
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -761,12 +762,12 @@ void idRenderBackend::PrepareStageTexturing(const shaderStage_t *pStage, const d
 	else if(pStage->texture.texgen == TG_DIFFUSE_CUBE)
 	{
 		// As far as I can tell, this is never used
-		idLib::Warning("Using Diffuse Cube! Please contact Brian!");
+		idLib::Warning("Using Diffuse Cube! Please contact Brian!"); // TODO
 	}
 	else if(pStage->texture.texgen == TG_GLASSWARP)
 	{
 		// As far as I can tell, this is never used
-		idLib::Warning("Using GlassWarp! Please contact Brian!");
+		idLib::Warning("Using GlassWarp! Please contact Brian!"); // TODO
 	}
 
 	SetVertexParm(RENDERPARM_TEXGEN_0_ENABLED, useTexGenParm);
@@ -2476,7 +2477,7 @@ void idRenderBackend::StencilShadowPass(const drawSurf_t *drawSurfs, const viewL
 			const uint64 frameNum = (int)(vbHandle >> VERTCACHE_FRAME_SHIFT) & VERTCACHE_FRAME_MASK;
 			if(frameNum != ((vertexCache.currentFrame - 1) & VERTCACHE_FRAME_MASK))
 			{
-				idLib::Warning("RB_DrawElementsWithCounters, vertexBuffer == nullptr");
+				idLib::Warning("RB_DrawElementsWithCounters, vertexBuffer == nullptr"); // TODO
 				continue;
 			}
 			vertexBuffer = &vertexCache.frameData[vertexCache.drawListNum].vertexBuffer;
@@ -2495,7 +2496,7 @@ void idRenderBackend::StencilShadowPass(const drawSurf_t *drawSurfs, const viewL
 			const uint64 frameNum = (int)(ibHandle >> VERTCACHE_FRAME_SHIFT) & VERTCACHE_FRAME_MASK;
 			if(frameNum != ((vertexCache.currentFrame - 1) & VERTCACHE_FRAME_MASK))
 			{
-				idLib::Warning("RB_DrawElementsWithCounters, indexBuffer == nullptr");
+				idLib::Warning("RB_DrawElementsWithCounters, indexBuffer == nullptr"); // TODO
 				continue;
 			}
 			indexBuffer = &vertexCache.frameData[vertexCache.drawListNum].indexBuffer;
@@ -2518,7 +2519,7 @@ void idRenderBackend::StencilShadowPass(const drawSurf_t *drawSurfs, const viewL
 			idJointBuffer jointBuffer;
 			if(!vertexCache.GetJointBuffer(drawSurf->jointCache, &jointBuffer))
 			{
-				idLib::Warning("RB_DrawElementsWithCounters, jointBuffer == nullptr");
+				idLib::Warning("RB_DrawElementsWithCounters, jointBuffer == nullptr"); // TODO
 				continue;
 			}
 			assert((jointBuffer.GetOffset() & (glConfig.uniformBufferOffsetAlignment - 1)) == 0);
@@ -2915,7 +2916,7 @@ void idRenderBackend::ShadowMapPass(const drawSurf_t *drawSurfs, const viewLight
 		idRenderMatrix splitFrustumInverse;
 		if(!idRenderMatrix::Inverse(viewDef->frustumMVPs[FRUSTUM_CASCADE1 + side], splitFrustumInverse))
 		{
-			idLib::Warning("splitFrustumMVP invert failed");
+			idLib::Warning("splitFrustumMVP invert failed"); // TODO
 		}
 
 		// splitFrustumCorners in global space
@@ -4435,7 +4436,7 @@ void idRenderBackend::CalculateAutomaticExposure()
 
 	if(r_hdrDebug.GetBool())
 	{
-		idLib::Printf("HDR luminance avg = %f, max = %f, key = %f\n", hdrAverageLuminance, hdrMaxLuminance, hdrKey);
+		idLib::Printf("HDR luminance avg = %f, max = %f, key = %f\n", hdrAverageLuminance, hdrMaxLuminance, hdrKey); // TODO
 	}
 
 	//GL_CheckErrors();
@@ -5112,7 +5113,7 @@ void idRenderBackend::DrawScreenSpaceGlobalIllumination(const viewDef_t *_viewDe
 	idRenderMatrix cameraToWorldMatrix;
 	if( !idRenderMatrix::Inverse( modelViewMatrix, cameraToWorldMatrix ) )
 	{
-		idLib::Warning( "cameraToWorldMatrix invert failed" );
+		idLib::Warning( "cameraToWorldMatrix invert failed" ); // TODO
 	}
 	
 	SetVertexParms( RENDERPARM_MODELMATRIX_X, cameraToWorldMatrix[0], 4 );

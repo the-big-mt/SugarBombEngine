@@ -5,6 +5,7 @@ Open Asset Import Library (assimp)
 
 Copyright (c) 2006-2012, assimp team
 Copyright (C) 2012 Robert Beckebans (id Tech 4 integration)
+Copyright (C) 2019 BlackPhrase (cleanup)
 
 All rights reserved.
 

@@ -151,7 +151,7 @@ END_CLASS
 
 const int MAX_RESPAWN_TIME = 10000;
 const int RAGDOLL_DEATH_TIME = 3000;
-const int MAX_PDAS = 64;
+const int MAX_PDAS = 1;
 const int MAX_PDA_ITEMS = 128;
 const int STEPUP_TIME = 200;
 const int MAX_INVENTORY_ITEMS = 20;
@@ -258,7 +258,6 @@ idPlayer::idPlayer():
 	previousWeapon			= -1;
 	weaponSwitchTime		=  0;
 	weaponEnabled			= true;
-	weapon_soulcube			= -1;
 	weapon_pipboy			= -1;
 	weapon_fists			= -1;
 	harvest_lock			= false;
@@ -1035,8 +1034,6 @@ void idPlayer::Save( idSaveGame* savefile ) const
 	savefile->WriteInt( lastHudPowerup );
 	savefile->WriteInt( hudPowerupDuration );
 	
-	
-	
 	savefile->WriteInt( heartRate );
 	
 	savefile->WriteFloat( heartInfo.GetStartTime() );
@@ -1333,8 +1330,6 @@ void idPlayer::Restore( idRestoreGame* savefile )
 	savefile->ReadInt( hudPowerup );
 	savefile->ReadInt( lastHudPowerup );
 	savefile->ReadInt( hudPowerupDuration );
-	
-	
 	
 	savefile->ReadInt( heartRate );
 	
@@ -3456,6 +3451,76 @@ void idPlayer::CompleteObjective( const char* title )
 
 /*
 ===============
+idPlayer::GiveQuest
+===============
+*/
+void idPlayer::GiveQuest( const char* title, const char* text )
+{
+	f3QuestInfo& info = inventory.questNames.Alloc();
+	info.title = title;
+	info.text = text;
+	
+	StartSound( "snd_questup", SND_CHANNEL_ANY, 0, false, nullptr );
+	
+	if( hud )
+	{
+		hud->SetupQuest( title, text );
+		hud->ShowQuest( false );
+		questUp = true;
+	};
+};
+
+/*
+===============
+idPlayer::CompleteQuest
+===============
+*/
+void idPlayer::CompleteQuest( const char* title )
+{
+	int c = inventory.questNames.Num();
+	for( int i = 0;  i < c; i++ )
+	{
+		if( idStr::Icmp( inventory.questNames[i].title, title ) == 0 )
+		{
+			inventory.questNames.RemoveIndex( i );
+			break;
+		};
+	};
+	
+	StartSound( "snd_questup", SND_CHANNEL_ANY, 0, false, nullptr );
+	
+	if( hud )
+	{
+		hud->SetupQuestComplete( title );
+		hud->ShowQuest( true );
+	};
+};
+
+void idPlayer::AddXP(int amount)
+{
+	AddActorValue(idActor::Values::XP, amount);
+	
+	if(GetActorValue(idActor::Values::XP) >= mnLevelXP)
+	{
+		AddActorValue(idActor::Values::XP, -mnLevelXP);
+		LevelUp(); // TODO: should be CheckLevelUp instead which called periodically
+	};
+};
+
+void idPlayer::LevelUp()
+{
+	++mnLevel;
+	
+	StartSound("mus_success", SND_CHANNEL_ANY, 0, false, nullptr);
+	
+	if( hud )
+		hud->ShowLevelUp( true );
+	
+	// TODO: check if we can open a stats screen
+};
+
+/*
+===============
 idPlayer::GiveVideo
 ===============
 */
@@ -3587,11 +3652,8 @@ void idPlayer::GivePDA( const idDeclPDA* pda, const char* securityItem )
 			case GAME_BASE:
 				GetAchievementManager().EventCompletesAchievement( ACHIEVEMENT_PDAS_BASE );
 				break;
-			case GAME_D3XP:
+			case GAME_F3NV:
 				GetAchievementManager().EventCompletesAchievement( ACHIEVEMENT_PDAS_ROE );
-				break;
-			case GAME_D3LE:
-				GetAchievementManager().EventCompletesAchievement( ACHIEVEMENT_PDAS_LE );
 				break;
 		}
 	}
@@ -6084,13 +6146,9 @@ idPlayer::GetPDA
 const idDeclPDA* idPlayer::GetPDA() const
 {
 	if( inventory.pdas.Num() > 0 )
-	{
 		return inventory.pdas[ 0 ];
-	}
-	else
-	{
-		return nullptr;
-	}
+	
+	return nullptr;
 }
 
 
@@ -9378,40 +9436,8 @@ idPlayer::AddAIKill
 */
 void idPlayer::AddAIKill()
 {
-	int max_souls;
-	int ammo_souls;
-	
 	if( ( weapon_soulcube < 0 ) || ( inventory.weapons & ( 1 << weapon_soulcube ) ) == 0 )
-	{
 		return;
-	}
-	
-	ammo_souls = idWeapon::GetAmmoNumForName( "ammo_souls" );
-	max_souls = inventory.MaxAmmoForAmmoClass( this, "ammo_souls" );
-	const int currentSoulAmmo = inventory.GetInventoryAmmoForType( ammo_souls );
-	if( currentSoulAmmo < max_souls )
-	{
-		inventory.SetInventoryAmmoForType( ammo_souls, currentSoulAmmo + 1 );
-		if( inventory.GetInventoryAmmoForType( ammo_souls ) >= max_souls )
-		{
-		
-			if( hud )
-			{
-				hud->UpdateSoulCube( true );
-			}
-			StartSound( "snd_soulcube_ready", SND_CHANNEL_ANY, 0, false, nullptr );
-		}
-	}
-}
-
-/*
-=============
-idPlayer::SetSoulCubeProjectile
-=============
-*/
-void idPlayer::SetSoulCubeProjectile( idProjectile* projectile )
-{
-	soulCubeProjectile = projectile;
 }
 
 /*
@@ -11284,18 +11310,14 @@ idPlayer::GetExpansionType
 */
 gameExpansionType_t idPlayer::GetExpansionType() const
 {
-	const char* expansion = spawnArgs.GetString( "player_expansion", "d3" );
-	if( idStr::Icmp( expansion, "d3" ) == 0 )
+	const char* expansion = spawnArgs.GetString( "player_expansion", "f3" );
+	if( idStr::Icmp( expansion, "f3" ) == 0 )
 	{
 		return GAME_BASE;
 	}
-	if( idStr::Icmp( expansion, "d3xp" ) == 0 )
+	if( idStr::Icmp( expansion, "f3nv" ) == 0 )
 	{
-		return GAME_D3XP;
-	}
-	if( idStr::Icmp( expansion, "d3le" ) == 0 )
-	{
-		return GAME_D3LE;
+		return GAME_FNV;
 	}
 	return GAME_UNKNOWN;
 }

@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2014 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -95,7 +96,7 @@ R_MatrixMultiply
 */
 void R_MatrixMultiply(const float a[16], const float b[16], float out[16])
 {
-#if defined(USE_INTRINSICS)
+#if defined(SBE_USE_INTRINSICS)
 	__m128 a0 = _mm_loadu_ps(a + 0 * 4);
 	__m128 a1 = _mm_loadu_ps(a + 1 * 4);
 	__m128 a2 = _mm_loadu_ps(a + 2 * 4);

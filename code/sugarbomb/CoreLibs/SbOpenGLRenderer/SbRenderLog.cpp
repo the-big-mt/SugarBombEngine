@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2013 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -131,7 +132,7 @@ void PC_BeginNamedEvent(const char *szName, ...)
 	}
 	if( numPixEvents >= MAX_PIX_EVENTS )
 	{
-		idLib::FatalError( "PC_BeginNamedEvent: event overflow" );
+		idLib::FatalError( "PC_BeginNamedEvent: event overflow" ); // TODO
 	}
 	if( ++numPixLevels > 1 )
 	{
@@ -171,7 +172,7 @@ void PC_EndNamedEvent()
 	}
 	if( numPixLevels <= 0 )
 	{
-		idLib::FatalError( "PC_EndNamedEvent: level underflow" );
+		idLib::FatalError( "PC_EndNamedEvent: level underflow" ); // TODO
 	}
 	if( --numPixLevels > 0 )
 	{
@@ -208,7 +209,7 @@ void PC_EndFrame()
 	int64 totalGPU = 0;
 	int64 totalCPU = 0;
 	
-	idLib::Printf( "----- GPU Events -----\n" );
+	idLib::Printf( "----- GPU Events -----\n" ); // TODO
 	for( int i = 0 ; i < numPixEvents ; i++ )
 	{
 		pixEvent_t* ev = &pixEvents[i];
@@ -217,11 +218,11 @@ void PC_EndFrame()
 		glGetQueryObjectui64vEXT( timeQueryIds[i], GL_QUERY_RESULT, ( GLuint64EXT* )&gpuTime );
 		ev->gpuTime = gpuTime;
 		
-		idLib::Printf( "%2d: %1.2f (GPU) %1.3f (CPU) = %s\n", i, ev->gpuTime / 1000000.0f, ev->cpuTime / 1000.0f, ev->name );
+		idLib::Printf( "%2d: %1.2f (GPU) %1.3f (CPU) = %s\n", i, ev->gpuTime / 1000000.0f, ev->cpuTime / 1000.0f, ev->name ); // TODO
 		totalGPU += ev->gpuTime;
 		totalCPU += ev->cpuTime;
 	}
-	idLib::Printf( "%2d: %1.2f (GPU) %1.3f (CPU) = total\n", numPixEvents, totalGPU / 1000000.0f, totalCPU / 1000.0f );
+	idLib::Printf( "%2d: %1.2f (GPU) %1.3f (CPU) = total\n", numPixEvents, totalGPU / 1000000.0f, totalCPU / 1000.0f ); // TODO
 	memset( pixEvents, 0, numPixLevels * sizeof( pixEvents[0] ) );
 	
 	numPixEvents = 0;
@@ -313,7 +314,7 @@ void idRenderLog::StartFrame()
 		idLib::Warning( "Failed to open logfile %s", ospath );
 		return;
 	}
-	idLib::Printf( "Opened logfile %s\n", ospath );
+	idLib::Printf( "Opened logfile %s\n", ospath ); // TODO
 	
 	// write the time out to the top of the file
 	time( &aclock );
@@ -346,7 +347,7 @@ void idRenderLog::EndFrame()
 		}
 		// log is open, so decrement r_logFile and stop if it is zero
 		//r_logFile.SetInteger( r_logFile.GetInteger() - 1 );
-		//idLib::Printf( "Frame logged.\n" );
+		//idLib::Printf( "Frame logged.\n" ); // TODO
 		return;
 	}
 }
@@ -362,7 +363,7 @@ void idRenderLog::Close()
 	if(r_logFile.GetInteger() != 0)
 	{
 		CloseBlock();
-		//idLib::Printf( "Closing logfile\n" );
+		//idLib::Printf( "Closing logfile\n" ); // TODO
 		//fileSystem->CloseFile( logFile );
 		//logFile = nullptr;
 		activeLevel = 0;
@@ -513,7 +514,7 @@ void idRenderLog::LogOpenBlock(renderLogIndentLabel_t label, const char *fmt, ..
 
 	if(logLevel >= MAX_LOG_LEVELS)
 	{
-		idLib::Warning("logLevel %d >= MAX_LOG_LEVELS", logLevel);
+		idLib::Warning("logLevel %d >= MAX_LOG_LEVELS", logLevel); // TODO
 	}
 
 	logLevel++;

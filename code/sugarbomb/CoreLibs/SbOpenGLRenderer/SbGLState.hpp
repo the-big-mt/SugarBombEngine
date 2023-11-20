@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2016-2017 Dustin Land
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -27,8 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __GLSTATE_H__
-#define __GLSTATE_H__
+#pragma once
 
 #include "idlib/sys/sys_types.h" // for uint64
 
@@ -163,5 +163,4 @@ static const uint64 GLS_DEFAULT = 0;
 #define STENCIL_SHADOW_TEST_VALUE 128
 #define STENCIL_SHADOW_MASK_VALUE 255
 
-
-#endif /* !__GLSTATE_H__ *///} // namespace sbe
+//} // namespace sbe

@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -25,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __VERTEXCACHE2_H__
-#define __VERTEXCACHE2_H__
+
+#pragma once
 
 #include "idlib/Lib.h"
 #include "idlib/Thread.h"
@@ -113,7 +114,7 @@ public:
 	{
 		if(staticData.vertexMemUsed.GetValue() + bytes > STATIC_VERTEX_MEMORY)
 		{
-			idLib::FatalError("AllocStaticVertex failed, increase STATIC_VERTEX_MEMORY");
+			idLib::FatalError("AllocStaticVertex failed, increase STATIC_VERTEX_MEMORY"); // TODO
 		}
 		return ActuallyAlloc(staticData, data, bytes, CACHE_VERTEX);
 	}
@@ -121,7 +122,7 @@ public:
 	{
 		if(staticData.indexMemUsed.GetValue() + bytes > STATIC_INDEX_MEMORY)
 		{
-			idLib::FatalError("AllocStaticIndex failed, increase STATIC_INDEX_MEMORY");
+			idLib::FatalError("AllocStaticIndex failed, increase STATIC_INDEX_MEMORY"); // TODO
 		}
 		return ActuallyAlloc(staticData, data, bytes, CACHE_INDEX);
 	}
@@ -198,4 +199,4 @@ void CopyBuffer(byte *dst, const byte *src, int numBytes);
 extern idVertexCache vertexCache;
 
 
-#endif // __VERTEXCACHE2_H__//} // namespace sbe
+//} // namespace sbe

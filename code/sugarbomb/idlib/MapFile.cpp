@@ -3,7 +3,7 @@
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2015 Robert Beckebans
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -34,6 +34,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 *******************************************************************************
 */
+
+/// @file
 
 //*****************************************************************************
 
@@ -104,7 +106,7 @@ static void ComputeAxisBase( const idVec3& normal, idVec3& texS, idVec3& texT )
 	texT[0] = -sin( RotY ) * cos( RotZ );
 	texT[1] = -sin( RotY ) * sin( RotZ );
 	texT[2] = -cos( RotY );
-}
+};
 
 /*
 =================
@@ -123,8 +125,8 @@ void idMapBrushSide::GetTextureVectors( idVec4 v[2] ) const
 		v[i][1] = texX[1] * texMat[i][0] + texY[1] * texMat[i][1];
 		v[i][2] = texX[2] * texMat[i][0] + texY[2] * texMat[i][1];
 		v[i][3] = texMat[i][2] + ( origin * v[i].ToVec3() );
-	}
-}
+	};
+};
 
 /*
 =================
@@ -139,16 +141,14 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 	int			i, j;
 	
 	if( !src.ExpectTokenString( "{" ) )
-	{
 		return nullptr;
-	}
 	
 	// read the material (we had an implicit 'textures/' in the old format...)
 	if( !src.ReadToken( &token ) )
 	{
 		src.Error( "idMapPatch::Parse: unexpected EOF" );
 		return nullptr;
-	}
+	};
 	
 	// Parse it
 	if( patchDef3 )
@@ -157,7 +157,7 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 		{
 			src.Error( "idMapPatch::Parse: unable to Parse patchDef3 info" );
 			return nullptr;
-		}
+		};
 	}
 	else
 	{
@@ -165,34 +165,30 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 		{
 			src.Error( "idMapPatch::Parse: unable to parse patchDef2 info" );
 			return nullptr;
-		}
-	}
+		};
+	};
 	
 	idMapPatch* patch = new( TAG_IDLIB ) idMapPatch( info[0], info[1] );
 	
 	patch->SetSize( info[0], info[1] );
 	if( version < 2.0f )
-	{
 		patch->SetMaterial( "textures/" + token );
-	}
 	else
-	{
 		patch->SetMaterial( token );
-	}
 	
 	if( patchDef3 )
 	{
 		patch->SetHorzSubdivisions( info[2] );
 		patch->SetVertSubdivisions( info[3] );
 		patch->SetExplicitlySubdivided( true );
-	}
+	};
 	
 	if( patch->GetWidth() < 0 || patch->GetHeight() < 0 )
 	{
 		src.Error( "idMapPatch::Parse: bad size" );
 		delete patch;
 		return nullptr;
-	}
+	};
 	
 	// these were written out in the wrong order, IMHO
 	if( !src.ExpectTokenString( "(" ) )
@@ -200,8 +196,7 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 		src.Error( "idMapPatch::Parse: bad patch vertex data" );
 		delete patch;
 		return nullptr;
-	}
-	
+	};
 	
 	for( j = 0; j < patch->GetWidth(); j++ )
 	{
@@ -210,7 +205,7 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 			src.Error( "idMapPatch::Parse: bad vertex row data" );
 			delete patch;
 			return nullptr;
-		}
+		};
 		for( i = 0; i < patch->GetHeight(); i++ )
 		{
 			float v[5];
@@ -220,28 +215,28 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 				src.Error( "idMapPatch::Parse: bad vertex column data" );
 				delete patch;
 				return nullptr;
-			}
+			};
 			
 			vert = &( ( *patch )[i * patch->GetWidth() + j] );
 			vert->xyz[0] = v[0] - origin[0];
 			vert->xyz[1] = v[1] - origin[1];
 			vert->xyz[2] = v[2] - origin[2];
 			vert->SetTexCoord( v[3], v[4] );
-		}
+		};
 		if( !src.ExpectTokenString( ")" ) )
 		{
 			delete patch;
 			src.Error( "idMapPatch::Parse: unable to parse patch control points" );
 			return nullptr;
-		}
-	}
+		};
+	};
 	
 	if( !src.ExpectTokenString( ")" ) )
 	{
 		src.Error( "idMapPatch::Parse: unable to parse patch control points, no closure" );
 		delete patch;
 		return nullptr;
-	}
+	};
 	
 	// read any key/value pairs
 	while( src.ReadToken( &token ) )
@@ -250,17 +245,17 @@ idMapPatch* idMapPatch::Parse( idLexer& src, const idVec3& origin, bool patchDef
 		{
 			src.ExpectTokenString( "}" );
 			break;
-		}
+		};
 		if( token.type == TT_STRING )
 		{
 			idStr key = token;
 			src.ExpectTokenType( TT_STRING, 0, &token );
 			patch->epairs.Set( key, token );
-		}
-	}
+		};
+	};
 	
 	return patch;
-}
+};
 
 /*
 ============
@@ -281,7 +276,7 @@ bool idMapPatch::Write( idFile* fp, int primitiveNum, const idVec3& origin ) con
 	{
 		fp->WriteFloatString( "// primitive %d\n{\n patchDef2\n {\n", primitiveNum );
 		fp->WriteFloatString( "  \"%s\"\n  ( %d %d 0 0 0 )\n", GetMaterial(), GetWidth(), GetHeight() );
-	}
+	};
 	
 	fp->WriteFloatString( "  (\n" );
 	idVec2 st;
@@ -294,13 +289,13 @@ bool idMapPatch::Write( idFile* fp, int primitiveNum, const idVec3& origin ) con
 			st = v->GetTexCoord();
 			fp->WriteFloatString( " ( %f %f %f %f %f )", v->xyz[0] + origin[0],
 								  v->xyz[1] + origin[1], v->xyz[2] + origin[2], st[0], st[1] );
-		}
+		};
 		fp->WriteFloatString( " )\n" );
-	}
+	};
 	fp->WriteFloatString( "  )\n }\n}\n" );
 	
 	return true;
-}
+};
 
 /*
 ===============
@@ -320,13 +315,13 @@ unsigned int idMapPatch::GetGeometryCRC() const
 			crc ^= FloatCRC( verts[j * GetWidth() + i].xyz.x );
 			crc ^= FloatCRC( verts[j * GetWidth() + i].xyz.y );
 			crc ^= FloatCRC( verts[j * GetWidth() + i].xyz.z );
-		}
-	}
+		};
+	};
 	
 	crc ^= StringCRC( GetMaterial() );
 	
 	return crc;
-}
+};
 
 /*
 =================
@@ -343,9 +338,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 	idDict epairs;
 	
 	if( !src.ExpectTokenString( "{" ) )
-	{
 		return nullptr;
-	}
 	
 	do
 	{
@@ -354,27 +347,24 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 			src.Error( "idMapBrush::Parse: unexpected EOF" );
 			sides.DeleteContents( true );
 			return nullptr;
-		}
+		};
 		if( token == "}" )
-		{
 			break;
-		}
 		
 		// here we may have to jump over brush epairs ( only used in editor )
 		do
 		{
 			// if token is a brace
 			if( token == "(" )
-			{
 				break;
-			}
+
 			// the token should be a key string for a key/value pair
 			if( token.type != TT_STRING )
 			{
 				src.Error( "idMapBrush::Parse: unexpected %s, expected ( or epair key string", token.c_str() );
 				sides.DeleteContents( true );
 				return nullptr;
-			}
+			};
 			
 			idStr key = token;
 			
@@ -383,7 +373,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 				src.Error( "idMapBrush::Parse: expected epair value string not found" );
 				sides.DeleteContents( true );
 				return nullptr;
-			}
+			};
 			
 			epairs.Set( key, token );
 			
@@ -393,7 +383,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 				src.Error( "idMapBrush::Parse: unexpected EOF" );
 				sides.DeleteContents( true );
 				return nullptr;
-			}
+			};
 		}
 		while( 1 );
 		
@@ -409,7 +399,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 				src.Error( "idMapBrush::Parse: unable to read brush side plane definition" );
 				sides.DeleteContents( true );
 				return nullptr;
-			}
+			};
 		}
 		else
 		{
@@ -421,14 +411,14 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 				src.Error( "idMapBrush::Parse: unable to read brush side plane definition" );
 				sides.DeleteContents( true );
 				return nullptr;
-			}
+			};
 			
 			planepts[0] -= origin;
 			planepts[1] -= origin;
 			planepts[2] -= origin;
 			
 			side->plane.FromPoints( planepts[0], planepts[1], planepts[2] );
-		}
+		};
 		
 		// read the texture matrix
 		// this is odd, because the texmat is 2D relative to default planar texture axis
@@ -437,7 +427,7 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 			src.Error( "idMapBrush::Parse: unable to read brush side texture matrix" );
 			sides.DeleteContents( true );
 			return nullptr;
-		}
+		};
 		side->origin = origin;
 		
 		// read the material
@@ -446,17 +436,13 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 			src.Error( "idMapBrush::Parse: unable to read brush side material" );
 			sides.DeleteContents( true );
 			return nullptr;
-		}
+		};
 		
 		// we had an implicit 'textures/' in the old format...
 		if( version < 2.0f )
-		{
 			side->material = "textures/" + token;
-		}
 		else
-		{
 			side->material = token;
-		}
 		
 		// Q2 allowed override of default flags and values, but we don't any more
 		if( src.ReadTokenOnLine( &token ) )
@@ -465,9 +451,9 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 			{
 				if( src.ReadTokenOnLine( &token ) )
 				{
-				}
-			}
-		}
+				};
+			};
+		};
 	}
 	while( 1 );
 	
@@ -475,18 +461,16 @@ idMapBrush* idMapBrush::Parse( idLexer& src, const idVec3& origin, bool newForma
 	{
 		sides.DeleteContents( true );
 		return nullptr;
-	}
+	};
 	
 	idMapBrush* brush = new( TAG_IDLIB ) idMapBrush();
 	for( i = 0; i < sides.Num(); i++ )
-	{
 		brush->AddSide( sides[i] );
-	}
 	
 	brush->epairs = epairs;
 	
 	return brush;
-}
+};
 
 /*
 =================
@@ -2164,17 +2148,17 @@ MapPolygonMesh* MapPolygonMesh::ParseJSON( idDeclManager *apDeclManager, idLexer
 						else if( token == "," )
 						{
 							continue;
-						}
-					}
-				}
-			}
-		}
-	}
+						};
+					};
+				};
+			};
+		};
+	};
 	
 	mesh->SetContents();
 	
 	return mesh;
-}
+};
 
 void MapPolygonMesh::SetContents()
 {
@@ -2184,7 +2168,7 @@ void MapPolygonMesh::SetContents()
 		opaque = true;
 		
 		return;
-	}
+	};
 	
 	int			c2;
 	
@@ -2210,14 +2194,12 @@ void MapPolygonMesh::SetContents()
 		{
 			mixed = true;
 			contents |= c2;
-		}
+		};
 		
 		if( mat2->Coverage() != MC_OPAQUE )
-		{
 			opaque = false;
-		}
-	}
-}
+	};
+};
 
 unsigned int MapPolygonMesh::GetGeometryCRC() const
 {
@@ -2230,22 +2212,22 @@ unsigned int MapPolygonMesh::GetGeometryCRC() const
 		crc ^= FloatCRC( verts[i].xyz.x );
 		crc ^= FloatCRC( verts[i].xyz.y );
 		crc ^= FloatCRC( verts[i].xyz.z );
-	}
+	};
 	
 	for( i = 0; i < polygons.Num(); i++ )
 	{
 		const MapPolygon& poly = polygons[i];
 		
 		crc ^= StringCRC( poly.GetMaterial() );
-	}
+	};
 	
 	return crc;
-}
+};
 
 bool MapPolygonMesh::IsAreaportal() const
 {
 	return ( ( contents & CONTENTS_AREAPORTAL ) != 0 );
-}
+};
 
 void MapPolygonMesh::GetBounds( idBounds& bounds ) const
 {
@@ -2253,8 +2235,7 @@ void MapPolygonMesh::GetBounds( idBounds& bounds ) const
 	{
 		bounds.Clear();
 		return;
-	}
-	
+	};
 	
 	bounds[0] = bounds[1] = verts[0].xyz;
 	for( int i = 1; i < verts.Num(); i++ )
@@ -2262,31 +2243,21 @@ void MapPolygonMesh::GetBounds( idBounds& bounds ) const
 		const idVec3& p = verts[i].xyz;
 		
 		if( p.x < bounds[0].x )
-		{
 			bounds[0].x = p.x;
-		}
 		else if( p.x > bounds[1].x )
-		{
 			bounds[1].x = p.x;
-		}
+
 		if( p.y < bounds[0].y )
-		{
 			bounds[0].y = p.y;
-		}
 		else if( p.y > bounds[1].y )
-		{
 			bounds[1].y = p.y;
-		}
+
 		if( p.z < bounds[0].z )
-		{
 			bounds[0].z = p.z;
-		}
 		else if( p.z > bounds[1].z )
-		{
 			bounds[1].z = p.z;
-		}
-	}
-}
+	};
+};
 
 bool idMapFile::ConvertToPolygonMeshFormat(idDeclManager *apDeclManager)
 {
@@ -2328,13 +2299,13 @@ bool idMapFile::ConvertToPolygonMeshFormat(idDeclManager *apDeclManager)
 						delete mapPrim;
 						
 						continue;
-					}
-				}
-			}
-		}
-	}
+					};
+				};
+			};
+		};
+	};
 	
 	return true;
-}
+};
 
 // RB end

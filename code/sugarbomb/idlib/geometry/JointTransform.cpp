@@ -2,7 +2,7 @@
 *******************************************************************************
 
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -34,6 +34,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 *******************************************************************************
 */
 
+/// @file
+
 //*****************************************************************************
 
 #pragma hdrstop
@@ -47,7 +49,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-//namespace BFG
+//namespace sbe
 //{
 
 /*
@@ -113,4 +115,4 @@ idJointQuat idJointMat::ToJointQuat() const
 	return jq;
 }
 
-//} // namespace BFG
+//} // namespace sbe

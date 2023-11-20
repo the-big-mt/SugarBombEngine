@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -26,8 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __LWO2_H__
-#define __LWO2_H__
+#pragma once
 
 #include <cstdint>
 
@@ -710,5 +710,3 @@ float sgetF4(unsigned char **bp);
 char *sgetS0(unsigned char **bp);
 
 //} // namespace sbe
-
-#endif /* !__LWO2_H__ */

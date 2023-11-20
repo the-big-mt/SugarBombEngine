@@ -23,14 +23,20 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 /// @file
 
+//*****************************************************************************
+
 #pragma once
 
 #include "SbNetwork/INetworkSystem.hpp"
 
+//*****************************************************************************
+
+struct sockaddr_in;
+
 namespace sbe
 {
 
-struct ISystem;
+struct SbSystem;
 
 namespace SbNetwork
 {
@@ -40,12 +46,17 @@ struct SbNetworkImpl;
 class SbNetworkSystem : public INetworkSystem
 {
 public:
-	SbNetworkSystem(SbNetworkImpl &aImpl);
+	SbNetworkSystem(SbSystem &aSystem, SbNetworkImpl &aImpl);
 	
 	void Init() override;
 	void Shutdown() override;
+	
+	bool StringToNetAdr(const char *asNetAdr, SbNetAdr &aOutNetAdr, bool abDoDNSResolve) override;
+private:
+	bool Net_StringToSockaddr(const char *asNetAdr, sockaddr_in *apSockAddr, bool abDoDNSResolve);
 private:
 	SbNetworkImpl &mImpl;
+	SbSystem &mSystem;
 };
 
 };}; // sbe::SbNetwork

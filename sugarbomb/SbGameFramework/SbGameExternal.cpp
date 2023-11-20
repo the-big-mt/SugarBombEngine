@@ -1,7 +1,7 @@
 /*
 *******************************************************************************
 
-Copyright (C) 2019 SugarBombEngine Developers
+Copyright (C) 2019-2020 SugarBombEngine Developers
 
 This file is part of SugarBombEngine
 
@@ -27,8 +27,6 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 #include "SbGameExternal.hpp"
 
-#include "CoreLibs/SbSystem/ISystem.hpp"
-
 #include "SbGame/IGame.hpp"
 #include "SbGame/SbModuleAPI.hpp"
 
@@ -37,7 +35,7 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 namespace sbe::SbGameFramework
 {
 
-SbGameExternal::SbGameExternal(ISystem &aSystem) : mSystem(aSystem)
+SbGameExternal::SbGameExternal()
 {
 	LoadModule();
 };
@@ -49,12 +47,12 @@ SbGameExternal::~SbGameExternal()
 
 void SbGameExternal::LoadModule()
 {
-	mnGameLib = mSystem.LoadLib("SbGame");
+	mnGameLib = CSystem::LoadLib("SbGame");
 	
 	if(!mnGameLib)
 		return;
 	
-	GetGameAPI_t pfnGetGameAPI{mSystem.GetLibSymbol<GetGameAPI_t>(mnGameLib, "GetGameAPI")};
+	auto pfnGetGameAPI{CSystem::GetLibSymbol<GetGameAPI_t>(mnGameLib, "GetGameAPI")};
 	
 	if(!pfnGetGameAPI)
 		return;
@@ -74,7 +72,7 @@ void SbGameExternal::LoadModule()
 
 void SbGameExternal::UnloadModule()
 {
-	mSystem.FreeLib(mnGameLib);
+	CSystem::FreeLib(mnGameLib);
 };
 
 }; // namespace sbe::SbGameFramework

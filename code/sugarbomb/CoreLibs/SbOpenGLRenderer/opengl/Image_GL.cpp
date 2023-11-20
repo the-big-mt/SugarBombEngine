@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2013-2016 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -425,7 +426,7 @@ void idImage::SetTexParameters()
 			return;
 		// RB end
 		default:
-			idLib::FatalError( "%s: bad texture type %d", GetName(), opts.textureType );
+			idLib::FatalError( "%s: bad texture type %d", GetName(), opts.textureType ); // TODO
 			return;
 	}
 	
@@ -729,7 +730,7 @@ void idImage::AllocImage()
 			dataType = GL_UNSIGNED_SHORT;
 			break;
 		default:
-			idLib::Error( "Unhandled image format %d in %s\n", opts.format, GetName() );
+			idLib::Error( "Unhandled image format %d in %s\n", opts.format, GetName() ); // TODO
 	}
 	
 	// if we don't have a rendering context, just return after we

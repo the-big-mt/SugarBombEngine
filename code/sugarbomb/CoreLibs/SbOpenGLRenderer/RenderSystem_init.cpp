@@ -5,6 +5,7 @@ Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2014-2016 Robert Beckebans
 Copyright (C) 2014-2016 Kot in Action Creative Artel
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -376,7 +377,7 @@ static void R_CheckPortableExtensions()
 	const char *badVideoCard = idLocalization::GetString("#str_06780");
 	if(glConfig.glVersion < 2.0f)
 	{
-		idLib::FatalError("%s", badVideoCard);
+		idLib::FatalError("%s", badVideoCard); // TODO
 	}
 
 	if(idStr::Icmpn(glConfig.renderer_string, "ATI ", 4) == 0 || idStr::Icmpn(glConfig.renderer_string, "AMD ", 4) == 0)
@@ -602,52 +603,52 @@ static void R_CheckPortableExtensions()
 	// GL_ARB_multitexture
 	if(!glConfig.multitextureAvailable)
 	{
-		idLib::Error("GL_ARB_multitexture not available");
+		idLib::Error("GL_ARB_multitexture not available"); // TODO
 	}
 	// GL_ARB_texture_compression + GL_EXT_texture_compression_s3tc
 	if(!glConfig.textureCompressionAvailable)
 	{
-		idLib::Error("GL_ARB_texture_compression or GL_EXT_texture_compression_s3tc not available");
+		idLib::Error("GL_ARB_texture_compression or GL_EXT_texture_compression_s3tc not available"); // TODO
 	}
 	// GL_ARB_vertex_buffer_object
 	if(!glConfig.vertexBufferObjectAvailable)
 	{
-		idLib::Error("GL_ARB_vertex_buffer_object not available");
+		idLib::Error("GL_ARB_vertex_buffer_object not available"); // TODO
 	}
 	// GL_ARB_map_buffer_range
 	if(!glConfig.mapBufferRangeAvailable)
 	{
-		idLib::Error("GL_ARB_map_buffer_range not available");
+		idLib::Error("GL_ARB_map_buffer_range not available"); // TODO
 	}
 	// GL_ARB_vertex_array_object
 	if(!glConfig.vertexArrayObjectAvailable)
 	{
-		idLib::Error("GL_ARB_vertex_array_object not available");
+		idLib::Error("GL_ARB_vertex_array_object not available"); // TODO
 	}
 	// GL_ARB_draw_elements_base_vertex
 	if(!glConfig.drawElementsBaseVertexAvailable)
 	{
-		idLib::Error("GL_ARB_draw_elements_base_vertex not available");
+		idLib::Error("GL_ARB_draw_elements_base_vertex not available"); // TODO
 	}
 	// GL_ARB_vertex_program / GL_ARB_fragment_program
 	//if( !glConfig.fragmentProgramAvailable )
 	//{
-	//	idLib::Warning( "GL_ARB_fragment_program not available" );
+	//	idLib::Warning( "GL_ARB_fragment_program not available" ); // TODO
 	//}
 	// GLSL
 	if(!glConfig.glslAvailable)
 	{
-		idLib::Error("GLSL not available");
+		idLib::Error("GLSL not available"); // TODO
 	}
 	// GL_ARB_uniform_buffer_object
 	if(!glConfig.uniformBufferAvailable)
 	{
-		idLib::Error("GL_ARB_uniform_buffer_object not available");
+		idLib::Error("GL_ARB_uniform_buffer_object not available"); // TODO
 	}
 	// GL_EXT_stencil_two_side
 	if(!glConfig.twoSidedStencilAvailable)
 	{
-		idLib::Error("GL_ATI_separate_stencil not available");
+		idLib::Error("GL_ATI_separate_stencil not available"); // TODO
 	}
 
 	// generate one global Vertex Array Object (VAO)
@@ -717,13 +718,13 @@ void R_SetNewMode(const bool fullInit)
 			idList<vidMode_t> modeList;
 			if(!R_GetModeListForDisplay(r_fullscreen.GetInteger() - 1, modeList))
 			{
-				idLib::Printf("r_fullscreen reset from %i to 1 because mode list failed.", r_fullscreen.GetInteger());
+				idLib::Printf("r_fullscreen reset from %i to 1 because mode list failed.", r_fullscreen.GetInteger()); // TODO
 				r_fullscreen.SetInteger(1);
 				R_GetModeListForDisplay(r_fullscreen.GetInteger() - 1, modeList);
 			}
 			if(modeList.Num() < 1)
 			{
-				idLib::Printf("Going to safe mode because mode list failed.");
+				idLib::Printf("Going to safe mode because mode list failed."); // TODO
 				goto safeMode;
 			}
 
@@ -743,7 +744,7 @@ void R_SetNewMode(const bool fullInit)
 			{
 				if(r_vidMode.GetInteger() >= modeList.Num())
 				{
-					idLib::Printf("r_vidMode reset from %i to 0.\n", r_vidMode.GetInteger());
+					idLib::Printf("r_vidMode reset from %i to 0.\n", r_vidMode.GetInteger()); // TODO
 					r_vidMode.SetInteger(0);
 				}
 
@@ -2280,47 +2281,47 @@ void GfxInfo_f(const idCmdArgs &args)
 
 	if(glConfig.stereoPixelFormatAvailable && glConfig.isStereoPixelFormat)
 	{
-		idLib::Printf("OpenGl quad buffer stereo pixel format active\n");
+		idLib::Printf("OpenGl quad buffer stereo pixel format active\n"); // TODO
 	}
 	else if(glConfig.stereoPixelFormatAvailable)
 	{
-		idLib::Printf("OpenGl quad buffer stereo pixel available but not selected\n");
+		idLib::Printf("OpenGl quad buffer stereo pixel available but not selected\n"); // TODO
 	}
 	else
 	{
-		idLib::Printf("OpenGl quad buffer stereo pixel format not available\n");
+		idLib::Printf("OpenGl quad buffer stereo pixel format not available\n"); // TODO
 	}
 
-	idLib::Printf("Stereo mode: ");
+	idLib::Printf("Stereo mode: "); // TODO
 	switch(renderSystem->GetStereo3DMode())
 	{
 	case STEREO3D_OFF:
-		idLib::Printf("STEREO3D_OFF\n");
+		idLib::Printf("STEREO3D_OFF\n"); // TODO
 		break;
 	case STEREO3D_SIDE_BY_SIDE_COMPRESSED:
-		idLib::Printf("STEREO3D_SIDE_BY_SIDE_COMPRESSED\n");
+		idLib::Printf("STEREO3D_SIDE_BY_SIDE_COMPRESSED\n"); // TODO
 		break;
 	case STEREO3D_TOP_AND_BOTTOM_COMPRESSED:
-		idLib::Printf("STEREO3D_TOP_AND_BOTTOM_COMPRESSED\n");
+		idLib::Printf("STEREO3D_TOP_AND_BOTTOM_COMPRESSED\n"); // TODO
 		break;
 	case STEREO3D_SIDE_BY_SIDE:
-		idLib::Printf("STEREO3D_SIDE_BY_SIDE\n");
+		idLib::Printf("STEREO3D_SIDE_BY_SIDE\n"); // TODO
 		break;
 	case STEREO3D_HDMI_720:
-		idLib::Printf("STEREO3D_HDMI_720\n");
+		idLib::Printf("STEREO3D_HDMI_720\n"); // TODO
 		break;
 	case STEREO3D_INTERLACED:
-		idLib::Printf("STEREO3D_INTERLACED\n");
+		idLib::Printf("STEREO3D_INTERLACED\n"); // TODO
 		break;
 	case STEREO3D_QUAD_BUFFER:
-		idLib::Printf("STEREO3D_QUAD_BUFFER\n");
+		idLib::Printf("STEREO3D_QUAD_BUFFER\n"); // TODO
 		break;
 	default:
-		idLib::Printf("Unknown (%i)\n", renderSystem->GetStereo3DMode());
+		idLib::Printf("Unknown (%i)\n", renderSystem->GetStereo3DMode()); // TODO
 		break;
 	}
 
-	idLib::Printf("%i multisamples\n", glConfig.multisamples);
+	idLib::Printf("%i multisamples\n", glConfig.multisamples); // TODO
 
 	gpSys->Printf("%5.1f cm screen width (%4.1f\" diagonal)\n",
 	               glConfig.physicalScreenWidthInCentimeters, glConfig.physicalScreenWidthInCentimeters / 2.54f * sqrt((float)(16 * 16 + 9 * 9)) / 16.0f);

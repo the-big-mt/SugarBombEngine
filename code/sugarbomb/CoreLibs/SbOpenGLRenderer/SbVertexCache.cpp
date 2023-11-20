@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2013-2014 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -219,7 +220,7 @@ vertCacheHandle_t idVertexCache::ActuallyAlloc(geoBufferSet_t &vcs, const void *
 		endPos = vcs.indexMemUsed.Add(bytes);
 		if(endPos > vcs.indexBuffer.GetAllocedSize())
 		{
-			idLib::Error("Out of index cache");
+			idLib::Error("Out of index cache"); // TODO
 		}
 	}
 	else if(type == CACHE_VERTEX)
@@ -228,7 +229,7 @@ vertCacheHandle_t idVertexCache::ActuallyAlloc(geoBufferSet_t &vcs, const void *
 		endPos = vcs.vertexMemUsed.Add(bytes);
 		if(endPos > vcs.vertexBuffer.GetAllocedSize())
 		{
-			idLib::Error("Out of vertex cache");
+			idLib::Error("Out of vertex cache"); // TODO
 		}
 	}
 	else if(type == CACHE_JOINT)
@@ -237,7 +238,7 @@ vertCacheHandle_t idVertexCache::ActuallyAlloc(geoBufferSet_t &vcs, const void *
 		endPos = vcs.jointMemUsed.Add(bytes);
 		if(endPos > vcs.jointBuffer.GetAllocedSize())
 		{
-			idLib::Error("Out of joint buffer cache");
+			idLib::Error("Out of joint buffer cache"); // TODO
 		}
 	}
 	else
@@ -352,7 +353,7 @@ void idVertexCache::BeginBackEnd()
 
 	if(r_showVertexCache.GetBool())
 	{
-		idLib::Printf("%08d: %d allocations, %dkB vertex, %dkB index, %ikB joint : %dkB vertex, %dkB index, %ikB joint\n",
+		idLib::Printf("%08d: %d allocations, %dkB vertex, %dkB index, %ikB joint : %dkB vertex, %dkB index, %ikB joint\n", // TODO
 		              currentFrame, frameData[listNum].allocations,
 		              frameData[listNum].vertexMemUsed.GetValue() / 1024,
 		              frameData[listNum].indexMemUsed.GetValue() / 1024,
@@ -369,7 +370,7 @@ void idVertexCache::BeginBackEnd()
 	const int endUnmap = Sys_Milliseconds();
 	if(endUnmap - startUnmap > 1)
 	{
-		idLib::PrintfIf(r_showVertexCacheTimings.GetBool(), "idVertexCache::unmap took %i msec\n", endUnmap - startUnmap);
+		idLib::PrintfIf(r_showVertexCacheTimings.GetBool(), "idVertexCache::unmap took %i msec\n", endUnmap - startUnmap); // TODO
 	}
 	drawListNum = listNum;
 
@@ -382,7 +383,7 @@ void idVertexCache::BeginBackEnd()
 	const int endMap = Sys_Milliseconds();
 	if(endMap - startMap > 1)
 	{
-		idLib::PrintfIf(r_showVertexCacheTimings.GetBool(), "idVertexCache::map took %i msec\n", endMap - startMap);
+		idLib::PrintfIf(r_showVertexCacheTimings.GetBool(), "idVertexCache::map took %i msec\n", endMap - startMap); // TODO
 	}
 
 	ClearGeoBufferSet(frameData[listNum]);
@@ -394,7 +395,7 @@ void idVertexCache::BeginBackEnd()
 	const int endBind = Sys_Milliseconds();
 	if( endBind - startBind > 1 )
 	{
-		idLib::Printf( "idVertexCache::bind took %i msec\n", endBind - startBind );
+		idLib::Printf( "idVertexCache::bind took %i msec\n", endBind - startBind ); // TODO
 	}
 #endif
 }

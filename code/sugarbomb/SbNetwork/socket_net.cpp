@@ -323,74 +323,6 @@ void Net_SockadrToNetadr( sockaddr_in* s, netadr_t* a )
 
 /*
 ========================
-Net_ExtractPort
-========================
-*/
-static bool Net_ExtractPort( const char* src, char* buf, int bufsize, int* port )
-{
-	char* p;
-	strncpy( buf, src, bufsize );
-	p = buf;
-	p += Min( bufsize - 1, idStr::Length( src ) );
-	*p = '\0';
-	p = strchr( buf, ':' );
-	if( !p )
-	{
-		return false;
-	}
-	*p = '\0';
-	
-	long lport = strtol( p + 1, nullptr, 10 );
-	if( lport == 0 || lport == LONG_MIN || lport == LONG_MAX )
-	{
-		*port = 0;
-		return false;
-	}
-	*port = lport;
-	return true;
-}
-
-/*
-========================
-Net_StringToSockaddr
-========================
-*/
-static bool Net_StringToSockaddr( const char* s, sockaddr_in* sadr, bool doDNSResolve )
-{
-	/* NOTE: the doDNSResolve argument is ignored for two reasons:
-	 * 1. domains can start with numbers nowadays so the old heuristic to find out if it's
-	 *    an IP (check if the first char is a digit) isn't reliable
-	 * 2. gethostbyname() works fine for IPs and doesn't do a lookup if the passed string
-	 *    is an IP
-	 */
-	struct hostent*	h;
-	char buf[256];
-	int port;
-	
-	memset( sadr, 0, sizeof( *sadr ) );
-	
-	sadr->sin_family = AF_INET;
-	sadr->sin_port = 0;
-	
-	// try to remove the port first, otherwise the DNS gets confused into multiple timeouts
-	// failed or not failed, buf is expected to contain the appropriate host to resolve
-	if( Net_ExtractPort( s, buf, sizeof( buf ), &port ) )
-	{
-		sadr->sin_port = htons( port );
-	}
-	// buf contains the host, even if Net_ExtractPort returned false
-	h = gethostbyname( buf );
-	if( h == nullptr )
-	{
-		return false;
-	}
-	sadr->sin_addr.s_addr = *( in_addr_t* ) h->h_addr_list[0];
-	
-	return true;
-}
-
-/*
-========================
 NET_IPSocket
 ========================
 */
@@ -858,25 +790,5 @@ static void ip_to_addr( const char ip[4], char* addr )
 	idStr::snPrintf( addr, 16, "%d.%d.%d.%d", ( unsigned char )ip[0], ( unsigned char )ip[1],
 					 ( unsigned char )ip[2], ( unsigned char )ip[3] );
 }
-
-/*
-========================
-Sys_StringToNetAdr
-========================
-*/
-bool Sys_StringToNetAdr( const char* s, netadr_t* a, bool doDNSResolve )
-{
-	sockaddr_in sadr;
-	
-	if( !Net_StringToSockaddr( s, &sadr, doDNSResolve ) )
-	{
-		return false;
-	}
-	
-	Net_SockadrToNetadr( &sadr, a );
-	return true;
-}
-
-
 
 //} // namespace BFG

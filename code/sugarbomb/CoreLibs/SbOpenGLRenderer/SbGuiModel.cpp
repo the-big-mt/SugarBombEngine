@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -392,7 +393,7 @@ idDrawVert *idGuiModel::AllocTris(int vertCount, const triIndex_t *tempIndexes, 
 		if(warningFrame != tr.frameCount)
 		{
 			warningFrame = tr.frameCount;
-			idLib::Warning("idGuiModel::AllocTris: MAX_INDEXES exceeded");
+			idLib::Warning("idGuiModel::AllocTris: MAX_INDEXES exceeded"); // TODO
 		}
 		return nullptr;
 	}
@@ -402,7 +403,7 @@ idDrawVert *idGuiModel::AllocTris(int vertCount, const triIndex_t *tempIndexes, 
 		if(warningFrame != tr.frameCount)
 		{
 			warningFrame = tr.frameCount;
-			idLib::Warning("idGuiModel::AllocTris: MAX_VERTS exceeded");
+			idLib::Warning("idGuiModel::AllocTris: MAX_VERTS exceeded"); // TODO
 		}
 		return nullptr;
 	}

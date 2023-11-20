@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2013-2014 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -53,7 +54,7 @@ static void R_TracePointCullStatic(byte *cullBits, byte &totalOr, const float ra
 	assert_16_byte_aligned(cullBits);
 	assert_16_byte_aligned(verts);
 
-#if defined(USE_INTRINSICS)
+#if defined(SBE_USE_INTRINSICS)
 	idODSStreamedArray<idDrawVert, 16, SBT_DOUBLE, 4> vertsODS(verts, numVerts);
 
 	const __m128 vector_float_radius = _mm_splat_ps(_mm_load_ss(&radius), 0);
@@ -236,7 +237,7 @@ static void R_TracePointCullSkinned(byte *cullBits, byte &totalOr, const float r
 	assert_16_byte_aligned(cullBits);
 	assert_16_byte_aligned(verts);
 
-#if defined(USE_INTRINSICS)
+#if defined(SBE_USE_INTRINSICS)
 	idODSStreamedArray<idDrawVert, 16, SBT_DOUBLE, 4> vertsODS(verts, numVerts);
 
 	const __m128 vector_float_radius = _mm_splat_ps(_mm_load_ss(&radius), 0);

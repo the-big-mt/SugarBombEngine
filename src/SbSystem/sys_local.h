@@ -103,9 +103,6 @@ bool Sys_Exec(	const char* appPath, const char* workingPath, const char* args,
 				execProcessWorkFunction_t workFn, execOutputFunction_t outputFn, const int waitMS,
 				unsigned int& exitCode );
 
-// empties the FPU stack
-void			Sys_FPU_ClearStack();
-
 enum fpuRounding_t
 {
 	FPU_ROUNDING_TO_NEAREST				= 0,
@@ -124,8 +121,6 @@ void			Sys_Printf( VERIFY_FORMAT_STRING const char* msg, ... );
 // DG: Sys_ReLaunch() doesn't need any options (and the old way is painful for POSIX systems)
 void			Sys_ReLaunch();
 // DG end
-
-//typedef unsigned long address_t; // DG: this isn't even used
 
 const char* 	Sys_GetCmdLine();
 

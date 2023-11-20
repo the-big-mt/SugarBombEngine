@@ -76,7 +76,7 @@ If you have questions concerning this license or the applicable additional terms
 //namespace sbe
 //{
 
-#if defined(USE_INTRINSICS)
+#if defined(SBE_USE_INTRINSICS)
 static const __m128 vector_float_posInfinity = { idMath::INFINITY, idMath::INFINITY, idMath::INFINITY, idMath::INFINITY };
 static const __m128 vector_float_negInfinity = { -idMath::INFINITY, -idMath::INFINITY, -idMath::INFINITY, -idMath::INFINITY };
 #endif
@@ -478,7 +478,7 @@ void idMD5Mesh::ParseMesh(idLexer &parser, int numJoints, const idJointMat *join
 		{
 			if(deformInfo->verts[i].color[j] >= numJoints)
 			{
-				idLib::FatalError("Bad joint index");
+				idLib::FatalError("Bad joint index"); // TODO
 			}
 		}
 	}
@@ -606,7 +606,7 @@ idMD5Mesh::CalculateBounds
 */
 void idMD5Mesh::CalculateBounds(const idJointMat *entJoints, idBounds &bounds) const
 {
-#if defined(USE_INTRINSICS)
+#if defined(SBE_USE_INTRINSICS)
 
 	__m128 minX = vector_float_posInfinity;
 	__m128 minY = vector_float_posInfinity;
@@ -1271,7 +1271,7 @@ static void TransformJoints(idJointMat *__restrict outJoints, const int numJoint
 	assert_16_byte_aligned(inFloats1);
 	assert_16_byte_aligned(inFloats2);
 
-#if defined(USE_INTRINSICS)
+#if defined(SBE_USE_INTRINSICS)
 
 	const __m128 mask_keep_last = __m128c(_mm_set_epi32(0xFFFFFFFF, 0x00000000, 0x00000000, 0x00000000));
 

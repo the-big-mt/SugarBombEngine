@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2014 Robert Beckebans
+Copyright (C) 2019 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -27,8 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __GLMATRIX_H__
-#define __GLMATRIX_H__
+#pragma once
 
 //namespace sbe
 //{
@@ -78,5 +78,3 @@ void R_MatrixFullInverse(idCommon *apCommon, const float in[16], float r[16]);
 // RB end
 
 //} // namespace sbe
-
-#endif /* !__GLMATRIX_H__ */

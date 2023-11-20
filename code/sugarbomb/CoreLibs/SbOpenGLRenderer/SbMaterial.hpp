@@ -29,8 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#ifndef __MATERIAL_H__
-#define __MATERIAL_H__
+#pragma once
 
 #include "framework/Decl.hpp"
 
@@ -935,4 +934,3 @@ typedef idList<const idMaterial *, TAG_MATERIAL> idMatList;
 
 
 //} // namespace sbe
-#endif /* !__MATERIAL_H__ */

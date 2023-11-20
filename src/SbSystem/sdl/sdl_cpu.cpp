@@ -4,6 +4,7 @@
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012 Robert Beckebans
+Copyright (C) 2019-2020 BlackPhrase
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -352,16 +353,6 @@ bool Sys_FPU_StackIsEmpty()
 {
 	// TODO
 	return true;
-}
-
-/*
-===============
-Sys_FPU_ClearStack
-===============
-*/
-void Sys_FPU_ClearStack()
-{
-	// TODO
 }
 
 /*
