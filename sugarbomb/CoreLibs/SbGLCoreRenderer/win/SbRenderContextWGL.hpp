@@ -31,6 +31,8 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 #pragma once
 
+#include <windef.h>
+
 //*****************************************************************************
 
 namespace sbe
@@ -38,7 +40,7 @@ namespace sbe
 
 struct ISystem;
 
-namespace SbRenderer
+namespace SbGLCoreRenderer
 {
 
 class SbRenderContextWGL //: public IRenderContext
@@ -56,4 +58,4 @@ private:
 	HINSTANCE hinstOpenGL; ///< HINSTANCE for the OpenGL library
 };
 
-};}; // namespace sbe::SbRenderer
+};}; // namespace sbe::SbGLCoreRenderer

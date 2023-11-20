@@ -31,6 +31,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //*****************************************************************************
 
 #include "SbBufferObject.hpp"
+#include "SbRenderSystem.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
@@ -52,7 +53,7 @@ namespace sbe::SbGLCoreRenderer
 idJointBuffer::idJointBuffer
 ========================
 */
-SbJointBuffer::SbJointBuffer(ISystem &aSystem) : mSystem(aSystem)
+SbJointBuffer::SbJointBuffer(SbRenderSystem &aRenderSystem, ISystem &aSystem) : mRenderSystem(aRenderSystem), mSystem(aSystem)
 {
 	numJoints = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
@@ -96,7 +97,7 @@ bool SbJointBuffer::AllocBufferObject(const float *joints, int numAllocJoints)
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	apiObject = reinterpret_cast<void *>(buffer);
 
-	if(r_showBuffers.GetBool())
+	if(mRenderSystem.mbShowBuffers) // TODO: was if(r_showBuffers.GetBool())
 		mSystem.Printf("joint buffer alloc %p, api %p (%i joints)\n", this, GetAPIObject(), GetNumJoints());
 
 	// copy the data
@@ -126,7 +127,7 @@ void SbJointBuffer::FreeBufferObject()
 	if(apiObject == nullptr)
 		return;
 
-	if(r_showBuffers.GetBool())
+	if(mRenderSystem.mbShowBuffers) // TODO: if(r_showBuffers.GetBool())
 		mSystem.Printf("joint buffer free %p, api %p (%i joints)\n", this, GetAPIObject(), GetNumJoints());
 
 	// RB: 64 bit fixes, changed GLuint to GLintptrARB

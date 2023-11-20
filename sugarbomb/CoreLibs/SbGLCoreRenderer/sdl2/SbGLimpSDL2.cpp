@@ -30,7 +30,14 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 /// @file
 
+//*****************************************************************************
+
 #include "SbRenderSystem.hpp"
+
+//*****************************************************************************
+
+namespace sbe::SbGLCoreRenderer
+{
 
 /*
 ===================
@@ -143,3 +150,5 @@ void SbRenderSystem::GLimp_SetGamma(unsigned short anRed[256], unsigned short an
 	if(SDL_SetWindowGammaRamp(mpWindow, anRed, anGreen, anBlue))
 		mSystem.Warning("Couldn't set gamma ramp: %s", SDL_GetError());
 };
+
+}; // namespace sbe::SbGLCoreRenderer

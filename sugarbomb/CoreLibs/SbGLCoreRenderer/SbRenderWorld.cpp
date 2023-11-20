@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License along with Sug
 
 //*****************************************************************************
 
-namespace sbe::SbRenderer
+namespace sbe::SbGLCoreRenderer
 {
 
-}; // namespace sbe::SbRenderer
+}; // namespace sbe::SbGLCoreRenderer

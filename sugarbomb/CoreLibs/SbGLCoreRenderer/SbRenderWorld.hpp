@@ -27,12 +27,27 @@ You should have received a copy of the GNU General Public License along with Sug
 
 //*****************************************************************************
 
-namespace sbe::SbRenderer
+namespace sbe::SbGLCoreRenderer
 {
 
 class SbRenderWorld final : public IRenderWorld
 {
 public:
+	void SetSunDirection(const osg::Vec3f &direction) override;
+	void SetSunColour(const osg::Vec4f &diffuse, const osg::Vec4f &specular) override;
+
+	void ConfigureAmbient(const ESM::Cell *cell) override;
+	
+	void ConfigureFog(const ESM::Cell *cell) override;
+	void ConfigureFog(float fogDepth, float underwaterFog, float dlFactor, float dlOffset, const osg::Vec4f &colour) override;
+	
+	void AddCell(const MWWorld::CellStore *store) override;
+	void RemoveCell(const MWWorld::CellStore *store) override;
+private:
+	void SetFogColor(const osg::Vec4f& color);
+private:
+	osg::Vec4f mFogColor;
+	osg::Vec4f mAmbientColor;
 };
 
-}; // namespace sbe::SbRenderer
+}; // namespace sbe::SbGLCoreRenderer

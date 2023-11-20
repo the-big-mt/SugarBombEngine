@@ -31,6 +31,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //*****************************************************************************
 
 #include "SbBufferObject.hpp"
+#include "SbRenderSystem.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
@@ -52,7 +53,7 @@ namespace sbe::SbGLCoreRenderer
 idVertexBuffer::idVertexBuffer
 ========================
 */
-SbVertexBuffer::SbVertexBuffer(ISystem &aSystem) : mSystem(aSystem)
+SbVertexBuffer::SbVertexBuffer(SbRenderSystem &aRenderSystem, ISystem &aSystem) : mRenderSystem(aRenderSystem), mSystem(aSystem)
 {
 	size = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
@@ -110,7 +111,7 @@ bool SbVertexBuffer::AllocBufferObject(const void *data, int allocSize)
 		allocationFailed = true;
 	};
 
-	if(r_showBuffers.GetBool())
+	if(mRenderSystem.mbShowBuffers) // TODO: was if(r_showBuffers.GetBool())
 		mSystem.Printf("vertex buffer alloc %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize());
 
 	// copy the data
@@ -140,7 +141,7 @@ void SbVertexBuffer::FreeBufferObject()
 	if(apiObject == nullptr)
 		return;
 
-	if(r_showBuffers.GetBool())
+	if(mRenderSystem.mbShowBuffers) // TODO: if(r_showBuffers.GetBool())
 		mSystem.Printf("vertex buffer free %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize());
 
 	// RB: 64 bit fixes, changed GLuint to GLintptrARB

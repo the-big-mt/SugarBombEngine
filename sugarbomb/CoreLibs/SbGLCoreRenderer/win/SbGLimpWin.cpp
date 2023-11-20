@@ -52,7 +52,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-namespace sbe::SbRenderer
+namespace sbe::SbGLCoreRenderer
 {
 
 /*
@@ -507,4 +507,4 @@ void SbRenderSystem::GLimp_SetGamma( unsigned short red[256], unsigned short gre
 		mSystem.Printf( "WARNING: SetDeviceGammaRamp failed.\n" );
 };
 
-}; // namespace sbe::SbRenderer
+}; // namespace sbe::SbGLCoreRenderer

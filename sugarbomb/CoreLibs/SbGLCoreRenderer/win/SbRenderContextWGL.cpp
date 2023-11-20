@@ -30,13 +30,15 @@ Suite 120, Rockville, Maryland 20850 USA.
 
 //*****************************************************************************
 
-#include "SbRenderingContext.hpp"
+#include "SbRenderContextWGL.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
+#include <wgl.h>
+
 //*****************************************************************************
 
-namespace sbe::SbRenderer
+namespace sbe::SbGLCoreRenderer
 {
 
 /*
@@ -46,7 +48,7 @@ CreateOpenGLContextOnDC
 */
 HGLRC SbRenderContextWGL::CreateOpenGLContextOnDC(const HDC hdc, const bool debugContext)
 {
-	int useOpenGL32 = r_useOpenGL32.GetInteger();
+	int useOpenGL32 = 2; // TODO: was r_useOpenGL32.GetInteger();
 	HGLRC m_hrc = nullptr;
 	
 	// RB: for GLintercept 1.2.0 or otherwise we can't diff the framebuffers using the XML log
@@ -109,13 +111,14 @@ HGLRC SbRenderContextWGL::CreateOpenGLContextOnDC(const HDC hdc, const bool debu
 	return m_hrc;
 };
 
-SbRenderContextWGL::SbRenderContextWGL(ISystem &aSystem, HDC ahDeviceContext) : mSystem(aSystem)
+// TODO: abDebugContext = r_debugContext.GetBool()
+SbRenderContextWGL::SbRenderContextWGL(ISystem &aSystem, HDC ahDeviceContext, const bool abDebugContext) : mSystem(aSystem)
 {
 	//
 	// startup the OpenGL subsystem by creating a context and making it current
 	//
 	mSystem.Printf( "...creating GL context: " );
-	mhGLRC = CreateOpenGLContextOnDC( ahDeviceContext, r_debugContext.GetBool() );
+	mhGLRC = CreateOpenGLContextOnDC( ahDeviceContext, abDebugContext);
 	if( mhGLRC == 0 )
 	{
 		mSystem.Printf( "^3failed^0\n" );
@@ -155,4 +158,4 @@ SbRenderContextWGL::~SbRenderContextWGL()
 	};
 };
 
-}; // namespace sbe::SbRenderer
+}; // namespace sbe::SbGLCoreRenderer

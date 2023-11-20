@@ -31,6 +31,7 @@ Suite 120, Rockville, Maryland 20850 USA.
 //*****************************************************************************
 
 #include "SbBufferObject.hpp"
+#include "SbRenderSystem.hpp"
 
 #include "CoreLibs/SbSystem/ISystem.hpp"
 
@@ -52,7 +53,7 @@ namespace sbe::SbGLCoreRenderer
 idIndexBuffer::idIndexBuffer
 ========================
 */
-SbIndexBuffer::SbIndexBuffer(ISystem &aSystem) : mSystem(aSystem)
+SbIndexBuffer::SbIndexBuffer(SbRenderSystem &aRenderSystem, ISystem &aSystem) : mRenderSystem(aRenderSystem), mSystem(aSystem)
 {
 	size = 0;
 	offsetInOtherBuffer = OWNS_BUFFER_FLAG;
@@ -112,7 +113,7 @@ bool SbIndexBuffer::AllocBufferObject(const void *data, int allocSize)
 		allocationFailed = true;
 	};
 
-	if(r_showBuffers.GetBool())
+	if(mRenderSystem.mbShowBuffers) // TODO: was if(r_showBuffers.GetBool())
 		mSystem.Printf("index buffer alloc %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize());
 
 	// copy the data
@@ -142,7 +143,7 @@ void SbIndexBuffer::FreeBufferObject()
 	if(apiObject == nullptr)
 		return;
 
-	if(r_showBuffers.GetBool())
+	if(mRenderSystem.mbShowBuffers) // TODO: was if(r_showBuffers.GetBool())
 		mSystem.Printf("index buffer free %p, api %p (%i bytes)\n", this, GetAPIObject(), GetSize());
 
 	// RB: 64 bit fixes, changed GLuint to GLintptrARB
