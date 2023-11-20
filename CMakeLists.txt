@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(SugarBombEngine VERSION 0.2.5.8)
+project(SugarBombEngine VERSION 0.2.6.0)
 
 option(SBE_SINGLE_BINARY "Build everything as a single binary" OFF)
 option(SBE_USE_SDL "Use SDL2 for crossplatform support" OFF)
