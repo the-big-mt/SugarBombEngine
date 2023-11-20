@@ -35,58 +35,69 @@ along with SugarBombEngine. If not, see <http://www.gnu.org/licenses/>.
 
 //*****************************************************************************
 
-//sbe::ISystem *CreateSystem();
-//sbe::IRenderSystem *CreateRenderSystem();
-//sbe::IInputSystem *CreateInputSystem();
+namespace sbe
+{
+
+constexpr auto DEFAULT_WINDOW_TITLE{"SugarBombEngine Sample App"};
+constexpr auto DEFAULT_WINDOW_WIDTH{1280};
+constexpr auto DEFAULT_WINDOW_HEIGHT{600};
+constexpr auto DEFAULT_WINDOW_FULLSCREEN{false};
+
+//extern sbe::ISystem *CreateSystem();
+//extern sbe::IRenderSystem *CreateRenderSystem();
+//extern sbe::IInputSystem *CreateInputSystem();
 
 // TODO: delete mpInputSystem; mpInputSystem = nullptr;
 // TODO: delete mpRenderSystem; mpRenderSystem = nullptr;
+// TODO: delete mpSystem; mpSystem = nullptr;
 
-sbe::ISystem *CreateSystem()
+ISystem *CreateSystem()
 {
-#ifndef SBE_SINGLE_BINARY
-	static sbe::SbSystemExternal SbSystemModule;
+#ifndef SBE_SYSTEM_HARD_LINKED
+	static SbSystemExternal SbSystemModule;
 	return SbSystemModule.GetSystem();
 #else
-	return new sbe::SbSystem::SbSystem();
+	return new SbSystem::SbSystem();
 #endif
 };
 
-sbe::IRenderSystem *CreateRenderSystem(const char *asModuleName, sbe::ISystem &aSystem)
+IRenderSystem *CreateRenderSystem(const char *asModuleName, ISystem &aSystem)
 {
-#ifndef SBE_SINGLE_BINARY
-	static sbe::SbRenderSystemExternal SbRenderModule(asModuleName, aSystem);
+#ifndef SBE_RENDERER_HARD_LINKED
+	static SbRenderSystemExternal SbRenderModule(asModuleName);
 	return SbRenderModule.GetRenderSystem();
 #else
-	return new sbe::SbRenderer::SbRenderSystem();
+	return new SbRenderer::SbRenderSystem(aSystem);
 #endif
 };
 
-sbe::IInputSystem *CreateInputSystem(sbe::ISystem &aSystem)
+IInputSystem *CreateInputSystem(ISystem &aSystem)
 {
-#ifndef SBE_SINGLE_BINARY
-	static sbe::SbInputSystemExternal SbInputModule(aSystem);
+#ifndef SBE_INPUT_HARD_LINKED
+	static SbInputSystemExternal SbInputModule();
 	return SbInputModule.GetInputSystem();
 #else
-	return new sbe::SbInput::SbInputSystem();
+	return new SbInput::SbInputSystem(aSystem);
 #endif
 };
 
 int SbApplication::Main(int argc, char **argv)
 {
 	// Render module name to load
-	const char *sRenderModuleName{"SbGLCoreRenderer"};
+	const char *sRendererModuleName{"SbGLCoreRenderer"};
 	
-	sbe::ISystem &System = *CreateSystem();
-	sbe::IRenderSystem &RenderSystem = *CreateRenderSystem(sRenderModuleName, System);
-	sbe::IInputSystem &InputSystem = *CreateInputSystem(System);
+	ISystem &System = *CreateSystem();
+	IRenderSystem &RenderSystem = *CreateRenderSystem(sRendererModuleName, System);
+	IInputSystem &InputSystem = *CreateInputSystem(System);
 	
-	const char *sWindowTitle{"SugarBombEngine Sample App"};
-	int nWindowWidth{1280};
-	int nWindowHeight{600};
-	bool bWindowFullScreen{false};
+	const char *sWindowTitle{DEFAULT_WINDOW_TITLE};
+	int nWindowWidth{DEFAULT_WINDOW_WIDTH};
+	int nWindowHeight{DEFAULT_WINDOW_HEIGHT};
+	bool bWindowFullScreen{DEFAULT_WINDOW_FULLSCREEN};
 	
 	SbClientApp App(sWindowTitle, nWindowWidth, nWindowHeight, bWindowFullScreen, RenderSystem, InputSystem, System, argc, argv);
 	App.Run();
 	return EXIT_SUCCESS;
 };
+
+}; // namespace sbe
